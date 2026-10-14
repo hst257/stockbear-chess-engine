@@ -133,7 +133,7 @@ were introduced.
 
 ## Verification
 
-**773 tests pass on Windows.** Tests cover time-mode defaults/presets, actual client
+**929 tests pass on Windows.** Tests cover time-mode defaults/presets, actual client
 budgets, timed depth above 5, forced deepening, terminal/forced-mate early returns,
 matching completed snapshots, special/nested board restoration on exception,
 legal fallback before depth 1, responsive UCI readiness/stop/quit with exactly one

@@ -1,0 +1,55 @@
+{
+  "all_200_pgns_replayed": true,
+  "legal_plies_replayed_including_openings": 24392,
+  "executable_hashes_verified": true,
+  "original_sha256": "0497ec1b184e82b9922281021c0552d463069271c83be2b41828f435d3fdcbe9",
+  "optimized_sha256": "4e9d9c02fe97087fef19c5519d45919f228f22da36b4fac50e21366b62606138",
+  "unfinished": [
+    {
+      "game": 51,
+      "fen": "8/8/8/8/8/5R2/3K4/6k1 w - - 31 128",
+      "halfmove": 31
+    },
+    {
+      "game": 174,
+      "fen": "8/1R6/8/4k3/2K5/8/6r1/8 w - - 53 125",
+      "halfmove": 53
+    }
+  ],
+  "correctness_findings": [
+    {
+      "case": "promoted_same_color_bishops",
+      "fen": "7k/8/8/6B1/8/4B3/8/K1B5 w - - 0 1",
+      "samples": {
+        "original": {
+          "move": "a1b1",
+          "score_white": "+1005"
+        },
+        "corrected": {
+          "move": "0000",
+          "score_white": "0"
+        }
+      }
+    },
+    {
+      "case": "halfmove_256",
+      "fen": "7k/8/8/8/8/8/R7/7K w - - 256 1000",
+      "samples": {
+        "original": {
+          "move": "a2a7",
+          "score_white": "+557"
+        },
+        "corrected": {
+          "move": "0000",
+          "score_white": "0"
+        }
+      }
+    }
+  ],
+  "checkpoint_recovery": {
+    "after_game": 178,
+    "prior_record_intact": true,
+    "same_executables_and_settings": true,
+    "fix": "atomic temp/replace plus retry; tested before resume"
+  }
+}

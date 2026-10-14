@@ -190,7 +190,7 @@ No correctness regression was detected in the tested rules/tactical suite.
 
 ## Validation evidence
 
-**773 tests pass on Windows.** The independently completed stages passed 617
+At that optimization milestone, **773 tests passed on Windows**; the current audit suite passes 929. The independently completed stages passed 617
 (aspiration) and 631 (NMP) tests before the next implementation began. LMR and
 combined focused tests then passed before the full 773-test run.
 

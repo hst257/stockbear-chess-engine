@@ -89,7 +89,7 @@ and re-searches alongside TT statistics; stopped depths remain explicit.
 
 ## Verification
 
-**852 tests pass on Windows.** An independent Python tactical oracle checks
+**929 tests pass on Windows.** An independent Python tactical oracle checks
 White/Black recaptures, unsafe captures, quiet evasions, en passant, promotions,
 and draws. Native tests isolate depth-zero Q and exercise stand pat, terminal
 precedence, no partial PV publication, scouts, and re-searches. Integration tests

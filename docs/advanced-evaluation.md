@@ -3,7 +3,7 @@
 ChessLab 0.10 adds modular handcrafted evaluation to the existing C++ engine.
 Advanced evaluation defaults to on. Search algorithms, draw adjudication, GUI
 layout, and the default 1-second thinking budget are unchanged. There is no NNUE,
-opening book, tablebase, new pruning algorithm. Release 0.11 adds a verified pawn-only cache and exact search implementation optimizations; see the [audit](engine-audit.md).
+opening book, tablebase, or new pruning algorithm. Release 0.11 adds a verified pawn-only cache and exact search implementation optimizations; see the [audit](engine-audit.md).
 
 ## Implementation map
 
@@ -166,7 +166,7 @@ evaluation tests before the next stage. Passing counts: 89 modular/taper,
 [`evaluation-stages/`](evaluation-stages/). Stage 8 also fixes self-defense in
 mobility and removes diagnostic-only rounding from search calls.
 
-The final Windows suite passes **926 tests**, including baseline regression,
+The final Windows suite passes **929 tests**, including baseline regression,
 all phases, mirror/sign symmetry, exact component reconciliation, category
 switches, legal PVs, PVS/full-window/cache equivalence, mode changes, cancellation,
 and insufficient draws. Native tests are included in that suite. The native
@@ -223,7 +223,7 @@ aspiration/NMP/LMR. Only the evaluation master flag changes.
 | Pawn zugzwang | 16 / 4,917,760 / Ke5 / +190 | 14 / 4,810,240 / Kc5 / +231 |
 
 At exactly 1 engine second, nodes also equal reported NPS. The richer evaluator
-reduces throughput by about 46–54% in the measured opening/middlegame/tactical
+reduces throughput by about 46â€“54% in the measured opening/middlegame/tactical
 samples. A smaller tree can still take longer: tactical depth-5 nodes fall 23%,
 but engine time rises from 75 to 107 ms. Endgame timing is less dominated by
 feature evaluation. Both modes find Qg7# and return the same terminal draw;

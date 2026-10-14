@@ -58,6 +58,16 @@ int main() {
             }
         }
         require(pawn_cache.hits > 0 && pawn_cache.hits < pawn_cache.probes, "Pawn hit/miss paths not exercised");
+        // More distinct legal-rank pawn pairs than slots force index collisions.
+        chesslab::PawnCache collisions;
+        for (int white = 8; white < 56; ++white) {
+            for (int black = 8; black < 56; ++black) {
+                if (white == black) continue;
+                const auto w = chess::Bitboard::fromSquare(white), b = chess::Bitboard::fromSquare(black);
+                const auto& entry = collisions.get(w, b);
+                require(entry.pawns[0] == w && entry.pawns[1] == b, "Pawn cache reused a colliding index without full keys");
+            }
+        }
         std::atomic<bool> stopped{false};
         for (const auto fen : positions) {
             chesslab::SearchLimits limits;

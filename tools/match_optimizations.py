@@ -11,6 +11,8 @@ from pathlib import Path
 import platform
 import random
 import subprocess
+import time
+import errno
 
 import chess
 import chess.engine
@@ -21,6 +23,23 @@ from tools.benchmark_optimizations import configure_stage
 
 OPENINGS = ((), ("e2e4", "e7e5", "g1f3", "b8c6", "f1c4", "g8f6"),
             ("d2d4", "d7d5", "c2c4", "e7e6"), ("e2e4", "c7c5", "g1f3", "d7d6"))
+
+
+def write_record(path, text):
+    """Keep the previous complete record intact across transient Windows locks."""
+    temporary = path.with_name(path.name + ".tmp")
+    for attempt in range(20):
+        try:
+            with temporary.open("w", encoding="utf-8", newline="\n") as stream:
+                stream.write(text)
+                stream.flush()
+                os.fsync(stream.fileno())
+            os.replace(temporary, path)
+            return
+        except OSError as error:
+            if error.errno not in (errno.EACCES, errno.EBUSY, errno.EINVAL, errno.EPERM) or attempt == 19:
+                raise
+            time.sleep(.1)
 
 
 def strength_summary(records):
@@ -61,7 +80,7 @@ def version_match(args):
         candidate = stack.enter_context(chess.engine.SimpleEngine.popen_uci(str(args.engine), timeout=10, **flags))
         original = stack.enter_context(chess.engine.SimpleEngine.popen_uci(str(args.opponent), timeout=10, **flags))
         if args.resume:
-            data = json.loads(progress.read_text())
+            data = json.loads(progress.read_text(encoding="utf-8"))
             assert data["hashes"] == hashes and data["requested_games"] == args.games
             assert data["movetime_ms"] == args.movetime and data["max_plies"] == args.max_plies
         else:
@@ -133,11 +152,11 @@ def version_match(args):
                                            "win" if outcome.winner == candidate_color else "loss",
                       "plies": len(board.move_stack), "searches": searches}
             data["games"].append(record)
-            progress.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+            write_record(progress, json.dumps(data, indent=2) + "\n")
             print(f"Game {index + 1}/{args.games}: candidate {record['candidate_color']} {record['result']} "
                   f"({record['candidate_outcome']}, {record['plies']} plies)", flush=True)
     data["summary"] = strength_summary(data["games"])
-    args.output.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+    write_record(args.output, json.dumps(data, indent=2) + "\n")
     games = []
     for record in data["games"]:
         board = chess.Board()
@@ -150,7 +169,7 @@ def version_match(args):
                              "Result": record["result"], "ThinkTimeMs": str(args.movetime),
                              "Termination": record["termination"]})
         games.append(str(game))
-    args.output.with_suffix(".pgn").write_text("\n\n".join(games) + "\n", encoding="utf-8")
+    write_record(args.output.with_suffix(".pgn"), "\n\n".join(games) + "\n")
     progress.unlink()
     print(json.dumps(data["summary"], indent=2), flush=True)
 
@@ -220,8 +239,8 @@ def main():
                 "search_stage": "3 for both" if args.comparison == "evaluation" else "0 vs 3",
                 "max_plies": args.max_plies, "games": records}
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
-    args.output.with_suffix(".pgn").write_text("\n\n".join(pgns) + "\n", encoding="utf-8")
+    write_record(args.output, json.dumps(data, indent=2) + "\n")
+    write_record(args.output.with_suffix(".pgn"), "\n\n".join(pgns) + "\n")
     print(f"Saved {args.output} and PGNs. Tiny samples establish no reliable Elo gain.")
 
 

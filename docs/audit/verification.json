@@ -1,0 +1,18 @@
+{
+  "baseline_tests": 852,
+  "final_tests": 929,
+  "final_pytest_seconds": 72.06,
+  "canonical_perft_cells": 26,
+  "ubsan": "passed",
+  "random_restoration_transitions": 27509,
+  "forced_pawn_key_pairs": 2256,
+  "matches_requested": 200,
+  "pgns_replayed": 200,
+  "legal_replayed_plies": 24392,
+  "desktop_launch": "120 frames; exit 0; saved frame visually inspected",
+  "gui": "five budgets, actual UCI workers, undo/new stale rejection and comparison; separate automated dummy-driver measurements",
+  "sampling_profiler": "WPR present; WPA/VS analysis tools not found in PATH or standard locations; explicit instrumentation used",
+  "optional_smp": "assessed and deferred; current TT is not safe to share and no scaling evidence justifies adding it",
+  "baseline_source": "b5023bd",
+  "implementation_milestone": "17c66d9"
+}

@@ -104,7 +104,7 @@ not tablebase hits. Nodes still count every search invocation, including cache h
 .\.venv\Scripts\python.exe -m tools.benchmark_transpositions --depth 5 --repeats 3 --output artifacts\tt-benchmark.json
 ```
 
-**773 tests pass on Windows.** Pytest compiles the native TT test executable with
+**929 tests pass on Windows.** Pytest compiles the native TT test executable with
 the existing build helper; keep the C++ compiler available. Native tests cover
 incremental/full hash agreement, make/unmake, castling/en-passant/side keys, empty
 and colliding slots, context guards, replacement priority, all bound types, depth

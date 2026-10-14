@@ -77,6 +77,7 @@ def test_material_tactics(engine_path, fen, expected):
 @pytest.mark.parametrize("fen", [fen for _, fen, _ in PERFT])
 def test_pawn_cache_preserves_all_search_work(engine_path, fen):
     with chess.engine.SimpleEngine.popen_uci(str(engine_path)) as engine:
+        assert engine.options["PawnCache"].default is True
         results = []
         for enabled in (False, True):
             engine.configure({"PawnCache": enabled})
@@ -97,6 +98,7 @@ def test_pawn_cache_preserves_all_search_work(engine_path, fen):
                                                        (False, True, True), (True, True, False)])
 def test_fast_movegen_preserves_search_semantics(engine_path, fen, qsearch, ordering, pruning):
     with chess.engine.SimpleEngine.popen_uci(str(engine_path), timeout=30) as engine:
+        assert engine.options["FastMovegen"].default is True
         engine.configure({"Quiescence": qsearch, "MoveOrdering": ordering, "AlphaBeta": pruning})
         rows = []
         for enabled in (False, True):
@@ -135,3 +137,16 @@ def test_large_fen_halfmove_clocks_cannot_wrap_into_live_search(engine_path, hal
                 board.push_uci("a2a3")
             result = engine.play(board, chess.engine.Limit(depth=2), info=chess.engine.INFO_ALL)
             assert not result.move and result.info["score"].white().score() == 0
+
+
+@pytest.mark.parametrize("fen,reset_move", [
+    ("7k/8/8/8/8/8/P7/7K w - - 300 1000", "a2a3"),
+    ("7k/8/8/8/8/8/q7/R6K w - - 300 1000", "a1a2"),
+])
+def test_saturated_input_clock_still_resets_after_pawn_move_or_capture(engine_path, fen, reset_move):
+    board = chess.Board(fen)
+    board.push_uci(reset_move)
+    assert board.halfmove_clock == 0 and not board.is_game_over(claim_draw=True)
+    with chess.engine.SimpleEngine.popen_uci(str(engine_path)) as engine:
+        result = engine.play(board, chess.engine.Limit(depth=2), info=chess.engine.INFO_ALL)
+        assert result.move in board.legal_moves

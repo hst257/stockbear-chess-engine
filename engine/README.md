@@ -293,7 +293,7 @@ Build first, then run `.venv\Scripts\python.exe -m pytest -q` from the root.
 Tests include perft (197,281 at initial depth 4; 97,862 at Kiwipete depth 3), legal
 move cross-checks against python-chess, terminal states, search equivalence,
 interruptible UCI, cancellation, and actual engine-to-GUI play/comparison.
-The 926-test suite also checks optimal moves/scores against an independent Python
+The 929-test suite also checks optimal moves/scores against an independent Python
 reference with ordering off/on, both algorithms, and direct/iterative search.
 PST coverage includes all pieces, color/rank orientation, phase/rounding, diagnostic
 and search consistency, unchanged terminal behavior, and GUI on/off selection.

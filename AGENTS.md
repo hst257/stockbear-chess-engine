@@ -9,7 +9,7 @@ You have full authorization to commit and push repository changes. Push to the c
 ChessLab is a Python/Pygame application for engine development.
 
 - `app/`: Python application; separate startup, game state, board rendering, input handling, and `ui/` components.
-- `app/assets/`: locally bundled piece images and attribution/license notices.
+- `app/assets/`: bundled piece images and attribution/license notices.
 - `tests/`: automated game-state, input, and rendering tests.
 - `engine/src/`: C++17 UCI protocol and Minimax/alpha-beta search.
 - `engine/vendor/`: pinned MIT-licensed rules library; keep upstream files unchanged.
