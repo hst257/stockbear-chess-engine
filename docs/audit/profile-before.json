@@ -1,0 +1,985 @@
+{
+  "utc": "2026-10-14T20:58:46.510596+00:00",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+  "logical_cpus": 12,
+  "python": "3.11.8",
+  "executable": "Z:\\Code\\Chess\\artifacts\\audit\\profile-before.exe",
+  "sha256": "f979ffe46daca393e948bea616280d8d151e013fb7fed53fd044a0f6dd6424a8",
+  "git": "b5023bdbafcdf022376ca932c2b812edad38faba",
+  "compiler": "Zig 0.13.0 / Clang; original baseline C++17 -O2 -pthread -Wall -Wextra",
+  "perft_source": "https://chessprogramming.org/Perft_Results",
+  "perft": [
+    {
+      "position": "start",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "depth": 1,
+      "nodes": 20
+    },
+    {
+      "position": "start",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "depth": 2,
+      "nodes": 400
+    },
+    {
+      "position": "start",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "depth": 3,
+      "nodes": 8902
+    },
+    {
+      "position": "start",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "depth": 4,
+      "nodes": 197281
+    },
+    {
+      "position": "start",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "depth": 5,
+      "nodes": 4865609
+    },
+    {
+      "position": "kiwipete",
+      "fen": "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1",
+      "depth": 1,
+      "nodes": 48
+    },
+    {
+      "position": "kiwipete",
+      "fen": "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1",
+      "depth": 2,
+      "nodes": 2039
+    },
+    {
+      "position": "kiwipete",
+      "fen": "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1",
+      "depth": 3,
+      "nodes": 97862
+    },
+    {
+      "position": "kiwipete",
+      "fen": "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1",
+      "depth": 4,
+      "nodes": 4085603
+    },
+    {
+      "position": "endgame_ep",
+      "fen": "8/2p5/3p4/KP5r/1R3p1k/8/4P1P1/8 w - - 0 1",
+      "depth": 1,
+      "nodes": 14
+    },
+    {
+      "position": "endgame_ep",
+      "fen": "8/2p5/3p4/KP5r/1R3p1k/8/4P1P1/8 w - - 0 1",
+      "depth": 2,
+      "nodes": 191
+    },
+    {
+      "position": "endgame_ep",
+      "fen": "8/2p5/3p4/KP5r/1R3p1k/8/4P1P1/8 w - - 0 1",
+      "depth": 3,
+      "nodes": 2812
+    },
+    {
+      "position": "endgame_ep",
+      "fen": "8/2p5/3p4/KP5r/1R3p1k/8/4P1P1/8 w - - 0 1",
+      "depth": 4,
+      "nodes": 43238
+    },
+    {
+      "position": "endgame_ep",
+      "fen": "8/2p5/3p4/KP5r/1R3p1k/8/4P1P1/8 w - - 0 1",
+      "depth": 5,
+      "nodes": 674624
+    },
+    {
+      "position": "promotions_checks",
+      "fen": "r3k2r/Pppp1ppp/1b3nbN/nP6/BBP1P3/q4N2/Pp1P2PP/R2Q1RK1 w kq - 0 1",
+      "depth": 1,
+      "nodes": 6
+    },
+    {
+      "position": "promotions_checks",
+      "fen": "r3k2r/Pppp1ppp/1b3nbN/nP6/BBP1P3/q4N2/Pp1P2PP/R2Q1RK1 w kq - 0 1",
+      "depth": 2,
+      "nodes": 264
+    },
+    {
+      "position": "promotions_checks",
+      "fen": "r3k2r/Pppp1ppp/1b3nbN/nP6/BBP1P3/q4N2/Pp1P2PP/R2Q1RK1 w kq - 0 1",
+      "depth": 3,
+      "nodes": 9467
+    },
+    {
+      "position": "promotions_checks",
+      "fen": "r3k2r/Pppp1ppp/1b3nbN/nP6/BBP1P3/q4N2/Pp1P2PP/R2Q1RK1 w kq - 0 1",
+      "depth": 4,
+      "nodes": 422333
+    },
+    {
+      "position": "underpromotion",
+      "fen": "rnbq1k1r/pp1Pbppp/2p5/8/2B5/8/PPP1NnPP/RNBQK2R w KQ - 1 8",
+      "depth": 1,
+      "nodes": 44
+    },
+    {
+      "position": "underpromotion",
+      "fen": "rnbq1k1r/pp1Pbppp/2p5/8/2B5/8/PPP1NnPP/RNBQK2R w KQ - 1 8",
+      "depth": 2,
+      "nodes": 1486
+    },
+    {
+      "position": "underpromotion",
+      "fen": "rnbq1k1r/pp1Pbppp/2p5/8/2B5/8/PPP1NnPP/RNBQK2R w KQ - 1 8",
+      "depth": 3,
+      "nodes": 62379
+    },
+    {
+      "position": "underpromotion",
+      "fen": "rnbq1k1r/pp1Pbppp/2p5/8/2B5/8/PPP1NnPP/RNBQK2R w KQ - 1 8",
+      "depth": 4,
+      "nodes": 2103487
+    },
+    {
+      "position": "pins",
+      "fen": "r4rk1/1pp1qppp/p1np1n2/2b1p1B1/2B1P1b1/P1NP1N2/1PP1QPPP/R4RK1 w - - 0 10",
+      "depth": 1,
+      "nodes": 46
+    },
+    {
+      "position": "pins",
+      "fen": "r4rk1/1pp1qppp/p1np1n2/2b1p1B1/2B1P1b1/P1NP1N2/1PP1QPPP/R4RK1 w - - 0 10",
+      "depth": 2,
+      "nodes": 2079
+    },
+    {
+      "position": "pins",
+      "fen": "r4rk1/1pp1qppp/p1np1n2/2b1p1B1/2B1P1b1/P1NP1N2/1PP1QPPP/R4RK1 w - - 0 10",
+      "depth": 3,
+      "nodes": 89890
+    },
+    {
+      "position": "pins",
+      "fen": "r4rk1/1pp1qppp/p1np1n2/2b1p1B1/2B1P1b1/P1NP1N2/1PP1QPPP/R4RK1 w - - 0 10",
+      "depth": 4,
+      "nodes": 3894594
+    }
+  ],
+  "positions": [
+    {
+      "position": "opening",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "mode": "depth",
+      "requested_depth": 6,
+      "requested_ms": null,
+      "samples": [
+        {
+          "depth": 6,
+          "nodes": 203811,
+          "qnodes": 173392,
+          "seconds": 0.163,
+          "wall_seconds": 0.1681074000080116,
+          "nps": 1250374,
+          "score": "+15",
+          "move": "d2d4",
+          "profile": {
+            "allocations": 70868,
+            "bytes": 369612,
+            "categories": {
+              "search_other": {
+                "ns": 38654200,
+                "calls": 1
+              },
+              "movegen": {
+                "ns": 19902900,
+                "calls": 203812
+              },
+              "evaluation_other": {
+                "ns": 29862900,
+                "calls": 170373
+              },
+              "ordering": {
+                "ns": 4102700,
+                "calls": 88272
+              },
+              "make": {
+                "ns": 6486600,
+                "calls": 203333
+              },
+              "unmake": {
+                "ns": 5531700,
+                "calls": 203333
+              },
+              "table": {
+                "ns": 3928000,
+                "calls": 53480
+              },
+              "draws": {
+                "ns": 5191400,
+                "calls": 203813
+              },
+              "search_policy": {
+                "ns": 4436300,
+                "calls": 186530
+              },
+              "pawn_evaluation": {
+                "ns": 16572400,
+                "calls": 170373
+              },
+              "attack_maps": {
+                "ns": 7954900,
+                "calls": 170373
+              },
+              "material_pst": {
+                "ns": 5675800,
+                "calls": 170373
+              },
+              "king_safety": {
+                "ns": 7140400,
+                "calls": 170373
+              },
+              "endgame": {
+                "ns": 6816000,
+                "calls": 170373
+              }
+            }
+          },
+          "pv": [
+            "d2d4",
+            "d7d6",
+            "c1d2",
+            "d6d5",
+            "g1f3",
+            "g8f6"
+          ],
+          "counters": {
+            "probes": 29770,
+            "hits": 9502,
+            "cutoffs": 5606,
+            "qnodes": 173392,
+            "scouts": 7616,
+            "researches": 350,
+            "qcaps": 0,
+            "plylimit": 0,
+            "aspiration_attempts": 5,
+            "aspiration_searches": 13,
+            "aspiration_fail_high": 3,
+            "aspiration_fail_low": 5,
+            "aspiration_retries": 8,
+            "aspiration_successes": 5,
+            "null_attempts": 507,
+            "null_cutoffs": 454,
+            "lmr_attempts": 3252,
+            "lmr_searches": 3252,
+            "lmr_researches": 114,
+            "lmr_verifications": 114,
+            "eval_calls": 170373,
+            "beta_cutoffs": 153097
+          },
+          "tt_hit_rate": 0.31918038293584144
+        }
+      ]
+    },
+    {
+      "position": "middlegame",
+      "fen": "r1bq1rk1/ppp2ppp/2np1n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQ1RK1 w - - 4 7",
+      "mode": "depth",
+      "requested_depth": 6,
+      "requested_ms": null,
+      "samples": [
+        {
+          "depth": 6,
+          "nodes": 378976,
+          "qnodes": 359045,
+          "seconds": 0.315,
+          "wall_seconds": 0.31754950000322424,
+          "nps": 1203098,
+          "score": "+20",
+          "move": "c3a4",
+          "profile": {
+            "allocations": 255751,
+            "bytes": 1537240,
+            "categories": {
+              "search_other": {
+                "ns": 74459000,
+                "calls": 1
+              },
+              "movegen": {
+                "ns": 43616700,
+                "calls": 378977
+              },
+              "evaluation_other": {
+                "ns": 59926600,
+                "calls": 320647
+              },
+              "ordering": {
+                "ns": 10186000,
+                "calls": 207191
+              },
+              "make": {
+                "ns": 12316700,
+                "calls": 378835
+              },
+              "unmake": {
+                "ns": 10656800,
+                "calls": 378835
+              },
+              "table": {
+                "ns": 2916800,
+                "calls": 34428
+              },
+              "draws": {
+                "ns": 9334700,
+                "calls": 378965
+              },
+              "search_policy": {
+                "ns": 3063400,
+                "calls": 126299
+              },
+              "pawn_evaluation": {
+                "ns": 29635000,
+                "calls": 320647
+              },
+              "attack_maps": {
+                "ns": 17908400,
+                "calls": 320647
+              },
+              "material_pst": {
+                "ns": 12597100,
+                "calls": 320647
+              },
+              "king_safety": {
+                "ns": 13506000,
+                "calls": 320647
+              },
+              "endgame": {
+                "ns": 13383900,
+                "calls": 320647
+              }
+            }
+          },
+          "pv": [
+            "c3a4",
+            "c5d4",
+            "c2c3",
+            "d4b6",
+            "a4b6",
+            "a7b6"
+          ],
+          "counters": {
+            "probes": 18916,
+            "hits": 5252,
+            "cutoffs": 3202,
+            "qnodes": 359045,
+            "scouts": 3924,
+            "researches": 114,
+            "qcaps": 251,
+            "plylimit": 0,
+            "aspiration_attempts": 5,
+            "aspiration_searches": 5,
+            "aspiration_fail_high": 0,
+            "aspiration_fail_low": 0,
+            "aspiration_retries": 0,
+            "aspiration_successes": 5,
+            "null_attempts": 276,
+            "null_cutoffs": 202,
+            "lmr_attempts": 4039,
+            "lmr_searches": 4039,
+            "lmr_researches": 21,
+            "lmr_verifications": 21,
+            "eval_calls": 320647,
+            "beta_cutoffs": 271638
+          },
+          "tt_hit_rate": 0.2776485514908014
+        }
+      ]
+    },
+    {
+      "position": "tactical",
+      "fen": "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1",
+      "mode": "depth",
+      "requested_depth": 6,
+      "requested_ms": null,
+      "samples": [
+        {
+          "depth": 6,
+          "nodes": 553706,
+          "qnodes": 532849,
+          "seconds": 0.432,
+          "wall_seconds": 0.4353720000071917,
+          "nps": 1281726,
+          "score": "+35",
+          "move": "d5e6",
+          "profile": {
+            "allocations": 319987,
+            "bytes": 2159952,
+            "categories": {
+              "search_other": {
+                "ns": 97965000,
+                "calls": 1
+              },
+              "movegen": {
+                "ns": 64498400,
+                "calls": 553707
+              },
+              "evaluation_other": {
+                "ns": 84179200,
+                "calls": 479780
+              },
+              "ordering": {
+                "ns": 12563500,
+                "calls": 205277
+              },
+              "make": {
+                "ns": 18556300,
+                "calls": 553688
+              },
+              "unmake": {
+                "ns": 15779400,
+                "calls": 553688
+              },
+              "table": {
+                "ns": 3363800,
+                "calls": 37542
+              },
+              "draws": {
+                "ns": 13239600,
+                "calls": 553479
+              },
+              "search_policy": {
+                "ns": 2558600,
+                "calls": 106576
+              },
+              "pawn_evaluation": {
+                "ns": 38568800,
+                "calls": 479780
+              },
+              "attack_maps": {
+                "ns": 23834500,
+                "calls": 479780
+              },
+              "material_pst": {
+                "ns": 17532500,
+                "calls": 479780
+              },
+              "king_safety": {
+                "ns": 19196200,
+                "calls": 479780
+              },
+              "endgame": {
+                "ns": 19397400,
+                "calls": 479780
+              }
+            }
+          },
+          "pv": [
+            "d5e6",
+            "e7e6",
+            "e2a6",
+            "h3g2",
+            "f3g2",
+            "e6e5"
+          ],
+          "counters": {
+            "probes": 20813,
+            "hits": 7323,
+            "cutoffs": 3734,
+            "qnodes": 532849,
+            "scouts": 1636,
+            "researches": 9,
+            "qcaps": 22797,
+            "plylimit": 0,
+            "aspiration_attempts": 5,
+            "aspiration_searches": 8,
+            "aspiration_fail_high": 0,
+            "aspiration_fail_low": 3,
+            "aspiration_retries": 3,
+            "aspiration_successes": 5,
+            "null_attempts": 505,
+            "null_cutoffs": 350,
+            "lmr_attempts": 4310,
+            "lmr_searches": 4310,
+            "lmr_researches": 0,
+            "lmr_verifications": 0,
+            "eval_calls": 479780,
+            "beta_cutoffs": 430296
+          },
+          "tt_hit_rate": 0.3518474030653918
+        }
+      ]
+    },
+    {
+      "position": "endgame",
+      "fen": "8/5pk1/6p1/8/3K4/6P1/5P2/8 w - - 0 1",
+      "mode": "depth",
+      "requested_depth": 6,
+      "requested_ms": null,
+      "samples": [
+        {
+          "depth": 6,
+          "nodes": 5174,
+          "qnodes": 3040,
+          "seconds": 0.005,
+          "wall_seconds": 0.007674899999983609,
+          "nps": 1034800,
+          "score": "+63",
+          "move": "d4e5",
+          "profile": {
+            "allocations": 3042,
+            "bytes": 24948,
+            "categories": {
+              "search_other": {
+                "ns": 1364500,
+                "calls": 1
+              },
+              "movegen": {
+                "ns": 297400,
+                "calls": 5175
+              },
+              "evaluation_other": {
+                "ns": 470600,
+                "calls": 2920
+              },
+              "ordering": {
+                "ns": 115700,
+                "calls": 3452
+              },
+              "make": {
+                "ns": 159800,
+                "calls": 5151
+              },
+              "unmake": {
+                "ns": 137000,
+                "calls": 5151
+              },
+              "table": {
+                "ns": 274700,
+                "calls": 4054
+              },
+              "draws": {
+                "ns": 137800,
+                "calls": 5176
+              },
+              "search_policy": {
+                "ns": 159000,
+                "calls": 6859
+              },
+              "pawn_evaluation": {
+                "ns": 126500,
+                "calls": 2920
+              },
+              "attack_maps": {
+                "ns": 78600,
+                "calls": 2920
+              },
+              "material_pst": {
+                "ns": 80700,
+                "calls": 2920
+              },
+              "king_safety": {
+                "ns": 72100,
+                "calls": 2920
+              },
+              "endgame": {
+                "ns": 87100,
+                "calls": 2920
+              }
+            }
+          },
+          "pv": [
+            "d4e5",
+            "f7f6",
+            "e5e6",
+            "f6f5",
+            "f2f3",
+            "g7h6"
+          ],
+          "counters": {
+            "probes": 2134,
+            "hits": 740,
+            "cutoffs": 214,
+            "qnodes": 3040,
+            "scouts": 253,
+            "researches": 17,
+            "qcaps": 0,
+            "plylimit": 0,
+            "aspiration_attempts": 5,
+            "aspiration_searches": 5,
+            "aspiration_fail_high": 0,
+            "aspiration_fail_low": 0,
+            "aspiration_retries": 0,
+            "aspiration_successes": 5,
+            "null_attempts": 0,
+            "null_cutoffs": 0,
+            "lmr_attempts": 0,
+            "lmr_searches": 0,
+            "lmr_researches": 0,
+            "lmr_verifications": 0,
+            "eval_calls": 2920,
+            "beta_cutoffs": 3194
+          },
+          "tt_hit_rate": 0.3467666354264292
+        }
+      ]
+    },
+    {
+      "position": "zugzwang",
+      "fen": "8/3k4/3P4/3K4/8/8/8/8 w - - 0 1",
+      "mode": "depth",
+      "requested_depth": 6,
+      "requested_ms": null,
+      "samples": [
+        {
+          "depth": 6,
+          "nodes": 993,
+          "qnodes": 560,
+          "seconds": 0.002,
+          "wall_seconds": 0.00637540000025183,
+          "nps": 496500,
+          "score": "+231",
+          "move": "d5e5",
+          "profile": {
+            "allocations": 626,
+            "bytes": 11656,
+            "categories": {
+              "search_other": {
+                "ns": 341600,
+                "calls": 1
+              },
+              "movegen": {
+                "ns": 54000,
+                "calls": 994
+              },
+              "evaluation_other": {
+                "ns": 75900,
+                "calls": 470
+              },
+              "ordering": {
+                "ns": 20000,
+                "calls": 551
+              },
+              "make": {
+                "ns": 29100,
+                "calls": 977
+              },
+              "unmake": {
+                "ns": 33800,
+                "calls": 977
+              },
+              "table": {
+                "ns": 48800,
+                "calls": 807
+              },
+              "draws": {
+                "ns": 23600,
+                "calls": 995
+              },
+              "search_policy": {
+                "ns": 34700,
+                "calls": 1358
+              },
+              "pawn_evaluation": {
+                "ns": 15800,
+                "calls": 470
+              },
+              "attack_maps": {
+                "ns": 12200,
+                "calls": 470
+              },
+              "material_pst": {
+                "ns": 11600,
+                "calls": 470
+              },
+              "king_safety": {
+                "ns": 12000,
+                "calls": 470
+              },
+              "endgame": {
+                "ns": 12300,
+                "calls": 470
+              }
+            }
+          },
+          "pv": [
+            "d5e5",
+            "d7d8",
+            "e5e6",
+            "d8c8",
+            "d6d7",
+            "c8d8"
+          ],
+          "counters": {
+            "probes": 417,
+            "hits": 130,
+            "cutoffs": 27,
+            "qnodes": 560,
+            "scouts": 113,
+            "researches": 8,
+            "qcaps": 0,
+            "plylimit": 0,
+            "aspiration_attempts": 5,
+            "aspiration_searches": 7,
+            "aspiration_fail_high": 2,
+            "aspiration_fail_low": 0,
+            "aspiration_retries": 2,
+            "aspiration_successes": 5,
+            "null_attempts": 0,
+            "null_cutoffs": 0,
+            "lmr_attempts": 0,
+            "lmr_searches": 0,
+            "lmr_researches": 0,
+            "lmr_verifications": 0,
+            "eval_calls": 470,
+            "beta_cutoffs": 616
+          },
+          "tt_hit_rate": 0.3117505995203837
+        }
+      ]
+    },
+    {
+      "position": "mate",
+      "fen": "7k/8/5KQ1/8/8/8/8/8 w - - 0 1",
+      "mode": "depth",
+      "requested_depth": 6,
+      "requested_ms": null,
+      "samples": [
+        {
+          "depth": 6,
+          "nodes": 31088,
+          "qnodes": 20090,
+          "seconds": 0.02,
+          "wall_seconds": 0.02274089999264106,
+          "nps": 1554400,
+          "score": "#+1",
+          "move": "g6g7",
+          "profile": {
+            "allocations": 13235,
+            "bytes": 65884,
+            "categories": {
+              "search_other": {
+                "ns": 6394500,
+                "calls": 1
+              },
+              "movegen": {
+                "ns": 1841200,
+                "calls": 31089
+              },
+              "evaluation_other": {
+                "ns": 2725300,
+                "calls": 17246
+              },
+              "ordering": {
+                "ns": 694200,
+                "calls": 22190
+              },
+              "make": {
+                "ns": 898900,
+                "calls": 31077
+              },
+              "unmake": {
+                "ns": 833800,
+                "calls": 31077
+              },
+              "table": {
+                "ns": 1529300,
+                "calls": 20840
+              },
+              "draws": {
+                "ns": 790000,
+                "calls": 30075
+              },
+              "search_policy": {
+                "ns": 935300,
+                "calls": 39768
+              },
+              "pawn_evaluation": {
+                "ns": 471200,
+                "calls": 17246
+              },
+              "attack_maps": {
+                "ns": 527300,
+                "calls": 17246
+              },
+              "material_pst": {
+                "ns": 429400,
+                "calls": 17246
+              },
+              "king_safety": {
+                "ns": 507300,
+                "calls": 17246
+              },
+              "endgame": {
+                "ns": 409200,
+                "calls": 17246
+              }
+            }
+          },
+          "pv": [
+            "g6g7"
+          ],
+          "counters": {
+            "probes": 10420,
+            "hits": 1106,
+            "cutoffs": 0,
+            "qnodes": 20090,
+            "scouts": 132,
+            "researches": 5,
+            "qcaps": 0,
+            "plylimit": 0,
+            "aspiration_attempts": 0,
+            "aspiration_searches": 0,
+            "aspiration_fail_high": 0,
+            "aspiration_fail_low": 0,
+            "aspiration_retries": 0,
+            "aspiration_successes": 0,
+            "null_attempts": 0,
+            "null_cutoffs": 0,
+            "lmr_attempts": 0,
+            "lmr_searches": 0,
+            "lmr_researches": 0,
+            "lmr_verifications": 0,
+            "eval_calls": 17246,
+            "beta_cutoffs": 18632
+          },
+          "tt_hit_rate": 0.10614203454894434
+        }
+      ]
+    },
+    {
+      "position": "stalemate",
+      "fen": "7k/5Q2/6K1/8/8/8/8/8 b - - 0 1",
+      "mode": "depth",
+      "requested_depth": 6,
+      "requested_ms": null,
+      "samples": [
+        {
+          "depth": 6,
+          "nodes": 1,
+          "qnodes": 0,
+          "seconds": 0.001,
+          "wall_seconds": 0.003664500021841377,
+          "nps": 1000,
+          "score": "0",
+          "move": "0000",
+          "profile": {
+            "allocations": 11,
+            "bytes": 1176,
+            "categories": {
+              "search_other": {
+                "ns": 60000,
+                "calls": 1
+              },
+              "movegen": {
+                "ns": 1200,
+                "calls": 2
+              },
+              "evaluation_other": {
+                "ns": 0,
+                "calls": 0
+              },
+              "ordering": {
+                "ns": 0,
+                "calls": 0
+              },
+              "make": {
+                "ns": 0,
+                "calls": 0
+              },
+              "unmake": {
+                "ns": 0,
+                "calls": 0
+              },
+              "table": {
+                "ns": 0,
+                "calls": 0
+              },
+              "draws": {
+                "ns": 0,
+                "calls": 0
+              },
+              "search_policy": {
+                "ns": 0,
+                "calls": 0
+              },
+              "pawn_evaluation": {
+                "ns": 0,
+                "calls": 0
+              },
+              "attack_maps": {
+                "ns": 0,
+                "calls": 0
+              },
+              "material_pst": {
+                "ns": 0,
+                "calls": 0
+              },
+              "king_safety": {
+                "ns": 0,
+                "calls": 0
+              },
+              "endgame": {
+                "ns": 0,
+                "calls": 0
+              }
+            }
+          },
+          "pv": [],
+          "counters": {
+            "probes": 0,
+            "hits": 0,
+            "cutoffs": 0,
+            "qnodes": 0,
+            "scouts": 0,
+            "researches": 0,
+            "qcaps": 0,
+            "plylimit": 0,
+            "aspiration_attempts": 0,
+            "aspiration_searches": 0,
+            "aspiration_fail_high": 0,
+            "aspiration_fail_low": 0,
+            "aspiration_retries": 0,
+            "aspiration_successes": 0,
+            "null_attempts": 0,
+            "null_cutoffs": 0,
+            "lmr_attempts": 0,
+            "lmr_searches": 0,
+            "lmr_researches": 0,
+            "lmr_verifications": 0,
+            "eval_calls": 0,
+            "beta_cutoffs": 0
+          },
+          "tt_hit_rate": 0.0
+        }
+      ]
+    }
+  ],
+  "engine_name": "ChessLab 0.10",
+  "options": {
+    "AlphaBeta": true,
+    "IterativeDeepening": true,
+    "MoveOrdering": true,
+    "UsePST": true,
+    "UseAdvancedEvaluation": true,
+    "EvalPawns": true,
+    "EvalPassers": true,
+    "EvalBishopPair": true,
+    "EvalRooks": true,
+    "EvalMobility": true,
+    "EvalOutposts": true,
+    "EvalKingSafety": true,
+    "EvalSpace": true,
+    "EvalEndgame": true,
+    "TranspositionTable": true,
+    "Quiescence": true,
+    "PVS": true,
+    "UseAspirationWindows": true,
+    "AspirationDelta": 25,
+    "UseNullMovePruning": true,
+    "UseLMR": true,
+    "LMRReduction": 1,
+    "Hash": 16,
+    "Depth": 3
+  }
+}

@@ -11,6 +11,27 @@
 #include <string>
 #include <thread>
 #include <vector>
+#include <cstdlib>
+#include <new>
+
+#ifdef CHESSLAB_PROFILE
+// Diagnostic build only: count allocations on the search thread while active.
+void* operator new(std::size_t size) {
+    if (auto* memory = std::malloc(size ? size : 1)) {
+        if (chesslab::profiling::active) {
+            ++chesslab::profiling::report.allocations;
+            chesslab::profiling::report.bytes += size;
+        }
+        return memory;
+    }
+    throw std::bad_alloc();
+}
+void* operator new[](std::size_t size) { return ::operator new(size); }
+void operator delete(void* memory) noexcept { std::free(memory); }
+void operator delete[](void* memory) noexcept { std::free(memory); }
+void operator delete(void* memory, std::size_t) noexcept { std::free(memory); }
+void operator delete[](void* memory, std::size_t) noexcept { std::free(memory); }
+#endif
 
 namespace {
 
@@ -85,6 +106,10 @@ std::string search_info(const chesslab::SearchResult& result) {
            " researches " + std::to_string(result.pvs_researches) +
            " qcaps " + std::to_string(result.qcaps) +
            " plylimit " + std::to_string(result.ply_limit_reached ? 1 : 0);
+}
+
+std::string metric_info(const chesslab::SearchResult& result) {
+    return "eval_calls " + std::to_string(result.eval_calls) + " beta_cutoffs " + std::to_string(result.beta_cutoffs);
 }
 
 std::string optimization_info(const chesslab::SearchResult& result) {
@@ -363,6 +388,7 @@ private:
                         output("info string " + table_info(iteration));
                         output("info string " + search_info(iteration));
                         output("info string " + optimization_info(iteration));
+                        output("info string metrics " + metric_info(iteration));
                         report_info(iteration, position, true);
                     });
                 if (!result.complete) report_info(result, position, false);
@@ -374,7 +400,19 @@ private:
                        (limits.transposition_table ? "cached " : "uncached ") +
                        (limits.quiescence ? "qsearch " : "static-leaf ") +
                        (pruning && limits.principal_variation_search ? "pvs " : "full-window ") +
-                       table_info(result) + " " + search_info(result) + " " + optimization_info(result));
+                       table_info(result) + " " + search_info(result) + " " + optimization_info(result) + " " + metric_info(result));
+#ifdef CHESSLAB_PROFILE
+                std::ostringstream profile;
+                profile << "info string profile {\"allocations\":" << result.profile.allocations
+                        << ",\"bytes\":" << result.profile.bytes << ",\"categories\":{";
+                for (int c = 0; c < chesslab::profiling::COUNT; ++c) {
+                    if (c) profile << ',';
+                    profile << '"' << chesslab::profiling::NAMES[c] << "\":{\"ns\":" << result.profile.ns[c]
+                            << ",\"calls\":" << result.profile.calls[c] << '}';
+                }
+                profile << "}}";
+                output(profile.str());
+#endif
                 output("bestmove " + (result.best_move == chess::Move{} ? std::string("0000") :
                                       chess::uci::moveToUci(result.best_move)));
             } catch (const std::exception& error) {

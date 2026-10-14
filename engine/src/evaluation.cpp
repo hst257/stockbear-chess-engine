@@ -1,6 +1,7 @@
 #include "evaluation.hpp"
 #include "pst.hpp"
 #include "evaluation_masks.hpp"
+#include "profiling.hpp"
 
 #include <algorithm>
 #include <numeric>
@@ -27,6 +28,7 @@ int interpolate(int middlegame, int endgame, int phase) {
 // rounding while advanced evaluation retains raw MG/EG scores until the end.
 template<bool Advanced, bool Diagnostics = true>
 void evaluate_pst(const chess::Board& board, Evaluation& result) {
+    profiling::Scope measured(profiling::MATERIAL_PST);
     for (int kind = 0; kind < 6; ++kind) {
         EvalScore piece_score;
         for (const auto color : {chess::Color::WHITE, chess::Color::BLACK}) {
@@ -72,6 +74,7 @@ struct EvalContext {
 };
 
 void build_attacks(const chess::Board& board, EvalContext& ctx) {
+    profiling::Scope measured(profiling::ATTACKS);
     constexpr int attack_weight[] = {0, 2, 2, 3, 5, 0};
     for (int c = 0; c < 2; ++c) {
         const auto color = c == 0 ? chess::Color::WHITE : chess::Color::BLACK;
@@ -136,6 +139,7 @@ void evaluate_mobility_outposts(const chess::Board& board, const EvalContext& ct
 }
 
 void evaluate_king_safety(const chess::Board& board, const EvalContext& ctx, Evaluation& result) {
+    profiling::Scope measured(profiling::KING_SAFETY);
     for (int c = 0; c < 2; ++c) {
         const auto color = c == 0 ? chess::Color::WHITE : chess::Color::BLACK;
         int enemy_phase = 0;
@@ -188,6 +192,7 @@ int king_distance(int a, int b) {
 }
 
 void evaluate_endgame(const chess::Board& board, const EvalContext& ctx, Evaluation& result) {
+    profiling::Scope measured(profiling::ENDGAME);
     const int kings[] = {board.kingSq(chess::Color::WHITE).index(), board.kingSq(chess::Color::BLACK).index()};
     for (int c = 0; c < 2; ++c) {
         const int sign = c == 0 ? 1 : -1;
@@ -223,6 +228,7 @@ void evaluate_endgame(const chess::Board& board, const EvalContext& ctx, Evaluat
 
 void evaluate_pawns(const chess::Board& board, EvalContext& ctx, Evaluation& result,
                     const EvaluationOptions& options) {
+    profiling::Scope measured(profiling::PAWNS);
     constexpr int passed_mg[] = {0, 0, 5, 12, 22, 38, 65, 0};
     constexpr int passed_eg[] = {0, 0, 10, 24, 45, 80, 130, 0};
     for (int c = 0; c < 2; ++c) {

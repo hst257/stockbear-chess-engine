@@ -8,6 +8,7 @@
 
 #include "chess.hpp"
 #include "evaluation.hpp"
+#include "profiling.hpp"
 #include "transposition.hpp"
 
 namespace chesslab {
@@ -34,6 +35,9 @@ struct SearchLimits {
 };
 
 struct SearchResult {
+    profiling::Report profile;
+    std::uint64_t eval_calls = 0;
+    std::uint64_t beta_cutoffs = 0;
     chess::Move best_move{};
     std::vector<chess::Move> pv;
     int white_score = 0;

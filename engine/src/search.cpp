@@ -14,6 +14,7 @@ struct Interrupted {};
 
 void order_moves(chess::Movelist& moves, const chess::Board& board,
                  chess::Move pv_move, chess::Move table_move) {
+    profiling::Scope measured(profiling::ORDERING);
     for (auto& move : moves) {
         int priority = 0;
         int capture_bonus = 0;
@@ -45,8 +46,10 @@ public:
           table_(limits.transposition_table ? std::make_unique<TranspositionTable>(limits.hash_megabytes) : nullptr) {}
 
     SearchResult run(chess::Board& board, const SearchProgress& progress) {
+        profiling::reset();
+        profiling::Scope measured(profiling::SEARCH);
         chess::Movelist moves;
-        chess::movegen::legalmoves(moves, board);
+        generate(moves, board);
         // If stopped before depth one finishes, still return a legal move.
         if (!moves.empty() && !is_draw(board)) result_.best_move = moves[0];
         const bool terminal = moves.empty() || is_draw(board);
@@ -110,6 +113,7 @@ public:
         // Totals include unfinished work; depth/PV/score refer to the saved pass.
         result_.milliseconds = elapsed();
         result_.hashfull = table_ ? table_->hashfull() : 0;
+        result_.profile = profiling::finish();
         return result_;
     }
 
@@ -123,11 +127,23 @@ private:
     SearchResult result_;
     std::unique_ptr<TranspositionTable> table_;  // Fresh per search; shared across completed passes.
 
+    int static_evaluation(const chess::Board& board) {
+        ++result_.eval_calls;
+        profiling::Scope measured(profiling::EVALUATION);
+        return evaluate(board, limits_.use_pst, limits_.evaluation);
+    }
+
+    void generate(chess::Movelist& moves, const chess::Board& board) {
+        profiling::Scope measured(profiling::MOVEGEN);
+        chess::movegen::legalmoves(moves, board);
+    }
+
     std::int64_t elapsed() const {
         return std::chrono::duration_cast<std::chrono::milliseconds>(Clock::now() - start_).count();
     }
 
     static bool is_draw(const chess::Board& board, bool null_subtree = false) {
+        profiling::Scope measured(profiling::DRAWS);
         // Assume available current-position repetition/50-move claims are taken.
         // The GUI separately handles claim declaration and automatic endings.
         // A hypothetical pass is not game history. Neither it nor its descendants
@@ -166,7 +182,7 @@ private:
                    std::vector<chess::Move>& pv, bool null_subtree = false) {
         visit(ply, true);
         chess::Movelist moves;
-        chess::movegen::legalmoves(moves, board);
+        generate(moves, board);
         if (const auto score = terminal(board, moves, ply, null_subtree)) return *score;
         const bool checked = board.inCheck();
         const bool maximizing = board.sideToMove() == chess::Color::WHITE;
@@ -179,13 +195,13 @@ private:
             }
             best = maximizing ? -INFINITY_SCORE : INFINITY_SCORE;
         } else {
-            best = evaluate(board, limits_.use_pst, limits_.evaluation);
+            best = static_evaluation(board);
             if (qply >= MAX_QUIESCENCE_PLY || ply >= MAX_SEARCH_PLY) {
                 ++result_.qcaps;
                 return best;
             }
             if (pruning_) {
-                if ((maximizing && best >= beta) || (!maximizing && best <= alpha)) return best;
+                if ((maximizing && best >= beta) || (!maximizing && best <= alpha)) { ++result_.beta_cutoffs; return best; }
                 if (maximizing) alpha = std::max(alpha, best);
                 else beta = std::min(beta, best);
             }
@@ -210,7 +226,7 @@ private:
             if (pruning_) {
                 if (maximizing) alpha = std::max(alpha, best);
                 else beta = std::min(beta, best);
-                if (alpha >= beta) break;
+                if (alpha >= beta) { ++result_.beta_cutoffs; break; }
             }
         }
         return best;
@@ -222,9 +238,9 @@ private:
         if (depth == 0 && limits_.quiescence) return quiescence(board, ply, 0, alpha, beta, pv, null_subtree);
         visit(ply);
         chess::Movelist moves;
-        chess::movegen::legalmoves(moves, board);
+        generate(moves, board);
         if (const auto score = terminal(board, moves, ply, null_subtree)) return *score;
-        if (depth == 0) return evaluate(board, limits_.use_pst, limits_.evaluation);
+        if (depth == 0) return static_evaluation(board);
 
         const int original_alpha = alpha;
         const int original_beta = beta;
@@ -232,7 +248,10 @@ private:
         const bool cacheable = table_ && !null_subtree;
         if (cacheable) {
             ++result_.tt_probes;
-            const auto* entry = table_->probe(board.hash(), history, board.halfMoveClock());
+            const auto* entry = [&] {
+                profiling::Scope measured(profiling::TABLE);
+                return table_->probe(board.hash(), history, board.halfMoveClock());
+            }();
             // A matching hash never licenses an illegal move.
             if (entry && std::find(moves.begin(), moves.end(), entry->move()) != moves.end()) {
                 ++result_.tt_hits;
@@ -259,7 +278,7 @@ private:
         // near draw/mate bounds, repeated positions, and every nested null path.
         if (pruning_ && limits_.null_move_pruning &&
             null_move_allowed(board, depth, ply, alpha, beta, null_subtree)) {
-            const int stand = evaluate(board, limits_.use_pst, limits_.evaluation);
+            const int stand = static_evaluation(board);
             if ((maximizing && stand >= beta) || (!maximizing && stand <= alpha)) {
                 ++result_.null_attempts;
                 int score;
@@ -334,7 +353,7 @@ private:
             if (pruning_) {
                 if (maximizing) alpha = std::max(alpha, best);
                 else beta = std::min(beta, best);
-                if (alpha >= beta) break;
+                if (alpha >= beta) { ++result_.beta_cutoffs; break; }
             }
         }
         if (cacheable) {
@@ -342,6 +361,7 @@ private:
                                best >= original_beta ? Bound::LOWER : Bound::EXACT;
             // Interrupted nodes throw before reaching this store. Completed
             // descendants remain valid, even when their parent pass is stopped.
+            profiling::Scope measured(profiling::TABLE);
             table_->store(board.hash(), history, board.halfMoveClock(), depth,
                           score_to_table(best, ply), bound, pv, ply);
         }

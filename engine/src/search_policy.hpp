@@ -3,12 +3,14 @@
 #include <cstdlib>
 
 #include "evaluation.hpp"
+#include "profiling.hpp"
 #include "transposition.hpp"
 
 namespace chesslab {
 
 inline bool null_move_allowed(const chess::Board& board, int depth, int ply,
                                int alpha, int beta, bool null_subtree) {
+    profiling::Scope measured(profiling::POLICY);
     if (null_subtree || depth < 3 || ply == 0 || beta - alpha != 1 || board.inCheck() ||
         std::abs(alpha) >= MATE_THRESHOLD || std::abs(beta) >= MATE_THRESHOLD ||
         board.halfMoveClock() >= 90 || board.isRepetition(1) || game_phase(board) < 8) return false;
@@ -24,6 +26,7 @@ inline bool null_move_allowed(const chess::Board& board, int depth, int ply,
 inline bool lmr_candidate(const chess::Board& board, chess::Move move, int depth,
                            int ply, int move_index, int alpha, int beta,
                            chess::Move table_move, chess::Move pv_move, bool null_subtree) {
+    profiling::Scope measured(profiling::POLICY);
     if (null_subtree || depth < 3 || ply == 0 || move_index < 4 || beta - alpha != 1 ||
         board.inCheck() || game_phase(board) < 4 || std::abs(alpha) >= MATE_THRESHOLD ||
         std::abs(beta) >= MATE_THRESHOLD || move == table_move || move == pv_move ||

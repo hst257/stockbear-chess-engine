@@ -17,8 +17,13 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--target", choices=("engine", "tt-tests"), default="engine")
-    target = parser.parse_args().target
+    parser.add_argument("--target", choices=("engine", "tt-tests", "audit-tests"), default="engine")
+    parser.add_argument("--profile", action="store_true", help="Instrument CPU categories and search-thread allocations.")
+    parser.add_argument("--optimization", choices=("O2", "O3"), default="O2")
+    parser.add_argument("--lto", action="store_true")
+    parser.add_argument("--output", type=Path)
+    options = parser.parse_args()
+    target = options.target
     if os.environ.get("CXX"):
         compiler = [os.environ["CXX"]]
     elif importlib.util.find_spec("ziglang"):
@@ -29,15 +34,21 @@ def main() -> int:
             print("Install engine/requirements-build.txt or set CXX to a C++17 compiler.", file=sys.stderr)
             return 1
         compiler = [found]
-    name = "chesslab-engine" if target == "engine" else "chesslab-tt-tests"
-    output = ROOT / "engine" / "build" / (name + (".exe" if os.name == "nt" else ""))
+    name = "chesslab-" + ("engine" if target == "engine" else target)
+    output = options.output or ROOT / "engine" / "build" / (name + (".exe" if os.name == "nt" else ""))
+    output = output.resolve()
     output.parent.mkdir(parents=True, exist_ok=True)
-    args = compiler + ["-std=c++17", "-O2", "-pthread", "-Wall", "-Wextra",
+    args = compiler + ["-std=c++17", "-" + options.optimization, "-pthread", "-Wall", "-Wextra",
                        "-I", str(ROOT / "engine" / "vendor" / "chess-library"),
                        "-I", str(ROOT / "engine" / "src"),
-                       str(ROOT / "engine" / ("src/main.cpp" if target == "engine" else "tests/test_transposition.cpp")),
+                       str(ROOT / "engine" / ("src/main.cpp" if target == "engine" else
+                           "tests/test_transposition.cpp" if target == "tt-tests" else "tests/test_audit.cpp")),
                        str(ROOT / "engine" / "src" / "search.cpp"),
                        str(ROOT / "engine" / "src" / "evaluation.cpp"), "-o", str(output)]
+    if options.profile:
+        args.insert(len(compiler), "-DCHESSLAB_PROFILE")
+    if options.lto:
+        args.insert(len(compiler), "-flto")
     print("Building with " + " ".join(compiler), flush=True)
     environment = os.environ.copy()
     environment.setdefault("ZIG_GLOBAL_CACHE_DIR", str(output.parent / "zig-cache"))
