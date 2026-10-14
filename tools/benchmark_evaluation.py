@@ -114,7 +114,7 @@ def main():
     flags = {"creationflags": subprocess.CREATE_NO_WINDOW} if os.name == "nt" else {}
     # Preserve the recorded PST-only comparison as new search features are added.
     settings = {"AlphaBeta": True, "IterativeDeepening": True, "MoveOrdering": True,
-                "TranspositionTable": False, "Quiescence": False, "PVS": False}
+                "TranspositionTable": False, "Quiescence": False, "PVS": False, "UseAspirationWindows": False, "UseNullMovePruning": False, "UseLMR": False}
     with chess.engine.SimpleEngine.popen_uci(str(args.engine), timeout=args.seconds + 5, **flags) as engine:
         engine.configure(settings)
         rows = measure(engine, args.depth, args.seconds, args.repeats)

@@ -107,11 +107,13 @@ conditions before static evaluation; those terminal scores take precedence.
 .\.venv\Scripts\python.exe -m tools.benchmark_evaluation --depth 5 --repeats 3 --match-games 4 --output artifacts\pst-benchmark.json
 ```
 
-**557 tests pass in the current full suite on Windows.** PST checks cover all six piece types, asymmetric
+**773 tests pass in the current full suite on Windows.** PST checks cover all six piece types, asymmetric
 rank orientation, color symmetry, all 25 phase values, rounding, promotion-phase
 clamping, no material double-counting, terminal precedence, UCI diagnostics,
 search-leaf/diagnostic agreement, Minimax/alpha-beta equivalence, interruption,
 GUI settings, and the exact old material-only node baselines.
+
+The reproduction tool also disables aspiration, NMP, and LMR.
 
 The [recorded benchmark](pst-benchmark.json) contains all FENs, raw samples,
 engine hash, CPU/OS, and limits. Same machine, single worker, alpha-beta,

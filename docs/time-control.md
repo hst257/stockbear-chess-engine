@@ -76,6 +76,11 @@ Opening setup does not cancel a move just to change its next budget.
 
 ## Measurements
 
+The measurements below predate [aspiration/NMP/LMR](search-optimizations.md).
+Their reproduction tool explicitly disables all three; current gameplay defaults
+enable them. The optimization guide contains current staged timed measurements.
+
+
 ```powershell
 .\.venv\Scripts\python.exe -m tools.benchmark_time --repeats 3 --output artifacts\time-benchmark.json
 ```
@@ -128,7 +133,7 @@ were introduced.
 
 ## Verification
 
-**557 tests pass on Windows.** Tests cover time-mode defaults/presets, actual client
+**773 tests pass on Windows.** Tests cover time-mode defaults/presets, actual client
 budgets, timed depth above 5, forced deepening, terminal/forced-mate early returns,
 matching completed snapshots, special/nested board restoration on exception,
 legal fallback before depth 1, responsive UCI readiness/stop/quit with exactly one

@@ -19,4 +19,17 @@ private:
     chess::Move move_;
 };
 
+// The pinned rules library already implements reversible side/EP/Zobrist updates.
+// This search-only pass preserves pieces, castling rights and the real halfmove clock.
+class ScopedNullMove {
+public:
+    explicit ScopedNullMove(chess::Board& board) : board_(board) { board_.makeNullMove(); }
+    ~ScopedNullMove() { board_.unmakeNullMove(); }
+    ScopedNullMove(const ScopedNullMove&) = delete;
+    ScopedNullMove& operator=(const ScopedNullMove&) = delete;
+
+private:
+    chess::Board& board_;
+};
+
 }  // namespace chesslab

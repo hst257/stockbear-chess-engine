@@ -31,6 +31,9 @@ class EngineSettings:
     principal_variation_search: bool = True
     timed_search: bool = True
     thinking_time_ms: int = 1000
+    aspiration_windows: bool = True
+    null_move_pruning: bool = True
+    late_move_reductions: bool = True
 
     def __post_init__(self) -> None:
         if not 1 <= self.depth <= 5:
@@ -235,7 +238,9 @@ class EngineClient:
                 engine.configure({"AlphaBeta": pruning, "IterativeDeepening": settings.timed_search or settings.iterative_deepening,
                                   "MoveOrdering": settings.move_ordering, "UsePST": settings.use_pst,
                                   "TranspositionTable": settings.transposition_table,
-                                  "Quiescence": settings.quiescence, "PVS": settings.principal_variation_search})
+                                  "Quiescence": settings.quiescence, "PVS": settings.principal_variation_search,
+                                  "UseAspirationWindows": settings.aspiration_windows,
+                                  "UseNullMovePruning": settings.null_move_pruning, "UseLMR": settings.late_move_reductions})
                 if job.canceled.is_set():
                     return
                 iterations: list[SearchIteration] = []

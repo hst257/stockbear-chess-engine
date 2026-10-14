@@ -73,6 +73,21 @@ std::string search_info(const chesslab::SearchResult& result) {
            " plylimit " + std::to_string(result.ply_limit_reached ? 1 : 0);
 }
 
+std::string optimization_info(const chesslab::SearchResult& result) {
+    return "optim aspiration_attempts " + std::to_string(result.aspiration_attempts) +
+           " aspiration_searches " + std::to_string(result.aspiration_searches) +
+           " aspiration_fail_high " + std::to_string(result.aspiration_fail_high) +
+           " aspiration_fail_low " + std::to_string(result.aspiration_fail_low) +
+           " aspiration_retries " + std::to_string(result.aspiration_retries) +
+           " aspiration_successes " + std::to_string(result.aspiration_successes) +
+           " null_attempts " + std::to_string(result.null_attempts) +
+           " null_cutoffs " + std::to_string(result.null_cutoffs) +
+           " lmr_attempts " + std::to_string(result.lmr_attempts) +
+           " lmr_searches " + std::to_string(result.lmr_searches) +
+           " lmr_researches " + std::to_string(result.lmr_researches) +
+           " lmr_verifications " + std::to_string(result.lmr_verifications);
+}
+
 std::vector<std::string> words(const std::string& line) {
     std::istringstream stream(line);
     return {std::istream_iterator<std::string>(stream), std::istream_iterator<std::string>()};
@@ -167,7 +182,7 @@ public:
             try {
                 const auto& command = tokens[0];
                 if (command == "uci") {
-                    output("id name ChessLab 0.8");
+                    output("id name ChessLab 0.9");
                     output("id author ChessLab contributors");
                     output("option name AlphaBeta type check default true");
                     output("option name IterativeDeepening type check default true");
@@ -176,6 +191,11 @@ public:
                     output("option name TranspositionTable type check default true");
                     output("option name Quiescence type check default true");
                     output("option name PVS type check default true");
+                    output("option name UseAspirationWindows type check default true");
+                    output("option name AspirationDelta type spin default 25 min 1 max 500");
+                    output("option name UseNullMovePruning type check default true");
+                    output("option name UseLMR type check default true");
+                    output("option name LMRReduction type spin default 1 min 1 max 3");
                     output("option name Hash type spin default 16 min 1 max 256");
                     output("option name Depth type spin default 3 min 1 max 8");
                     output("uciok");
@@ -207,6 +227,11 @@ private:
     bool transposition_table_ = true;
     bool quiescence_ = true;
     bool pvs_ = true;
+    bool aspiration_windows_ = true;
+    int aspiration_delta_ = 25;
+    bool null_move_pruning_ = true;
+    bool late_move_reductions_ = true;
+    int lmr_reduction_ = 1;
     int hash_megabytes_ = 16;
     std::uint64_t history_ = 0;
     int depth_ = 3;
@@ -221,11 +246,12 @@ private:
     void set_option(const std::vector<std::string>& tokens) {
         stop_search();
         if (tokens.size() != 5 || tokens[1] != "name" || tokens[3] != "value") {
-            throw std::invalid_argument("expected setoption name <AlphaBeta|IterativeDeepening|MoveOrdering|UsePST|TranspositionTable|Quiescence|PVS|Hash|Depth> value <value>");
+            throw std::invalid_argument("expected setoption name <option> value <value> (see uci for supported options)");
         }
         if (tokens[2] == "AlphaBeta" || tokens[2] == "IterativeDeepening" ||
             tokens[2] == "MoveOrdering" || tokens[2] == "UsePST" || tokens[2] == "TranspositionTable" ||
-            tokens[2] == "Quiescence" || tokens[2] == "PVS") {
+            tokens[2] == "Quiescence" || tokens[2] == "PVS" || tokens[2] == "UseAspirationWindows" ||
+            tokens[2] == "UseNullMovePruning" || tokens[2] == "UseLMR") {
             if (tokens[4] != "true" && tokens[4] != "false") throw std::invalid_argument("check options must be true or false");
             if (tokens[2] == "AlphaBeta") alpha_beta_ = tokens[4] == "true";
             else if (tokens[2] == "IterativeDeepening") iterative_deepening_ = tokens[4] == "true";
@@ -233,9 +259,14 @@ private:
             else if (tokens[2] == "UsePST") use_pst_ = tokens[4] == "true";
             else if (tokens[2] == "TranspositionTable") transposition_table_ = tokens[4] == "true";
             else if (tokens[2] == "Quiescence") quiescence_ = tokens[4] == "true";
-            else pvs_ = tokens[4] == "true";
+            else if (tokens[2] == "PVS") pvs_ = tokens[4] == "true";
+            else if (tokens[2] == "UseAspirationWindows") aspiration_windows_ = tokens[4] == "true";
+            else if (tokens[2] == "UseNullMovePruning") null_move_pruning_ = tokens[4] == "true";
+            else late_move_reductions_ = tokens[4] == "true";
         } else if (tokens[2] == "Depth") depth_ = integer(tokens[4], 1, 8);
         else if (tokens[2] == "Hash") hash_megabytes_ = integer(tokens[4], 1, 256);
+        else if (tokens[2] == "AspirationDelta") aspiration_delta_ = integer(tokens[4], 1, 500);
+        else if (tokens[2] == "LMRReduction") lmr_reduction_ = integer(tokens[4], 1, 3);
     }
 
     void set_position(const std::vector<std::string>& tokens) {
@@ -274,6 +305,11 @@ private:
         limits.history = history_;
         limits.quiescence = quiescence_;
         limits.principal_variation_search = pvs_;
+        limits.aspiration_windows = aspiration_windows_;
+        limits.aspiration_delta = aspiration_delta_;
+        limits.null_move_pruning = null_move_pruning_;
+        limits.late_move_reductions = late_move_reductions_;
+        limits.lmr_reduction = lmr_reduction_;
         bool explicit_depth = false;
         for (std::size_t i = 1; i < tokens.size(); ++i) {
             if (tokens[i] == "infinite") limits.depth = 64;
@@ -300,6 +336,7 @@ private:
                     [&position](const auto& iteration) {
                         output("info string " + table_info(iteration));
                         output("info string " + search_info(iteration));
+                        output("info string " + optimization_info(iteration));
                         report_info(iteration, position, true);
                     });
                 if (!result.complete) report_info(result, position, false);
@@ -311,7 +348,7 @@ private:
                        (limits.transposition_table ? "cached " : "uncached ") +
                        (limits.quiescence ? "qsearch " : "static-leaf ") +
                        (pruning && limits.principal_variation_search ? "pvs " : "full-window ") +
-                       table_info(result) + " " + search_info(result));
+                       table_info(result) + " " + search_info(result) + " " + optimization_info(result));
                 output("bestmove " + (result.best_move == chess::Move{} ? std::string("0000") :
                                       chess::uci::moveToUci(result.best_move)));
             } catch (const std::exception& error) {

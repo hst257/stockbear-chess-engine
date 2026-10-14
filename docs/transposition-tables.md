@@ -26,6 +26,11 @@ currently repeats. A future search line could revisit a historical position.
 This conservative policy sacrifices some cache hits to preserve draw semantics.
 Mate, stalemate, and existing draw checks happen before probing the cache.
 
+NMP synthetic branches never probe/store this table. With NMP/LMR active,
+search is selective: exact/full-width score equivalence is not guaranteed when
+ordering or cache hints change. The recorded benchmark below disables all three
+[advanced optimizations](search-optimizations.md).
+
 ## Entries, bounds, and principal variations
 
 Each entry stores the full position key, history fingerprint, halfmove clock,
@@ -99,7 +104,7 @@ not tablebase hits. Nodes still count every search invocation, including cache h
 .\.venv\Scripts\python.exe -m tools.benchmark_transpositions --depth 5 --repeats 3 --output artifacts\tt-benchmark.json
 ```
 
-**557 tests pass on Windows.** Pytest compiles the native TT test executable with
+**773 tests pass on Windows.** Pytest compiles the native TT test executable with
 the existing build helper; keep the C++ compiler available. Native tests cover
 incremental/full hash agreement, make/unmake, castling/en-passant/side keys, empty
 and colliding slots, context guards, replacement priority, all bound types, depth

@@ -1,5 +1,6 @@
 #include "search.hpp"
 #include "scoped_move.hpp"
+#include "search_policy.hpp"
 
 #include <algorithm>
 #include <memory>
@@ -56,8 +57,41 @@ public:
             std::vector<chess::Move> pv;
             int score;
             try {
-                check_limits(true);
-                score = minimax(board, depth, 0, -INFINITY_SCORE, INFINITY_SCORE, pv, true, limits_.history);
+                const bool aspiration = pruning_ && limits_.aspiration_windows &&
+                    limits_.iterative_deepening && result_.depth > 0 &&
+                    std::abs(result_.white_score) < MATE_THRESHOLD;
+                int low_margin = std::clamp(limits_.aspiration_delta, 1, 500);
+                int high_margin = low_margin;
+                const int center = result_.white_score;
+                int alpha = aspiration ? std::max(-INFINITY_SCORE, center - low_margin) : -INFINITY_SCORE;
+                int beta = aspiration ? std::min(INFINITY_SCORE, center + high_margin) : INFINITY_SCORE;
+                int retries = 0;
+                if (aspiration) ++result_.aspiration_attempts;
+                for (;;) {
+                    check_limits(true);
+                    pv.clear();
+                    if (aspiration) ++result_.aspiration_searches;
+                    score = minimax(board, depth, 0, alpha, beta, pv, true, limits_.history);
+                    if ((score > alpha && score < beta) ||
+                        (alpha == -INFINITY_SCORE && beta == INFINITY_SCORE)) break;
+                    // A failed window proves only a bound. Widen that side;
+                    // no failed move/score/PV is published as a completed pass.
+                    if (score <= alpha) {
+                        ++result_.aspiration_fail_low;
+                        low_margin = std::min(2 * INFINITY_SCORE, low_margin * 2);
+                        alpha = std::max(-INFINITY_SCORE, center - low_margin);
+                    } else {
+                        ++result_.aspiration_fail_high;
+                        high_margin = std::min(2 * INFINITY_SCORE, high_margin * 2);
+                        beta = std::min(INFINITY_SCORE, center + high_margin);
+                    }
+                    ++result_.aspiration_retries;
+                    if (++retries >= 16 || std::abs(score) >= MATE_THRESHOLD) {
+                        alpha = -INFINITY_SCORE;
+                        beta = INFINITY_SCORE;
+                    }
+                }
+                if (aspiration) ++result_.aspiration_successes;
             } catch (const Interrupted&) {
                 break;
             }
@@ -93,10 +127,13 @@ private:
         return std::chrono::duration_cast<std::chrono::milliseconds>(Clock::now() - start_).count();
     }
 
-    static bool is_draw(const chess::Board& board) {
+    static bool is_draw(const chess::Board& board, bool null_subtree = false) {
         // Assume available current-position repetition/50-move claims are taken.
         // The GUI separately handles claim declaration and automatic endings.
-        return board.isInsufficientMaterial() || board.isHalfMoveDraw() || board.isRepetition(2);
+        // A hypothetical pass is not game history. Neither it nor its descendants
+        // may claim repetition/50-move draws against the actual game's history.
+        return board.isInsufficientMaterial() ||
+               (!null_subtree && (board.isHalfMoveDraw() || board.isRepetition(2)));
     }
 
     void check_limits(bool between_iterations = false) const {
@@ -115,21 +152,22 @@ private:
         result_.selective_depth = std::max(result_.selective_depth, ply);
     }
 
-    static std::optional<int> terminal(const chess::Board& board, const chess::Movelist& moves, int ply) {
+    static std::optional<int> terminal(const chess::Board& board, const chess::Movelist& moves, int ply,
+                                       bool null_subtree = false) {
         if (moves.empty()) {
             if (!board.inCheck()) return 0;
             return board.sideToMove() == chess::Color::WHITE ? -MATE_SCORE + ply : MATE_SCORE - ply;
         }
-        if (is_draw(board)) return 0;
+        if (is_draw(board, null_subtree)) return 0;
         return std::nullopt;
     }
 
     int quiescence(chess::Board& board, int ply, int qply, int alpha, int beta,
-                   std::vector<chess::Move>& pv) {
+                   std::vector<chess::Move>& pv, bool null_subtree = false) {
         visit(ply, true);
         chess::Movelist moves;
         chess::movegen::legalmoves(moves, board);
-        if (const auto score = terminal(board, moves, ply)) return *score;
+        if (const auto score = terminal(board, moves, ply, null_subtree)) return *score;
         const bool checked = board.inCheck();
         const bool maximizing = board.sideToMove() == chess::Color::WHITE;
         int best;
@@ -162,7 +200,7 @@ private:
             int score;
             {
                 ScopedMove played(board, move);
-                score = quiescence(board, ply + 1, qply + 1, alpha, beta, child_pv);
+                score = quiescence(board, ply + 1, qply + 1, alpha, beta, child_pv, null_subtree);
             }
             if ((maximizing && score > best) || (!maximizing && score < best)) {
                 best = score;
@@ -179,18 +217,20 @@ private:
     }
 
     int minimax(chess::Board& board, int depth, int ply, int alpha, int beta,
-                std::vector<chess::Move>& pv, bool follows_previous_pv, std::uint64_t history) {
-        if (depth == 0 && limits_.quiescence) return quiescence(board, ply, 0, alpha, beta, pv);
+                std::vector<chess::Move>& pv, bool follows_previous_pv, std::uint64_t history,
+                bool null_subtree = false) {
+        if (depth == 0 && limits_.quiescence) return quiescence(board, ply, 0, alpha, beta, pv, null_subtree);
         visit(ply);
         chess::Movelist moves;
         chess::movegen::legalmoves(moves, board);
-        if (const auto score = terminal(board, moves, ply)) return *score;
+        if (const auto score = terminal(board, moves, ply, null_subtree)) return *score;
         if (depth == 0) return evaluate(board, limits_.use_pst);
 
         const int original_alpha = alpha;
         const int original_beta = beta;
         chess::Move table_move{};
-        if (table_) {
+        const bool cacheable = table_ && !null_subtree;
+        if (cacheable) {
             ++result_.tt_probes;
             const auto* entry = table_->probe(board.hash(), history, board.halfMoveClock());
             // A matching hash never licenses an illegal move.
@@ -215,35 +255,77 @@ private:
                             ? result_.pv[ply] : chess::Move{};
         if (limits_.move_ordering) order_moves(moves, board, hint, table_move);
         const bool maximizing = board.sideToMove() == chess::Color::WHITE;
+        // A unit window is a non-PV scout. Avoid low material/zugzwang risks,
+        // near draw/mate bounds, repeated positions, and every nested null path.
+        if (pruning_ && limits_.null_move_pruning &&
+            null_move_allowed(board, depth, ply, alpha, beta, null_subtree)) {
+            const int stand = evaluate(board, limits_.use_pst);
+            if ((maximizing && stand >= beta) || (!maximizing && stand <= alpha)) {
+                ++result_.null_attempts;
+                int score;
+                std::vector<chess::Move> ignored_pv;
+                {
+                    ScopedNullMove passed(board);
+                    score = minimax(board, depth - 3, ply + 1,
+                                    maximizing ? beta - 1 : alpha,
+                                    maximizing ? beta : alpha + 1, ignored_pv, false, 0, true);
+                }
+                // Never propagate a mate inferred from an artificial pass.
+                if (std::abs(score) < MATE_THRESHOLD &&
+                    ((maximizing && score >= beta) || (!maximizing && score <= alpha))) {
+                    ++result_.null_cutoffs;
+                    return maximizing ? beta : alpha;  // Bound only, no null PV/TT entry.
+                }
+            }
+        }
         int best = maximizing ? -INFINITY_SCORE : INFINITY_SCORE;
         bool first = true;
+        int move_index = 0;
         // Minimax and alpha-beta share the same ordering and first-best tie rule.
         for (const auto move : moves) {
             std::vector<chess::Move> child_pv;
             const auto parent_key = board.hash();
+            const bool reduce = pruning_ && limits_.late_move_reductions && limits_.move_ordering &&
+                lmr_candidate(board, move, depth, ply, move_index, alpha, beta, table_move, hint, null_subtree);
             int score;
             {
                 ScopedMove played(board, move);
-                const auto child_history = table_ ? next_history(history, parent_key, board) : 0;
+                const auto child_history = cacheable ? next_history(history, parent_key, board) : 0;
                 const bool child_follows_pv = follows_previous_pv && move == hint;
-                if (pruning_ && limits_.principal_variation_search && !first && beta - alpha > 1) {
+                if (reduce) {
+                    ++result_.lmr_attempts;
+                    ++result_.lmr_searches;
+                    const int reduction = std::clamp(limits_.lmr_reduction, 1, std::min(3, depth - 2));
+                    score = minimax(board, depth - 1 - reduction, ply + 1, alpha, beta,
+                                    child_pv, child_follows_pv, child_history, null_subtree);
+                    if ((maximizing && score > alpha) || (!maximizing && score < beta)) {
+                        ++result_.lmr_researches;
+                        ++result_.lmr_verifications;
+                        child_pv.clear();
+                        // Verify at nominal depth using this scout's window.
+                        // An enclosing PVS node handles any wider PV re-search.
+                        score = minimax(board, depth - 1, ply + 1, alpha, beta,
+                                        child_pv, child_follows_pv, child_history, null_subtree);
+                    }
+                } else if (pruning_ && limits_.principal_variation_search && !first && beta - alpha > 1) {
                     ++result_.pvs_scouts;
                     const int scout_alpha = maximizing ? alpha : beta - 1;
                     const int scout_beta = maximizing ? alpha + 1 : beta;
                     score = minimax(board, depth - 1, ply + 1, scout_alpha, scout_beta,
-                                    child_pv, child_follows_pv, child_history);
+                                    child_pv, child_follows_pv, child_history, null_subtree);
                     if (score > alpha && score < beta) {
                         ++result_.pvs_researches;
                         child_pv.clear();
                         score = minimax(board, depth - 1, ply + 1, alpha, beta,
-                                        child_pv, child_follows_pv, child_history);
+                                        child_pv, child_follows_pv, child_history, null_subtree);
                     }
                 } else {
                     score = minimax(board, depth - 1, ply + 1, alpha, beta,
-                                    child_pv, child_follows_pv, child_history);
+                                    child_pv, child_follows_pv, child_history, null_subtree);
                 }
             }
             first = false;
+            ++move_index;
             if ((maximizing && score > best) || (!maximizing && score < best)) {
                 best = score;
                 pv.assign(1, move);
@@ -255,7 +337,7 @@ private:
                 if (alpha >= beta) break;
             }
         }
-        if (table_) {
+        if (cacheable) {
             const auto bound = best <= original_alpha ? Bound::UPPER :
                                best >= original_beta ? Bound::LOWER : Bound::EXACT;
             // Interrupted nodes throw before reaching this store. Completed

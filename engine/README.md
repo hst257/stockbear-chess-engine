@@ -2,7 +2,7 @@
 
 A standalone C++17 UCI executable implements Minimax with optional alpha-beta
 pruning, iterative deepening, move ordering, material/PST evaluation, and
-Zobrist-based transposition caching, quiescence, and Principal Variation Search.
+Zobrist-based transposition caching, quiescence, Principal Variation Search, aspiration windows, null-move pruning, and LMR.
 It owns its board independently of Python.
 No search or evaluation is delegated to another engine.
 
@@ -48,7 +48,8 @@ With `AlphaBeta=false`, no alpha/beta cutoffs are applied; exact table hits can
 still reuse completed subtrees. With `AlphaBeta=true`, the same
 function updates alpha/beta bounds and cuts branches that cannot affect the answer.
 Both modes share the same ordering policy and first-best tie rule. PVS is active
-only with alpha-beta. Killer/history heuristics, opening books, and neural
+only with alpha-beta. Minimax ignores aspiration/NMP/LMR; NMP/LMR are selective,
+so equal nominal depth need not give the exhaustive score. Killer/history heuristics, opening books, and neural
 networks are deferred.
 
 `src/evaluation.cpp` adds positional centipawns from the compile-time arrays in
@@ -85,7 +86,7 @@ Time mode shows **Deepening: automatic**. In fixed-depth mode, toggle
 Both comparison algorithms share limits, deepening policy, and evaluation;
 timed completed depths can differ.
 
-Completed full-depth scores match direct search. With ordering enabled, the
+With NMP/LMR disabled, completed full-depth scores match direct search. With ordering enabled, the
 previous PV can change which equally good move is searched first. Its benefit
 depends on the position; shallow passes still count toward the total work.
 
@@ -156,13 +157,33 @@ pruning are not included; stand pat remains a zugzwang approximation.
 PVS searches the first child with the full window. Later White moves use
 `[alpha, alpha+1]`; Black moves use `[beta-1, beta]`. A result strictly inside
 the original full window triggers a full-window re-search. Unit-width windows
-use ordinary alpha-beta. Minimax never uses scouts. At fixed Q settings, PVS
+use ordinary alpha-beta. Minimax never uses scouts. At fixed Q settings with NMP/LMR disabled, PVS
 preserves full-window scores; tied moves may differ. Q itself changes the leaf model.
 
 Setup and Search lab provide **Quiescence: on/off** and **PVS: on/off**; setup
 marks PVS inactive for Minimax. Search lab compares Minimax against PVS or
 Alpha-beta, using identical Q settings. CLI: `--no-quiescence`, `--no-pvs`.
 See the [search guide](../docs/search.md) for comparisons and limitations.
+
+## Aspiration, null move, and late reductions
+
+`UseAspirationWindows`, `UseNullMovePruning`, and `UseLMR` default true.
+Aspiration uses the previous completed score ±`AspirationDelta` (25 cp, 1–500),
+doubling only a failed bound and retrying before publishing an exact pass.
+NMP uses R=2 at guarded unit-window non-PV nodes. Synthetic branches skip normal
+TT/repetition/50-move reuse; null-inferred mates never cut. LMR skips the first
+four moves and tactical/TT/PV moves, reduces by `LMRReduction` (1, range 1–3,
+clamped to leave ≥1 child ply), and verifies promising reductions at full depth.
+Both selective techniques avoid wide PV nodes, checks, and sparse endgames;
+LMR also requires ordering. Disabling PVS generally leaves them inactive.
+`info string optim` and final summaries expose cumulative counters.
+
+CLI switches: `--no-aspiration-windows`, `--no-null-move-pruning`, `--no-lmr`.
+The [optimization guide](../docs/search-optimizations.md) records complete guards,
+UCI examples, diagnostics, tests, independent stages, and controlled benchmarks.
+Disable all three for historical exhaustive comparisons. Selective scores can
+change with depth, ordering, cache, and window policy; an EXACT TT tag is relative
+to the selected search policy, not a full-width guarantee.
 
 ## Transposition tables
 
@@ -198,6 +219,9 @@ setoption name UsePST value true
 setoption name TranspositionTable value true
 setoption name Quiescence value true
 setoption name PVS value true
+setoption name UseAspirationWindows value true
+setoption name UseNullMovePruning value true
+setoption name UseLMR value true
 setoption name Hash value 16
 position startpos moves e2e4 e7e5
 go depth 3
@@ -207,7 +231,9 @@ Commands: `uci`, `isready`, `ucinewgame`, `setoption`, `position startpos`,
 `position fen` (six fields, optionally followed by moves), `go`, `stop`, `quit`,
 and the optional diagnostic `eval`.
 Options: `AlphaBeta`, `IterativeDeepening`, `MoveOrdering`, `UsePST`,
-`TranspositionTable`, `Quiescence`, `PVS` (all default true), `Hash` (default 16 MiB cap, range 1–256),
+`TranspositionTable`, `Quiescence`, `PVS`, `UseAspirationWindows`,
+`UseNullMovePruning`, `UseLMR` (all default true), `Hash` (default 16 MiB cap, range 1–256),
+`AspirationDelta` (default 25 cp, 1–500), `LMRReduction` (default 1, 1–3),
 and `Depth` (default 3, range 1–8). `go` accepts depth, movetime (milliseconds), nodes, and
 infinite. Bare `go` uses the Depth option. Time/node-limited requests without an
 explicit depth, and infinite searches, permit deepening through a safety cap of
@@ -264,7 +290,7 @@ Build first, then run `.venv\Scripts\python.exe -m pytest -q` from the root.
 Tests include perft (197,281 at initial depth 4; 97,862 at Kiwipete depth 3), legal
 move cross-checks against python-chess, terminal states, search equivalence,
 interruptible UCI, cancellation, and actual engine-to-GUI play/comparison.
-The 557-test suite also checks optimal moves/scores against an independent Python
+The 773-test suite also checks optimal moves/scores against an independent Python
 reference with ordering off/on, both algorithms, and direct/iterative search.
 PST coverage includes all pieces, color/rank orientation, phase/rounding, diagnostic
 and search consistency, unchanged terminal behavior, and GUI on/off selection.
@@ -275,7 +301,7 @@ depth validity, replacement, and mate-distance normalization. Integration tests
 verify cached/uncached scores, complete legal PVs, exhaustive child values, draw
 histories/clocks, interruption, and both GUI modes.
 
-**Historical measurements below use `Quiescence=false` and `PVS=false`.**
+**Historical measurements below disable Q, PVS, aspiration, NMP, and LMR.**
 
 Original baseline with **TranspositionTable=false, UsePST=false, MoveOrdering=false**, initial target depth 3
 (all select a3 with White score 0.00):

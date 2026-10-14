@@ -34,7 +34,7 @@ def main():
     if args.repeats < 1 or args.seconds <= 0:
         parser.error("repeats and seconds must be positive")
     settings = {"AlphaBeta": True, "IterativeDeepening": True, "MoveOrdering": True,
-                "UsePST": args.pst, "Hash": args.hash, "Quiescence": False, "PVS": False}
+                "UsePST": args.pst, "Hash": args.hash, "Quiescence": False, "PVS": False, "UseAspirationWindows": False, "UseNullMovePruning": False, "UseLMR": False}
     flags = {"creationflags": subprocess.CREATE_NO_WINDOW} if os.name == "nt" else {}
     rows = []
     with chess.engine.SimpleEngine.popen_uci(str(args.engine), timeout=args.seconds + 5, **flags) as engine:

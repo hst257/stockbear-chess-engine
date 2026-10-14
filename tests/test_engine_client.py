@@ -29,7 +29,7 @@ def test_comparison_runs_both_algorithms_on_unchanged_snapshot(ordering, use_pst
     try:
         token = client.start(board, 42, EngineSettings(depth=3, move_ordering=ordering, use_pst=use_pst,
                                                       transposition_table=cached, quiescence=False,
-                                                      principal_variation_search=False, timed_search=False), "compare")
+                                                      principal_variation_search=False, timed_search=False, aspiration_windows=False, null_move_pruning=False, late_move_reductions=False), "compare")
         progress = []
         message = wait_result(client, progress=progress)
         assert message.token == token and message.revision == 42

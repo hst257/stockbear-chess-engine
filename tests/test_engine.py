@@ -24,6 +24,9 @@ class Protocol:
         self.send("setoption name TranspositionTable value false")
         self.send("setoption name Quiescence value false")
         self.send("setoption name PVS value false")
+        self.send("setoption name UseAspirationWindows value false")
+        self.send("setoption name UseNullMovePruning value false")
+        self.send("setoption name UseLMR value false")
 
     def _read(self):
         for line in self.process.stdout:
@@ -420,3 +423,33 @@ def test_replacing_running_search_does_not_overlap_or_duplicate_bestmove(protoco
     board = chess.Board()
     board.push_uci("e2e4")
     assert chess.Move.from_uci(second[-1].split()[1]) in board.legal_moves
+
+
+@pytest.mark.parametrize("command", ["setoption name UseAspirationWindows value maybe",
+    "setoption name UseNullMovePruning value maybe", "setoption name UseLMR value maybe",
+    "setoption name AspirationDelta value 0", "setoption name AspirationDelta value 501",
+    "setoption name LMRReduction value 0", "setoption name LMRReduction value 4"])
+def test_invalid_advanced_options_leave_engine_usable(protocol, command):
+    protocol.send(command)
+    assert "error" in protocol.until("info string error")[-1]
+    protocol.send("isready")
+    protocol.until("readyok")
+
+
+@pytest.mark.parametrize("command", ["stop", "quit"])
+def test_stop_and_quit_with_all_optimizations_keep_one_completed_bestmove(protocol, command):
+    for name in ("UseAspirationWindows", "UseNullMovePruning", "UseLMR", "PVS", "Quiescence", "UsePST", "TranspositionTable"):
+        protocol.send(f"setoption name {name} value true")
+    protocol.send("go movetime 5000")
+    before = protocol.until("info depth 4 ", timeout=2)
+    protocol.send(command)
+    after = protocol.until("bestmove", timeout=1)
+    completed = [line.split() for line in before + after if line.startswith("info depth ") and " score " in line]
+    last = completed[-1]
+    assert after[-1] == "bestmove " + last[last.index("pv") + 1]
+    if command == "quit":
+        protocol.process.wait(timeout=2)
+    else:
+        protocol.send("isready")
+        tail = protocol.until("readyok")
+        assert not any(line.startswith("bestmove") for line in tail)

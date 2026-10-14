@@ -1,5 +1,6 @@
 #include "search.hpp"
 #include "scoped_move.hpp"
+#include "search_policy.hpp"
 
 #include <iostream>
 #include <stdexcept>
@@ -251,6 +252,85 @@ void cancellation() {
             "Timed search failed to stop on proven mate");
 }
 
+void null_moves() {
+    for (const auto& fen : {"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 37 1",
+         "rnbqkbnr/ppp1pppp/8/3pP3/8/8/PPPP1PPP/RNBQKBNR w KQkq d6 0 3"}) {
+        chess::Board board(fen);
+        const auto original = board.getFen();
+        const auto key = board.hash();
+        const auto clock = board.halfMoveClock();
+        const auto rights = board.castlingRights();
+        const auto side = board.sideToMove();
+        try {
+            chesslab::ScopedNullMove passed(board);
+            require(board.sideToMove() == ~side, "Null move did not switch side");
+            require(board.enpassantSq() == chess::Square::NO_SQ, "Null move did not clear EP");
+            require(board.hash() == board.zobrist() && board.hash() != key, "Null key not updated");
+            require(board.castlingRights() == rights && board.halfMoveClock() == clock,
+                    "Null move changed castling or real move clock");
+            chess::Movelist replies;
+            chess::movegen::legalmoves(replies, board);
+            chesslab::ScopedMove reply(board, replies[0]);
+            throw 1;
+        } catch (int) {}
+        require(board.hash() == key && board.getFen() == original, "Null unwind did not restore exact board");
+    }
+    chess::Board board;
+    require(chesslab::null_move_allowed(board, 4, 1, 0, 1, false), "Opening null guard too restrictive");
+    require(!chesslab::null_move_allowed(board, 2, 1, 0, 1, false), "Shallow null allowed");
+    require(!chesslab::null_move_allowed(board, 4, 0, 0, 1, false), "Root null allowed");
+    require(!chesslab::null_move_allowed(board, 4, 1, -10, 10, false), "PV null allowed");
+    require(!chesslab::null_move_allowed(board, 4, 1, 0, 1, true), "Nested null allowed");
+    require(!chesslab::null_move_allowed(board, 4, 1, 29900, 29901, false), "Near-mate null allowed");
+    for (const auto& uci : {"e2e4", "e7e5", "f2f3", "d8h4"}) board.makeMove<true>(legal_move(board, uci));
+    require(board.inCheck() && !chesslab::null_move_allowed(board, 4, 1, 0, 1, false), "Null allowed in check");
+    chess::Board repeated;
+    for (int i = 0; i < 2; ++i) {
+        for (const auto& uci : {"g1f3", "g8f6", "f3g1", "f6g8"}) repeated.makeMove<true>(legal_move(repeated, uci));
+    }
+    require(repeated.isRepetition(2), "Repetition fixture broken");
+    { chesslab::ScopedNullMove passed(repeated); }
+    require(repeated.isRepetition(2) && !chesslab::null_move_allowed(repeated, 5, 1, 0, 1, false),
+            "Null corrupted/ignored repetition history");
+    for (const auto& fen : {"8/3k4/3P4/3K4/8/8/8/8 w - - 0 1",
+         "7k/8/8/8/8/8/7R/7K w - - 0 1",
+         "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 90 46"}) {
+        require(!chesslab::null_move_allowed(chess::Board(fen), 5, 1, 0, 1, false), "Zugzwang/draw risk not protected");
+    }
+}
+
+void lmr_guards() {
+    chess::Board board;
+    const auto quiet = legal_move(board, "g1f3");
+    const auto eligible = [&](chess::Board& b, chess::Move m, int depth, int index, int alpha, int beta,
+                              chess::Move tt, chess::Move pv, bool null_tree) {
+        return chesslab::lmr_candidate(b, m, depth, 1, index, alpha, beta, tt, pv, null_tree);
+    };
+    require(eligible(board, quiet, 4, 4, 0, 1, {}, {}, false), "Late quiet not eligible");
+    require(!eligible(board, quiet, 2, 4, 0, 1, {}, {}, false), "Shallow move reduced");
+    require(!eligible(board, quiet, 4, 3, 0, 1, {}, {}, false), "Early move reduced");
+    require(!eligible(board, quiet, 4, 4, -10, 10, {}, {}, false), "PV node reduced");
+    require(!eligible(board, quiet, 4, 4, 0, 1, quiet, {}, false), "TT move reduced");
+    require(!eligible(board, quiet, 4, 4, 0, 1, {}, quiet, false), "PV hint reduced");
+    require(!eligible(board, quiet, 4, 4, 0, 1, {}, {}, true), "Null subtree reduced");
+    require(!eligible(board, quiet, 4, 4, 29900, 29901, {}, {}, false), "Mate bound reduced");
+    for (const auto& uci : {"e2e4", "e7e5", "f2f3", "d8h4"}) board.makeMove<true>(legal_move(board, uci));
+    require(!eligible(board, legal_move(board, "g2g3"), 4, 4, 0, 1, {}, {}, false), "Check evasion reduced");
+    for (const auto& fixture : std::vector<std::pair<std::string, std::string>>{
+        {"rnbqkbnr/ppp1pppp/8/3pP3/8/8/PPPP1PPP/RNBQKBNR w KQkq d6 0 3", "e5d6"},
+        {"1r5k/P7/8/8/8/8/8/2Q4K w - - 0 1", "a7a8q"},
+        {"r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1", "e1g1"},
+        {"7k/8/8/8/8/8/8/RQ5K w - - 0 1", "a1a8"},
+        {"4k3/8/8/8/8/8/4B3/3QR2K w - - 0 1", "e2f3"}}) {
+        chess::Board position(fixture.first);
+        const auto move = legal_move(position, fixture.second);
+        require(!eligible(position, move, 4, 4, 0, 1, {}, {}, false), "Tactical move reduced");
+        const bool gives_check = position.givesCheck(move) != chess::CheckType::NO_CHECK;
+        chesslab::ScopedMove played(position, move);
+        require(gives_check == position.inCheck(), "Check detector disagrees after making move");
+    }
+}
+
 }  // namespace
 
 int main(int argc, char** argv) {
@@ -263,7 +343,9 @@ int main(int argc, char** argv) {
         else if (test == "quiescence") quiescence();
         else if (test == "pvs") pvs();
         else if (test == "cancellation") cancellation();
-        else throw std::runtime_error("Expected hashes, bounds, storage, histories, quiescence, or pvs");
+        else if (test == "null-moves") null_moves();
+        else if (test == "lmr-guards") lmr_guards();
+        else throw std::runtime_error("Expected hashes, bounds, storage, histories, quiescence, pvs, cancellation, null-moves, or lmr-guards");
         std::cout << test << " passed\n";
     } catch (const std::exception& error) {
         std::cerr << error.what() << '\n';

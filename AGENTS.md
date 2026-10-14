@@ -6,7 +6,7 @@ You have full authorization to commit and push repository changes. Push to the c
 
 ## Project structure and module organization
 
-ChessLab is a Python/Pygame chess application for engine development.
+ChessLab is a Python/Pygame application for engine development.
 
 - `app/`: Python application; separate startup, game state, board rendering, input handling, and `ui/` components.
 - `app/assets/`: locally bundled piece images and attribution/license notices.
@@ -47,4 +47,4 @@ Use imperative subjects, such as `Add promotion selection dialog`. Keep commits 
 
 ## Development boundaries
 
-Gameplay defaults to timed deepening; retain fixed-depth baselines. Preserve fallbacks, board restoration, and stale-request guards. Quiescence/PVS remain switchable; Minimax never scouts. Preserve check evasions, shared budgets, draw context, TT bounds, and completed-pass snapshots. Keep both switches off for historical baselines. Defer killer/history heuristics and further pruning until requested. Run UCI work off the GUI thread, reject stale replies, and apply moves only after final completion. Preserve attribution.
+Gameplay defaults to timed deepening. Aspiration/NMP/LMR are switchable; Minimax ignores them. Disable advanced features for exhaustive baselines. Preserve exact aspiration retries, isolated null histories/cache, LMR verification, draw context, TT bounds, fallbacks, board restoration, and completed snapshots. Never claim selective scores equal exhaustive results. Defer killer/history heuristics and further pruning until requested. Keep UCI off the GUI thread, reject stale replies, and play only final validated moves. Preserve attribution.

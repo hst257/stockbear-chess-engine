@@ -25,6 +25,11 @@ struct SearchLimits {
     bool quiescence = true;
     bool principal_variation_search = true;  // Effective only with alpha-beta enabled.
     bool time_managed = false;  // Movetime without depth: deepen to the safety ceiling.
+    bool aspiration_windows = true;
+    int aspiration_delta = 25;  // Initial margin in centipawns, clamped to 1..500.
+    bool null_move_pruning = true;
+    bool late_move_reductions = true;
+    int lmr_reduction = 1;  // Configurable 1..3, also clamped to depth - 2.
 };
 
 struct SearchResult {
@@ -45,6 +50,18 @@ struct SearchResult {
     std::uint64_t pvs_researches = 0;
     std::uint64_t qcaps = 0;
     bool ply_limit_reached = false;
+    std::uint64_t aspiration_attempts = 0;
+    std::uint64_t aspiration_searches = 0;
+    std::uint64_t aspiration_fail_high = 0;
+    std::uint64_t aspiration_fail_low = 0;
+    std::uint64_t aspiration_retries = 0;
+    std::uint64_t aspiration_successes = 0;
+    std::uint64_t null_attempts = 0;
+    std::uint64_t null_cutoffs = 0;
+    std::uint64_t lmr_attempts = 0;
+    std::uint64_t lmr_searches = 0;
+    std::uint64_t lmr_researches = 0;
+    std::uint64_t lmr_verifications = 0;
 };
 
 using SearchProgress = std::function<void(const SearchResult&)>;

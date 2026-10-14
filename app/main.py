@@ -32,6 +32,12 @@ def main() -> int:
                         help="Resolve captures, promotions, and check evasions at leaves (default: enabled).")
     parser.add_argument("--pvs", action=argparse.BooleanOptionalAction, default=True,
                         help="Use Principal Variation Search with alpha-beta (default: enabled).")
+    parser.add_argument("--aspiration-windows", action=argparse.BooleanOptionalAction, default=True,
+                        help="Narrow iterative alpha-beta windows (default: enabled).")
+    parser.add_argument("--null-move-pruning", action=argparse.BooleanOptionalAction, default=True,
+                        help="Conservative null-move scouts (default: enabled).")
+    parser.add_argument("--lmr", action=argparse.BooleanOptionalAction, default=True,
+                        help="Conservative late quiet-move reductions (default: enabled).")
     parser.add_argument("--engine", metavar="PATH", help="Path to the compiled ChessLab UCI executable.")
     args = parser.parse_args()
     if args.smoke_test is not None and args.smoke_test < 1:
@@ -51,7 +57,7 @@ def main() -> int:
         settings = EngineSettings(args.mode == "engine", args.human_color == "white",
                                   args.algorithm == "alphabeta", args.depth, args.iterative_deepening,
                                   args.move_ordering, args.pst, args.transposition_table,
-                                  args.quiescence, args.pvs, args.search_mode == "time", args.thinking_time)
+                                  args.quiescence, args.pvs, args.search_mode == "time", args.thinking_time, args.aspiration_windows, args.null_move_pruning, args.lmr)
         app = Application(settings=settings, engine_path=Path(args.engine) if args.engine else DEFAULT_ENGINE)
         app.run(args.smoke_test, args.screenshot)
         return 0

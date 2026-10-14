@@ -39,7 +39,7 @@ def main():
     flags = {"creationflags": subprocess.CREATE_NO_WINDOW} if os.name == "nt" else {}
     options = {"AlphaBeta": True, "IterativeDeepening": True, "UsePST": True,
                "MoveOrdering": True, "TranspositionTable": True, "Hash": 16,
-               "Quiescence": True, "PVS": True}
+               "Quiescence": True, "PVS": True, "UseAspirationWindows": False, "UseNullMovePruning": False, "UseLMR": False}
     rows = []
     with chess.engine.SimpleEngine.popen_uci(str(args.engine), timeout=8, **flags) as engine:
         engine.configure(options)
@@ -74,7 +74,7 @@ def main():
                     samples[ms].append({"requested_ms": ms, "engine_seconds": info["time"],
                         "wall_seconds": wall, "depth": info["depth"], "seldepth": info["seldepth"],
                         "nodes": info["nodes"], "nps": info["nps"], "move": move.uci() if move else "0000",
-                        "san": board.san(move) if move else "â€”", "score_white": str(info["score"].white()),
+                        "san": board.san(move) if move else "—", "score_white": str(info["score"].white()),
                         "pv": [m.uci() for m in info.get("pv", [])],
                         "completed_depths": [i["depth"] for i in completed],
                         **table_stats(info), **search_counters(info)})
