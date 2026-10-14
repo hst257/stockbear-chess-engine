@@ -24,6 +24,7 @@ class EngineSettings:
     iterative_deepening: bool = True
     move_ordering: bool = True
     use_pst: bool = True
+    transposition_table: bool = True
 
     def __post_init__(self) -> None:
         if not 1 <= self.depth <= 5:
@@ -59,6 +60,10 @@ class SearchStats:
     iterations: tuple[SearchIteration, ...] = ()
     move_ordering: bool = True
     use_pst: bool = True
+    transposition_table: bool = True
+    tt_hits: int = 0
+    tt_cutoffs: int = 0
+    hashfull: int = 0
 
 
 @dataclass(frozen=True)
@@ -81,9 +86,20 @@ class _Job:
     analysis: chess.engine.SimpleAnalysisResult | None = None
 
 
+def table_stats(info: chess.engine.InfoDict) -> dict[str, int]:
+    words = info.get("string", "").split()
+    try:
+        index = words.index("tt")
+        pairs = words[index + 1:]
+        return {key: int(value) for key, value in zip(pairs[::2], pairs[1::2])
+                if key in ("probes", "hits", "cutoffs")}
+    except (ValueError, TypeError):
+        return {}
+
+
 def search_stats(info: chess.engine.InfoDict, move: chess.Move | None, board: chess.Board,
                  settings: EngineSettings, pruning: bool,
-                 iterations: tuple[SearchIteration, ...]) -> SearchStats:
+                 iterations: tuple[SearchIteration, ...], counters: dict[str, int] | None = None) -> SearchStats:
     depth = info.get("depth", 0)
     score = info.get("score")
     white_score = score.white() if score else None
@@ -92,10 +108,13 @@ def search_stats(info: chess.engine.InfoDict, move: chess.Move | None, board: ch
     if white_score is not None and depth > 0:
         mate = white_score.mate()
         score_text = f"Mate {mate:+d}" if mate is not None else f"{white_score.score() / 100:+.2f}"
+    counters = counters or table_stats(info)
     return SearchStats("Alpha-beta" if pruning else "Minimax", settings.depth, depth,
                        info.get("nodes", 0), info.get("time", 0.0), move,
                        board.san(move) if move else "—", score_text, depth == settings.depth,
-                       settings.iterative_deepening, iterations, settings.move_ordering, settings.use_pst)
+                       settings.iterative_deepening, iterations, settings.move_ordering, settings.use_pst,
+                       settings.transposition_table, counters.get("hits", 0), counters.get("cutoffs", 0),
+                       info.get("hashfull", 0))
 
 
 class EngineClient:
@@ -172,8 +191,10 @@ class EngineClient:
                 if rows and job.stop_requested.is_set():
                     break
                 engine.configure({"AlphaBeta": pruning, "IterativeDeepening": settings.iterative_deepening,
-                                  "MoveOrdering": settings.move_ordering, "UsePST": settings.use_pst})
+                                  "MoveOrdering": settings.move_ordering, "UsePST": settings.use_pst,
+                                  "TranspositionTable": settings.transposition_table})
                 iterations: list[SearchIteration] = []
+                counters: dict[str, int] = {}
                 with engine.analysis(board, chess.engine.Limit(depth=settings.depth, time=SEARCH_SECONDS),
                                      info=chess.engine.INFO_ALL) as analysis:
                     with job.lock:
@@ -183,13 +204,14 @@ class EngineClient:
                     for info in analysis:
                         if job.canceled.is_set():
                             return
+                        counters.update(table_stats(info))
                         if info.get("depth", 0) <= 0:
                             continue
                         pv = info.get("pv", [])
-                        progress = search_stats(info, pv[0] if pv else None, board, settings, pruning, ())
+                        progress = search_stats(info, pv[0] if pv else None, board, settings, pruning, (), counters)
                         iterations.append(SearchIteration(progress.depth, progress.nodes,
                                                           progress.seconds, progress.san, progress.score))
-                        progress = search_stats(info, progress.move, board, settings, pruning, tuple(iterations))
+                        progress = search_stats(info, progress.move, board, settings, pruning, tuple(iterations), counters)
                         self.messages.put(EngineMessage(job.token, revision, kind,
                                                         (*rows, progress), finished=False))
                     result = analysis.wait()
@@ -200,7 +222,8 @@ class EngineClient:
                 move = result.move if result.move else None
                 if move is not None and move not in board.legal_moves:
                     raise RuntimeError("Engine returned an illegal move; game unchanged.")
-                rows.append(search_stats(info, move, board, settings, pruning, tuple(iterations)))
+                counters.update(table_stats(info))
+                rows.append(search_stats(info, move, board, settings, pruning, tuple(iterations), counters))
             if not job.canceled.is_set():
                 self.messages.put(EngineMessage(job.token, revision, kind, tuple(rows)))
         except (OSError, chess.engine.EngineError, TimeoutError, RuntimeError) as error:

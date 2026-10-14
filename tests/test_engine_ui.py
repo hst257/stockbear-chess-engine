@@ -246,6 +246,31 @@ def test_setup_selects_both_evaluation_modes(app):
         assert app.engine.calls[-1][2].use_pst == expected
 
 
+def test_tt_toggle_preserves_position_and_is_locked_during_comparison(app):
+    assert app.game.play(chess.Move.from_uci("e2e4"))
+    before = app.game.board.fen()
+    app.action("diagnostics")
+    app.draw()
+    click(app, app.modal_targets["toggle_tt"].center)
+    assert not app.settings.transposition_table and not app.search_rows
+    assert app.game.board.fen() == before
+    click(app, app.modal_targets["compare"].center)
+    assert not app.engine.calls[-1][2].transposition_table
+    click(app, app.modal_targets["toggle_tt"].center)
+    assert not app.settings.transposition_table
+
+
+def test_setup_selects_both_transposition_modes(app):
+    for name, expected in (("tt_off", False), ("tt_on", True)):
+        app.action("setup")
+        app.draw()
+        click(app, app.modal_targets[name].center)
+        click(app, app.modal_targets["start"].center)
+        assert app.settings.transposition_table == expected
+        human_e4(app)
+        assert app.engine.calls[-1][2].transposition_table == expected
+
+
 @pytest.mark.parametrize("size", [(960, 680), (1100, 760)])
 def test_engine_setup_and_diagnostics_render_at_supported_sizes(app, size, tmp_path):
     app.resize(size)

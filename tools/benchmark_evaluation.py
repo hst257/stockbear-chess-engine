@@ -112,7 +112,9 @@ def main():
     if args.repeats < 1 or args.seconds <= 0 or args.max_plies < 1:
         parser.error("repeats, seconds, and max-plies must be positive")
     flags = {"creationflags": subprocess.CREATE_NO_WINDOW} if os.name == "nt" else {}
-    settings = {"AlphaBeta": True, "IterativeDeepening": True, "MoveOrdering": True}
+    # Preserve the recorded PST-only comparison as new search features are added.
+    settings = {"AlphaBeta": True, "IterativeDeepening": True, "MoveOrdering": True,
+                "TranspositionTable": False}
     with chess.engine.SimpleEngine.popen_uci(str(args.engine), timeout=args.seconds + 5, **flags) as engine:
         engine.configure(settings)
         rows = measure(engine, args.depth, args.seconds, args.repeats)

@@ -65,7 +65,7 @@ new game. Press **E** for Search lab and toggle **PST: on/off** to preserve the
 current board. Old rows clear; rerun Compare position. Both comparison algorithms
 use the selected evaluation. Toggles are locked during active searches.
 
-![Evaluation selection](pst-setup.png)
+![Evaluation selection](tt-setup.png)
 
 ```powershell
 .\launch.bat --mode engine                   # PST enabled by default
@@ -107,7 +107,7 @@ conditions before static evaluation; those terminal scores take precedence.
 .\.venv\Scripts\python.exe -m tools.benchmark_evaluation --depth 5 --repeats 3 --match-games 4 --output artifacts\pst-benchmark.json
 ```
 
-**282 tests pass on Windows.** Checks cover all six piece types, asymmetric
+**375 tests pass in the current full suite on Windows.** PST checks cover all six piece types, asymmetric
 rank orientation, color symmetry, all 25 phase values, rounding, promotion-phase
 clamping, no material double-counting, terminal precedence, UCI diagnostics,
 search-leaf/diagnostic agreement, Minimax/alpha-beta equivalence, interruption,
@@ -117,6 +117,9 @@ The [recorded benchmark](pst-benchmark.json) contains all FENs, raw samples,
 engine hash, CPU/OS, and limits. Same machine, single worker, alpha-beta,
 iterative deepening and ordering enabled, depth 5, 15-second cap per search,
 three repeats with mode order alternated. Rows select the median wall-time run.
+The recorded PST benchmark predates transposition caching; the reproduction tool
+explicitly disables TT to retain those baseline conditions. For cache comparisons,
+see [transposition tables](transposition-tables.md).
 
 | Position | PST | Move | White score (cp) | Nodes | Engine seconds | Engine NPS |
 | --- | --- | --- | ---: | ---: | ---: | ---: |

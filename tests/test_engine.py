@@ -21,6 +21,7 @@ class Protocol:
         self.lines = queue.Queue()
         threading.Thread(target=self._read, daemon=True).start()
         self.send("setoption name UsePST value false")  # Legacy material baselines.
+        self.send("setoption name TranspositionTable value false")
 
     def _read(self):
         for line in self.process.stdout:
@@ -64,6 +65,8 @@ def test_uci_handshake_options_and_unknown_commands(engine):
     assert engine.options["IterativeDeepening"].default is True
     assert engine.options["MoveOrdering"].default is True
     assert engine.options["UsePST"].default is True
+    assert engine.options["TranspositionTable"].default is True
+    assert engine.options["Hash"].default == 16
     assert engine.options["Depth"].default == 3
     engine.ping()
 
@@ -236,6 +239,8 @@ def test_interrupted_search_is_not_reported_as_full_depth(protocol, limit):
     "setoption name IterativeDeepening value maybe",
     "setoption name MoveOrdering value maybe",
     "setoption name UsePST value maybe",
+    "setoption name TranspositionTable value maybe",
+    "setoption name Hash value 0", "setoption name Hash value 257",
 ])
 def test_invalid_commands_do_not_kill_engine_or_replace_position(protocol, command):
     protocol.send(command)
@@ -301,11 +306,12 @@ def test_node_budget_is_shared_between_passes(engine):
 @pytest.mark.parametrize("ordering", [False, True])
 @pytest.mark.parametrize("pruning", [False, True])
 @pytest.mark.parametrize("use_pst", [False, True])
-def test_interrupted_deeper_pass_preserves_saved_tactical_move_score_and_pv(engine, pruning, ordering, use_pst):
+@pytest.mark.parametrize("cached", [False, True])
+def test_interrupted_deeper_pass_preserves_saved_tactical_move_score_and_pv(engine, pruning, ordering, use_pst, cached):
     # Qxa4 wins a pawn at depth 1, but depth 2 sees ...bxa4 winning the queen.
     board = chess.Board("7k/8/8/1p6/p7/Q7/8/7K w - - 0 1")
     engine.configure({"AlphaBeta": pruning, "IterativeDeepening": False,
-                      "MoveOrdering": ordering, "UsePST": use_pst})
+                      "MoveOrdering": ordering, "UsePST": use_pst, "TranspositionTable": cached})
     shallow = engine.play(board, chess.engine.Limit(depth=1), info=chess.engine.INFO_ALL)
     deep = engine.play(board, chess.engine.Limit(depth=2), info=chess.engine.INFO_ALL)
     assert shallow.move != deep.move

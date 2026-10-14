@@ -5,6 +5,7 @@ for the project-local Zig C++ driver. No compiler is needed at engine runtime.
 """
 
 import importlib.util
+import argparse
 import os
 from pathlib import Path
 import shutil
@@ -15,6 +16,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--target", choices=("engine", "tt-tests"), default="engine")
+    target = parser.parse_args().target
     if os.environ.get("CXX"):
         compiler = [os.environ["CXX"]]
     elif importlib.util.find_spec("ziglang"):
@@ -25,11 +29,13 @@ def main() -> int:
             print("Install engine/requirements-build.txt or set CXX to a C++17 compiler.", file=sys.stderr)
             return 1
         compiler = [found]
-    output = ROOT / "engine" / "build" / ("chesslab-engine.exe" if os.name == "nt" else "chesslab-engine")
+    name = "chesslab-engine" if target == "engine" else "chesslab-tt-tests"
+    output = ROOT / "engine" / "build" / (name + (".exe" if os.name == "nt" else ""))
     output.parent.mkdir(parents=True, exist_ok=True)
     args = compiler + ["-std=c++17", "-O2", "-pthread", "-Wall", "-Wextra",
                        "-I", str(ROOT / "engine" / "vendor" / "chess-library"),
-                       str(ROOT / "engine" / "src" / "main.cpp"),
+                       "-I", str(ROOT / "engine" / "src"),
+                       str(ROOT / "engine" / ("src/main.cpp" if target == "engine" else "tests/test_transposition.cpp")),
                        str(ROOT / "engine" / "src" / "search.cpp"),
                        str(ROOT / "engine" / "src" / "evaluation.cpp"), "-o", str(output)]
     print("Building with " + " ".join(compiler), flush=True)

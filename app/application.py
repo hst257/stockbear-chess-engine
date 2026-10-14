@@ -177,6 +177,9 @@ class Application:
             elif target == "toggle_pst" and not self.engine.busy:
                 self.settings = replace(self.settings, use_pst=not self.settings.use_pst)
                 self.search_rows = ()
+            elif target == "toggle_tt" and not self.engine.busy:
+                self.settings = replace(self.settings, transposition_table=not self.settings.transposition_table)
+                self.search_rows = ()
 
     def handle_event(self, event: pygame.event.Event) -> None:
         if event.type == pygame.QUIT:

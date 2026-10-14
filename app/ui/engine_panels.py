@@ -17,22 +17,24 @@ def setup(surface: pygame.Surface, settings: EngineSettings, available: bool) ->
         theme.text(surface, title, (rect.x + 25, rect.y + y), 12, theme.MUTED, True)
         width = (rect.width - 60) // 2
         for index, (name, label, selected) in enumerate(options):
-            target = pygame.Rect(rect.x + 25 + index * (width + 10), rect.y + y + 24, width, 36)
+            target = pygame.Rect(rect.x + 25 + index * (width + 10), rect.y + y + 20, width, 32)
             theme.button(surface, target, label, primary=selected)
             targets[name] = target
 
-    choices(98, "OPPONENT", [("local", "Local two players", not settings.enabled),
+    choices(92, "OPPONENT", [("local", "Local two players", not settings.enabled),
                              ("engine", "ChessLab engine", settings.enabled)])
-    choices(162, "YOUR PIECES", [("white", "White", settings.human_color),
+    choices(148, "YOUR PIECES", [("white", "White", settings.human_color),
                                  ("black", "Black", not settings.human_color)])
-    choices(226, "SEARCH", [("minimax", "Minimax", not settings.alpha_beta),
+    choices(204, "SEARCH", [("minimax", "Minimax", not settings.alpha_beta),
                             ("alphabeta", "Alpha-beta", settings.alpha_beta)])
-    choices(290, "DEEPENING", [("iterative", "Depth 1 → target", settings.iterative_deepening),
+    choices(260, "DEEPENING", [("iterative", "Depth 1 → target", settings.iterative_deepening),
                               ("fixed", "Target depth only", not settings.iterative_deepening)])
-    choices(354, "MOVE ORDERING", [("ordered", "PV / promotions / captures", settings.move_ordering),
+    choices(316, "MOVE ORDERING", [("ordered", "PV / promotions / captures", settings.move_ordering),
                                    ("unordered", "Original move order", not settings.move_ordering)])
-    choices(418, "EVALUATION", [("pst_on", "Material + PST (on)", settings.use_pst),
+    choices(372, "EVALUATION", [("pst_on", "Material + PST (on)", settings.use_pst),
                                ("pst_off", "Material only (off)", not settings.use_pst)])
+    choices(428, "TRANSPOSITION TABLE", [("tt_on", "Cache on · Zobrist", settings.transposition_table),
+                                        ("tt_off", "Cache off · baseline", not settings.transposition_table)])
     theme.text(surface, "TARGET DEPTH (PLIES)", (rect.x + 25, rect.y + 498), 12, theme.MUTED, True)
     for name, label, x, enabled in (("less", "−", rect.x + 290, settings.depth > 1),
                                      ("more", "+", rect.x + 402, settings.depth < 5)):
@@ -62,6 +64,7 @@ def adjust(settings: EngineSettings, name: str) -> EngineSettings:
         "iterative": {"iterative_deepening": True}, "fixed": {"iterative_deepening": False},
         "ordered": {"move_ordering": True}, "unordered": {"move_ordering": False},
         "pst_on": {"use_pst": True}, "pst_off": {"use_pst": False},
+        "tt_on": {"transposition_table": True}, "tt_off": {"transposition_table": False},
         "less": {"depth": max(1, settings.depth - 1)},
         "more": {"depth": min(5, settings.depth + 1)},
     }
@@ -71,21 +74,23 @@ def adjust(settings: EngineSettings, name: str) -> EngineSettings:
 def diagnostics(surface: pygame.Surface, rows: tuple[SearchStats, ...],
                 settings: EngineSettings, busy: bool, error: str,
                 position_label: str) -> dict[str, pygame.Rect]:
-    rect = dialogs.panel(surface, "Search lab", "Minimax vs alpha-beta · cumulative nodes and time.", 590)
+    rect = dialogs.panel(surface, "Search lab", "Minimax vs alpha-beta · cumulative nodes and time.", 648)
     # Six compact columns fit inside the minimum-size window's modal panel.
     theme.text(surface, position_label, (rect.x + 25, rect.y + 91), 13, theme.ACCENT)
-    toggle = pygame.Rect(rect.x + 25, rect.y + 116, 140, 30)
+    toggle = pygame.Rect(rect.x + 25, rect.y + 116, 215, 30)
     theme.button(surface, toggle, "Deepening: " + ("on" if settings.iterative_deepening else "off"), not busy)
-    ordering = pygame.Rect(rect.x + 175, rect.y + 116, 140, 30)
+    ordering = pygame.Rect(rect.x + 250, rect.y + 116, 215, 30)
     theme.button(surface, ordering, "Ordering: " + ("on" if settings.move_ordering else "off"), not busy)
-    pst = pygame.Rect(rect.x + 325, rect.y + 116, 140, 30)
+    pst = pygame.Rect(rect.x + 25, rect.y + 154, 215, 30)
     theme.button(surface, pst, "PST: " + ("on" if settings.use_pst else "off"), not busy)
+    table = pygame.Rect(rect.x + 250, rect.y + 154, 215, 30)
+    theme.button(surface, table, "Transpositions: " + ("on" if settings.transposition_table else "off"), not busy)
     columns = [("Algorithm", 25), ("Move", 135), ("Depth", 199),
                ("Nodes", 255), ("Time", 340), ("Score", 405)]
     for label, x in columns:
-        theme.text(surface, label, (rect.x + x, rect.y + 163), 12, theme.MUTED, True)
+        theme.text(surface, label, (rect.x + x, rect.y + 201), 12, theme.MUTED, True)
     for index, row in enumerate(rows):
-        y = rect.y + 189 + index * 38
+        y = rect.y + 227 + index * 38
         values = [row.algorithm, row.san, str(row.depth) if row.complete else f"{row.depth}/{row.requested_depth}",
                   f"{row.nodes:,}", f"{row.seconds:.3f}s", row.score]
         for value, (_, x) in zip(values, columns):
@@ -98,18 +103,23 @@ def diagnostics(surface: pygame.Surface, rows: tuple[SearchStats, ...],
         detail = "Target not reached; showing last completed depths."
     if busy:
         detail = "Searching… each completed depth appears below."
-    theme.text(surface, detail, (rect.x + 25, rect.y + 274), 13, theme.MUTED)
+    theme.text(surface, detail, (rect.x + 25, rect.y + 312), 13, theme.MUTED)
     theme.text(surface, "COMPLETED PASSES" + (f" · {rows[-1].algorithm}" if rows else ""),
-               (rect.x + 25, rect.y + 314), 12, theme.MUTED, True)
+               (rect.x + 25, rect.y + 352), 12, theme.MUTED, True)
     if rows and rows[-1].iterations:
         for index, iteration in enumerate(rows[-1].iterations[-5:]):
             line = (f"Depth {iteration.depth}    {iteration.san}    {iteration.nodes:,} nodes"
                     f"    {iteration.seconds:.3f}s    {iteration.score}")
-            theme.text(surface, line, (rect.x + 25, rect.y + 340 + index * 23), 12)
+            theme.text(surface, line, (rect.x + 25, rect.y + 378 + index * 23), 12)
     else:
-        theme.text(surface, "No completed pass yet.", (rect.x + 25, rect.y + 340), 13, theme.MUTED)
+        theme.text(surface, "No completed pass yet.", (rect.x + 25, rect.y + 378), 13, theme.MUTED)
+    if rows:
+        latest = rows[-1]
+        line = (f"TT hits {latest.tt_hits:,} · cutoffs {latest.tt_cutoffs:,}"
+                f" · occupied {latest.hashfull / 10:.1f}%")
+        theme.text(surface, line, (rect.x + 25, rect.y + 498), 12, theme.MUTED)
     if error:
-        theme.text(surface, error[:62], (rect.x + 25, rect.y + 463), 13, theme.CHECK)
+        theme.text(surface, error[:62], (rect.x + 25, rect.y + 521), 13, theme.CHECK)
     targets = {
         "compare": pygame.Rect(rect.x + 25, rect.bottom - 85, 300, 36),
         "cancel_search": pygame.Rect(rect.x + 340, rect.bottom - 85, 125, 36),
@@ -117,6 +127,7 @@ def diagnostics(surface: pygame.Surface, rows: tuple[SearchStats, ...],
         "toggle_deepening": toggle,
         "toggle_ordering": ordering,
         "toggle_pst": pst,
+        "toggle_tt": table,
     }
     theme.button(surface, targets["compare"], f"Compare position · depth {settings.depth}", not busy, True)
     theme.button(surface, targets["cancel_search"], "Stop", busy)

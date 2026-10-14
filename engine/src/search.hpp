@@ -8,10 +8,9 @@
 
 #include "chess.hpp"
 #include "evaluation.hpp"
+#include "transposition.hpp"
 
 namespace chesslab {
-
-constexpr int MATE_SCORE = 30000;
 
 struct SearchLimits {
     int depth = 3;
@@ -20,6 +19,9 @@ struct SearchLimits {
     bool iterative_deepening = true;
     bool move_ordering = true;
     bool use_pst = true;
+    bool transposition_table = true;
+    int hash_megabytes = 16;
+    std::uint64_t history = 0;  // Reversible pre-root history, maintained with next_history().
 };
 
 struct SearchResult {
@@ -31,6 +33,10 @@ struct SearchResult {
     std::uint64_t nodes = 0;
     std::int64_t milliseconds = 0;
     bool complete = false;  // The requested target depth was reached.
+    std::uint64_t tt_probes = 0;
+    std::uint64_t tt_hits = 0;
+    std::uint64_t tt_cutoffs = 0;
+    int hashfull = 0;  // Permille of occupied slots.
 };
 
 using SearchProgress = std::function<void(const SearchResult&)>;

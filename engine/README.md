@@ -1,7 +1,8 @@
 # ChessLab engine: search and configurable evaluation
 
 A standalone C++17 UCI executable implements Minimax with optional alpha-beta
-pruning, iterative deepening, move ordering, and material/PST evaluation.
+pruning, iterative deepening, move ordering, material/PST evaluation, and
+Zobrist-based transposition caching.
 It owns its board independently of Python.
 No search or evaluation is delegated to another engine.
 
@@ -43,10 +44,11 @@ Each node generates legal moves, checks mate/stalemate, checks draws, then
 uses the selected static evaluator at depth zero. Mate distance favors faster wins and slower
 losses. Terminal detection precedes draw counters.
 
-With `AlphaBeta=false`, every branch is searched. With `AlphaBeta=true`, the same
+With `AlphaBeta=false`, no alpha/beta cutoffs are applied; exact table hits can
+still reuse completed subtrees. With `AlphaBeta=true`, the same
 function updates alpha/beta bounds and cuts branches that cannot affect the answer.
-Both modes share the same ordering policy and first-best tie rule. Transposition
-tables, quiescence, killer/history heuristics, opening books,
+Both modes share the same ordering policy and first-best tie rule. Quiescence,
+killer/history heuristics, opening books,
 and neural networks are deferred.
 
 `src/evaluation.cpp` adds positional centipawns from the compile-time arrays in
@@ -97,18 +99,20 @@ claims remain explicit.
 
 Enabled by default in both algorithms. At each non-leaf node, stable sorting uses:
 
-1. The previous completed iteration's PV move, only while following that PV's
+1. A matching transposition-table move, if available.
+2. The previous completed iteration's PV move, only while following that PV's
    exact prefix. Siblings never reuse hints based only on their ply.
-2. Promotions, prioritized by promoted-piece value and any capture bonus.
-3. Captures using MVV-LVA: `10 × victim value − attacker value`.
-4. Quiet moves in the original rules-library order.
+3. Promotions, prioritized by promoted-piece value and any capture bonus.
+4. Captures using MVV-LVA: `10 × victim value − attacker value`.
+5. Quiet moves in the original rules-library order.
 
 The library identifies en passant's pawn victim and excludes castling from
 captures. Capture promotions receive both bonuses. Equal priorities preserve
 library order; the first equally scored searched move wins. Ordering can change
 the selected move/PV among ties while preserving the full-depth minimax score.
-It creates earlier alpha-beta cutoffs; exhaustive Minimax visits the same nodes
-and pays sorting overhead. Node savings and elapsed-time gains vary by position.
+It creates earlier alpha-beta cutoffs; with transposition caching disabled,
+exhaustive Minimax visits the same nodes and pays sorting overhead. Node savings
+and elapsed-time gains vary by position.
 
 Setup offers **PV / promotions / captures** and **Original move order**. Search
 lab's **Ordering: on/off** preserves the board and clears old rows; rerun Compare
@@ -116,6 +120,23 @@ position to measure the new setting. Toggles are disabled during searches. CLI:
 `--no-move-ordering`. UCI: `setoption name MoveOrdering value false`. Disabling
 ordering bypasses all sorting and PV hints, restoring the original traversal.
 Hints are local to one search and come only from fully completed passes.
+
+## Transposition tables
+
+Enabled by default, a bounded per-search table caches completed nodes across
+iterative passes. The rules library already supplies incremental 64-bit Zobrist
+keys; no duplicate position-hashing system or vendor changes were needed.
+Full keys, halfmove clocks, and reversible-history fingerprints guard probes.
+Exact/lower/upper bounds, equal-depth score reuse, and ply-normalized mate scores
+preserve fixed-depth answers. Compact complete PVs retain legal reported lines.
+
+Each search starts fresh, preventing score reuse across different evaluation or
+algorithm settings. Hash capacity defaults to a 16 MiB cap (rounded down to a
+power-of-two slot count), configurable via UCI `Hash` from 1 to 256. Disabling
+`TranspositionTable` bypasses the cache and its hints. Both GUI setup and Search
+lab offer on/off controls; CLI: `--no-transposition-table`. Search lab displays
+hits, cutoffs, and occupancy. The [TT guide](../docs/transposition-tables.md)
+explains repetition context, replacement, interruption, memory, and benchmarks.
 
 ## UCI
 
@@ -128,6 +149,8 @@ setoption name AlphaBeta value true
 setoption name IterativeDeepening value true
 setoption name MoveOrdering value true
 setoption name UsePST value true
+setoption name TranspositionTable value true
+setoption name Hash value 16
 position startpos moves e2e4 e7e5
 go depth 3
 ```
@@ -135,14 +158,17 @@ go depth 3
 Commands: `uci`, `isready`, `ucinewgame`, `setoption`, `position startpos`,
 `position fen` (six fields, optionally followed by moves), `go`, `stop`, `quit`,
 and the optional diagnostic `eval`.
-Options: `AlphaBeta`, `IterativeDeepening`, `MoveOrdering`, `UsePST` (all default true), and `Depth`
-(default 3, range 1–8). `go` accepts depth, movetime (milliseconds), nodes, and
+Options: `AlphaBeta`, `IterativeDeepening`, `MoveOrdering`, `UsePST`,
+`TranspositionTable` (all default true), `Hash` (default 16 MiB cap, range 1–256),
+and `Depth` (default 3, range 1–8). `go` accepts depth, movetime (milliseconds), nodes, and
 infinite. Bare `go` uses the Depth option. Time/node-limited requests without an
 explicit depth, and infinite searches, permit deepening through a safety cap of
 64 plies until stopped. Clock allocation and pondering are not implemented.
 
 The input thread remains responsive during worker searches. `info` reports depth,
 selective depth, nodes, time, approximate NPS, score, and legal principal variation.
+`hashfull` is occupied table slots per thousand; `info string tt probes N hits H
+cutoffs C` reports cache statistics. Final summary includes total counters.
 UCI scores favor the player to move; the GUI converts to White's perspective.
 Terminal/no-move results use `bestmove 0000`.
 
@@ -184,12 +210,18 @@ Build first, then run `.venv\Scripts\python.exe -m pytest -q` from the root.
 Tests include perft (197,281 at initial depth 4; 97,862 at Kiwipete depth 3), legal
 move cross-checks against python-chess, terminal states, search equivalence,
 interruptible UCI, cancellation, and actual engine-to-GUI play/comparison.
-The 282-test suite also checks optimal moves/scores against an independent Python
+The 375-test suite also checks optimal moves/scores against an independent Python
 reference with ordering off/on, both algorithms, and direct/iterative search.
 PST coverage includes all pieces, color/rank orientation, phase/rounding, diagnostic
 and search consistency, unchanged terminal behavior, and GUI on/off selection.
 
-Original baseline with **UsePST=false, MoveOrdering=false**, initial target depth 3
+Native TT unit tests are compiled automatically with the build helper. They cover
+incremental/full hashes, special moves and unmake, key/context collisions, bounds,
+depth validity, replacement, and mate-distance normalization. Integration tests
+verify cached/uncached scores, complete legal PVs, exhaustive child values, draw
+histories/clocks, interruption, and both GUI modes.
+
+Original baseline with **TranspositionTable=false, UsePST=false, MoveOrdering=false**, initial target depth 3
 (all select a3 with White score 0.00):
 
 | Algorithm | Deepening off | Deepening on |
@@ -197,7 +229,8 @@ Original baseline with **UsePST=false, MoveOrdering=false**, initial target dept
 | Minimax | 9,323 nodes | 9,765 nodes |
 | Alpha-beta | 586 nodes | 667 nodes |
 
-Measured iterative alpha-beta with **UsePST=false**, same completed depth/evaluation in each pair:
+Measured iterative alpha-beta with **TranspositionTable=false, UsePST=false**,
+same completed depth/evaluation in each pair:
 
 | Position | Depth | Ordering off | Ordering on | Fewer nodes |
 | --- | ---: | ---: | ---: | ---: |
@@ -207,7 +240,7 @@ Measured iterative alpha-beta with **UsePST=false**, same completed depth/evalua
 Both initial searches select b3 (+1.00); both Kiwipete searches select Bxa6
 (+0.10). Kiwipete FEN:
 `r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1`.
-Reproduce with `UsePST=false`, `AlphaBeta=true`, `IterativeDeepening=true`, the respective
+Reproduce with `TranspositionTable=false`, `UsePST=false`, `AlphaBeta=true`, `IterativeDeepening=true`, the respective
 `position` and `go depth` commands, toggling `MoveOrdering` between runs.
 
 With a shared 50-node budget, iterative Minimax completes depth 1 before being
@@ -229,12 +262,17 @@ Standalone rules diagnostics:
 Run matched evaluation benchmarks and optional color-balanced smoke games with
 `python -m tools.benchmark_evaluation --match-games 4`. Recorded moves, scores,
 nodes, time, NPS, raw JSON, and PGNs are in the [PST guide](../docs/pst.md#verification-and-benchmarks).
+That benchmark explicitly disables TT to preserve the original comparison.
+`python -m tools.benchmark_transpositions` compares the cache on/off with the same
+PST evaluator and search settings. At initial depth 5, caching visits 118,406
+instead of 182,596 nodes (35.2% fewer), returning the same e4 and +70 cp.
 
 ## Third-party rules
 
 Disservin's MIT-licensed C++ chess library version 0.9.4 is vendored at revision
 `53e6a841dcda7059a2af363d85f785ef1817304a`. The original header/license are unchanged.
-Its position hashes support repetition detection; ChessLab has no search cache.
+Its position hashes support repetition detection and ChessLab's own transposition
+table; search, cache policy, and evaluation remain in `engine/src/`.
 
 Numeric PST data is adapted from Andrew Healey's MIT-licensed Andoma implementation
 of Tomasz Michniewski's classical tables. Full [notice and adaptation notes](vendor/andoma/README.md).

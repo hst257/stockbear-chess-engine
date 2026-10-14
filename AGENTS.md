@@ -47,4 +47,4 @@ Use imperative subjects, such as `Add promotion selection dialog`. Keep commits 
 
 ## Development boundaries
 
-The milestone adds switchable piece-square evaluation and tapered king tables. Defer transposition tables, quiescence, PVS, and killer/history heuristics until requested. Both algorithms share evaluation/ordering for fair comparisons. Preserve the material-only baseline, completed results, and table attribution. Run UCI work off the GUI thread, ignore stale replies, and apply moves only after final completion. Document tested behavior.
+The milestone adds bounded, switchable transposition caching using existing Zobrist keys. Preserve draw context, score bounds, mate normalization, and uncached baselines. Defer quiescence, PVS, and killer/history heuristics until requested. Both algorithms share settings. Keep completed results separate from unfinished passes. Run UCI work off the GUI thread, reject stale replies, and apply moves only after final completion. Preserve attribution and document tested behavior.

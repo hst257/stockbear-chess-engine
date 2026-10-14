@@ -44,7 +44,8 @@ void report_info(const chesslab::SearchResult& result, const chess::Board& posit
     if (completed_iteration || result.depth == 0) info << " depth " << result.depth;
     info << " seldepth " << result.selective_depth << " nodes " << result.nodes
          << " time " << result.milliseconds
-         << " nps " << result.nodes * 1000 / std::max<std::int64_t>(1, result.milliseconds);
+         << " nps " << result.nodes * 1000 / std::max<std::int64_t>(1, result.milliseconds)
+         << " hashfull " << result.hashfull;
     if (completed_iteration && result.depth > 0) {
         const int relative = position.sideToMove() == chess::Color::WHITE ? result.white_score : -result.white_score;
         if (std::abs(relative) >= chesslab::MATE_SCORE - 128) {
@@ -57,6 +58,11 @@ void report_info(const chesslab::SearchResult& result, const chess::Board& posit
         }
     }
     output(info.str());
+}
+
+std::string table_info(const chesslab::SearchResult& result) {
+    return "tt probes " + std::to_string(result.tt_probes) + " hits " + std::to_string(result.tt_hits) +
+           " cutoffs " + std::to_string(result.tt_cutoffs);
 }
 
 std::vector<std::string> words(const std::string& line) {
@@ -153,18 +159,20 @@ public:
             try {
                 const auto& command = tokens[0];
                 if (command == "uci") {
-                    output("id name ChessLab 0.5");
+                    output("id name ChessLab 0.6");
                     output("id author ChessLab contributors");
                     output("option name AlphaBeta type check default true");
                     output("option name IterativeDeepening type check default true");
                     output("option name MoveOrdering type check default true");
                     output("option name UsePST type check default true");
+                    output("option name TranspositionTable type check default true");
+                    output("option name Hash type spin default 16 min 1 max 256");
                     output("option name Depth type spin default 3 min 1 max 8");
                     output("uciok");
                 } else if (command == "isready") output("readyok");
                 else if (command == "setoption") set_option(tokens);
                 else if (command == "position") set_position(tokens);
-                else if (command == "ucinewgame") { stop_search(); board_ = chess::Board(); }
+                else if (command == "ucinewgame") { stop_search(); board_ = chess::Board(); history_ = 0; }
                 else if (command == "go") go(tokens);
                 else if (command == "stop") stop_search();
                 else if (command == "eval") {
@@ -186,6 +194,9 @@ private:
     bool iterative_deepening_ = true;
     bool move_ordering_ = true;
     bool use_pst_ = true;
+    bool transposition_table_ = true;
+    int hash_megabytes_ = 16;
+    std::uint64_t history_ = 0;
     int depth_ = 3;
     std::atomic<bool> stopped_{false};
     std::thread worker_;
@@ -198,21 +209,24 @@ private:
     void set_option(const std::vector<std::string>& tokens) {
         stop_search();
         if (tokens.size() != 5 || tokens[1] != "name" || tokens[3] != "value") {
-            throw std::invalid_argument("expected setoption name <AlphaBeta|IterativeDeepening|MoveOrdering|UsePST|Depth> value <value>");
+            throw std::invalid_argument("expected setoption name <AlphaBeta|IterativeDeepening|MoveOrdering|UsePST|TranspositionTable|Hash|Depth> value <value>");
         }
         if (tokens[2] == "AlphaBeta" || tokens[2] == "IterativeDeepening" ||
-            tokens[2] == "MoveOrdering" || tokens[2] == "UsePST") {
+            tokens[2] == "MoveOrdering" || tokens[2] == "UsePST" || tokens[2] == "TranspositionTable") {
             if (tokens[4] != "true" && tokens[4] != "false") throw std::invalid_argument("check options must be true or false");
             if (tokens[2] == "AlphaBeta") alpha_beta_ = tokens[4] == "true";
             else if (tokens[2] == "IterativeDeepening") iterative_deepening_ = tokens[4] == "true";
             else if (tokens[2] == "MoveOrdering") move_ordering_ = tokens[4] == "true";
-            else use_pst_ = tokens[4] == "true";
+            else if (tokens[2] == "UsePST") use_pst_ = tokens[4] == "true";
+            else transposition_table_ = tokens[4] == "true";
         } else if (tokens[2] == "Depth") depth_ = integer(tokens[4], 1, 8);
+        else if (tokens[2] == "Hash") hash_megabytes_ = integer(tokens[4], 1, 256);
     }
 
     void set_position(const std::vector<std::string>& tokens) {
         stop_search();
         chess::Board candidate;
+        std::uint64_t history = 0;
         std::size_t index = 2;
         if (tokens.size() < 2) throw std::invalid_argument("position needs startpos or fen");
         if (tokens[1] == "fen") {
@@ -223,9 +237,14 @@ private:
         } else if (tokens[1] != "startpos") throw std::invalid_argument("unknown position format");
         if (index < tokens.size()) {
             if (tokens[index++] != "moves") throw std::invalid_argument("expected moves");
-            while (index < tokens.size()) apply_legal(candidate, tokens[index++]);
+            while (index < tokens.size()) {
+                const auto previous_key = candidate.hash();
+                apply_legal(candidate, tokens[index++]);
+                history = chesslab::next_history(history, previous_key, candidate);
+            }
         }
         board_ = candidate;  // Invalid commands never replace the previous position.
+        history_ = history;
     }
 
     void go(const std::vector<std::string>& tokens) {
@@ -235,6 +254,9 @@ private:
         limits.iterative_deepening = iterative_deepening_;
         limits.move_ordering = move_ordering_;
         limits.use_pst = use_pst_;
+        limits.transposition_table = transposition_table_;
+        limits.hash_megabytes = hash_megabytes_;
+        limits.history = history_;
         bool explicit_depth = false;
         for (std::size_t i = 1; i < tokens.size(); ++i) {
             if (tokens[i] == "infinite") limits.depth = 64;
@@ -254,13 +276,17 @@ private:
         worker_ = std::thread([this, position, limits, pruning] {
             try {
                 const auto result = chesslab::search(position, limits, pruning, stopped_,
-                    [&position](const auto& iteration) { report_info(iteration, position, true); });
+                    [&position](const auto& iteration) {
+                        output("info string " + table_info(iteration));
+                        report_info(iteration, position, true);
+                    });
                 if (!result.complete) report_info(result, position, false);
                 output(std::string("info string ") + (result.complete ? "complete " : "incomplete ") +
                        (pruning ? "alpha-beta " : "minimax ") +
                        (limits.iterative_deepening ? "iterative " : "fixed ") +
                        (limits.move_ordering ? "ordered " : "unordered ") +
-                       (limits.use_pst ? "material+pst" : "material"));
+                       (limits.use_pst ? "material+pst " : "material ") +
+                       (limits.transposition_table ? "cached " : "uncached ") + table_info(result));
                 output("bestmove " + (result.best_move == chess::Move{} ? std::string("0000") :
                                       chess::uci::moveToUci(result.best_move)));
             } catch (const std::exception& error) {

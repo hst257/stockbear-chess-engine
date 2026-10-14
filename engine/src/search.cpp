@@ -1,6 +1,7 @@
 #include "search.hpp"
 
 #include <algorithm>
+#include <memory>
 
 namespace chesslab {
 namespace {
@@ -8,7 +9,8 @@ namespace {
 constexpr int INFINITY_SCORE = 32000;
 struct Interrupted {};
 
-void order_moves(chess::Movelist& moves, const chess::Board& board, chess::Move pv_move) {
+void order_moves(chess::Movelist& moves, const chess::Board& board,
+                 chess::Move pv_move, chess::Move table_move) {
     for (auto& move : moves) {
         int priority = 0;
         int capture_bonus = 0;
@@ -23,6 +25,7 @@ void order_moves(chess::Movelist& moves, const chess::Board& board, chess::Move 
             priority = 20000 + PIECE_VALUES[move.promotionType()] + capture_bonus;
         }
         if (move == pv_move) priority = 32000;
+        if (move == table_move) priority = 32500;
         move.setScore(static_cast<std::int16_t>(priority));
     }
     // Equal priorities preserve the library order, including quiet moves.
@@ -34,7 +37,8 @@ void order_moves(chess::Movelist& moves, const chess::Board& board, chess::Move 
 class Search {
 public:
     Search(const SearchLimits& limits, bool pruning, const std::atomic<bool>& stop)
-        : limits_(limits), pruning_(pruning), stop_(stop), start_(Clock::now()) {}
+        : limits_(limits), pruning_(pruning), stop_(stop), start_(Clock::now()),
+          table_(limits.transposition_table ? std::make_unique<TranspositionTable>(limits.hash_megabytes) : nullptr) {}
 
     SearchResult run(chess::Board& board, const SearchProgress& progress) {
         chess::Movelist moves;
@@ -49,7 +53,7 @@ public:
             std::vector<chess::Move> pv;
             int score;
             try {
-                score = minimax(board, depth, 0, -INFINITY_SCORE, INFINITY_SCORE, pv, true);
+                score = minimax(board, depth, 0, -INFINITY_SCORE, INFINITY_SCORE, pv, true, limits_.history);
             } catch (const Interrupted&) {
                 break;
             }
@@ -59,10 +63,12 @@ public:
             result_.complete = depth == limits_.depth;
             if (!result_.pv.empty()) result_.best_move = result_.pv.front();
             result_.milliseconds = elapsed();
+            result_.hashfull = table_ ? table_->hashfull() : 0;
             if (progress) progress(result_);
         }
         // Totals include unfinished work; depth/PV/score refer to the saved pass.
         result_.milliseconds = elapsed();
+        result_.hashfull = table_ ? table_->hashfull() : 0;
         return result_;
     }
 
@@ -73,6 +79,7 @@ private:
     const std::atomic<bool>& stop_;
     Clock::time_point start_;
     SearchResult result_;
+    std::unique_ptr<TranspositionTable> table_;  // Fresh per search; shared across completed passes.
 
     std::int64_t elapsed() const {
         return std::chrono::duration_cast<std::chrono::milliseconds>(Clock::now() - start_).count();
@@ -85,7 +92,7 @@ private:
     }
 
     int minimax(chess::Board& board, int depth, int ply, int alpha, int beta,
-                std::vector<chess::Move>& pv, bool follows_previous_pv) {
+                std::vector<chess::Move>& pv, bool follows_previous_pv, std::uint64_t history) {
         if (stop_.load(std::memory_order_relaxed) ||
             (limits_.nodes && result_.nodes >= limits_.nodes) ||
             (limits_.milliseconds && (result_.nodes % 1024 == 0) &&
@@ -103,19 +110,42 @@ private:
         if (is_draw(board)) return 0;
         if (depth == 0) return evaluate(board, limits_.use_pst);
 
+        const int original_alpha = alpha;
+        const int original_beta = beta;
+        chess::Move table_move{};
+        if (table_) {
+            ++result_.tt_probes;
+            const auto* entry = table_->probe(board.hash(), history, board.halfMoveClock());
+            // A matching hash never licenses an illegal move.
+            if (entry && std::find(moves.begin(), moves.end(), entry->move()) != moves.end()) {
+                ++result_.tt_hits;
+                table_move = entry->move();
+                // Equal depth keeps exact fixed-horizon comparisons meaningful.
+                // Other depths remain useful as move-ordering hints only.
+                const auto score = table_score(*entry, depth, ply, alpha, beta, pruning_);
+                if (score) {
+                    ++result_.tt_cutoffs;
+                    for (unsigned i = 0; i < entry->length; ++i) pv.emplace_back(entry->pv[i]);
+                    return *score;
+                }
+            }
+        }
+
         // A PV move is meaningful only on its original path, never on a sibling
         // merely at the same ply. result_.pv changes only after a complete pass.
         const auto hint = follows_previous_pv && static_cast<std::size_t>(ply) < result_.pv.size()
                             ? result_.pv[ply] : chess::Move{};
-        if (limits_.move_ordering) order_moves(moves, board, hint);
+        if (limits_.move_ordering) order_moves(moves, board, hint, table_move);
         const bool maximizing = board.sideToMove() == chess::Color::WHITE;
         int best = maximizing ? -INFINITY_SCORE : INFINITY_SCORE;
         // Minimax and alpha-beta share the same ordering and first-best tie rule.
         for (const auto move : moves) {
             std::vector<chess::Move> child_pv;
+            const auto parent_key = board.hash();
             board.makeMove<true>(move);
             const int score = minimax(board, depth - 1, ply + 1, alpha, beta, child_pv,
-                                      follows_previous_pv && move == hint);
+                                      follows_previous_pv && move == hint,
+                                      table_ ? next_history(history, parent_key, board) : 0);
             board.unmakeMove(move);
             if ((maximizing && score > best) || (!maximizing && score < best)) {
                 best = score;
@@ -127,6 +157,14 @@ private:
                 else beta = std::min(beta, best);
                 if (alpha >= beta) break;
             }
+        }
+        if (table_) {
+            const auto bound = best <= original_alpha ? Bound::UPPER :
+                               best >= original_beta ? Bound::LOWER : Bound::EXACT;
+            // Interrupted nodes throw before reaching this store. Completed
+            // descendants remain valid, even when their parent pass is stopped.
+            table_->store(board.hash(), history, board.halfMoveClock(), depth,
+                          score_to_table(best, ply), bound, pv);
         }
         return best;
     }

@@ -21,12 +21,14 @@ def wait_result(client, seconds=8, progress=None):
 
 @pytest.mark.parametrize("ordering", [False, True])
 @pytest.mark.parametrize("use_pst", [False, True])
-def test_comparison_runs_both_algorithms_on_unchanged_snapshot(ordering, use_pst):
+@pytest.mark.parametrize("cached", [False, True])
+def test_comparison_runs_both_algorithms_on_unchanged_snapshot(ordering, use_pst, cached):
     assert DEFAULT_ENGINE.is_file(), "Build engine before running integration tests"
     client = EngineClient()
     board = chess.Board()
     try:
-        token = client.start(board, 42, EngineSettings(depth=3, move_ordering=ordering, use_pst=use_pst), "compare")
+        token = client.start(board, 42, EngineSettings(depth=3, move_ordering=ordering, use_pst=use_pst,
+                                                      transposition_table=cached), "compare")
         progress = []
         message = wait_result(client, progress=progress)
         assert message.token == token and message.revision == 42
@@ -36,7 +38,10 @@ def test_comparison_runs_both_algorithms_on_unchanged_snapshot(ordering, use_pst
         assert plain.complete and pruned.complete
         assert plain.move_ordering == pruned.move_ordering == ordering
         assert plain.use_pst == pruned.use_pst == use_pst
-        if not ordering and not use_pst:
+        assert plain.transposition_table == pruned.transposition_table == cached
+        if not cached:
+            assert plain.tt_hits == pruned.tt_hits == 0
+        if not ordering and not use_pst and not cached:
             assert (plain.nodes, pruned.nodes) == (9765, 667)
         assert plain.score == pruned.score and plain.move == pruned.move
         assert pruned.nodes < plain.nodes
