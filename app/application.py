@@ -180,6 +180,12 @@ class Application:
             elif target == "toggle_tt" and not self.engine.busy:
                 self.settings = replace(self.settings, transposition_table=not self.settings.transposition_table)
                 self.search_rows = ()
+            elif target == "toggle_quiescence" and not self.engine.busy:
+                self.settings = replace(self.settings, quiescence=not self.settings.quiescence)
+                self.search_rows = ()
+            elif target == "toggle_pvs" and not self.engine.busy:
+                self.settings = replace(self.settings, principal_variation_search=not self.settings.principal_variation_search)
+                self.search_rows = ()
 
     def handle_event(self, event: pygame.event.Event) -> None:
         if event.type == pygame.QUIT:

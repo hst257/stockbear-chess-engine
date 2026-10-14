@@ -22,6 +22,8 @@ class Protocol:
         threading.Thread(target=self._read, daemon=True).start()
         self.send("setoption name UsePST value false")  # Legacy material baselines.
         self.send("setoption name TranspositionTable value false")
+        self.send("setoption name Quiescence value false")
+        self.send("setoption name PVS value false")
 
     def _read(self):
         for line in self.process.stdout:
@@ -67,6 +69,8 @@ def test_uci_handshake_options_and_unknown_commands(engine):
     assert engine.options["UsePST"].default is True
     assert engine.options["TranspositionTable"].default is True
     assert engine.options["Hash"].default == 16
+    assert engine.options["Quiescence"].default is True
+    assert engine.options["PVS"].default is True
     assert engine.options["Depth"].default == 3
     engine.ping()
 
@@ -241,6 +245,7 @@ def test_interrupted_search_is_not_reported_as_full_depth(protocol, limit):
     "setoption name UsePST value maybe",
     "setoption name TranspositionTable value maybe",
     "setoption name Hash value 0", "setoption name Hash value 257",
+    "setoption name Quiescence value maybe", "setoption name PVS value maybe",
 ])
 def test_invalid_commands_do_not_kill_engine_or_replace_position(protocol, command):
     protocol.send(command)
@@ -354,3 +359,23 @@ def test_time_budget_without_explicit_depth_keeps_deepening(engine):
     assert 1 < result.info["depth"] < 64
     assert result.move == result.info["pv"][0]
     assert "score" in result.info
+
+
+def test_stop_remains_responsive_with_quiescence_and_pvs(protocol):
+    protocol.send("setoption name Quiescence value true")
+    protocol.send("setoption name PVS value true")
+    protocol.send("setoption name UsePST value true")
+    protocol.send("position fen r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1")
+    protocol.send("go infinite")
+    before = protocol.until("info depth 1 ")
+    protocol.send("isready")
+    ready = protocol.until("readyok", timeout=2)
+    start = time.monotonic()
+    protocol.send("stop")
+    after = protocol.until("bestmove", timeout=2)
+    assert time.monotonic() - start < 2
+    completed = [line.split() for line in before + ready + after if line.startswith("info depth ") and " score " in line]
+    assert completed
+    last = completed[-1]
+    assert after[-1] == "bestmove " + last[last.index("pv") + 1]
+    assert any(" search qnodes " in line and " scouts " in line for line in after)

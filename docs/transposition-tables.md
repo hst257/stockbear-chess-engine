@@ -44,6 +44,10 @@ For an equal-depth hit:
 Different-depth entries supply ordering hints only. Requiring equal depth for
 score reuse keeps fixed-horizon comparisons with the uncached baseline meaningful.
 A deeper score is not automatically the same answer as a shallower search.
+With quiescence enabled, score reuse also requires the stored root ply to match,
+preserving the absolute extension allowance. Q nodes are not cached as normal
+main-depth entries; main entries contain their completed quiescent scores/PVs.
+Fresh tables prevent reuse across Q/PVS configuration changes.
 
 Mate scores are converted from root-relative ply distance to position-relative
 distance on storage, then converted back at the probing ply. Full compact PVs
@@ -71,14 +75,14 @@ uncached search skips all probes, stores, table hints, and history-fingerprint w
 
 ## Controls and diagnostics
 
-- Setup (**G**): **Cache on · Zobrist** / **Cache off · baseline**, then Start new game.
+- Setup (**G**): **Transpositions: on/off**, then Start new game.
 - Search lab (**E**): **Transpositions: on/off** preserves the position and clears
   old rows. Rerun Compare position; both algorithms use the selected setting.
 - CLI: `--transposition-table` or `--no-transposition-table`; default is on.
 - UCI: `setoption name TranspositionTable value false` disables caching.
   `setoption name Hash value 32` sets the next search's memory cap.
 
-![Cache selection](tt-setup.png)
+![Cache selection](search-setup.png)
 
 Standard `info` lines report `hashfull` as occupied slots per thousand. UCI-safe
 `info string tt probes N hits H cutoffs C` lines report cumulative matching entries
@@ -95,7 +99,7 @@ not tablebase hits. Nodes still count every search invocation, including cache h
 .\.venv\Scripts\python.exe -m tools.benchmark_transpositions --depth 5 --repeats 3 --output artifacts\tt-benchmark.json
 ```
 
-**375 tests pass on Windows.** Pytest compiles the native TT test executable with
+**527 tests pass on Windows.** Pytest compiles the native TT test executable with
 the existing build helper; keep the C++ compiler available. Native tests cover
 incremental/full hash agreement, make/unmake, castling/en-passant/side keys, empty
 and colliding slots, context guards, replacement priority, all bound types, depth
@@ -111,7 +115,7 @@ inspected at 1100×760 and the minimum 960×680.
 
 Recorded [raw results and all FENs](tt-benchmark.json) use the same machine,
 alpha-beta, PST, iterative deepening, and ordering; depth 5, Hash=16, a 15-second
-cap per search, three repeats with on/off order alternated. Each row below uses
+cap per search, **quiescence and PVS off**, three repeats with on/off order alternated. Each row below uses
 the median wall-time sample. All pairs return identical moves and White scores.
 
 | Position | Move / White cp | Nodes off | Nodes on | Reduction | Hits / cutoffs on | Engine seconds off / on |
@@ -126,5 +130,6 @@ measurements and NPS are noisy. Fresh table allocation can make small searches
 slower despite fewer nodes, as in this endgame. Savings are position-dependent
 and establish no playing-strength or Elo claim.
 
-Cross-search persistence, more aggressive history handling, quiescence, PVS, and
-other search heuristics remain future work requiring a new request.
+Quiescence and PVS are now available; see the [search guide](search.md).
+Cross-search persistence, more aggressive history handling, and other search
+heuristics remain future work requiring a new request.

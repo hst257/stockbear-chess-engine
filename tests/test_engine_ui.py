@@ -214,7 +214,7 @@ def test_ordering_can_be_toggled_for_comparison_without_resetting_position(app):
 def test_setup_applies_original_ordering_to_engine_game(app):
     app.action("setup")
     app.draw()
-    for name in ("unordered", "start"):
+    for name in ("toggle_ordering", "start"):
         click(app, app.modal_targets[name].center)
     assert not app.settings.move_ordering
     human_e4(app)
@@ -236,10 +236,10 @@ def test_pst_toggle_preserves_board_and_is_locked_during_comparison(app):
 
 
 def test_setup_selects_both_evaluation_modes(app):
-    for name, expected in (("pst_off", False), ("pst_on", True)):
+    for expected in (False, True):
         app.action("setup")
         app.draw()
-        click(app, app.modal_targets[name].center)
+        click(app, app.modal_targets["toggle_pst"].center)
         click(app, app.modal_targets["start"].center)
         assert app.settings.use_pst == expected
         human_e4(app)
@@ -261,14 +261,44 @@ def test_tt_toggle_preserves_position_and_is_locked_during_comparison(app):
 
 
 def test_setup_selects_both_transposition_modes(app):
-    for name, expected in (("tt_off", False), ("tt_on", True)):
+    for expected in (False, True):
         app.action("setup")
         app.draw()
-        click(app, app.modal_targets[name].center)
+        click(app, app.modal_targets["toggle_tt"].center)
         click(app, app.modal_targets["start"].center)
         assert app.settings.transposition_table == expected
         human_e4(app)
         assert app.engine.calls[-1][2].transposition_table == expected
+
+
+@pytest.mark.parametrize("field,target", [("quiescence", "toggle_quiescence"),
+                                          ("principal_variation_search", "toggle_pvs")])
+def test_new_search_toggles_preserve_position_and_lock_during_search(app, field, target):
+    assert app.game.play(chess.Move.from_uci("e2e4"))
+    before = app.game.board.fen()
+    app.action("diagnostics")
+    app.draw()
+    click(app, app.modal_targets[target].center)
+    assert getattr(app.settings, field) is False and not app.search_rows
+    assert app.game.board.fen() == before
+    click(app, app.modal_targets["compare"].center)
+    assert getattr(app.engine.calls[-1][2], field) is False
+    click(app, app.modal_targets[target].center)
+    assert getattr(app.settings, field) is False
+
+
+def test_setup_new_search_modes_and_minimax_pvs_inactive_state(app):
+    app.action("setup")
+    app.draw()
+    click(app, app.modal_targets["toggle_quiescence"].center)
+    click(app, app.modal_targets["toggle_pvs"].center)
+    click(app, app.modal_targets["minimax"].center)
+    assert "toggle_pvs" not in app.modal_targets
+    click(app, app.modal_targets["start"].center)
+    assert not app.settings.quiescence and not app.settings.principal_variation_search
+    human_e4(app)
+    assert not app.engine.calls[-1][2].quiescence
+    assert not app.engine.calls[-1][2].principal_variation_search
 
 
 @pytest.mark.parametrize("size", [(960, 680), (1100, 760)])

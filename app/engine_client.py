@@ -25,6 +25,8 @@ class EngineSettings:
     move_ordering: bool = True
     use_pst: bool = True
     transposition_table: bool = True
+    quiescence: bool = True
+    principal_variation_search: bool = True
 
     def __post_init__(self) -> None:
         if not 1 <= self.depth <= 5:
@@ -32,7 +34,7 @@ class EngineSettings:
 
     @property
     def algorithm(self) -> str:
-        return "Alpha-beta" if self.alpha_beta else "Minimax"
+        return ("PVS" if self.principal_variation_search else "Alpha-beta") if self.alpha_beta else "Minimax"
 
 
 @dataclass(frozen=True)
@@ -64,6 +66,13 @@ class SearchStats:
     tt_hits: int = 0
     tt_cutoffs: int = 0
     hashfull: int = 0
+    quiescence: bool = True
+    principal_variation_search: bool = True
+    qnodes: int = 0
+    pvs_scouts: int = 0
+    pvs_researches: int = 0
+    qcaps: int = 0
+    ply_limit_reached: bool = False
 
 
 @dataclass(frozen=True)
@@ -97,6 +106,16 @@ def table_stats(info: chess.engine.InfoDict) -> dict[str, int]:
         return {}
 
 
+def search_counters(info: chess.engine.InfoDict) -> dict[str, int]:
+    words = info.get("string", "").split()
+    try:
+        pairs = words[words.index("search") + 1:]
+        return {key: int(value) for key, value in zip(pairs[::2], pairs[1::2])
+                if key in ("qnodes", "scouts", "researches", "qcaps", "plylimit")}
+    except (ValueError, TypeError):
+        return {}
+
+
 def search_stats(info: chess.engine.InfoDict, move: chess.Move | None, board: chess.Board,
                  settings: EngineSettings, pruning: bool,
                  iterations: tuple[SearchIteration, ...], counters: dict[str, int] | None = None) -> SearchStats:
@@ -108,13 +127,16 @@ def search_stats(info: chess.engine.InfoDict, move: chess.Move | None, board: ch
     if white_score is not None and depth > 0:
         mate = white_score.mate()
         score_text = f"Mate {mate:+d}" if mate is not None else f"{white_score.score() / 100:+.2f}"
-    counters = counters or table_stats(info)
-    return SearchStats("Alpha-beta" if pruning else "Minimax", settings.depth, depth,
+    counters = counters or {**table_stats(info), **search_counters(info)}
+    algorithm = ("PVS" if settings.principal_variation_search else "Alpha-beta") if pruning else "Minimax"
+    return SearchStats(algorithm, settings.depth, depth,
                        info.get("nodes", 0), info.get("time", 0.0), move,
                        board.san(move) if move else "—", score_text, depth == settings.depth,
                        settings.iterative_deepening, iterations, settings.move_ordering, settings.use_pst,
                        settings.transposition_table, counters.get("hits", 0), counters.get("cutoffs", 0),
-                       info.get("hashfull", 0))
+                       info.get("hashfull", 0), settings.quiescence, pruning and settings.principal_variation_search,
+                       counters.get("qnodes", 0), counters.get("scouts", 0), counters.get("researches", 0),
+                       counters.get("qcaps", 0), bool(counters.get("plylimit", 0)))
 
 
 class EngineClient:
@@ -192,7 +214,8 @@ class EngineClient:
                     break
                 engine.configure({"AlphaBeta": pruning, "IterativeDeepening": settings.iterative_deepening,
                                   "MoveOrdering": settings.move_ordering, "UsePST": settings.use_pst,
-                                  "TranspositionTable": settings.transposition_table})
+                                  "TranspositionTable": settings.transposition_table,
+                                  "Quiescence": settings.quiescence, "PVS": settings.principal_variation_search})
                 iterations: list[SearchIteration] = []
                 counters: dict[str, int] = {}
                 with engine.analysis(board, chess.engine.Limit(depth=settings.depth, time=SEARCH_SECONDS),
@@ -205,6 +228,7 @@ class EngineClient:
                         if job.canceled.is_set():
                             return
                         counters.update(table_stats(info))
+                        counters.update(search_counters(info))
                         if info.get("depth", 0) <= 0:
                             continue
                         pv = info.get("pv", [])
@@ -223,6 +247,7 @@ class EngineClient:
                 if move is not None and move not in board.legal_moves:
                     raise RuntimeError("Engine returned an illegal move; game unchanged.")
                 counters.update(table_stats(info))
+                counters.update(search_counters(info))
                 rows.append(search_stats(info, move, board, settings, pruning, tuple(iterations), counters))
             if not job.canceled.is_set():
                 self.messages.put(EngineMessage(job.token, revision, kind, tuple(rows)))

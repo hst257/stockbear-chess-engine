@@ -7,6 +7,7 @@ namespace chesslab {
 namespace {
 
 constexpr int INFINITY_SCORE = 32000;
+constexpr int MAX_QUIESCENCE_PLY = 16;
 struct Interrupted {};
 
 void order_moves(chess::Movelist& moves, const chess::Board& board,
@@ -91,8 +92,7 @@ private:
         return board.isInsufficientMaterial() || board.isHalfMoveDraw() || board.isRepetition(2);
     }
 
-    int minimax(chess::Board& board, int depth, int ply, int alpha, int beta,
-                std::vector<chess::Move>& pv, bool follows_previous_pv, std::uint64_t history) {
+    void visit(int ply, bool quiescent = false) {
         if (stop_.load(std::memory_order_relaxed) ||
             (limits_.nodes && result_.nodes >= limits_.nodes) ||
             (limits_.milliseconds && (result_.nodes % 1024 == 0) &&
@@ -100,14 +100,78 @@ private:
             throw Interrupted{};
         }
         ++result_.nodes;  // Includes the root, terminal nodes, and static leaves.
+        if (quiescent) ++result_.qnodes;
         result_.selective_depth = std::max(result_.selective_depth, ply);
-        chess::Movelist moves;
-        chess::movegen::legalmoves(moves, board);
+    }
+
+    static std::optional<int> terminal(const chess::Board& board, const chess::Movelist& moves, int ply) {
         if (moves.empty()) {
             if (!board.inCheck()) return 0;
             return board.sideToMove() == chess::Color::WHITE ? -MATE_SCORE + ply : MATE_SCORE - ply;
         }
         if (is_draw(board)) return 0;
+        return std::nullopt;
+    }
+
+    int quiescence(chess::Board& board, int ply, int qply, int alpha, int beta,
+                   std::vector<chess::Move>& pv) {
+        visit(ply, true);
+        chess::Movelist moves;
+        chess::movegen::legalmoves(moves, board);
+        if (const auto score = terminal(board, moves, ply)) return *score;
+        const bool checked = board.inCheck();
+        const bool maximizing = board.sideToMove() == chess::Color::WHITE;
+        int best;
+        if (checked) {
+            // Never stand pat in check, including at the soft q-depth limit.
+            if (ply >= MAX_SEARCH_PLY) {
+                result_.ply_limit_reached = true;
+                throw Interrupted{};
+            }
+            best = maximizing ? -INFINITY_SCORE : INFINITY_SCORE;
+        } else {
+            best = evaluate(board, limits_.use_pst);
+            if (qply >= MAX_QUIESCENCE_PLY || ply >= MAX_SEARCH_PLY) {
+                ++result_.qcaps;
+                return best;
+            }
+            if (pruning_) {
+                if ((maximizing && best >= beta) || (!maximizing && best <= alpha)) return best;
+                if (maximizing) alpha = std::max(alpha, best);
+                else beta = std::min(beta, best);
+            }
+        }
+        chess::Movelist tactical;
+        for (const auto move : moves) {
+            if (checked || board.isCapture(move) || move.typeOf() == chess::Move::PROMOTION) tactical.add(move);
+        }
+        if (limits_.move_ordering) order_moves(tactical, board, chess::Move{}, chess::Move{});
+        for (const auto move : tactical) {
+            std::vector<chess::Move> child_pv;
+            board.makeMove<true>(move);
+            const int score = quiescence(board, ply + 1, qply + 1, alpha, beta, child_pv);
+            board.unmakeMove(move);
+            if ((maximizing && score > best) || (!maximizing && score < best)) {
+                best = score;
+                pv.assign(1, move);
+                pv.insert(pv.end(), child_pv.begin(), child_pv.end());
+            }
+            if (pruning_) {
+                if (maximizing) alpha = std::max(alpha, best);
+                else beta = std::min(beta, best);
+                if (alpha >= beta) break;
+            }
+        }
+        return best;
+    }
+
+    int minimax(chess::Board& board, int depth, int ply, int alpha, int beta,
+                std::vector<chess::Move>& pv, bool follows_previous_pv, std::uint64_t history) {
+        if (depth == 0 && limits_.quiescence) return quiescence(board, ply, 0, alpha, beta, pv);
+        visit(ply);
+        chess::Movelist moves;
+        chess::movegen::legalmoves(moves, board);
+        if (const auto score = terminal(board, moves, ply)) return *score;
         if (depth == 0) return evaluate(board, limits_.use_pst);
 
         const int original_alpha = alpha;
@@ -122,9 +186,10 @@ private:
                 table_move = entry->move();
                 // Equal depth keeps exact fixed-horizon comparisons meaningful.
                 // Other depths remain useful as move-ordering hints only.
-                const auto score = table_score(*entry, depth, ply, alpha, beta, pruning_);
+                const auto score = table_score(*entry, depth, ply, alpha, beta, pruning_, limits_.quiescence);
                 if (score) {
                     ++result_.tt_cutoffs;
+                    result_.selective_depth = std::max(result_.selective_depth, ply + entry->length);
                     for (unsigned i = 0; i < entry->length; ++i) pv.emplace_back(entry->pv[i]);
                     return *score;
                 }
@@ -138,15 +203,33 @@ private:
         if (limits_.move_ordering) order_moves(moves, board, hint, table_move);
         const bool maximizing = board.sideToMove() == chess::Color::WHITE;
         int best = maximizing ? -INFINITY_SCORE : INFINITY_SCORE;
+        bool first = true;
         // Minimax and alpha-beta share the same ordering and first-best tie rule.
         for (const auto move : moves) {
             std::vector<chess::Move> child_pv;
             const auto parent_key = board.hash();
             board.makeMove<true>(move);
-            const int score = minimax(board, depth - 1, ply + 1, alpha, beta, child_pv,
-                                      follows_previous_pv && move == hint,
-                                      table_ ? next_history(history, parent_key, board) : 0);
+            const auto child_history = table_ ? next_history(history, parent_key, board) : 0;
+            const bool child_follows_pv = follows_previous_pv && move == hint;
+            int score;
+            if (pruning_ && limits_.principal_variation_search && !first && beta - alpha > 1) {
+                ++result_.pvs_scouts;
+                const int scout_alpha = maximizing ? alpha : beta - 1;
+                const int scout_beta = maximizing ? alpha + 1 : beta;
+                score = minimax(board, depth - 1, ply + 1, scout_alpha, scout_beta,
+                                child_pv, child_follows_pv, child_history);
+                if (score > alpha && score < beta) {
+                    ++result_.pvs_researches;
+                    child_pv.clear();
+                    score = minimax(board, depth - 1, ply + 1, alpha, beta,
+                                    child_pv, child_follows_pv, child_history);
+                }
+            } else {
+                score = minimax(board, depth - 1, ply + 1, alpha, beta,
+                                child_pv, child_follows_pv, child_history);
+            }
             board.unmakeMove(move);
+            first = false;
             if ((maximizing && score > best) || (!maximizing && score < best)) {
                 best = score;
                 pv.assign(1, move);
@@ -164,7 +247,7 @@ private:
             // Interrupted nodes throw before reaching this store. Completed
             // descendants remain valid, even when their parent pass is stopped.
             table_->store(board.hash(), history, board.halfMoveClock(), depth,
-                          score_to_table(best, ply), bound, pv);
+                          score_to_table(best, ply), bound, pv, ply);
         }
         return best;
     }

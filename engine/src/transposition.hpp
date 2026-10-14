@@ -46,6 +46,7 @@ struct TableEntry {
     std::uint8_t halfmove = 0;
     Bound bound = Bound::EXACT;
     std::uint8_t length = 0;
+    std::uint8_t search_ply = 0;
     // Compact, complete PVs keep exact hits useful without chasing evicted slots.
     std::array<std::uint16_t, MAX_SEARCH_PLY> pv{};
 
@@ -53,9 +54,12 @@ struct TableEntry {
 };
 
 inline std::optional<int> table_score(const TableEntry& entry, int depth, int ply,
-                                      int alpha, int beta, bool pruning) {
+                                      int alpha, int beta, bool pruning, bool quiescence = false) {
     // Greater-depth values describe a different horizon; only use their move.
     if (entry.depth != depth) return std::nullopt;
+    // Quiescence's absolute safety ceiling depends on the root ply. Equal ply
+    // ensures cached scores had the same remaining extension allowance.
+    if (quiescence && entry.search_ply != ply) return std::nullopt;
     const int score = score_from_table(entry.score, ply);
     if (entry.bound == Bound::EXACT || (pruning &&
         ((entry.bound == Bound::LOWER && score >= beta) ||
@@ -80,7 +84,7 @@ public:
     }
 
     void store(std::uint64_t key, std::uint64_t history, unsigned halfmove, int depth,
-               int score, Bound bound, const std::vector<chess::Move>& pv) {
+               int score, Bound bound, const std::vector<chess::Move>& pv, int ply = 0) {
         auto& entry = entries_[index(key, history, halfmove)];
         const bool same = entry.depth >= 0 && entry.key == key && entry.history == history &&
                           entry.halfmove == halfmove;
@@ -94,6 +98,7 @@ public:
         entry.depth = static_cast<std::int16_t>(depth);
         entry.score = score;
         entry.bound = bound;
+        entry.search_ply = static_cast<std::uint8_t>(ply);
         entry.length = static_cast<std::uint8_t>(std::min(pv.size(), entry.pv.size()));
         for (std::size_t i = 0; i < entry.length; ++i) entry.pv[i] = pv[i].move();
     }

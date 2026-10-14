@@ -28,7 +28,8 @@ def test_comparison_runs_both_algorithms_on_unchanged_snapshot(ordering, use_pst
     board = chess.Board()
     try:
         token = client.start(board, 42, EngineSettings(depth=3, move_ordering=ordering, use_pst=use_pst,
-                                                      transposition_table=cached), "compare")
+                                                      transposition_table=cached, quiescence=False,
+                                                      principal_variation_search=False), "compare")
         progress = []
         message = wait_result(client, progress=progress)
         assert message.token == token and message.revision == 42
@@ -113,5 +114,37 @@ def test_graceful_stop_retains_proven_score_and_result():
         assert row.depth >= 1 and row.score != "—"
         assert row.move in chess.Board().legal_moves
         assert not client.busy
+    finally:
+        client.close()
+
+
+@pytest.mark.parametrize("qsearch", [False, True])
+@pytest.mark.parametrize("pvs", [False, True])
+def test_new_search_modes_stream_actual_counters_and_labels(qsearch, pvs):
+    client = EngineClient()
+    board = chess.Board()
+    try:
+        client.start(board, 9, EngineSettings(depth=3, quiescence=qsearch,
+                                             principal_variation_search=pvs), "compare")
+        result = wait_result(client)
+        assert not result.error and result.finished
+        minimax, pruned = result.stats
+        assert minimax.algorithm == "Minimax"
+        assert pruned.algorithm == ("PVS" if pvs else "Alpha-beta")
+        assert minimax.quiescence == pruned.quiescence == qsearch
+        assert not minimax.principal_variation_search
+        assert pruned.principal_variation_search == pvs
+        assert minimax.complete and pruned.complete and minimax.score == pruned.score
+        assert minimax.pvs_scouts == minimax.pvs_researches == 0
+        if qsearch:
+            assert 0 < minimax.qnodes <= minimax.nodes
+            assert 0 < pruned.qnodes <= pruned.nodes
+        else:
+            assert minimax.qnodes == pruned.qnodes == 0
+        if pvs:
+            assert pruned.pvs_scouts >= pruned.pvs_researches > 0
+        else:
+            assert pruned.pvs_scouts == pruned.pvs_researches == 0
+        assert board.fen() == chess.STARTING_FEN
     finally:
         client.close()

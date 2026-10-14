@@ -1,6 +1,6 @@
 # ChessLab
 
-ChessLab is a desktop chess game and a project for learning search algorithms. The Python/Pygame application supports local two-player games and a custom standalone C++17 opponent. Minimax, alpha-beta pruning, iterative deepening, move ordering, piece-square evaluation, and Zobrist-based transposition tables are implemented with a comparison interface.
+ChessLab is a desktop chess game and a project for learning search algorithms. The Python/Pygame application supports local two-player games and a custom standalone C++17 opponent. Minimax, alpha-beta pruning, iterative deepening, move ordering, piece-square evaluation, Zobrist-based transposition tables, quiescence search, and Principal Variation Search (PVS) are implemented with a comparison interface.
 
 ![ChessLab game board](docs/chesslab.png)
 
@@ -34,7 +34,7 @@ The launch script changes to its own folder, so it works regardless of your curr
 
 Build once after setup. The script installs a portable C++ compiler in `.venv` and produces `engine/build/chesslab-engine.exe`. No global toolchain installation is needed. The first compiler download is about 80 MB. Rebuild after changing C++ sources; generated binaries are not committed.
 
-Press **G** or click the opponent button to choose local/engine play, your color, Minimax or alpha-beta, iterative/direct search, move ordering, evaluation, transposition caching, and target depth 1–5. **Start new game** applies those choices. Press **E** for Search lab and **Compare position** to measure both algorithms without playing a move. **Deepening**, **Ordering**, **PST**, and **Transpositions** on/off controls change settings on the existing position; both algorithms use the same settings. Toggle a setting and rerun to compare results.
+Press **G** or click the opponent button to choose local/engine play, your color, Minimax or alpha-beta, iterative/direct search, move ordering, evaluation, transposition caching, quiescence, PVS, and target depth 1–5. **Start new game** applies those choices. Press **E** for Search lab and **Compare position** to measure both algorithms without playing a move. **Deepening**, **Ordering**, **PST**, **Transpositions**, **Quiescence**, and **PVS** on/off controls change settings on the existing position; both algorithms use the same settings. Toggle a setting and rerun to compare results.
 
 ```powershell
 .\launch.bat --mode engine --human-color black --algorithm minimax --depth 3
@@ -42,6 +42,7 @@ Press **G** or click the opponent button to choose local/engine play, your color
 .\launch.bat --mode engine --depth 4 --no-move-ordering
 .\launch.bat --mode engine --no-pst
 .\launch.bat --mode engine --no-transposition-table
+.\launch.bat --mode engine --no-quiescence --no-pvs
 ```
 
 Local play remains the default. `--engine PATH` selects another build of ChessLab. Missing engines are reported in the interface; local play remains available.
@@ -50,11 +51,13 @@ Iterative deepening is on by default: depth 1, then 2, through the target. When 
 
 Move ordering is also on by default: a matching table move first, then the previous completed principal variation along its original path, promotions, and captures ranked by victim value and attacker cost. Equal priorities retain their original order. Sorting can change which equally scored move wins a tie while preserving full-depth scores. With caching off, ordering alone does not reduce exhaustive Minimax's node count or guarantee a speedup.
 
-**PST is on by default.** Classical piece-square tables add modest positional bonuses for every piece, encouraging central knights, useful development, and sheltered kings. The king blends middlegame/endgame tables using remaining non-pawn material (phase 0–24). Black mirrors ranks; scores still favor White. Choose **Material only (off)** in setup or **PST: off** in Search lab to restore the original evaluator. See the [PST guide](docs/pst.md) for all tables, attribution, phase arithmetic, evaluation diagnostics, and benchmarks.
+**PST is on by default.** Classical piece-square tables add modest positional bonuses for every piece, encouraging central knights, useful development, and sheltered kings. The king blends middlegame/endgame tables using remaining non-pawn material (phase 0–24). Black mirrors ranks; scores still favor White. Choose **PST: off** in setup or **PST: off** in Search lab to restore the original evaluator. See the [PST guide](docs/pst.md) for all tables, attribution, phase arithmetic, evaluation diagnostics, and benchmarks.
 
 **Transposition caching is on by default.** It reuses the rules library's incremental Zobrist key, guarded by the halfmove clock and repetition history. A bounded table stores completed scores, bounds, and PVs across iterative passes within one search. **Transpositions: off** restores the uncached baseline. Search lab shows hits, cutoffs, and occupancy. See the [TT guide](docs/transposition-tables.md) for safety rules, UCI memory controls, tests, and benchmarks.
 
-![Search lab comparing Minimax and alpha-beta](docs/search-lab.png)
+**Quiescence and PVS are on by default.** Quiescence extends nominal leaves through captures, all promotions, and every legal check evasion. PVS probes later moves with narrow windows and fully re-searches promising moves; it applies only to alpha-beta. Search lab labels the pruning algorithm **PVS** or **Alpha-beta** and reports Q nodes, PVS probes, and re-searches. Both toggles preserve the current board. Turn both off to reproduce the earlier static-leaf/full-window search. See the [search guide](docs/search.md) for safety limits, protocol options, and measured comparisons.
+
+![Search lab comparing Minimax and PVS](docs/search-lab.png)
 
 ### Linux
 
@@ -99,6 +102,8 @@ White starts at the bottom in local play; engine games initially face your color
 - Switchable PV, promotion, and MVV-LVA capture ordering, including en passant and capture promotions; the original move-order baseline remains available.
 - Switchable material + PST evaluation for all six piece types, with separate middlegame/endgame king tables and smooth phase interpolation.
 - Switchable, bounded transposition tables with Zobrist keys, draw-context guards, exact/lower/upper bounds, normalized mate scores, and complete cached PVs.
+- Switchable quiescence with check evasions, capture/promotion continuation, shared budgets, and bounded extensions.
+- Switchable PVS with full re-searches; exhaustive Minimax remains the comparison reference.
 - Search lab compares depth, nodes, time, score, and move on one unchanged position, with live completed-pass history and clear target-depth status.
 - Background UCI work, cancellation, stale-result rejection, and engine error reporting.
 
@@ -121,6 +126,7 @@ engine/vendor/        Rules library and PST attribution/licenses
 tools/build_engine.py C++17 build helper
 tools/benchmark_evaluation.py  Matched PST/material measurements and smoke games
 tools/benchmark_transpositions.py  Matched cached/uncached measurements
+tools/benchmark_search.py  Four-way quiescence/PVS measurements
 ```
 
 `Game` has no Pygame dependency. It validates a move before changing the board and records SAN and the actual captured piece before pushing. This also handles en passant and captures of promoted pieces correctly. Undo uses the original board stack, preserving castling, en passant, and repetition history.
@@ -139,9 +145,11 @@ The engine independently represents positions and generates moves with a pinned 
 .\launch.bat --smoke-test 3 --screenshot chesslab.png
 ```
 
-**Verified on Windows: 375 automated tests pass.** Build the engine before running the full suite; native TT tests also use the compiler. Tests cover rules, special moves, outcomes, draw claims, undo/reset, and a seeded 180-half-move game rewound position by position.
+**Verified on Windows: 527 automated tests pass.** Build the engine before running the full suite; native TT tests also use the compiler. Tests cover rules, special moves, outcomes, draw claims, undo/reset, and a seeded 180-half-move game rewound position by position.
 
 Engine checks include perft, legal moves cross-checked against python-chess, mate/score handling, Minimax/alpha-beta equivalence, UCI interruption, process errors, stale replies, and actual engine-to-GUI play/comparison. Ordering checks compare optimal moves and scores against an independent Python reference across both algorithms and deepening modes, including castling, promotions, en passant, and pinned pieces. They also verify the original node baseline, tactical node savings, per-search PV isolation, interrupted result retention, and GUI toggle behavior.
+
+Historical ordering/PST/TT measurements below use **quiescence and PVS off**; reproduction tools explicitly retain these conditions.
 
 With PST and transposition caching disabled, iterative alpha-beta visits 25,261 nodes at initial depth 5 with ordering, versus 38,388 without (34.2% fewer). At Kiwipete depth 4, it visits 9,754 versus 63,617 (84.7% fewer). Each pair has identical score and move. Counts include all completed passes; these are search-work measurements, not strength ratings.
 
@@ -149,9 +157,11 @@ PST checks cover every piece, rank/color symmetry, all game phases and rounding,
 
 With PST enabled at depth 5, transposition caching reduces initial nodes from 182,596 to 118,406 (35.2%) and Kiwipete from 87,554 to 62,262 (28.9%), preserving each move and score. Native tests exercise hashes, make/unmake, collisions, bounds, mate distances, and draw-context separation; integration checks cached moves through uncached exhaustive child searches. [Detailed results](docs/transposition-tables.md) include timing and limitations.
 
+Quiescence tests use an independent tactical oracle and cover recaptures, quiet check evasions, en passant, promotions, terminal precedence, caps, and shared interruption budgets. PVS is checked against full-window scores with both evaluations, cache settings, and deepening modes. In the [four-way benchmark](docs/search.md#measurements), PVS with quiescence reduces Kiwipete depth-4 nodes from 141,975 to 82,297 (42.0%), with the same move and +45 cp score. Quiescence changes the leaf model and can increase work substantially; PVS gains vary by position.
+
 Headless Pygame tests exercise mouse/keyboard events, modal dialogs, scrolling, resize, both orientations, artwork dimensions, missing-asset errors, and event-loop shutdown. Tests set SDL's dummy video driver so they do not open desktop windows. Screenshots of the initial board, promotion, checkmate, and draw dialog were visually inspected.
 
-Windows setup/build, launch smoke testing, and dependency checks passed. Native checks cover real engine play, setup selection, and cached/uncached Search lab comparisons on the unchanged board. All modal controls and both cache modes were rendered and inspected at normal and minimum sizes. Earlier native checks also cover Undo and iterative/direct toggling.
+Windows setup/build, launch smoke testing, and dependency checks passed. Native checks cover real engine play, setup selection, and Search lab comparisons with quiescence/PVS on and off on the unchanged board. All modal controls and five-pass statistics were rendered and inspected at normal and minimum sizes. Earlier native checks also cover Undo and iterative/direct toggling.
 
 Read [AGENTS.md](AGENTS.md) for contributor instructions.
 
@@ -169,7 +179,8 @@ Running that tool without `--offline` checks the source licenses online and down
 
 ## Current limitations
 
-- PSTs encode square preferences, not mobility, pawn structure, actual king attacks, or open files. Playing strength remains basic; quiescence and PVS remain deferred.
+- PSTs encode square preferences, not mobility, pawn structure, actual king attacks, or open files. Playing strength remains basic; quiet checking moves, SEE/delta pruning, and advanced positional evaluation are not implemented.
+- Quiescence stops at non-check nodes after 16 extra plies or absolute ply 64; check evasions continue to the absolute ceiling, where an unresolved check interrupts the pass. These safety limits are heuristic boundaries. Stand-pat evaluation can miss zugzwang.
 - Transposition tables are fresh per search and use conservative draw-history matching. Allocation can make tiny searches slower despite node savings; no cross-search cache is retained.
 - GUI target depth is 1–5 plies, with a 15-second limit per algorithm. Completed/target depth is shown when interrupted; no score is claimed before the first completed pass.
 - The engine claims eligible draws on its turn, even when a win might exist. Search assumes currently claimable repetition/fifty-move draws are taken.
@@ -183,7 +194,7 @@ Running that tool without `--offline` checks the source licenses online and down
 
 1. **Implemented:** playable Python/Pygame local two-player application.
 2. **Implemented together (Phases 2–3):** independent C++ UCI engine, material evaluation, Minimax, switchable alpha-beta, Human vs Engine, and search comparisons.
-4. **Iterative deepening, move ordering, switchable PST evaluation, and transposition tables implemented.** Next: quiescence search and Principal Variation Search, individually.
+4. **Implemented:** iterative deepening, move ordering, switchable PST evaluation, transposition tables, quiescence, and Principal Variation Search.
 5. Explore advanced pruning and evaluation only after the fundamentals are reliable.
 6. Add engine matches and performance/strength benchmarks.
 

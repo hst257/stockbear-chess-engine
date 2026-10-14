@@ -60,12 +60,12 @@ keeps its original popcount-based evaluator.
 
 ## Enable, disable, and inspect
 
-Press **G**, select **Material + PST (on)** or **Material only (off)**, then Start
+Press **G**, toggle **PST: on/off**, then Start
 new game. Press **E** for Search lab and toggle **PST: on/off** to preserve the
 current board. Old rows clear; rerun Compare position. Both comparison algorithms
 use the selected evaluation. Toggles are locked during active searches.
 
-![Evaluation selection](tt-setup.png)
+![Evaluation selection](search-setup.png)
 
 ```powershell
 .\launch.bat --mode engine                   # PST enabled by default
@@ -107,7 +107,7 @@ conditions before static evaluation; those terminal scores take precedence.
 .\.venv\Scripts\python.exe -m tools.benchmark_evaluation --depth 5 --repeats 3 --match-games 4 --output artifacts\pst-benchmark.json
 ```
 
-**375 tests pass in the current full suite on Windows.** PST checks cover all six piece types, asymmetric
+**527 tests pass in the current full suite on Windows.** PST checks cover all six piece types, asymmetric
 rank orientation, color symmetry, all 25 phase values, rounding, promotion-phase
 clamping, no material double-counting, terminal precedence, UCI diagnostics,
 search-leaf/diagnostic agreement, Minimax/alpha-beta equivalence, interruption,
@@ -118,7 +118,7 @@ engine hash, CPU/OS, and limits. Same machine, single worker, alpha-beta,
 iterative deepening and ordering enabled, depth 5, 15-second cap per search,
 three repeats with mode order alternated. Rows select the median wall-time run.
 The recorded PST benchmark predates transposition caching; the reproduction tool
-explicitly disables TT to retain those baseline conditions. For cache comparisons,
+explicitly disables TT, quiescence, and PVS to retain those baseline conditions. For cache comparisons,
 see [transposition tables](transposition-tables.md).
 
 | Position | PST | Move | White score (cp) | Nodes | Engine seconds | Engine NPS |
@@ -148,6 +148,6 @@ improvement, and node counts/speed alone do not measure playing strength.
 Classical fixed tables supply square preferences, not board-context understanding.
 They do not detect pawn structure, open files, mobility, attacked queens, or actual
 pawn shelter. King safety is only a square-and-phase approximation. Material-only
-remains intentionally weak. No opening books, NNUE, quiescence, new search algorithms,
-incremental evaluation, or evaluation cache were added. Further evaluation or search
-changes require a new request.
+remains intentionally weak. Quiescence and PVS are available separately from PST; see the [search guide](search.md).
+Opening books, NNUE, incremental evaluation, and an evaluation cache remain deferred.
+Further evaluation or search changes require a new request.

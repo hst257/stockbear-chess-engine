@@ -22,6 +22,8 @@ struct SearchLimits {
     bool transposition_table = true;
     int hash_megabytes = 16;
     std::uint64_t history = 0;  // Reversible pre-root history, maintained with next_history().
+    bool quiescence = true;
+    bool principal_variation_search = true;  // Effective only with alpha-beta enabled.
 };
 
 struct SearchResult {
@@ -37,6 +39,11 @@ struct SearchResult {
     std::uint64_t tt_hits = 0;
     std::uint64_t tt_cutoffs = 0;
     int hashfull = 0;  // Permille of occupied slots.
+    std::uint64_t qnodes = 0;  // Included in nodes, not additional to them.
+    std::uint64_t pvs_scouts = 0;
+    std::uint64_t pvs_researches = 0;
+    std::uint64_t qcaps = 0;
+    bool ply_limit_reached = false;
 };
 
 using SearchProgress = std::function<void(const SearchResult&)>;

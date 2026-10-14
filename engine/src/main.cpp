@@ -65,6 +65,14 @@ std::string table_info(const chesslab::SearchResult& result) {
            " cutoffs " + std::to_string(result.tt_cutoffs);
 }
 
+std::string search_info(const chesslab::SearchResult& result) {
+    return "search qnodes " + std::to_string(result.qnodes) +
+           " scouts " + std::to_string(result.pvs_scouts) +
+           " researches " + std::to_string(result.pvs_researches) +
+           " qcaps " + std::to_string(result.qcaps) +
+           " plylimit " + std::to_string(result.ply_limit_reached ? 1 : 0);
+}
+
 std::vector<std::string> words(const std::string& line) {
     std::istringstream stream(line);
     return {std::istream_iterator<std::string>(stream), std::istream_iterator<std::string>()};
@@ -159,13 +167,15 @@ public:
             try {
                 const auto& command = tokens[0];
                 if (command == "uci") {
-                    output("id name ChessLab 0.6");
+                    output("id name ChessLab 0.7");
                     output("id author ChessLab contributors");
                     output("option name AlphaBeta type check default true");
                     output("option name IterativeDeepening type check default true");
                     output("option name MoveOrdering type check default true");
                     output("option name UsePST type check default true");
                     output("option name TranspositionTable type check default true");
+                    output("option name Quiescence type check default true");
+                    output("option name PVS type check default true");
                     output("option name Hash type spin default 16 min 1 max 256");
                     output("option name Depth type spin default 3 min 1 max 8");
                     output("uciok");
@@ -195,6 +205,8 @@ private:
     bool move_ordering_ = true;
     bool use_pst_ = true;
     bool transposition_table_ = true;
+    bool quiescence_ = true;
+    bool pvs_ = true;
     int hash_megabytes_ = 16;
     std::uint64_t history_ = 0;
     int depth_ = 3;
@@ -209,16 +221,19 @@ private:
     void set_option(const std::vector<std::string>& tokens) {
         stop_search();
         if (tokens.size() != 5 || tokens[1] != "name" || tokens[3] != "value") {
-            throw std::invalid_argument("expected setoption name <AlphaBeta|IterativeDeepening|MoveOrdering|UsePST|TranspositionTable|Hash|Depth> value <value>");
+            throw std::invalid_argument("expected setoption name <AlphaBeta|IterativeDeepening|MoveOrdering|UsePST|TranspositionTable|Quiescence|PVS|Hash|Depth> value <value>");
         }
         if (tokens[2] == "AlphaBeta" || tokens[2] == "IterativeDeepening" ||
-            tokens[2] == "MoveOrdering" || tokens[2] == "UsePST" || tokens[2] == "TranspositionTable") {
+            tokens[2] == "MoveOrdering" || tokens[2] == "UsePST" || tokens[2] == "TranspositionTable" ||
+            tokens[2] == "Quiescence" || tokens[2] == "PVS") {
             if (tokens[4] != "true" && tokens[4] != "false") throw std::invalid_argument("check options must be true or false");
             if (tokens[2] == "AlphaBeta") alpha_beta_ = tokens[4] == "true";
             else if (tokens[2] == "IterativeDeepening") iterative_deepening_ = tokens[4] == "true";
             else if (tokens[2] == "MoveOrdering") move_ordering_ = tokens[4] == "true";
             else if (tokens[2] == "UsePST") use_pst_ = tokens[4] == "true";
-            else transposition_table_ = tokens[4] == "true";
+            else if (tokens[2] == "TranspositionTable") transposition_table_ = tokens[4] == "true";
+            else if (tokens[2] == "Quiescence") quiescence_ = tokens[4] == "true";
+            else pvs_ = tokens[4] == "true";
         } else if (tokens[2] == "Depth") depth_ = integer(tokens[4], 1, 8);
         else if (tokens[2] == "Hash") hash_megabytes_ = integer(tokens[4], 1, 256);
     }
@@ -257,6 +272,8 @@ private:
         limits.transposition_table = transposition_table_;
         limits.hash_megabytes = hash_megabytes_;
         limits.history = history_;
+        limits.quiescence = quiescence_;
+        limits.principal_variation_search = pvs_;
         bool explicit_depth = false;
         for (std::size_t i = 1; i < tokens.size(); ++i) {
             if (tokens[i] == "infinite") limits.depth = 64;
@@ -278,6 +295,7 @@ private:
                 const auto result = chesslab::search(position, limits, pruning, stopped_,
                     [&position](const auto& iteration) {
                         output("info string " + table_info(iteration));
+                        output("info string " + search_info(iteration));
                         report_info(iteration, position, true);
                     });
                 if (!result.complete) report_info(result, position, false);
@@ -286,7 +304,10 @@ private:
                        (limits.iterative_deepening ? "iterative " : "fixed ") +
                        (limits.move_ordering ? "ordered " : "unordered ") +
                        (limits.use_pst ? "material+pst " : "material ") +
-                       (limits.transposition_table ? "cached " : "uncached ") + table_info(result));
+                       (limits.transposition_table ? "cached " : "uncached ") +
+                       (limits.quiescence ? "qsearch " : "static-leaf ") +
+                       (pruning && limits.principal_variation_search ? "pvs " : "full-window ") +
+                       table_info(result) + " " + search_info(result));
                 output("bestmove " + (result.best_move == chess::Move{} ? std::string("0000") :
                                       chess::uci::moveToUci(result.best_move)));
             } catch (const std::exception& error) {

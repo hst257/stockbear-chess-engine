@@ -24,6 +24,10 @@ def main() -> int:
                         help="Add piece-square bonuses to material evaluation (default: enabled).")
     parser.add_argument("--transposition-table", action=argparse.BooleanOptionalAction, default=True,
                         help="Cache search results by Zobrist key and draw context (default: enabled).")
+    parser.add_argument("--quiescence", action=argparse.BooleanOptionalAction, default=True,
+                        help="Resolve captures, promotions, and check evasions at leaves (default: enabled).")
+    parser.add_argument("--pvs", action=argparse.BooleanOptionalAction, default=True,
+                        help="Use Principal Variation Search with alpha-beta (default: enabled).")
     parser.add_argument("--engine", metavar="PATH", help="Path to the compiled ChessLab UCI executable.")
     args = parser.parse_args()
     if args.smoke_test is not None and args.smoke_test < 1:
@@ -42,7 +46,8 @@ def main() -> int:
     try:
         settings = EngineSettings(args.mode == "engine", args.human_color == "white",
                                   args.algorithm == "alphabeta", args.depth, args.iterative_deepening,
-                                  args.move_ordering, args.pst, args.transposition_table)
+                                  args.move_ordering, args.pst, args.transposition_table,
+                                  args.quiescence, args.pvs)
         app = Application(settings=settings, engine_path=Path(args.engine) if args.engine else DEFAULT_ENGINE)
         app.run(args.smoke_test, args.screenshot)
         return 0

@@ -22,5 +22,5 @@ def engine(engine_path):
     with chess.engine.SimpleEngine.popen_uci(str(engine_path), timeout=3) as instance:
         # Preserve the legacy material/search baselines. PST tests opt in;
         # a separate fresh-process check verifies the default is actually on.
-        instance.configure({"UsePST": False, "TranspositionTable": False})
+        instance.configure({"UsePST": False, "TranspositionTable": False, "Quiescence": False, "PVS": False})
         yield instance

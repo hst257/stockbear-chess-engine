@@ -78,6 +78,12 @@ void bounds() {
             "Winning mate distance not adjusted across plies");
     require(chesslab::score_from_table(chesslab::score_to_table(-29995, 3), 1) == -29997,
             "Losing mate distance not adjusted across plies");
+    entry.bound = chesslab::Bound::EXACT;
+    entry.search_ply = 2;
+    require(chesslab::table_score(entry, 4, 2, 0, 30, true, true) == 20,
+            "Matching quiescence allowance rejected");
+    require(!chesslab::table_score(entry, 4, 3, 0, 30, true, true),
+            "Different absolute quiescence allowance reused");
 }
 
 void storage() {
@@ -138,6 +144,72 @@ void histories() {
     require(chesslab::next_history(a, parent_capture, capture) == 0, "Capture did not reset history");
 }
 
+chesslab::SearchResult qsearch(const std::string& fen, bool pruning, std::uint64_t nodes = 0) {
+    chesslab::SearchLimits limits;
+    limits.depth = 0;  // Exercise quiescence directly; public UCI still requires depth >= 1.
+    limits.iterative_deepening = false;
+    limits.transposition_table = false;
+    limits.use_pst = false;
+    limits.nodes = nodes;
+    std::atomic<bool> stop{false};
+    return chesslab::search(chess::Board(fen), limits, pruning, stop);
+}
+
+void quiescence() {
+    for (bool pruning : {false, true}) {
+        auto black = qsearch("7k/8/8/1p6/Q7/8/8/7K b - - 0 1", pruning);
+        require(black.complete && black.white_score == -100, "Black recapture not resolved");
+        require(chess::uci::moveToUci(black.pv.front()) == "b5a4", "Black tactical PV missing");
+        auto white = qsearch("7k/8/8/q7/1P6/8/8/7K w - - 0 1", pruning);
+        require(white.complete && white.white_score == 100, "White capture not resolved");
+        auto ep = qsearch("7k/8/8/3pP3/8/8/8/7K w - d6 0 2", pruning);
+        require(ep.white_score == 100 && ep.pv.front().typeOf() == chess::Move::ENPASSANT,
+                "Quiescence omitted en passant");
+        auto promotion = qsearch("7k/P7/8/8/8/8/8/7K w - - 0 1", pruning);
+        require(promotion.white_score == 900 && promotion.pv.front().typeOf() == chess::Move::PROMOTION,
+                "Quiet promotion omitted");
+        const std::string checked = "7k/8/8/8/8/8/7R/7K b - - 0 1";
+        auto evasions = qsearch(checked, pruning);
+        require(!evasions.pv.empty() && evasions.qnodes > 1, "Stand pat accepted while in check");
+        chess::Board board(checked);
+        require(!board.isCapture(evasions.pv.front()), "Quiet check evasion not exercised");
+        for (const auto move : evasions.pv) {
+            require(legal_move(board, chess::uci::moveToUci(move)) == move, "Illegal quiescence PV");
+            board.makeMove<true>(move);
+        }
+        require(!board.inCheck(), "Quiescence finished on unresolved check");
+        require(qsearch("7k/6Q1/5K2/8/8/8/8/8 b - - 0 1", pruning).white_score == 30000,
+                "Quiescence checkmate score incorrect");
+        require(qsearch("7k/5Q2/6K1/8/8/8/8/8 b - - 0 1", pruning).white_score == 0,
+                "Quiescence stalemate score incorrect");
+        require(qsearch("7k/8/8/8/3N4/8/8/7K w - - 0 1", pruning).white_score == 0,
+                "Quiescence ignored insufficient material");
+        auto stopped = qsearch("7k/P7/8/8/8/8/8/7K w - - 0 1", pruning, 1);
+        require(!stopped.complete && stopped.nodes == 1 && stopped.qnodes == 1 && stopped.pv.empty(),
+                "Quiescence node budget did not interrupt without publishing partial PV");
+    }
+}
+
+void pvs() {
+    chesslab::SearchLimits limits;
+    limits.depth = 3;
+    limits.transposition_table = false;
+    limits.iterative_deepening = false;
+    limits.move_ordering = false;  // Force probes that need a full-window re-search.
+    std::atomic<bool> stop{false};
+    limits.principal_variation_search = false;
+    auto full = chesslab::search(chess::Board(), limits, true, stop);
+    limits.principal_variation_search = true;
+    auto scouted = chesslab::search(chess::Board(), limits, true, stop);
+    require(full.complete && scouted.complete && full.white_score == scouted.white_score,
+            "PVS changed full-window score");
+    require(scouted.pvs_scouts > 0 && scouted.pvs_researches > 0, "PVS re-search path not exercised");
+    limits.depth = 2;
+    auto minimax = chesslab::search(chess::Board(), limits, false, stop);
+    require(minimax.complete && minimax.pvs_scouts == 0 && minimax.pvs_researches == 0,
+            "PVS activated without alpha-beta");
+}
+
 }  // namespace
 
 int main(int argc, char** argv) {
@@ -147,7 +219,9 @@ int main(int argc, char** argv) {
         else if (test == "bounds") bounds();
         else if (test == "storage") storage();
         else if (test == "histories") histories();
-        else throw std::runtime_error("Expected hashes, bounds, storage, or histories");
+        else if (test == "quiescence") quiescence();
+        else if (test == "pvs") pvs();
+        else throw std::runtime_error("Expected hashes, bounds, storage, histories, quiescence, or pvs");
         std::cout << test << " passed\n";
     } catch (const std::exception& error) {
         std::cerr << error.what() << '\n';

@@ -2,7 +2,7 @@
 
 A standalone C++17 UCI executable implements Minimax with optional alpha-beta
 pruning, iterative deepening, move ordering, material/PST evaluation, and
-Zobrist-based transposition caching.
+Zobrist-based transposition caching, quiescence, and Principal Variation Search.
 It owns its board independently of Python.
 No search or evaluation is delegated to another engine.
 
@@ -41,15 +41,15 @@ and Black minimizes the same White-relative score. Material values are unchanged
 | King | 0 (handled through terminal detection) |
 
 Each node generates legal moves, checks mate/stalemate, checks draws, then
-uses the selected static evaluator at depth zero. Mate distance favors faster wins and slower
+enters quiescence at depth zero (or evaluates statically when disabled). Mate distance favors faster wins and slower
 losses. Terminal detection precedes draw counters.
 
 With `AlphaBeta=false`, no alpha/beta cutoffs are applied; exact table hits can
 still reuse completed subtrees. With `AlphaBeta=true`, the same
 function updates alpha/beta bounds and cuts branches that cannot affect the answer.
-Both modes share the same ordering policy and first-best tie rule. Quiescence,
-killer/history heuristics, opening books,
-and neural networks are deferred.
+Both modes share the same ordering policy and first-best tie rule. PVS is active
+only with alpha-beta. Killer/history heuristics, opening books, and neural
+networks are deferred.
 
 `src/evaluation.cpp` adds positional centipawns from the compile-time arrays in
 `src/pst.hpp`, one table per piece plus a second king table. `UsePST=true`
@@ -59,7 +59,7 @@ counts both sides' N/B=1, R=2, Q=4, clamped to 0–24. Each king blends its
 middlegame/endgame entries by that phase, rounded to the nearest centipawn with
 halves away from zero. Material is never included in the tables themselves.
 
-Select **Material + PST (on)** / **Material only (off)** in setup, use **PST: on/off**
+Toggle **PST: on/off** in setup, use **PST: on/off**
 in Search lab, or pass `--no-pst` to the Python launcher. Search lab's two
 algorithms always use the same evaluation. See the [PST guide](../docs/pst.md) for
 all tables/source notices, worked examples, tests, benchmarks, and limitations.
@@ -76,7 +76,7 @@ that completed depth, while final nodes/time include work spent on the interrupt
 pass. Before depth 1 finishes, it returns an unscored legal fallback at depth 0.
 Terminal positions are resolved directly without repeating identical passes.
 
-Toggle **Depth 1 → target / Target depth only** in game setup, or **Deepening: on/off**
+Toggle **Deepening: on/off** in game setup, or **Deepening: on/off**
 in Search lab. The latter preserves the board. CLI: `--no-iterative-deepening`
 selects the original direct search. UCI: `setoption name IterativeDeepening value false`.
 Both comparison algorithms use the same deepening setting, depth, and evaluation.
@@ -85,8 +85,9 @@ Completed full-depth scores match direct search. With ordering enabled, the
 previous PV can change which equally good move is searched first. Its benefit
 depends on the position; shallow passes still count toward the total work.
 
-Depth counts plies (half-moves). Nodes include root, interior, terminal, and static
-leaves across all passes, including repeated positions and unfinished work. Completed
+Depth counts nominal plies (half-moves); `seldepth` includes tactical extensions.
+Nodes include root, interior, terminal, static leaves, quiescence calls, and PVS
+re-searches across all passes, including repeated positions and unfinished work. Completed
 pass history records cumulative totals at each checkpoint. Time uses a monotonic
 clock in milliseconds; tiny searches can report zero.
 
@@ -114,12 +115,38 @@ It creates earlier alpha-beta cutoffs; with transposition caching disabled,
 exhaustive Minimax visits the same nodes and pays sorting overhead. Node savings
 and elapsed-time gains vary by position.
 
-Setup offers **PV / promotions / captures** and **Original move order**. Search
+Setup offers **Ordering: on/off**. Search
 lab's **Ordering: on/off** preserves the board and clears old rows; rerun Compare
 position to measure the new setting. Toggles are disabled during searches. CLI:
 `--no-move-ordering`. UCI: `setoption name MoveOrdering value false`. Disabling
 ordering bypasses all sorting and PV hints, restoring the original traversal.
 Hints are local to one search and come only from fully completed passes.
+
+## Quiescence and Principal Variation Search
+
+Both are enabled by default and independently switchable. Quiescence searches
+captures (including en passant), every promotion, and all legal check evasions.
+Non-check nodes use stand pat; checked nodes must search evasions. Terminal and
+draw checks precede evaluation. Alpha-beta can cut Q branches; Minimax exhausts
+the same tactical tree. Q leaves count once in total nodes and also in `qnodes`.
+
+The soft Q limit is 16 extra plies. At non-check nodes, that or absolute ply 64
+returns static evaluation and increments `qcaps`, even if captures remain.
+Checks extend past the soft limit; an unresolved nonterminal check at ply 64
+interrupts the iteration (`plylimit=1`), retaining the previous completed result.
+Stop/time/node budgets apply throughout. Quiet checking moves and SEE/delta
+pruning are not included; stand pat remains a zugzwang approximation.
+
+PVS searches the first child with the full window. Later White moves use
+`[alpha, alpha+1]`; Black moves use `[beta-1, beta]`. A result strictly inside
+the original full window triggers a full-window re-search. Unit-width windows
+use ordinary alpha-beta. Minimax never uses scouts. At fixed Q settings, PVS
+preserves full-window scores; tied moves may differ. Q itself changes the leaf model.
+
+Setup and Search lab provide **Quiescence: on/off** and **PVS: on/off**; setup
+marks PVS inactive for Minimax. Search lab compares Minimax against PVS or
+Alpha-beta, using identical Q settings. CLI: `--no-quiescence`, `--no-pvs`.
+See the [search guide](../docs/search.md) for comparisons and limitations.
 
 ## Transposition tables
 
@@ -128,7 +155,10 @@ iterative passes. The rules library already supplies incremental 64-bit Zobrist
 keys; no duplicate position-hashing system or vendor changes were needed.
 Full keys, halfmove clocks, and reversible-history fingerprints guard probes.
 Exact/lower/upper bounds, equal-depth score reuse, and ply-normalized mate scores
-preserve fixed-depth answers. Compact complete PVs retain legal reported lines.
+preserve fixed-depth answers. With Q enabled, score reuse also requires the
+same root ply to preserve extension allowances. Q nodes themselves are not
+stored as main-depth entries; main entries include their completed Q result.
+Compact complete PVs retain legal reported lines.
 
 Each search starts fresh, preventing score reuse across different evaluation or
 algorithm settings. Hash capacity defaults to a 16 MiB cap (rounded down to a
@@ -150,6 +180,8 @@ setoption name IterativeDeepening value true
 setoption name MoveOrdering value true
 setoption name UsePST value true
 setoption name TranspositionTable value true
+setoption name Quiescence value true
+setoption name PVS value true
 setoption name Hash value 16
 position startpos moves e2e4 e7e5
 go depth 3
@@ -159,7 +191,7 @@ Commands: `uci`, `isready`, `ucinewgame`, `setoption`, `position startpos`,
 `position fen` (six fields, optionally followed by moves), `go`, `stop`, `quit`,
 and the optional diagnostic `eval`.
 Options: `AlphaBeta`, `IterativeDeepening`, `MoveOrdering`, `UsePST`,
-`TranspositionTable` (all default true), `Hash` (default 16 MiB cap, range 1–256),
+`TranspositionTable`, `Quiescence`, `PVS` (all default true), `Hash` (default 16 MiB cap, range 1–256),
 and `Depth` (default 3, range 1–8). `go` accepts depth, movetime (milliseconds), nodes, and
 infinite. Bare `go` uses the Depth option. Time/node-limited requests without an
 explicit depth, and infinite searches, permit deepening through a safety cap of
@@ -168,7 +200,9 @@ explicit depth, and infinite searches, permit deepening through a safety cap of
 The input thread remains responsive during worker searches. `info` reports depth,
 selective depth, nodes, time, approximate NPS, score, and legal principal variation.
 `hashfull` is occupied table slots per thousand; `info string tt probes N hits H
-cutoffs C` reports cache statistics. Final summary includes total counters.
+cutoffs C` reports cache statistics. `info string search qnodes N scouts N
+researches N qcaps N plylimit 0` reports Q/PVS counters; plylimit is 1 if the
+absolute check ceiling stopped the pass. Final summary includes total counters.
 UCI scores favor the player to move; the GUI converts to White's perspective.
 Terminal/no-move results use `bestmove 0000`.
 
@@ -210,7 +244,7 @@ Build first, then run `.venv\Scripts\python.exe -m pytest -q` from the root.
 Tests include perft (197,281 at initial depth 4; 97,862 at Kiwipete depth 3), legal
 move cross-checks against python-chess, terminal states, search equivalence,
 interruptible UCI, cancellation, and actual engine-to-GUI play/comparison.
-The 375-test suite also checks optimal moves/scores against an independent Python
+The 527-test suite also checks optimal moves/scores against an independent Python
 reference with ordering off/on, both algorithms, and direct/iterative search.
 PST coverage includes all pieces, color/rank orientation, phase/rounding, diagnostic
 and search consistency, unchanged terminal behavior, and GUI on/off selection.
@@ -220,6 +254,8 @@ incremental/full hashes, special moves and unmake, key/context collisions, bound
 depth validity, replacement, and mate-distance normalization. Integration tests
 verify cached/uncached scores, complete legal PVs, exhaustive child values, draw
 histories/clocks, interruption, and both GUI modes.
+
+**Historical measurements below use `Quiescence=false` and `PVS=false`.**
 
 Original baseline with **TranspositionTable=false, UsePST=false, MoveOrdering=false**, initial target depth 3
 (all select a3 with White score 0.00):
@@ -262,10 +298,13 @@ Standalone rules diagnostics:
 Run matched evaluation benchmarks and optional color-balanced smoke games with
 `python -m tools.benchmark_evaluation --match-games 4`. Recorded moves, scores,
 nodes, time, NPS, raw JSON, and PGNs are in the [PST guide](../docs/pst.md#verification-and-benchmarks).
-That benchmark explicitly disables TT to preserve the original comparison.
+That benchmark explicitly disables TT, Q, and PVS to preserve the original comparison.
 `python -m tools.benchmark_transpositions` compares the cache on/off with the same
 PST evaluator and search settings. At initial depth 5, caching visits 118,406
 instead of 182,596 nodes (35.2% fewer), returning the same e4 and +70 cp.
+It explicitly disables Q/PVS. `python -m tools.benchmark_search` measures all
+four Q/PVS combinations; [recorded results](../docs/search.md#measurements)
+include FENs, legal PVs, counters, and three raw timing samples per mode.
 
 ## Third-party rules
 
