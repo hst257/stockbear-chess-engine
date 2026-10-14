@@ -34,20 +34,32 @@ The launch script changes to its own folder, so it works regardless of your curr
 
 Build once after setup. The script installs a portable C++ compiler in `.venv` and produces `engine/build/chesslab-engine.exe`. No global toolchain installation is needed. The first compiler download is about 80 MB. Rebuild after changing C++ sources; generated binaries are not committed.
 
-Press **G** or click the opponent button to choose local/engine play, your color, Minimax or alpha-beta, iterative/direct search, move ordering, evaluation, transposition caching, quiescence, PVS, and target depth 1–5. **Start new game** applies those choices. Press **E** for Search lab and **Compare position** to measure both algorithms without playing a move. **Deepening**, **Ordering**, **PST**, **Transpositions**, **Quiescence**, and **PVS** on/off controls change settings on the existing position; both algorithms use the same settings. Toggle a setting and rerun to compare results.
+Press **G** or click the opponent button for **Engine Thinking Time**. Choose exactly one of:
+
+| Preset | Budget per engine move |
+| --- | ---: |
+| Blitz | 100 ms |
+| Fast | 500 ms |
+| **Standard (default)** | **1 second** |
+| Deep | 3 seconds |
+| Maximum | 5 seconds |
+
+Keep **Time budget** selected and click **Apply to game** to preserve the board, history, and orientation. **Start new game** applies settings and resets the game. An active search keeps its original budget; a changed value applies to subsequent requests. You can edit settings while the worker searches. Local two-player play remains available.
+
+**Gameplay no longer stops at depth 5.** Time mode searches depth 1, 2, 3, and onward until its deadline, with a 64-ply safety ceiling. Iterative deepening keeps the move, score, and PV from the last fully completed pass. A deeper interrupted pass cannot overwrite them; before any pass completes, the engine returns an unscored legal fallback. Terminal positions and proven mates may finish early. The board shows a subtle thinking indicator, completed depth, elapsed time, and nodes; the Pygame event loop stays responsive.
+
+Choose **Fixed depth** for debugging and reproducible comparisons. The debug target remains 1–5 in the GUI; UCI `go depth 5` retains fixed-depth behavior. Time mode always deepens, while fixed mode retains the Deepening toggle. Search lab (**E**) compares both algorithms without moving: time mode gives each the selected budget and reports their actual completed depths, which can differ. Fixed mode compares the same target under the existing 15-second safety limit. **Stop** keeps completed work; Undo and New Game discard the request. Other feature toggles remain available.
 
 ```powershell
-.\launch.bat --mode engine --human-color black --algorithm minimax --depth 3
-.\launch.bat --mode engine --depth 5 --no-iterative-deepening
-.\launch.bat --mode engine --depth 4 --no-move-ordering
-.\launch.bat --mode engine --no-pst
-.\launch.bat --mode engine --no-transposition-table
+.\launch.bat --mode engine                         # Standard, 1 second
+.\launch.bat --mode engine --thinking-time 500       # Fast, 500 ms
+.\launch.bat --mode engine --search-mode depth --depth 5
+.\launch.bat --mode engine --search-mode depth --depth 3 --no-iterative-deepening
+.\launch.bat --mode engine --no-pst --no-transposition-table
 .\launch.bat --mode engine --no-quiescence --no-pvs
 ```
 
-Local play remains the default. `--engine PATH` selects another build of ChessLab. Missing engines are reported in the interface; local play remains available.
-
-Iterative deepening is on by default: depth 1, then 2, through the target. When stopped or timed out, the engine keeps the last fully completed move and score. Before completing any depth, it returns a legal fallback without a score. Search lab streams completed passes and shows completed/target depth when interrupted. **Stop** retains this result; Undo and New Game discard the request.
+`--engine PATH` selects another build of ChessLab. Missing engines are reported in the interface; local play remains available. Longer thinking generally helps search strength but does not guarantee a better move in every position. Scheduling, table allocation, and UCI overhead prevent exact millisecond precision. See the [time-control guide and all five measured results](docs/time-control.md).
 
 Move ordering is also on by default: a matching table move first, then the previous completed principal variation along its original path, promotions, and captures ranked by victim value and attacker cost. Equal priorities retain their original order. Sorting can change which equally scored move wins a tie while preserving full-depth scores. With caching off, ordering alone does not reduce exhaustive Minimax's node count or guarantee a speedup.
 
@@ -97,7 +109,7 @@ White starts at the bottom in local play; engine games initially face your color
 - Checkmate, stalemate, insufficient material, automatic fivefold repetition, and the seventy-five-move rule.
 - Explicit threefold repetition and fifty-move claims. The claim dialog lists eligible current-position claims or intended moves; scroll for additional choices. An intended-move claim declares the move without playing it.
 - Reversible game endings, Undo, restart, manual board flipping, and keyboard shortcuts.
-- Human vs Engine as either color, selectable Minimax/alpha-beta, and depth-limited search.
+- Human vs Engine as either color, selectable Minimax/alpha-beta, five thinking-time presets, and optional fixed-depth search.
 - Switchable iterative deepening retains completed answers under shared time/node limits. The fixed-depth baseline remains available.
 - Switchable PV, promotion, and MVV-LVA capture ordering, including en passant and capture promotions; the original move-order baseline remains available.
 - Switchable material + PST evaluation for all six piece types, with separate middlegame/endgame king tables and smooth phase interpolation.
@@ -127,6 +139,7 @@ tools/build_engine.py C++17 build helper
 tools/benchmark_evaluation.py  Matched PST/material measurements and smoke games
 tools/benchmark_transpositions.py  Matched cached/uncached measurements
 tools/benchmark_search.py  Four-way quiescence/PVS measurements
+tools/benchmark_time.py  All five time presets across seven positions
 ```
 
 `Game` has no Pygame dependency. It validates a move before changing the board and records SAN and the actual captured piece before pushing. This also handles en passant and captures of promoted pieces correctly. Undo uses the original board stack, preserving castling, en passant, and repetition history.
@@ -145,7 +158,13 @@ The engine independently represents positions and generates moves with a pinned 
 .\launch.bat --smoke-test 3 --screenshot chesslab.png
 ```
 
-**Verified on Windows: 527 automated tests pass.** Build the engine before running the full suite; native TT tests also use the compiler. Tests cover rules, special moves, outcomes, draw claims, undo/reset, and a seeded 180-half-move game rewound position by position.
+Benchmark every preset on seven positions (three repeats), with results saved as JSON:
+
+```powershell
+.\.venv\Scripts\python.exe -m tools.benchmark_time --output artifacts\time-benchmark.json
+```
+
+**Verified on Windows: 557 automated tests pass.** Build the engine before running the full suite; native TT tests also use the compiler. Tests cover rules, special moves, outcomes, draw claims, undo/reset, and a seeded 180-half-move game rewound position by position.
 
 Engine checks include perft, legal moves cross-checked against python-chess, mate/score handling, Minimax/alpha-beta equivalence, UCI interruption, process errors, stale replies, and actual engine-to-GUI play/comparison. Ordering checks compare optimal moves and scores against an independent Python reference across both algorithms and deepening modes, including castling, promotions, en passant, and pinned pieces. They also verify the original node baseline, tactical node savings, per-search PV isolation, interrupted result retention, and GUI toggle behavior.
 
@@ -160,6 +179,8 @@ With PST enabled at depth 5, transposition caching reduces initial nodes from 18
 Quiescence tests use an independent tactical oracle and cover recaptures, quiet check evasions, en passant, promotions, terminal precedence, caps, and shared interruption budgets. PVS is checked against full-window scores with both evaluations, cache settings, and deepening modes. In the [four-way benchmark](docs/search.md#measurements), PVS with quiescence reduces Kiwipete depth-4 nodes from 141,975 to 82,297 (42.0%), with the same move and +45 cp score. Quiescence changes the leaf model and can increase work substantially; PVS gains vary by position.
 
 Headless Pygame tests exercise mouse/keyboard events, modal dialogs, scrolling, resize, both orientations, artwork dimensions, missing-asset errors, and event-loop shutdown. Tests set SDL's dummy video driver so they do not open desktop windows. Screenshots of the initial board, promotion, checkmate, and draw dialog were visually inspected.
+
+Time-control checks cover all presets, legal fallback/terminal replies, depths above 5, matching completed snapshots, exact-once stop/quit replies, nested move restoration, and in-flight settings changes without resetting the board. [Recorded timing results](docs/time-control.md#measurements) include 105 runs over opening, middlegame, tactical, endgame, mate, and stalemate positions.
 
 Windows setup/build, launch smoke testing, and dependency checks passed. Native checks cover real engine play, setup selection, and Search lab comparisons with quiescence/PVS on and off on the unchanged board. All modal controls and five-pass statistics were rendered and inspected at normal and minimum sizes. Earlier native checks also cover Undo and iterative/direct toggling.
 
@@ -182,7 +203,7 @@ Running that tool without `--offline` checks the source licenses online and down
 - PSTs encode square preferences, not mobility, pawn structure, actual king attacks, or open files. Playing strength remains basic; quiet checking moves, SEE/delta pruning, and advanced positional evaluation are not implemented.
 - Quiescence stops at non-check nodes after 16 extra plies or absolute ply 64; check evasions continue to the absolute ceiling, where an unresolved check interrupts the pass. These safety limits are heuristic boundaries. Stand-pat evaluation can miss zugzwang.
 - Transposition tables are fresh per search and use conservative draw-history matching. Allocation can make tiny searches slower despite node savings; no cross-search cache is retained.
-- GUI target depth is 1–5 plies, with a 15-second limit per algorithm. Completed/target depth is shown when interrupted; no score is claimed before the first completed pass.
+- Timed gameplay uses 100–5000 ms with a 64-ply safety ceiling. Fixed-depth GUI debugging retains depths 1–5 and a 15-second watchdog. No score is claimed before a completed pass; CPU load and communication can add timing overhead.
 - The engine claims eligible draws on its turn, even when a win might exist. Search assumes currently claimable repetition/fifty-move draws are taken.
 - No clocks, save/load, PGN export, or drag movement.
 - Games are held in memory and are discarded when the application closes.
@@ -194,7 +215,7 @@ Running that tool without `--offline` checks the source licenses online and down
 
 1. **Implemented:** playable Python/Pygame local two-player application.
 2. **Implemented together (Phases 2–3):** independent C++ UCI engine, material evaluation, Minimax, switchable alpha-beta, Human vs Engine, and search comparisons.
-4. **Implemented:** iterative deepening, move ordering, switchable PST evaluation, transposition tables, quiescence, and Principal Variation Search.
+4. **Implemented:** iterative deepening, move ordering, switchable PST evaluation, transposition tables, quiescence, Principal Variation Search, and configurable time-controlled gameplay.
 5. Explore advanced pruning and evaluation only after the fundamentals are reliable.
 6. Add engine matches and performance/strength benchmarks.
 

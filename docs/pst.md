@@ -60,8 +60,8 @@ keeps its original popcount-based evaluator.
 
 ## Enable, disable, and inspect
 
-Press **G**, toggle **PST: on/off**, then Start
-new game. Press **E** for Search lab and toggle **PST: on/off** to preserve the
+Press **G**, toggle **PST: on/off**, then Apply to game to preserve the
+position, or Start new game. Press **E** for Search lab and toggle **PST: on/off** to preserve the
 current board. Old rows clear; rerun Compare position. Both comparison algorithms
 use the selected evaluation. Toggles are locked during active searches.
 
@@ -107,7 +107,7 @@ conditions before static evaluation; those terminal scores take precedence.
 .\.venv\Scripts\python.exe -m tools.benchmark_evaluation --depth 5 --repeats 3 --match-games 4 --output artifacts\pst-benchmark.json
 ```
 
-**527 tests pass in the current full suite on Windows.** PST checks cover all six piece types, asymmetric
+**557 tests pass in the current full suite on Windows.** PST checks cover all six piece types, asymmetric
 rank orientation, color symmetry, all 25 phase values, rounding, promotion-phase
 clamping, no material double-counting, terminal precedence, UCI diagnostics,
 search-leaf/diagnostic agreement, Minimax/alpha-beta equivalence, interruption,

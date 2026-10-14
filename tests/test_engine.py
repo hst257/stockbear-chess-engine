@@ -379,3 +379,44 @@ def test_stop_remains_responsive_with_quiescence_and_pvs(protocol):
     last = completed[-1]
     assert after[-1] == "bestmove " + last[last.index("pv") + 1]
     assert any(" search qnodes " in line and " scouts " in line for line in after)
+
+
+@pytest.mark.parametrize("command", ["stop", "quit"])
+def test_timed_search_stop_and_quit_emit_exactly_one_bestmove(protocol, command):
+    protocol.send("setoption name Quiescence value true")
+    protocol.send("setoption name TranspositionTable value true")
+    protocol.send("setoption name PVS value true")
+    protocol.send("position startpos")
+    protocol.send("go movetime 5000")
+    before = protocol.until("info depth 1 ")
+    protocol.send("isready")
+    ready = protocol.until("readyok", timeout=1)
+    protocol.send(command)
+    after = protocol.until("bestmove", timeout=1)
+    last = [line.split() for line in before + ready + after
+            if line.startswith("info depth ") and " score " in line][-1]
+    assert after[-1] == "bestmove " + last[last.index("pv") + 1]
+    if command == "quit":
+        protocol.process.wait(timeout=1)
+        tail = []
+        while not protocol.lines.empty():
+            tail.append(protocol.lines.get_nowait())
+    else:
+        protocol.send("stop")
+        protocol.send("isready")
+        tail = protocol.until("readyok", timeout=1)
+    assert not any(line.startswith("bestmove") for line in tail)
+
+
+def test_replacing_running_search_does_not_overlap_or_duplicate_bestmove(protocol):
+    protocol.send("position startpos")
+    protocol.send("go movetime 5000")
+    before = protocol.until("info depth 1 ")
+    protocol.send("position startpos moves e2e4")
+    protocol.send("go depth 2")
+    first = protocol.until("bestmove", timeout=1)
+    second = protocol.until("bestmove", timeout=2)
+    assert sum(line.startswith("bestmove") for line in before + first + second) == 2
+    board = chess.Board()
+    board.push_uci("e2e4")
+    assert chess.Move.from_uci(second[-1].split()[1]) in board.legal_moves

@@ -1,13 +1,14 @@
 # Quiescence and Principal Variation Search
 
-Both features are enabled by default, independently switchable, and implemented
+Gameplay now defaults to [time-controlled deepening](time-control.md). Fixed-depth
+mode retains the comparisons below. Both features are enabled by default, independently switchable, and implemented
 in the C++ engine. Quiescence changes what a search leaf means. PVS reduces work
 while preserving full-window alpha-beta scores for the same settings and completed
 depth; equally scored moves can differ.
 
 ## Controls
 
-- **G / game setup:** toggle **Quiescence** and **PVS**, then Start new game.
+- **G / game setup:** toggle **Quiescence** and **PVS**, then Apply to game to preserve the position, or Start new game.
   PVS is inactive when Minimax is selected; its preference is retained.
 - **E / Search lab:** toggle either on the current position, then Compare position.
   Old rows clear, the board stays unchanged, and controls lock during searches.
@@ -84,7 +85,7 @@ and re-searches alongside TT statistics; stopped depths remain explicit.
 
 ## Verification
 
-**527 tests pass on Windows.** An independent Python tactical oracle checks
+**557 tests pass on Windows.** An independent Python tactical oracle checks
 White/Black recaptures, unsafe captures, quiet evasions, en passant, promotions,
 and draws. Native tests isolate depth-zero Q and exercise stand pat, terminal
 precedence, no partial PV publication, scouts, and re-searches. Integration tests

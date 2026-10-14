@@ -13,6 +13,8 @@ import chess.engine
 DEFAULT_ENGINE = (Path(__file__).resolve().parents[1] / "engine" / "build" /
                   ("chesslab-engine.exe" if os.name == "nt" else "chesslab-engine"))
 SEARCH_SECONDS = 15.0
+THINKING_TIMES = (("Blitz", 100), ("Fast", 500), ("Standard", 1000),
+                  ("Deep", 3000), ("Maximum", 5000))
 
 
 @dataclass(frozen=True)
@@ -27,10 +29,18 @@ class EngineSettings:
     transposition_table: bool = True
     quiescence: bool = True
     principal_variation_search: bool = True
+    timed_search: bool = True
+    thinking_time_ms: int = 1000
 
     def __post_init__(self) -> None:
         if not 1 <= self.depth <= 5:
             raise ValueError("GUI search depth must be between 1 and 5 plies.")
+        if self.thinking_time_ms not in dict(THINKING_TIMES).values():
+            raise ValueError("Thinking time must be one of 100, 500, 1000, 3000, or 5000 ms.")
+
+    @property
+    def search_label(self) -> str:
+        return f"{self.thinking_time_ms / 1000:g}s" if self.timed_search else f"depth {self.depth}"
 
     @property
     def algorithm(self) -> str:
@@ -57,7 +67,7 @@ class SearchStats:
     move: chess.Move | None
     san: str
     score: str
-    complete: bool  # Target reached; a shallower completed pass can still be valid.
+    complete: bool  # Fixed target reached, or a timed search has a completed answer.
     iterative_deepening: bool = True
     iterations: tuple[SearchIteration, ...] = ()
     move_ordering: bool = True
@@ -73,6 +83,9 @@ class SearchStats:
     pvs_researches: int = 0
     qcaps: int = 0
     ply_limit_reached: bool = False
+    timed_search: bool = False
+    thinking_time_ms: int = 0
+    nps: int = 0
 
 
 @dataclass(frozen=True)
@@ -129,14 +142,17 @@ def search_stats(info: chess.engine.InfoDict, move: chess.Move | None, board: ch
         score_text = f"Mate {mate:+d}" if mate is not None else f"{white_score.score() / 100:+.2f}"
     counters = counters or {**table_stats(info), **search_counters(info)}
     algorithm = ("PVS" if settings.principal_variation_search else "Alpha-beta") if pruning else "Minimax"
-    return SearchStats(algorithm, settings.depth, depth,
+    complete = depth > 0 if settings.timed_search else depth == settings.depth
+    return SearchStats(algorithm, 0 if settings.timed_search else settings.depth, depth,
                        info.get("nodes", 0), info.get("time", 0.0), move,
-                       board.san(move) if move else "—", score_text, depth == settings.depth,
-                       settings.iterative_deepening, iterations, settings.move_ordering, settings.use_pst,
+                       board.san(move) if move else "—", score_text, complete,
+                       settings.timed_search or settings.iterative_deepening, iterations, settings.move_ordering, settings.use_pst,
                        settings.transposition_table, counters.get("hits", 0), counters.get("cutoffs", 0),
                        info.get("hashfull", 0), settings.quiescence, pruning and settings.principal_variation_search,
                        counters.get("qnodes", 0), counters.get("scouts", 0), counters.get("researches", 0),
-                       counters.get("qcaps", 0), bool(counters.get("plylimit", 0)))
+                       counters.get("qcaps", 0), bool(counters.get("plylimit", 0)),
+                       settings.timed_search, settings.thinking_time_ms if settings.timed_search else 0,
+                       info.get("nps", 0))
 
 
 class EngineClient:
@@ -156,9 +172,14 @@ class EngineClient:
         if job:
             job.canceled.set()
             with job.lock:
-                if job.engine:
-                    # close() schedules transport shutdown; it does not wait for search.
-                    job.engine.close()
+                if job.analysis:
+                    # Schedule UCI stop; the worker drains/shuts down the process.
+                    # Closing its transport here can race analysis startup and
+                    # leave an unobserved python-chess exception future.
+                    try:
+                        job.analysis.stop()
+                    except chess.engine.EngineError:
+                        pass
 
     def start(self, board: chess.Board, revision: int, settings: EngineSettings,
               kind: str = "play") -> int:
@@ -202,7 +223,6 @@ class EngineClient:
             engine = chess.engine.SimpleEngine.popen_uci(str(self.path), timeout=5, **flags)
             with job.lock:
                 if job.canceled.is_set():
-                    engine.close()
                     return
                 job.engine = engine
             rows = []
@@ -212,17 +232,21 @@ class EngineClient:
                     return
                 if rows and job.stop_requested.is_set():
                     break
-                engine.configure({"AlphaBeta": pruning, "IterativeDeepening": settings.iterative_deepening,
+                engine.configure({"AlphaBeta": pruning, "IterativeDeepening": settings.timed_search or settings.iterative_deepening,
                                   "MoveOrdering": settings.move_ordering, "UsePST": settings.use_pst,
                                   "TranspositionTable": settings.transposition_table,
                                   "Quiescence": settings.quiescence, "PVS": settings.principal_variation_search})
+                if job.canceled.is_set():
+                    return
                 iterations: list[SearchIteration] = []
                 counters: dict[str, int] = {}
-                with engine.analysis(board, chess.engine.Limit(depth=settings.depth, time=SEARCH_SECONDS),
+                limit = (chess.engine.Limit(time=settings.thinking_time_ms / 1000) if settings.timed_search
+                         else chess.engine.Limit(depth=settings.depth, time=SEARCH_SECONDS))
+                with engine.analysis(board, limit,
                                      info=chess.engine.INFO_ALL) as analysis:
                     with job.lock:
                         job.analysis = analysis
-                        if job.stop_requested.is_set():
+                        if job.stop_requested.is_set() or job.canceled.is_set():
                             analysis.stop()
                     for info in analysis:
                         if job.canceled.is_set():
@@ -258,8 +282,7 @@ class EngineClient:
             if engine:
                 # Shutdown on the worker, keeping the GUI responsive even if quit hangs.
                 try:
-                    if not job.canceled.is_set():
-                        engine.quit()
+                    engine.quit()
                 except (chess.engine.EngineError, TimeoutError):
                     pass
                 finally:

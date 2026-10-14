@@ -24,6 +24,7 @@ struct SearchLimits {
     std::uint64_t history = 0;  // Reversible pre-root history, maintained with next_history().
     bool quiescence = true;
     bool principal_variation_search = true;  // Effective only with alpha-beta enabled.
+    bool time_managed = false;  // Movetime without depth: deepen to the safety ceiling.
 };
 
 struct SearchResult {

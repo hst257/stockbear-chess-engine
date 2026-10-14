@@ -1,4 +1,5 @@
 #include "search.hpp"
+#include "scoped_move.hpp"
 
 #include <iostream>
 #include <stdexcept>
@@ -35,7 +36,7 @@ void hash_sequence(const std::string& fen, const std::vector<std::string>& seque
 }
 
 void hashes() {
-    hash_sequence(chess::constants::STARTPOS, {"e2e4", "a7a6", "e4e5", "d7d5", "e5d6"});
+    hash_sequence("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", {"e2e4", "a7a6", "e4e5", "d7d5", "e5d6"});
     hash_sequence("r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1", {"e1g1", "e8c8"});
     hash_sequence("1r5k/P7/8/8/8/8/8/7K w - - 0 1", {"a7b8n"});
     hash_sequence("7k/8/8/8/8/8/p7/1R5K b - - 0 1", {"a2b1q"});
@@ -210,6 +211,46 @@ void pvs() {
             "PVS activated without alpha-beta");
 }
 
+void cancellation() {
+    for (const auto& fen : {"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+         "r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1",
+         "7k/8/8/3pP3/8/8/8/7K w - d6 0 2",
+         "1r5k/P7/8/8/8/8/8/7K w - - 0 1"}) {
+        chess::Board board(fen);
+        const auto original = board.getFen();
+        const auto key = board.hash();
+        chess::Movelist moves;
+        chess::movegen::legalmoves(moves, board);
+        for (auto move : moves) {
+            try {
+                chesslab::ScopedMove first(board, move);
+                chess::Movelist replies;
+                chess::movegen::legalmoves(replies, board);
+                if (!replies.empty()) {
+                    chesslab::ScopedMove second(board, replies[0]);
+                    throw 1;
+                }
+                throw 1;
+            } catch (int) {}
+            require(board.hash() == key && board.getFen() == original,
+                    "Cancellation failed to restore nested/special moves");
+        }
+    }
+    chesslab::SearchLimits limits;
+    limits.depth = chesslab::MAX_SEARCH_PLY;
+    limits.nodes = 1;
+    limits.time_managed = true;
+    std::atomic<bool> stop{false};
+    auto fallback = chesslab::search(chess::Board(), limits, true, stop);
+    require(fallback.depth == 0 && fallback.pv.empty() && fallback.best_move != chess::Move{},
+            "Interrupted first iteration did not retain a legal fallback");
+    limits.nodes = 0;
+    limits.milliseconds = 1000;
+    auto mate = chesslab::search(chess::Board("7k/8/5KQ1/8/8/8/8/8 w - - 0 1"), limits, true, stop);
+    require(mate.depth < 64 && mate.white_score >= chesslab::MATE_THRESHOLD,
+            "Timed search failed to stop on proven mate");
+}
+
 }  // namespace
 
 int main(int argc, char** argv) {
@@ -221,6 +262,7 @@ int main(int argc, char** argv) {
         else if (test == "histories") histories();
         else if (test == "quiescence") quiescence();
         else if (test == "pvs") pvs();
+        else if (test == "cancellation") cancellation();
         else throw std::runtime_error("Expected hashes, bounds, storage, histories, quiescence, or pvs");
         std::cout << test << " passed\n";
     } catch (const std::exception& error) {

@@ -1,4 +1,5 @@
 #include "search.hpp"
+#include "scoped_move.hpp"
 
 #include <algorithm>
 #include <memory>
@@ -39,6 +40,7 @@ class Search {
 public:
     Search(const SearchLimits& limits, bool pruning, const std::atomic<bool>& stop)
         : limits_(limits), pruning_(pruning), stop_(stop), start_(Clock::now()),
+          deadline_(limits.milliseconds ? start_ + std::chrono::milliseconds(limits.milliseconds) : Clock::time_point::max()),
           table_(limits.transposition_table ? std::make_unique<TranspositionTable>(limits.hash_megabytes) : nullptr) {}
 
     SearchResult run(chess::Board& board, const SearchProgress& progress) {
@@ -47,13 +49,14 @@ public:
         // If stopped before depth one finishes, still return a legal move.
         if (!moves.empty() && !is_draw(board)) result_.best_move = moves[0];
         const bool terminal = moves.empty() || is_draw(board);
-        const int first = limits_.iterative_deepening && !terminal ? 1 : limits_.depth;
+        const int first = (limits_.iterative_deepening && !terminal) || (limits_.time_managed && terminal) ? 1 : limits_.depth;
         for (int depth = first; depth <= limits_.depth; ++depth) {
             // Only commit a complete pass. Recursive PV updates stay local, so an
             // interrupted deeper pass cannot corrupt the saved move or score.
             std::vector<chess::Move> pv;
             int score;
             try {
+                check_limits(true);
                 score = minimax(board, depth, 0, -INFINITY_SCORE, INFINITY_SCORE, pv, true, limits_.history);
             } catch (const Interrupted&) {
                 break;
@@ -66,6 +69,9 @@ public:
             result_.milliseconds = elapsed();
             result_.hashfull = table_ ? table_->hashfull() : 0;
             if (progress) progress(result_);
+            // Only time-managed searches stop on a proven root mate. Explicit
+            // depth requests retain their reproducible target-depth behavior.
+            if (limits_.time_managed && (terminal || std::abs(score) >= MATE_THRESHOLD)) break;
         }
         // Totals include unfinished work; depth/PV/score refer to the saved pass.
         result_.milliseconds = elapsed();
@@ -79,6 +85,7 @@ private:
     bool pruning_;
     const std::atomic<bool>& stop_;
     Clock::time_point start_;
+    Clock::time_point deadline_;
     SearchResult result_;
     std::unique_ptr<TranspositionTable> table_;  // Fresh per search; shared across completed passes.
 
@@ -92,13 +99,17 @@ private:
         return board.isInsufficientMaterial() || board.isHalfMoveDraw() || board.isRepetition(2);
     }
 
-    void visit(int ply, bool quiescent = false) {
+    void check_limits(bool between_iterations = false) const {
         if (stop_.load(std::memory_order_relaxed) ||
             (limits_.nodes && result_.nodes >= limits_.nodes) ||
-            (limits_.milliseconds && (result_.nodes % 1024 == 0) &&
-             Clock::now() - start_ >= std::chrono::milliseconds(limits_.milliseconds))) {
+            (limits_.milliseconds && (between_iterations || result_.nodes % 256 == 0) &&
+             Clock::now() >= deadline_)) {
             throw Interrupted{};
         }
+    }
+
+    void visit(int ply, bool quiescent = false) {
+        check_limits();
         ++result_.nodes;  // Includes the root, terminal nodes, and static leaves.
         if (quiescent) ++result_.qnodes;
         result_.selective_depth = std::max(result_.selective_depth, ply);
@@ -148,9 +159,11 @@ private:
         if (limits_.move_ordering) order_moves(tactical, board, chess::Move{}, chess::Move{});
         for (const auto move : tactical) {
             std::vector<chess::Move> child_pv;
-            board.makeMove<true>(move);
-            const int score = quiescence(board, ply + 1, qply + 1, alpha, beta, child_pv);
-            board.unmakeMove(move);
+            int score;
+            {
+                ScopedMove played(board, move);
+                score = quiescence(board, ply + 1, qply + 1, alpha, beta, child_pv);
+            }
             if ((maximizing && score > best) || (!maximizing && score < best)) {
                 best = score;
                 pv.assign(1, move);
@@ -208,27 +221,28 @@ private:
         for (const auto move : moves) {
             std::vector<chess::Move> child_pv;
             const auto parent_key = board.hash();
-            board.makeMove<true>(move);
-            const auto child_history = table_ ? next_history(history, parent_key, board) : 0;
-            const bool child_follows_pv = follows_previous_pv && move == hint;
             int score;
-            if (pruning_ && limits_.principal_variation_search && !first && beta - alpha > 1) {
-                ++result_.pvs_scouts;
-                const int scout_alpha = maximizing ? alpha : beta - 1;
-                const int scout_beta = maximizing ? alpha + 1 : beta;
-                score = minimax(board, depth - 1, ply + 1, scout_alpha, scout_beta,
-                                child_pv, child_follows_pv, child_history);
-                if (score > alpha && score < beta) {
-                    ++result_.pvs_researches;
-                    child_pv.clear();
+            {
+                ScopedMove played(board, move);
+                const auto child_history = table_ ? next_history(history, parent_key, board) : 0;
+                const bool child_follows_pv = follows_previous_pv && move == hint;
+                if (pruning_ && limits_.principal_variation_search && !first && beta - alpha > 1) {
+                    ++result_.pvs_scouts;
+                    const int scout_alpha = maximizing ? alpha : beta - 1;
+                    const int scout_beta = maximizing ? alpha + 1 : beta;
+                    score = minimax(board, depth - 1, ply + 1, scout_alpha, scout_beta,
+                                    child_pv, child_follows_pv, child_history);
+                    if (score > alpha && score < beta) {
+                        ++result_.pvs_researches;
+                        child_pv.clear();
+                        score = minimax(board, depth - 1, ply + 1, alpha, beta,
+                                        child_pv, child_follows_pv, child_history);
+                    }
+                } else {
                     score = minimax(board, depth - 1, ply + 1, alpha, beta,
                                     child_pv, child_follows_pv, child_history);
                 }
-            } else {
-                score = minimax(board, depth - 1, ply + 1, alpha, beta,
-                                child_pv, child_follows_pv, child_history);
             }
-            board.unmakeMove(move);
             first = false;
             if ((maximizing && score > best) || (!maximizing && score < best)) {
                 best = score;

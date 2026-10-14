@@ -75,7 +75,7 @@ uncached search skips all probes, stores, table hints, and history-fingerprint w
 
 ## Controls and diagnostics
 
-- Setup (**G**): **Transpositions: on/off**, then Start new game.
+- Setup (**G**): **Transpositions: on/off**, then Apply to game or Start new game.
 - Search lab (**E**): **Transpositions: on/off** preserves the position and clears
   old rows. Rerun Compare position; both algorithms use the selected setting.
 - CLI: `--transposition-table` or `--no-transposition-table`; default is on.
@@ -99,7 +99,7 @@ not tablebase hits. Nodes still count every search invocation, including cache h
 .\.venv\Scripts\python.exe -m tools.benchmark_transpositions --depth 5 --repeats 3 --output artifacts\tt-benchmark.json
 ```
 
-**527 tests pass on Windows.** Pytest compiles the native TT test executable with
+**557 tests pass on Windows.** Pytest compiles the native TT test executable with
 the existing build helper; keep the C++ compiler available. Native tests cover
 incremental/full hash agreement, make/unmake, castling/en-passant/side keys, empty
 and colliding slots, context guards, replacement priority, all bound types, depth

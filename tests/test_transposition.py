@@ -23,7 +23,7 @@ def native_tests():
     return ROOT / "engine/build" / ("chesslab-tt-tests.exe" if os.name == "nt" else "chesslab-tt-tests")
 
 
-@pytest.mark.parametrize("group", ["hashes", "bounds", "storage", "histories", "quiescence", "pvs"])
+@pytest.mark.parametrize("group", ["hashes", "bounds", "storage", "histories", "quiescence", "pvs", "cancellation"])
 def test_native_table_and_zobrist_invariants(native_tests, group):
     result = subprocess.run([str(native_tests), group], capture_output=True, text=True, timeout=5)
     assert result.returncode == 0, result.stdout + result.stderr

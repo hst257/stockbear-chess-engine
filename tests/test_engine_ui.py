@@ -52,7 +52,7 @@ class FakeEngine:
 
 @pytest.fixture
 def app():
-    instance = Application(settings=EngineSettings(enabled=True), engine_client=FakeEngine())
+    instance = Application(settings=EngineSettings(enabled=True, timed_search=False), engine_client=FakeEngine())
     instance.draw()
     yield instance
     instance.close()
@@ -142,7 +142,7 @@ def test_setup_selects_human_black_and_starts_engine_opening(app):
     app.draw()
     for name in ("black", "minimax", "more", "start"):
         click(app, app.modal_targets[name].center)
-    assert app.settings == EngineSettings(True, chess.BLACK, False, 4)
+    assert app.settings == EngineSettings(True, chess.BLACK, False, 4, timed_search=False)
     assert app.flipped and app.game.board.turn == chess.WHITE
     app.update_engine()
     assert app.engine.busy
@@ -313,7 +313,7 @@ def test_engine_setup_and_diagnostics_render_at_supported_sizes(app, size, tmp_p
 
 
 def test_full_application_real_engine_reply_and_comparison(tmp_path):
-    app = Application(settings=EngineSettings(enabled=True, depth=2))
+    app = Application(settings=EngineSettings(enabled=True, depth=2, timed_search=False))
     try:
         for square in (chess.E2, chess.E4):
             click(app, app.geometry.square_rect(square).center)
@@ -337,3 +337,67 @@ def test_full_application_real_engine_reply_and_comparison(tmp_path):
         pygame.image.save(app.surface, tmp_path / "comparison.png")
     finally:
         app.close()
+
+
+@pytest.mark.parametrize("milliseconds", [100, 500, 1000, 3000, 5000])
+def test_thinking_time_applies_to_next_request_without_reset_or_cancel(app, milliseconds):
+    human_e4(app)
+    token = app._request_token
+    old_settings = app.engine.calls[-1][2]
+    before = app.game.board.fen()
+    app.action("setup")
+    app.draw()
+    assert app.engine.busy and app._request_token == token
+    for target in ("time_mode", f"time_{milliseconds}", "apply"):
+        click(app, app.modal_targets[target].center)
+    assert app.game.board.fen() == before and app._request_token == token
+    assert app.settings.timed_search and app.settings.thinking_time_ms == milliseconds
+    assert app.engine.calls[-1][2] == old_settings
+    app.engine.finish(app)
+    app.update_engine()
+    assert len(app.game.records) == 2
+    assert app.game.play(chess.Move.from_uci("g1f3"))
+    app.update_engine()
+    assert app.engine.calls[-1][2].thinking_time_ms == milliseconds
+    assert app.engine.calls[-1][2].timed_search
+
+
+def test_cancel_time_selection_and_local_mode_preserve_game(app):
+    human_e4(app)
+    before = app.game.board.fen()
+    app.action("setup")
+    app.draw()
+    click(app, app.modal_targets["time_5000"].center)
+    click(app, app.modal_targets["cancel"].center)
+    assert app.settings.thinking_time_ms == 1000
+    app.action("setup")
+    app.draw()
+    for target in ("local", "apply"):
+        click(app, app.modal_targets[target].center)
+    assert app.game.board.fen() == before and not app.engine.busy
+    assert not app.settings.enabled
+
+
+def test_timed_progress_survives_modal_and_event_loop_stays_responsive(app):
+    from dataclasses import replace
+    app.settings = replace(app.settings, timed_search=True, thinking_time_ms=5000)
+    human_e4(app)
+    before = app.game.board.fen()
+    token = app._request_token
+    app.handle_event(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_f))
+    assert app.flipped and app.engine.busy
+    app.handle_event(pygame.event.Event(pygame.VIDEORESIZE, size=(960, 680)))
+    app.draw()
+    assert app.game.board.fen() == before
+    app.action("new")
+    app.engine.messages.append(EngineMessage(token, app.game.revision - 1, "play"))
+    app.update_engine()
+    assert app.game.board.fen() == chess.STARTING_FEN
+    human_e4(app)
+    app.handle_event(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_u))
+    assert app.game.board.fen() == chess.STARTING_FEN and not app.engine.busy
+    human_e4(app)
+    app.handle_event(pygame.event.Event(pygame.QUIT))
+    assert not app.running
+    app.close()
+    assert not app.engine.busy

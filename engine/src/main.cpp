@@ -167,7 +167,7 @@ public:
             try {
                 const auto& command = tokens[0];
                 if (command == "uci") {
-                    output("id name ChessLab 0.7");
+                    output("id name ChessLab 0.8");
                     output("id author ChessLab contributors");
                     output("option name AlphaBeta type check default true");
                     output("option name IterativeDeepening type check default true");
@@ -286,7 +286,11 @@ private:
                 else limits.nodes = value;
             }
         }
-        if (!explicit_depth && (limits.milliseconds || limits.nodes)) limits.depth = 64;
+        if (!explicit_depth && (limits.milliseconds || limits.nodes)) limits.depth = chesslab::MAX_SEARCH_PLY;
+        if (!explicit_depth && limits.milliseconds) {
+            limits.time_managed = true;
+            limits.iterative_deepening = true;
+        }
         stopped_.store(false, std::memory_order_relaxed);
         const auto position = board_;
         const bool pruning = alpha_beta_;

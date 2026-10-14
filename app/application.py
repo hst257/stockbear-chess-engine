@@ -1,6 +1,7 @@
 """Pygame event loop joining state, input, and rendering."""
 
 import sys
+import time
 from dataclasses import replace
 from pathlib import Path
 
@@ -44,6 +45,7 @@ class Application:
         self.search_position = "No search yet. Compare the current position."
         self._request_revision: int | None = None
         self._request_token: int | None = None
+        self._search_started = 0.0
         self.running = True
         self.modal_targets: dict[object, pygame.Rect] = {}
         self.resize(size)
@@ -67,7 +69,7 @@ class Application:
         self.inputs.clear()
         self.claim_dialog = False
         self.claim_scroll = 0
-        if name in ("new", "undo", "setup", "diagnostics"):
+        if name in ("new", "undo", "diagnostics"):
             self.engine.cancel()
             self._request_revision = self._request_token = None
         if name in ("new", "undo"):
@@ -113,7 +115,8 @@ class Application:
         self.engine_error = ""
         self.search_rows = ()
         turn = "White" if self.game.board.turn else "Black"
-        self.search_position = f"Move {self.game.board.fullmove_number} · {turn} to move · depth {self.settings.depth}"
+        self.search_position = f"Move {self.game.board.fullmove_number} · {turn} to move · {self.settings.search_label}"
+        self._search_started = time.monotonic()
         self._request_revision = self.game.revision
         self._request_token = self.engine.start(self.game.board, self.game.revision, self.settings, kind)
 
@@ -159,6 +162,13 @@ class Application:
                 self.action("new")
             elif target == "cancel":
                 self.settings_dialog = False
+            elif target == "apply":
+                if (self.settings.enabled, self.settings.human_color) != (self.draft_settings.enabled, self.draft_settings.human_color):
+                    self.engine.cancel()
+                    self._request_revision = self._request_token = None
+                    self.search_rows = ()
+                self.settings = self.draft_settings
+                self.settings_dialog = False
             else:
                 self.draft_settings = engine_panels.adjust(self.draft_settings, target)
         elif self.diagnostics_dialog:
@@ -168,7 +178,7 @@ class Application:
                 self.start_search("compare")
             elif target == "cancel_search" and self.engine.busy:
                 self.engine.stop()
-            elif target == "toggle_deepening" and not self.engine.busy:
+            elif target == "toggle_deepening" and not self.engine.busy and not self.settings.timed_search:
                 self.settings = replace(self.settings, iterative_deepening=not self.settings.iterative_deepening)
                 self.search_rows = ()
             elif target == "toggle_ordering" and not self.engine.busy:
@@ -265,19 +275,20 @@ class Application:
         if self.engine_error:
             detail = "Engine unavailable · see Search lab"
         elif self.settings.enabled:
-            detail = f"{self.settings.algorithm} · depth {self.settings.depth}"
+            detail = f"{self.settings.algorithm} · {self.settings.search_label}"
             if self.engine.busy:
-                if self.search_rows:
-                    detail = f"Thinking… completed depth {self.search_rows[-1].depth}/{self.settings.depth}"
-                else:
-                    detail += " · thinking…"
+                last = self.search_rows[-1] if self.search_rows else None
+                elapsed = max(0, time.monotonic() - self._search_started)
+                detail = f"Depth {last.depth if last else 0} · {elapsed:.1f}s · {last.nodes if last else 0:,} nodes"
             elif self.last_play_stats:
                 last = self.last_play_stats
-                detail = f"{last.san} · depth {last.depth}/{last.requested_depth} · {last.nodes:,} nodes"
+                depth = str(last.depth) if last.timed_search else f"{last.depth}/{last.requested_depth}"
+                detail = f"{last.san} · d{depth} · {last.seconds:.2f}s · {last.nodes:,} nodes"
         self.sidebar.draw(surface, self.sidebar_rect, self.game, self.pieces,
                           detail=detail, undo_enabled=self.can_undo,
                           claim_enabled=bool(self.game.draw_claims) and self.human_turn,
-                          turn_label="ENGINE TURN" if not self.human_turn else "YOUR TURN")
+                          turn_label="StockBear is thinking..." if self.engine.busy else
+                          "ENGINE TURN" if not self.human_turn else "YOUR TURN")
         bottom = "Black" if self.flipped else "White"
         theme.text(surface, f"{bottom} at the bottom", (board.x, board.bottom + 34), 12, theme.MUTED)
         theme.text(surface, "Click a piece, then a destination.",

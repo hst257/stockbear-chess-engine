@@ -11,7 +11,7 @@ ChessLab is a Python/Pygame chess application for engine development.
 - `app/`: Python application; separate startup, game state, board rendering, input handling, and `ui/` components.
 - `app/assets/`: locally bundled piece images and attribution/license notices.
 - `tests/`: automated game-state, input, and rendering tests.
-- `engine/src/`: standalone C++17 UCI protocol and Minimax/alpha-beta search.
+- `engine/src/`: C++17 UCI protocol and Minimax/alpha-beta search.
 - `engine/vendor/`: pinned MIT-licensed rules library; keep upstream files unchanged.
 - `tools/prepare_assets.py`: development-only artwork conversion; `--offline` uses local SVGs.
 
@@ -35,7 +35,7 @@ Use four spaces, PEP 8, `snake_case` functions, `PascalCase` classes, and `UPPER
 
 Keep game logic independent of Pygame; validate moves with `python-chess`. Use package-relative assets and responsive events.
 
-C++: use four spaces and `snake_case`; separate protocol and search. Both algorithms share evaluation, depth, and ordering.
+C++: use four spaces and `snake_case`; separate protocol and search. Both algorithms share evaluation, limits, and ordering.
 
 ## Testing guidelines
 
@@ -47,4 +47,4 @@ Use imperative subjects, such as `Add promotion selection dialog`. Keep commits 
 
 ## Development boundaries
 
-Quiescence and PVS are switchable; Minimax never uses PVS. Preserve check evasions, shared budgets, draw context, TT bounds, and completed-pass snapshots. Keep both switches off for historical baselines. Defer killer/history heuristics and further pruning until requested. Keep completed results separate from unfinished passes. Run UCI work off the GUI thread, reject stale replies, and apply moves only after final completion. Preserve attribution and document tested behavior.
+Gameplay defaults to timed deepening; retain fixed-depth baselines. Preserve fallbacks, board restoration, and stale-request guards. Quiescence/PVS remain switchable; Minimax never scouts. Preserve check evasions, shared budgets, draw context, TT bounds, and completed-pass snapshots. Keep both switches off for historical baselines. Defer killer/history heuristics and further pruning until requested. Run UCI work off the GUI thread, reject stale replies, and apply moves only after final completion. Preserve attribution.

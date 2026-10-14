@@ -16,6 +16,10 @@ def main() -> int:
     parser.add_argument("--human-color", choices=("white", "black"), default="white")
     parser.add_argument("--algorithm", choices=("minimax", "alphabeta"), default="alphabeta")
     parser.add_argument("--depth", type=int, choices=range(1, 6), default=3)
+    parser.add_argument("--search-mode", choices=("time", "depth"), default="time",
+                        help="Use a thinking-time budget (default) or a fixed depth.")
+    parser.add_argument("--thinking-time", type=int, choices=(100, 500, 1000, 3000, 5000), default=1000,
+                        metavar="MS", help="Engine thinking time in milliseconds (default: 1000).")
     parser.add_argument("--iterative-deepening", action=argparse.BooleanOptionalAction, default=True,
                         help="Search depth 1 through the target (default: enabled).")
     parser.add_argument("--move-ordering", action=argparse.BooleanOptionalAction, default=True,
@@ -47,7 +51,7 @@ def main() -> int:
         settings = EngineSettings(args.mode == "engine", args.human_color == "white",
                                   args.algorithm == "alphabeta", args.depth, args.iterative_deepening,
                                   args.move_ordering, args.pst, args.transposition_table,
-                                  args.quiescence, args.pvs)
+                                  args.quiescence, args.pvs, args.search_mode == "time", args.thinking_time)
         app = Application(settings=settings, engine_path=Path(args.engine) if args.engine else DEFAULT_ENGINE)
         app.run(args.smoke_test, args.screenshot)
         return 0

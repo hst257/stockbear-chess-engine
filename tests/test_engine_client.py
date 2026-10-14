@@ -29,7 +29,7 @@ def test_comparison_runs_both_algorithms_on_unchanged_snapshot(ordering, use_pst
     try:
         token = client.start(board, 42, EngineSettings(depth=3, move_ordering=ordering, use_pst=use_pst,
                                                       transposition_table=cached, quiescence=False,
-                                                      principal_variation_search=False), "compare")
+                                                      principal_variation_search=False, timed_search=False), "compare")
         progress = []
         message = wait_result(client, progress=progress)
         assert message.token == token and message.revision == 42
@@ -59,7 +59,7 @@ def test_missing_executable_reports_error_without_touching_board(tmp_path):
     client = EngineClient(tmp_path / "missing.exe")
     board = chess.Board()
     try:
-        client.start(board, 0, EngineSettings(enabled=True))
+        client.start(board, 0, EngineSettings(enabled=True, timed_search=False))
         message = wait_result(client)
         assert "build_engine.bat" in message.error
         assert board.fen() == chess.STARTING_FEN
@@ -70,10 +70,10 @@ def test_missing_executable_reports_error_without_touching_board(tmp_path):
 def test_cancel_discards_old_results_and_new_job_completes():
     client = EngineClient()
     try:
-        old = client.start(chess.Board(), 1, EngineSettings(depth=5, alpha_beta=False))
+        old = client.start(chess.Board(), 1, EngineSettings(depth=5, alpha_beta=False, timed_search=False))
         client.cancel()
         assert not client.busy
-        new = client.start(chess.Board(), 2, EngineSettings(depth=1))
+        new = client.start(chess.Board(), 2, EngineSettings(depth=1, timed_search=False))
         message = wait_result(client)
         assert message.token == new and new != old
         assert message.revision == 2 and not message.error
@@ -85,7 +85,7 @@ def test_cancel_discards_old_results_and_new_job_completes():
 def test_fixed_setting_emits_only_the_target_pass():
     client = EngineClient()
     try:
-        client.start(chess.Board(), 0, EngineSettings(depth=3, iterative_deepening=False))
+        client.start(chess.Board(), 0, EngineSettings(depth=3, iterative_deepening=False, timed_search=False))
         result = wait_result(client)
         assert not result.error
         assert [row.depth for row in result.stats[0].iterations] == [3]
@@ -97,7 +97,7 @@ def test_fixed_setting_emits_only_the_target_pass():
 def test_graceful_stop_retains_proven_score_and_result():
     client = EngineClient()
     try:
-        client.start(chess.Board(), 0, EngineSettings(depth=5, alpha_beta=False))
+        client.start(chess.Board(), 0, EngineSettings(depth=5, alpha_beta=False, timed_search=False))
         end = time.monotonic() + 8
         result = None
         while time.monotonic() < end:
@@ -125,7 +125,7 @@ def test_new_search_modes_stream_actual_counters_and_labels(qsearch, pvs):
     board = chess.Board()
     try:
         client.start(board, 9, EngineSettings(depth=3, quiescence=qsearch,
-                                             principal_variation_search=pvs), "compare")
+                                             principal_variation_search=pvs, timed_search=False), "compare")
         result = wait_result(client)
         assert not result.error and result.finished
         minimax, pruned = result.stats

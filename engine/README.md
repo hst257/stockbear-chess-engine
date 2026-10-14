@@ -67,6 +67,10 @@ all tables/source notices, worked examples, tests, benchmarks, and limitations.
 ## Iterative deepening
 
 Enabled by default, deepening searches depth 1, then 2, through the target depth.
+Timed `go movetime MS` without an explicit depth forces iterative deepening up
+to the 64-ply safety ceiling, even if IterativeDeepening is false. It can stop
+early on terminal positions or a proven root mate. `go depth N` preserves the
+selected iterative/direct policy.
 Each completed pass commits its move, score, and principal variation together and
 emits a UCI `info` update. A deeper unfinished pass cannot overwrite that snapshot.
 Time and node limits cover all passes together, not a fresh budget for each pass.
@@ -76,10 +80,10 @@ that completed depth, while final nodes/time include work spent on the interrupt
 pass. Before depth 1 finishes, it returns an unscored legal fallback at depth 0.
 Terminal positions are resolved directly without repeating identical passes.
 
-Toggle **Deepening: on/off** in game setup, or **Deepening: on/off**
-in Search lab. The latter preserves the board. CLI: `--no-iterative-deepening`
-selects the original direct search. UCI: `setoption name IterativeDeepening value false`.
-Both comparison algorithms use the same deepening setting, depth, and evaluation.
+Time mode shows **Deepening: automatic**. In fixed-depth mode, toggle
+**Deepening: on/off** in setup or Search lab. CLI: `--search-mode depth --no-iterative-deepening` selects direct search. UCI: `setoption name IterativeDeepening value false`.
+Both comparison algorithms share limits, deepening policy, and evaluation;
+timed completed depths can differ.
 
 Completed full-depth scores match direct search. With ordering enabled, the
 previous PV can change which equally good move is searched first. Its benefit
@@ -95,6 +99,18 @@ Search treats currently claimable threefold/50-move positions as drawn. The GUI
 automatically claims eligible draws on the engine's turn, including intended-move
 claims, before requesting a move. It may claim even when a win could exist. Human
 claims remain explicit.
+
+## Deadline and cancellation safety
+
+Each search records `steady_clock` start/deadline before allocating its table.
+Stop and node limits are checked at every main/Q invocation; deadline checks
+run every 256 nodes and before each iteration. A single interruption exception
+unwinds main search, Q, and PVS re-searches. `ScopedMove` restores every temporary
+move through RAII, including captures, castling, promotions, and en passant.
+Incomplete nodes never reach TT storage; completed descendants remain valid.
+The existing input thread signals an atomic stop and joins the one worker,
+which emits exactly one bestmove. No overlapping search workers are started.
+Timings include unfinished work; saved score/PV/depth stay together.
 
 ## Move ordering
 
@@ -209,9 +225,11 @@ Terminal/no-move results use `bestmove 0000`.
 Interrupted searches retain the most recent completed depth/score/PV. A final
 metadata update reports total work without replacing those fields. When deepening
 is disabled, an interrupted target pass has depth zero and no proven score. The GUI
-uses a 15-second safety limit per algorithm, allows target depths 1–5, and labels
-results as completed/target (for example, `3/5`) when the target was not reached.
-It computes comparison reductions only when both searches reach the same target.
+defaults to a 1000 ms time-only limit, with five presets from 100 to 5000 ms.
+Fixed-depth mode retains a 15-second safety limit and targets 1–5, displaying
+completed/target (for example, `3/5`) if interrupted. Only equal completed
+fixed-depth comparisons show node reductions; timed algorithms may finish
+different depths. See [time management](../docs/time-control.md).
 Unknown commands are ignored; invalid positions/moves report errors and leave
 the previous position unchanged.
 
@@ -223,7 +241,7 @@ evaluating leaves. Both paths use the same evaluation implementation.
 
 ## GUI integration
 
-Press G for opponent/color/algorithm/depth settings and E for Search lab. Compare
+Press G for opponent/color/algorithm/time settings and E for Search lab. Compare
 position runs both algorithms sequentially on one snapshot without playing either
 move. It displays move, completed depth, nodes, time, score, and node reduction.
 Completed passes stream live, with per-depth history for the latest algorithm.
@@ -232,7 +250,9 @@ and Undo cancel and discard the request instead.
 Play pauses while this panel is open.
 
 `app/engine_client.py` communicates through python-chess in a background worker.
-Jobs receive full-history board copies and revision/tokens. Only the GUI thread
+Jobs receive immutable settings, full-history board copies, and revision/tokens.
+Apply to game preserves the board; time changes affect subsequent requests,
+leaving active budgets intact. Changing opponent/color cancels incompatible work. Only the GUI thread
 applies validated replies through `Game.play` after the final response. Progress
 messages update statistics only. Reset, Undo, mode changes, and
 shutdown cancel subprocess work; stale replies are ignored. Errors leave the game
@@ -244,7 +264,7 @@ Build first, then run `.venv\Scripts\python.exe -m pytest -q` from the root.
 Tests include perft (197,281 at initial depth 4; 97,862 at Kiwipete depth 3), legal
 move cross-checks against python-chess, terminal states, search equivalence,
 interruptible UCI, cancellation, and actual engine-to-GUI play/comparison.
-The 527-test suite also checks optimal moves/scores against an independent Python
+The 557-test suite also checks optimal moves/scores against an independent Python
 reference with ordering off/on, both algorithms, and direct/iterative search.
 PST coverage includes all pieces, color/rank orientation, phase/rounding, diagnostic
 and search consistency, unchanged terminal behavior, and GUI on/off selection.

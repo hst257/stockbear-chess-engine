@@ -5,12 +5,12 @@ from dataclasses import replace
 import chess
 import pygame
 
-from app.engine_client import EngineSettings, SearchStats
+from app.engine_client import EngineSettings, SearchStats, THINKING_TIMES
 from app.ui import dialogs, theme
 
 
 def setup(surface: pygame.Surface, settings: EngineSettings, available: bool) -> dict[str, pygame.Rect]:
-    rect = dialogs.panel(surface, "Set up a game", "Choose an opponent and a search algorithm.", 590)
+    rect = dialogs.panel(surface, "Set up a game", "Choose settings, then apply or start a new game.", 648)
     targets: dict[str, pygame.Rect] = {}
 
     def choices(y: int, title: str, options: list[tuple[str, str, bool]]) -> None:
@@ -37,29 +37,51 @@ def setup(surface: pygame.Surface, settings: EngineSettings, available: bool) ->
         ("toggle_pvs", "PVS", settings.principal_variation_search),
     ]
     for index, (name, label, selected) in enumerate(options):
-        target = pygame.Rect(rect.x + 25 + (index % 2) * 225, rect.y + 296 + (index // 2) * 40, 215, 32)
-        active = name != "toggle_pvs" or settings.alpha_beta
+        target = pygame.Rect(rect.x + 25 + (index % 2) * 225, rect.y + 296 + (index // 2) * 36, 215, 30)
+        active = (name != "toggle_pvs" or settings.alpha_beta) and (name != "toggle_deepening" or not settings.timed_search)
+        if name == "toggle_deepening" and settings.timed_search:
+            label, selected = "Deepening", True
         text = f"{label}: " + (("on" if selected else "off") if active else "inactive")
+        if name == "toggle_deepening" and settings.timed_search:
+            text = "Deepening: automatic"
         theme.button(surface, target, text, active, selected and active)
         if active:
             targets[name] = target
-    theme.text(surface, "TARGET DEPTH (PLIES)", (rect.x + 25, rect.y + 434), 12, theme.MUTED, True)
+    for index, (name, label, selected) in enumerate((("time_mode", "Time budget", settings.timed_search),
+                                                   ("depth_mode", "Fixed depth", not settings.timed_search))):
+        target = pygame.Rect(rect.x + 25 + index * 225, rect.y + 414, 215, 28)
+        theme.button(surface, target, label, primary=selected)
+        targets[name] = target
+    theme.text(surface, "ENGINE THINKING TIME", (rect.x + 25, rect.y + 450), 12, theme.MUTED, True)
+    for index, (label, milliseconds) in enumerate(THINKING_TIMES):
+        target = pygame.Rect(rect.x + 25 + index * 89, rect.y + 471, 84, 40)
+        selected = settings.thinking_time_ms == milliseconds
+        theme.button(surface, target, "", primary=selected)
+        color = theme.BACKGROUND if selected else theme.TEXT
+        theme.centered(surface, label, pygame.Rect(target.x, target.y + 1, target.width, 19), 12, color, selected)
+        theme.centered(surface, f"{milliseconds / 1000:g}s", pygame.Rect(target.x, target.y + 20, target.width, 17), 12, color)
+        targets[f"time_{milliseconds}"] = target
+    theme.text(surface, "DEBUG TARGET DEPTH", (rect.x + 25, rect.y + 534), 12, theme.MUTED, True)
     for name, label, x, enabled in (("less", "−", rect.x + 290, settings.depth > 1),
                                      ("more", "+", rect.x + 402, settings.depth < 5)):
-        target = pygame.Rect(x, rect.y + 426, 38, 32)
+        target = pygame.Rect(x, rect.y + 526, 38, 32)
         theme.button(surface, target, label, enabled)
         targets[name] = target
-    theme.text(surface, str(settings.depth), (rect.x + 353, rect.y + 429), 18, theme.ACCENT, True)
-    note = "PVS uses alpha-beta; Minimax keeps full windows."
+    theme.text(surface, str(settings.depth), (rect.x + 353, rect.y + 529), 18, theme.ACCENT, True)
+    note = "Time mode deepens automatically; depth is for debugging."
     if settings.enabled and not available:
         note = "Build the engine first: run build_engine.bat"
-    theme.text(surface, note, (rect.x + 25, rect.y + 480), 13,
+    theme.text(surface, note, (rect.x + 25, rect.y + 567), 12,
                theme.CHECK if settings.enabled and not available else theme.MUTED)
-    start = pygame.Rect(rect.x + 25, rect.bottom - 55, 300, 36)
+    start = pygame.Rect(rect.x + 25, rect.bottom - 48, 180, 32)
     theme.button(surface, start, "Start new game", not settings.enabled or available, True)
     if not settings.enabled or available:
         targets["start"] = start
-    targets["cancel"] = pygame.Rect(rect.x + 340, rect.bottom - 55, 125, 36)
+    apply = pygame.Rect(rect.x + 215, rect.bottom - 48, 145, 32)
+    theme.button(surface, apply, "Apply to game", not settings.enabled or available)
+    if not settings.enabled or available:
+        targets["apply"] = apply
+    targets["cancel"] = pygame.Rect(rect.x + 370, rect.bottom - 48, 95, 32)
     theme.button(surface, targets["cancel"], "Cancel")
     return targets
 
@@ -82,7 +104,9 @@ def adjust(settings: EngineSettings, name: str) -> EngineSettings:
                       if settings.alpha_beta else {},
         "less": {"depth": max(1, settings.depth - 1)},
         "more": {"depth": min(5, settings.depth + 1)},
+        "time_mode": {"timed_search": True}, "depth_mode": {"timed_search": False},
     }
+    changes.update({f"time_{ms}": {"thinking_time_ms": ms} for _, ms in THINKING_TIMES})
     return replace(settings, **changes.get(name, {}))
 
 
@@ -93,7 +117,8 @@ def diagnostics(surface: pygame.Surface, rows: tuple[SearchStats, ...],
     # Six compact columns fit inside the minimum-size window's modal panel.
     theme.text(surface, position_label, (rect.x + 25, rect.y + 91), 13, theme.ACCENT)
     toggle = pygame.Rect(rect.x + 25, rect.y + 116, 215, 30)
-    theme.button(surface, toggle, "Deepening: " + ("on" if settings.iterative_deepening else "off"), not busy)
+    theme.button(surface, toggle, "Deepening: automatic" if settings.timed_search else
+                 "Deepening: " + ("on" if settings.iterative_deepening else "off"), not busy and not settings.timed_search)
     ordering = pygame.Rect(rect.x + 250, rect.y + 116, 215, 30)
     theme.button(surface, ordering, "Ordering: " + ("on" if settings.move_ordering else "off"), not busy)
     pst = pygame.Rect(rect.x + 25, rect.y + 154, 215, 30)
@@ -110,14 +135,17 @@ def diagnostics(surface: pygame.Surface, rows: tuple[SearchStats, ...],
         theme.text(surface, label, (rect.x + x, rect.y + 239), 12, theme.MUTED, True)
     for index, row in enumerate(rows):
         y = rect.y + 265 + index * 38
-        values = [row.algorithm, row.san, str(row.depth) if row.complete else f"{row.depth}/{row.requested_depth}",
+        depth = str(row.depth) if row.timed_search or row.complete else f"{row.depth}/{row.requested_depth}"
+        values = [row.algorithm, row.san, depth,
                   f"{row.nodes:,}", f"{row.seconds:.3f}s", row.score]
         for value, (_, x) in zip(values, columns):
             theme.text(surface, value, (rect.x + x, y), 13)
     detail = "Scores favor White (+) or Black (−); 1.00 = one pawn."
-    if len(rows) == 2 and all(row.complete for row in rows):
+    if len(rows) == 2 and all(row.complete and not row.timed_search for row in rows) and rows[0].depth == rows[1].depth:
         reduction = 100 * (1 - rows[1].nodes / max(1, rows[0].nodes))
         detail = f"{rows[1].algorithm} visited {reduction:.1f}% fewer nodes."
+    elif rows and rows[-1].timed_search:
+        detail = "Equal time budgets; completed depths can differ."
     elif rows and any(not row.complete for row in rows):
         detail = "Target not reached; showing last completed depths."
     if busy:
@@ -154,7 +182,7 @@ def diagnostics(surface: pygame.Surface, rows: tuple[SearchStats, ...],
         "toggle_quiescence": quiescence,
         "toggle_pvs": pvs,
     }
-    theme.button(surface, targets["compare"], f"Compare position · depth {settings.depth}", not busy, True)
+    theme.button(surface, targets["compare"], f"Compare position · {settings.search_label}", not busy, True)
     theme.button(surface, targets["cancel_search"], "Stop", busy)
     theme.centered(surface, "Close  ·  Esc", targets["close"], 13, theme.MUTED)
     return targets

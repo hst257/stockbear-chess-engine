@@ -52,7 +52,7 @@ class Sidebar:
                    (rect.x + 18, rect.y + 14), 12, theme.ACCENT, True)
         theme.text(surface, game.status, (rect.x + 18, rect.y + 35), 27, bold=True)
         theme.text(surface, game.result_reason if game.outcome else detail or game.result_reason,
-                   (rect.x + 18, rect.y + 75), 14,
+                   (rect.x + 18, rect.y + 75), 12,
                    theme.CHECK if game.board.is_check() and not game.outcome else theme.MUTED)
 
         theme.text(surface, "CAPTURED PIECES", (rect.x, rect.y + 126), 12, theme.MUTED, True)
