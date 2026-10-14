@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "chess.hpp"
+#include "evaluation.hpp"
 
 namespace chesslab {
 
@@ -18,6 +19,7 @@ struct SearchLimits {
     int milliseconds = 0;    // Zero means no time limit.
     bool iterative_deepening = true;
     bool move_ordering = true;
+    bool use_pst = true;
 };
 
 struct SearchResult {
@@ -31,7 +33,6 @@ struct SearchResult {
     bool complete = false;  // The requested target depth was reached.
 };
 
-int evaluate_material(const chess::Board& board);
 using SearchProgress = std::function<void(const SearchResult&)>;
 SearchResult search(chess::Board board, const SearchLimits& limits,
                     bool alpha_beta, const std::atomic<bool>& stop,

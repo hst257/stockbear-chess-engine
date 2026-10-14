@@ -1,0 +1,345 @@
+{
+  "generated_utc": "2026-10-14T12:02:17.394589+00:00",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+  "engine_name": "ChessLab 0.5",
+  "engine_sha256": "99fce268e2cc2ecbba10342068f0885681afd961d0708d50f47eeb7141ee2b9e",
+  "settings": {
+    "AlphaBeta": true,
+    "IterativeDeepening": true,
+    "MoveOrdering": true,
+    "depth": 5,
+    "seconds": 15,
+    "repeats": 3
+  },
+  "positions": [
+    {
+      "position": "opening",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "use_pst": false,
+      "bestmove": "b2b3",
+      "san": "b3",
+      "score_white": "+100",
+      "depth": 5,
+      "nodes": 25261,
+      "seconds": 0.002,
+      "nps": 12630500,
+      "wall_seconds": 0.003261300007579848,
+      "samples": [
+        {
+          "bestmove": "b2b3",
+          "san": "b3",
+          "score_white": "+100",
+          "depth": 5,
+          "nodes": 25261,
+          "seconds": 0.001,
+          "nps": 25261000,
+          "wall_seconds": 0.00399440000182949
+        },
+        {
+          "bestmove": "b2b3",
+          "san": "b3",
+          "score_white": "+100",
+          "depth": 5,
+          "nodes": 25261,
+          "seconds": 0.002,
+          "nps": 12630500,
+          "wall_seconds": 0.003261300007579848
+        },
+        {
+          "bestmove": "b2b3",
+          "san": "b3",
+          "score_white": "+100",
+          "depth": 5,
+          "nodes": 25261,
+          "seconds": 0.002,
+          "nps": 12630500,
+          "wall_seconds": 0.0028677000082097948
+        }
+      ]
+    },
+    {
+      "position": "opening",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "use_pst": true,
+      "bestmove": "e2e4",
+      "san": "e4",
+      "score_white": "+70",
+      "depth": 5,
+      "nodes": 182596,
+      "seconds": 0.02,
+      "nps": 9129800,
+      "wall_seconds": 0.021778900001663715,
+      "samples": [
+        {
+          "bestmove": "e2e4",
+          "san": "e4",
+          "score_white": "+70",
+          "depth": 5,
+          "nodes": 182596,
+          "seconds": 0.02,
+          "nps": 9129800,
+          "wall_seconds": 0.021778900001663715
+        },
+        {
+          "bestmove": "e2e4",
+          "san": "e4",
+          "score_white": "+70",
+          "depth": 5,
+          "nodes": 182596,
+          "seconds": 0.021,
+          "nps": 8695047,
+          "wall_seconds": 0.02196620000177063
+        },
+        {
+          "bestmove": "e2e4",
+          "san": "e4",
+          "score_white": "+70",
+          "depth": 5,
+          "nodes": 182596,
+          "seconds": 0.02,
+          "nps": 9129800,
+          "wall_seconds": 0.02145679999375716
+        }
+      ]
+    },
+    {
+      "position": "middlegame",
+      "fen": "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1",
+      "use_pst": false,
+      "bestmove": "e2a6",
+      "san": "Bxa6",
+      "score_white": "+230",
+      "depth": 5,
+      "nodes": 84750,
+      "seconds": 0.011,
+      "nps": 7704545,
+      "wall_seconds": 0.01180100001511164,
+      "samples": [
+        {
+          "bestmove": "e2a6",
+          "san": "Bxa6",
+          "score_white": "+230",
+          "depth": 5,
+          "nodes": 84750,
+          "seconds": 0.011,
+          "nps": 7704545,
+          "wall_seconds": 0.01223500000196509
+        },
+        {
+          "bestmove": "e2a6",
+          "san": "Bxa6",
+          "score_white": "+230",
+          "depth": 5,
+          "nodes": 84750,
+          "seconds": 0.011,
+          "nps": 7704545,
+          "wall_seconds": 0.011776600003940985
+        },
+        {
+          "bestmove": "e2a6",
+          "san": "Bxa6",
+          "score_white": "+230",
+          "depth": 5,
+          "nodes": 84750,
+          "seconds": 0.011,
+          "nps": 7704545,
+          "wall_seconds": 0.01180100001511164
+        }
+      ]
+    },
+    {
+      "position": "middlegame",
+      "fen": "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1",
+      "use_pst": true,
+      "bestmove": "d5e6",
+      "san": "dxe6",
+      "score_white": "+315",
+      "depth": 5,
+      "nodes": 87554,
+      "seconds": 0.013,
+      "nps": 6734923,
+      "wall_seconds": 0.014661299996078014,
+      "samples": [
+        {
+          "bestmove": "d5e6",
+          "san": "dxe6",
+          "score_white": "+315",
+          "depth": 5,
+          "nodes": 87554,
+          "seconds": 0.013,
+          "nps": 6734923,
+          "wall_seconds": 0.014762400009203702
+        },
+        {
+          "bestmove": "d5e6",
+          "san": "dxe6",
+          "score_white": "+315",
+          "depth": 5,
+          "nodes": 87554,
+          "seconds": 0.013,
+          "nps": 6734923,
+          "wall_seconds": 0.014661299996078014
+        },
+        {
+          "bestmove": "d5e6",
+          "san": "dxe6",
+          "score_white": "+315",
+          "depth": 5,
+          "nodes": 87554,
+          "seconds": 0.013,
+          "nps": 6734923,
+          "wall_seconds": 0.014609800011385232
+        }
+      ]
+    },
+    {
+      "position": "endgame",
+      "fen": "8/5pk1/6p1/8/3K4/6P1/5P2/8 w - - 0 1",
+      "use_pst": false,
+      "bestmove": "d4c3",
+      "san": "Kc3",
+      "score_white": "0",
+      "depth": 5,
+      "nodes": 1941,
+      "seconds": 0.0,
+      "nps": 1941000,
+      "wall_seconds": 0.0007398999878205359,
+      "samples": [
+        {
+          "bestmove": "d4c3",
+          "san": "Kc3",
+          "score_white": "0",
+          "depth": 5,
+          "nodes": 1941,
+          "seconds": 0.0,
+          "nps": 1941000,
+          "wall_seconds": 0.0010059000051114708
+        },
+        {
+          "bestmove": "d4c3",
+          "san": "Kc3",
+          "score_white": "0",
+          "depth": 5,
+          "nodes": 1941,
+          "seconds": 0.0,
+          "nps": 1941000,
+          "wall_seconds": 0.0007398999878205359
+        },
+        {
+          "bestmove": "d4c3",
+          "san": "Kc3",
+          "score_white": "0",
+          "depth": 5,
+          "nodes": 1941,
+          "seconds": 0.0,
+          "nps": 1941000,
+          "wall_seconds": 0.0007173999911174178
+        }
+      ]
+    },
+    {
+      "position": "endgame",
+      "fen": "8/5pk1/6p1/8/3K4/6P1/5P2/8 w - - 0 1",
+      "use_pst": true,
+      "bestmove": "d4e5",
+      "san": "Ke5",
+      "score_white": "+65",
+      "depth": 5,
+      "nodes": 2056,
+      "seconds": 0.0,
+      "nps": 2056000,
+      "wall_seconds": 0.0007750999939162284,
+      "samples": [
+        {
+          "bestmove": "d4e5",
+          "san": "Ke5",
+          "score_white": "+65",
+          "depth": 5,
+          "nodes": 2056,
+          "seconds": 0.0,
+          "nps": 2056000,
+          "wall_seconds": 0.0008380000072065741
+        },
+        {
+          "bestmove": "d4e5",
+          "san": "Ke5",
+          "score_white": "+65",
+          "depth": 5,
+          "nodes": 2056,
+          "seconds": 0.0,
+          "nps": 2056000,
+          "wall_seconds": 0.0007750999939162284
+        },
+        {
+          "bestmove": "d4e5",
+          "san": "Ke5",
+          "score_white": "+65",
+          "depth": 5,
+          "nodes": 2056,
+          "seconds": 0.0,
+          "nps": 2056000,
+          "wall_seconds": 0.0007118000066839159
+        }
+      ]
+    }
+  ],
+  "match_settings": {
+    "depth": 3,
+    "max_plies": 160,
+    "seconds": 15,
+    "claim_draw": true
+  },
+  "matches": [
+    {
+      "game": 1,
+      "pst_color": "white",
+      "opening": [],
+      "result": "1-0",
+      "termination": "checkmate",
+      "plies": 81,
+      "pst_outcome": "win"
+    },
+    {
+      "game": 2,
+      "pst_color": "black",
+      "opening": [],
+      "result": "1/2-1/2",
+      "termination": "threefold_repetition",
+      "plies": 114,
+      "pst_outcome": "draw"
+    },
+    {
+      "game": 3,
+      "pst_color": "white",
+      "opening": [
+        "e2e4",
+        "e7e5",
+        "g1f3",
+        "b8c6",
+        "f1c4",
+        "g8f6"
+      ],
+      "result": "1-0",
+      "termination": "checkmate",
+      "plies": 23,
+      "pst_outcome": "win"
+    },
+    {
+      "game": 4,
+      "pst_color": "black",
+      "opening": [
+        "e2e4",
+        "e7e5",
+        "g1f3",
+        "b8c6",
+        "f1c4",
+        "g8f6"
+      ],
+      "result": "1-0",
+      "termination": "checkmate",
+      "plies": 57,
+      "pst_outcome": "loss"
+    }
+  ]
+}

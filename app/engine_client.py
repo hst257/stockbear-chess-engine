@@ -23,6 +23,7 @@ class EngineSettings:
     depth: int = 3
     iterative_deepening: bool = True
     move_ordering: bool = True
+    use_pst: bool = True
 
     def __post_init__(self) -> None:
         if not 1 <= self.depth <= 5:
@@ -57,6 +58,7 @@ class SearchStats:
     iterative_deepening: bool = True
     iterations: tuple[SearchIteration, ...] = ()
     move_ordering: bool = True
+    use_pst: bool = True
 
 
 @dataclass(frozen=True)
@@ -93,7 +95,7 @@ def search_stats(info: chess.engine.InfoDict, move: chess.Move | None, board: ch
     return SearchStats("Alpha-beta" if pruning else "Minimax", settings.depth, depth,
                        info.get("nodes", 0), info.get("time", 0.0), move,
                        board.san(move) if move else "—", score_text, depth == settings.depth,
-                       settings.iterative_deepening, iterations, settings.move_ordering)
+                       settings.iterative_deepening, iterations, settings.move_ordering, settings.use_pst)
 
 
 class EngineClient:
@@ -170,7 +172,7 @@ class EngineClient:
                 if rows and job.stop_requested.is_set():
                     break
                 engine.configure({"AlphaBeta": pruning, "IterativeDeepening": settings.iterative_deepening,
-                                  "MoveOrdering": settings.move_ordering})
+                                  "MoveOrdering": settings.move_ordering, "UsePST": settings.use_pst})
                 iterations: list[SearchIteration] = []
                 with engine.analysis(board, chess.engine.Limit(depth=settings.depth, time=SEARCH_SECONDS),
                                      info=chess.engine.INFO_ALL) as analysis:

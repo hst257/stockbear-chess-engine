@@ -1,6 +1,7 @@
 """Exercise the actual standalone executable, not a Python search substitute."""
 
 import os
+import json
 import queue
 import random
 import subprocess
@@ -19,6 +20,7 @@ class Protocol:
                                         stderr=subprocess.PIPE, text=True, **flags)
         self.lines = queue.Queue()
         threading.Thread(target=self._read, daemon=True).start()
+        self.send("setoption name UsePST value false")  # Legacy material baselines.
 
     def _read(self):
         for line in self.process.stdout:
@@ -61,8 +63,28 @@ def test_uci_handshake_options_and_unknown_commands(engine):
     assert engine.options["AlphaBeta"].default is True
     assert engine.options["IterativeDeepening"].default is True
     assert engine.options["MoveOrdering"].default is True
+    assert engine.options["UsePST"].default is True
     assert engine.options["Depth"].default == 3
     engine.ping()
+
+
+def test_uci_evaluation_diagnostics_use_info_strings_and_preserve_position(protocol):
+    protocol.send("position startpos moves g1f3")
+    for enabled in (True, False, True):
+        protocol.send(f"setoption name UsePST value {str(enabled).lower()}")
+        protocol.send("eval")
+        lines = protocol.until("info string eval ")
+        assert all(line.startswith("info string ") for line in lines)
+        value = json.loads(lines[-1].removeprefix("info string eval "))
+        assert value["use_pst"] == enabled and value["material"] == 0
+        assert value["total"] == (50 if enabled else 0)
+        assert value["phase"] == 24
+        assert value["positional"] == sum(value["pst"].values())
+    protocol.send("go depth 1")
+    lines = protocol.until("bestmove")
+    board = chess.Board()
+    board.push_uci("g1f3")
+    assert chess.Move.from_uci(lines[-1].split()[1]) in board.legal_moves
 
 
 @pytest.mark.parametrize("depth,nodes", [(0, 1), (1, 20), (2, 400), (3, 8902), (4, 197281)])
@@ -213,6 +235,7 @@ def test_interrupted_search_is_not_reported_as_full_depth(protocol, limit):
     "go depth 999", "setoption name AlphaBeta value maybe",
     "setoption name IterativeDeepening value maybe",
     "setoption name MoveOrdering value maybe",
+    "setoption name UsePST value maybe",
 ])
 def test_invalid_commands_do_not_kill_engine_or_replace_position(protocol, command):
     protocol.send(command)
@@ -277,10 +300,12 @@ def test_node_budget_is_shared_between_passes(engine):
 
 @pytest.mark.parametrize("ordering", [False, True])
 @pytest.mark.parametrize("pruning", [False, True])
-def test_interrupted_deeper_pass_preserves_saved_tactical_move_score_and_pv(engine, pruning, ordering):
+@pytest.mark.parametrize("use_pst", [False, True])
+def test_interrupted_deeper_pass_preserves_saved_tactical_move_score_and_pv(engine, pruning, ordering, use_pst):
     # Qxa4 wins a pawn at depth 1, but depth 2 sees ...bxa4 winning the queen.
     board = chess.Board("7k/8/8/1p6/p7/Q7/8/7K w - - 0 1")
-    engine.configure({"AlphaBeta": pruning, "IterativeDeepening": False, "MoveOrdering": ordering})
+    engine.configure({"AlphaBeta": pruning, "IterativeDeepening": False,
+                      "MoveOrdering": ordering, "UsePST": use_pst})
     shallow = engine.play(board, chess.engine.Limit(depth=1), info=chess.engine.INFO_ALL)
     deep = engine.play(board, chess.engine.Limit(depth=2), info=chess.engine.INFO_ALL)
     assert shallow.move != deep.move

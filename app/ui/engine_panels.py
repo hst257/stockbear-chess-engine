@@ -23,25 +23,27 @@ def setup(surface: pygame.Surface, settings: EngineSettings, available: bool) ->
 
     choices(98, "OPPONENT", [("local", "Local two players", not settings.enabled),
                              ("engine", "ChessLab engine", settings.enabled)])
-    choices(174, "YOUR PIECES", [("white", "White", settings.human_color),
+    choices(162, "YOUR PIECES", [("white", "White", settings.human_color),
                                  ("black", "Black", not settings.human_color)])
-    choices(250, "SEARCH", [("minimax", "Minimax", not settings.alpha_beta),
+    choices(226, "SEARCH", [("minimax", "Minimax", not settings.alpha_beta),
                             ("alphabeta", "Alpha-beta", settings.alpha_beta)])
-    choices(326, "DEEPENING", [("iterative", "Depth 1 → target", settings.iterative_deepening),
+    choices(290, "DEEPENING", [("iterative", "Depth 1 → target", settings.iterative_deepening),
                               ("fixed", "Target depth only", not settings.iterative_deepening)])
-    choices(402, "MOVE ORDERING", [("ordered", "PV / promotions / captures", settings.move_ordering),
+    choices(354, "MOVE ORDERING", [("ordered", "PV / promotions / captures", settings.move_ordering),
                                    ("unordered", "Original move order", not settings.move_ordering)])
-    theme.text(surface, "TARGET DEPTH (PLIES)", (rect.x + 25, rect.y + 482), 12, theme.MUTED, True)
+    choices(418, "EVALUATION", [("pst_on", "Material + PST (on)", settings.use_pst),
+                               ("pst_off", "Material only (off)", not settings.use_pst)])
+    theme.text(surface, "TARGET DEPTH (PLIES)", (rect.x + 25, rect.y + 498), 12, theme.MUTED, True)
     for name, label, x, enabled in (("less", "−", rect.x + 290, settings.depth > 1),
                                      ("more", "+", rect.x + 402, settings.depth < 5)):
-        target = pygame.Rect(x, rect.y + 474, 38, 32)
+        target = pygame.Rect(x, rect.y + 490, 38, 32)
         theme.button(surface, target, label, enabled)
         targets[name] = target
-    theme.text(surface, str(settings.depth), (rect.x + 353, rect.y + 477), 18, theme.ACCENT, True)
-    note = "Same material evaluation in both search modes."
+    theme.text(surface, str(settings.depth), (rect.x + 353, rect.y + 493), 18, theme.ACCENT, True)
+    note = "Both algorithms use the selected evaluation."
     if settings.enabled and not available:
         note = "Build the engine first: run build_engine.bat"
-    theme.text(surface, note, (rect.x + 25, rect.y + 521), 13,
+    theme.text(surface, note, (rect.x + 25, rect.y + 533), 13,
                theme.CHECK if settings.enabled and not available else theme.MUTED)
     start = pygame.Rect(rect.x + 25, rect.bottom - 55, 300, 36)
     theme.button(surface, start, "Start new game", not settings.enabled or available, True)
@@ -59,6 +61,7 @@ def adjust(settings: EngineSettings, name: str) -> EngineSettings:
         "minimax": {"alpha_beta": False}, "alphabeta": {"alpha_beta": True},
         "iterative": {"iterative_deepening": True}, "fixed": {"iterative_deepening": False},
         "ordered": {"move_ordering": True}, "unordered": {"move_ordering": False},
+        "pst_on": {"use_pst": True}, "pst_off": {"use_pst": False},
         "less": {"depth": max(1, settings.depth - 1)},
         "more": {"depth": min(5, settings.depth + 1)},
     }
@@ -71,10 +74,12 @@ def diagnostics(surface: pygame.Surface, rows: tuple[SearchStats, ...],
     rect = dialogs.panel(surface, "Search lab", "Minimax vs alpha-beta · cumulative nodes and time.", 590)
     # Six compact columns fit inside the minimum-size window's modal panel.
     theme.text(surface, position_label, (rect.x + 25, rect.y + 91), 13, theme.ACCENT)
-    toggle = pygame.Rect(rect.x + 25, rect.y + 116, 215, 30)
+    toggle = pygame.Rect(rect.x + 25, rect.y + 116, 140, 30)
     theme.button(surface, toggle, "Deepening: " + ("on" if settings.iterative_deepening else "off"), not busy)
-    ordering = pygame.Rect(rect.x + 250, rect.y + 116, 215, 30)
+    ordering = pygame.Rect(rect.x + 175, rect.y + 116, 140, 30)
     theme.button(surface, ordering, "Ordering: " + ("on" if settings.move_ordering else "off"), not busy)
+    pst = pygame.Rect(rect.x + 325, rect.y + 116, 140, 30)
+    theme.button(surface, pst, "PST: " + ("on" if settings.use_pst else "off"), not busy)
     columns = [("Algorithm", 25), ("Move", 135), ("Depth", 199),
                ("Nodes", 255), ("Time", 340), ("Score", 405)]
     for label, x in columns:
@@ -111,6 +116,7 @@ def diagnostics(surface: pygame.Surface, rows: tuple[SearchStats, ...],
         "close": pygame.Rect(rect.x + 25, rect.bottom - 39, rect.width - 50, 25),
         "toggle_deepening": toggle,
         "toggle_ordering": ordering,
+        "toggle_pst": pst,
     }
     theme.button(surface, targets["compare"], f"Compare position · depth {settings.depth}", not busy, True)
     theme.button(surface, targets["cancel_search"], "Stop", busy)

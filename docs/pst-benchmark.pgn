@@ -1,0 +1,43 @@
+[Event "PST smoke match"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "PST"]
+[Black "Material"]
+[Result "1-0"]
+[Termination "checkmate"]
+
+1. Nc3 a6 2. e4 a5 3. Bc4 a4 4. Nf3 a3 5. bxa3 b6 6. Bd5 c6 7. Bb3 b5 8. d4 Qa5 9. Bb2 d6 10. O-O Bg4 11. Re1 Bxf3 12. Qxf3 e6 13. Bxe6 fxe6 14. d5 Ke7 15. dxe6 Nf6 16. Qf5 Ke8 17. Rad1 Ke7 18. h3 Ke8 19. Qf3 Ke7 20. Qf5 Ke8 21. Qf3 c5 22. e5 dxe5 23. Qb7 Nd5 24. Rxd5 Be7 25. Rdxe5 Kd8 26. Nxb5 Bd6 27. Nxd6 Qc7 28. e7+ Kd7 29. Qxa8 Qxd6 30. Qa4+ Kc7 31. Qa7+ Kc8 32. Rxc5+ Nc6 33. Qa8+ Kc7 34. Qa7+ Kc8 35. Qa8+ Kc7 36. Qa5+ Kd7 37. Rxc6 Kxc6 38. Qa6+ Kc5 39. Qa5+ Kc4 40. Re4+ Qd4 41. Rxd4# 1-0
+
+[Event "PST smoke match"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Material"]
+[Black "PST"]
+[Result "1/2-1/2"]
+[Termination "threefold_repetition"]
+
+1. a3 e5 2. a4 Bc5 3. b3 Bd4 4. c3 Bc5 5. d3 Nc6 6. Nf3 Qf6 7. e3 Nge7 8. Kd2 d5 9. Ke1 Bg4 10. Kd2 O-O 11. Ke1 Nf5 12. Kd2 Rad8 13. Ke1 Rfe8 14. Kd2 a6 15. Ke1 h6 16. Kd2 Nd6 17. Ke1 Nf5 18. Kd2 Nd6 19. Kc2 Bh5 20. Kb2 Bb6 21. Ka2 Bg4 22. Kb2 Nf5 23. Ka2 Nd6 24. Kb2 Nf5 25. Kc2 Qd6 26. Ba3 Qe6 27. Kc1 Qf6 28. Kb2 Qe6 29. Kc1 Qf6 30. Kb2 a5 31. Kc1 Qe6 32. Kb2 Qf6 33. Kc1 Qe6 34. Kc2 h5 35. Kc1 h4 36. Kb2 Qf6 37. Kc1 Qe6 38. Kb2 Qf6 39. Ka2 Rd7 40. h3 Bh5 41. Kb2 Nh6 42. Kc1 Rdd8 43. Kb2 Qf5 44. Kc1 Qf6 45. Kb2 Qf5 46. Ka2 Rd7 47. Nbd2 Rdd8 48. Nxh4 Nb4+ 49. cxb4 Bxd1 50. Nxf5 Nxf5 51. Rxd1 axb4 52. Bxb4 Rd7 53. Nf3 Rdd8 54. Ka1 Ba7 55. Kb1 Bb6 56. Ka1 Ba7 57. Kb1 Bb6 1/2-1/2
+
+[Event "PST smoke match"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "PST"]
+[Black "Material"]
+[Result "1-0"]
+[Termination "checkmate"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Nf6 4. Nc3 Ke7 5. Bb5 Kd6 6. d4 exd4 7. Bf4+ Kc5 8. b4+ Kxb4 9. Rb1+ Ka5 10. Nd2 Kb6 11. Nc4+ Kc5 12. Na4# 1-0
+
+[Event "PST smoke match"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Material"]
+[Black "PST"]
+[Result "1-0"]
+[Termination "checkmate"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Nf6 4. Nc3 Bb4 5. Kf1 d5 6. exd5 Nxd5 7. Nxd5 Bc5 8. Nc3 Bg4 9. Ke1 f5 10. Kf1 Nd4 11. h3 Bh5 12. b4 Bxb4 13. a3 Bxf3 14. gxf3 Ba5 15. Bd3 Nc6 16. Bxf5 Bxc3 17. Rb1 Ne7 18. Be4 Bxd2 19. Bxd2 O-O 20. Rxb7 h6 21. Ke1 Rf4 22. Bxf4 Qc8 23. Bxe5 Qe6 24. Bxc7 Nd5 25. Qxd5 Qf7 26. Bh7+ Kf8 27. Bd6+ Qe7+ 28. Bxe7+ Ke8 29. Bg6# 1-0

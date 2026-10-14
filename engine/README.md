@@ -1,7 +1,8 @@
-# ChessLab engine: Minimax, alpha-beta, deepening, and ordering
+# ChessLab engine: search and configurable evaluation
 
-A standalone C++17 UCI executable implements material-only Minimax with optional
-alpha-beta pruning, switchable iterative deepening, and move ordering. It owns its board independently of Python.
+A standalone C++17 UCI executable implements Minimax with optional alpha-beta
+pruning, iterative deepening, move ordering, and material/PST evaluation.
+It owns its board independently of Python.
 No search or evaluation is delegated to another engine.
 
 ## Build
@@ -27,7 +28,7 @@ Linux builds have not been verified in this Windows development environment.
 ## Shared search and evaluation
 
 `src/search.cpp` contains one recursive Minimax implementation. White maximizes
-and Black minimizes the same material score:
+and Black minimizes the same White-relative score. Material values are unchanged:
 
 | Piece | Centipawns |
 | --- | ---: |
@@ -39,14 +40,27 @@ and Black minimizes the same material score:
 | King | 0 (handled through terminal detection) |
 
 Each node generates legal moves, checks mate/stalemate, checks draws, then
-evaluates material at depth zero. Mate distance favors faster wins and slower
+uses the selected static evaluator at depth zero. Mate distance favors faster wins and slower
 losses. Terminal detection precedes draw counters.
 
 With `AlphaBeta=false`, every branch is searched. With `AlphaBeta=true`, the same
 function updates alpha/beta bounds and cuts branches that cannot affect the answer.
 Both modes share the same ordering policy and first-best tie rule. Transposition
-tables, quiescence, killer/history heuristics, positional evaluation, opening books,
+tables, quiescence, killer/history heuristics, opening books,
 and neural networks are deferred.
+
+`src/evaluation.cpp` adds positional centipawns from the compile-time arrays in
+`src/pst.hpp`, one table per piece plus a second king table. `UsePST=true`
+(default) adds these to material; false restores the original material-only fast
+path. Black mirrors ranks with `square ^ 56`; no file reversal is used. Phase
+counts both sides' N/B=1, R=2, Q=4, clamped to 0–24. Each king blends its
+middlegame/endgame entries by that phase, rounded to the nearest centipawn with
+halves away from zero. Material is never included in the tables themselves.
+
+Select **Material + PST (on)** / **Material only (off)** in setup, use **PST: on/off**
+in Search lab, or pass `--no-pst` to the Python launcher. Search lab's two
+algorithms always use the same evaluation. See the [PST guide](../docs/pst.md) for
+all tables/source notices, worked examples, tests, benchmarks, and limitations.
 
 ## Iterative deepening
 
@@ -113,13 +127,15 @@ isready
 setoption name AlphaBeta value true
 setoption name IterativeDeepening value true
 setoption name MoveOrdering value true
+setoption name UsePST value true
 position startpos moves e2e4 e7e5
 go depth 3
 ```
 
 Commands: `uci`, `isready`, `ucinewgame`, `setoption`, `position startpos`,
-`position fen` (six fields, optionally followed by moves), `go`, `stop`, `quit`.
-Options: `AlphaBeta`, `IterativeDeepening`, `MoveOrdering` (all default true), and `Depth`
+`position fen` (six fields, optionally followed by moves), `go`, `stop`, `quit`,
+and the optional diagnostic `eval`.
+Options: `AlphaBeta`, `IterativeDeepening`, `MoveOrdering`, `UsePST` (all default true), and `Depth`
 (default 3, range 1–8). `go` accepts depth, movetime (milliseconds), nodes, and
 infinite. Bare `go` uses the Depth option. Time/node-limited requests without an
 explicit depth, and infinite searches, permit deepening through a safety cap of
@@ -138,6 +154,12 @@ results as completed/target (for example, `3/5`) when the target was not reached
 It computes comparison reductions only when both searches reach the same target.
 Unknown commands are ignored; invalid positions/moves report errors and leave
 the previous position unchanged.
+
+`eval` stops current search and emits `info string eval {JSON}` with White-relative
+material, six PST contributions, positional sum, total, and phase. No debug text
+is printed during normal UCI searches. Standalone equivalent: `--eval [--no-pst] FEN`.
+Static diagnostics do not adjudicate terminal positions; search does so before
+evaluating leaves. Both paths use the same evaluation implementation.
 
 ## GUI integration
 
@@ -162,10 +184,12 @@ Build first, then run `.venv\Scripts\python.exe -m pytest -q` from the root.
 Tests include perft (197,281 at initial depth 4; 97,862 at Kiwipete depth 3), legal
 move cross-checks against python-chess, terminal states, search equivalence,
 interruptible UCI, cancellation, and actual engine-to-GUI play/comparison.
-The 218-test suite also checks optimal moves/scores against an independent Python
+The 282-test suite also checks optimal moves/scores against an independent Python
 reference with ordering off/on, both algorithms, and direct/iterative search.
+PST coverage includes all pieces, color/rank orientation, phase/rounding, diagnostic
+and search consistency, unchanged terminal behavior, and GUI on/off selection.
 
-Original baseline with **MoveOrdering=false**, initial target depth 3
+Original baseline with **UsePST=false, MoveOrdering=false**, initial target depth 3
 (all select a3 with White score 0.00):
 
 | Algorithm | Deepening off | Deepening on |
@@ -173,7 +197,7 @@ Original baseline with **MoveOrdering=false**, initial target depth 3
 | Minimax | 9,323 nodes | 9,765 nodes |
 | Alpha-beta | 586 nodes | 667 nodes |
 
-Measured iterative alpha-beta, same completed depth/evaluation in each pair:
+Measured iterative alpha-beta with **UsePST=false**, same completed depth/evaluation in each pair:
 
 | Position | Depth | Ordering off | Ordering on | Fewer nodes |
 | --- | ---: | ---: | ---: | ---: |
@@ -183,7 +207,7 @@ Measured iterative alpha-beta, same completed depth/evaluation in each pair:
 Both initial searches select b3 (+1.00); both Kiwipete searches select Bxa6
 (+0.10). Kiwipete FEN:
 `r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1`.
-Reproduce with `AlphaBeta=true`, `IterativeDeepening=true`, the respective
+Reproduce with `UsePST=false`, `AlphaBeta=true`, `IterativeDeepening=true`, the respective
 `position` and `go depth` commands, toggling `MoveOrdering` between runs.
 
 With a shared 50-node budget, iterative Minimax completes depth 1 before being
@@ -199,10 +223,18 @@ Standalone rules diagnostics:
 ```powershell
 .\engine\build\chesslab-engine.exe --perft 4
 .\engine\build\chesslab-engine.exe --legal-moves "7k/P7/8/8/8/8/8/7K w - - 0 1"
+.\engine\build\chesslab-engine.exe --eval "7k/8/8/8/3N4/8/8/7K w - - 0 1"
 ```
+
+Run matched evaluation benchmarks and optional color-balanced smoke games with
+`python -m tools.benchmark_evaluation --match-games 4`. Recorded moves, scores,
+nodes, time, NPS, raw JSON, and PGNs are in the [PST guide](../docs/pst.md#verification-and-benchmarks).
 
 ## Third-party rules
 
 Disservin's MIT-licensed C++ chess library version 0.9.4 is vendored at revision
 `53e6a841dcda7059a2af363d85f785ef1817304a`. The original header/license are unchanged.
 Its position hashes support repetition detection; ChessLab has no search cache.
+
+Numeric PST data is adapted from Andrew Healey's MIT-licensed Andoma implementation
+of Tomasz Michniewski's classical tables. Full [notice and adaptation notes](vendor/andoma/README.md).

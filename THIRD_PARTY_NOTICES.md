@@ -10,6 +10,7 @@ with their respective projects and installed distributions:
 | chess library | 1.11.2 | GNU GPL 3 or later | https://github.com/niklasf/python-chess |
 | pytest (development only) | 8.4.2 | MIT | https://github.com/pytest-dev/pytest |
 | chess-library (vendored C++ rules) | 0.9.4 | MIT | https://github.com/Disservin/chess-library |
+| Andoma piece-square tables (adapted numeric data) | Source checked 2026-10-14 | MIT | https://github.com/healeycodes/andoma |
 | Zig compiler (build only) | 0.13.0 | MIT for Zig; bundled components retain upstream terms | https://ziglang.org/ |
 
 python-chess is the package that depends on the `chess` library. Both are pinned
@@ -25,3 +26,8 @@ The C++ library's pinned source and full license are retained in
 [engine/vendor/chess-library](engine/vendor/chess-library/README.md). It provides
 rules only; ChessLab implements search/evaluation. Zig is installed in the ignored
 virtual environment; bundled LLVM/libc++/runtime notices remain with its distribution.
+
+PST data derives from Tomasz Michniewski's Simplified Evaluation Function via
+Andrew Healey's MIT-licensed Andoma implementation. The full notice and adaptation
+details are in [engine/vendor/andoma](engine/vendor/andoma/README.md). Search and
+phase interpolation are implemented in this repository.

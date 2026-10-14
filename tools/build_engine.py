@@ -30,7 +30,8 @@ def main() -> int:
     args = compiler + ["-std=c++17", "-O2", "-pthread", "-Wall", "-Wextra",
                        "-I", str(ROOT / "engine" / "vendor" / "chess-library"),
                        str(ROOT / "engine" / "src" / "main.cpp"),
-                       str(ROOT / "engine" / "src" / "search.cpp"), "-o", str(output)]
+                       str(ROOT / "engine" / "src" / "search.cpp"),
+                       str(ROOT / "engine" / "src" / "evaluation.cpp"), "-o", str(output)]
     print("Building with " + " ".join(compiler), flush=True)
     environment = os.environ.copy()
     environment.setdefault("ZIG_GLOBAL_CACHE_DIR", str(output.parent / "zig-cache"))

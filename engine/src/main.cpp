@@ -20,6 +20,21 @@ void output(const std::string& line) {
     std::cout << line << std::endl;
 }
 
+std::string evaluation_json(const chess::Board& board, bool use_pst) {
+    const auto value = chesslab::evaluate_breakdown(board, use_pst);
+    constexpr const char* names[] = {"pawn", "knight", "bishop", "rook", "queen", "king"};
+    std::ostringstream json;
+    json << "{\"use_pst\":" << (use_pst ? "true" : "false")
+         << ",\"material\":" << value.material << ",\"pst\":{";
+    for (int kind = 0; kind < 6; ++kind) {
+        if (kind) json << ',';
+        json << '"' << names[kind] << "\":" << value.pst[kind];
+    }
+    json << "},\"positional\":" << value.positional() << ",\"total\":" << value.total()
+         << ",\"phase\":" << value.phase << '}';
+    return json.str();
+}
+
 void report_info(const chesslab::SearchResult& result, const chess::Board& position,
                  bool completed_iteration) {
     std::ostringstream info;
@@ -138,11 +153,12 @@ public:
             try {
                 const auto& command = tokens[0];
                 if (command == "uci") {
-                    output("id name ChessLab 0.4");
+                    output("id name ChessLab 0.5");
                     output("id author ChessLab contributors");
                     output("option name AlphaBeta type check default true");
                     output("option name IterativeDeepening type check default true");
                     output("option name MoveOrdering type check default true");
+                    output("option name UsePST type check default true");
                     output("option name Depth type spin default 3 min 1 max 8");
                     output("uciok");
                 } else if (command == "isready") output("readyok");
@@ -151,6 +167,10 @@ public:
                 else if (command == "ucinewgame") { stop_search(); board_ = chess::Board(); }
                 else if (command == "go") go(tokens);
                 else if (command == "stop") stop_search();
+                else if (command == "eval") {
+                    stop_search();
+                    output("info string eval " + evaluation_json(board_, use_pst_));
+                }
                 else if (command == "quit") break;
                 // UCI permits unrecognized commands to be ignored.
             } catch (const std::exception& error) {
@@ -165,6 +185,7 @@ private:
     bool alpha_beta_ = true;
     bool iterative_deepening_ = true;
     bool move_ordering_ = true;
+    bool use_pst_ = true;
     int depth_ = 3;
     std::atomic<bool> stopped_{false};
     std::thread worker_;
@@ -177,13 +198,15 @@ private:
     void set_option(const std::vector<std::string>& tokens) {
         stop_search();
         if (tokens.size() != 5 || tokens[1] != "name" || tokens[3] != "value") {
-            throw std::invalid_argument("expected setoption name <AlphaBeta|IterativeDeepening|MoveOrdering|Depth> value <value>");
+            throw std::invalid_argument("expected setoption name <AlphaBeta|IterativeDeepening|MoveOrdering|UsePST|Depth> value <value>");
         }
-        if (tokens[2] == "AlphaBeta" || tokens[2] == "IterativeDeepening" || tokens[2] == "MoveOrdering") {
+        if (tokens[2] == "AlphaBeta" || tokens[2] == "IterativeDeepening" ||
+            tokens[2] == "MoveOrdering" || tokens[2] == "UsePST") {
             if (tokens[4] != "true" && tokens[4] != "false") throw std::invalid_argument("check options must be true or false");
             if (tokens[2] == "AlphaBeta") alpha_beta_ = tokens[4] == "true";
             else if (tokens[2] == "IterativeDeepening") iterative_deepening_ = tokens[4] == "true";
-            else move_ordering_ = tokens[4] == "true";
+            else if (tokens[2] == "MoveOrdering") move_ordering_ = tokens[4] == "true";
+            else use_pst_ = tokens[4] == "true";
         } else if (tokens[2] == "Depth") depth_ = integer(tokens[4], 1, 8);
     }
 
@@ -211,6 +234,7 @@ private:
         limits.depth = depth_;
         limits.iterative_deepening = iterative_deepening_;
         limits.move_ordering = move_ordering_;
+        limits.use_pst = use_pst_;
         bool explicit_depth = false;
         for (std::size_t i = 1; i < tokens.size(); ++i) {
             if (tokens[i] == "infinite") limits.depth = 64;
@@ -235,7 +259,8 @@ private:
                 output(std::string("info string ") + (result.complete ? "complete " : "incomplete ") +
                        (pruning ? "alpha-beta " : "minimax ") +
                        (limits.iterative_deepening ? "iterative " : "fixed ") +
-                       (limits.move_ordering ? "ordered" : "unordered"));
+                       (limits.move_ordering ? "ordered " : "unordered ") +
+                       (limits.use_pst ? "material+pst" : "material"));
                 output("bestmove " + (result.best_move == chess::Move{} ? std::string("0000") :
                                       chess::uci::moveToUci(result.best_move)));
             } catch (const std::exception& error) {
@@ -252,7 +277,10 @@ int main(int argc, char** argv) {
     try {
         if (argc > 1) {
             const std::string command = argv[1];
-            if (command == "--legal-moves" && argc == 3) {
+            if (command == "--eval" && (argc == 3 || (argc == 4 && std::string(argv[2]) == "--no-pst"))) {
+                const auto board = board_from_fen(argv[argc - 1]);
+                std::cout << evaluation_json(board, argc == 3) << '\n';
+            } else if (command == "--legal-moves" && argc == 3) {
                 auto board = board_from_fen(argv[2]);
                 chess::Movelist moves;
                 chess::movegen::legalmoves(moves, board);
@@ -260,7 +288,7 @@ int main(int argc, char** argv) {
             } else if (command == "--perft" && (argc == 3 || argc == 4)) {
                 auto board = argc == 4 ? board_from_fen(argv[3]) : chess::Board();
                 std::cout << chesslab::perft(board, integer(argv[2], 0, 6)) << '\n';
-            } else throw std::invalid_argument("usage: chesslab-engine [--perft DEPTH [FEN] | --legal-moves FEN]");
+            } else throw std::invalid_argument("usage: chesslab-engine [--perft DEPTH [FEN] | --legal-moves FEN | --eval [--no-pst] FEN]");
         } else UciEngine().loop();
     } catch (const std::exception& error) {
         std::cerr << error.what() << '\n';

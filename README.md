@@ -1,6 +1,6 @@
 # ChessLab
 
-ChessLab is a desktop chess game and a project for learning search algorithms. The Python/Pygame application supports local two-player games and a custom standalone C++17 opponent. Minimax, alpha-beta pruning, iterative deepening, and move ordering are implemented with a comparison interface.
+ChessLab is a desktop chess game and a project for learning search algorithms. The Python/Pygame application supports local two-player games and a custom standalone C++17 opponent. Minimax, alpha-beta pruning, iterative deepening, move ordering, and switchable piece-square evaluation are implemented with a comparison interface.
 
 ![ChessLab game board](docs/chesslab.png)
 
@@ -34,12 +34,13 @@ The launch script changes to its own folder, so it works regardless of your curr
 
 Build once after setup. The script installs a portable C++ compiler in `.venv` and produces `engine/build/chesslab-engine.exe`. No global toolchain installation is needed. The first compiler download is about 80 MB. Rebuild after changing C++ sources; generated binaries are not committed.
 
-Press **G** or click the opponent button to choose local/engine play, your color, Minimax or alpha-beta, iterative/direct search, move ordering, and target depth 1–5. **Start new game** applies those choices. Press **E** for Search lab and **Compare position** to measure both algorithms without playing a move. **Deepening: on/off** and **Ordering: on/off** change settings on the existing position; both algorithms use the same settings. Toggle ordering and rerun to compare it against the original traversal.
+Press **G** or click the opponent button to choose local/engine play, your color, Minimax or alpha-beta, iterative/direct search, move ordering, evaluation, and target depth 1–5. **Start new game** applies those choices. Press **E** for Search lab and **Compare position** to measure both algorithms without playing a move. **Deepening: on/off**, **Ordering: on/off**, and **PST: on/off** change settings on the existing position; both algorithms use the same settings. Toggle a setting and rerun to compare results.
 
 ```powershell
 .\launch.bat --mode engine --human-color black --algorithm minimax --depth 3
 .\launch.bat --mode engine --depth 5 --no-iterative-deepening
 .\launch.bat --mode engine --depth 4 --no-move-ordering
+.\launch.bat --mode engine --no-pst
 ```
 
 Local play remains the default. `--engine PATH` selects another build of ChessLab. Missing engines are reported in the interface; local play remains available.
@@ -47,6 +48,8 @@ Local play remains the default. `--engine PATH` selects another build of ChessLa
 Iterative deepening is on by default: depth 1, then 2, through the target. When stopped or timed out, the engine keeps the last fully completed move and score. Before completing any depth, it returns a legal fallback without a score. Search lab streams completed passes and shows completed/target depth when interrupted. **Stop** retains this result; Undo and New Game discard the request.
 
 Move ordering is also on by default: the previous completed principal variation first along its original path, then promotions, then captures ranked by victim value and attacker cost. Equal priorities retain their original order. Sorting changes traversal, so equal-scoring moves can differ between settings. Full-depth scores stay the same. Ordering helps alpha-beta find cutoffs earlier; it does not reduce exhaustive Minimax's node count or guarantee a speedup on every position.
+
+**PST is on by default.** Classical piece-square tables add modest positional bonuses for every piece, encouraging central knights, useful development, and sheltered kings. The king blends middlegame/endgame tables using remaining non-pawn material (phase 0–24). Black mirrors ranks; scores still favor White. Choose **Material only (off)** in setup or **PST: off** in Search lab to restore the original evaluator. See the [PST guide](docs/pst.md) for all tables, attribution, phase arithmetic, evaluation diagnostics, and benchmarks.
 
 ![Search lab comparing Minimax and alpha-beta](docs/search-lab.png)
 
@@ -91,6 +94,7 @@ White starts at the bottom in local play; engine games initially face your color
 - Human vs Engine as either color, selectable Minimax/alpha-beta, and depth-limited search.
 - Switchable iterative deepening retains completed answers under shared time/node limits. The fixed-depth baseline remains available.
 - Switchable PV, promotion, and MVV-LVA capture ordering, including en passant and capture promotions; the original move-order baseline remains available.
+- Switchable material + PST evaluation for all six piece types, with separate middlegame/endgame king tables and smooth phase interpolation.
 - Search lab compares depth, nodes, time, score, and move on one unchanged position, with live completed-pass history and clear target-depth status.
 - Background UCI work, cancellation, stale-result rejection, and engine error reporting.
 
@@ -108,16 +112,17 @@ app/
   assets/             PNG pieces, original SVGs, and license/attribution
 tests/                Rules, interaction, event-loop, and rendering tests
 tools/prepare_assets.py  Development-only artwork conversion
-engine/src/           Standalone C++ UCI protocol and shared search
-engine/vendor/        Pinned MIT-licensed rules library
+engine/src/           C++ UCI protocol, shared search, evaluation, and PST arrays
+engine/vendor/        Rules library and PST attribution/licenses
 tools/build_engine.py C++17 build helper
+tools/benchmark_evaluation.py  Matched PST/material measurements and smoke games
 ```
 
 `Game` has no Pygame dependency. It validates a move before changing the board and records SAN and the actual captured piece before pushing. This also handles en passant and captures of promoted pieces correctly. Undo uses the original board stack, preserving castling, en passant, and repetition history.
 
 `InputHandler` keeps temporary selection and promotion separate from committed moves. Rendering reads the game state. Board coordinates and hit testing share one orientation transform. Expensive draw eligibility checks are cached after state changes; fonts and piece images are cached, and the event loop runs at up to 60 FPS.
 
-The engine independently represents positions and generates moves with a pinned C++ rules library. A shared Minimax function evaluates material, optionally orders legal moves, and optionally applies alpha-beta cutoffs. Iterative deepening saves complete passes and supplies the next pass's PV hints. A Python worker streams UCI progress from full-history snapshots; only final replies can apply a move on the GUI thread, after request/revision checks.
+The engine independently represents positions and generates moves with a pinned C++ rules library. A shared Minimax function uses the selected material/PST evaluator, optionally orders legal moves, and optionally applies alpha-beta cutoffs. Iterative deepening saves complete passes and supplies the next pass's PV hints. A Python worker streams UCI progress from full-history snapshots; only final replies can apply a move on the GUI thread, after request/revision checks.
 
 ## Tests and verification
 
@@ -129,15 +134,17 @@ The engine independently represents positions and generates moves with a pinned 
 .\launch.bat --smoke-test 3 --screenshot chesslab.png
 ```
 
-**Verified on Windows: 218 automated tests pass.** Build the engine before running the full suite. Tests cover rules, special moves, outcomes, draw claims, undo/reset, and a seeded 180-half-move game rewound position by position.
+**Verified on Windows: 282 automated tests pass.** Build the engine before running the full suite. Tests cover rules, special moves, outcomes, draw claims, undo/reset, and a seeded 180-half-move game rewound position by position.
 
 Engine checks include perft, legal moves cross-checked against python-chess, mate/score handling, Minimax/alpha-beta equivalence, UCI interruption, process errors, stale replies, and actual engine-to-GUI play/comparison. Ordering checks compare optimal moves and scores against an independent Python reference across both algorithms and deepening modes, including castling, promotions, en passant, and pinned pieces. They also verify the original node baseline, tactical node savings, per-search PV isolation, interrupted result retention, and GUI toggle behavior.
 
-Measured iterative alpha-beta visits 25,261 nodes at initial depth 5 with ordering, versus 38,388 without (34.2% fewer). At Kiwipete depth 4, it visits 9,754 versus 63,617 (84.7% fewer). Each pair has identical score and move. Counts include all completed passes; these are search-work measurements, not strength ratings. See the engine guide for the position and baseline details.
+With PST disabled, iterative alpha-beta visits 25,261 nodes at initial depth 5 with ordering, versus 38,388 without (34.2% fewer). At Kiwipete depth 4, it visits 9,754 versus 63,617 (84.7% fewer). Each pair has identical score and move. Counts include all completed passes; these are search-work measurements, not strength ratings.
+
+PST checks cover every piece, rank/color symmetry, all game phases and rounding, unchanged material values, search/diagnostic consistency, terminal scores, and GUI selection. At initial depth 5, PST changes b3 to e4 (+70 cp) and visits 182,596 nodes; evaluation changes can increase the tree. Four paired smoke games score 2 wins, 1 draw, and 1 loss for PST. This small sample establishes no Elo gain. Full [benchmarks and reproduction instructions](docs/pst.md#verification-and-benchmarks) include moves, scores, nodes, time, NPS, FENs, and PGNs.
 
 Headless Pygame tests exercise mouse/keyboard events, modal dialogs, scrolling, resize, both orientations, artwork dimensions, missing-asset errors, and event-loop shutdown. Tests set SDL's dummy video driver so they do not open desktop windows. Screenshots of the initial board, promotion, checkmate, and draw dialog were visually inspected.
 
-Windows setup/build, launch smoke testing, and dependency checks passed. Earlier native checks cover human/engine play, comparison, Undo, and iterative/direct toggling. The move-ordering update passes real-engine GUI integration tests and rendered-panel inspection at both supported sizes. Its desktop window launches, but native input verification was blocked by the computer-use helper's window-activation error.
+Windows setup/build, launch smoke testing, and dependency checks passed. Earlier native checks cover human/engine play, comparison, Undo, and iterative/direct toggling. PST on/off passes real-engine GUI integration tests and rendered-panel inspection at both supported sizes. The updated desktop window launches, but native input verification was blocked by the computer-use helper's window-activation error.
 
 Read [AGENTS.md](AGENTS.md) for contributor instructions.
 
@@ -155,7 +162,7 @@ Running that tool without `--offline` checks the source licenses online and down
 
 ## Current limitations
 
-- Material-only evaluation makes many quiet moves tie; playing strength is deliberately basic. Positional evaluation, transposition tables, and quiescence remain deferred.
+- PSTs encode square preferences, not mobility, pawn structure, actual king attacks, or open files. Playing strength remains basic; transposition tables and quiescence remain deferred.
 - GUI target depth is 1–5 plies, with a 15-second limit per algorithm. Completed/target depth is shown when interrupted; no score is claimed before the first completed pass.
 - The engine claims eligible draws on its turn, even when a win might exist. Search assumes currently claimable repetition/fifty-move draws are taken.
 - No clocks, save/load, PGN export, or drag movement.
@@ -168,7 +175,7 @@ Running that tool without `--offline` checks the source licenses online and down
 
 1. **Implemented:** playable Python/Pygame local two-player application.
 2. **Implemented together (Phases 2–3):** independent C++ UCI engine, material evaluation, Minimax, switchable alpha-beta, Human vs Engine, and search comparisons.
-4. **Iterative deepening and move ordering implemented.** Next: transposition tables, quiescence search, and Principal Variation Search, individually.
+4. **Iterative deepening, move ordering, and switchable PST evaluation implemented.** Next: transposition tables, quiescence search, and Principal Variation Search, individually.
 5. Explore advanced pruning and evaluation only after the fundamentals are reliable.
 6. Add engine matches and performance/strength benchmarks.
 

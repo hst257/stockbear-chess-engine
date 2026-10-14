@@ -6,7 +6,6 @@ namespace chesslab {
 namespace {
 
 constexpr int INFINITY_SCORE = 32000;
-constexpr int PIECE_VALUES[] = {100, 320, 330, 500, 900, 0, 0};
 struct Interrupted {};
 
 void order_moves(chess::Movelist& moves, const chess::Board& board, chess::Move pv_move) {
@@ -102,7 +101,7 @@ private:
             return board.sideToMove() == chess::Color::WHITE ? -MATE_SCORE + ply : MATE_SCORE - ply;
         }
         if (is_draw(board)) return 0;
-        if (depth == 0) return evaluate_material(board);
+        if (depth == 0) return evaluate(board, limits_.use_pst);
 
         // A PV move is meaningful only on its original path, never on a sibling
         // merely at the same ply. result_.pv changes only after a complete pass.
@@ -134,16 +133,6 @@ private:
 };
 
 }  // namespace
-
-int evaluate_material(const chess::Board& board) {
-    int score = 0;
-    for (int kind = 0; kind < 6; ++kind) {
-        const auto type = chess::PieceType(static_cast<chess::PieceType::underlying>(kind));
-        score += PIECE_VALUES[kind] * (board.pieces(type, chess::Color::WHITE).count() -
-                                      board.pieces(type, chess::Color::BLACK).count());
-    }
-    return score;
-}
 
 SearchResult search(chess::Board board, const SearchLimits& limits,
                     bool alpha_beta, const std::atomic<bool>& stop,
