@@ -6,17 +6,17 @@ You have full authorization to commit and push repository changes. Make focused 
 
 ## Project structure and module organization
 
-ChessLab is a desktop chess application for learning engine development. Application implementation has not started. Use the following planned layout when implementing Phase 1:
+ChessLab is a Python/Pygame desktop chess application for learning engine development.
 
 - `app/`: Python application; separate startup, game state, board rendering, input handling, and `ui/` components.
 - `app/assets/`: locally bundled piece images and attribution/license notices.
 - `tests/`: automated game-state, input, and rendering tests.
-- `engine/README.md`: future C++/UCI architecture documentation only.
-- Root: dependency files, Windows setup/launch scripts, README, and `.gitignore`.
+- `engine/README.md`: future C++/UCI documentation only.
+- `tools/prepare_assets.py`: development-only artwork conversion; `--offline` uses local SVGs.
 
 ## Build, test, and development commands
 
-Target Python 3.11+. Once the application and dependency files exist, run these commands from the repository root:
+Target Python 3.11+. Run from the repository root:
 
 ```powershell
 python -m venv .venv
@@ -26,17 +26,17 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m pytest
 ```
 
-These create an isolated environment, install runtime/test dependencies, launch the game, and run tests. On Linux, use `.venv/bin/python`. Phase 1 requires no compilation step.
+These create an environment, install dependencies, launch, and test. Windows shortcuts: `setup.bat` then `launch.bat`. Linux: `.venv/bin/python`. No compilation is required.
 
 ## Coding style and naming conventions
 
-Use four-space indentation, PEP 8 conventions, `snake_case` modules/functions, `PascalCase` classes, and `UPPER_CASE` constants. Add type hints to public interfaces. Keep functions focused and explain architectural decisions in comments where useful. No formatter or linter is configured yet.
+Use four-space indentation, PEP 8, `snake_case` modules/functions, `PascalCase` classes, and `UPPER_CASE` constants. Add public-interface type hints. Keep functions focused. No formatter or linter is configured.
 
 Keep game logic independent of Pygame. Use `python-chess` for legal moves and outcomes; validate moves before pushing them. Resolve assets with package-relative paths and keep the event loop responsive.
 
 ## Testing guidelines
 
-Use pytest with `test_*.py` files and `test_<behavior>` functions. Cover captures, illegal moves, castling, en passant, promotion, terminal positions, draw claims, undo/reset, and both board orientations. Use SDL's dummy video driver for headless rendering tests. No numerical coverage threshold is set. Report automated results and manual UI checks separately; never claim unverified behavior works.
+Use pytest with `test_*.py` files and `test_<behavior>` functions. Cover special moves, illegal moves, outcomes, draw claims, undo/reset, and both orientations. Tests set SDL's dummy video driver. No numerical coverage threshold is set. Inspect rendered frames and launch the app yourself; report automated and desktop checks separately. Never claim unverified behavior works.
 
 ## Commit and pull request guidelines
 
