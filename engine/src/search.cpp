@@ -1,13 +1,36 @@
 #include "search.hpp"
 
 #include <algorithm>
-#include <limits>
 
 namespace chesslab {
 namespace {
 
 constexpr int INFINITY_SCORE = 32000;
+constexpr int PIECE_VALUES[] = {100, 320, 330, 500, 900, 0, 0};
 struct Interrupted {};
+
+void order_moves(chess::Movelist& moves, const chess::Board& board, chess::Move pv_move) {
+    for (auto& move : moves) {
+        int priority = 0;
+        int capture_bonus = 0;
+        if (board.isCapture(move)) {
+            // MVV-LVA: most valuable victim, least valuable attacker. The rules
+            // library handles en passant's empty destination and castling.
+            capture_bonus = 10 * PIECE_VALUES[board.getCapturing<chess::PieceType>(move)] -
+                            PIECE_VALUES[board.at<chess::PieceType>(move.from())];
+            priority = 10000 + capture_bonus;
+        }
+        if (move.typeOf() == chess::Move::PROMOTION) {
+            priority = 20000 + PIECE_VALUES[move.promotionType()] + capture_bonus;
+        }
+        if (move == pv_move) priority = 32000;
+        move.setScore(static_cast<std::int16_t>(priority));
+    }
+    // Equal priorities preserve the library order, including quiet moves.
+    std::stable_sort(moves.begin(), moves.end(), [](const auto a, const auto b) {
+        return a.score() > b.score();
+    });
+}
 
 class Search {
 public:
@@ -27,7 +50,7 @@ public:
             std::vector<chess::Move> pv;
             int score;
             try {
-                score = minimax(board, depth, 0, -INFINITY_SCORE, INFINITY_SCORE, pv);
+                score = minimax(board, depth, 0, -INFINITY_SCORE, INFINITY_SCORE, pv, true);
             } catch (const Interrupted&) {
                 break;
             }
@@ -63,7 +86,7 @@ private:
     }
 
     int minimax(chess::Board& board, int depth, int ply, int alpha, int beta,
-                std::vector<chess::Move>& pv) {
+                std::vector<chess::Move>& pv, bool follows_previous_pv) {
         if (stop_.load(std::memory_order_relaxed) ||
             (limits_.nodes && result_.nodes >= limits_.nodes) ||
             (limits_.milliseconds && (result_.nodes % 1024 == 0) &&
@@ -81,14 +104,19 @@ private:
         if (is_draw(board)) return 0;
         if (depth == 0) return evaluate_material(board);
 
+        // A PV move is meaningful only on its original path, never on a sibling
+        // merely at the same ply. result_.pv changes only after a complete pass.
+        const auto hint = follows_previous_pv && static_cast<std::size_t>(ply) < result_.pv.size()
+                            ? result_.pv[ply] : chess::Move{};
+        if (limits_.move_ordering) order_moves(moves, board, hint);
         const bool maximizing = board.sideToMove() == chess::Color::WHITE;
         int best = maximizing ? -INFINITY_SCORE : INFINITY_SCORE;
-        // Both modes traverse the exact same library-generated move order.
-        // There is no capture sorting, transposition table, or other heuristic.
+        // Minimax and alpha-beta share the same ordering and first-best tie rule.
         for (const auto move : moves) {
             std::vector<chess::Move> child_pv;
             board.makeMove<true>(move);
-            const int score = minimax(board, depth - 1, ply + 1, alpha, beta, child_pv);
+            const int score = minimax(board, depth - 1, ply + 1, alpha, beta, child_pv,
+                                      follows_previous_pv && move == hint);
             board.unmakeMove(move);
             if ((maximizing && score > best) || (!maximizing && score < best)) {
                 best = score;
@@ -108,12 +136,11 @@ private:
 }  // namespace
 
 int evaluate_material(const chess::Board& board) {
-    constexpr int values[] = {100, 320, 330, 500, 900, 0};
     int score = 0;
     for (int kind = 0; kind < 6; ++kind) {
         const auto type = chess::PieceType(static_cast<chess::PieceType::underlying>(kind));
-        score += values[kind] * (board.pieces(type, chess::Color::WHITE).count() -
-                                board.pieces(type, chess::Color::BLACK).count());
+        score += PIECE_VALUES[kind] * (board.pieces(type, chess::Color::WHITE).count() -
+                                      board.pieces(type, chess::Color::BLACK).count());
     }
     return score;
 }

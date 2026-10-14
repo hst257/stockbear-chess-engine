@@ -11,20 +11,6 @@ import chess
 import chess.engine
 import pytest
 
-from app.engine_client import DEFAULT_ENGINE
-
-
-@pytest.fixture(scope="session")
-def engine_path():
-    assert DEFAULT_ENGINE.is_file(), "Build the C++ engine first: run build_engine.bat"
-    return DEFAULT_ENGINE
-
-
-@pytest.fixture
-def engine(engine_path):
-    with chess.engine.SimpleEngine.popen_uci(str(engine_path), timeout=3) as instance:
-        yield instance
-
 
 class Protocol:
     def __init__(self, path):
@@ -74,6 +60,7 @@ def test_uci_handshake_options_and_unknown_commands(engine):
     assert engine.id["name"].startswith("ChessLab")
     assert engine.options["AlphaBeta"].default is True
     assert engine.options["IterativeDeepening"].default is True
+    assert engine.options["MoveOrdering"].default is True
     assert engine.options["Depth"].default == 3
     engine.ping()
 
@@ -122,10 +109,11 @@ def test_legal_moves_across_seeded_game_match_independent_rules(engine_path):
         board.push(rng.choice(list(board.legal_moves)))
 
 
+@pytest.mark.parametrize("ordering", [False, True])
 @pytest.mark.parametrize("fen", [chess.STARTING_FEN, *SPECIAL_FENS,
                                 "7k/8/5KQ1/8/8/8/8/8 w - - 0 1"])
-def test_pruning_preserves_move_and_score_at_identical_depth(engine, fen):
-    engine.configure({"IterativeDeepening": False})
+def test_pruning_preserves_move_and_score_at_identical_depth(engine, fen, ordering):
+    engine.configure({"IterativeDeepening": False, "MoveOrdering": ordering})
     board = chess.Board(fen)
     results = []
     for pruning in (False, True):
@@ -224,6 +212,7 @@ def test_interrupted_search_is_not_reported_as_full_depth(protocol, limit):
     "position fen 7k/8/8/8/8/8/8/7K w - - bad 1",
     "go depth 999", "setoption name AlphaBeta value maybe",
     "setoption name IterativeDeepening value maybe",
+    "setoption name MoveOrdering value maybe",
 ])
 def test_invalid_commands_do_not_kill_engine_or_replace_position(protocol, command):
     protocol.send(command)
@@ -259,6 +248,9 @@ def test_iterative_progress_is_ordered_and_fixed_mode_has_one_pass(protocol):
                                 "7k/8/8/1p6/p7/Q7/8/7K w - - 0 1",
                                 "7k/8/5KQ1/8/8/8/8/8 w - - 0 1"])
 def test_iterative_final_result_matches_direct_search(engine, pruning, fen):
+    # Preserve exact traversal/PV checks for the original unsorted baseline.
+    # PV-guided sorting can choose different equally good moves between passes.
+    engine.configure({"MoveOrdering": False})
     board = chess.Board(fen)
     results = []
     for iterative in (False, True):
@@ -283,11 +275,12 @@ def test_node_budget_is_shared_between_passes(engine):
     assert len(result.info["pv"]) == 1
 
 
+@pytest.mark.parametrize("ordering", [False, True])
 @pytest.mark.parametrize("pruning", [False, True])
-def test_interrupted_deeper_pass_preserves_saved_tactical_move_score_and_pv(engine, pruning):
+def test_interrupted_deeper_pass_preserves_saved_tactical_move_score_and_pv(engine, pruning, ordering):
     # Qxa4 wins a pawn at depth 1, but depth 2 sees ...bxa4 winning the queen.
     board = chess.Board("7k/8/8/1p6/p7/Q7/8/7K w - - 0 1")
-    engine.configure({"AlphaBeta": pruning, "IterativeDeepening": False})
+    engine.configure({"AlphaBeta": pruning, "IterativeDeepening": False, "MoveOrdering": ordering})
     shallow = engine.play(board, chess.engine.Limit(depth=1), info=chess.engine.INFO_ALL)
     deep = engine.play(board, chess.engine.Limit(depth=2), info=chess.engine.INFO_ALL)
     assert shallow.move != deep.move

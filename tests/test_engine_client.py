@@ -1,6 +1,7 @@
 import time
 
 import chess
+import pytest
 
 from app.engine_client import DEFAULT_ENGINE, EngineClient, EngineSettings
 
@@ -18,12 +19,13 @@ def wait_result(client, seconds=8, progress=None):
     raise AssertionError("Engine worker did not complete")
 
 
-def test_comparison_runs_both_algorithms_on_unchanged_snapshot():
+@pytest.mark.parametrize("ordering", [False, True])
+def test_comparison_runs_both_algorithms_on_unchanged_snapshot(ordering):
     assert DEFAULT_ENGINE.is_file(), "Build engine before running integration tests"
     client = EngineClient()
     board = chess.Board()
     try:
-        token = client.start(board, 42, EngineSettings(depth=3), "compare")
+        token = client.start(board, 42, EngineSettings(depth=3, move_ordering=ordering), "compare")
         progress = []
         message = wait_result(client, progress=progress)
         assert message.token == token and message.revision == 42
@@ -31,6 +33,9 @@ def test_comparison_runs_both_algorithms_on_unchanged_snapshot():
         plain, pruned = message.stats
         assert plain.algorithm == "Minimax" and pruned.algorithm == "Alpha-beta"
         assert plain.complete and pruned.complete
+        assert plain.move_ordering == pruned.move_ordering == ordering
+        if not ordering:
+            assert (plain.nodes, pruned.nodes) == (9765, 667)
         assert plain.score == pruned.score and plain.move == pruned.move
         assert pruned.nodes < plain.nodes
         assert any(not row.finished for row in progress)

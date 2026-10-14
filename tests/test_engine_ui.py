@@ -196,6 +196,31 @@ def test_deepening_can_be_toggled_without_resetting_position(app):
     assert app.engine.stopped and app.engine.busy
 
 
+def test_ordering_can_be_toggled_for_comparison_without_resetting_position(app):
+    assert app.game.play(chess.Move.from_uci("e2e4"))
+    before = app.game.board.fen()
+    app.action("diagnostics")
+    app.draw()
+    click(app, app.modal_targets["toggle_ordering"].center)
+    assert not app.settings.move_ordering and not app.search_rows
+    assert app.game.board.fen() == before
+    click(app, app.modal_targets["compare"].center)
+    assert not app.engine.calls[-1][2].move_ordering
+    # Settings stay fixed for both algorithms while a comparison is running.
+    click(app, app.modal_targets["toggle_ordering"].center)
+    assert not app.settings.move_ordering
+
+
+def test_setup_applies_original_ordering_to_engine_game(app):
+    app.action("setup")
+    app.draw()
+    for name in ("unordered", "start"):
+        click(app, app.modal_targets[name].center)
+    assert not app.settings.move_ordering
+    human_e4(app)
+    assert not app.engine.calls[-1][2].move_ordering
+
+
 @pytest.mark.parametrize("size", [(960, 680), (1100, 760)])
 def test_engine_setup_and_diagnostics_render_at_supported_sizes(app, size, tmp_path):
     app.resize(size)

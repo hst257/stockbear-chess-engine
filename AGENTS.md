@@ -6,7 +6,7 @@ You have full authorization to commit and push repository changes. Push to the c
 
 ## Project structure and module organization
 
-ChessLab is a Python/Pygame desktop chess application for learning engine development.
+ChessLab is a Python/Pygame chess application for learning engine development.
 
 - `app/`: Python application; separate startup, game state, board rendering, input handling, and `ui/` components.
 - `app/assets/`: locally bundled piece images and attribution/license notices.
@@ -33,9 +33,9 @@ Windows: run `setup.bat`, `build_engine.bat`, then `launch.bat`. Build before ru
 
 Use four spaces, PEP 8, `snake_case` functions, `PascalCase` classes, and `UPPER_CASE` constants. Type public interfaces. No formatter is configured.
 
-Keep Python game logic independent of Pygame; validate with `python-chess` before pushing moves. Use package-relative assets and a responsive event loop.
+Keep game logic independent of Pygame; validate moves with `python-chess`. Use package-relative assets and a responsive event loop.
 
-Use four spaces and `snake_case` functions in C++; keep protocol and search separate. Both algorithms must share evaluation, depth, and move order.
+C++: use four spaces and `snake_case`; separate protocol and search. Both algorithms share evaluation, depth, and ordering.
 
 ## Testing guidelines
 
@@ -47,4 +47,4 @@ Use imperative subjects, such as `Add promotion selection dialog`. Keep commits 
 
 ## Development boundaries
 
-The milestone adds switchable iterative deepening to Minimax/alpha-beta. Defer move ordering, transposition tables, quiescence, and PVS until requested. Preserve shared evaluation/traversal for fair comparisons. Keep completed results separate from unfinished passes. Run UCI work off the GUI thread, ignore stale replies, and apply moves only after final completion. Preserve attribution and document tested behavior.
+The milestone adds switchable PV/promotion/capture ordering to iterative Minimax/alpha-beta. Defer transposition tables, quiescence, PVS, and killer/history heuristics until requested. Preserve shared evaluation/ordering for fair comparisons; equally scored moves may differ across settings. Keep completed results separate from unfinished passes. Run UCI work off the GUI thread, ignore stale replies, and apply moves only after final completion. Preserve attribution and document tested behavior.

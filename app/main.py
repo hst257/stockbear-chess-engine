@@ -18,6 +18,8 @@ def main() -> int:
     parser.add_argument("--depth", type=int, choices=range(1, 6), default=3)
     parser.add_argument("--iterative-deepening", action=argparse.BooleanOptionalAction, default=True,
                         help="Search depth 1 through the target (default: enabled).")
+    parser.add_argument("--move-ordering", action=argparse.BooleanOptionalAction, default=True,
+                        help="Search PV moves, promotions, and captures first (default: enabled).")
     parser.add_argument("--engine", metavar="PATH", help="Path to the compiled ChessLab UCI executable.")
     args = parser.parse_args()
     if args.smoke_test is not None and args.smoke_test < 1:
@@ -35,7 +37,8 @@ def main() -> int:
     app = None
     try:
         settings = EngineSettings(args.mode == "engine", args.human_color == "white",
-                                  args.algorithm == "alphabeta", args.depth, args.iterative_deepening)
+                                  args.algorithm == "alphabeta", args.depth, args.iterative_deepening,
+                                  args.move_ordering)
         app = Application(settings=settings, engine_path=Path(args.engine) if args.engine else DEFAULT_ENGINE)
         app.run(args.smoke_test, args.screenshot)
         return 0

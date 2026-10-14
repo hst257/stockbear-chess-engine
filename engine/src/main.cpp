@@ -138,10 +138,11 @@ public:
             try {
                 const auto& command = tokens[0];
                 if (command == "uci") {
-                    output("id name ChessLab 0.3");
+                    output("id name ChessLab 0.4");
                     output("id author ChessLab contributors");
                     output("option name AlphaBeta type check default true");
                     output("option name IterativeDeepening type check default true");
+                    output("option name MoveOrdering type check default true");
                     output("option name Depth type spin default 3 min 1 max 8");
                     output("uciok");
                 } else if (command == "isready") output("readyok");
@@ -163,6 +164,7 @@ private:
     chess::Board board_;
     bool alpha_beta_ = true;
     bool iterative_deepening_ = true;
+    bool move_ordering_ = true;
     int depth_ = 3;
     std::atomic<bool> stopped_{false};
     std::thread worker_;
@@ -175,12 +177,13 @@ private:
     void set_option(const std::vector<std::string>& tokens) {
         stop_search();
         if (tokens.size() != 5 || tokens[1] != "name" || tokens[3] != "value") {
-            throw std::invalid_argument("expected setoption name <AlphaBeta|IterativeDeepening|Depth> value <value>");
+            throw std::invalid_argument("expected setoption name <AlphaBeta|IterativeDeepening|MoveOrdering|Depth> value <value>");
         }
-        if (tokens[2] == "AlphaBeta" || tokens[2] == "IterativeDeepening") {
+        if (tokens[2] == "AlphaBeta" || tokens[2] == "IterativeDeepening" || tokens[2] == "MoveOrdering") {
             if (tokens[4] != "true" && tokens[4] != "false") throw std::invalid_argument("check options must be true or false");
             if (tokens[2] == "AlphaBeta") alpha_beta_ = tokens[4] == "true";
-            else iterative_deepening_ = tokens[4] == "true";
+            else if (tokens[2] == "IterativeDeepening") iterative_deepening_ = tokens[4] == "true";
+            else move_ordering_ = tokens[4] == "true";
         } else if (tokens[2] == "Depth") depth_ = integer(tokens[4], 1, 8);
     }
 
@@ -207,6 +210,7 @@ private:
         chesslab::SearchLimits limits;
         limits.depth = depth_;
         limits.iterative_deepening = iterative_deepening_;
+        limits.move_ordering = move_ordering_;
         bool explicit_depth = false;
         for (std::size_t i = 1; i < tokens.size(); ++i) {
             if (tokens[i] == "infinite") limits.depth = 64;
@@ -230,7 +234,8 @@ private:
                 if (!result.complete) report_info(result, position, false);
                 output(std::string("info string ") + (result.complete ? "complete " : "incomplete ") +
                        (pruning ? "alpha-beta " : "minimax ") +
-                       (limits.iterative_deepening ? "iterative" : "fixed"));
+                       (limits.iterative_deepening ? "iterative " : "fixed ") +
+                       (limits.move_ordering ? "ordered" : "unordered"));
                 output("bestmove " + (result.best_move == chess::Move{} ? std::string("0000") :
                                       chess::uci::moveToUci(result.best_move)));
             } catch (const std::exception& error) {

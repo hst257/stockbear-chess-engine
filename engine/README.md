@@ -1,7 +1,7 @@
-# ChessLab engine: Minimax, alpha-beta, and iterative deepening
+# ChessLab engine: Minimax, alpha-beta, deepening, and ordering
 
 A standalone C++17 UCI executable implements material-only Minimax with optional
-alpha-beta pruning and switchable iterative deepening. It owns its board independently of Python.
+alpha-beta pruning, switchable iterative deepening, and move ordering. It owns its board independently of Python.
 No search or evaluation is delegated to another engine.
 
 ## Build
@@ -44,9 +44,9 @@ losses. Terminal detection precedes draw counters.
 
 With `AlphaBeta=false`, every branch is searched. With `AlphaBeta=true`, the same
 function updates alpha/beta bounds and cuts branches that cannot affect the answer.
-Both modes retain identical move traversal and a first-best tie rule. No heuristic
-sorting, transposition table, quiescence, positional evaluation, opening book, or
-neural network is implemented.
+Both modes share the same ordering policy and first-best tie rule. Transposition
+tables, quiescence, killer/history heuristics, positional evaluation, opening books,
+and neural networks are deferred.
 
 ## Iterative deepening
 
@@ -65,9 +65,9 @@ in Search lab. The latter preserves the board. CLI: `--no-iterative-deepening`
 selects the original direct search. UCI: `setoption name IterativeDeepening value false`.
 Both comparison algorithms use the same deepening setting, depth, and evaluation.
 
-Completed full-depth answers match direct search. Shallow passes add work at a
-fixed target; this implementation retains the original move order and adds no
-PV-based sorting. The current benefit is a completed answer under interruption.
+Completed full-depth scores match direct search. With ordering enabled, the
+previous PV can change which equally good move is searched first. Its benefit
+depends on the position; shallow passes still count toward the total work.
 
 Depth counts plies (half-moves). Nodes include root, interior, terminal, and static
 leaves across all passes, including repeated positions and unfinished work. Completed
@@ -79,6 +79,30 @@ automatically claims eligible draws on the engine's turn, including intended-mov
 claims, before requesting a move. It may claim even when a win could exist. Human
 claims remain explicit.
 
+## Move ordering
+
+Enabled by default in both algorithms. At each non-leaf node, stable sorting uses:
+
+1. The previous completed iteration's PV move, only while following that PV's
+   exact prefix. Siblings never reuse hints based only on their ply.
+2. Promotions, prioritized by promoted-piece value and any capture bonus.
+3. Captures using MVV-LVA: `10 × victim value − attacker value`.
+4. Quiet moves in the original rules-library order.
+
+The library identifies en passant's pawn victim and excludes castling from
+captures. Capture promotions receive both bonuses. Equal priorities preserve
+library order; the first equally scored searched move wins. Ordering can change
+the selected move/PV among ties while preserving the full-depth minimax score.
+It creates earlier alpha-beta cutoffs; exhaustive Minimax visits the same nodes
+and pays sorting overhead. Node savings and elapsed-time gains vary by position.
+
+Setup offers **PV / promotions / captures** and **Original move order**. Search
+lab's **Ordering: on/off** preserves the board and clears old rows; rerun Compare
+position to measure the new setting. Toggles are disabled during searches. CLI:
+`--no-move-ordering`. UCI: `setoption name MoveOrdering value false`. Disabling
+ordering bypasses all sorting and PV hints, restoring the original traversal.
+Hints are local to one search and come only from fully completed passes.
+
 ## UCI
 
 Run the executable directly and enter one command per line:
@@ -88,13 +112,14 @@ uci
 isready
 setoption name AlphaBeta value true
 setoption name IterativeDeepening value true
+setoption name MoveOrdering value true
 position startpos moves e2e4 e7e5
 go depth 3
 ```
 
 Commands: `uci`, `isready`, `ucinewgame`, `setoption`, `position startpos`,
 `position fen` (six fields, optionally followed by moves), `go`, `stop`, `quit`.
-Options: `AlphaBeta` and `IterativeDeepening` (both default true), and `Depth`
+Options: `AlphaBeta`, `IterativeDeepening`, `MoveOrdering` (all default true), and `Depth`
 (default 3, range 1–8). `go` accepts depth, movetime (milliseconds), nodes, and
 infinite. Bare `go` uses the Depth option. Time/node-limited requests without an
 explicit depth, and infinite searches, permit deepening through a safety cap of
@@ -137,13 +162,29 @@ Build first, then run `.venv\Scripts\python.exe -m pytest -q` from the root.
 Tests include perft (197,281 at initial depth 4; 97,862 at Kiwipete depth 3), legal
 move cross-checks against python-chess, terminal states, search equivalence,
 interruptible UCI, cancellation, and actual engine-to-GUI play/comparison.
+The 218-test suite also checks optimal moves/scores against an independent Python
+reference with ordering off/on, both algorithms, and direct/iterative search.
 
-Initial position, target depth 3 (all select a3 with White score 0.00):
+Original baseline with **MoveOrdering=false**, initial target depth 3
+(all select a3 with White score 0.00):
 
 | Algorithm | Deepening off | Deepening on |
 | --- | ---: | ---: |
 | Minimax | 9,323 nodes | 9,765 nodes |
 | Alpha-beta | 586 nodes | 667 nodes |
+
+Measured iterative alpha-beta, same completed depth/evaluation in each pair:
+
+| Position | Depth | Ordering off | Ordering on | Fewer nodes |
+| --- | ---: | ---: | ---: | ---: |
+| Initial | 5 | 38,388 | 25,261 | 34.2% |
+| Kiwipete | 4 | 63,617 | 9,754 | 84.7% |
+
+Both initial searches select b3 (+1.00); both Kiwipete searches select Bxa6
+(+0.10). Kiwipete FEN:
+`r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1`.
+Reproduce with `AlphaBeta=true`, `IterativeDeepening=true`, the respective
+`position` and `go depth` commands, toggling `MoveOrdering` between runs.
 
 With a shared 50-node budget, iterative Minimax completes depth 1 before being
 interrupted at depth 2. Direct depth-3 Minimax completes no pass and returns only

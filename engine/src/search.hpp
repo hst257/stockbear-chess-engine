@@ -17,6 +17,7 @@ struct SearchLimits {
     std::uint64_t nodes = 0;  // Zero means no node limit.
     int milliseconds = 0;    // Zero means no time limit.
     bool iterative_deepening = true;
+    bool move_ordering = true;
 };
 
 struct SearchResult {
