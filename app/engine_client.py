@@ -21,6 +21,7 @@ class EngineSettings:
     human_color: chess.Color = chess.WHITE
     alpha_beta: bool = True
     depth: int = 3
+    iterative_deepening: bool = True
 
     def __post_init__(self) -> None:
         if not 1 <= self.depth <= 5:
@@ -29,6 +30,16 @@ class EngineSettings:
     @property
     def algorithm(self) -> str:
         return "Alpha-beta" if self.alpha_beta else "Minimax"
+
+
+@dataclass(frozen=True)
+class SearchIteration:
+    """One completed pass; nodes/time are cumulative from the search start."""
+    depth: int
+    nodes: int
+    seconds: float
+    san: str
+    score: str
 
 
 @dataclass(frozen=True)
@@ -41,7 +52,9 @@ class SearchStats:
     move: chess.Move | None
     san: str
     score: str
-    complete: bool
+    complete: bool  # Target reached; a shallower completed pass can still be valid.
+    iterative_deepening: bool = True
+    iterations: tuple[SearchIteration, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -51,14 +64,34 @@ class EngineMessage:
     kind: str
     stats: tuple[SearchStats, ...] = ()
     error: str = ""
+    finished: bool = True  # Progress must never trigger move application.
 
 
 @dataclass
 class _Job:
     token: int
     canceled: threading.Event = field(default_factory=threading.Event)
+    stop_requested: threading.Event = field(default_factory=threading.Event)
     lock: threading.Lock = field(default_factory=threading.Lock)
     engine: chess.engine.SimpleEngine | None = None
+    analysis: chess.engine.SimpleAnalysisResult | None = None
+
+
+def search_stats(info: chess.engine.InfoDict, move: chess.Move | None, board: chess.Board,
+                 settings: EngineSettings, pruning: bool,
+                 iterations: tuple[SearchIteration, ...]) -> SearchStats:
+    depth = info.get("depth", 0)
+    score = info.get("score")
+    white_score = score.white() if score else None
+    score_text = "—"
+    # A completed shallower pass still has a proven score when the target is missed.
+    if white_score is not None and depth > 0:
+        mate = white_score.mate()
+        score_text = f"Mate {mate:+d}" if mate is not None else f"{white_score.score() / 100:+.2f}"
+    return SearchStats("Alpha-beta" if pruning else "Minimax", settings.depth, depth,
+                       info.get("nodes", 0), info.get("time", 0.0), move,
+                       board.san(move) if move else "—", score_text, depth == settings.depth,
+                       settings.iterative_deepening, iterations)
 
 
 class EngineClient:
@@ -92,6 +125,15 @@ class EngineClient:
                          name="ChessLab-UCI", daemon=True).start()
         return job.token
 
+    def stop(self) -> None:
+        """Stop gracefully and retain the engine's last completed iteration."""
+        job = self._job
+        if job:
+            job.stop_requested.set()
+            with job.lock:
+                if job.analysis:
+                    job.analysis.stop()
+
     def poll(self) -> list[EngineMessage]:
         messages = []
         while True:
@@ -100,7 +142,8 @@ class EngineClient:
             except queue.Empty:
                 break
             if message.token == self._token:
-                self._job = None
+                if message.finished:
+                    self._job = None
                 messages.append(message)
         return messages
 
@@ -122,27 +165,37 @@ class EngineClient:
             for pruning in modes:
                 if job.canceled.is_set():
                     return
-                engine.configure({"AlphaBeta": pruning})
-                result = engine.play(board, chess.engine.Limit(depth=settings.depth, time=SEARCH_SECONDS),
-                                     info=chess.engine.INFO_ALL)
-                info = result.info
+                if rows and job.stop_requested.is_set():
+                    break
+                engine.configure({"AlphaBeta": pruning, "IterativeDeepening": settings.iterative_deepening})
+                iterations: list[SearchIteration] = []
+                with engine.analysis(board, chess.engine.Limit(depth=settings.depth, time=SEARCH_SECONDS),
+                                     info=chess.engine.INFO_ALL) as analysis:
+                    with job.lock:
+                        job.analysis = analysis
+                        if job.stop_requested.is_set():
+                            analysis.stop()
+                    for info in analysis:
+                        if job.canceled.is_set():
+                            return
+                        if info.get("depth", 0) <= 0:
+                            continue
+                        pv = info.get("pv", [])
+                        progress = search_stats(info, pv[0] if pv else None, board, settings, pruning, ())
+                        iterations.append(SearchIteration(progress.depth, progress.nodes,
+                                                          progress.seconds, progress.san, progress.score))
+                        progress = search_stats(info, progress.move, board, settings, pruning, tuple(iterations))
+                        self.messages.put(EngineMessage(job.token, revision, kind,
+                                                        (*rows, progress), finished=False))
+                    result = analysis.wait()
+                    info = analysis.info.copy()
+                with job.lock:
+                    job.analysis = None
                 # python-chess represents UCI bestmove 0000 as a falsey null Move.
                 move = result.move if result.move else None
                 if move is not None and move not in board.legal_moves:
                     raise RuntimeError("Engine returned an illegal move; game unchanged.")
-                complete = info.get("depth", 0) == settings.depth
-                score = info.get("score")
-                # Display from White's perspective, regardless of engine color.
-                white_score = score.white() if score else None
-                score_text = "—"
-                if white_score is not None and complete:
-                    mate = white_score.mate()
-                    score_text = f"Mate {mate:+d}" if mate is not None else f"{white_score.score() / 100:+.2f}"
-                rows.append(SearchStats("Alpha-beta" if pruning else "Minimax", settings.depth,
-                                        info.get("depth", 0), info.get("nodes", 0),
-                                        info.get("time", 0.0), move,
-                                        board.san(move) if move else "—",
-                                        score_text, complete))
+                rows.append(search_stats(info, move, board, settings, pruning, tuple(iterations)))
             if not job.canceled.is_set():
                 self.messages.put(EngineMessage(job.token, revision, kind, tuple(rows)))
         except (OSError, chess.engine.EngineError, TimeoutError, RuntimeError) as error:

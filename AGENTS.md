@@ -47,4 +47,4 @@ Use imperative subjects, such as `Add promotion selection dialog`. Keep commits 
 
 ## Development boundaries
 
-The current milestone combines Phases 2 and 3: C++ engine, Human vs Engine, Minimax, alpha-beta, and diagnostics. Defer modern search until requested. Keep search/evaluation our own; do not delegate to another engine. Run UCI work off the GUI thread and discard stale results. Preserve attribution and keep README claims aligned with tested features.
+The milestone adds switchable iterative deepening to Minimax/alpha-beta. Defer move ordering, transposition tables, quiescence, and PVS until requested. Preserve shared evaluation/traversal for fair comparisons. Keep completed results separate from unfinished passes. Run UCI work off the GUI thread, ignore stale replies, and apply moves only after final completion. Preserve attribution and document tested behavior.

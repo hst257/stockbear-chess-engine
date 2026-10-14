@@ -73,6 +73,7 @@ def protocol(engine_path):
 def test_uci_handshake_options_and_unknown_commands(engine):
     assert engine.id["name"].startswith("ChessLab")
     assert engine.options["AlphaBeta"].default is True
+    assert engine.options["IterativeDeepening"].default is True
     assert engine.options["Depth"].default == 3
     engine.ping()
 
@@ -124,6 +125,7 @@ def test_legal_moves_across_seeded_game_match_independent_rules(engine_path):
 @pytest.mark.parametrize("fen", [chess.STARTING_FEN, *SPECIAL_FENS,
                                 "7k/8/5KQ1/8/8/8/8/8 w - - 0 1"])
 def test_pruning_preserves_move_and_score_at_identical_depth(engine, fen):
+    engine.configure({"IterativeDeepening": False})
     board = chess.Board(fen)
     results = []
     for pruning in (False, True):
@@ -193,6 +195,7 @@ def test_uci_position_move_stack_preserves_threefold(engine):
 
 def test_stop_and_isready_remain_responsive_during_search(protocol):
     protocol.send("setoption name AlphaBeta value false")
+    protocol.send("setoption name IterativeDeepening value false")
     protocol.send("go infinite")
     protocol.send("isready")
     protocol.until("readyok", timeout=2)
@@ -207,6 +210,7 @@ def test_stop_and_isready_remain_responsive_during_search(protocol):
 @pytest.mark.parametrize("limit", ["nodes 50", "movetime 10"])
 def test_interrupted_search_is_not_reported_as_full_depth(protocol, limit):
     protocol.send("setoption name AlphaBeta value false")
+    protocol.send("setoption name IterativeDeepening value false")
     protocol.send(f"go depth 8 {limit}")
     lines = protocol.until("bestmove")
     assert any(line.startswith("info depth 0 ") for line in lines)
@@ -219,6 +223,7 @@ def test_interrupted_search_is_not_reported_as_full_depth(protocol, limit):
     "position startpos moves e2e4 e7e9",
     "position fen 7k/8/8/8/8/8/8/7K w - - bad 1",
     "go depth 999", "setoption name AlphaBeta value maybe",
+    "setoption name IterativeDeepening value maybe",
 ])
 def test_invalid_commands_do_not_kill_engine_or_replace_position(protocol, command):
     protocol.send(command)
@@ -235,3 +240,93 @@ def test_quit_during_search_exits_cleanly(protocol):
     protocol.send("go infinite")
     protocol.send("quit")
     assert protocol.process.wait(timeout=3) == 0
+
+
+def test_iterative_progress_is_ordered_and_fixed_mode_has_one_pass(protocol):
+    protocol.send("go depth 3")
+    lines = protocol.until("bestmove")
+    depths = [int(line.split()[2]) for line in lines if line.startswith("info depth ")]
+    assert depths == [1, 2, 3]
+    protocol.send("setoption name IterativeDeepening value false")
+    protocol.send("go depth 3")
+    fixed = protocol.until("bestmove")
+    assert [int(line.split()[2]) for line in fixed if line.startswith("info depth ")] == [3]
+    assert lines[-1] == fixed[-1]
+
+
+@pytest.mark.parametrize("pruning", [False, True])
+@pytest.mark.parametrize("fen", [chess.STARTING_FEN,
+                                "7k/8/8/1p6/p7/Q7/8/7K w - - 0 1",
+                                "7k/8/5KQ1/8/8/8/8/8 w - - 0 1"])
+def test_iterative_final_result_matches_direct_search(engine, pruning, fen):
+    board = chess.Board(fen)
+    results = []
+    for iterative in (False, True):
+        engine.configure({"AlphaBeta": pruning, "IterativeDeepening": iterative})
+        result = engine.play(board, chess.engine.Limit(depth=3), info=chess.engine.INFO_ALL)
+        results.append(result)
+    fixed, iterative = results
+    assert iterative.move == fixed.move
+    assert iterative.info["depth"] == fixed.info["depth"] == 3
+    assert iterative.info["score"] == fixed.info["score"]
+    assert iterative.info.get("pv") == fixed.info.get("pv")
+    assert iterative.info["nodes"] >= fixed.info["nodes"]
+
+
+def test_node_budget_is_shared_between_passes(engine):
+    engine.configure({"AlphaBeta": False})
+    result = engine.play(chess.Board(), chess.engine.Limit(depth=8, nodes=50), info=chess.engine.INFO_ALL)
+    assert result.info["nodes"] == 50
+    assert result.info["depth"] == 1
+    assert result.info["score"].relative.score() == 0
+    assert result.move == result.info["pv"][0]
+    assert len(result.info["pv"]) == 1
+
+
+@pytest.mark.parametrize("pruning", [False, True])
+def test_interrupted_deeper_pass_preserves_saved_tactical_move_score_and_pv(engine, pruning):
+    # Qxa4 wins a pawn at depth 1, but depth 2 sees ...bxa4 winning the queen.
+    board = chess.Board("7k/8/8/1p6/p7/Q7/8/7K w - - 0 1")
+    engine.configure({"AlphaBeta": pruning, "IterativeDeepening": False})
+    shallow = engine.play(board, chess.engine.Limit(depth=1), info=chess.engine.INFO_ALL)
+    deep = engine.play(board, chess.engine.Limit(depth=2), info=chess.engine.INFO_ALL)
+    assert shallow.move != deep.move
+    budget = shallow.info["nodes"] + deep.info["nodes"] // 2
+    engine.configure({"IterativeDeepening": True})
+    interrupted = engine.play(board, chess.engine.Limit(depth=3, nodes=budget), info=chess.engine.INFO_ALL)
+    assert interrupted.info["depth"] == 1
+    assert interrupted.info["nodes"] == budget
+    assert interrupted.move == shallow.move
+    assert interrupted.info["score"] == shallow.info["score"]
+    assert interrupted.info["pv"] == shallow.info["pv"]
+
+
+def test_budget_before_first_completed_pass_returns_unscored_legal_fallback(engine):
+    result = engine.play(chess.Board(), chess.engine.Limit(depth=8, nodes=1), info=chess.engine.INFO_ALL)
+    assert result.move in chess.Board().legal_moves
+    assert result.info["depth"] == 0
+    assert result.info["nodes"] == 1
+    assert "score" not in result.info and "pv" not in result.info
+
+
+def test_stop_after_completed_depth_retains_that_result(protocol):
+    protocol.send("setoption name AlphaBeta value false")
+    protocol.send("go infinite")
+    before = protocol.until("info depth 2 ")
+    protocol.send("stop")
+    after = protocol.until("bestmove")
+    completed = [line for line in before + after if line.startswith("info depth ") and " score " in line]
+    last = completed[-1].split()
+    assert int(last[2]) >= 2
+    assert after[-1] == "bestmove " + last[last.index("pv") + 1]
+    assert any("incomplete minimax iterative" in line for line in after)
+
+
+def test_time_budget_without_explicit_depth_keeps_deepening(engine):
+    engine.configure({"AlphaBeta": False, "Depth": 1})
+    start = time.monotonic()
+    result = engine.play(chess.Board(), chess.engine.Limit(time=.05), info=chess.engine.INFO_ALL)
+    assert time.monotonic() - start < 3
+    assert 1 < result.info["depth"] < 64
+    assert result.move == result.info["pv"][0]
+    assert "score" in result.info

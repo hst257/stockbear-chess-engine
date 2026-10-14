@@ -1,6 +1,7 @@
 """Pygame event loop joining state, input, and rendering."""
 
 import sys
+from dataclasses import replace
 from pathlib import Path
 
 import chess
@@ -123,13 +124,14 @@ class Application:
         for message in self.engine.poll():
             if message.token != self._request_token or message.revision != self.game.revision:
                 continue
-            self._request_revision = self._request_token = None
+            if message.finished:
+                self._request_revision = self._request_token = None
             if message.error:
                 self.engine_error = message.error
                 print(f"ChessLab engine: {message.error}", file=sys.stderr)
             else:
                 self.search_rows = message.stats
-                if message.kind == "play" and not self.human_turn and not self.game.outcome:
+                if message.finished and message.kind == "play" and not self.human_turn and not self.game.outcome:
                     move = message.stats[0].move if message.stats else None
                     if move is None or not self.game.play(move):
                         self.engine_error = "Engine did not return a legal move. Start a new game to retry."
@@ -165,8 +167,10 @@ class Application:
             elif target == "compare" and not self.engine.busy:
                 self.start_search("compare")
             elif target == "cancel_search" and self.engine.busy:
-                self.engine.cancel()
-                self._request_revision = self._request_token = None
+                self.engine.stop()
+            elif target == "toggle_deepening" and not self.engine.busy:
+                self.settings = replace(self.settings, iterative_deepening=not self.settings.iterative_deepening)
+                self.search_rows = ()
 
     def handle_event(self, event: pygame.event.Event) -> None:
         if event.type == pygame.QUIT:
@@ -248,10 +252,13 @@ class Application:
         elif self.settings.enabled:
             detail = f"{self.settings.algorithm} · depth {self.settings.depth}"
             if self.engine.busy:
-                detail += " · thinking…"
+                if self.search_rows:
+                    detail = f"Thinking… completed depth {self.search_rows[-1].depth}/{self.settings.depth}"
+                else:
+                    detail += " · thinking…"
             elif self.last_play_stats:
                 last = self.last_play_stats
-                detail = f"{last.san} · {last.nodes:,} nodes · {last.seconds:.3f}s"
+                detail = f"{last.san} · depth {last.depth}/{last.requested_depth} · {last.nodes:,} nodes"
         self.sidebar.draw(surface, self.sidebar_rect, self.game, self.pieces,
                           detail=detail, undo_enabled=self.can_undo,
                           claim_enabled=bool(self.game.draw_claims) and self.human_turn,

@@ -27,6 +27,9 @@ class FakeEngine:
     def close(self):
         self.cancel()
 
+    def stop(self):
+        self.stopped = True
+
     def start(self, board, revision, settings, kind):
         self.token += 1
         self.busy = True
@@ -36,7 +39,7 @@ class FakeEngine:
     def poll(self):
         messages = list(self.messages)
         self.messages.clear()
-        if messages:
+        if any(message.finished for message in messages):
             self.busy = False
         return messages
 
@@ -162,6 +165,35 @@ def test_terminal_position_does_not_start_engine(app):
     app.inputs.game = app.game
     app.update_engine()
     assert not app.engine.calls
+
+
+def test_live_progress_never_plays_a_move_or_finishes_request(app):
+    human_e4(app)
+    token = app._request_token
+    before = app.game.board.fen()
+    row = SearchStats("Alpha-beta", 3, 1, 21, .001, chess.Move.from_uci("e7e5"), "e5", "+0.00", False)
+    app.engine.messages.append(EngineMessage(token, app.game.revision, "play", (row,), finished=False))
+    app.update_engine()
+    assert app.game.board.fen() == before
+    assert app._request_token == token and app.engine.busy
+    assert app.search_rows[-1].depth == 1
+    app.engine.finish(app)
+    app.update_engine()
+    assert len(app.game.records) == 2
+
+
+def test_deepening_can_be_toggled_without_resetting_position(app):
+    assert app.game.play(chess.Move.from_uci("e2e4"))
+    before = app.game.board.fen()
+    app.action("diagnostics")
+    app.draw()
+    click(app, app.modal_targets["toggle_deepening"].center)
+    assert not app.settings.iterative_deepening
+    assert app.game.board.fen() == before
+    click(app, app.modal_targets["compare"].center)
+    assert not app.engine.calls[-1][2].iterative_deepening
+    click(app, app.modal_targets["cancel_search"].center)
+    assert app.engine.stopped and app.engine.busy
 
 
 @pytest.mark.parametrize("size", [(960, 680), (1100, 760)])

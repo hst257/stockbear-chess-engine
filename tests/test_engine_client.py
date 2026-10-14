@@ -5,12 +5,15 @@ import chess
 from app.engine_client import DEFAULT_ENGINE, EngineClient, EngineSettings
 
 
-def wait_result(client, seconds=8):
+def wait_result(client, seconds=8, progress=None):
     deadline = time.monotonic() + seconds
     while time.monotonic() < deadline:
         messages = client.poll()
-        if messages:
-            return messages[0]
+        for message in messages:
+            if progress is not None:
+                progress.append(message)
+            if message.finished:
+                return message
         time.sleep(.01)
     raise AssertionError("Engine worker did not complete")
 
@@ -21,7 +24,8 @@ def test_comparison_runs_both_algorithms_on_unchanged_snapshot():
     board = chess.Board()
     try:
         token = client.start(board, 42, EngineSettings(depth=3), "compare")
-        message = wait_result(client)
+        progress = []
+        message = wait_result(client, progress=progress)
         assert message.token == token and message.revision == 42
         assert not message.error
         plain, pruned = message.stats
@@ -29,6 +33,9 @@ def test_comparison_runs_both_algorithms_on_unchanged_snapshot():
         assert plain.complete and pruned.complete
         assert plain.score == pruned.score and plain.move == pruned.move
         assert pruned.nodes < plain.nodes
+        assert any(not row.finished for row in progress)
+        assert [row.depth for row in plain.iterations] == [1, 2, 3]
+        assert [row.depth for row in pruned.iterations] == [1, 2, 3]
         assert board.fen() == chess.STARTING_FEN
         assert not client.busy
     finally:
@@ -58,5 +65,41 @@ def test_cancel_discards_old_results_and_new_job_completes():
         assert message.token == new and new != old
         assert message.revision == 2 and not message.error
         assert message.stats[0].move in chess.Board().legal_moves
+    finally:
+        client.close()
+
+
+def test_fixed_setting_emits_only_the_target_pass():
+    client = EngineClient()
+    try:
+        client.start(chess.Board(), 0, EngineSettings(depth=3, iterative_deepening=False))
+        result = wait_result(client)
+        assert not result.error
+        assert [row.depth for row in result.stats[0].iterations] == [3]
+        assert not result.stats[0].iterative_deepening
+    finally:
+        client.close()
+
+
+def test_graceful_stop_retains_proven_score_and_result():
+    client = EngineClient()
+    try:
+        client.start(chess.Board(), 0, EngineSettings(depth=5, alpha_beta=False))
+        end = time.monotonic() + 8
+        result = None
+        while time.monotonic() < end:
+            for message in client.poll():
+                if message.finished:
+                    result = message
+                elif message.stats[-1].depth >= 1:
+                    client.stop()
+            if result:
+                break
+            time.sleep(.001)
+        assert result is not None and not result.error
+        row = result.stats[0]
+        assert row.depth >= 1 and row.score != "—"
+        assert row.move in chess.Board().legal_moves
+        assert not client.busy
     finally:
         client.close()

@@ -14,23 +14,33 @@ public:
     Search(const SearchLimits& limits, bool pruning, const std::atomic<bool>& stop)
         : limits_(limits), pruning_(pruning), stop_(stop), start_(Clock::now()) {}
 
-    SearchResult run(chess::Board& board) {
+    SearchResult run(chess::Board& board, const SearchProgress& progress) {
         chess::Movelist moves;
         chess::movegen::legalmoves(moves, board);
-        // If stopped before any root branch finishes, still return a legal move.
+        // If stopped before depth one finishes, still return a legal move.
         if (!moves.empty() && !is_draw(board)) result_.best_move = moves[0];
-        try {
-            result_.white_score = minimax(board, limits_.depth, 0,
-                                         -INFINITY_SCORE, INFINITY_SCORE, result_.pv);
-            result_.complete = true;
-            result_.depth = limits_.depth;
+        const bool terminal = moves.empty() || is_draw(board);
+        const int first = limits_.iterative_deepening && !terminal ? 1 : limits_.depth;
+        for (int depth = first; depth <= limits_.depth; ++depth) {
+            // Only commit a complete pass. Recursive PV updates stay local, so an
+            // interrupted deeper pass cannot corrupt the saved move or score.
+            std::vector<chess::Move> pv;
+            int score;
+            try {
+                score = minimax(board, depth, 0, -INFINITY_SCORE, INFINITY_SCORE, pv);
+            } catch (const Interrupted&) {
+                break;
+            }
+            result_.white_score = score;
+            result_.pv = std::move(pv);
+            result_.depth = depth;
+            result_.complete = depth == limits_.depth;
             if (!result_.pv.empty()) result_.best_move = result_.pv.front();
-        } catch (const Interrupted&) {
-            // Partial root branches do not establish a full-depth score.
-            result_.depth = 0;
+            result_.milliseconds = elapsed();
+            if (progress) progress(result_);
         }
-        result_.milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(
-            Clock::now() - start_).count();
+        // Totals include unfinished work; depth/PV/score refer to the saved pass.
+        result_.milliseconds = elapsed();
         return result_;
     }
 
@@ -41,6 +51,10 @@ private:
     const std::atomic<bool>& stop_;
     Clock::time_point start_;
     SearchResult result_;
+
+    std::int64_t elapsed() const {
+        return std::chrono::duration_cast<std::chrono::milliseconds>(Clock::now() - start_).count();
+    }
 
     static bool is_draw(const chess::Board& board) {
         // Assume available current-position repetition/50-move claims are taken.
@@ -80,10 +94,6 @@ private:
                 best = score;
                 pv.assign(1, move);
                 pv.insert(pv.end(), child_pv.begin(), child_pv.end());
-                if (ply == 0) {
-                    result_.best_move = move;
-                    result_.white_score = score;
-                }
             }
             if (pruning_) {
                 if (maximizing) alpha = std::max(alpha, best);
@@ -109,8 +119,9 @@ int evaluate_material(const chess::Board& board) {
 }
 
 SearchResult search(chess::Board board, const SearchLimits& limits,
-                    bool alpha_beta, const std::atomic<bool>& stop) {
-    return Search(limits, alpha_beta, stop).run(board);
+                    bool alpha_beta, const std::atomic<bool>& stop,
+                    const SearchProgress& progress) {
+    return Search(limits, alpha_beta, stop).run(board, progress);
 }
 
 std::uint64_t perft(chess::Board& board, int depth) {

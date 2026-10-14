@@ -1,7 +1,7 @@
-# ChessLab engine: combined Phases 2 and 3
+# ChessLab engine: Minimax, alpha-beta, and iterative deepening
 
 A standalone C++17 UCI executable implements material-only Minimax with optional
-alpha-beta pruning. It owns its board and generates moves independently of Python.
+alpha-beta pruning and switchable iterative deepening. It owns its board independently of Python.
 No search or evaluation is delegated to another engine.
 
 ## Build
@@ -44,12 +44,35 @@ losses. Terminal detection precedes draw counters.
 
 With `AlphaBeta=false`, every branch is searched. With `AlphaBeta=true`, the same
 function updates alpha/beta bounds and cuts branches that cannot affect the answer.
-Both modes retain identical move traversal and a first-best tie rule. No iterative
-deepening, heuristic sorting, transposition table, quiescence, positional evaluation,
-opening book, or neural network is implemented.
+Both modes retain identical move traversal and a first-best tie rule. No heuristic
+sorting, transposition table, quiescence, positional evaluation, opening book, or
+neural network is implemented.
+
+## Iterative deepening
+
+Enabled by default, deepening searches depth 1, then 2, through the target depth.
+Each completed pass commits its move, score, and principal variation together and
+emits a UCI `info` update. A deeper unfinished pass cannot overwrite that snapshot.
+Time and node limits cover all passes together, not a fresh budget for each pass.
+
+On `stop` or a limit, the engine returns the last completed result. Depth reports
+that completed depth, while final nodes/time include work spent on the interrupted
+pass. Before depth 1 finishes, it returns an unscored legal fallback at depth 0.
+Terminal positions are resolved directly without repeating identical passes.
+
+Toggle **Depth 1 → target / Target depth only** in game setup, or **Deepening: on/off**
+in Search lab. The latter preserves the board. CLI: `--no-iterative-deepening`
+selects the original direct search. UCI: `setoption name IterativeDeepening value false`.
+Both comparison algorithms use the same deepening setting, depth, and evaluation.
+
+Completed full-depth answers match direct search. Shallow passes add work at a
+fixed target; this implementation retains the original move order and adds no
+PV-based sorting. The current benefit is a completed answer under interruption.
 
 Depth counts plies (half-moves). Nodes include root, interior, terminal, and static
-leaves. Time uses a monotonic clock in milliseconds; tiny searches can report zero.
+leaves across all passes, including repeated positions and unfinished work. Completed
+pass history records cumulative totals at each checkpoint. Time uses a monotonic
+clock in milliseconds; tiny searches can report zero.
 
 Search treats currently claimable threefold/50-move positions as drawn. The GUI
 automatically claims eligible draws on the engine's turn, including intended-move
@@ -64,25 +87,30 @@ Run the executable directly and enter one command per line:
 uci
 isready
 setoption name AlphaBeta value true
+setoption name IterativeDeepening value true
 position startpos moves e2e4 e7e5
 go depth 3
 ```
 
 Commands: `uci`, `isready`, `ucinewgame`, `setoption`, `position startpos`,
 `position fen` (six fields, optionally followed by moves), `go`, `stop`, `quit`.
-Options: `AlphaBeta` (default true), `Depth` (default 3, range 1–8).
-`go` accepts depth, movetime (milliseconds), nodes, and infinite. Without explicit
-depth it uses the Depth option. Clock allocation and pondering are not implemented.
-Timed searches do not use iterative deepening.
+Options: `AlphaBeta` and `IterativeDeepening` (both default true), and `Depth`
+(default 3, range 1–8). `go` accepts depth, movetime (milliseconds), nodes, and
+infinite. Bare `go` uses the Depth option. Time/node-limited requests without an
+explicit depth, and infinite searches, permit deepening through a safety cap of
+64 plies until stopped. Clock allocation and pondering are not implemented.
 
 The input thread remains responsive during worker searches. `info` reports depth,
 selective depth, nodes, time, approximate NPS, score, and legal principal variation.
 UCI scores favor the player to move; the GUI converts to White's perspective.
 Terminal/no-move results use `bestmove 0000`.
 
-Interrupted searches return a provisional legal move, report depth zero, and omit
-an unproven score. The GUI uses a 15-second safety limit per search, allows depths
-1–5, and labels partial results instead of comparing them as completed searches.
+Interrupted searches retain the most recent completed depth/score/PV. A final
+metadata update reports total work without replacing those fields. When deepening
+is disabled, an interrupted target pass has depth zero and no proven score. The GUI
+uses a 15-second safety limit per algorithm, allows target depths 1–5, and labels
+results as completed/target (for example, `3/5`) when the target was not reached.
+It computes comparison reductions only when both searches reach the same target.
 Unknown commands are ignored; invalid positions/moves report errors and leave
 the previous position unchanged.
 
@@ -91,11 +119,15 @@ the previous position unchanged.
 Press G for opponent/color/algorithm/depth settings and E for Search lab. Compare
 position runs both algorithms sequentially on one snapshot without playing either
 move. It displays move, completed depth, nodes, time, score, and node reduction.
+Completed passes stream live, with per-depth history for the latest algorithm.
+**Stop** retains the completed result and stops remaining comparison work; reset
+and Undo cancel and discard the request instead.
 Play pauses while this panel is open.
 
 `app/engine_client.py` communicates through python-chess in a background worker.
 Jobs receive full-history board copies and revision/tokens. Only the GUI thread
-applies validated replies through `Game.play`. Reset, Undo, mode changes, and
+applies validated replies through `Game.play` after the final response. Progress
+messages update statistics only. Reset, Undo, mode changes, and
 shutdown cancel subprocess work; stale replies are ignored. Errors leave the game
 unchanged instead of triggering a retry loop.
 
@@ -106,15 +138,20 @@ Tests include perft (197,281 at initial depth 4; 97,862 at Kiwipete depth 3), le
 move cross-checks against python-chess, terminal states, search equivalence,
 interruptible UCI, cancellation, and actual engine-to-GUI play/comparison.
 
-Initial position, depth 3, this build:
+Initial position, target depth 3 (all select a3 with White score 0.00):
 
-| Algorithm | Best move | Score (White) | Nodes |
-| --- | --- | ---: | ---: |
-| Minimax | a3 | 0.00 | 9,323 |
-| Alpha-beta | a3 | 0.00 | 586 |
+| Algorithm | Deepening off | Deepening on |
+| --- | ---: | ---: |
+| Minimax | 9,323 nodes | 9,765 nodes |
+| Alpha-beta | 586 nodes | 667 nodes |
 
-Alpha-beta visits 93.7% fewer nodes with the same answer. This measures work, not
-playing strength: material-only evaluation makes many quiet moves equivalent.
+With a shared 50-node budget, iterative Minimax completes depth 1 before being
+interrupted at depth 2. Direct depth-3 Minimax completes no pass and returns only
+a fallback. A poisoned-pawn test where depths 1 and 2 disagree proves interruption
+retains the exact earlier move, score, and PV.
+
+Node counts measure work, not playing strength: material-only evaluation makes
+many quiet moves equivalent.
 
 Standalone rules diagnostics:
 

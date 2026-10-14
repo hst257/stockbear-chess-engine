@@ -20,6 +20,30 @@ void output(const std::string& line) {
     std::cout << line << std::endl;
 }
 
+void report_info(const chesslab::SearchResult& result, const chess::Board& position,
+                 bool completed_iteration) {
+    std::ostringstream info;
+    info << "info";
+    // Final totals after an interruption deliberately omit depth/score/PV.
+    // UCI consumers retain the last completed iteration and update its totals.
+    if (completed_iteration || result.depth == 0) info << " depth " << result.depth;
+    info << " seldepth " << result.selective_depth << " nodes " << result.nodes
+         << " time " << result.milliseconds
+         << " nps " << result.nodes * 1000 / std::max<std::int64_t>(1, result.milliseconds);
+    if (completed_iteration && result.depth > 0) {
+        const int relative = position.sideToMove() == chess::Color::WHITE ? result.white_score : -result.white_score;
+        if (std::abs(relative) >= chesslab::MATE_SCORE - 128) {
+            const int distance = (chesslab::MATE_SCORE - std::abs(relative) + 1) / 2;
+            info << " score mate " << (relative >= 0 ? distance : -distance);
+        } else info << " score cp " << relative;
+        if (!result.pv.empty()) {
+            info << " pv";
+            for (const auto move : result.pv) info << ' ' << chess::uci::moveToUci(move);
+        }
+    }
+    output(info.str());
+}
+
 std::vector<std::string> words(const std::string& line) {
     std::istringstream stream(line);
     return {std::istream_iterator<std::string>(stream), std::istream_iterator<std::string>()};
@@ -114,9 +138,10 @@ public:
             try {
                 const auto& command = tokens[0];
                 if (command == "uci") {
-                    output("id name ChessLab 0.2");
+                    output("id name ChessLab 0.3");
                     output("id author ChessLab contributors");
                     output("option name AlphaBeta type check default true");
+                    output("option name IterativeDeepening type check default true");
                     output("option name Depth type spin default 3 min 1 max 8");
                     output("uciok");
                 } else if (command == "isready") output("readyok");
@@ -137,6 +162,7 @@ public:
 private:
     chess::Board board_;
     bool alpha_beta_ = true;
+    bool iterative_deepening_ = true;
     int depth_ = 3;
     std::atomic<bool> stopped_{false};
     std::thread worker_;
@@ -149,11 +175,12 @@ private:
     void set_option(const std::vector<std::string>& tokens) {
         stop_search();
         if (tokens.size() != 5 || tokens[1] != "name" || tokens[3] != "value") {
-            throw std::invalid_argument("expected setoption name <AlphaBeta|Depth> value <value>");
+            throw std::invalid_argument("expected setoption name <AlphaBeta|IterativeDeepening|Depth> value <value>");
         }
-        if (tokens[2] == "AlphaBeta") {
-            if (tokens[4] != "true" && tokens[4] != "false") throw std::invalid_argument("AlphaBeta must be true or false");
-            alpha_beta_ = tokens[4] == "true";
+        if (tokens[2] == "AlphaBeta" || tokens[2] == "IterativeDeepening") {
+            if (tokens[4] != "true" && tokens[4] != "false") throw std::invalid_argument("check options must be true or false");
+            if (tokens[2] == "AlphaBeta") alpha_beta_ = tokens[4] == "true";
+            else iterative_deepening_ = tokens[4] == "true";
         } else if (tokens[2] == "Depth") depth_ = integer(tokens[4], 1, 8);
     }
 
@@ -179,41 +206,31 @@ private:
         stop_search();
         chesslab::SearchLimits limits;
         limits.depth = depth_;
+        limits.iterative_deepening = iterative_deepening_;
+        bool explicit_depth = false;
         for (std::size_t i = 1; i < tokens.size(); ++i) {
             if (tokens[i] == "infinite") limits.depth = 64;
             else if (tokens[i] == "depth" || tokens[i] == "movetime" || tokens[i] == "nodes") {
                 const auto key = tokens[i];
                 if (++i >= tokens.size()) throw std::invalid_argument("go limit needs a value");
                 const int value = integer(tokens[i], 1, key == "depth" ? 8 : 2000000000);
-                if (key == "depth") limits.depth = value;
+                if (key == "depth") { limits.depth = value; explicit_depth = true; }
                 else if (key == "movetime") limits.milliseconds = value;
                 else limits.nodes = value;
             }
         }
+        if (!explicit_depth && (limits.milliseconds || limits.nodes)) limits.depth = 64;
         stopped_.store(false, std::memory_order_relaxed);
         const auto position = board_;
         const bool pruning = alpha_beta_;
         worker_ = std::thread([this, position, limits, pruning] {
             try {
-                const auto result = chesslab::search(position, limits, pruning, stopped_);
-                const int relative = position.sideToMove() == chess::Color::WHITE ? result.white_score : -result.white_score;
-                std::ostringstream info;
-                info << "info depth " << result.depth << " seldepth " << result.selective_depth
-                     << " nodes " << result.nodes << " time " << result.milliseconds
-                     << " nps " << result.nodes * 1000 / std::max<std::int64_t>(1, result.milliseconds);
-                if (result.complete) {
-                    if (std::abs(relative) >= chesslab::MATE_SCORE - 128) {
-                        const int distance = (chesslab::MATE_SCORE - std::abs(relative) + 1) / 2;
-                        info << " score mate " << (relative >= 0 ? distance : -distance);
-                    } else info << " score cp " << relative;
-                }
-                if (!result.pv.empty()) {
-                    info << " pv";
-                    for (const auto move : result.pv) info << ' ' << chess::uci::moveToUci(move);
-                }
-                output(info.str());
+                const auto result = chesslab::search(position, limits, pruning, stopped_,
+                    [&position](const auto& iteration) { report_info(iteration, position, true); });
+                if (!result.complete) report_info(result, position, false);
                 output(std::string("info string ") + (result.complete ? "complete " : "incomplete ") +
-                       (pruning ? "alpha-beta" : "minimax"));
+                       (pruning ? "alpha-beta " : "minimax ") +
+                       (limits.iterative_deepening ? "iterative" : "fixed"));
                 output("bestmove " + (result.best_move == chess::Move{} ? std::string("0000") :
                                       chess::uci::moveToUci(result.best_move)));
             } catch (const std::exception& error) {
