@@ -28,6 +28,9 @@ Linux builds have not been verified in this Windows development environment.
 
 ## Shared search and evaluation
 
+Advanced classical evaluation now defaults to on. See the [complete component/weight guide](../docs/advanced-evaluation.md). `UseAdvancedEvaluation=false` restores the exact historical material/PST evaluator described below; disable `UsePST` too for material only. All historical benchmarks use advanced evaluation off.
+
+
 `src/search.cpp` contains one recursive Minimax implementation. White maximizes
 and Black minimizes the same White-relative score. Material values are unchanged:
 
@@ -54,7 +57,7 @@ networks are deferred.
 
 `src/evaluation.cpp` adds positional centipawns from the compile-time arrays in
 `src/pst.hpp`, one table per piece plus a second king table. `UsePST=true`
-(default) adds these to material; false restores the original material-only fast
+(default) adds these to material; false removes PST contributions. With advanced evaluation also off, this restores the original material-only fast
 path. Black mirrors ranks with `square ^ 56`; no file reversal is used. Phase
 counts both sides' N/B=1, R=2, Q=4, clamped to 0–24. Each king blends its
 middlegame/endgame entries by that phase, rounded to the nearest centipawn with
@@ -230,7 +233,7 @@ go depth 3
 Commands: `uci`, `isready`, `ucinewgame`, `setoption`, `position startpos`,
 `position fen` (six fields, optionally followed by moves), `go`, `stop`, `quit`,
 and the optional diagnostic `eval`.
-Options: `AlphaBeta`, `IterativeDeepening`, `MoveOrdering`, `UsePST`,
+Options: `UseAdvancedEvaluation`, `EvalPawns`, `EvalPassers`, `EvalBishopPair`, `EvalRooks`, `EvalMobility`, `EvalOutposts`, `EvalKingSafety`, `EvalSpace`, `EvalEndgame` (all checks default true), `AlphaBeta`, `IterativeDeepening`, `MoveOrdering`, `UsePST`,
 `TranspositionTable`, `Quiescence`, `PVS`, `UseAspirationWindows`,
 `UseNullMovePruning`, `UseLMR` (all default true), `Hash` (default 16 MiB cap, range 1–256),
 `AspirationDelta` (default 25 cp, 1–500), `LMRReduction` (default 1, 1–3),
@@ -261,7 +264,7 @@ the previous position unchanged.
 
 `eval` stops current search and emits `info string eval {JSON}` with White-relative
 material, six PST contributions, positional sum, total, and phase. No debug text
-is printed during normal UCI searches. Standalone equivalent: `--eval [--no-pst] FEN`.
+is printed during normal UCI searches. Standalone equivalent: `--eval [--no-pst] [--baseline] [--disable EvalCategory] FEN`. Advanced JSON adds raw MG/EG and tapered component scores, rounding and scaling adjustments, and the final total. `--eval-bench [flags] [--repeats COUNT] FEN` measures evaluation calls without process-start overhead.
 Static diagnostics do not adjudicate terminal positions; search does so before
 evaluating leaves. Both paths use the same evaluation implementation.
 
@@ -290,7 +293,7 @@ Build first, then run `.venv\Scripts\python.exe -m pytest -q` from the root.
 Tests include perft (197,281 at initial depth 4; 97,862 at Kiwipete depth 3), legal
 move cross-checks against python-chess, terminal states, search equivalence,
 interruptible UCI, cancellation, and actual engine-to-GUI play/comparison.
-The 773-test suite also checks optimal moves/scores against an independent Python
+The 852-test suite also checks optimal moves/scores against an independent Python
 reference with ordering off/on, both algorithms, and direct/iterative search.
 PST coverage includes all pieces, color/rank orientation, phase/rounding, diagnostic
 and search consistency, unchanged terminal behavior, and GUI on/off selection.
@@ -301,9 +304,9 @@ depth validity, replacement, and mate-distance normalization. Integration tests
 verify cached/uncached scores, complete legal PVs, exhaustive child values, draw
 histories/clocks, interruption, and both GUI modes.
 
-**Historical measurements below disable Q, PVS, aspiration, NMP, and LMR.**
+**Historical measurements below disable advanced evaluation, Q, PVS, aspiration, NMP, and LMR.**
 
-Original baseline with **TranspositionTable=false, UsePST=false, MoveOrdering=false**, initial target depth 3
+Original baseline with **UseAdvancedEvaluation=false, TranspositionTable=false, UsePST=false, MoveOrdering=false**, initial target depth 3
 (all select a3 with White score 0.00):
 
 | Algorithm | Deepening off | Deepening on |
@@ -311,7 +314,7 @@ Original baseline with **TranspositionTable=false, UsePST=false, MoveOrdering=fa
 | Minimax | 9,323 nodes | 9,765 nodes |
 | Alpha-beta | 586 nodes | 667 nodes |
 
-Measured iterative alpha-beta with **TranspositionTable=false, UsePST=false**,
+Measured iterative alpha-beta with **UseAdvancedEvaluation=false, TranspositionTable=false, UsePST=false**,
 same completed depth/evaluation in each pair:
 
 | Position | Depth | Ordering off | Ordering on | Fewer nodes |
@@ -322,7 +325,7 @@ same completed depth/evaluation in each pair:
 Both initial searches select b3 (+1.00); both Kiwipete searches select Bxa6
 (+0.10). Kiwipete FEN:
 `r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1`.
-Reproduce with `TranspositionTable=false`, `UsePST=false`, `AlphaBeta=true`, `IterativeDeepening=true`, the respective
+Reproduce with `UseAdvancedEvaluation=false`, `TranspositionTable=false`, `UsePST=false`, `AlphaBeta=true`, `IterativeDeepening=true`, the respective
 `position` and `go depth` commands, toggling `MoveOrdering` between runs.
 
 With a shared 50-node budget, iterative Minimax completes depth 1 before being

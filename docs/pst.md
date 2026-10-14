@@ -1,5 +1,8 @@
 # Piece-square evaluation
 
+This guide describes the historical material/PST baseline. Advanced evaluation now defaults to on; select `UseAdvancedEvaluation=false` (UCI), `--no-advanced-evaluation` (launcher), or `--baseline` (native diagnostics) to reproduce these examples. See [advanced evaluation](advanced-evaluation.md) for the current default.
+
+
 PSTs add a small positional bonus to each piece's material value. Material alone
 cannot distinguish a knight on the edge from one in the center. The engine now
 defaults to material plus PSTs; material-only remains selectable for comparisons.
@@ -68,14 +71,15 @@ use the selected evaluation. Toggles are locked during active searches.
 ![Evaluation selection](search-setup.png)
 
 ```powershell
-.\launch.bat --mode engine                   # PST enabled by default
-.\launch.bat --mode engine --no-pst          # Material-only baseline
-.\launch.bat --mode engine --pst             # Explicitly enable PST
+.\launch.bat --mode engine --no-advanced-evaluation                   # PST enabled by default
+.\launch.bat --mode engine --no-advanced-evaluation --no-pst          # Material-only baseline
+.\launch.bat --mode engine --no-advanced-evaluation --pst             # Explicitly enable PST
 ```
 
 UCI exposes `option name UsePST type check default true`. For diagnostics:
 
 ```text
+setoption name UseAdvancedEvaluation value false
 setoption name UsePST value true
 position startpos moves g1f3
 eval
@@ -91,8 +95,8 @@ GUI scores favor White. `eval` stops outstanding search before reporting.
 Standalone JSON diagnostics use the same evaluator as search:
 
 ```powershell
-.\engine\build\chesslab-engine.exe --eval "7k/8/8/8/3N4/8/8/7K w - - 0 1"
-.\engine\build\chesslab-engine.exe --eval --no-pst "7k/8/8/8/3N4/8/8/7K w - - 0 1"
+.\engine\build\chesslab-engine.exe --eval --baseline "7k/8/8/8/3N4/8/8/7K w - - 0 1"
+.\engine\build\chesslab-engine.exe --eval --baseline --no-pst "7k/8/8/8/3N4/8/8/7K w - - 0 1"
 ```
 
 Diagnostics show static evaluation, including in drawn or terminal positions.
@@ -107,7 +111,7 @@ conditions before static evaluation; those terminal scores take precedence.
 .\.venv\Scripts\python.exe -m tools.benchmark_evaluation --depth 5 --repeats 3 --match-games 4 --output artifacts\pst-benchmark.json
 ```
 
-**773 tests pass in the current full suite on Windows.** PST checks cover all six piece types, asymmetric
+**852 tests pass in the current full suite on Windows.** PST checks cover all six piece types, asymmetric
 rank orientation, color symmetry, all 25 phase values, rounding, promotion-phase
 clamping, no material double-counting, terminal precedence, UCI diagnostics,
 search-leaf/diagnostic agreement, Minimax/alpha-beta equivalence, interruption,

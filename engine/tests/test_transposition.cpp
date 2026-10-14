@@ -148,6 +148,7 @@ void histories() {
 
 chesslab::SearchResult qsearch(const std::string& fen, bool pruning, std::uint64_t nodes = 0) {
     chesslab::SearchLimits limits;
+    limits.evaluation.advanced = false;
     limits.depth = 0;  // Exercise quiescence directly; public UCI still requires depth >= 1.
     limits.iterative_deepening = false;
     limits.transposition_table = false;
@@ -194,6 +195,7 @@ void quiescence() {
 
 void pvs() {
     chesslab::SearchLimits limits;
+    limits.evaluation.advanced = false;
     limits.depth = 3;
     limits.transposition_table = false;
     limits.iterative_deepening = false;
@@ -238,6 +240,7 @@ void cancellation() {
         }
     }
     chesslab::SearchLimits limits;
+    limits.evaluation.advanced = false;
     limits.depth = chesslab::MAX_SEARCH_PLY;
     limits.nodes = 1;
     limits.time_managed = true;

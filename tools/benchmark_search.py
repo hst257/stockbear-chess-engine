@@ -32,7 +32,7 @@ def main():
     if args.repeats < 1 or args.seconds <= 0:
         parser.error("repeats and seconds must be positive")
     settings = {"AlphaBeta": True, "IterativeDeepening": True, "MoveOrdering": True,
-                "UsePST": True, "TranspositionTable": True, "Hash": 16, "UseAspirationWindows": False, "UseNullMovePruning": False, "UseLMR": False}
+                "UseAdvancedEvaluation": False, "UsePST": True, "TranspositionTable": True, "Hash": 16, "UseAspirationWindows": False, "UseNullMovePruning": False, "UseLMR": False}
     positions = {name: (fen, args.depth) for name, fen in POSITIONS.items()}
     positions["poisoned-pawn"] = ("7k/8/8/1p6/p7/Q7/8/7K w - - 0 1", 1)
     modes = [(False, False), (False, True), (True, False), (True, True)]

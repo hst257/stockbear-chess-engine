@@ -1,0 +1,139 @@
+{
+  "stage": "4-mobility-outposts",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "engine_sha256": "62d19a1c02a1525bc7bde7907d216fed32154b17332eb8954eb7bfbb80fe3856",
+  "measurements": [
+    {
+      "position": "opening",
+      "variant": "baseline",
+      "ns_per_call": 33.704,
+      "samples": [
+        {
+          "calls": 100000,
+          "ns_per_call": 35.207,
+          "checksum": 0
+        },
+        {
+          "calls": 100000,
+          "ns_per_call": 33.704,
+          "checksum": 0
+        },
+        {
+          "calls": 100000,
+          "ns_per_call": 33.073,
+          "checksum": 0
+        }
+      ]
+    },
+    {
+      "position": "opening",
+      "variant": "advanced",
+      "ns_per_call": 133.709,
+      "samples": [
+        {
+          "calls": 100000,
+          "ns_per_call": 133.709,
+          "checksum": 0
+        },
+        {
+          "calls": 100000,
+          "ns_per_call": 133.302,
+          "checksum": 0
+        },
+        {
+          "calls": 100000,
+          "ns_per_call": 133.998,
+          "checksum": 0
+        }
+      ]
+    },
+    {
+      "position": "middlegame",
+      "variant": "baseline",
+      "ns_per_call": 32.933,
+      "samples": [
+        {
+          "calls": 100000,
+          "ns_per_call": 32.933,
+          "checksum": 0
+        },
+        {
+          "calls": 100000,
+          "ns_per_call": 32.701,
+          "checksum": 0
+        },
+        {
+          "calls": 100000,
+          "ns_per_call": 33.662,
+          "checksum": 0
+        }
+      ]
+    },
+    {
+      "position": "middlegame",
+      "variant": "advanced",
+      "ns_per_call": 139.181,
+      "samples": [
+        {
+          "calls": 100000,
+          "ns_per_call": 139.181,
+          "checksum": 0
+        },
+        {
+          "calls": 100000,
+          "ns_per_call": 140.228,
+          "checksum": 0
+        },
+        {
+          "calls": 100000,
+          "ns_per_call": 136.182,
+          "checksum": 0
+        }
+      ]
+    },
+    {
+      "position": "endgame",
+      "variant": "baseline",
+      "ns_per_call": 13.419,
+      "samples": [
+        {
+          "calls": 100000,
+          "ns_per_call": 13.419,
+          "checksum": 7000000
+        },
+        {
+          "calls": 100000,
+          "ns_per_call": 13.566,
+          "checksum": 7000000
+        },
+        {
+          "calls": 100000,
+          "ns_per_call": 12.399,
+          "checksum": 7000000
+        }
+      ]
+    },
+    {
+      "position": "endgame",
+      "variant": "advanced",
+      "ns_per_call": 62.164,
+      "samples": [
+        {
+          "calls": 100000,
+          "ns_per_call": 62.164,
+          "checksum": 7000000
+        },
+        {
+          "calls": 100000,
+          "ns_per_call": 61.194,
+          "checksum": 7000000
+        },
+        {
+          "calls": 100000,
+          "ns_per_call": 63.426,
+          "checksum": 7000000
+        }
+      ]
+    }
+  ]
+}

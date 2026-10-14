@@ -22,6 +22,8 @@ OPENINGS = ((), ("e2e4", "e7e5", "g1f3", "b8c6", "f1c4", "g8f6"),
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--engine", type=Path, default=DEFAULT_ENGINE)
+    parser.add_argument("--comparison", choices=("search", "evaluation"), default="search",
+                        help="Compare search stages or baseline/advanced evaluation.")
     parser.add_argument("--games", type=int, choices=(4, 8), default=4)
     parser.add_argument("--movetime", type=int, choices=(100, 500, 1000, 3000, 5000), default=100)
     parser.add_argument("--max-plies", type=int, default=160)
@@ -31,7 +33,7 @@ def main():
         parser.error("max-plies must be positive")
     flags = {"creationflags": subprocess.CREATE_NO_WINDOW} if os.name == "nt" else {}
     records, pgns = [], []
-    options = {"AlphaBeta": True, "IterativeDeepening": True, "MoveOrdering": True, "UsePST": True,
+    options = {"AlphaBeta": True, "IterativeDeepening": True, "MoveOrdering": True, "UseAdvancedEvaluation": False, "UsePST": True,
                "TranspositionTable": True, "Hash": 16, "PVS": True, "Quiescence": True, "AspirationDelta": 25, "LMRReduction": 1}
     with chess.engine.SimpleEngine.popen_uci(str(args.engine), timeout=10, **flags) as engine:
         engine.configure(options)
@@ -46,7 +48,8 @@ def main():
                 if board.is_game_over(claim_draw=True):
                     break
                 advanced = board.turn == advanced_color
-                configure_stage(engine, 3 if advanced else 0)
+                configure_stage(engine, 3 if args.comparison == "evaluation" or advanced else 0)
+                engine.configure({"UseAdvancedEvaluation": advanced if args.comparison == "evaluation" else False})
                 result = engine.play(board, chess.engine.Limit(time=args.movetime / 1000), info=chess.engine.INFO_ALL)
                 assert result.move in board.legal_moves
                 searches.append({"advanced": advanced, "move": result.move.uci(),
@@ -63,7 +66,7 @@ def main():
                       "plies": len(board.move_stack), "searches": searches}
             records.append(record)
             game = chess.pgn.Game.from_board(board)
-            game.headers.update({"Event": "Optimization smoke match", "White": "Advanced" if advanced_color else "Baseline",
+            game.headers.update({"Event": f"{args.comparison.title()} smoke match", "White": "Advanced" if advanced_color else "Baseline",
                                  "Black": "Baseline" if advanced_color else "Advanced", "Result": result_text,
                                  "ThinkTimeMs": str(args.movetime), "Termination": record["termination"]})
             pgns.append(str(game))
@@ -71,7 +74,9 @@ def main():
                   f"({record['advanced_outcome']}; {record['termination']}; {record['plies']} plies)", flush=True)
         data = {"generated_utc": datetime.now(timezone.utc).isoformat(), "platform": platform.platform(),
                 "engine_sha256": hashlib.sha256(args.engine.read_bytes()).hexdigest(),
-                "settings": options, "movetime_ms": args.movetime, "max_plies": args.max_plies, "games": records}
+                "settings": options, "comparison": args.comparison, "movetime_ms": args.movetime,
+                "search_stage": "3 for both" if args.comparison == "evaluation" else "0 vs 3",
+                "max_plies": args.max_plies, "games": records}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
     args.output.with_suffix(".pgn").write_text("\n\n".join(pgns) + "\n", encoding="utf-8")

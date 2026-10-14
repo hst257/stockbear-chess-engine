@@ -34,6 +34,7 @@ class EngineSettings:
     aspiration_windows: bool = True
     null_move_pruning: bool = True
     late_move_reductions: bool = True
+    advanced_evaluation: bool = True
 
     def __post_init__(self) -> None:
         if not 1 <= self.depth <= 5:
@@ -89,6 +90,7 @@ class SearchStats:
     timed_search: bool = False
     thinking_time_ms: int = 0
     nps: int = 0
+    advanced_evaluation: bool = True
 
 
 @dataclass(frozen=True)
@@ -155,7 +157,7 @@ def search_stats(info: chess.engine.InfoDict, move: chess.Move | None, board: ch
                        counters.get("qnodes", 0), counters.get("scouts", 0), counters.get("researches", 0),
                        counters.get("qcaps", 0), bool(counters.get("plylimit", 0)),
                        settings.timed_search, settings.thinking_time_ms if settings.timed_search else 0,
-                       info.get("nps", 0))
+                       info.get("nps", 0), settings.advanced_evaluation)
 
 
 class EngineClient:
@@ -237,6 +239,7 @@ class EngineClient:
                     break
                 engine.configure({"AlphaBeta": pruning, "IterativeDeepening": settings.timed_search or settings.iterative_deepening,
                                   "MoveOrdering": settings.move_ordering, "UsePST": settings.use_pst,
+                                  "UseAdvancedEvaluation": settings.advanced_evaluation,
                                   "TranspositionTable": settings.transposition_table,
                                   "Quiescence": settings.quiescence, "PVS": settings.principal_variation_search,
                                   "UseAspirationWindows": settings.aspiration_windows,

@@ -75,7 +75,7 @@ def main():
         parser.error("Use positive repeats and the five supported time presets")
     flags = {"creationflags": subprocess.CREATE_NO_WINDOW} if os.name == "nt" else {}
     options = {"AlphaBeta": True, "IterativeDeepening": True, "MoveOrdering": True,
-               "UsePST": True, "TranspositionTable": True, "Hash": 16, "Quiescence": True, "PVS": True}
+               "UseAdvancedEvaluation": False, "UsePST": True, "TranspositionTable": True, "Hash": 16, "Quiescence": True, "PVS": True}
     rows = []
     with chess.engine.SimpleEngine.popen_uci(str(args.engine), timeout=20, **flags) as engine:
         for name, value in (("AspirationDelta", 25), ("LMRReduction", 1)):

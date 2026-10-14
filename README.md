@@ -1,6 +1,6 @@
 # ChessLab
 
-ChessLab is a desktop chess game and a project for learning search algorithms. The Python/Pygame application supports local two-player games and a custom standalone C++17 opponent. Minimax, alpha-beta pruning, iterative deepening, move ordering, piece-square evaluation, Zobrist-based transposition tables, quiescence search, Principal Variation Search (PVS), aspiration windows, null-move pruning, and Late Move Reductions (LMR) are implemented with a comparison interface.
+ChessLab is a desktop chess game and a project for learning search algorithms. The Python/Pygame application supports local two-player games and a custom standalone C++17 opponent. Minimax, alpha-beta pruning, iterative deepening, move ordering, advanced classical evaluation, Zobrist-based transposition tables, quiescence search, Principal Variation Search (PVS), aspiration windows, null-move pruning, and Late Move Reductions (LMR) are implemented with a comparison interface.
 
 ![ChessLab game board](docs/chesslab.png)
 
@@ -63,7 +63,9 @@ Choose **Fixed depth** for debugging and reproducible comparisons. The debug tar
 
 Move ordering is also on by default: a matching table move first, then the previous completed principal variation along its original path, promotions, and captures ranked by victim value and attacker cost. Equal priorities retain their original order. Sorting can change which equally scored move wins a tie while preserving full-depth scores. With caching off, ordering alone does not reduce exhaustive Minimax's node count or guarantee a speedup.
 
-**PST is on by default.** Classical piece-square tables add modest positional bonuses for every piece, encouraging central knights, useful development, and sheltered kings. The king blends middlegame/endgame tables using remaining non-pawn material (phase 0–24). Black mirrors ranks; scores still favor White. Choose **PST: off** in setup or **PST: off** in Search lab to restore the original evaluator. See the [PST guide](docs/pst.md) for all tables, attribution, phase arithmetic, evaluation diagnostics, and benchmarks.
+**PST is on by default.** Classical piece-square tables add modest positional bonuses for every piece, encouraging central knights, useful development, and sheltered kings. The king blends middlegame/endgame tables using remaining non-pawn material (phase 0–24). Black mirrors ranks; scores still favor White. Choose **PST: off** in setup or Search lab to disable square bonuses. For the original material-only evaluator, also launch with `--no-advanced-evaluation`. See the [PST guide](docs/pst.md) for all tables, attribution, phase arithmetic, evaluation diagnostics, and benchmarks.
+
+**Advanced classical evaluation is on by default.** A single phase blend combines material/PST, pawn structure and passers, safe mobility, king safety, bishop pairs, rook activity, supported outposts, space, and endgame king activity. Use `--no-advanced-evaluation` for the exact material/PST baseline. UCI exposes category switches and an `eval` JSON breakdown; the game layout and default 1-second budget stay unchanged. See [features, weights, benchmarks, and limitations](docs/advanced-evaluation.md).
 
 **Transposition caching is on by default.** It reuses the rules library's incremental Zobrist key, guarded by the halfmove clock and repetition history. A bounded table stores completed scores, bounds, and PVs across iterative passes within one search. **Transpositions: off** restores the uncached baseline. Search lab shows hits, cutoffs, and occupancy. See the [TT guide](docs/transposition-tables.md) for safety rules, UCI memory controls, tests, and benchmarks.
 
@@ -159,7 +161,7 @@ tools/match_optimizations.py  Color-balanced baseline/advanced smoke games
 
 `InputHandler` keeps temporary selection and promotion separate from committed moves. Rendering reads the game state. Board coordinates and hit testing share one orientation transform. Expensive draw eligibility checks are cached after state changes; fonts and piece images are cached, and the event loop runs at up to 60 FPS.
 
-The engine independently represents positions and generates moves with a pinned C++ rules library. A shared Minimax function uses the selected material/PST evaluator, optionally orders legal moves, and optionally applies alpha-beta cutoffs. Iterative deepening saves complete passes and supplies the next pass's PV hints. A Python worker streams UCI progress from full-history snapshots; only final replies can apply a move on the GUI thread, after request/revision checks.
+The engine independently represents positions and generates moves with a pinned C++ rules library. A shared Minimax function uses the selected classical or advanced evaluator, optionally orders legal moves, and optionally applies alpha-beta cutoffs. Iterative deepening saves complete passes and supplies the next pass's PV hints. A Python worker streams UCI progress from full-history snapshots; only final replies can apply a move on the GUI thread, after request/revision checks.
 
 ## Tests and verification
 
@@ -177,11 +179,11 @@ Benchmark every preset on seven positions (three repeats), with results saved as
 .\.venv\Scripts\python.exe -m tools.benchmark_time --output artifacts\time-benchmark.json
 ```
 
-**Verified on Windows: 773 automated tests pass.** Build the engine before running the full suite; native TT tests also use the compiler. Tests cover rules, special moves, outcomes, draw claims, undo/reset, and a seeded 180-half-move game rewound position by position.
+**Verified on Windows: 852 automated tests pass.** Build the engine before running the full suite; native TT tests also use the compiler. Tests cover rules, special moves, outcomes, draw claims, undo/reset, and a seeded 180-half-move game rewound position by position.
 
 Engine checks include perft, legal moves cross-checked against python-chess, mate/score handling, Minimax/alpha-beta equivalence, UCI interruption, process errors, stale replies, and actual engine-to-GUI play/comparison. Ordering checks compare optimal moves and scores against an independent Python reference across both algorithms and deepening modes, including castling, promotions, en passant, and pinned pieces. They also verify the original node baseline, tactical node savings, per-search PV isolation, interrupted result retention, and GUI toggle behavior.
 
-Historical ordering/PST/TT measurements below use **quiescence, PVS, and all three advanced optimizations off**; reproduction tools explicitly retain these conditions.
+Historical ordering/PST/TT measurements below use **advanced evaluation, quiescence, PVS, and all three advanced search optimizations off**; reproduction tools explicitly retain these conditions.
 
 With PST and transposition caching disabled, iterative alpha-beta visits 25,261 nodes at initial depth 5 with ordering, versus 38,388 without (34.2% fewer). At Kiwipete depth 4, it visits 9,754 versus 63,617 (84.7% fewer). Each pair has identical score and move. Counts include all completed passes; these are search-work measurements, not strength ratings.
 
@@ -216,7 +218,7 @@ Running that tool without `--offline` checks the source licenses online and down
 ## Current limitations
 
 - NMP/LMR are selective heuristics and can miss quiet resources or unusual zugzwangs despite conservative guards. Gains depend on the position; no reliable Elo gain is established.
-- PSTs encode square preferences, not mobility, pawn structure, actual king attacks, or open files. Playing strength remains basic; quiet checking moves, SEE/delta pruning, and advanced positional evaluation are not implemented.
+- Advanced evaluation adds handcrafted positional terms with untuned weights. Mobility uses attack maps rather than full tactical legality, and material scaling is heuristic. Quiet checking moves and SEE/delta pruning remain deferred; benchmark results do not establish an Elo gain.
 - Quiescence stops at non-check nodes after 16 extra plies or absolute ply 64; check evasions continue to the absolute ceiling, where an unresolved check interrupts the pass. These safety limits are heuristic boundaries. Stand-pat evaluation can miss zugzwang.
 - Transposition tables are fresh per search and use conservative draw-history matching. Allocation can make tiny searches slower despite node savings; no cross-search cache is retained.
 - Timed gameplay uses 100–5000 ms with a 64-ply safety ceiling. Fixed-depth GUI debugging retains depths 1–5 and a 15-second watchdog. No score is claimed before a completed pass; CPU load and communication can add timing overhead.
@@ -231,9 +233,9 @@ Running that tool without `--offline` checks the source licenses online and down
 
 1. **Implemented:** playable Python/Pygame local two-player application.
 2. **Implemented together (Phases 2–3):** independent C++ UCI engine, material evaluation, Minimax, switchable alpha-beta, Human vs Engine, and search comparisons.
-4. **Implemented:** iterative deepening, move ordering, switchable PST evaluation, transposition tables, quiescence, Principal Variation Search, configurable time-controlled gameplay, aspiration windows, null-move pruning, and LMR.
-5. Explore advanced pruning and evaluation only after the fundamentals are reliable.
-6. Add engine matches and performance/strength benchmarks.
+4. **Implemented:** iterative deepening, move ordering, switchable PST evaluation, transposition tables, quiescence, Principal Variation Search, configurable time-controlled gameplay, aspiration windows, null-move pruning, LMR, and modular advanced classical evaluation.
+5. Tune evaluation weights and consider further optimizations only after broader testing.
+6. **Implemented:** matched performance benchmarks and color-balanced engine smoke games; broader strength testing remains future work.
 
 Later phases require an explicit request. The engine performs its own search and evaluation without delegating them to another engine.
 

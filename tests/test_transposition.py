@@ -60,7 +60,7 @@ def test_cache_preserves_fixed_depth_score_and_full_legal_pv(engine, engine_path
             pv_board.push(move)
         assert len(result.info["pv"]) == 3 or pv_board.is_game_over(claim_draw=True)
         if not pv_board.is_game_over(claim_draw=True):
-            args = [str(engine_path), "--eval", *([] if pst else ["--no-pst"]), pv_board.fen()]
+            args = [str(engine_path), "--eval", "--baseline", *([] if pst else ["--no-pst"]), pv_board.fen()]
             evaluated = subprocess.run(args, capture_output=True, text=True, check=True, timeout=3)
             assert json.loads(evaluated.stdout)["total"] == result.info["score"].white().score()
         results.append(result)

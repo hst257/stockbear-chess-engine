@@ -35,7 +35,7 @@ def measure(engine, depth, seconds, repeats):
         samples = {False: [], True: []}
         for repeat in range(repeats):
             for use_pst in ((False, True) if repeat % 2 == 0 else (True, False)):
-                engine.configure({"UsePST": use_pst})
+                engine.configure({"UseAdvancedEvaluation": False, "UsePST": use_pst})
                 start = time.perf_counter()
                 result = engine.play(board, chess.engine.Limit(depth=depth, time=seconds),
                                      info=chess.engine.INFO_ALL)
@@ -70,7 +70,7 @@ def matches(engine, games, depth, seconds, max_plies):
             if board.is_game_over(claim_draw=True):
                 termination = board.outcome(claim_draw=True).termination.name.lower()
                 break
-            engine.configure({"UsePST": board.turn == pst_white})
+            engine.configure({"UseAdvancedEvaluation": False, "UsePST": board.turn == pst_white})
             result = engine.play(board, chess.engine.Limit(depth=depth, time=seconds),
                                  info=chess.engine.INFO_ALL)
             if result.move not in board.legal_moves:
@@ -113,7 +113,7 @@ def main():
         parser.error("repeats, seconds, and max-plies must be positive")
     flags = {"creationflags": subprocess.CREATE_NO_WINDOW} if os.name == "nt" else {}
     # Preserve the recorded PST-only comparison as new search features are added.
-    settings = {"AlphaBeta": True, "IterativeDeepening": True, "MoveOrdering": True,
+    settings = {"UseAdvancedEvaluation": False, "AlphaBeta": True, "IterativeDeepening": True, "MoveOrdering": True,
                 "TranspositionTable": False, "Quiescence": False, "PVS": False, "UseAspirationWindows": False, "UseNullMovePruning": False, "UseLMR": False}
     with chess.engine.SimpleEngine.popen_uci(str(args.engine), timeout=args.seconds + 5, **flags) as engine:
         engine.configure(settings)

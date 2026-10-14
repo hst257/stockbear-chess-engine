@@ -10,7 +10,7 @@ import pytest
 
 
 def breakdown(engine_path, board, use_pst=True):
-    command = [str(engine_path), "--eval"]
+    command = [str(engine_path), "--eval", "--baseline"]
     if not use_pst:
         command.append("--no-pst")
     result = subprocess.run([*command, board.fen()], check=True, text=True,
@@ -149,6 +149,7 @@ def test_seeded_positions_mirror_every_component_and_do_not_double_count_materia
 def test_fresh_engine_defaults_to_pst_and_can_restore_original_opening(engine_path):
     with chess.engine.SimpleEngine.popen_uci(str(engine_path)) as fresh:
         board = chess.Board()
+        fresh.configure({"UseAdvancedEvaluation": False})
         result = fresh.play(board, chess.engine.Limit(depth=1), info=chess.engine.INFO_ALL)
         assert result.move.uci() in ("b1c3", "g1f3")
         assert result.info["score"].white().score() == 50

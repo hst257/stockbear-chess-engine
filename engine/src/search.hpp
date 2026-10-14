@@ -30,6 +30,7 @@ struct SearchLimits {
     bool null_move_pruning = true;
     bool late_move_reductions = true;
     int lmr_reduction = 1;  // Configurable 1..3, also clamped to depth - 2.
+    EvaluationOptions evaluation;
 };
 
 struct SearchResult {

@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <chrono>
 #include <iostream>
 #include <iterator>
 #include <mutex>
@@ -20,8 +21,8 @@ void output(const std::string& line) {
     std::cout << line << std::endl;
 }
 
-std::string evaluation_json(const chess::Board& board, bool use_pst) {
-    const auto value = chesslab::evaluate_breakdown(board, use_pst);
+std::string evaluation_json(const chess::Board& board, bool use_pst, const chesslab::EvaluationOptions& options) {
+    const auto value = chesslab::evaluate_breakdown(board, use_pst, options);
     constexpr const char* names[] = {"pawn", "knight", "bishop", "rook", "queen", "king"};
     std::ostringstream json;
     json << "{\"use_pst\":" << (use_pst ? "true" : "false")
@@ -31,7 +32,20 @@ std::string evaluation_json(const chess::Board& board, bool use_pst) {
         json << '"' << names[kind] << "\":" << value.pst[kind];
     }
     json << "},\"positional\":" << value.positional() << ",\"total\":" << value.total()
-         << ",\"phase\":" << value.phase << '}';
+         << ",\"phase\":" << value.phase << ",\"advanced\":" << (value.advanced ? "true" : "false");
+    if (value.advanced) {
+        json << ",\"components\":{";
+        for (int i = 0; i < chesslab::COMPONENT_COUNT; ++i) {
+            if (i) json << ',';
+            const auto c = value.components[i];
+            json << '"' << chesslab::COMPONENT_NAMES[i] << "\":{\"mg\":" << c.middlegame
+                 << ",\"eg\":" << c.endgame << ",\"cp\":" << chesslab::taper(c, value.phase) << '}';
+        }
+        json << "},\"mg\":" << value.sum.middlegame << ",\"eg\":" << value.sum.endgame
+             << ",\"rounding\":" << value.rounding << ",\"scale\":" << value.scale
+             << ",\"scaling\":" << value.scaling;
+    }
+    json << '}';
     return json.str();
 }
 
@@ -182,12 +196,15 @@ public:
             try {
                 const auto& command = tokens[0];
                 if (command == "uci") {
-                    output("id name ChessLab 0.9");
+                    output("id name ChessLab 0.10");
                     output("id author ChessLab contributors");
                     output("option name AlphaBeta type check default true");
                     output("option name IterativeDeepening type check default true");
                     output("option name MoveOrdering type check default true");
                     output("option name UsePST type check default true");
+                    output("option name UseAdvancedEvaluation type check default true");
+                    for (const auto name : chesslab::EVAL_OPTION_NAMES)
+                        output(std::string("option name ") + name + " type check default true");
                     output("option name TranspositionTable type check default true");
                     output("option name Quiescence type check default true");
                     output("option name PVS type check default true");
@@ -207,7 +224,7 @@ public:
                 else if (command == "stop") stop_search();
                 else if (command == "eval") {
                     stop_search();
-                    output("info string eval " + evaluation_json(board_, use_pst_));
+                    output("info string eval " + evaluation_json(board_, use_pst_, evaluation_));
                 }
                 else if (command == "quit") break;
                 // UCI permits unrecognized commands to be ignored.
@@ -224,6 +241,7 @@ private:
     bool iterative_deepening_ = true;
     bool move_ordering_ = true;
     bool use_pst_ = true;
+    chesslab::EvaluationOptions evaluation_;
     bool transposition_table_ = true;
     bool quiescence_ = true;
     bool pvs_ = true;
@@ -247,6 +265,13 @@ private:
         stop_search();
         if (tokens.size() != 5 || tokens[1] != "name" || tokens[3] != "value") {
             throw std::invalid_argument("expected setoption name <option> value <value> (see uci for supported options)");
+        }
+        const auto eval_option = std::find(chesslab::EVAL_OPTION_NAMES.begin(), chesslab::EVAL_OPTION_NAMES.end(), tokens[2]);
+        if (tokens[2] == "UseAdvancedEvaluation" || eval_option != chesslab::EVAL_OPTION_NAMES.end()) {
+            if (tokens[4] != "true" && tokens[4] != "false") throw std::invalid_argument("check options must be true or false");
+            if (tokens[2] == "UseAdvancedEvaluation") evaluation_.advanced = tokens[4] == "true";
+            else evaluation_.enabled[eval_option - chesslab::EVAL_OPTION_NAMES.begin()] = tokens[4] == "true";
+            return;
         }
         if (tokens[2] == "AlphaBeta" || tokens[2] == "IterativeDeepening" ||
             tokens[2] == "MoveOrdering" || tokens[2] == "UsePST" || tokens[2] == "TranspositionTable" ||
@@ -300,6 +325,7 @@ private:
         limits.iterative_deepening = iterative_deepening_;
         limits.move_ordering = move_ordering_;
         limits.use_pst = use_pst_;
+        limits.evaluation = evaluation_;
         limits.transposition_table = transposition_table_;
         limits.hash_megabytes = hash_megabytes_;
         limits.history = history_;
@@ -365,9 +391,32 @@ int main(int argc, char** argv) {
     try {
         if (argc > 1) {
             const std::string command = argv[1];
-            if (command == "--eval" && (argc == 3 || (argc == 4 && std::string(argv[2]) == "--no-pst"))) {
+            if ((command == "--eval" || command == "--eval-bench") && argc >= 3) {
+                bool use_pst = true;
+                chesslab::EvaluationOptions options;
+                int repeats = 200000;
+                for (int i = 2; i < argc - 1; ++i) {
+                    const std::string flag = argv[i];
+                    if (flag == "--no-pst") use_pst = false;
+                    else if (flag == "--baseline") options.advanced = false;
+                    else if (flag == "--disable" && i + 1 < argc - 1) {
+                        const std::string name = argv[++i];
+                        const auto found = std::find(chesslab::EVAL_OPTION_NAMES.begin(), chesslab::EVAL_OPTION_NAMES.end(), name);
+                        if (found == chesslab::EVAL_OPTION_NAMES.end()) throw std::invalid_argument("unknown evaluation category");
+                        options.enabled[found - chesslab::EVAL_OPTION_NAMES.begin()] = false;
+                    } else if (flag == "--repeats" && i + 1 < argc - 1) repeats = integer(argv[++i], 1, 100000000);
+                    else throw std::invalid_argument("unknown evaluation flag");
+                }
                 const auto board = board_from_fen(argv[argc - 1]);
-                std::cout << evaluation_json(board, argc == 3) << '\n';
+                if (command == "--eval") std::cout << evaluation_json(board, use_pst, options) << '\n';
+                else {
+                    volatile std::int64_t checksum = 0;
+                    const auto start = std::chrono::steady_clock::now();
+                    for (int i = 0; i < repeats; ++i) checksum += chesslab::evaluate(board, use_pst, options);
+                    const auto ns = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now() - start).count();
+                    std::cout << "{\"calls\":" << repeats << ",\"ns_per_call\":" << double(ns) / repeats
+                              << ",\"checksum\":" << checksum << "}\n";
+                }
             } else if (command == "--legal-moves" && argc == 3) {
                 auto board = board_from_fen(argv[2]);
                 chess::Movelist moves;
@@ -376,7 +425,7 @@ int main(int argc, char** argv) {
             } else if (command == "--perft" && (argc == 3 || argc == 4)) {
                 auto board = argc == 4 ? board_from_fen(argv[3]) : chess::Board();
                 std::cout << chesslab::perft(board, integer(argv[2], 0, 6)) << '\n';
-            } else throw std::invalid_argument("usage: chesslab-engine [--perft DEPTH [FEN] | --legal-moves FEN | --eval [--no-pst] FEN]");
+            } else throw std::invalid_argument("usage: chesslab-engine [--perft DEPTH [FEN] | --legal-moves FEN | --eval [--no-pst] [--baseline] [--disable EvalCategory] FEN | --eval-bench [flags] FEN]");
         } else UciEngine().loop();
     } catch (const std::exception& error) {
         std::cerr << error.what() << '\n';

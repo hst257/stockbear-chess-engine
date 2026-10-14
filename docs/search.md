@@ -89,7 +89,7 @@ and re-searches alongside TT statistics; stopped depths remain explicit.
 
 ## Verification
 
-**773 tests pass on Windows.** An independent Python tactical oracle checks
+**852 tests pass on Windows.** An independent Python tactical oracle checks
 White/Black recaptures, unsafe captures, quiet evasions, en passant, promotions,
 and draws. Native tests isolate depth-zero Q and exercise stand pat, terminal
 precedence, no partial PV publication, scouts, and re-searches. Integration tests
@@ -136,3 +136,5 @@ The algorithm references are Chess Programming Wiki's
 [Quiescence Search](https://chessprogramming.org/Quiescence_Search) and
 [Principal Variation Search](https://chessprogramming.org/Principal_Variation_Search).
 The implementation is original repository code.
+
+Historical measurements in this guide use `UseAdvancedEvaluation=false`. The current default evaluator is documented in [advanced evaluation](advanced-evaluation.md).

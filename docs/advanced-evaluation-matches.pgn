@@ -1,0 +1,95 @@
+[Event "Evaluation smoke match"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Advanced"]
+[Black "Baseline"]
+[Result "1-0"]
+[ThinkTimeMs "100"]
+[Termination "checkmate"]
+
+1. d4 d5 2. Nf3 Nc6 3. e3 Nf6 4. Nc3 e6 5. Bb5 Bd7 6. Bxc6 Bxc6 7. Ne5 Bd6 8. Nxc6 bxc6 9. Qd3 O-O 10. O-O e5 11. dxe5 Bxe5 12. h3 c5 13. Rd1 c4 14. Qd2 Bxc3 15. Qxc3 Re8 16. Qa3 Ne4 17. f3 Ng3 18. e4 Ne2+ 19. Kh1 c6 20. Qe3 Nxc1 21. Raxc1 Qb6 22. Qc3 dxe4 23. Rd7 exf3 24. Qxf3 Rf8 25. Qc3 c5 26. Rf1 Qb5 27. Re7 Qa4 28. Qf3 Qxc2 29. Rxf7 Rfd8 30. Rd7 Rf8 31. Qd5+ Kh8 32. Rdf7 h6 33. Rxf8+ Rxf8 34. Rxf8+ Kh7 35. Kh2 a6 36. Qxc5 Qe4 37. Rf7 Kg6 38. Rd7 Qf4+ 39. g3 Qf3 40. Re7 Qf6 41. Re2 c3 42. bxc3 Kh7 43. Qd5 Qg6 44. c4 a5 45. c5 h5 46. Re4 Kh8 47. c6 Qf6 48. Qxh5+ Qh6 49. Qxh6+ gxh6 50. Re7 Kg8 51. c7 Kf8 52. Rd7 Ke8 53. c8=Q# 1-0
+
+[Event "Evaluation smoke match"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Baseline"]
+[Black "Advanced"]
+[Result "0-1"]
+[ThinkTimeMs "100"]
+[Termination "checkmate"]
+
+1. e4 Nc6 2. d3 d5 3. exd5 Qxd5 4. Nc3 Qf5 5. Nge2 Nf6 6. Ng3 Qa5 7. Ne4 Be6 8. Be3 Nd5 9. Bd2 O-O-O 10. Nxd5 Qxd5 11. Be2 Kb8 12. O-O Bf5 13. Nc3 Qc5 14. g4 Be6 15. Ne4 Qb6 16. b3 Nd4 17. Bc3 Bd5 18. Bxd4 Qxd4 19. c4 Bc6 20. b4 e5 21. b5 Bxe4 22. dxe4 Bc5 23. Qc2 Qd2 24. Rac1 Ba3 25. Qxd2 Rxd2 26. Rce1 Rxa2 27. Bd3 Rd8 28. Rd1 Bb4 29. Bc2 Rd4 30. Bb1 Rad2 31. Rxd2 Rxd2 32. Kg2 Bc5 33. Kg3 Rd4 34. Rc1 Rd2 35. Rf1 Kc8 36. Kf3 Kd7 37. g5 c6 38. Kg3 cxb5 39. cxb5 Bd4 40. h3 Kd6 41. f4 Kc5 42. fxe5 Bxe5+ 43. Kg4 f6 44. gxf6 gxf6 45. Kf5 Kxb5 46. Rc1 a5 47. Rc2 Rxc2 48. Bxc2 a4 49. Bb1 Kc5 50. Ba2 b5 51. Bg8 h6 52. Kg6 b4 53. Kxh6 b3 54. Kg7 Kb4 55. Kg6 a3 56. h4 a2 57. h5 a1=Q 58. h6 b2 59. h7 f5 60. Kxf5 b1=Q 61. Bd5 Qf1+ 62. Ke6 Qaa6+ 63. Kd7 Qf8 64. Bb7 Qad6# 0-1
+
+[Event "Evaluation smoke match"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Advanced"]
+[Black "Baseline"]
+[Result "1/2-1/2"]
+[ThinkTimeMs "100"]
+[Termination "threefold_repetition"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Nf6 4. Nc3 Nxe4 5. Nxe4 d5 6. Bb5 dxe4 7. Nxe5 Qg5 8. Nxc6 Qxb5 9. Nd4 Qc4 10. Ne2 Bf5 11. O-O Bd6 12. Ng3 Bxg3 13. fxg3 Bg6 14. Rf2 O-O 15. a4 Rad8 16. b3 Qd4 17. c3 Qd5 18. Ba3 e3 19. Rf1 Qd3 20. Qe1 Rfe8 21. dxe3 Rxe3 22. Qd1 Rxg3 23. hxg3 Qe3+ 24. Rf2 Rxd1+ 25. Rxd1 h6 26. Bb2 Kh7 27. g4 Qe6 28. c4 Qxg4 29. Rd5 Qe6 30. Bd4 a6 31. Kh2 Qe7 32. Rf4 Qb4 33. Rd7 Qd2 34. Rf2 Qd1 35. b4 Qh5+ 36. Kg3 Bf5 37. Rd5 Qg4+ 38. Kh2 Be6 39. Bc3 Bxd5 40. cxd5 Qh5+ 41. Kg3 Qxd5 42. Kh2 Qh5+ 43. Kg3 Qg6+ 44. Kh2 Qh5+ 45. Kg3 Qg6+ 46. Kh2 1/2-1/2
+
+[Event "Evaluation smoke match"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Baseline"]
+[Black "Advanced"]
+[Result "1/2-1/2"]
+[ThinkTimeMs "100"]
+[Termination "threefold_repetition"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Nf6 4. Nc3 Bb4 5. Nd5 Bd6 6. d3 Nxd5 7. exd5 Nd4 8. Be3 Nf5 9. Bg5 Be7 10. Bxe7 Qxe7 11. O-O O-O 12. Re1 Qb4 13. Rxe5 d6 14. Re4 Qxb2 15. g4 Nh6 16. Rb1 Qa3 17. Nd4 f5 18. gxf5 Nxf5 19. Ne6 Rf7 20. Nd8 Re7 21. Rxe7 Nxe7 22. Qe2 Kf8 23. Re1 Kg8 24. Qxe7 h6 25. Qxc7 Qc3 26. Re8+ Kh7 27. Qe7 Qd4 28. Ne6 Qg4+ 29. Kf1 Qd1+ 30. Kg2 Qg4+ 31. Kh1 Qd1+ 32. Kg2 Qg4+ 33. Kf1 Qd1+ 1/2-1/2
+
+[Event "Evaluation smoke match"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Advanced"]
+[Black "Baseline"]
+[Result "1/2-1/2"]
+[ThinkTimeMs "100"]
+[Termination "threefold_repetition"]
+
+1. d4 d5 2. c4 e6 3. cxd5 exd5 4. Nf3 Nc6 5. Nc3 Nf6 6. Ne5 Bd7 7. a3 Bd6 8. Nf3 Be6 9. Qb3 Na5 10. Qa4+ Nc6 11. Ne5 Bxe5 12. dxe5 Nd7 13. Qb5 Ndxe5 14. Qxb7 Rb8 15. Qa6 d4 16. Nb5 Rb6 17. Qa4 a6 18. e4 O-O 19. Nxd4 Qxd4 20. Qxd4 Nxd4 21. Bf4 Nc2+ 22. Kd2 Nxa1 23. Bxe5 f5 24. Bd3 fxe4 25. Bxe4 Rb5 26. Bc3 Nb3+ 27. Ke3 Nc5 28. Bc6 Rb6 29. Bf3 Na4 30. Rc1 Nxb2 31. Bxb2 Rxb2 32. Rxc7 Rb3+ 33. Kd4 Rxa3 34. Ke5 Re8 35. Kd4 Ra2 36. Bc6 Rd8+ 37. Ke5 Re2+ 38. Be4 Ba2 39. f3 Rxg2 40. h4 Re8+ 41. Kf4 Rh2 42. Kg3 Rh1 43. Bd3 Be6 44. Bxa6 Rh3+ 45. Kf2 Bd5 46. Bc4 Rxf3+ 47. Kg2 Rf5+ 48. Bxd5+ Rxd5 49. Kf3 Rd4 50. h5 Rd5 51. h6 gxh6 52. Kf4 Rd1 53. Kg4 Rf1 54. Rd7 Re5 55. Kh3 Rg5 56. Kh2 Re1 57. Ra7 Re2+ 58. Kh3 Re3+ 59. Kh2 Re4 60. Kh3 Re3+ 61. Kh2 Re2+ 62. Kh3 1/2-1/2
+
+[Event "Evaluation smoke match"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Baseline"]
+[Black "Advanced"]
+[Result "1-0"]
+[ThinkTimeMs "100"]
+[Termination "checkmate"]
+
+1. d4 d5 2. c4 e6 3. cxd5 exd5 4. Nc3 Nc6 5. Nf3 Nf6 6. e3 Bb4 7. Bd2 Bf5 8. Bb5 O-O 9. Bxc6 bxc6 10. O-O c5 11. Ne5 Re8 12. Qf3 Be6 13. Rad1 cxd4 14. exd4 Rb8 15. Bg5 Bxc3 16. Bxf6 Qxf6 17. Qxc3 Qh4 18. Qxc7 Rxb2 19. Qxa7 Reb8 20. Rd2 Rb1 21. Rdd1 R1b2 22. Rd2 Rb1 23. Rfd1 Qe4 24. h3 Qf4 25. Rd3 R8b2 26. Qa8+ Rb8 27. Qa4 R1b2 28. Rf3 Qg5 29. a3 f6 30. Nd7 Bxd7 31. Qxd7 Rb1 32. Rxb1 Rxb1+ 33. Kh2 Qh5 34. Rf5 Qf7 35. Qd8+ Qf8 36. Qxd5+ Kh8 37. Qc5 Qb8+ 38. f4 Rb2 39. Qc4 Qa8 40. Qd5 Qe8 41. Qf3 Rd2 42. Rd5 Kg8 43. Qb3 Kh8 44. Kg1 Qe1+ 45. Kh2 Qe8 46. Qe3 Qa8 47. Qxd2 Qxd5 48. Qe3 h6 49. Kg1 Kg8 50. Qe8+ Kh7 51. Qe3 Kg6 52. Kf2 Kf7 53. Qd3 Ke6 54. Qe2+ Kd6 55. Qa6+ Kd7 56. Qd3 f5 57. Ke3 Qxg2 58. Qxf5+ Kd6 59. Qg4 Qa2 60. Qg6+ Qe6+ 61. Qxe6+ Kxe6 62. Ke4 Kd6 63. f5 h5 64. d5 Kc7 65. Ke5 Kd7 66. d6 h4 67. a4 Kc6 68. Ke6 Kb6 69. d7 Ka5 70. d8=Q+ Kxa4 71. Kd5 Kb3 72. Qxh4 Kc3 73. Qd4+ Kb3 74. Qxg7 Kc2 75. Qd4 Kc1 76. f6 Kb1 77. f7 Ka2 78. f8=Q Kb3 79. Qd2 Ka4 80. Qdb4# 1-0
+
+[Event "Evaluation smoke match"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Advanced"]
+[Black "Baseline"]
+[Result "1/2-1/2"]
+[ThinkTimeMs "100"]
+[Termination "threefold_repetition"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 e5 5. Bb5+ Bd7 6. Bxd7+ Nxd7 7. Nf5 Ngf6 8. Nc3 Nc5 9. Qf3 Qb6 10. O-O O-O-O 11. Rb1 Kb8 12. Bg5 Ncd7 13. Nd5 Qa5 14. Bxf6 Nxf6 15. Nxf6 gxf6 16. Ne3 Bg7 17. a3 Qc5 18. Rfd1 Rdg8 19. Nf5 Bf8 20. Qd3 Kc8 21. Rd2 Qc6 22. Re1 Kd7 23. Qe3 a6 24. Qb3 Ke8 25. Qd3 Kd7 26. Qb3 Ke8 27. h3 Be7 28. Qb4 Kd7 29. Red1 a5 30. Nxe7 Kxe7 31. Qxd6+ Qxd6 32. Rxd6 Rd8 33. Rxd8 Rxd8 34. Rxd8 Kxd8 35. f4 Kc7 36. Kf2 Kd6 37. Kf3 h5 38. g3 a4 39. Ke3 Kc5 40. Kd3 Kb5 41. f5 Kc5 42. Kc3 Kb5 43. Kd3 Kc5 44. Kc3 Kb5 1/2-1/2
+
+[Event "Evaluation smoke match"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Baseline"]
+[Black "Advanced"]
+[Result "1/2-1/2"]
+[ThinkTimeMs "100"]
+[Termination "threefold_repetition"]
+
+1. e4 c5 2. Nf3 d6 3. Bc4 Nf6 4. Nc3 Nc6 5. O-O Bg4 6. h3 Bxf3 7. Qxf3 Nd4 8. Qd1 e6 9. Re1 Qa5 10. d3 b5 11. Bb3 Nxb3 12. cxb3 b4 13. Ne2 Be7 14. Qc2 O-O 15. Ng3 d5 16. e5 Nd7 17. Qe2 Bh4 18. Nh5 g6 19. Qg4 Bd8 20. Ng3 Bc7 21. Bf4 Qa6 22. Qe2 f6 23. Bh6 Rf7 24. exf6 Bxg3 25. fxg3 Rxf6 26. Bg5 Rf5 27. Be7 e5 28. g4 Rf7 29. Bh4 Qc6 30. Bg3 Re8 31. g5 Rf5 32. h4 Ref8 33. Rad1 Qa6 34. Qc2 Kh8 35. Qb1 Qb6 36. Qc2 Qa5 37. Ra1 Qb6 38. Rad1 Qa6 39. Rb1 Kg8 40. Rbd1 1/2-1/2

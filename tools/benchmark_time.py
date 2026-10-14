@@ -37,7 +37,7 @@ def main():
     if args.repeats < 1:
         parser.error("repeats must be positive")
     flags = {"creationflags": subprocess.CREATE_NO_WINDOW} if os.name == "nt" else {}
-    options = {"AlphaBeta": True, "IterativeDeepening": True, "UsePST": True,
+    options = {"AlphaBeta": True, "IterativeDeepening": True, "UseAdvancedEvaluation": False, "UsePST": True,
                "MoveOrdering": True, "TranspositionTable": True, "Hash": 16,
                "Quiescence": True, "PVS": True, "UseAspirationWindows": False, "UseNullMovePruning": False, "UseLMR": False}
     rows = []

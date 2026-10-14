@@ -179,7 +179,7 @@ private:
             }
             best = maximizing ? -INFINITY_SCORE : INFINITY_SCORE;
         } else {
-            best = evaluate(board, limits_.use_pst);
+            best = evaluate(board, limits_.use_pst, limits_.evaluation);
             if (qply >= MAX_QUIESCENCE_PLY || ply >= MAX_SEARCH_PLY) {
                 ++result_.qcaps;
                 return best;
@@ -224,7 +224,7 @@ private:
         chess::Movelist moves;
         chess::movegen::legalmoves(moves, board);
         if (const auto score = terminal(board, moves, ply, null_subtree)) return *score;
-        if (depth == 0) return evaluate(board, limits_.use_pst);
+        if (depth == 0) return evaluate(board, limits_.use_pst, limits_.evaluation);
 
         const int original_alpha = alpha;
         const int original_beta = beta;
@@ -259,7 +259,7 @@ private:
         // near draw/mate bounds, repeated positions, and every nested null path.
         if (pruning_ && limits_.null_move_pruning &&
             null_move_allowed(board, depth, ply, alpha, beta, null_subtree)) {
-            const int stand = evaluate(board, limits_.use_pst);
+            const int stand = evaluate(board, limits_.use_pst, limits_.evaluation);
             if ((maximizing && stand >= beta) || (!maximizing && stand <= alpha)) {
                 ++result_.null_attempts;
                 int score;

@@ -250,3 +250,5 @@ The smoke match sample is too small for reliable Elo conclusions; capped games
 must remain marked unfinished. Run larger color-balanced matches before tuning
 thresholds. Killer/history quiet-move ordering is a reasonable next code upgrade,
 but is not implemented in this change.
+
+Historical comparisons here use `UseAdvancedEvaluation=false`; reproduction tools select that baseline explicitly. See [advanced evaluation](advanced-evaluation.md) for the current default and its separate measurements.

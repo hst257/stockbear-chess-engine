@@ -20,6 +20,7 @@ class Protocol:
                                         stderr=subprocess.PIPE, text=True, **flags)
         self.lines = queue.Queue()
         threading.Thread(target=self._read, daemon=True).start()
+        self.send("setoption name UseAdvancedEvaluation value false")
         self.send("setoption name UsePST value false")  # Legacy material baselines.
         self.send("setoption name TranspositionTable value false")
         self.send("setoption name Quiescence value false")
@@ -438,7 +439,7 @@ def test_invalid_advanced_options_leave_engine_usable(protocol, command):
 
 @pytest.mark.parametrize("command", ["stop", "quit"])
 def test_stop_and_quit_with_all_optimizations_keep_one_completed_bestmove(protocol, command):
-    for name in ("UseAspirationWindows", "UseNullMovePruning", "UseLMR", "PVS", "Quiescence", "UsePST", "TranspositionTable"):
+    for name in ("UseAdvancedEvaluation", "UseAspirationWindows", "UseNullMovePruning", "UseLMR", "PVS", "Quiescence", "UsePST", "TranspositionTable"):
         protocol.send(f"setoption name {name} value true")
     protocol.send("go movetime 5000")
     before = protocol.until("info depth 4 ", timeout=2)

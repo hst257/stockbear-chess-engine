@@ -26,6 +26,8 @@ def main() -> int:
                         help="Search PV moves, promotions, and captures first (default: enabled).")
     parser.add_argument("--pst", action=argparse.BooleanOptionalAction, default=True,
                         help="Add piece-square bonuses to material evaluation (default: enabled).")
+    parser.add_argument("--advanced-evaluation", action=argparse.BooleanOptionalAction, default=True,
+                        help="Use phase-aware positional evaluation (default: enabled).")
     parser.add_argument("--transposition-table", action=argparse.BooleanOptionalAction, default=True,
                         help="Cache search results by Zobrist key and draw context (default: enabled).")
     parser.add_argument("--quiescence", action=argparse.BooleanOptionalAction, default=True,
@@ -57,7 +59,7 @@ def main() -> int:
         settings = EngineSettings(args.mode == "engine", args.human_color == "white",
                                   args.algorithm == "alphabeta", args.depth, args.iterative_deepening,
                                   args.move_ordering, args.pst, args.transposition_table,
-                                  args.quiescence, args.pvs, args.search_mode == "time", args.thinking_time, args.aspiration_windows, args.null_move_pruning, args.lmr)
+                                  args.quiescence, args.pvs, args.search_mode == "time", args.thinking_time, args.aspiration_windows, args.null_move_pruning, args.lmr, args.advanced_evaluation)
         app = Application(settings=settings, engine_path=Path(args.engine) if args.engine else DEFAULT_ENGINE)
         app.run(args.smoke_test, args.screenshot)
         return 0
