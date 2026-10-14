@@ -1,0 +1,237 @@
+"""Exercise the actual standalone executable, not a Python search substitute."""
+
+import os
+import queue
+import random
+import subprocess
+import threading
+import time
+
+import chess
+import chess.engine
+import pytest
+
+from app.engine_client import DEFAULT_ENGINE
+
+
+@pytest.fixture(scope="session")
+def engine_path():
+    assert DEFAULT_ENGINE.is_file(), "Build the C++ engine first: run build_engine.bat"
+    return DEFAULT_ENGINE
+
+
+@pytest.fixture
+def engine(engine_path):
+    with chess.engine.SimpleEngine.popen_uci(str(engine_path), timeout=3) as instance:
+        yield instance
+
+
+class Protocol:
+    def __init__(self, path):
+        flags = {"creationflags": subprocess.CREATE_NO_WINDOW} if os.name == "nt" else {}
+        self.process = subprocess.Popen([str(path)], stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                                        stderr=subprocess.PIPE, text=True, **flags)
+        self.lines = queue.Queue()
+        threading.Thread(target=self._read, daemon=True).start()
+
+    def _read(self):
+        for line in self.process.stdout:
+            self.lines.put(line.strip())
+
+    def send(self, line):
+        self.process.stdin.write(line + "\n")
+        self.process.stdin.flush()
+
+    def until(self, prefix, timeout=3):
+        deadline = time.monotonic() + timeout
+        lines = []
+        while time.monotonic() < deadline:
+            try:
+                line = self.lines.get(timeout=max(.01, deadline - time.monotonic()))
+            except queue.Empty:
+                break
+            lines.append(line)
+            if line.startswith(prefix):
+                return lines
+        pytest.fail(f"No {prefix!r} received; output: {lines!r}")
+
+    def close(self):
+        if self.process.poll() is None:
+            self.send("quit")
+            self.process.wait(timeout=3)
+        for stream in (self.process.stdin, self.process.stdout, self.process.stderr):
+            stream.close()
+
+
+@pytest.fixture
+def protocol(engine_path):
+    instance = Protocol(engine_path)
+    yield instance
+    instance.close()
+
+
+def test_uci_handshake_options_and_unknown_commands(engine):
+    assert engine.id["name"].startswith("ChessLab")
+    assert engine.options["AlphaBeta"].default is True
+    assert engine.options["Depth"].default == 3
+    engine.ping()
+
+
+@pytest.mark.parametrize("depth,nodes", [(0, 1), (1, 20), (2, 400), (3, 8902), (4, 197281)])
+def test_starting_position_perft(engine_path, depth, nodes):
+    result = subprocess.run([str(engine_path), "--perft", str(depth)], capture_output=True, text=True,
+                            timeout=5, check=True)
+    assert int(result.stdout) == nodes
+
+
+def test_castling_position_perft(engine_path):
+    fen = "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1"
+    result = subprocess.run([str(engine_path), "--perft", "3", fen], capture_output=True,
+                            text=True, timeout=5, check=True)
+    assert int(result.stdout) == 97862
+
+
+SPECIAL_FENS = [
+    "r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1",
+    "r3k2r/8/8/8/8/8/8/R3K2R b KQkq - 0 1",
+    "7k/P7/8/8/8/8/8/7K w - - 0 1",
+    "7k/8/8/8/8/8/p7/7K b - - 0 1",
+    "4r1k1/8/8/8/8/8/4R3/4K3 w - - 0 1",
+    "7k/8/8/3pP3/8/8/8/7K w - d6 0 2",
+]
+
+
+@pytest.mark.parametrize("fen", SPECIAL_FENS)
+def test_special_legal_moves_match_python_chess(engine_path, fen):
+    result = subprocess.run([str(engine_path), "--legal-moves", fen], capture_output=True,
+                            text=True, timeout=5, check=True)
+    assert set(result.stdout.split()) == {move.uci() for move in chess.Board(fen).legal_moves}
+
+
+def test_legal_moves_across_seeded_game_match_independent_rules(engine_path):
+    rng = random.Random(37)
+    board = chess.Board()
+    for ply in range(100):
+        if board.is_game_over():
+            break
+        if ply % 8 == 0:
+            result = subprocess.run([str(engine_path), "--legal-moves", board.fen()],
+                                    capture_output=True, text=True, timeout=5, check=True)
+            assert set(result.stdout.split()) == {move.uci() for move in board.legal_moves}
+        board.push(rng.choice(list(board.legal_moves)))
+
+
+@pytest.mark.parametrize("fen", [chess.STARTING_FEN, *SPECIAL_FENS,
+                                "7k/8/5KQ1/8/8/8/8/8 w - - 0 1"])
+def test_pruning_preserves_move_and_score_at_identical_depth(engine, fen):
+    board = chess.Board(fen)
+    results = []
+    for pruning in (False, True):
+        engine.configure({"AlphaBeta": pruning})
+        result = engine.play(board, chess.engine.Limit(depth=3, time=5), info=chess.engine.INFO_ALL)
+        assert result.info["depth"] == 3
+        assert result.move in board.legal_moves
+        pv_board = board.copy()
+        for move in result.info.get("pv", []):
+            assert move in pv_board.legal_moves
+            pv_board.push(move)
+        results.append(result)
+    assert results[0].move == results[1].move
+    assert results[0].info["score"] == results[1].info["score"]
+    assert results[1].info["nodes"] <= results[0].info["nodes"]
+    if fen == chess.STARTING_FEN:
+        assert results[0].info["nodes"] == 9323
+        assert results[1].info["nodes"] < 1000
+
+
+@pytest.mark.parametrize("pruning", [False, True])
+def test_material_search_takes_free_queen(engine, pruning):
+    board = chess.Board("7k/8/8/8/8/8/q7/R6K w - - 0 1")
+    engine.configure({"AlphaBeta": pruning})
+    result = engine.play(board, chess.engine.Limit(depth=2), info=chess.engine.INFO_ALL)
+    assert result.move == chess.Move.from_uci("a1a2")
+    assert result.info["score"].white().score() == 500
+
+
+def test_black_score_sign_and_mate_selection(engine):
+    board = chess.Board("r6k/Q7/8/8/8/8/8/7K b - - 0 1")
+    result = engine.play(board, chess.engine.Limit(depth=2), info=chess.engine.INFO_ALL)
+    assert result.move == chess.Move.from_uci("a8a7")
+    assert result.info["score"].relative.score() == 500
+    assert result.info["score"].white().score() == -500
+    board = chess.Board("7k/8/5KQ1/8/8/8/8/8 w - - 99 50")
+    result = engine.play(board, chess.engine.Limit(depth=2), info=chess.engine.INFO_ALL)
+    board.push(result.move)
+    assert board.is_checkmate()
+    assert result.info["score"].relative.mate() == 1
+
+
+@pytest.mark.parametrize("fen,mate", [
+    ("7k/6Q1/5K2/8/8/8/8/8 b - - 0 1", True),
+    ("7k/6Q1/5K2/8/8/8/8/8 b - - 150 76", True),
+    ("7k/5Q2/6K1/8/8/8/8/8 b - - 0 1", False),
+    ("7k/8/8/8/8/8/8/7K w - - 0 1", False),
+    ("7k/8/8/8/8/8/R7/7K w - - 150 76", False),
+])
+def test_terminal_positions_have_no_move(engine, fen, mate):
+    result = engine.play(chess.Board(fen), chess.engine.Limit(depth=3), info=chess.engine.INFO_ALL)
+    assert not result.move
+    assert result.info["score"].relative.is_mate() == mate
+    if not mate:
+        assert result.info["score"].relative.score() == 0
+
+
+def test_uci_position_move_stack_preserves_threefold(engine):
+    board = chess.Board()
+    for _ in range(2):
+        for uci in ("g1f3", "g8f6", "f3g1", "f6g8"):
+            board.push_uci(uci)
+    result = engine.play(board, chess.engine.Limit(depth=2), info=chess.engine.INFO_ALL)
+    assert not result.move
+    assert result.info["score"].relative.score() == 0
+
+
+def test_stop_and_isready_remain_responsive_during_search(protocol):
+    protocol.send("setoption name AlphaBeta value false")
+    protocol.send("go infinite")
+    protocol.send("isready")
+    protocol.until("readyok", timeout=2)
+    start = time.monotonic()
+    protocol.send("stop")
+    lines = protocol.until("bestmove", timeout=2)
+    assert time.monotonic() - start < 2
+    assert any(line.startswith("info depth 0 ") for line in lines)
+    assert chess.Move.from_uci(lines[-1].split()[1]) in chess.Board().legal_moves
+
+
+@pytest.mark.parametrize("limit", ["nodes 50", "movetime 10"])
+def test_interrupted_search_is_not_reported_as_full_depth(protocol, limit):
+    protocol.send("setoption name AlphaBeta value false")
+    protocol.send(f"go depth 8 {limit}")
+    lines = protocol.until("bestmove")
+    assert any(line.startswith("info depth 0 ") for line in lines)
+    assert any("incomplete minimax" in line for line in lines)
+    assert all("score " not in line for line in lines)
+
+
+@pytest.mark.parametrize("command", [
+    "position fen 8/8/8/8/8/8/8/8 w - - 0 1",
+    "position startpos moves e2e4 e7e9",
+    "position fen 7k/8/8/8/8/8/8/7K w - - bad 1",
+    "go depth 999", "setoption name AlphaBeta value maybe",
+])
+def test_invalid_commands_do_not_kill_engine_or_replace_position(protocol, command):
+    protocol.send(command)
+    protocol.until("info string error:")
+    protocol.send("unknown_command")
+    protocol.send("isready")
+    protocol.until("readyok")
+    protocol.send("go depth 1")
+    lines = protocol.until("bestmove")
+    assert chess.Move.from_uci(lines[-1].split()[1]) in chess.Board().legal_moves
+
+
+def test_quit_during_search_exits_cleanly(protocol):
+    protocol.send("go infinite")
+    protocol.send("quit")
+    assert protocol.process.wait(timeout=3) == 0

@@ -1,8 +1,8 @@
 # ChessLab
 
-ChessLab is a local two-player desktop chess game and a project for learning chess-engine search algorithms step by step. Phase 1 uses Python, Pygame, and python-chess. A custom standalone C++ engine belongs to a later phase.
+ChessLab is a desktop chess game and a project for learning search algorithms. The Python/Pygame application supports local two-player games and a custom standalone C++17 opponent. Phases 2 and 3 are combined: Minimax and switchable alpha-beta pruning are implemented together with a comparison interface.
 
-![ChessLab's local two-player board](docs/chesslab.png)
+![ChessLab game board](docs/chesslab.png)
 
 ## Install and play on Windows
 
@@ -25,15 +25,35 @@ python -m venv .venv
 
 The launch script changes to its own folder, so it works regardless of your current working directory. Direct module commands should run from the repository root. Missing assets or dependencies produce an error with setup instructions.
 
+### Build and play against the engine
+
+```powershell
+.\build_engine.bat
+.\launch.bat --mode engine
+```
+
+Build once after setup. The script installs a portable C++ compiler in `.venv` and produces `engine/build/chesslab-engine.exe`. No global toolchain installation is needed. The first compiler download is about 80 MB. Rebuild after changing C++ sources; generated binaries are not committed.
+
+Press **G** or click the opponent button to choose local/engine play, your color, Minimax or alpha-beta, and depth 1–5. **Start new game** applies those choices. Press **E** for Search lab and **Compare position** to measure both algorithms on the same board without playing a move.
+
+```powershell
+.\launch.bat --mode engine --human-color black --algorithm minimax --depth 3
+```
+
+Local play remains the default. `--engine PATH` selects another build of ChessLab. Missing engines are reported in the interface; local play remains available.
+
+![Search lab comparing Minimax and alpha-beta](docs/search-lab.png)
+
 ### Linux
 
 ```bash
 python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python tools/build_engine.py
 .venv/bin/python -m app.main
 ```
 
-Linux commands are provided for portability but have not been run on a Linux desktop. A graphical session is required for normal play.
+The build needs recent C++17 GCC/Clang, or install `engine/requirements-build.txt` for the pinned compiler. Set `CXX` to override compiler selection. Linux desktop/build behavior is unverified. A graphical session is required for normal play.
 
 ## Controls
 
@@ -48,8 +68,10 @@ Linux commands are provided for portability but have not been run on a Linux des
 | Claim an eligible draw | Claim draw | D |
 | Choose promotion | Click Queen, Rook, Bishop, or Knight | Q, R, B, N in the promotion dialog |
 | Scroll move history | Mouse wheel over the history | — |
+| Choose opponent, color, algorithm, depth | Opponent button at top right | G |
+| View statistics / compare algorithms | Search lab | E |
 
-White starts at the bottom; the board stays put between turns. New Game immediately resets the position, history, selection, and orientation. Undo removes one half-move; after a claimed draw, the first Undo withdraws the claim and leaves the board unchanged.
+White starts at the bottom in local play; engine games initially face your color. New Game resets the position/history and keeps opponent settings. Local Undo removes one half-move. Engine Undo cancels pending work and returns to your previous decision, removing the reply and your last move when needed. The engine's opening move alone cannot be undone. Withdrawing a human draw claim leaves the board unchanged; undoing an engine claim also returns to your decision.
 
 ## Implemented features
 
@@ -60,6 +82,9 @@ White starts at the bottom; the board stays put between turns. New Game immediat
 - Checkmate, stalemate, insufficient material, automatic fivefold repetition, and the seventy-five-move rule.
 - Explicit threefold repetition and fifty-move claims. The claim dialog lists eligible current-position claims or intended moves; scroll for additional choices. An intended-move claim declares the move without playing it.
 - Reversible game endings, Undo, restart, manual board flipping, and keyboard shortcuts.
+- Human vs Engine as either color, selectable Minimax/alpha-beta, and depth-limited search.
+- Search lab compares depth, nodes, time, score, and selected move on one unchanged position. Partial timed-out results are labeled.
+- Background UCI work, cancellation, stale-result rejection, and engine error reporting.
 
 ## Architecture
 
@@ -69,32 +94,40 @@ app/
   application.py      Pygame event loop and layout
   game.py             Validated moves, history, captures, outcomes, draw claims
   input_handler.py    Selection and pending promotion
+  engine_client.py    Background UCI jobs, cancellation, and statistics
   board_renderer.py   Orientation mapping, board drawing, cached piece images
   ui/                 Shared style, sidebar, promotion and claim dialogs
   assets/             PNG pieces, original SVGs, and license/attribution
 tests/                Rules, interaction, event-loop, and rendering tests
 tools/prepare_assets.py  Development-only artwork conversion
-engine/README.md      Future UCI integration notes; no engine implementation
+engine/src/           Standalone C++ UCI protocol and shared search
+engine/vendor/        Pinned MIT-licensed rules library
+tools/build_engine.py C++17 build helper
 ```
 
 `Game` has no Pygame dependency. It validates a move before changing the board and records SAN and the actual captured piece before pushing. This also handles en passant and captures of promoted pieces correctly. Undo uses the original board stack, preserving castling, en passant, and repetition history.
 
 `InputHandler` keeps temporary selection and promotion separate from committed moves. Rendering reads the game state. Board coordinates and hit testing share one orientation transform. Expensive draw eligibility checks are cached after state changes; fonts and piece images are cached, and the event loop runs at up to 60 FPS.
 
+The engine independently represents positions and generates moves with a pinned C++ rules library. Our shared Minimax function evaluates material and optionally applies alpha-beta cutoffs. A Python worker sends full-history snapshots over UCI; only the GUI thread applies legal replies matching the current request and game revision.
+
 ## Tests and verification
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
+.\build_engine.bat
 .\.venv\Scripts\python.exe -m pytest -q
 .\.venv\Scripts\python.exe -m pip check
 .\launch.bat --smoke-test 3 --screenshot chesslab.png
 ```
 
-**Verified on Windows: 71 automated tests pass.** Coverage includes normal play/captures, illegal moves, pins, castling and attacked-square rejection, en passant, all promotions, terminal positions, current/intended draw claims, automatic draws, checkmate precedence, and a seeded 180-half-move game rewound position by position.
+**Verified on Windows: 125 automated tests pass.** Build the engine before running the full suite. Tests cover rules, special moves, outcomes, draw claims, undo/reset, and a seeded 180-half-move game rewound position by position.
+
+Engine checks include perft, legal moves cross-checked against python-chess, mate/score handling, Minimax/alpha-beta equivalence, UCI interruption, process errors, stale replies, and actual engine-to-GUI play/comparison. At initial depth 3, Minimax visits 9,323 nodes and alpha-beta 586: **93.7% fewer nodes**, with identical move and score.
 
 Headless Pygame tests exercise mouse/keyboard events, modal dialogs, scrolling, resize, both orientations, artwork dimensions, missing-asset errors, and event-loop shutdown. Tests set SDL's dummy video driver so they do not open desktop windows. Screenshots of the initial board, promotion, checkmate, and draw dialog were visually inspected.
 
-Windows setup, launch-script smoke testing, dependency consistency checks, and actual desktop-window launch/display inspection passed. Native mouse automation was interrupted by desktop input; mouse interactions are verified through the automated Pygame event tests, not claimed as a completed native mouse walkthrough.
+Windows setup/build, launch smoke testing, and dependency checks passed. A native desktop walkthrough exercised a human move, automatic C++ reply, same-position comparison, and Undo. Setup and diagnostics panels were also inspected at the minimum window size.
 
 Read [AGENTS.md](AGENTS.md) for contributor instructions.
 
@@ -112,7 +145,10 @@ Running that tool without `--offline` checks the source licenses online and down
 
 ## Current limitations
 
-- Local Human vs Human only; no AI, engine analysis, clocks, save/load, PGN export, or drag movement.
+- Material-only evaluation makes many quiet moves tie; playing strength is deliberately basic. No positional evaluation or advanced search is implemented.
+- GUI depth is 1–5 plies, with a 15-second safety limit per algorithm. Interrupted searches return a provisional move without a proven full-depth score.
+- The engine claims eligible draws on its turn, even when a win might exist. Search assumes currently claimable repetition/fifty-move draws are taken.
+- No clocks, save/load, PGN export, or drag movement.
 - Games are held in memory and are discarded when the application closes.
 - The minimum supported layout is 960 × 680; text uses an available system font.
 - Dead-position adjudication follows python-chess's insufficient-material detection. Unusual blocked positions that are dead for other reasons are not exhaustively detected.
@@ -121,16 +157,13 @@ Running that tool without `--offline` checks the source licenses online and down
 ## Roadmap
 
 1. **Implemented:** playable Python/Pygame local two-player application.
-2. Add a basic independent C++ UCI engine with material evaluation and depth-limited Minimax or Negamax.
-3. Add switchable alpha-beta pruning and compare nodes, depth, time, and selected moves using identical evaluation/depth settings.
+2. **Implemented together (Phases 2–3):** independent C++ UCI engine, material evaluation, Minimax, switchable alpha-beta, Human vs Engine, and search comparisons.
 4. Introduce iterative deepening, move ordering, transposition tables, quiescence search, and Principal Variation Search individually.
 5. Explore advanced pruning and evaluation only after the fundamentals are reliable.
 6. Add engine matches and performance/strength benchmarks.
 
-Later phases require an explicit request. The custom engine will perform its own search and evaluation rather than delegate them to another engine.
+Later phases require an explicit request. The engine performs its own search and evaluation without delegating them to another engine.
 
-## Future engine integration
+## Engine details
 
-The Python application will launch the engine as a separate UCI subprocess through python-chess. Engine communication will run without blocking the GUI, and returned moves will pass through the same legality validation as human moves. The C++ executable will represent positions and generate legal moves independently of the GUI.
-
-The adapter will search a board copy and retain `Game.revision`; results from an outdated position will be discarded after Undo or New Game. See [engine integration notes](engine/README.md). No engine code is included in Phase 1.
+See [engine/README.md](engine/README.md) for evaluation values, shared search behavior, UCI commands, build options, node definitions, cancellation, rules-library attribution, and standalone diagnostics.

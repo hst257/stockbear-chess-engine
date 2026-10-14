@@ -1,0 +1,2 @@
+# Portable C++ compiler. Only needed to build; not used by the running engine.
+ziglang==0.13.0

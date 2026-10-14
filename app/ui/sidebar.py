@@ -43,13 +43,16 @@ class Sidebar:
         }
 
     def draw(self, surface: pygame.Surface, rect: pygame.Rect,
-             game: Game, pieces: PieceImages) -> None:
+             game: Game, pieces: PieceImages, detail: str | None = None,
+             undo_enabled: bool | None = None, claim_enabled: bool | None = None,
+             turn_label: str = "YOUR TURN") -> None:
         turn = pygame.Rect(rect.x, rect.y, rect.width, 104)
         pygame.draw.rect(surface, theme.PANEL, turn, border_radius=10)
-        theme.text(surface, "GAME RESULT" if game.outcome else "YOUR TURN",
+        theme.text(surface, "GAME RESULT" if game.outcome else turn_label,
                    (rect.x + 18, rect.y + 14), 12, theme.ACCENT, True)
         theme.text(surface, game.status, (rect.x + 18, rect.y + 35), 27, bold=True)
-        theme.text(surface, game.result_reason, (rect.x + 18, rect.y + 75), 14,
+        theme.text(surface, game.result_reason if game.outcome else detail or game.result_reason,
+                   (rect.x + 18, rect.y + 75), 14,
                    theme.CHECK if game.board.is_check() and not game.outcome else theme.MUTED)
 
         theme.text(surface, "CAPTURED PIECES", (rect.x, rect.y + 126), 12, theme.MUTED, True)
@@ -71,9 +74,10 @@ class Sidebar:
 
         buttons = self.buttons(rect)
         theme.button(surface, buttons["new"], "New game", primary=True)
-        theme.button(surface, buttons["undo"], "Undo move", game.can_undo)
+        theme.button(surface, buttons["undo"], "Undo move", game.can_undo if undo_enabled is None else undo_enabled)
         theme.button(surface, buttons["flip"], "Flip board")
-        theme.button(surface, buttons["claim"], "Claim draw", bool(game.draw_claims))
+        theme.button(surface, buttons["claim"], "Claim draw",
+                     bool(game.draw_claims) if claim_enabled is None else claim_enabled)
         theme.text(surface, "N  New     U  Undo     F  Flip", (rect.x, rect.bottom - 17),
                    12, theme.MUTED)
 
