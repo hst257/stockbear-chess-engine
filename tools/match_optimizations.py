@@ -1,11 +1,15 @@
 """Color-balanced baseline/advanced smoke games; not an Elo estimate."""
 import argparse
+from contextlib import ExitStack
+from collections import Counter
 from datetime import datetime, timezone
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import platform
+import random
 import subprocess
 
 import chess
@@ -19,18 +23,156 @@ OPENINGS = ((), ("e2e4", "e7e5", "g1f3", "b8c6", "f1c4", "g8f6"),
             ("d2d4", "d7d5", "c2c4", "e7e6"), ("e2e4", "c7c5", "g1f3", "d7d6"))
 
 
+def strength_summary(records):
+    counts = Counter(r["candidate_outcome"] for r in records)
+    completed = counts["win"] + counts["draw"] + counts["loss"]
+    score = (counts["win"] + .5 * counts["draw"]) / completed if completed else None
+    pairs = []
+    for i in range(0, len(records) - 1, 2):
+        outcomes = [r["candidate_outcome"] for r in records[i:i + 2]]
+        if "unfinished" not in outcomes:
+            pairs.append(sum({"win": 1, "draw": .5, "loss": 0}[r] for r in outcomes) / 2)
+    pair_score = sum(pairs) / len(pairs) if pairs else None
+    # Conservative bound for bounded [0,1] pair scores, keeping colors together.
+    margin = math.sqrt(math.log(40) / (2 * len(pairs))) if pairs else None
+    interval = [max(0, pair_score - margin), min(1, pair_score + margin)] if pairs else [None, None]
+    def rating(s):
+        return 400 * math.log10(s / (1 - s)) if s is not None and 0 < s < 1 else None
+    return {"wins": counts["win"], "draws": counts["draw"], "losses": counts["loss"],
+            "unfinished": counts["unfinished"], "completed_games": completed,
+            "score_percent": score * 100 if score is not None else None,
+            "rating_difference_estimate": rating(score), "complete_pairs": len(pairs),
+            "paired_score": pair_score, "paired_score_95_bound": interval,
+            "paired_rating_95_bound": [rating(s) for s in interval],
+            "uncertainty_method": "Hoeffding bounded pair-score 95% interval; nominal independent opening pairs",
+            "limitations": "Fast time control; own-evaluator opening filter; capped pairs excluded; no universal Elo claim. Null rating endpoints mean unbounded tails."}
+
+
+def version_match(args):
+    if args.opponent is None:
+        raise ValueError("--comparison versions requires --opponent ORIGINAL_EXECUTABLE")
+    if args.output.exists():
+        raise ValueError("Refusing to overwrite a completed match record")
+    progress = args.output.with_suffix(".progress.json")
+    hashes = {"candidate": hashlib.sha256(args.engine.read_bytes()).hexdigest(),
+              "original": hashlib.sha256(args.opponent.read_bytes()).hexdigest()}
+    flags = {"creationflags": subprocess.CREATE_NO_WINDOW} if os.name == "nt" else {}
+    with ExitStack() as stack:
+        candidate = stack.enter_context(chess.engine.SimpleEngine.popen_uci(str(args.engine), timeout=10, **flags))
+        original = stack.enter_context(chess.engine.SimpleEngine.popen_uci(str(args.opponent), timeout=10, **flags))
+        if args.resume:
+            data = json.loads(progress.read_text())
+            assert data["hashes"] == hashes and data["requested_games"] == args.games
+            assert data["movetime_ms"] == args.movetime and data["max_plies"] == args.max_plies
+        else:
+            if progress.exists():
+                raise ValueError("Progress exists; use --resume or choose another output")
+            rng = random.Random(args.seed)
+            suite, seen = [], set()
+            attempts = 0
+            while len(suite) < args.games // 2:
+                attempts += 1
+                if attempts > args.games * 200:
+                    raise RuntimeError("Could not construct enough unique filtered opening pairs")
+                board = chess.Board()
+                base = OPENINGS[len(suite) % len(OPENINGS)]
+                for uci in base:
+                    board.push_uci(uci)
+                for _ in range(rng.choice((4, 6, 8))):
+                    quiet = [m for m in board.legal_moves if not board.is_capture(m) and not board.gives_check(m)]
+                    if not quiet:
+                        break
+                    board.push(rng.choice(quiet))
+                key = " ".join(board.fen().split()[:4])
+                if key in seen or board.is_game_over(claim_draw=True):
+                    continue
+                info = original.analyse(board, chess.engine.Limit(depth=3))
+                score = info["score"].white().score()
+                if score is None or abs(score) > 80:
+                    continue
+                seen.add(key)
+                suite.append({"moves": [m.uci() for m in board.move_stack], "fen": board.fen(),
+                              "baseline_depth3_cp": score, "parent_opening": len(suite) % len(OPENINGS)})
+            data = {"generated_utc": datetime.now(timezone.utc).isoformat(), "platform": platform.platform(),
+                    "comparison": "original versus optimized executables", "hashes": hashes,
+                    "source_revision": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
+                    "options": {"candidate": {n: o.default for n, o in candidate.options.items()},
+                                "original": {n: o.default for n, o in original.options.items()}},
+                    "paths": {"candidate": str(args.engine), "original": str(args.opponent)},
+                    "names": {"candidate": candidate.id, "original": original.id},
+                    "requested_games": args.games, "movetime_ms": args.movetime, "max_plies": args.max_plies,
+                    "seed": args.seed, "opening_filter": "Seeded noncapture/noncheck continuations of four named openings; original depth3 |cp| <=80; heuristic balance only",
+                    "openings": suite, "games": []}
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+        for index in range(len(data["games"]), args.games):
+            board = chess.Board()
+            opening = data["openings"][index // 2]
+            for uci in opening["moves"]:
+                board.push_uci(uci)
+            candidate_color = index % 2 == 0
+            searches = []
+            for _ in range(args.max_plies):
+                if board.is_game_over(claim_draw=True):
+                    break
+                optimized = board.turn == candidate_color
+                player = candidate if optimized else original
+                result = player.play(board, chess.engine.Limit(time=args.movetime / 1000),
+                                     game=index, info=chess.engine.INFO_ALL)
+                assert result.move in board.legal_moves
+                searches.append({"candidate": optimized, "move": result.move.uci(),
+                                 "depth": result.info.get("depth", 0), "nodes": result.info["nodes"],
+                                 "seconds": result.info["time"], "nps": result.info["nps"],
+                                 "score_white": str(result.info["score"].white()) if "score" in result.info else None})
+                board.push(result.move)
+            outcome = board.outcome(claim_draw=True)
+            record = {"game": index + 1, "pair": index // 2 + 1, "opening": opening["moves"],
+                      "candidate_color": "white" if candidate_color else "black",
+                      "result": outcome.result() if outcome else "*",
+                      "termination": outcome.termination.name.lower() if outcome else "ply cap (unfinished)",
+                      "candidate_outcome": "unfinished" if outcome is None else "draw" if outcome.winner is None else
+                                           "win" if outcome.winner == candidate_color else "loss",
+                      "plies": len(board.move_stack), "searches": searches}
+            data["games"].append(record)
+            progress.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+            print(f"Game {index + 1}/{args.games}: candidate {record['candidate_color']} {record['result']} "
+                  f"({record['candidate_outcome']}, {record['plies']} plies)", flush=True)
+    data["summary"] = strength_summary(data["games"])
+    args.output.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+    games = []
+    for record in data["games"]:
+        board = chess.Board()
+        for uci in record["opening"] + [s["move"] for s in record["searches"]]:
+            board.push_uci(uci)
+        game = chess.pgn.Game.from_board(board)
+        game.headers.update({"Event": "Original versus optimized audit match", "Round": str(record["game"]),
+                             "White": "Optimized" if record["candidate_color"] == "white" else "Original",
+                             "Black": "Original" if record["candidate_color"] == "white" else "Optimized",
+                             "Result": record["result"], "ThinkTimeMs": str(args.movetime),
+                             "Termination": record["termination"]})
+        games.append(str(game))
+    args.output.with_suffix(".pgn").write_text("\n\n".join(games) + "\n", encoding="utf-8")
+    progress.unlink()
+    print(json.dumps(data["summary"], indent=2), flush=True)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--engine", type=Path, default=DEFAULT_ENGINE)
-    parser.add_argument("--comparison", choices=("search", "evaluation"), default="search",
+    parser.add_argument("--comparison", choices=("search", "evaluation", "versions"), default="search",
                         help="Compare search stages or baseline/advanced evaluation.")
-    parser.add_argument("--games", type=int, choices=(4, 8), default=4)
-    parser.add_argument("--movetime", type=int, choices=(100, 500, 1000, 3000, 5000), default=100)
+    parser.add_argument("--games", type=int, default=4)
+    parser.add_argument("--movetime", type=int, default=100)
+    parser.add_argument("--opponent", type=Path)
+    parser.add_argument("--seed", type=int, default=20261015)
+    parser.add_argument("--resume", action="store_true")
     parser.add_argument("--max-plies", type=int, default=160)
     parser.add_argument("--output", type=Path, default=Path("artifacts/optimization-matches.json"))
     args = parser.parse_args()
-    if args.max_plies < 1:
-        parser.error("max-plies must be positive")
+    if args.max_plies < 1 or args.games < 2 or args.games % 2 or args.movetime < 1:
+        parser.error("Use positive time/plies and a positive even game count")
+    if args.comparison == "versions":
+        version_match(args)
+        return
     flags = {"creationflags": subprocess.CREATE_NO_WINDOW} if os.name == "nt" else {}
     records, pgns = [], []
     options = {"AlphaBeta": True, "IterativeDeepening": True, "MoveOrdering": True, "UseAdvancedEvaluation": False, "UsePST": True,
@@ -39,7 +181,7 @@ def main():
         engine.configure(options)
         for index in range(args.games):
             board = chess.Board()
-            opening = OPENINGS[index // 2]
+            opening = OPENINGS[(index // 2) % len(OPENINGS)]
             for uci in opening:
                 board.push_uci(uci)
             advanced_color = index % 2 == 0

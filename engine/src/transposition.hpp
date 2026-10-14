@@ -83,8 +83,9 @@ public:
                entry.halfmove == halfmove ? &entry : nullptr;
     }
 
+    template<class Line>
     void store(std::uint64_t key, std::uint64_t history, unsigned halfmove, int depth,
-               int score, Bound bound, const std::vector<chess::Move>& pv, int ply = 0) {
+               int score, Bound bound, const Line& pv, int ply = 0) {
         auto& entry = entries_[index(key, history, halfmove)];
         const bool same = entry.depth >= 0 && entry.key == key && entry.history == history &&
                           entry.halfmove == halfmove;

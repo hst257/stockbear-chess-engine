@@ -109,7 +109,8 @@ std::string search_info(const chesslab::SearchResult& result) {
 }
 
 std::string metric_info(const chesslab::SearchResult& result) {
-    return "eval_calls " + std::to_string(result.eval_calls) + " beta_cutoffs " + std::to_string(result.beta_cutoffs);
+    return "eval_calls " + std::to_string(result.eval_calls) + " beta_cutoffs " + std::to_string(result.beta_cutoffs) +
+           " pawn_probes " + std::to_string(result.pawn_probes) + " pawn_hits " + std::to_string(result.pawn_hits);
 }
 
 std::string optimization_info(const chesslab::SearchResult& result) {
@@ -187,10 +188,21 @@ bool valid_fen(const std::string& fen) {
     return true;
 }
 
+std::string normalize_halfmove_clock(const std::string& fen) {
+    auto fields = words(fen);
+    if (integer(fields[4], 0, 65535) <= 100) return fen;
+    // Search always takes an available fifty-move claim. Saturating at 100
+    // preserves that policy and prevents the vendor's uint8 clock from wrapping.
+    fields[4] = "100";
+    std::string normalized;
+    for (const auto& field : fields) normalized += (normalized.empty() ? "" : " ") + field;
+    return normalized;
+}
+
 chess::Board board_from_fen(const std::string& fen) {
     if (!valid_fen(fen)) throw std::invalid_argument("invalid standard-chess FEN");
     chess::Board candidate;
-    if (!candidate.setFen(fen)) throw std::invalid_argument("invalid FEN");
+    if (!candidate.setFen(normalize_halfmove_clock(fen))) throw std::invalid_argument("invalid FEN");
     if (candidate.isAttacked(candidate.kingSq(~candidate.sideToMove()), candidate.sideToMove())) {
         throw std::invalid_argument("opponent king is already in check");
     }
@@ -203,6 +215,9 @@ void apply_legal(chess::Board& board, const std::string& uci) {
     for (const auto move : moves) {
         if (chess::uci::moveToUci(move) == uci) {
             board.makeMove<true>(move);
+            // Input may append moves even after an available claim. Such a
+            // position is still drawn until a pawn move/capture resets the clock.
+            if (board.halfMoveClock() > 100) board.setFen(normalize_halfmove_clock(board.getFen()));
             return;
         }
     }
@@ -221,12 +236,14 @@ public:
             try {
                 const auto& command = tokens[0];
                 if (command == "uci") {
-                    output("id name ChessLab 0.10");
+                    output("id name ChessLab 0.11");
                     output("id author ChessLab contributors");
                     output("option name AlphaBeta type check default true");
                     output("option name IterativeDeepening type check default true");
                     output("option name MoveOrdering type check default true");
                     output("option name UsePST type check default true");
+                    output("option name PawnCache type check default true");
+                    output("option name FastMovegen type check default true");
                     output("option name UseAdvancedEvaluation type check default true");
                     for (const auto name : chesslab::EVAL_OPTION_NAMES)
                         output(std::string("option name ") + name + " type check default true");
@@ -266,6 +283,8 @@ private:
     bool iterative_deepening_ = true;
     bool move_ordering_ = true;
     bool use_pst_ = true;
+    bool pawn_cache_ = true;
+    bool fast_movegen_ = true;
     chesslab::EvaluationOptions evaluation_;
     bool transposition_table_ = true;
     bool quiescence_ = true;
@@ -299,13 +318,15 @@ private:
             return;
         }
         if (tokens[2] == "AlphaBeta" || tokens[2] == "IterativeDeepening" ||
-            tokens[2] == "MoveOrdering" || tokens[2] == "UsePST" || tokens[2] == "TranspositionTable" ||
+            tokens[2] == "FastMovegen" || tokens[2] == "PawnCache" || tokens[2] == "MoveOrdering" || tokens[2] == "UsePST" || tokens[2] == "TranspositionTable" ||
             tokens[2] == "Quiescence" || tokens[2] == "PVS" || tokens[2] == "UseAspirationWindows" ||
             tokens[2] == "UseNullMovePruning" || tokens[2] == "UseLMR") {
             if (tokens[4] != "true" && tokens[4] != "false") throw std::invalid_argument("check options must be true or false");
             if (tokens[2] == "AlphaBeta") alpha_beta_ = tokens[4] == "true";
             else if (tokens[2] == "IterativeDeepening") iterative_deepening_ = tokens[4] == "true";
             else if (tokens[2] == "MoveOrdering") move_ordering_ = tokens[4] == "true";
+            else if (tokens[2] == "PawnCache") pawn_cache_ = tokens[4] == "true";
+            else if (tokens[2] == "FastMovegen") fast_movegen_ = tokens[4] == "true";
             else if (tokens[2] == "UsePST") use_pst_ = tokens[4] == "true";
             else if (tokens[2] == "TranspositionTable") transposition_table_ = tokens[4] == "true";
             else if (tokens[2] == "Quiescence") quiescence_ = tokens[4] == "true";
@@ -350,6 +371,8 @@ private:
         limits.iterative_deepening = iterative_deepening_;
         limits.move_ordering = move_ordering_;
         limits.use_pst = use_pst_;
+        limits.pawn_cache = pawn_cache_;
+        limits.fast_movegen = fast_movegen_;
         limits.evaluation = evaluation_;
         limits.transposition_table = transposition_table_;
         limits.hash_megabytes = hash_megabytes_;
@@ -400,7 +423,7 @@ private:
                        (limits.transposition_table ? "cached " : "uncached ") +
                        (limits.quiescence ? "qsearch " : "static-leaf ") +
                        (pruning && limits.principal_variation_search ? "pvs " : "full-window ") +
-                       table_info(result) + " " + search_info(result) + " " + optimization_info(result) + " " + metric_info(result));
+                       table_info(result) + " " + search_info(result) + " " + metric_info(result) + " " + optimization_info(result));
 #ifdef CHESSLAB_PROFILE
                 std::ostringstream profile;
                 profile << "info string profile {\"allocations\":" << result.profile.allocations

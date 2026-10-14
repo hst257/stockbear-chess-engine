@@ -1,5 +1,6 @@
 #include "search.hpp"
 #include "scoped_move.hpp"
+#include "pawn_cache.hpp"
 
 #include <iostream>
 #include <random>
@@ -20,6 +21,7 @@ int main() {
             "rnbq1k1r/pp1Pbppp/2p5/8/2B5/8/PPP1NnPP/RNBQK2R w KQ - 1 8",
             "r3k2r/8/8/3pP3/8/8/8/R3K2R w KQkq d6 0 1"};
         unsigned verified = 0;
+        chesslab::PawnCache pawn_cache;
         for (const auto fen : positions) {
             for (int walk = 0; walk < 40; ++walk) {
                 chess::Board board(fen), original = board;
@@ -28,6 +30,13 @@ int main() {
                     chess::Movelist moves;
                     chess::movegen::legalmoves(moves, board);
                     if (moves.empty()) break;
+                    for (bool pst : {false, true}) {
+                        chesslab::EvaluationOptions options;
+                        options.enabled[(walk + ply) % options.enabled.size()] = false;
+                        const int uncached = chesslab::evaluate(board, pst, options);
+                        const int cached = chesslab::evaluate(board, pst, options, &pawn_cache);
+                        require(cached == uncached, "Pawn cache changed evaluation with live occupancy/options");
+                    }
                     const auto before = board;
                     const auto move = moves[random() % moves.size()];
                     {
@@ -47,6 +56,18 @@ int main() {
                 while (!played.empty()) { board.unmakeMove(played.back()); played.pop_back(); }
                 require(board.fullyEquals(original), "Random walk failed to restore original state/history");
             }
+        }
+        require(pawn_cache.hits > 0 && pawn_cache.hits < pawn_cache.probes, "Pawn hit/miss paths not exercised");
+        std::atomic<bool> stopped{false};
+        for (const auto fen : positions) {
+            chesslab::SearchLimits limits;
+            limits.depth = 4;
+            limits.nodes = 20000;
+            const auto fast = chesslab::search(chess::Board(fen), limits, true, stopped);
+            limits.fast_movegen = false;
+            const auto full = chesslab::search(chess::Board(fen), limits, true, stopped);
+            require(fast.nodes == full.nodes && fast.white_score == full.white_score &&
+                    fast.depth == full.depth && fast.pv == full.pv, "Bounded search changed with fast generation");
         }
         std::cout << "Verified " << verified << " random make/unmake transitions including complete history\n";
     } catch (const std::exception& error) {

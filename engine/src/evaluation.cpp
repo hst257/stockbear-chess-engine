@@ -2,6 +2,7 @@
 #include "pst.hpp"
 #include "evaluation_masks.hpp"
 #include "profiling.hpp"
+#include "pawn_cache.hpp"
 
 #include <algorithm>
 #include <numeric>
@@ -50,6 +51,43 @@ void evaluate_pst(const chess::Board& board, Evaluation& result) {
     }
 }
 
+PawnData calculate_pawns(chess::Bitboard white, chess::Bitboard black) {
+    PawnData data;
+    data.pawns[0] = white;
+    data.pawns[1] = black;
+    for (int c = 0; c < 2; ++c) {
+        const auto color = c == 0 ? chess::Color::WHITE : chess::Color::BLACK;
+        auto p = data.pawns[c];
+        while (p) {
+            const auto attacks = chess::attacks::pawn(color, chess::Square(p.pop()));
+            data.double_attacks[c] |= data.attacks[c] & attacks;
+            data.attacks[c] |= attacks;
+        }
+    }
+    for (int c = 0; c < 2; ++c) {
+        const int sign = c == 0 ? 1 : -1;
+        for (int f = 0; f < 8; ++f) {
+            const int extra = (data.pawns[c] & eval_masks::file(f)).count() - 1;
+            if (extra > 0) data.structure.add(-12 * extra, -18 * extra, sign);
+        }
+        auto p = data.pawns[c];
+        while (p) {
+            const int sq = p.pop(), f = sq % 8, next = sq + (c == 0 ? 8 : -8);
+            const auto adjacent = data.pawns[c] & eval_masks::adjacent(f);
+            const bool supported = data.attacks[c].check(sq);
+            if (!adjacent) data.structure.add(-10, -14, sign);
+            if (supported || (adjacent & (0xFFULL << (8 * (sq / 8))))) data.structure.add(5, 8, sign);
+            const auto ahead = chess::Bitboard(eval_masks::FORWARD[c][sq]);
+            if (adjacent && !supported && !(adjacent & ~ahead) && data.attacks[1 - c].check(next))
+                data.backward[c].set(sq);
+            if (!(data.pawns[1 - c] & ahead & (eval_masks::file(f) | eval_masks::adjacent(f))) &&
+                !(data.pawns[c] & ahead & eval_masks::file(f))) data.passers[c].set(sq);
+        }
+    }
+    data.valid = true;
+    return data;
+}
+
 struct EvalContext {
     chess::Bitboard pawns[2];
     chess::Bitboard pawn_attacks[2];
@@ -59,17 +97,24 @@ struct EvalContext {
     chess::Bitboard piece_attacks[2][6];
     int zone_attackers[2]{};
     int zone_units[2]{};
-    explicit EvalContext(const chess::Board& board) {
+    EvalScore pawn_structure;
+    chess::Bitboard backward[2];
+    explicit EvalContext(const chess::Board& board, PawnCache* cache) {
+        profiling::Scope measured(profiling::PAWNS);
+        const auto white = board.pieces(chess::PieceType::PAWN, chess::Color::WHITE);
+        const auto black = board.pieces(chess::PieceType::PAWN, chess::Color::BLACK);
+        PawnData local;
+        const PawnData* data;
+        if (cache) data = &cache->get(white, black);
+        else { local = calculate_pawns(white, black); data = &local; }
         for (int c = 0; c < 2; ++c) {
-            const auto color = c == 0 ? chess::Color::WHITE : chess::Color::BLACK;
-            pawns[c] = board.pieces(chess::PieceType::PAWN, color);
-            auto p = pawns[c];
-            while (p) {
-                const auto attacks = chess::attacks::pawn(color, chess::Square(p.pop()));
-                double_attacks[c] |= pawn_attacks[c] & attacks;
-                pawn_attacks[c] |= attacks;
-            }
+            pawns[c] = data->pawns[c];
+            pawn_attacks[c] = data->attacks[c];
+            double_attacks[c] = data->double_attacks[c];
+            passers[c] = data->passers[c];
+            backward[c] = data->backward[c];
         }
+        pawn_structure = data->structure;
     }
 };
 
@@ -226,46 +271,27 @@ void evaluate_endgame(const chess::Board& board, const EvalContext& ctx, Evaluat
     }
 }
 
-void evaluate_pawns(const chess::Board& board, EvalContext& ctx, Evaluation& result,
+void evaluate_pawns(const chess::Board& board, const EvalContext& ctx, Evaluation& result,
                     const EvaluationOptions& options) {
     profiling::Scope measured(profiling::PAWNS);
     constexpr int passed_mg[] = {0, 0, 5, 12, 22, 38, 65, 0};
     constexpr int passed_eg[] = {0, 0, 10, 24, 45, 80, 130, 0};
+    if (options.uses(PAWNS)) result.components[PAWNS] = ctx.pawn_structure;
     for (int c = 0; c < 2; ++c) {
         const int sign = c == 0 ? 1 : -1;
         if (options.uses(PAWNS)) {
-            for (int f = 0; f < 8; ++f) {
-                const int extra = (ctx.pawns[c] & eval_masks::file(f)).count() - 1;
-                if (extra > 0) result.components[PAWNS].add(-12 * extra, -18 * extra, sign);
-            }
+            const auto front = c == 0 ? ctx.backward[c] << 8 : ctx.backward[c] >> 8;
+            const int backward = (front & ~board.occ()).count();
+            result.components[PAWNS].add(-8 * backward, -10 * backward, sign);
         }
-        auto p = ctx.pawns[c];
-        while (p) {
-            const int sq = p.pop(), f = sq % 8, rank = c == 0 ? sq / 8 : 7 - sq / 8;
-            const int next = sq + (c == 0 ? 8 : -8);
-            const auto adjacent = ctx.pawns[c] & eval_masks::adjacent(f);
-            const bool supported = ctx.pawn_attacks[c].check(sq);
-            const auto same_rank = chess::Bitboard(0xFFULL << (8 * (sq / 8)));
-            if (options.uses(PAWNS)) {
-                if (!adjacent) result.components[PAWNS].add(-10, -14, sign);
-                if (supported || (adjacent & same_rank)) result.components[PAWNS].add(5, 8, sign);
-                // Conservative: a neighbor exists, but all neighbors are ahead;
-                // the unsupported pawn must advance onto an enemy pawn attack.
-                if (adjacent && !supported && !(adjacent & ~chess::Bitboard(eval_masks::FORWARD[c][sq])) &&
-                    !board.occ().check(next) && ctx.pawn_attacks[1 - c].check(next))
-                    result.components[PAWNS].add(-8, -10, sign);
-            }
-            const auto ahead = chess::Bitboard(eval_masks::FORWARD[c][sq]);
-            const auto corridor = ahead & (eval_masks::file(f) | eval_masks::adjacent(f));
-            if (!(ctx.pawns[1 - c] & corridor) && !(ctx.pawns[c] & ahead & eval_masks::file(f))) {
-                ctx.passers[c] |= chess::Bitboard::fromSquare(sq);
-                if (options.uses(PASSERS)) {
-                    int mg = passed_mg[rank], eg = passed_eg[rank];
-                    if (supported) { mg += 8; eg += 15; }
-                    if (board.occ() & ahead & eval_masks::file(f)) { mg /= 2; eg /= 2; }
-                    result.components[PASSERS].add(mg, eg, sign);
-                }
-            }
+        if (!options.uses(PASSERS)) continue;
+        auto passers = ctx.passers[c];
+        while (passers) {
+            const int sq = passers.pop(), rank = c == 0 ? sq / 8 : 7 - sq / 8;
+            int mg = passed_mg[rank], eg = passed_eg[rank];
+            if (ctx.pawn_attacks[c].check(sq)) { mg += 8; eg += 15; }
+            if (board.occ() & eval_masks::FORWARD[c][sq] & eval_masks::file(sq % 8)) { mg /= 2; eg /= 2; }
+            result.components[PASSERS].add(mg, eg, sign);
         }
     }
 }
@@ -313,6 +339,18 @@ void evaluate_bishops_rooks(const chess::Board& board, const EvalContext& ctx, E
 
 }  // namespace
 
+const PawnData& PawnCache::get(chess::Bitboard white, chess::Bitboard black) {
+    ++probes;
+    std::uint64_t key = white.getBits() ^ ((black.getBits() << 32) | (black.getBits() >> 32));
+    key ^= key >> 33;
+    key *= 0xff51afd7ed558ccdULL;
+    key ^= key >> 33;
+    auto& entry = entries_[key & (entries_.size() - 1)];
+    if (entry.valid && entry.pawns[0] == white && entry.pawns[1] == black) ++hits;
+    else entry = calculate_pawns(white, black);
+    return entry;
+}
+
 int taper(EvalScore score, int phase) {
     return interpolate(score.middlegame, score.endgame, std::clamp(phase, 0, MAX_PHASE));
 }
@@ -354,7 +392,7 @@ int evaluate(const chess::Board& board, bool use_pst) {
 }
 
 template<bool Diagnostics>
-Evaluation advanced_breakdown(const chess::Board& board, bool use_pst, const EvaluationOptions& options) {
+Evaluation advanced_breakdown(const chess::Board& board, bool use_pst, const EvaluationOptions& options, PawnCache* cache) {
     if (!options.advanced) return evaluate_breakdown(board, use_pst);
     Evaluation result;
     result.advanced = true;
@@ -362,7 +400,7 @@ Evaluation advanced_breakdown(const chess::Board& board, bool use_pst, const Eva
     result.material = evaluate_material(board);
     result.components[MATERIAL] = {result.material, result.material};
     if (use_pst) evaluate_pst<true, Diagnostics>(board, result);
-    EvalContext context(board);
+    EvalContext context(board, cache);
     evaluate_pawns(board, context, result, options);
     evaluate_bishops_rooks(board, context, result, options);
     if (options.uses(MOBILITY) || options.uses(KING_SAFETY) || options.uses(SPACE)) build_attacks(board, context);
@@ -383,11 +421,11 @@ Evaluation advanced_breakdown(const chess::Board& board, bool use_pst, const Eva
 }
 
 Evaluation evaluate_breakdown(const chess::Board& board, bool use_pst, const EvaluationOptions& options) {
-    return advanced_breakdown<true>(board, use_pst, options);
+    return advanced_breakdown<true>(board, use_pst, options, nullptr);
 }
 
-int evaluate(const chess::Board& board, bool use_pst, const EvaluationOptions& options) {
-    return options.advanced ? advanced_breakdown<false>(board, use_pst, options).total() : evaluate(board, use_pst);
+int evaluate(const chess::Board& board, bool use_pst, const EvaluationOptions& options, PawnCache* cache) {
+    return options.advanced ? advanced_breakdown<false>(board, use_pst, options, cache).total() : evaluate(board, use_pst);
 }
 
 }  // namespace chesslab

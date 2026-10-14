@@ -79,6 +79,8 @@ Move ordering is also on by default: a matching table move first, then the previ
 .\launch.bat --mode engine --search-mode depth --depth 5 --no-aspiration-windows --no-null-move-pruning --no-lmr
 ```
 
+**Engine audit and measured performance:** release 0.11 removes recursive PV/sort allocations, adds a fully keyed pawn cache, and avoids unnecessary legal lists at leaves/Q nodes. `PawnCache` and `FastMovegen` are independent UCI debug switches; evaluation weights and selective-search settings are unchanged. Promoted same-color bishop draws and large imported halfmove counters are corrected. See the [audit](docs/engine-audit.md) and [performance report](docs/performance-report.md) for checks, frozen measurements, and original-versus-optimized matches.
+
 See the [optimization guide](docs/search-optimizations.md) for eligibility guards, PVS/TT interactions, staged validation, measured performance, and color-balanced smoke games. For exhaustive alpha-beta/Minimax comparisons and earlier benchmark counts, disable all three advanced switches. Longer completed depth and fewer nodes do not establish playing strength.
 
 ![Search lab comparing Minimax and PVS](docs/search-lab.png)
@@ -179,7 +181,7 @@ Benchmark every preset on seven positions (three repeats), with results saved as
 .\.venv\Scripts\python.exe -m tools.benchmark_time --output artifacts\time-benchmark.json
 ```
 
-**Verified on Windows: 852 automated tests pass.** Build the engine before running the full suite; native TT tests also use the compiler. Tests cover rules, special moves, outcomes, draw claims, undo/reset, and a seeded 180-half-move game rewound position by position.
+**Verified on Windows: 926 automated tests pass.** Build the engine before running the full suite; native TT tests also use the compiler. Tests cover rules, special moves, outcomes, draw claims, undo/reset, and a seeded 180-half-move game rewound position by position.
 
 Engine checks include perft, legal moves cross-checked against python-chess, mate/score handling, Minimax/alpha-beta equivalence, UCI interruption, process errors, stale replies, and actual engine-to-GUI play/comparison. Ordering checks compare optimal moves and scores against an independent Python reference across both algorithms and deepening modes, including castling, promotions, en passant, and pinned pieces. They also verify the original node baseline, tactical node savings, per-search PV isolation, interrupted result retention, and GUI toggle behavior.
 

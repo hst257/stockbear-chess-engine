@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 # Set before importing Pygame, so CI never opens windows or audio devices.
 os.environ["SDL_VIDEODRIVER"] = "dummy"
@@ -13,8 +14,9 @@ from app.engine_client import DEFAULT_ENGINE
 
 @pytest.fixture(scope="session")
 def engine_path():
-    assert DEFAULT_ENGINE.is_file(), "Build the C++ engine first: run build_engine.bat"
-    return DEFAULT_ENGINE
+    path = Path(os.environ.get("CHESSLAB_TEST_ENGINE", str(DEFAULT_ENGINE)))
+    assert path.is_file(), "Build the C++ engine first: run build_engine.bat"
+    return path
 
 
 @pytest.fixture

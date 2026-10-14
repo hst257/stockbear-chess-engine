@@ -17,7 +17,7 @@ ChessLab is a Python/Pygame application for engine development.
 
 ## Build, test, and development commands
 
-Target Python 3.11+. Run from the repository root:
+Target Python 3.11+. From the repository root:
 
 ```powershell
 python -m venv .venv
@@ -27,7 +27,7 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m pytest
 ```
 
-Windows: run `setup.bat`, `build_engine.bat`, then `launch.bat`. Build before running the full suite. Linux: use `.venv/bin/python tools/build_engine.py` with a C++17 compiler or the pinned build requirements. Set `CXX` to override the compiler.
+Windows: run `setup.bat`, `build_engine.bat`, then `launch.bat`. Build before running the full suite. Linux: use `.venv/bin/python tools/build_engine.py` with C++17 or pinned build requirements. Set `CXX` to override the compiler.
 
 ## Coding style and naming conventions
 
@@ -35,7 +35,7 @@ Use four spaces, PEP 8, `snake_case` functions, `PascalCase` classes, and `UPPER
 
 Keep game logic independent of Pygame; validate moves with `python-chess`. Use package-relative assets and responsive events.
 
-C++: use four spaces and `snake_case`; separate protocol and search. Both algorithms share evaluation, limits, and ordering.
+C++: use four spaces and `snake_case`; separate protocol/search. Algorithms share evaluation, limits, and ordering.
 
 ## Testing guidelines
 
@@ -47,4 +47,4 @@ Use imperative subjects, such as `Add promotion selection dialog`. Keep commits 
 
 ## Development boundaries
 
-Gameplay defaults to timed deepening. Aspiration/NMP/LMR are switchable; Minimax ignores them. Disable advanced features for exhaustive baselines. Preserve exact aspiration retries, isolated null histories/cache, LMR verification, draw context, TT bounds, fallbacks, board restoration, and completed snapshots. Never claim selective scores equal exhaustive results. Defer killer/history heuristics and further pruning until requested. Keep UCI off the GUI thread, reject stale replies, and play only final validated moves. Preserve attribution.
+Gameplay defaults to timed deepening. Aspiration/NMP/LMR are switchable; Minimax ignores them. Disable advanced features for exhaustive baselines. Preserve exact aspiration retries, isolated null histories/cache, LMR verification, draw context, TT bounds, fallbacks, board restoration, and completed snapshots. Never claim selective scores equal exhaustive results. Defer killer/history heuristics and further pruning until requested. Keep UCI off the GUI thread, reject stale replies, and play only final validated moves. Preserve complete pawn-cache keys and live occupancy-dependent terms. Preserve attribution.

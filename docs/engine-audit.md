@@ -61,3 +61,81 @@ and sorting allocations; reuse pawn-only evaluation information with complete
 keys; avoid full legal lists at static leaves and unnecessary quiet moves in
 quiescence while preserving terminal precedence. TT layout/board rewrites rank
 below these and are not justified by this profile.
+
+## Allocation optimization
+
+Recursive PVs now use bounded 64-move lines; only completed root lines allocate
+into the public result vector. Stable insertion ordering preserves equal-score
+move order without stable_sort scratch allocation. All seven depth-6 score,
+node, best-move and complete-PV snapshots match the frozen original. Repeated
+release medians improve opening/middlegame/tactical NPS by approximately
+8.6%/9.6%/9.6%; sub-millisecond endings are too short for reliable NPS ratios.
+Perft and the expanded tactical/restoration corpus pass. One diagnostic-parser
+compatibility issue was found and fixed before retaining the change.
+
+## Pawn cache design and correctness
+
+The 1024-entry cache is private to one search and verifies both complete pawn
+bitboards, not just an index or shortened hash. Entries contain pawn attack and
+double-control maps, pawn-only structural scores, passer masks and *candidates*
+for backward pawns. King shields, game phase, passed-pawn blockage, and backward
+pawn forward-square occupancy are recomputed live. Category flags never affect
+cached contents. Independent `PawnCache` UCI selection permits exact ablations.
+
+A 100-position seeded differential compares every diagnostic component with the
+preserved original, including PST/category variations: all match. Native random
+walks compare cached/uncached scoring with both PST modes and rotating category
+switches, exercising cache hits, misses and replacements. Search checks verify
+identical nodes, Q nodes, score, move and PV with the cache enabled/disabled.
+
+## Legal-generation optimization
+
+The pinned library already has a short-circuit `anylegalmoves` API. Static
+leaves now use it instead of constructing every legal move. Non-check Q nodes
+first prove a legal move exists, then check draws and stand pat. Capture-only
+lists are generated only if stand pat did not cut. Nodes in check, positions
+with a pawn on its promotion rank, and ordering-disabled Q searches retain the
+complete previous generation/filter path. This preserves quiet promotions,
+underpromotions, en passant, evasions, stalemate/mate precedence and stable ties.
+`FastMovegen` is independently switchable for exact semantic comparisons.
+
+The full optimized suite now passes 909 tests. Fast generation on/off is checked
+in 36 combinations of standard/special/terminal positions, Q selection, ordering
+and pruning. Exhaustive or unordered tactical Q trees use a deterministic
+50,000-node budget, testing completed snapshots and unscored legal fallback
+rather than incorrectly demanding completion within a wall-clock watchdog.
+
+## Features intentionally left unchanged
+
+Killer/history/SEE/countermove/continuation ordering and additional selective
+pruning remain missing. They can change selective search results and need their
+own strength study; this audit first targets measured implementation overhead.
+Mate-distance pruning and check extensions also remain absent. Existing legal
+bitboards/magic attacks and in-place undo already meet the proposed architecture
+optimizations. TT consumes only about 1.3% of the instrumented baseline; changing
+its complete-PV/exact-depth contract or introducing clusters is not justified
+before the larger measured costs are removed. No neural evaluation is added.
+
+## Confirmed correctness fixes
+
+1. **Promoted same-color bishops:** the pinned rules library's material shortcut
+   stops at four occupied squares. With three same-color bishops versus a king,
+   the original UCI engine returned `a1b1` and +1005 cp although python-chess
+   correctly marked the position insufficient material. An engine-owned
+   `terminal_rules.hpp` now handles arbitrary same-color bishop counts while
+   preserving potentially mating B+N and two-knight material. Both colors are
+   covered; upstream vendor code is unchanged.
+2. **Imported halfmove overflow:** UCI validation accepted clocks through 65535,
+   but the library stores an 8-bit counter. Thus 256 silently became zero and
+   lost an available fifty-move draw. FEN import now saturates clocks above 100
+   to 100 under the engine's documented always-claim policy. Appended quiet moves
+   retain saturation; a pawn move/capture resets normally. Rebuilding history
+   after saturation is safe for this policy: the current position already has a
+   claim, and a later resetting move makes the older repetition history irrelevant.
+   Checkmate/stalemate precedence remains intact. Direct users of the raw vendor
+   Board must still respect its 8-bit clock representation.
+
+The final release passes 926 automated tests. Undefined-behavior instrumentation
+also passes 27,509 randomized move/null-move restoration transitions, cached versus
+uncached evaluation with varied options, and bounded recursive fast/full search
+comparisons. This is runtime evidence, not a proof of freedom from every bug.

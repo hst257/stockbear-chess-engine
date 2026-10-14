@@ -293,7 +293,7 @@ Build first, then run `.venv\Scripts\python.exe -m pytest -q` from the root.
 Tests include perft (197,281 at initial depth 4; 97,862 at Kiwipete depth 3), legal
 move cross-checks against python-chess, terminal states, search equivalence,
 interruptible UCI, cancellation, and actual engine-to-GUI play/comparison.
-The 852-test suite also checks optimal moves/scores against an independent Python
+The 926-test suite also checks optimal moves/scores against an independent Python
 reference with ordering off/on, both algorithms, and direct/iterative search.
 PST coverage includes all pieces, color/rank orientation, phase/rounding, diagnostic
 and search consistency, unchanged terminal behavior, and GUI on/off selection.
@@ -364,3 +364,25 @@ table; search, cache policy, and evaluation remain in `engine/src/`.
 
 Numeric PST data is adapted from Andrew Healey's MIT-licensed Andoma implementation
 of Tomasz Michniewski's classical tables. Full [notice and adaptation notes](vendor/andoma/README.md).
+
+
+## Audited release 0.11
+
+The [engine audit](../docs/engine-audit.md) and [performance report](../docs/performance-report.md)
+cover reproducible baseline/paired measurements, exclusive instrumentation,
+UBSan, full-state restoration, and original-versus-optimized games. Recursive
+PVs and stable ordering no longer allocate. `PawnCache` and `FastMovegen` default
+to true and preserve exact evaluation/search results; disable them independently
+for ablations. Pawn keys verify both complete pawn bitboards; king/occupancy
+terms stay live. Vendor sources are unchanged. Same-color promoted-bishop draws
+are generalized outside the vendor. Imported clocks above 100 saturate under the
+always-claim policy, avoiding the library's 8-bit counter overflow.
+
+Portable O2 remains the default after paired O3/LTO measurements. Build variants
+with `--optimization O3 --lto --output PATH`; `--profile` instruments exclusive
+wall-time categories and search-thread new/new[] counts. `--target audit-tests
+--sanitize undefined` checks randomized state/cache and bounded search behavior.
+Every successful build writes a `.build.json` sidecar with exact flags. Set
+`CHESSLAB_TEST_ENGINE` to select another binary for protocol/evaluation pytest
+fixtures. Historical baseline `b5023bd` remains reproducible from Git; its original
+executable is retained locally in `artifacts/audit/original-b5023bd.exe`.

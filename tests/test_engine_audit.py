@@ -9,6 +9,7 @@ import chess.engine
 import pytest
 
 from tools.audit_engine import PERFT
+from tools.audit_engine import measure
 
 
 @pytest.mark.parametrize("name,fen,counts", PERFT)
@@ -63,7 +64,7 @@ def test_verified_mate_corpus_with_all_features(engine_path, fen, mate):
     ("7k/8/8/8/8/8/q7/R6K w - - 0 1", "a1a2"),
     ("4k3/8/8/8/q7/8/4B3/4R2K w - - 0 1", "e2b5"),  # discovered double-check
     ("k3r3/8/8/8/8/8/4R3/4K3 w - - 0 1", "e2e8"),  # pinned rook captures pinner
-    ("8/8/8/8/8/5k2/8/5r1K w - - 0 1", "h1h2"),  # sole quiet evasion  # forced queen capture
+    ("8/8/8/8/8/5k2/8/5r1K w - - 0 1", "h1h2"),  # sole quiet evasion
     ("8/1q3k2/8/8/2N5/8/8/6K1 w - - 0 1", "c4d6"),  # fork queen and king
 ])
 def test_material_tactics(engine_path, fen, expected):
@@ -71,3 +72,66 @@ def test_material_tactics(engine_path, fen, expected):
     with chess.engine.SimpleEngine.popen_uci(str(engine_path)) as engine:
         result = engine.play(board, chess.engine.Limit(depth=4), info=chess.engine.INFO_ALL)
         assert result.move.uci() == expected
+
+
+@pytest.mark.parametrize("fen", [fen for _, fen, _ in PERFT])
+def test_pawn_cache_preserves_all_search_work(engine_path, fen):
+    with chess.engine.SimpleEngine.popen_uci(str(engine_path)) as engine:
+        results = []
+        for enabled in (False, True):
+            engine.configure({"PawnCache": enabled})
+            results.append(measure(engine, chess.Board(fen), depth=4))
+        for key in ("depth", "nodes", "qnodes", "score", "move", "pv"):
+            assert results[0][key] == results[1][key]
+        assert results[0]["counters"]["pawn_probes"] == 0
+        assert results[1]["counters"]["pawn_probes"] == results[1]["counters"]["eval_calls"]
+        assert results[1]["counters"]["pawn_hits"] > 0
+
+
+@pytest.mark.parametrize("fen", [fen for _, fen, _ in PERFT] + [
+    "7k/5Q2/6K1/8/8/8/8/8 b - - 0 1",  # stalemate before stand pat
+    "7k/6Q1/5K2/8/8/8/8/8 b - - 100 51",  # mate before fifty-move draw
+    "7k/8/8/3pP3/8/8/8/7K w - d6 0 2",  # en passant
+])
+@pytest.mark.parametrize("qsearch,ordering,pruning", [(True, True, True), (True, False, True),
+                                                       (False, True, True), (True, True, False)])
+def test_fast_movegen_preserves_search_semantics(engine_path, fen, qsearch, ordering, pruning):
+    with chess.engine.SimpleEngine.popen_uci(str(engine_path), timeout=30) as engine:
+        engine.configure({"Quiescence": qsearch, "MoveOrdering": ordering, "AlphaBeta": pruning})
+        rows = []
+        for enabled in (False, True):
+            engine.configure({"FastMovegen": enabled})
+            rows.append(measure(engine, chess.Board(fen), depth=3 if pruning else 2,
+                                nodes=50000 if not ordering or not pruning else None))
+        for key in ("depth", "nodes", "qnodes", "score", "move", "pv"):
+            assert rows[0][key] == rows[1][key]
+
+
+@pytest.mark.parametrize("fen,drawn", [
+    ("7k/8/8/6B1/8/4B3/8/K1B5 w - - 0 1", True),
+    ("5b1k/8/8/6B1/8/4B3/8/K1B5 w - - 0 1", True),
+    ("7k/8/8/8/8/2N1N3/8/K7 w - - 0 1", False),
+    ("7k/8/8/8/8/4N3/8/K1B5 w - - 0 1", False),
+])
+@pytest.mark.parametrize("mirror", [False, True])
+def test_promoted_bishop_draws_and_mating_material(engine_path, fen, drawn, mirror):
+    board = chess.Board(fen)
+    if mirror:
+        board = board.mirror()
+    assert board.is_insufficient_material() == drawn
+    with chess.engine.SimpleEngine.popen_uci(str(engine_path)) as engine:
+        result = engine.play(board, chess.engine.Limit(depth=1), info=chess.engine.INFO_ALL)
+        assert bool(result.move) != drawn
+        if drawn:
+            assert result.info["score"].white().score() == 0
+
+
+@pytest.mark.parametrize("halfmove", [100, 150, 255, 256, 300, 65535])
+def test_large_fen_halfmove_clocks_cannot_wrap_into_live_search(engine_path, halfmove):
+    board = chess.Board(f"7k/8/8/8/8/8/R7/7K w - - {halfmove} 1000")
+    with chess.engine.SimpleEngine.popen_uci(str(engine_path)) as engine:
+        for advance in (False, True):
+            if advance:
+                board.push_uci("a2a3")
+            result = engine.play(board, chess.engine.Limit(depth=2), info=chess.engine.INFO_ALL)
+            assert not result.move and result.info["score"].white().score() == 0

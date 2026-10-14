@@ -4,6 +4,7 @@ Use CXX to select a compiler executable, or install engine/requirements-build.tx
 for the project-local Zig C++ driver. No compiler is needed at engine runtime.
 """
 
+import json
 import importlib.util
 import argparse
 import os
@@ -22,6 +23,7 @@ def main() -> int:
     parser.add_argument("--optimization", choices=("O2", "O3"), default="O2")
     parser.add_argument("--lto", action="store_true")
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--sanitize", choices=("undefined",), help="Development-only undefined-behavior checks.")
     options = parser.parse_args()
     target = options.target
     if os.environ.get("CXX"):
@@ -49,6 +51,8 @@ def main() -> int:
         args.insert(len(compiler), "-DCHESSLAB_PROFILE")
     if options.lto:
         args.insert(len(compiler), "-flto")
+    if options.sanitize:
+        args[len(compiler):len(compiler)] = ["-fsanitize=" + options.sanitize, "-fno-sanitize-recover=all"]
     print("Building with " + " ".join(compiler), flush=True)
     environment = os.environ.copy()
     environment.setdefault("ZIG_GLOBAL_CACHE_DIR", str(output.parent / "zig-cache"))
@@ -58,6 +62,10 @@ def main() -> int:
         print("Build failed. Try the pinned compiler in engine/requirements-build.txt.", file=sys.stderr)
     else:
         print(f"Built {output}")
+        output.with_suffix(".build.json").write_text(json.dumps({
+            "compiler": compiler, "flags": args[len(compiler):], "profile": options.profile,
+            "optimization": options.optimization, "lto": options.lto, "sanitizer": options.sanitize,
+        }, indent=2) + "\n", encoding="utf-8")
     return result.returncode
 
 

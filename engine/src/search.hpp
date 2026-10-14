@@ -32,12 +32,15 @@ struct SearchLimits {
     bool late_move_reductions = true;
     int lmr_reduction = 1;  // Configurable 1..3, also clamped to depth - 2.
     EvaluationOptions evaluation;
+    bool pawn_cache = true;
+    bool fast_movegen = true;
 };
 
 struct SearchResult {
     profiling::Report profile;
     std::uint64_t eval_calls = 0;
     std::uint64_t beta_cutoffs = 0;
+    std::uint64_t pawn_probes = 0, pawn_hits = 0;
     chess::Move best_move{};
     std::vector<chess::Move> pv;
     int white_score = 0;

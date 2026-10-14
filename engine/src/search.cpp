@@ -1,6 +1,9 @@
 #include "search.hpp"
 #include "scoped_move.hpp"
 #include "search_policy.hpp"
+#include "principal_variation.hpp"
+#include "pawn_cache.hpp"
+#include "terminal_rules.hpp"
 
 #include <algorithm>
 #include <memory>
@@ -33,9 +36,17 @@ void order_moves(chess::Movelist& moves, const chess::Board& board,
         move.setScore(static_cast<std::int16_t>(priority));
     }
     // Equal priorities preserve the library order, including quiet moves.
-    std::stable_sort(moves.begin(), moves.end(), [](const auto a, const auto b) {
-        return a.score() > b.score();
-    });
+    // Stable insertion is allocation-free and nearly linear for the long runs
+    // of equal-priority quiet moves returned by the rules library.
+    for (auto i = moves.begin() + (moves.empty() ? 0 : 1); i != moves.end(); ++i) {
+        const auto selected = *i;
+        auto j = i;
+        while (j != moves.begin() && (j - 1)->score() < selected.score()) {
+            *j = *(j - 1);
+            --j;
+        }
+        *j = selected;
+    }
 }
 
 class Search {
@@ -43,7 +54,8 @@ public:
     Search(const SearchLimits& limits, bool pruning, const std::atomic<bool>& stop)
         : limits_(limits), pruning_(pruning), stop_(stop), start_(Clock::now()),
           deadline_(limits.milliseconds ? start_ + std::chrono::milliseconds(limits.milliseconds) : Clock::time_point::max()),
-          table_(limits.transposition_table ? std::make_unique<TranspositionTable>(limits.hash_megabytes) : nullptr) {}
+          table_(limits.transposition_table ? std::make_unique<TranspositionTable>(limits.hash_megabytes) : nullptr),
+          pawn_cache_(limits.pawn_cache && limits.evaluation.advanced ? std::make_unique<PawnCache>() : nullptr) {}
 
     SearchResult run(chess::Board& board, const SearchProgress& progress) {
         profiling::reset();
@@ -57,7 +69,7 @@ public:
         for (int depth = first; depth <= limits_.depth; ++depth) {
             // Only commit a complete pass. Recursive PV updates stay local, so an
             // interrupted deeper pass cannot corrupt the saved move or score.
-            std::vector<chess::Move> pv;
+            PrincipalVariation pv;
             int score;
             try {
                 const bool aspiration = pruning_ && limits_.aspiration_windows &&
@@ -99,12 +111,13 @@ public:
                 break;
             }
             result_.white_score = score;
-            result_.pv = std::move(pv);
+            pv.publish(result_.pv);
             result_.depth = depth;
             result_.complete = depth == limits_.depth;
             if (!result_.pv.empty()) result_.best_move = result_.pv.front();
             result_.milliseconds = elapsed();
             result_.hashfull = table_ ? table_->hashfull() : 0;
+            if (pawn_cache_) { result_.pawn_probes = pawn_cache_->probes; result_.pawn_hits = pawn_cache_->hits; }
             if (progress) progress(result_);
             // Only time-managed searches stop on a proven root mate. Explicit
             // depth requests retain their reproducible target-depth behavior.
@@ -113,6 +126,7 @@ public:
         // Totals include unfinished work; depth/PV/score refer to the saved pass.
         result_.milliseconds = elapsed();
         result_.hashfull = table_ ? table_->hashfull() : 0;
+        if (pawn_cache_) { result_.pawn_probes = pawn_cache_->probes; result_.pawn_hits = pawn_cache_->hits; }
         result_.profile = profiling::finish();
         return result_;
     }
@@ -126,16 +140,27 @@ private:
     Clock::time_point deadline_;
     SearchResult result_;
     std::unique_ptr<TranspositionTable> table_;  // Fresh per search; shared across completed passes.
+    std::unique_ptr<PawnCache> pawn_cache_;
 
     int static_evaluation(const chess::Board& board) {
         ++result_.eval_calls;
         profiling::Scope measured(profiling::EVALUATION);
-        return evaluate(board, limits_.use_pst, limits_.evaluation);
+        return evaluate(board, limits_.use_pst, limits_.evaluation, pawn_cache_.get());
     }
 
     void generate(chess::Movelist& moves, const chess::Board& board) {
         profiling::Scope measured(profiling::MOVEGEN);
         chess::movegen::legalmoves(moves, board);
+    }
+
+    bool has_legal_move(const chess::Board& board) {
+        profiling::Scope measured(profiling::MOVEGEN);
+        return chess::movegen::anylegalmoves(board);
+    }
+
+    void generate_captures(chess::Movelist& moves, const chess::Board& board) {
+        profiling::Scope measured(profiling::MOVEGEN);
+        chess::movegen::legalmoves<chess::movegen::MoveGenType::CAPTURE>(moves, board);
     }
 
     std::int64_t elapsed() const {
@@ -148,7 +173,7 @@ private:
         // The GUI separately handles claim declaration and automatic endings.
         // A hypothetical pass is not game history. Neither it nor its descendants
         // may claim repetition/50-move draws against the actual game's history.
-        return board.isInsufficientMaterial() ||
+        return insufficient_material(board) ||
                (!null_subtree && (board.isHalfMoveDraw() || board.isRepetition(2)));
     }
 
@@ -168,9 +193,9 @@ private:
         result_.selective_depth = std::max(result_.selective_depth, ply);
     }
 
-    static std::optional<int> terminal(const chess::Board& board, const chess::Movelist& moves, int ply,
+    static std::optional<int> terminal(const chess::Board& board, bool has_move, int ply,
                                        bool null_subtree = false) {
-        if (moves.empty()) {
+        if (!has_move) {
             if (!board.inCheck()) return 0;
             return board.sideToMove() == chess::Color::WHITE ? -MATE_SCORE + ply : MATE_SCORE - ply;
         }
@@ -178,13 +203,24 @@ private:
         return std::nullopt;
     }
 
+    static std::optional<int> terminal(const chess::Board& board, const chess::Movelist& moves, int ply,
+                                       bool null_subtree = false) {
+        return terminal(board, !moves.empty(), ply, null_subtree);
+    }
+
     int quiescence(chess::Board& board, int ply, int qply, int alpha, int beta,
-                   std::vector<chess::Move>& pv, bool null_subtree = false) {
+                   PrincipalVariation& pv, bool null_subtree = false) {
         visit(ply, true);
-        chess::Movelist moves;
-        generate(moves, board);
-        if (const auto score = terminal(board, moves, ply, null_subtree)) return *score;
         const bool checked = board.inCheck();
+        const auto promotion_rank = board.sideToMove() == chess::Color::WHITE ?
+                                    0x00FF000000000000ULL : 0x000000000000FF00ULL;
+        // Capture-only generation omits quiet promotions. Preserve the complete
+        // old sequence for those positions and when ordering is disabled.
+        const bool specialized = limits_.fast_movegen && limits_.move_ordering && !checked &&
+            !(board.pieces(chess::PieceType::PAWN, board.sideToMove()) & promotion_rank);
+        chess::Movelist moves;
+        if (!specialized) generate(moves, board);
+        if (const auto score = terminal(board, specialized ? has_legal_move(board) : !moves.empty(), ply, null_subtree)) return *score;
         const bool maximizing = board.sideToMove() == chess::Color::WHITE;
         int best;
         if (checked) {
@@ -207,12 +243,13 @@ private:
             }
         }
         chess::Movelist tactical;
-        for (const auto move : moves) {
-            if (checked || board.isCapture(move) || move.typeOf() == chess::Move::PROMOTION) tactical.add(move);
-        }
+        if (specialized) generate_captures(tactical, board);
+        else for (const auto move : moves) {
+                if (checked || board.isCapture(move) || move.typeOf() == chess::Move::PROMOTION) tactical.add(move);
+            }
         if (limits_.move_ordering) order_moves(tactical, board, chess::Move{}, chess::Move{});
         for (const auto move : tactical) {
-            std::vector<chess::Move> child_pv;
+            PrincipalVariation child_pv;
             int score;
             {
                 ScopedMove played(board, move);
@@ -220,8 +257,7 @@ private:
             }
             if ((maximizing && score > best) || (!maximizing && score < best)) {
                 best = score;
-                pv.assign(1, move);
-                pv.insert(pv.end(), child_pv.begin(), child_pv.end());
+                pv.prepend(move, child_pv);
             }
             if (pruning_) {
                 if (maximizing) alpha = std::max(alpha, best);
@@ -233,10 +269,14 @@ private:
     }
 
     int minimax(chess::Board& board, int depth, int ply, int alpha, int beta,
-                std::vector<chess::Move>& pv, bool follows_previous_pv, std::uint64_t history,
+                PrincipalVariation& pv, bool follows_previous_pv, std::uint64_t history,
                 bool null_subtree = false) {
         if (depth == 0 && limits_.quiescence) return quiescence(board, ply, 0, alpha, beta, pv, null_subtree);
         visit(ply);
+        if (depth == 0 && limits_.fast_movegen) {
+            if (const auto score = terminal(board, has_legal_move(board), ply, null_subtree)) return *score;
+            return static_evaluation(board);
+        }
         chess::Movelist moves;
         generate(moves, board);
         if (const auto score = terminal(board, moves, ply, null_subtree)) return *score;
@@ -282,7 +322,7 @@ private:
             if ((maximizing && stand >= beta) || (!maximizing && stand <= alpha)) {
                 ++result_.null_attempts;
                 int score;
-                std::vector<chess::Move> ignored_pv;
+                PrincipalVariation ignored_pv;
                 {
                     ScopedNullMove passed(board);
                     score = minimax(board, depth - 3, ply + 1,
@@ -302,7 +342,7 @@ private:
         int move_index = 0;
         // Minimax and alpha-beta share the same ordering and first-best tie rule.
         for (const auto move : moves) {
-            std::vector<chess::Move> child_pv;
+            PrincipalVariation child_pv;
             const auto parent_key = board.hash();
             const bool reduce = pruning_ && limits_.late_move_reductions && limits_.move_ordering &&
                 lmr_candidate(board, move, depth, ply, move_index, alpha, beta, table_move, hint, null_subtree);
@@ -347,8 +387,7 @@ private:
             ++move_index;
             if ((maximizing && score > best) || (!maximizing && score < best)) {
                 best = score;
-                pv.assign(1, move);
-                pv.insert(pv.end(), child_pv.begin(), child_pv.end());
+                pv.prepend(move, child_pv);
             }
             if (pruning_) {
                 if (maximizing) alpha = std::max(alpha, best);

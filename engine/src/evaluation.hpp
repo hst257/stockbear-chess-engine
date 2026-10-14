@@ -53,7 +53,8 @@ int evaluate_material(const chess::Board& board);
 int game_phase(const chess::Board& board);
 Evaluation evaluate_breakdown(const chess::Board& board, bool use_pst = true);
 int evaluate(const chess::Board& board, bool use_pst = true);
+class PawnCache;
 Evaluation evaluate_breakdown(const chess::Board& board, bool use_pst, const EvaluationOptions& options);
-int evaluate(const chess::Board& board, bool use_pst, const EvaluationOptions& options);
+int evaluate(const chess::Board& board, bool use_pst, const EvaluationOptions& options, PawnCache* cache = nullptr);
 
 }  // namespace chesslab

@@ -35,11 +35,11 @@ def metadata(engine):
             "git": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()}
 
 
-def measure(engine, board, depth=None, ms=None):
+def measure(engine, board, depth=None, ms=None, nodes=None):
     stats = {}
     profile = None
     start = time.perf_counter()
-    limit = chess.engine.Limit(depth=depth, time=30) if depth else chess.engine.Limit(time=ms / 1000)
+    limit = chess.engine.Limit(depth=depth, time=30, nodes=nodes) if depth else chess.engine.Limit(time=ms / 1000)
     with engine.analysis(board, limit, info=chess.engine.INFO_ALL) as analysis:
         for info in analysis:
             if info.get("string", "").startswith("profile "):
@@ -49,9 +49,9 @@ def measure(engine, board, depth=None, ms=None):
         info = analysis.info
     wall = time.perf_counter() - start
     assert result.move in board.legal_moves if result.move else board.is_game_over(claim_draw=True)
-    if depth:
+    if depth and not nodes:
         assert info["depth"] == depth
-    else:
+    elif not depth:
         assert wall < ms / 1000 + 2
     replay = board.copy()
     for move in info.get("pv", []):
@@ -59,7 +59,7 @@ def measure(engine, board, depth=None, ms=None):
         replay.push(move)
     return {"depth": info["depth"], "nodes": info["nodes"], "qnodes": stats.get("qnodes"),
             "seconds": info["time"], "wall_seconds": wall, "nps": info["nps"],
-            "score": str(info["score"].white()), "move": result.move.uci() if result.move else "0000",
+            "score": str(info["score"].white()) if "score" in info else None, "move": result.move.uci() if result.move else "0000",
             "profile": profile, "pv": [m.uci() for m in info.get("pv", [])], "counters": stats,
             "tt_hit_rate": stats.get("hits", 0) / max(1, stats.get("probes", 0))}
 
@@ -76,7 +76,10 @@ def main():
     if args.output.exists():
         parser.error("Output exists: frozen records cannot be overwritten; choose a new path")
     data = metadata(args.engine)
-    data["compiler"] = "Zig 0.13.0 / Clang; original baseline C++17 -O2 -pthread -Wall -Wextra"
+    data["compiler"] = "Zig 0.13.0 / Clang; C++17 -O2 -pthread -Wall -Wextra unless build metadata overrides"
+    build_info = args.engine.with_suffix(".build.json")
+    if build_info.exists():
+        data["build"] = json.loads(build_info.read_text())
     data["perft_source"] = "https://chessprogramming.org/Perft_Results"
     data["perft"] = []
     for name, fen, counts in PERFT:

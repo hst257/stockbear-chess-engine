@@ -3,7 +3,7 @@
 ChessLab 0.10 adds modular handcrafted evaluation to the existing C++ engine.
 Advanced evaluation defaults to on. Search algorithms, draw adjudication, GUI
 layout, and the default 1-second thinking budget are unchanged. There is no NNUE,
-opening book, tablebase, evaluation cache, or new pruning algorithm.
+opening book, tablebase, new pruning algorithm. Release 0.11 adds a verified pawn-only cache and exact search implementation optimizations; see the [audit](engine-audit.md).
 
 ## Implementation map
 
@@ -166,7 +166,7 @@ evaluation tests before the next stage. Passing counts: 89 modular/taper,
 [`evaluation-stages/`](evaluation-stages/). Stage 8 also fixes self-defense in
 mobility and removes diagnostic-only rounding from search calls.
 
-The final Windows suite passes **852 tests**, including baseline regression,
+The final Windows suite passes **926 tests**, including baseline regression,
 all phases, mirror/sign symmetry, exact component reconciliation, category
 switches, legal PVs, PVS/full-window/cache equivalence, mode changes, cancellation,
 and insufficient draws. Native tests are included in that suite. The native
@@ -188,8 +188,8 @@ versus **33–35 ns** baseline; the pawn endgame is **66 ns** versus **12 ns**.
 Disabling pawn structure saves about 26–27 ns and disabling endgame activity
 about 28–29 ns in the measured opening/middlegame. Costs are not additive because
 categories share context. Tiny negative savings in ablations are measurement
-noise. No cache was added: the pawn work is bounded and cheap in absolute terms;
-a pawn cache needs an independent hit-rate and memory-cost experiment.
+noise. No cache was added in the original 0.10 evaluation milestone: the pawn work is bounded and cheap in absolute terms;
+the later [engine audit](engine-audit.md) measures whole-search hit rates and adds a cache with complete pawn keys and live occupancy-dependent terms.
 
 ## Recorded search comparison
 
