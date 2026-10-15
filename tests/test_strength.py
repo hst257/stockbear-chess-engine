@@ -9,6 +9,7 @@ import pytest
 
 from tools.benchmark_optimizations import POSITIONS, counters
 from tools.tune_evaluation import fit, loss, predict, truncate
+from tests.test_engine import protocol
 
 NEW_SEARCH = ("UseHistory", "UseKillers", "UseSEE", "UseAdaptiveLMR",
               "UseReverseFutility", "UseFutility", "UseCheckExtensions")
@@ -19,9 +20,11 @@ NEW_SEARCH = ("UseHistory", "UseKillers", "UseSEE", "UseAdaptiveLMR",
     ("7k/8/5p2/4p3/3Q4/8/8/K7 w - - 0 1", "d4e5", -800),
     ("5k2/8/5n2/3p4/2P5/8/8/K4R2 w - - 0 1", "c4d5", 100),  # pinned knight
     ("7k/8/8/3pP3/8/8/8/K7 w - d6 0 1", "e5d6", 100),
+    ("3r3k/8/8/3pP3/8/8/8/K7 w - d6 0 1", "e5d6", 0),  # EP exposes recapturing rook
     ("7k/4P3/8/8/8/8/8/K7 w - - 0 1", "e7e8q", 800),
     ("7r/6P1/k7/8/8/8/8/K7 w - - 0 1", "g7h8q", 1300),
     ("7r/6P1/k7/8/8/8/8/K7 w - - 0 1", "g7h8n", 720),
+    ("7k/1R6/8/8/8/7K/p7/1n6 w - - 0 1", "b7b1", -980),  # recapture promotes
     ("6k1/6p1/8/8/8/8/6Q1/K5R1 w - - 0 1", "g2g7", 100),  # protected from king
     ("4k3/8/8/8/8/8/8/4K2R w K - 0 1", "e1g1", 0),
 ])
@@ -188,3 +191,30 @@ def test_tuner_fits_signal_and_truncates_like_cpp():
     fitted = fit(rows)
     assert fitted[0] == 150 and loss(rows, fitted) < loss(rows, [100] * 18)
     assert truncate(-5, 2) == -2
+
+
+def test_bishop_knight_conversion_prefers_matching_corner(engine_path):
+    good = chess.Board("8/8/8/1N6/3K4/B7/8/k7 w - - 0 1")
+    wrong = good.copy()
+    wrong.remove_piece_at(chess.A1)
+    wrong.set_piece_at(chess.H1, chess.Piece(chess.KING, chess.BLACK))
+    assert good.is_valid() and wrong.is_valid()
+    values = eval_batch(engine_path, [good.fen(), wrong.fen(), good.mirror().fen()])
+    terms = [v["components"]["endgame"]["eg"] for v in values]
+    assert terms[0] > terms[1] and terms[2] == -terms[0]
+
+
+def test_futility_rejects_near_draw_clocks(engine):
+    engine.configure({"UseReverseFutility": True, "UseFutility": True, "PVS": True})
+    board = chess.Board("r5k1/8/8/8/8/8/8/1K5R w - - 90 1")
+    assert board.is_valid()
+    result = engine.play(board, chess.engine.Limit(depth=5), info=chess.engine.INFO_ALL)
+    c = counters(result.info)
+    assert c["reverse_futility_cutoffs"] == c["futility_prunes"] == 0
+
+
+def test_new_uci_settings_reject_invalid_values(protocol):
+    for name, value in (("UseSEE", "yes"), ("UseMopUp", "1"),
+                        ("WeightMobilityMG", "201"), ("WeightPassersEG", "-1")):
+        protocol.send(f"setoption name {name} value {value}")
+        assert "error" in protocol.until("info string error")[-1]

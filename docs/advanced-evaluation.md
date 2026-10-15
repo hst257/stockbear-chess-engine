@@ -259,3 +259,13 @@ run substantially larger color-balanced games at multiple budgets. Evaluate
 king-safety, mobility, and scaling ablations separately; profile real search
 positions before considering pawn hashing. Any incremental evaluation, cache,
 specialized endgame logic, or further search changes needs a separate request.
+
+
+## Later upgrades
+
+The 0.11 audit added a pawn-only cache while keeping occupancy-dependent terms
+live. Version 0.12 adds bare-king conversion guidance, runtime MG/EG component
+percentages, and a reproducible calibration experiment with grouped holdout.
+The fitted candidate remains experimental until game evidence supports it. See
+[the current strength guide](strength-upgrade.md) for results and settings;
+the milestone measurements above describe the original 0.10 evaluator.

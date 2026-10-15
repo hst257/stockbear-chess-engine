@@ -1,0 +1,72 @@
+{
+  "method": "SDL dummy driver; real Pygame app and UCI subprocesses; not desktop interaction",
+  "budgets": [
+    {
+      "budget_ms": 100,
+      "completed_depth": 7,
+      "frames": 43,
+      "median_ms": 1.4950999757274985,
+      "p95_ms": 1.8599999893922359,
+      "p99_ms": 2.729900006670505,
+      "maximum_ms": 3.328399994643405
+    },
+    {
+      "budget_ms": 500,
+      "completed_depth": 8,
+      "frames": 118,
+      "median_ms": 1.90604999079369,
+      "p95_ms": 4.473399982089177,
+      "p99_ms": 6.5697999962139875,
+      "maximum_ms": 22.75599999120459
+    },
+    {
+      "budget_ms": 1000,
+      "completed_depth": 9,
+      "frames": 165,
+      "median_ms": 2.673099981620908,
+      "p95_ms": 4.712800000561401,
+      "p99_ms": 7.040200027404353,
+      "maximum_ms": 15.53309999871999
+    },
+    {
+      "budget_ms": 3000,
+      "completed_depth": 10,
+      "frames": 461,
+      "median_ms": 2.3978000099305063,
+      "p95_ms": 6.2886999803595245,
+      "p99_ms": 10.526000027311966,
+      "maximum_ms": 21.11269999295473
+    },
+    {
+      "budget_ms": 5000,
+      "completed_depth": 10,
+      "frames": 872,
+      "median_ms": 2.273850011988543,
+      "p95_ms": 4.128200002014637,
+      "p99_ms": 6.579400011105463,
+      "maximum_ms": 8.88380000833422
+    }
+  ],
+  "comparison": {
+    "depths": [
+      2,
+      9
+    ],
+    "frames": 268,
+    "median_ms": 4.3781000131275505,
+    "p95_ms": 6.581300025573,
+    "p99_ms": 11.210399999981746,
+    "maximum_ms": 14.013299980433658
+  },
+  "undo_and_new_reject_stale_moves": true,
+  "worker_exit_codes": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "engine_sha256": "a0934bceacd36f5a8aa5b4e08814afc16447ed5ad3a3fbabd41dbd74adcaba90",
+  "concurrent_sanitizer_build": true
+}

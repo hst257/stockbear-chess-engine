@@ -1,0 +1,63 @@
+{
+  "native_source_commit": "d81fb26",
+  "engine_sha256": "a0934bceacd36f5a8aa5b4e08814afc16447ed5ad3a3fbabd41dbd74adcaba90",
+  "pytest": {
+    "passed": 960,
+    "seconds": 90.22,
+    "command": ".venv/Scripts/python.exe -m pytest -q --basetemp artifacts/strength/final-suite --tb=short"
+  },
+  "ubsan": {
+    "exit_code": 0,
+    "random_transitions_verified": 27509,
+    "checks": [
+      "history bounds",
+      "adaptive LMR bounds",
+      "real/null make/unmake with full history",
+      "pawn cache collisions/live evaluation",
+      "bounded fast/full search"
+    ],
+    "sanitizer_findings": 0,
+    "build": {
+      "compiler": [
+        "Z:\\Code\\Chess\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ziglang",
+        "c++"
+      ],
+      "flags": [
+        "-fsanitize=undefined",
+        "-fno-sanitize-recover=all",
+        "-std=c++17",
+        "-O2",
+        "-pthread",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "Z:\\Code\\Chess\\engine\\vendor\\chess-library",
+        "-I",
+        "Z:\\Code\\Chess\\engine\\src",
+        "Z:\\Code\\Chess\\engine\\tests\\test_audit.cpp",
+        "Z:\\Code\\Chess\\engine\\src\\search.cpp",
+        "Z:\\Code\\Chess\\engine\\src\\evaluation.cpp",
+        "-o",
+        "Z:\\Code\\Chess\\artifacts\\strength\\ubsan-audit.exe"
+      ],
+      "profile": false,
+      "optimization": "O2",
+      "lto": false,
+      "sanitizer": "undefined"
+    },
+    "compiler_warnings": "Pinned Zig libunwind export-attribute warnings; build succeeded"
+  },
+  "desktop": {
+    "command": "launch.bat --mode engine --human-color black --smoke-test 180 --screenshot artifacts/strength/desktop-launch.png",
+    "exit_code": 0,
+    "screenshot": "artifacts/strength/desktop-launch.png",
+    "screenshot_sha256": "14f3b8807639382a8e9ea1a2e5b3d97a37545535bdf428ea481f0e5d20b17c65",
+    "visual_check": "Rendered board from Black perspective with legal White Nc3 and completed 1-second search"
+  },
+  "match_replay": "replay-verification.json",
+  "gui": "gui-verification.json",
+  "tuning_default_decision": "Retain neutral 100% component weights: held-out improvement is small and 40-game screen inconclusive; fitted UCI preset remains available.",
+  "nnue": "Not implemented; separate next step requested by user."
+}

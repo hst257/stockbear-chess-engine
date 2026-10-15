@@ -6,6 +6,12 @@ Zobrist-based transposition caching, quiescence, Principal Variation Search, asp
 It owns its board independently of Python.
 No search or evaluation is delegated to another engine.
 
+Version 0.12 adds switchable history/killer ordering, legal-recapture SEE,
+adaptive LMR, guarded forward/reverse futility, two-ply-budget check extensions,
+bare-king conversion and MG/EG component weight tuning. See the
+[strength upgrade guide](../docs/strength-upgrade.md) for switches, guards,
+exhaustive baseline settings, experiments and reproduction commands.
+
 ## Build
 
 From the repository root on Windows:
@@ -52,8 +58,7 @@ still reuse completed subtrees. With `AlphaBeta=true`, the same
 function updates alpha/beta bounds and cuts branches that cannot affect the answer.
 Both modes share the same ordering policy and first-best tie rule. PVS is active
 only with alpha-beta. Minimax ignores aspiration/NMP/LMR; NMP/LMR are selective,
-so equal nominal depth need not give the exhaustive score. Killer/history heuristics, opening books, and neural
-networks are deferred.
+so equal nominal depth need not give the exhaustive score. Forward/reverse futility and bounded check extensions are also selective; disable them for exhaustive comparisons. History/killer ordering is implemented; opening books and neural networks remain deferred.
 
 `src/evaluation.cpp` adds positional centipawns from the compile-time arrays in
 `src/pst.hpp`, one table per piece plus a second king table. `UsePST=true`
@@ -118,7 +123,7 @@ Timings include unfinished work; saved score/PV/depth stay together.
 
 ## Move ordering
 
-Enabled by default in both algorithms. At each non-leaf node, stable sorting uses:
+Enabled by default in both algorithms. At each non-leaf node, stable sorting uses these priorities:
 
 1. A matching transposition-table move, if available.
 2. The previous completed iteration's PV move, only while following that PV's
@@ -160,7 +165,7 @@ pruning are not included; stand pat remains a zugzwang approximation.
 PVS searches the first child with the full window. Later White moves use
 `[alpha, alpha+1]`; Black moves use `[beta-1, beta]`. A result strictly inside
 the original full window triggers a full-window re-search. Unit-width windows
-use ordinary alpha-beta. Minimax never uses scouts. At fixed Q settings with NMP/LMR disabled, PVS
+use ordinary alpha-beta. Minimax never uses scouts. At fixed Q settings with NMP/LMR, forward/reverse futility and check extensions disabled, PVS
 preserves full-window scores; tied moves may differ. Q itself changes the leaf model.
 
 Setup and Search lab provide **Quiescence: on/off** and **PVS: on/off**; setup
@@ -184,7 +189,7 @@ LMR also requires ordering. Disabling PVS generally leaves them inactive.
 CLI switches: `--no-aspiration-windows`, `--no-null-move-pruning`, `--no-lmr`.
 The [optimization guide](../docs/search-optimizations.md) records complete guards,
 UCI examples, diagnostics, tests, independent stages, and controlled benchmarks.
-Disable all three for historical exhaustive comparisons. Selective scores can
+For historical exhaustive comparisons also disable forward/reverse futility and check extensions; disable history/killers/SEE when reproducing old traversal order. Selective scores can
 change with depth, ordering, cache, and window policy; an EXACT TT tag is relative
 to the selected search policy, not a full-width guarantee.
 

@@ -219,8 +219,8 @@ Running that tool without `--offline` checks the source licenses online and down
 
 ## Current limitations
 
-- NMP/LMR are selective heuristics and can miss quiet resources or unusual zugzwangs despite conservative guards. Gains depend on the position; no reliable Elo gain is established.
-- Advanced evaluation adds handcrafted positional terms with untuned weights. Mobility uses attack maps rather than full tactical legality, and material scaling is heuristic. Quiet checking moves and SEE/delta pruning remain deferred; benchmark results do not establish an Elo gain.
+- NMP/LMR, futility pruning and bounded check extensions are selective heuristics and can miss quiet resources or unusual zugzwangs despite conservative guards. Gains depend on the position; no reliable Elo gain is established.
+- Advanced evaluation adds handcrafted positional terms with baseline weights; a fitted calibration candidate is available for experiments. Mobility uses attack maps rather than full tactical legality, and material scaling is heuristic. Quiet checking moves and SEE/delta pruning remain deferred; benchmark results do not establish an Elo gain.
 - Quiescence stops at non-check nodes after 16 extra plies or absolute ply 64; check evasions continue to the absolute ceiling, where an unresolved check interrupts the pass. These safety limits are heuristic boundaries. Stand-pat evaluation can miss zugzwang.
 - Transposition tables are fresh per search and use conservative draw-history matching. Allocation can make tiny searches slower despite node savings; no cross-search cache is retained.
 - Timed gameplay uses 100–5000 ms with a 64-ply safety ceiling. Fixed-depth GUI debugging retains depths 1–5 and a 15-second watchdog. No score is claimed before a completed pass; CPU load and communication can add timing overhead.
