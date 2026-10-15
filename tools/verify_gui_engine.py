@@ -47,13 +47,16 @@ def timings(frames):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=Path("artifacts/audit"))
-    output = parser.parse_args().output
+    parser.add_argument("--evaluator", choices=("classical", "nnue"), default="classical")
+    args = parser.parse_args()
+    output = args.output
     output.mkdir(parents=True, exist_ok=True)
     report = {"method": "SDL dummy driver; real Pygame app and UCI subprocesses; not desktop interaction",
+              "evaluator": args.evaluator,
               "budgets": []}
     all_jobs = []
     for _, ms in THINKING_TIMES:
-        app = Application(settings=EngineSettings(enabled=True, thinking_time_ms=ms))
+        app = Application(settings=EngineSettings(enabled=True, thinking_time_ms=ms, evaluator=args.evaluator))
         try:
             for _ in range(5):
                 app.draw()
@@ -73,7 +76,7 @@ def main():
                 pygame.image.save(app.surface, output / "gui-default.png")
         finally:
             app.close()
-    app = Application(size=(960, 680), settings=EngineSettings(enabled=True))
+    app = Application(size=(960, 680), settings=EngineSettings(enabled=True, evaluator=args.evaluator))
     try:
         for action in ("undo", "new"):
             assert app.game.play(chess.Move.from_uci("e2e4"))

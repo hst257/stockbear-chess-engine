@@ -1,7 +1,7 @@
 # StockBear float32 export v1
 
-This is a custom StockBear evaluator, not a Stockfish `.nnue` file. No classical
-engine integration is included. Quantization is deliberately deferred: the v1
+This is a custom StockBear evaluator, not a Stockfish `.nnue` file. The parent
+engine supports [native inference](../../docs/nnue.md). Quantization is deferred: the v1
 artifact preserves float32 weights, with an independent NumPy reader and golden
 outputs that can serve as a future C++ acceptance contract.
 

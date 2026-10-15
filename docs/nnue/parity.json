@@ -1,0 +1,651 @@
+{
+  "model_sha256": "47076595f00d6218ad8b7d6085da688bde43459d14571e2d456ceba436b1e512",
+  "engine_sha256": "5be9d34603f10029a85ac2cd5dbf0d532ba1847ac52d928dd527e1c183495bad",
+  "source_revision": "8c3c911",
+  "positions": 128,
+  "max_abs_cp_error": 0.00010685449217362475,
+  "mean_abs_cp_error": 2.878874939276667e-05,
+  "tolerance_cp": 0.01,
+  "scores": [
+    {
+      "fen": "3k1qr1/2rb1p2/B1n1pP2/1PRpP3/p2P2p1/4B1Q1/6KP/2R5 b - - 0 1",
+      "expected_side_to_move_cp": -627.8988838195801,
+      "actual_side_to_move_cp": -627.898926
+    },
+    {
+      "fen": "2r1kb1r/ppqbnppp/2n1p3/3pP3/7P/2PB1N2/P2N1PP1/R1BQR1K1 w k - 0 1",
+      "expected_side_to_move_cp": 11.084234714508057,
+      "actual_side_to_move_cp": 11.0842314
+    },
+    {
+      "fen": "8/7R/1p2k2p/1Pp4P/3pK1p1/1r4P1/5P2/8 b - - 0 1",
+      "expected_side_to_move_cp": 174.84328746795654,
+      "actual_side_to_move_cp": 174.843307
+    },
+    {
+      "fen": "3rkbnr/p1p1p1pp/2p5/6P1/5B2/7P/PPP5/R3K3 b k - 0 1",
+      "expected_side_to_move_cp": 947.3905563354492,
+      "actual_side_to_move_cp": 947.390564
+    },
+    {
+      "fen": "8/3k2B1/6p1/pP1K1p1p/P4p2/4bP1P/8/8 w - - 0 1",
+      "expected_side_to_move_cp": -70.64319252967834,
+      "actual_side_to_move_cp": -70.6431503
+    },
+    {
+      "fen": "6k1/5Npp/pp6/5R2/Pp2K2b/1P1P4/1Pr2r2/5R2 b - - 0 1",
+      "expected_side_to_move_cp": 409.25116539001465,
+      "actual_side_to_move_cp": 409.251129
+    },
+    {
+      "fen": "r2qnr1k/1ppbb2p/p1np1pp1/4p3/P2PP3/1BP2N1P/1P1N1PP1/R1BQ1RK1 w - - 0 1",
+      "expected_side_to_move_cp": 24.05906319618225,
+      "actual_side_to_move_cp": 24.0590363
+    },
+    {
+      "fen": "3b1rk1/3q2pp/p3p3/1p1pR1B1/1P1P2P1/P2Q2KP/5r2/4R3 b - - 0 1",
+      "expected_side_to_move_cp": 103.83567810058594,
+      "actual_side_to_move_cp": 103.835716
+    },
+    {
+      "fen": "8/7p/4pp2/3p2k1/r2Pp1P1/P1R1P1K1/6P1/8 w - - 0 1",
+      "expected_side_to_move_cp": -193.4917449951172,
+      "actual_side_to_move_cp": -193.491776
+    },
+    {
+      "fen": "5k2/6p1/5p2/p1p4p/2B1P2P/PPP5/6K1/8 w - - 0 1",
+      "expected_side_to_move_cp": 554.243803024292,
+      "actual_side_to_move_cp": 554.243774
+    },
+    {
+      "fen": "1r3r2/1p2ppk1/pq1p2pN/2nB4/2P5/P3P1P1/1b6/1R3QK1 w - - 0 1",
+      "expected_side_to_move_cp": -638.9055252075195,
+      "actual_side_to_move_cp": -638.905579
+    },
+    {
+      "fen": "r3r1k1/ppq2pp1/3b3p/3pn3/8/2P1BN1P/PP2QPP1/R3R1K1 b - - 0 1",
+      "expected_side_to_move_cp": 132.0556879043579,
+      "actual_side_to_move_cp": 132.055771
+    },
+    {
+      "fen": "r1bq1rk1/pp3pb1/1n5p/3p2p1/3P4/3B1NP1/PPQN1PP1/2KR3R w - - 0 1",
+      "expected_side_to_move_cp": 48.53268265724182,
+      "actual_side_to_move_cp": 48.5326691
+    },
+    {
+      "fen": "2k3rr/p1p4q/Ppnppb2/4p3/2N1P1pp/2NP2P1/1PP2P1P/R1Q2RK1 w - - 0 1",
+      "expected_side_to_move_cp": -355.99682331085205,
+      "actual_side_to_move_cp": -355.996796
+    },
+    {
+      "fen": "2r5/1nq3k1/4p1pp/3pRb2/PQ1P1p2/1PP2P2/3K2P1/7R w - - 0 1",
+      "expected_side_to_move_cp": 272.4942922592163,
+      "actual_side_to_move_cp": 272.494293
+    },
+    {
+      "fen": "5n2/p3Bpk1/1n2p1p1/3pP3/2pP4/2P1N1PB/P4P2/3b2K1 b - - 0 1",
+      "expected_side_to_move_cp": -4.739129543304443,
+      "actual_side_to_move_cp": -4.73910856
+    },
+    {
+      "fen": "1rbq1rk1/1ppn1pbp/p1np2p1/4p3/P1P1P3/2NP2PP/1P2NPB1/R1BQ1RK1 w - - 0 1",
+      "expected_side_to_move_cp": -5.191469192504883,
+      "actual_side_to_move_cp": -5.19146347
+    },
+    {
+      "fen": "r1b3k1/1pp1b1pp/3p4/4n3/1PP1Nq2/3P4/3Q1PBP/1R3RK1 b - - 0 1",
+      "expected_side_to_move_cp": -146.8517780303955,
+      "actual_side_to_move_cp": -146.851746
+    },
+    {
+      "fen": "r2qrnk1/p4pb1/1p1pp1p1/2p3Nn/5P2/1P1PPR1Q/PBPN3P/4R1K1 w - - 0 1",
+      "expected_side_to_move_cp": 173.12474250793457,
+      "actual_side_to_move_cp": 173.124771
+    },
+    {
+      "fen": "6k1/3q1pp1/1Q2b1np/1p3p1N/1B6/2P2P1P/6P1/7K w - - 0 1",
+      "expected_side_to_move_cp": -187.50863075256348,
+      "actual_side_to_move_cp": -187.508652
+    },
+    {
+      "fen": "r2q1rk1/3bbppp/p1np1n2/1pp1p3/2B1P3/2PPBN2/PP1N1PPP/R2QR1K1 w - - 0 1",
+      "expected_side_to_move_cp": 10.328465700149536,
+      "actual_side_to_move_cp": 10.3284512
+    },
+    {
+      "fen": "r1b1k2r/1p3ppp/pqn1p3/3pP3/3P1PPb/1N1BB3/PP2Q1KP/R6R b kq - 0 1",
+      "expected_side_to_move_cp": -154.98905181884766,
+      "actual_side_to_move_cp": -154.989029
+    },
+    {
+      "fen": "8/8/R5pp/2r2k2/5p2/7P/5KP1/8 b - - 0 1",
+      "expected_side_to_move_cp": 325.171160697937,
+      "actual_side_to_move_cp": 325.171082
+    },
+    {
+      "fen": "r4rk1/1ppq1pp1/pbnp3p/1B1Np2b/PP2P3/2PP1N1P/5PP1/R2Q1RK1 w - - 0 1",
+      "expected_side_to_move_cp": 172.9259729385376,
+      "actual_side_to_move_cp": 172.925995
+    },
+    {
+      "fen": "r1br2k1/1pq2p1p/p3p1p1/3P4/4N3/1P2N3/P2QBPPb/2RR3K b - - 0 1",
+      "expected_side_to_move_cp": -327.63779163360596,
+      "actual_side_to_move_cp": -327.637756
+    },
+    {
+      "fen": "4rrk1/1p1q1pb1/2pp3p/p5p1/P3P1b1/3B2Q1/1P3PKN/R1B2R2 b - - 0 1",
+      "expected_side_to_move_cp": 56.054478883743286,
+      "actual_side_to_move_cp": 56.0544624
+    },
+    {
+      "fen": "8/1p3k2/p1b3p1/4ppb1/P1P4p/1P1QNP1P/1q1N2P1/3K4 b - - 0 1",
+      "expected_side_to_move_cp": 441.0909175872803,
+      "actual_side_to_move_cp": 441.090912
+    },
+    {
+      "fen": "r2q1rk1/1p1n1pbp/p2p1np1/2pP4/P4P2/2NB1Q1P/1PP3P1/R1B2RK1 w - - 0 1",
+      "expected_side_to_move_cp": 36.939793825149536,
+      "actual_side_to_move_cp": 36.9397774
+    },
+    {
+      "fen": "r4rk1/pbpn2pp/1pq5/3p4/3PP3/P1PB4/2QB2PP/R4RK1 w - - 0 1",
+      "expected_side_to_move_cp": 145.38614749908447,
+      "actual_side_to_move_cp": 145.386124
+    },
+    {
+      "fen": "r3kb1r/2qb1ppp/p1nppn2/1p4B1/3NPP2/2N5/PPPQ2PP/1K1R1B1R w kq - 0 1",
+      "expected_side_to_move_cp": 55.94225525856018,
+      "actual_side_to_move_cp": 55.9422493
+    },
+    {
+      "fen": "1R6/2k5/p6p/1p4b1/1P1p4/P2P2P1/2K3b1/8 w - - 0 1",
+      "expected_side_to_move_cp": 287.56537437438965,
+      "actual_side_to_move_cp": 287.565338
+    },
+    {
+      "fen": "3r2k1/pnNnq1bp/1p2p1p1/4Pp2/1P1Q4/5N2/P4PPP/R2R2K1 w - - 0 1",
+      "expected_side_to_move_cp": 416.803503036499,
+      "actual_side_to_move_cp": 416.803467
+    },
+    {
+      "fen": "8/6p1/ppn1p1kp/2p1p3/P1P1P1N1/4KP1P/6P1/8 b - - 0 1",
+      "expected_side_to_move_cp": 181.99076652526855,
+      "actual_side_to_move_cp": 181.990692
+    },
+    {
+      "fen": "4r3/ppk2p2/3Rp1p1/PP2P3/4KPPp/8/7P/8 w - - 0 1",
+      "expected_side_to_move_cp": 141.86830520629883,
+      "actual_side_to_move_cp": 141.868286
+    },
+    {
+      "fen": "1r3b2/2r1qp1k/3pn1pp/RppBp3/1P2P3/2PPB2P/1Q3PP1/4R1K1 b - - 0 1",
+      "expected_side_to_move_cp": -299.44701194763184,
+      "actual_side_to_move_cp": -299.447021
+    },
+    {
+      "fen": "4b3/6k1/8/ppBp3P/2pP1KP1/P1P1P3/8/8 w - - 0 1",
+      "expected_side_to_move_cp": 470.80864906311035,
+      "actual_side_to_move_cp": 470.808746
+    },
+    {
+      "fen": "8/pp1Rrk1p/2p3p1/2b2p2/5P2/1PN2PKP/P7/8 w - - 0 1",
+      "expected_side_to_move_cp": -188.05394172668457,
+      "actual_side_to_move_cp": -188.053925
+    },
+    {
+      "fen": "8/p3p2p/6p1/2pp4/P5k1/2P1R3/3N2NP/6K1 w - - 0 1",
+      "expected_side_to_move_cp": 759.9886417388916,
+      "actual_side_to_move_cp": 759.988586
+    },
+    {
+      "fen": "2r5/5ppk/1n5p/pBNp4/P2Pp3/q3P1Pb/5P1P/1R1Q2K1 w - - 0 1",
+      "expected_side_to_move_cp": -93.49585771560669,
+      "actual_side_to_move_cp": -93.4958038
+    },
+    {
+      "fen": "1knr3r/p2q3p/1pbb1p2/3p3Q/3P1B2/2N5/RPP2PPP/R5K1 w - - 0 1",
+      "expected_side_to_move_cp": -164.97706174850464,
+      "actual_side_to_move_cp": -164.977036
+    },
+    {
+      "fen": "r1bq1rk1/p3npbp/1pn1p1p1/1Bp1P3/1P2N3/P4N2/2PP2PP/R1BQK2R w KQ - 0 1",
+      "expected_side_to_move_cp": 1.4074444770812988,
+      "actual_side_to_move_cp": 1.40746236
+    },
+    {
+      "fen": "2b3k1/4q2p/2pb2p1/1p1p1p2/3Pn3/rN1NP2P/2B2PP1/1RQ3K1 b - - 0 1",
+      "expected_side_to_move_cp": 276.4331102371216,
+      "actual_side_to_move_cp": 276.433136
+    },
+    {
+      "fen": "5r1k/pbpB2pp/2pp4/8/8/2N2Q2/PPP3PP/2q1R2K b - - 0 1",
+      "expected_side_to_move_cp": -22.324663400650024,
+      "actual_side_to_move_cp": -22.324749
+    },
+    {
+      "fen": "8/2knb2r/p1b4p/1p3R2/1P1pN1p1/PK1P2P1/4R1P1/8 b - - 0 1",
+      "expected_side_to_move_cp": 6.478101015090942,
+      "actual_side_to_move_cp": 6.47813225
+    },
+    {
+      "fen": "2r1k2r/1p1nbpp1/pq2p2p/n2p4/P2P1B2/2PB1N1P/1P2QPP1/R3K2R b KQk - 0 1",
+      "expected_side_to_move_cp": -29.80228066444397,
+      "actual_side_to_move_cp": -29.8022957
+    },
+    {
+      "fen": "8/1p2P1pk/p7/2p5/4p3/2P1P3/PP5N/3r1R1K b - - 0 1",
+      "expected_side_to_move_cp": -615.3345584869385,
+      "actual_side_to_move_cp": -615.334534
+    },
+    {
+      "fen": "1n6/2q3k1/2p2pp1/p1Pp4/P2NrP1P/2Q1PR2/6P1/6K1 b - - 0 1",
+      "expected_side_to_move_cp": -420.7200050354004,
+      "actual_side_to_move_cp": -420.719971
+    },
+    {
+      "fen": "7Q/1qrk4/3p4/7p/7P/8/2b3P1/7K w - - 0 1",
+      "expected_side_to_move_cp": -554.9561023712158,
+      "actual_side_to_move_cp": -554.956116
+    },
+    {
+      "fen": "R7/5pkp/6p1/1rPPP3/8/6PK/p6P/8 w - - 0 1",
+      "expected_side_to_move_cp": 240.23816585540771,
+      "actual_side_to_move_cp": 240.238235
+    },
+    {
+      "fen": "r4rk1/1b1p2bp/3qp1p1/1p2n3/3pP3/1B3N2/PP1BQPPP/2R1R1K1 w - - 0 1",
+      "expected_side_to_move_cp": -48.24831485748291,
+      "actual_side_to_move_cp": -48.248291
+    },
+    {
+      "fen": "1r6/p7/2p1kNp1/4P3/2pP2P1/3bb3/P5K1/B2R4 b - - 0 1",
+      "expected_side_to_move_cp": 247.2811460494995,
+      "actual_side_to_move_cp": 247.281189
+    },
+    {
+      "fen": "8/1k5n/p1qp1p1b/P1P1pP1p/4P1pP/B1Q3P1/8/5BK1 b - - 0 1",
+      "expected_side_to_move_cp": -244.56787109375,
+      "actual_side_to_move_cp": -244.567871
+    },
+    {
+      "fen": "5rk1/1p5p/3b2p1/QP1q4/8/1P5P/4K3/2R4R b - - 0 1",
+      "expected_side_to_move_cp": 124.79684352874756,
+      "actual_side_to_move_cp": 124.796867
+    },
+    {
+      "fen": "r2q1rk1/pp1n1pbp/3p2p1/2pP4/8/2NQPNP1/PP3PP1/R3K2R w KQ - 0 1",
+      "expected_side_to_move_cp": 5.795985460281372,
+      "actual_side_to_move_cp": 5.79599142
+    },
+    {
+      "fen": "8/1q6/b1p1R3/p1BpPppk/P2R4/1P6/2P3PP/6K1 w - - 0 1",
+      "expected_side_to_move_cp": 555.5825710296631,
+      "actual_side_to_move_cp": 555.58252
+    },
+    {
+      "fen": "2r2rk1/pp3p1p/3p2pb/3Pn2n/5P1q/1PQ5/PBP1N2P/1K1R1B1R w - - 0 1",
+      "expected_side_to_move_cp": -57.064902782440186,
+      "actual_side_to_move_cp": -57.0649033
+    },
+    {
+      "fen": "2k3rr/p1p3q1/Ppnppb2/4p2p/4P1p1/2NP1NP1/1PP2P1P/R1Q2RK1 w - - 0 1",
+      "expected_side_to_move_cp": -210.62190532684326,
+      "actual_side_to_move_cp": -210.621933
+    },
+    {
+      "fen": "7r/8/1p1p1kp1/p2Bpp2/Pb1pP3/3P1P2/2P2PK1/6R1 b - - 0 1",
+      "expected_side_to_move_cp": 201.61216259002686,
+      "actual_side_to_move_cp": 201.612183
+    },
+    {
+      "fen": "2r5/7p/kb4p1/p2nNp2/3B4/2P4P/P4PP1/2R3K1 w - - 0 1",
+      "expected_side_to_move_cp": 461.4082336425781,
+      "actual_side_to_move_cp": 461.408142
+    },
+    {
+      "fen": "1b4q1/2rb1p1k/6p1/ppnPQ3/2p1P2N/2P3NP/PPB3P1/3RR2K w - - 0 1",
+      "expected_side_to_move_cp": 1026.2831687927246,
+      "actual_side_to_move_cp": 1026.2832
+    },
+    {
+      "fen": "1q1kr3/1pb1n2p/p7/P1QP1p2/b2P2pN/1N6/1B3PP1/4R2K w - - 0 1",
+      "expected_side_to_move_cp": 274.5905876159668,
+      "actual_side_to_move_cp": 274.590668
+    },
+    {
+      "fen": "r2qr1k1/pbp2pp1/1pnbpn1p/3pN3/2PP4/1P4P1/PB1NPPBP/R2Q1RK1 w - - 0 1",
+      "expected_side_to_move_cp": -1.084047555923462,
+      "actual_side_to_move_cp": -1.08406544
+    },
+    {
+      "fen": "4k2N/8/pr5b/2p4p/2p1P1b1/1PBn1RP1/P6P/3R2K1 w - - 0 1",
+      "expected_side_to_move_cp": -22.399932146072388,
+      "actual_side_to_move_cp": -22.3999443
+    },
+    {
+      "fen": "7k/5p2/5p2/4q3/1P5P/5K2/6Q1/q7 w - - 0 1",
+      "expected_side_to_move_cp": -740.2150630950928,
+      "actual_side_to_move_cp": -740.215088
+    },
+    {
+      "fen": "3q1rk1/p3pp1p/3p2p1/2pBPb2/5P2/2P1Q3/P5PP/1R4K1 w - - 0 1",
+      "expected_side_to_move_cp": -158.927583694458,
+      "actual_side_to_move_cp": -158.927567
+    },
+    {
+      "fen": "3r4/1pk2pr1/p2b3p/2p1p3/2P2p1P/3R1B2/PP3PP1/1K1R4 b - - 0 1",
+      "expected_side_to_move_cp": 101.47271156311035,
+      "actual_side_to_move_cp": 101.472664
+    },
+    {
+      "fen": "rnb1kb1r/1p3ppp/p7/4P3/3p3q/4N1N1/PPP3PP/R1BQKB1R b KQkq - 0 1",
+      "expected_side_to_move_cp": -205.32960891723633,
+      "actual_side_to_move_cp": -205.32959
+    },
+    {
+      "fen": "rn1q3r/pp3kpp/2p1pp2/2Pp3P/3P1PP1/2Q5/PP3P2/R3KB1R w KQ - 0 1",
+      "expected_side_to_move_cp": 197.03738689422607,
+      "actual_side_to_move_cp": 197.037415
+    },
+    {
+      "fen": "2r2r1k/1p4pp/2n1B3/2q1pp2/1pPp4/6P1/PPQ1PP1P/R4RK1 b - - 0 1",
+      "expected_side_to_move_cp": 172.11894989013672,
+      "actual_side_to_move_cp": 172.118881
+    },
+    {
+      "fen": "r3k2r/pppqnppp/2nb4/3p4/3P2b1/2PB1N2/PP3PPP/RNBQR1K1 w kq - 0 1",
+      "expected_side_to_move_cp": 97.91108965873718,
+      "actual_side_to_move_cp": 97.9110718
+    },
+    {
+      "fen": "6k1/1p3p2/p2p2p1/2r5/P1pb1PP1/5B2/2P3K1/4R3 b - - 0 1",
+      "expected_side_to_move_cp": 281.6983938217163,
+      "actual_side_to_move_cp": 281.698425
+    },
+    {
+      "fen": "r2q1rk1/1p2b1p1/p1nppn1p/4p3/P3P3/2N1BN1P/1PP1QPP1/R4RK1 b - - 0 1",
+      "expected_side_to_move_cp": -26.158112287521362,
+      "actual_side_to_move_cp": -26.1581326
+    },
+    {
+      "fen": "3r1rk1/np4pb/3P3p/2PN1p2/BP1Pp3/7P/6P1/4RRK1 w - - 0 1",
+      "expected_side_to_move_cp": 749.7535228729248,
+      "actual_side_to_move_cp": 749.753601
+    },
+    {
+      "fen": "r2qk2r/p2n1ppp/1p2pn2/1B1p1b2/3P1B2/1QP1PN2/P4PPP/R3K2R w KQkq - 0 1",
+      "expected_side_to_move_cp": 102.4653673171997,
+      "actual_side_to_move_cp": 102.465393
+    },
+    {
+      "fen": "2R5/7p/3kr1p1/1P1b4/p2p3P/6K1/1PB3P1/8 b - - 0 1",
+      "expected_side_to_move_cp": -78.08095216751099,
+      "actual_side_to_move_cp": -78.080925
+    },
+    {
+      "fen": "r2r3k/1p3ppp/pq3n2/2b1pQ2/4P3/1P1B2N1/1PP3PP/3R1R1K b - - 0 1",
+      "expected_side_to_move_cp": 58.07332396507263,
+      "actual_side_to_move_cp": 58.073349
+    },
+    {
+      "fen": "r3nk2/1r2bpp1/1p5p/pPp1B3/2N5/2P4P/1P3PP1/3RR1K1 w - - 0 1",
+      "expected_side_to_move_cp": 418.2041645050049,
+      "actual_side_to_move_cp": 418.204224
+    },
+    {
+      "fen": "3r4/p3k1p1/1p5p/2pr1P2/5P2/4K2P/P2R2P1/3R4 b - - 0 1",
+      "expected_side_to_move_cp": -25.752699375152588,
+      "actual_side_to_move_cp": -25.7527504
+    },
+    {
+      "fen": "1k6/1pp2R2/pb5p/5p2/1P1P1p1P/2P2P2/PK1R1P2/4r3 b - - 0 1",
+      "expected_side_to_move_cp": -302.38945484161377,
+      "actual_side_to_move_cp": -302.389435
+    },
+    {
+      "fen": "2kr3r/pppq2pp/1bn2p2/4p3/1PB2nbB/1QPP1N2/P2N1PPP/2KR3R w - - 0 1",
+      "expected_side_to_move_cp": -128.43093872070312,
+      "actual_side_to_move_cp": -128.430984
+    },
+    {
+      "fen": "r4rk1/ppb2ppp/6q1/3p2n1/3B2b1/2P2NP1/PP3PBP/R2QR1K1 w - - 0 1",
+      "expected_side_to_move_cp": 11.801165342330933,
+      "actual_side_to_move_cp": 11.8011417
+    },
+    {
+      "fen": "r4rk1/pppqnppp/2nb4/3p1b2/3P4/2PBBN2/PPQ2PPP/RN2R1K1 w - - 0 1",
+      "expected_side_to_move_cp": -39.65323269367218,
+      "actual_side_to_move_cp": -39.6532326
+    },
+    {
+      "fen": "6k1/p6p/3p4/6r1/2P2p2/1P1pr3/P2R3P/3R1K2 b - - 0 1",
+      "expected_side_to_move_cp": 95.47533392906189,
+      "actual_side_to_move_cp": 95.4753494
+    },
+    {
+      "fen": "r4rk1/1pp3p1/1b2p2p/p3N2n/P3Pn2/2P3NP/1P3PP1/R1BR2K1 w - - 0 1",
+      "expected_side_to_move_cp": 34.62699055671692,
+      "actual_side_to_move_cp": 34.6270027
+    },
+    {
+      "fen": "8/pR5p/4k3/4pp2/3b4/2p3P1/b6P/3B3K w - - 0 1",
+      "expected_side_to_move_cp": -478.6930561065674,
+      "actual_side_to_move_cp": -478.693054
+    },
+    {
+      "fen": "2r1r1k1/2PR2pp/1B2np2/1p6/pP2p3/P3P1P1/5P1P/2R2K2 b - - 0 1",
+      "expected_side_to_move_cp": -521.9845771789551,
+      "actual_side_to_move_cp": -521.984558
+    },
+    {
+      "fen": "8/8/2k5/7R/8/K3N1P1/4r1P1/8 w - - 0 1",
+      "expected_side_to_move_cp": 610.8099460601807,
+      "actual_side_to_move_cp": 610.809998
+    },
+    {
+      "fen": "8/8/r7/P1bP1k2/1p4pr/1Bp1P3/R4PK1/4R3 b - - 0 1",
+      "expected_side_to_move_cp": 93.54978203773499,
+      "actual_side_to_move_cp": 93.5496902
+    },
+    {
+      "fen": "1R6/5p1k/4p1pp/6r1/3P4/2P4P/1P3qP1/3Q3K w - - 0 1",
+      "expected_side_to_move_cp": -11.326390504837036,
+      "actual_side_to_move_cp": -11.3264027
+    },
+    {
+      "fen": "4r1k1/p4ppp/8/4p3/1PP5/P3R3/1B3PPK/3r4 b - - 0 1",
+      "expected_side_to_move_cp": 344.5636034011841,
+      "actual_side_to_move_cp": 344.563568
+    },
+    {
+      "fen": "1r1r4/pp2kp1p/8/1Pn2P2/P1N3p1/2PRK1P1/3R3P/8 w - - 0 1",
+      "expected_side_to_move_cp": -14.871138334274292,
+      "actual_side_to_move_cp": -14.8711176
+    },
+    {
+      "fen": "8/7p/p1Qn1k2/1p6/P4q1P/5N2/5PP1/6K1 w - - 0 1",
+      "expected_side_to_move_cp": 265.6219959259033,
+      "actual_side_to_move_cp": 265.62204
+    },
+    {
+      "fen": "6k1/p2n1pp1/q6p/P2p4/N1pP4/3nP1NP/3Q1PP1/6K1 w - - 0 1",
+      "expected_side_to_move_cp": -221.90492153167725,
+      "actual_side_to_move_cp": -221.904922
+    },
+    {
+      "fen": "r2qk2r/p1p1b2p/1pb2pn1/3p3Q/3P4/2N5/PPP2PPP/R1B1R1K1 w kq - 0 1",
+      "expected_side_to_move_cp": -22.78369665145874,
+      "actual_side_to_move_cp": -22.7836781
+    },
+    {
+      "fen": "1r4k1/3npp2/3p2pQ/1r6/p2pP3/3q1B2/1P4PP/4RRK1 b - - 0 1",
+      "expected_side_to_move_cp": 185.86866855621338,
+      "actual_side_to_move_cp": 185.868683
+    },
+    {
+      "fen": "1nr2k2/6Rp/4Rp1P/2p5/8/8/P4PP1/6K1 w - - 0 1",
+      "expected_side_to_move_cp": 769.9358463287354,
+      "actual_side_to_move_cp": 769.935852
+    },
+    {
+      "fen": "r4r2/3b2kp/1p1q2p1/2pPp3/p3Pp2/P1QP4/1P2BRPP/2R3K1 b - - 0 1",
+      "expected_side_to_move_cp": 41.00152850151062,
+      "actual_side_to_move_cp": 41.0015411
+    },
+    {
+      "fen": "r4rk1/pp2bppp/1qn1pn2/3pN3/3P4/1P6/PBPNQPPP/R4RK1 w - - 0 1",
+      "expected_side_to_move_cp": -98.00692796707153,
+      "actual_side_to_move_cp": -98.0069122
+    },
+    {
+      "fen": "r3k1nr/pp1nbppp/1q2p3/3pP3/PP6/2PQ1N2/5PPP/RNB1K2R w KQkq - 0 1",
+      "expected_side_to_move_cp": 58.14365744590759,
+      "actual_side_to_move_cp": 58.1436615
+    },
+    {
+      "fen": "8/8/3p4/3P1k2/8/4K3/8/8 b - - 0 1",
+      "expected_side_to_move_cp": -86.9977355003357,
+      "actual_side_to_move_cp": -86.9977188
+    },
+    {
+      "fen": "8/8/3Q4/8/P5k1/6P1/1P3PKP/8 w - - 0 1",
+      "expected_side_to_move_cp": 1183.4272384643555,
+      "actual_side_to_move_cp": 1183.42725
+    },
+    {
+      "fen": "r2r2k1/5ppp/4p3/1p6/2bp1P2/1n3NPP/1B6/3NR1K1 b - - 0 1",
+      "expected_side_to_move_cp": 838.2307052612305,
+      "actual_side_to_move_cp": 838.230713
+    },
+    {
+      "fen": "3r2k1/1br1b2p/p3PpB1/1p1q4/8/2B3R1/1PP1Q1PP/R6K w - - 0 1",
+      "expected_side_to_move_cp": 106.42197132110596,
+      "actual_side_to_move_cp": 106.421951
+    },
+    {
+      "fen": "4r3/pb1kn1Qp/q2p2p1/6B1/1p2P3/1B6/PPP2PPP/RN3RK1 w - - 0 1",
+      "expected_side_to_move_cp": 1183.4272384643555,
+      "actual_side_to_move_cp": 1183.42725
+    },
+    {
+      "fen": "R7/4k1p1/1p4Pp/2p1KP2/8/8/8/6r1 w - - 0 1",
+      "expected_side_to_move_cp": -209.86707210540771,
+      "actual_side_to_move_cp": -209.86705
+    },
+    {
+      "fen": "4r1k1/pp5p/5rp1/4n3/7P/4Bb2/PP3P2/1BR1K1R1 b - - 0 1",
+      "expected_side_to_move_cp": 235.72065830230713,
+      "actual_side_to_move_cp": 235.720688
+    },
+    {
+      "fen": "8/2p1kp2/1ppp4/4nP2/4P1r1/2P4R/PP4P1/R4K2 w - - 0 1",
+      "expected_side_to_move_cp": 352.12295055389404,
+      "actual_side_to_move_cp": 352.123016
+    },
+    {
+      "fen": "r1b1kb1r/1pq2ppp/p1n1pn2/3p4/3NP3/2PBB3/PP1N1PPP/R2QK2R w KQkq - 0 1",
+      "expected_side_to_move_cp": 62.05735802650452,
+      "actual_side_to_move_cp": 62.0573807
+    },
+    {
+      "fen": "4r1k1/1p2rp2/p1p3pp/8/7P/1P3BP1/P2R1P2/5K2 b - - 0 1",
+      "expected_side_to_move_cp": 463.50231170654297,
+      "actual_side_to_move_cp": 463.50235
+    },
+    {
+      "fen": "2r4r/p2k1ppp/1p2pn2/3n4/P1bP1N2/B1P3P1/2PK2BP/R3R3 w - - 0 1",
+      "expected_side_to_move_cp": 58.753758668899536,
+      "actual_side_to_move_cp": 58.7537308
+    },
+    {
+      "fen": "6k1/p4p2/1p6/rP5p/8/4PRPK/5P2/8 w - - 0 1",
+      "expected_side_to_move_cp": 93.35013031959534,
+      "actual_side_to_move_cp": 93.3501282
+    },
+    {
+      "fen": "6rk/4Q1p1/5p1p/p1pR4/PqP4P/1P4P1/5K2/8 w - - 0 1",
+      "expected_side_to_move_cp": 283.25042724609375,
+      "actual_side_to_move_cp": 283.250397
+    },
+    {
+      "fen": "r4rk1/1p1qbpp1/5n1p/p1p1B3/P2N4/2P5/1P3PPP/R2QR1K1 w - - 0 1",
+      "expected_side_to_move_cp": 171.82185649871826,
+      "actual_side_to_move_cp": 171.821838
+    },
+    {
+      "fen": "8/1Pk5/3p1pp1/3B4/7P/4K3/5P2/8 w - - 0 1",
+      "expected_side_to_move_cp": 637.8568649291992,
+      "actual_side_to_move_cp": 637.856873
+    },
+    {
+      "fen": "4rknQ/ppp2r2/3p1Ppp/2qPP3/5P2/2P1RBKP/P7/4R3 w - - 0 1",
+      "expected_side_to_move_cp": 879.1790008544922,
+      "actual_side_to_move_cp": 879.178894
+    },
+    {
+      "fen": "r1b2r1k/1pq1n1pp/p2b1p2/4p3/2B5/5N1P/PPP1QPP1/R1B1R1K1 w - - 0 1",
+      "expected_side_to_move_cp": 5.138510465621948,
+      "actual_side_to_move_cp": 5.13849258
+    },
+    {
+      "fen": "rnbq1rk1/1p2ppbp/p2p1np1/8/3P1B2/2N2N2/PPPQ1PPP/2KR1B1R w - - 0 1",
+      "expected_side_to_move_cp": 150.19333362579346,
+      "actual_side_to_move_cp": 150.193359
+    },
+    {
+      "fen": "r1b2rk1/1nq1bppp/p2p1n2/1p1Pp3/4P3/1PP2N1P/2B2PP1/RNBQR1K1 w - - 0 1",
+      "expected_side_to_move_cp": 68.29847693443298,
+      "actual_side_to_move_cp": 68.2984695
+    },
+    {
+      "fen": "r1bq1rk1/pp2npb1/2n3pp/2ppp3/4P3/2P2NP1/PPNPQPBP/R1BR2K1 w - - 0 1",
+      "expected_side_to_move_cp": -38.38458955287933,
+      "actual_side_to_move_cp": -38.3846054
+    },
+    {
+      "fen": "1rbq1rk1/1pp1ppbp/p1np1np1/8/2PP4/2N1PNP1/PP3PBP/R1BQ1RK1 w - - 0 1",
+      "expected_side_to_move_cp": 84.51315760612488,
+      "actual_side_to_move_cp": 84.5131302
+    },
+    {
+      "fen": "5rk1/p5pp/1p2p3/3pP3/3Bp3/1PP1P1RP/P1R1b1PK/5r2 b - - 0 1",
+      "expected_side_to_move_cp": 176.0178565979004,
+      "actual_side_to_move_cp": 176.017883
+    },
+    {
+      "fen": "3R1n2/1pp1r1kp/p1p1P1p1/5p2/3N1P2/5K2/PPP2P1P/8 w - - 0 1",
+      "expected_side_to_move_cp": 416.8236255645752,
+      "actual_side_to_move_cp": 416.823669
+    },
+    {
+      "fen": "8/1p2r1k1/p2Q3p/5pp1/8/P4P1P/2P2K2/q4n2 b - - 0 1",
+      "expected_side_to_move_cp": 1169.3708419799805,
+      "actual_side_to_move_cp": 1169.37085
+    },
+    {
+      "fen": "2r3k1/4ppb1/1pp2np1/5b1p/1PB5/PN5P/5PP1/2R2RK1 b - - 0 1",
+      "expected_side_to_move_cp": 48.191362619400024,
+      "actual_side_to_move_cp": 48.191391
+    },
+    {
+      "fen": "2kr1b1r/1ppq2p1/p1b1p3/3pP3/P2B1P2/2N4p/1PP2QPP/R2R2K1 w - - 0 1",
+      "expected_side_to_move_cp": -26.316171884536743,
+      "actual_side_to_move_cp": -26.3161831
+    },
+    {
+      "fen": "2b3k1/1pp3pp/3p2q1/8/1PP1N1nb/r2P4/4QPBP/3R1R1K b - - 0 1",
+      "expected_side_to_move_cp": -111.07327938079834,
+      "actual_side_to_move_cp": -111.073265
+    },
+    {
+      "fen": "r1bq1rk1/p2nbppp/2p1pn2/1p6/2BP4/2N1PN2/PP1B1PPP/2RQK2R w K - 0 1",
+      "expected_side_to_move_cp": 1.7301499843597412,
+      "actual_side_to_move_cp": 1.73014998
+    },
+    {
+      "fen": "r2qk2r/pp1nb1pp/2p1p1b1/3pNp2/3PnB2/2PBPN2/PPQ2PPP/R3K2R w KQkq - 0 1",
+      "expected_side_to_move_cp": 30.667585134506226,
+      "actual_side_to_move_cp": 30.6675472
+    }
+  ]
+}

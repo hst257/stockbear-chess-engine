@@ -72,6 +72,9 @@ def test_feature_contract_and_independent_forward_pass(engine_path, fen):
                   for h in range(16)]
         expected = 400 * (weights["fc2.bias"][0] + sum(weights["fc2.weight"][h] * hidden[h] for h in range(16)))
         assert abs(value["side_to_move_cp"] - expected) < .01
+        expected_white = expected * (1 if board.turn else -1)
+        assert abs(value["raw_white_cp"] - expected_white) < .01
+        assert abs(value["total"] - expected_white) <= .51
 
 
 @pytest.mark.parametrize("damage", ("magic", "truncated", "payload", "feature", "shape", "nan"))
@@ -106,14 +109,20 @@ def test_model_validation_rejects_bad_exports(tmp_path, damage):
     "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1",
     "r3k2r/8/8/3pP3/8/8/8/R3K2R w KQkq d6 0 1",
     "7k/4P3/8/8/8/8/8/K7 w - - 0 1"])
-def test_incremental_search_agrees_with_rebuild(engine, fen):
+@pytest.mark.parametrize("selective", [False, True])
+def test_incremental_search_agrees_with_rebuild(engine, fen, selective):
+    if selective:
+        engine.configure({name: True for name in ("UseNullMovePruning", "UseLMR", "UseAspirationWindows",
+                          "UseHistory", "UseKillers", "UseSEE", "UseAdaptiveLMR", "UseReverseFutility",
+                          "UseFutility", "UseCheckExtensions", "TranspositionTable")})
     engine.configure({"Evaluator": "nnue", "Quiescence": True, "PVS": True})
     scores = []
     for enabled in (False, True):
         engine.configure({"NNUEIncremental": enabled})
         board = chess.Board(fen)
-        result = engine.play(board, chess.engine.Limit(depth=3), info=chess.engine.INFO_ALL)
-        assert result.info["depth"] == 3 and result.move in board.legal_moves
+        depth = 5 if selective else 3
+        result = engine.play(board, chess.engine.Limit(depth=depth), info=chess.engine.INFO_ALL)
+        assert result.info["depth"] == depth and result.move in board.legal_moves
         score = result.info["score"].white()
         scores.append(score.score(mate_score=30000))
         for move in result.info["pv"]:
@@ -180,10 +189,15 @@ def test_gui_selector_and_pending_request_snapshot(app):
 
 
 def test_gui_search_lab_switch_and_inactive_pst(app):
+    human_e4(app)
+    app.engine.finish(app)
+    app.update_engine()
+    assert app.last_play_stats.evaluator == "classical"
     app.action("diagnostics")
     app.draw()
     click(app, app.modal_targets["toggle_evaluator"].center)
     assert app.settings.evaluator == "nnue"
+    assert app.last_play_stats is None
     assert engine_panels.adjust(app.settings, "toggle_evaluator").evaluator == "classical"
     previous = app.settings.use_pst
     click(app, app.modal_targets["toggle_pst"].center)

@@ -2,7 +2,8 @@
 
 Standalone PyTorch training for a custom efficiently updatable chess evaluator.
 Streams the existing June–September 2026 Lichess broadcast PGNs and uses the
-downloaded Stockfish 19 teacher. No classical C++ engine integration is included.
+downloaded Stockfish 19 teacher. Native C++ inference is implemented in the
+parent project; see [evaluator selection and match results](../docs/nnue.md).
 
 The project contains deterministic whole-game splits, exact position
 deduplication, resumable teacher caches, sparse feature sums, clipped ReLU,
@@ -61,8 +62,8 @@ and subtracting changed rows, including special moves and legal state features.
 
 Weights and accumulators remain float32. This is an NNUE-style architecture
 with its own `.sbnnue` contract; it is not Stockfish's current architecture or
-its `.nnue` binary format. Integer quantization and engine integration are future
-work. The exported centipawn score is always from the side-to-move perspective.
+its `.nnue` binary format. Integer quantization remains future work; the parent
+engine embeds this float32 export. Exported centipawns are side-to-move relative.
 
 The training target mixes 90% transformed teacher score with 10% game outcome.
 Validation selects checkpoints; the test split does not select epochs. Reports

@@ -63,7 +63,7 @@ still reuse completed subtrees. With `AlphaBeta=true`, the same
 function updates alpha/beta bounds and cuts branches that cannot affect the answer.
 Both modes share the same ordering policy and first-best tie rule. PVS is active
 only with alpha-beta. Minimax ignores aspiration/NMP/LMR; NMP/LMR are selective,
-so equal nominal depth need not give the exhaustive score. Forward/reverse futility and bounded check extensions are also selective; disable them for exhaustive comparisons. History/killer ordering is implemented; opening books and neural networks remain deferred.
+so equal nominal depth need not give the exhaustive score. Forward/reverse futility and bounded check extensions are also selective; disable them for exhaustive comparisons. History/killer ordering and optional NNUE inference are implemented; opening books remain deferred.
 
 `src/evaluation.cpp` adds positional centipawns from the compile-time arrays in
 `src/pst.hpp`, one table per piece plus a second king table. `UsePST=true`

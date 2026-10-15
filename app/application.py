@@ -188,6 +188,7 @@ class Application:
             elif target == "toggle_evaluator" and not self.engine.busy:
                 self.settings = engine_panels.adjust(self.settings, target)
                 self.search_rows = ()
+                self.last_play_stats = None
             elif target == "toggle_pst" and not self.engine.busy and self.settings.evaluator == "classical":
                 self.settings = replace(self.settings, use_pst=not self.settings.use_pst)
                 self.search_rows = ()
