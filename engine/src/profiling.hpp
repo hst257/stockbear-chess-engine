@@ -6,10 +6,12 @@
 
 namespace chesslab::profiling {
 enum Category { SEARCH, MOVEGEN, EVALUATION, ORDERING, MAKE, UNMAKE, TABLE, DRAWS,
-                POLICY, PAWNS, ATTACKS, MATERIAL_PST, KING_SAFETY, ENDGAME, COUNT };
+                POLICY, PAWNS, ATTACKS, MATERIAL_PST, KING_SAFETY, ENDGAME,
+                NNUE_FEATURES, NNUE_REFRESH, NNUE_UPDATE, NNUE_HEAD, COUNT };
 inline constexpr std::array<const char*, COUNT> NAMES = {
     "search_other", "movegen", "evaluation_other", "ordering", "make", "unmake", "table", "draws",
-    "search_policy", "pawn_evaluation", "attack_maps", "material_pst", "king_safety", "endgame"};
+    "search_policy", "pawn_evaluation", "attack_maps", "material_pst", "king_safety", "endgame",
+    "nnue_features", "nnue_refresh", "nnue_update", "nnue_head"};
 struct Report {
     std::array<std::uint64_t, COUNT> ns{};
     std::array<std::uint64_t, COUNT> calls{};

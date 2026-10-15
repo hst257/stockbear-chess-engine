@@ -20,7 +20,7 @@ from tools.embed_nnue import DEFAULT_MODEL, generate_header
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--target", choices=("engine", "tt-tests", "audit-tests"), default="engine")
+    parser.add_argument("--target", choices=("engine", "tt-tests", "audit-tests", "nnue-bench"), default="engine")
     parser.add_argument("--profile", action="store_true", help="Instrument CPU categories and search-thread allocations.")
     parser.add_argument("--optimization", choices=("O2", "O3"), default="O2")
     parser.add_argument("--lto", action="store_true")
@@ -55,7 +55,8 @@ def main() -> int:
                        "-I", str(ROOT / "engine" / "vendor" / "chess-library"),
                        "-I", str(ROOT / "engine" / "src"),
                        str(ROOT / "engine" / ("src/main.cpp" if target == "engine" else
-                           "tests/test_transposition.cpp" if target == "tt-tests" else "tests/test_audit.cpp")),
+                           "tests/test_transposition.cpp" if target == "tt-tests" else
+                           "tests/benchmark_nnue.cpp" if target == "nnue-bench" else "tests/test_audit.cpp")),
                        str(ROOT / "engine" / "src" / "search.cpp"),
                        str(ROOT / "engine" / "src" / "evaluation.cpp"),
                        str(ROOT / "engine" / "src" / "nnue.cpp"), "-o", str(output)]

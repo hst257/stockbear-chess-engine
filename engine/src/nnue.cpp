@@ -1,6 +1,7 @@
 #include "nnue.hpp"
 #include "nnue_weights.hpp"
 #include "transposition.hpp"
+#include "profiling.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -10,6 +11,7 @@ namespace chesslab {
 namespace w = nnue_weights;
 
 NnueFeatures nnue_features(const chess::Board& board) {
+    profiling::Scope measured(profiling::NNUE_FEATURES);
     NnueFeatures result;
     auto append = [&](int white, int black) {
         if (result.count >= 37) throw std::invalid_argument("NNUE supports at most 37 active features");
@@ -57,6 +59,7 @@ NnueFeatures nnue_features(const chess::Board& board) {
 }
 
 void nnue_refresh(const chess::Board& board, NnueAccumulator& output) {
+    profiling::Scope measured(profiling::NNUE_REFRESH);
     output.features = nnue_features(board);
     for (int p = 0; p < 2; ++p) {
         auto& values = output.values[p];
@@ -70,6 +73,7 @@ void nnue_refresh(const chess::Board& board, NnueAccumulator& output) {
 }
 
 void nnue_update(const NnueAccumulator& parent, const chess::Board& board, NnueAccumulator& output) {
+    profiling::Scope measured(profiling::NNUE_UPDATE);
     output.features = nnue_features(board);
     for (int p = 0; p < 2; ++p) {
         auto& values = output.values[p];
@@ -94,6 +98,7 @@ void nnue_update(const NnueAccumulator& parent, const chess::Board& board, NnueA
 }
 
 float nnue_side_to_move(const chess::Board& board, const NnueAccumulator& accumulator) {
+    profiling::Scope measured(profiling::NNUE_HEAD);
     float input[2 * w::WIDTH];
     const int first = board.sideToMove() == chess::Color::WHITE ? 0 : 1;
     for (int p = 0; p < 2; ++p)

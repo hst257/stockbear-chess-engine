@@ -1,0 +1,6 @@
+{
+  "classical": {"engine": "artifacts/nnue-v2/baseline-v1/engine.exe", "options": {"Evaluator": "classical"}},
+  "v1": {"engine": "artifacts/nnue-v2/baseline-v1/engine.exe", "micro": "artifacts/nnue-v2/baseline-v1/micro.exe", "options": {"Evaluator": "nnue"}},
+  "compact": {"engine": "artifacts/nnue-v2/baseline-compact/engine.exe", "micro": "artifacts/nnue-v2/baseline-compact/micro.exe", "options": {"Evaluator": "nnue"}},
+  "small": {"engine": "artifacts/nnue-v2/baseline-small/engine.exe", "micro": "artifacts/nnue-v2/baseline-small/micro.exe", "options": {"Evaluator": "nnue"}}
+}
