@@ -102,3 +102,16 @@ Raw match-helper summaries retain a legacy limitations sentence mentioning its
 old own-evaluator filter. That sentence does not describe this investigation:
 the authoritative `opening_filter`, frozen book/source and book hash show that
 no evaluator was queried to select openings. New analysis uses the actual protocol.
+
+## Fresh reproduction
+
+Preserve this directory. For a new run, set `STOCKBEAR_DIAGNOSIS_ROOT` to a fresh
+results directory, `STOCKBEAR_DIAGNOSIS_ARTIFACTS` to a fresh build/log directory,
+and `STOCKBEAR_DIAGNOSIS_ENGINE` to the Compact v2 release binary you built.
+The new plan records that executable's actual hash; executable bytes can differ
+across build paths/toolchains even when model bytes and fixed-budget trees agree.
+The book/model and budgets remain fixed. `STOCKBEAR_DIAGNOSIS_PLOT_PYTHON` can
+select a Python environment containing matplotlib. Run prepare, the first-pair
+pilot, the fixed schedule, then the follow-up pipeline. The held-out SQLite
+corpus, Stockfish 19 and training plot environment are local prerequisites for
+the complete regression/reproduction workflow; they are not downloaded by it.

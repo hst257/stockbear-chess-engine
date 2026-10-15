@@ -17,9 +17,9 @@ import chess.engine
 from tools.benchmark_nnue_v2 import POSITIONS as OLD
 from tools.match_optimizations import write_record
 
-ROOT = Path("docs/nnue-v2-diagnosis")
-ARTIFACTS = Path("artifacts/nnue-v2-diagnosis")
-RELEASE = Path("artifacts/nnue-v2/final-compact/engine.exe")
+ROOT = Path(os.environ.get("STOCKBEAR_DIAGNOSIS_ROOT", "docs/nnue-v2-diagnosis"))
+ARTIFACTS = Path(os.environ.get("STOCKBEAR_DIAGNOSIS_ARTIFACTS", "artifacts/nnue-v2-diagnosis"))
+RELEASE = Path(os.environ.get("STOCKBEAR_DIAGNOSIS_ENGINE", "artifacts/nnue-v2/final-compact/engine.exe"))
 DIAGNOSTIC = ARTIFACTS / "counters/engine.exe"
 PROFILE = ARTIFACTS / "profile/engine.exe"
 STOCKFISH = Path("StockBear_NNUE_training/stockfish-windows-x86-64-universal/stockfish/stockfish-windows-x86-64-universal.exe")

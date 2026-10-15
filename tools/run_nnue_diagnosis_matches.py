@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 import random
 import subprocess
@@ -14,9 +15,9 @@ import chess
 from tools.match_optimizations import write_record
 from tools.verify_match_records import verify_record
 
-ROOT = Path("docs/nnue-v2-diagnosis")
+ROOT = Path(os.environ.get("STOCKBEAR_DIAGNOSIS_ROOT", "docs/nnue-v2-diagnosis"))
 PLAN = ROOT / "match-plan.json"
-ENGINE = Path("artifacts/nnue-v2/final-compact/engine.exe")
+ENGINE = Path(os.environ.get("STOCKBEAR_DIAGNOSIS_ENGINE", "artifacts/nnue-v2/final-compact/engine.exe"))
 MODEL = Path("engine/networks/v2/stockbear-v2-compact.sbnnue")
 MODEL_SHA = "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7"
 SEED = 20261017
@@ -120,7 +121,7 @@ def main() -> None:
         if args.pilot_only:
             assert match["movetime"] == 50 and not path.with_suffix(".progress.json").exists()
             cmd += ["--max-new-games", "2"]
-        log = Path("artifacts/nnue-v2-diagnosis") / f"{match['name']}.log"
+        log = Path(os.environ.get("STOCKBEAR_DIAGNOSIS_ARTIFACTS", "artifacts/nnue-v2-diagnosis")) / f"{match['name']}.log"
         log.parent.mkdir(parents=True, exist_ok=True)
         print("Starting", match["name"], flush=True)
         with log.open("a", encoding="utf-8") as stream:
