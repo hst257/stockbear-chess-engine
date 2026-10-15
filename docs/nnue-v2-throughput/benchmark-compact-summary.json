@@ -1,0 +1,829 @@
+{
+  "input": "docs\\nnue-v2-throughput\\benchmark-compact.json",
+  "candidate": "compact",
+  "method": "Per-position medians then geometric means. 10k seeded position bootstrap; descriptive selected-suite uncertainty, not population confidence. Mate fixtures, early fixed-node stops, and any sub-10ms trial excluded from aggregate throughput only. Timed wall speedup is descriptive duration ratio; use NPS/nodes/depth for timed gains. Gap closure=(after NNUE/classical ratio-before)/(1-before).",
+  "summary": [
+    {
+      "mode": "nodes",
+      "budget": 400000,
+      "eligible": 22,
+      "geomean_wall_speedup": 1.1688834626567954,
+      "wall_speedup_position_bootstrap95": [
+        1.1380116452826985,
+        1.1996113782753697
+      ],
+      "geomean_nps_baseline_classical": 0.6966718295354272,
+      "geomean_nps_optimized_classical": 0.816013409652781,
+      "geomean_nps_speedup": 1.171302434026845,
+      "gap_closed_fraction": 0.39344047713923863,
+      "mean_depth_change": 0,
+      "position_speedup_min_median_max": [
+        0.9788810438233492,
+        1.178012008391451,
+        1.3124022629878298
+      ],
+      "regression_positions_wall": [
+        "promotion_race"
+      ],
+      "trial_speedup_min_median_max": [
+        0.9399607808517523,
+        1.17066882734183,
+        1.3884395282699986
+      ]
+    }
+  ],
+  "per_position": [
+    {
+      "position": "attack_complex",
+      "mode": "nodes",
+      "budget": 400000,
+      "eligible": true,
+      "median_wall_seconds": {
+        "baseline": 0.33525070000905544,
+        "compact": 0.29813380003906786,
+        "classical": 0.26404229999752715
+      },
+      "median_engine_nps": {
+        "baseline": 1204819.2771084337,
+        "compact": 1360544.2176870748,
+        "classical": 1538461.5384615385
+      },
+      "mean_depth": {
+        "baseline": 7,
+        "compact": 7,
+        "classical": 7
+      },
+      "wall_speedup": 1.1244974570649948,
+      "trial_speedup_min_max": [
+        1.0616272029450282,
+        1.157693995737554
+      ],
+      "nnue_classical_before": 0.7831325301204819,
+      "nnue_classical_after": 0.8843537414965986,
+      "cpu_single_core_percent": {
+        "baseline": 97.86964276193568,
+        "compact": 97.63756483474477,
+        "classical": 93.71377801434812
+      }
+    },
+    {
+      "position": "black_blocked",
+      "mode": "nodes",
+      "budget": 400000,
+      "eligible": true,
+      "median_wall_seconds": {
+        "baseline": 0.1617126000346616,
+        "compact": 0.13560859998688102,
+        "classical": 0.10081670002546161
+      },
+      "median_engine_nps": {
+        "baseline": 2531645.569620253,
+        "compact": 3007518.796992481,
+        "classical": 4123711.3402061854
+      },
+      "mean_depth": {
+        "baseline": 12,
+        "compact": 12,
+        "classical": 12
+      },
+      "wall_speedup": 1.1924951666067338,
+      "trial_speedup_min_max": [
+        1.0866387448906794,
+        1.289653777015629
+      ],
+      "nnue_classical_before": 0.6139240506329114,
+      "nnue_classical_after": 0.7293233082706767,
+      "cpu_single_core_percent": {
+        "baseline": 98.94401398025842,
+        "compact": 100.67333939723322,
+        "classical": 94.0906814063869
+      }
+    },
+    {
+      "position": "carlsbad",
+      "mode": "nodes",
+      "budget": 400000,
+      "eligible": true,
+      "median_wall_seconds": {
+        "baseline": 0.2690446000196971,
+        "compact": 0.21988000004785135,
+        "classical": 0.2202627999940887
+      },
+      "median_engine_nps": {
+        "baseline": 1503759.3984962406,
+        "compact": 1851851.851851852,
+        "classical": 1851851.851851852
+      },
+      "mean_depth": {
+        "baseline": 7,
+        "compact": 7,
+        "classical": 7
+      },
+      "wall_speedup": 1.223597416596081,
+      "trial_speedup_min_max": [
+        1.1353405416170865,
+        1.2839858102524808
+      ],
+      "nnue_classical_before": 0.8120300751879699,
+      "nnue_classical_after": 1.0,
+      "cpu_single_core_percent": {
+        "baseline": 97.86848211922712,
+        "compact": 93.64842261740283,
+        "classical": 91.86344410054444
+      }
+    },
+    {
+      "position": "defend_complex",
+      "mode": "nodes",
+      "budget": 400000,
+      "eligible": true,
+      "median_wall_seconds": {
+        "baseline": 0.3144656999502331,
+        "compact": 0.26140099996700883,
+        "classical": 0.25614920002408326
+      },
+      "median_engine_nps": {
+        "baseline": 1286173.6334405146,
+        "compact": 1550387.5968992247,
+        "classical": 1581027.6679841897
+      },
+      "mean_depth": {
+        "baseline": 6,
+        "compact": 6,
+        "classical": 6
+      },
+      "wall_speedup": 1.2030011361468453,
+      "trial_speedup_min_max": [
+        1.1212435069314441,
+        1.3729145118017199
+      ],
+      "nnue_classical_before": 0.8135048231511255,
+      "nnue_classical_after": 0.9806201550387597,
+      "cpu_single_core_percent": {
+        "baseline": 93.5905988566192,
+        "compact": 94.60841563134689,
+        "classical": 96.28832438242023
+      }
+    },
+    {
+      "position": "defend_mate_net",
+      "mode": "nodes",
+      "budget": 400000,
+      "eligible": false,
+      "median_wall_seconds": {
+        "baseline": 0.2099995999597013,
+        "compact": 0.17658789997221902,
+        "classical": 0.11993069999152794
+      },
+      "median_engine_nps": {
+        "baseline": 1941747.5728155342,
+        "compact": 2312138.7283236994,
+        "classical": 3418803.4188034185
+      },
+      "mean_depth": {
+        "baseline": 7,
+        "compact": 7,
+        "classical": 7
+      },
+      "wall_speedup": 1.1892071879938468,
+      "trial_speedup_min_max": [
+        1.1344871757029475,
+        1.2629579734414949
+      ],
+      "nnue_classical_before": 0.5679611650485438,
+      "nnue_classical_after": 0.6763005780346821,
+      "cpu_single_core_percent": {
+        "baseline": 94.9325673013146,
+        "compact": 91.01958651730543,
+        "classical": 95.44980910584509
+      }
+    },
+    {
+      "position": "italian_structure",
+      "mode": "nodes",
+      "budget": 400000,
+      "eligible": true,
+      "median_wall_seconds": {
+        "baseline": 0.3116918000159785,
+        "compact": 0.26322290004463866,
+        "classical": 0.26918179995846003
+      },
+      "median_engine_nps": {
+        "baseline": 1294498.3818770226,
+        "compact": 1538461.5384615385,
+        "classical": 1509433.9622641508
+      },
+      "mean_depth": {
+        "baseline": 7,
+        "compact": 7,
+        "classical": 7
+      },
+      "wall_speedup": 1.1841363345025082,
+      "trial_speedup_min_max": [
+        1.1188455593734736,
+        1.3160006214931679
+      ],
+      "nnue_classical_before": 0.8576051779935275,
+      "nnue_classical_after": 1.0192307692307694,
+      "cpu_single_core_percent": {
+        "baseline": 89.60447207677949,
+        "compact": 95.2754231408108,
+        "classical": 97.49342790139039
+      }
+    },
+    {
+      "position": "kiwipete",
+      "mode": "nodes",
+      "budget": 400000,
+      "eligible": true,
+      "median_wall_seconds": {
+        "baseline": 0.4285236999858171,
+        "compact": 0.3656695999670774,
+        "classical": 0.239624600042589
+      },
+      "median_engine_nps": {
+        "baseline": 943396.2264150943,
+        "compact": 1104972.3756906078,
+        "classical": 1694915.2542372881
+      },
+      "mean_depth": {
+        "baseline": 7,
+        "compact": 7,
+        "classical": 5
+      },
+      "wall_speedup": 1.1718876822803939,
+      "trial_speedup_min_max": [
+        1.1718876822803939,
+        1.3106497174207283
+      ],
+      "nnue_classical_before": 0.5566037735849056,
+      "nnue_classical_after": 0.6519337016574586,
+      "cpu_single_core_percent": {
+        "baseline": 97.46570544034174,
+        "compact": 99.36623469424171,
+        "classical": 98.26026273088345
+      }
+    },
+    {
+      "position": "locked_center",
+      "mode": "nodes",
+      "budget": 400000,
+      "eligible": true,
+      "median_wall_seconds": {
+        "baseline": 0.252567799994722,
+        "compact": 0.2233614000142552,
+        "classical": 0.21460179996211082
+      },
+      "median_engine_nps": {
+        "baseline": 1606425.7028112449,
+        "compact": 1826484.0182648401,
+        "classical": 1886792.4528301887
+      },
+      "mean_depth": {
+        "baseline": 7,
+        "compact": 7,
+        "classical": 7
+      },
+      "wall_speedup": 1.1307584926428775,
+      "trial_speedup_min_max": [
+        1.1134710927703533,
+        1.1598985292447566
+      ],
+      "nnue_classical_before": 0.8514056224899598,
+      "nnue_classical_after": 0.9680365296803652,
+      "cpu_single_core_percent": {
+        "baseline": 92.15715476757447,
+        "compact": 97.4044868525684,
+        "classical": 99.11699969673246
+      }
+    },
+    {
+      "position": "mate_net",
+      "mode": "nodes",
+      "budget": 400000,
+      "eligible": false,
+      "median_wall_seconds": {
+        "baseline": 0.20141660002991557,
+        "compact": 0.16587109997635707,
+        "classical": 0.11262949998490512
+      },
+      "median_engine_nps": {
+        "baseline": 2030456.8527918782,
+        "compact": 2469135.8024691357,
+        "classical": 3669724.770642202
+      },
+      "mean_depth": {
+        "baseline": 5,
+        "compact": 5,
+        "classical": 5
+      },
+      "wall_speedup": 1.2142959204986588,
+      "trial_speedup_min_max": [
+        1.0907564559907206,
+        1.3506383672906368
+      ],
+      "nnue_classical_before": 0.5532994923857868,
+      "nnue_classical_after": 0.6728395061728395,
+      "cpu_single_core_percent": {
+        "baseline": 101.4601999913018,
+        "compact": 98.18639751060101,
+        "classical": 96.40400696806559
+      }
+    },
+    {
+      "position": "old_middle",
+      "mode": "nodes",
+      "budget": 400000,
+      "eligible": true,
+      "median_wall_seconds": {
+        "baseline": 0.3347281999886036,
+        "compact": 0.2649460999527946,
+        "classical": 0.25746900000376627
+      },
+      "median_engine_nps": {
+        "baseline": 1204819.2771084337,
+        "compact": 1532567.049808429,
+        "classical": 1581027.6679841897
+      },
+      "mean_depth": {
+        "baseline": 7,
+        "compact": 7,
+        "classical": 7
+      },
+      "wall_speedup": 1.263382250383161,
+      "trial_speedup_min_max": [
+        1.202966084022957,
+        1.306216623250758
+      ],
+      "nnue_classical_before": 0.7620481927710843,
+      "nnue_classical_after": 0.9693486590038314,
+      "cpu_single_core_percent": {
+        "baseline": 95.95456565386186,
+        "compact": 94.2630258942252,
+        "classical": 94.68331111721454
+      }
+    },
+    {
+      "position": "old_pawns",
+      "mode": "nodes",
+      "budget": 400000,
+      "eligible": true,
+      "median_wall_seconds": {
+        "baseline": 0.19094010000117123,
+        "compact": 0.17579309997381642,
+        "classical": 0.12794610002310947
+      },
+      "median_engine_nps": {
+        "baseline": 2127659.574468085,
+        "compact": 2325581.3953488376,
+        "classical": 3225806.4516129033
+      },
+      "mean_depth": {
+        "baseline": 10,
+        "compact": 10,
+        "classical": 10
+      },
+      "wall_speedup": 1.08616379158005,
+      "trial_speedup_min_max": [
+        0.9563038158025939,
+        1.151120162250969
+      ],
+      "nnue_classical_before": 0.6595744680851063,
+      "nnue_classical_after": 0.7209302325581396,
+      "cpu_single_core_percent": {
+        "baseline": 100.72500985364273,
+        "compact": 90.77526659561056,
+        "classical": 91.59977542387686
+      }
+    },
+    {
+      "position": "opposed_pawns",
+      "mode": "nodes",
+      "budget": 400000,
+      "eligible": true,
+      "median_wall_seconds": {
+        "baseline": 0.20259480003733188,
+        "compact": 0.17506150004919618,
+        "classical": 0.1199559000087902
+      },
+      "median_engine_nps": {
+        "baseline": 2010050.2512562813,
+        "compact": 2325581.3953488376,
+        "classical": 3418803.4188034185
+      },
+      "mean_depth": {
+        "baseline": 11,
+        "compact": 11,
+        "classical": 11
+      },
+      "wall_speedup": 1.1572778708076774,
+      "trial_speedup_min_max": [
+        1.0586494297118025,
+        1.198735301274283
+      ],
+      "nnue_classical_before": 0.5879396984924623,
+      "nnue_classical_after": 0.6802325581395351,
+      "cpu_single_core_percent": {
+        "baseline": 99.96101564175075,
+        "compact": 98.57791095854029,
+        "classical": 94.58921128859329
+      }
+    },
+    {
+      "position": "outside_passer",
+      "mode": "nodes",
+      "budget": 400000,
+      "eligible": true,
+      "median_wall_seconds": {
+        "baseline": 0.22087700001429766,
+        "compact": 0.19679990003351122,
+        "classical": 0.14013580000028014
+      },
+      "median_engine_nps": {
+        "baseline": 1834862.385321101,
+        "compact": 2061855.6701030927,
+        "classical": 2941176.470588235
+      },
+      "mean_depth": {
+        "baseline": 10,
+        "compact": 10,
+        "classical": 10
+      },
+      "wall_speedup": 1.1223430498525995,
+      "trial_speedup_min_max": [
+        1.0775518685254566,
+        1.1693512308630276
+      ],
+      "nnue_classical_before": 0.6238532110091743,
+      "nnue_classical_after": 0.7010309278350515,
+      "cpu_single_core_percent": {
+        "baseline": 96.82977461694183,
+        "compact": 98.62667139017056,
+        "classical": 92.77374948962775
+      }
+    },
+    {
+      "position": "pins",
+      "mode": "nodes",
+      "budget": 400000,
+      "eligible": true,
+      "median_wall_seconds": {
+        "baseline": 0.3199896999867633,
+        "compact": 0.2658823999809101,
+        "classical": 0.2502161000156775
+      },
+      "median_engine_nps": {
+        "baseline": 1261829.6529968453,
+        "compact": 1520912.547528517,
+        "classical": 1619433.198380567
+      },
+      "mean_depth": {
+        "baseline": 7,
+        "compact": 7,
+        "classical": 6
+      },
+      "wall_speedup": 1.2035008710984179,
+      "trial_speedup_min_max": [
+        1.2035008710984179,
+        1.2837819847136227
+      ],
+      "nnue_classical_before": 0.779179810725552,
+      "nnue_classical_after": 0.9391634980988591,
+      "cpu_single_core_percent": {
+        "baseline": 98.84292691406485,
+        "compact": 97.95669298490527,
+        "classical": 99.00557707463372
+      }
+    },
+    {
+      "position": "promotion_race",
+      "mode": "nodes",
+      "budget": 400000,
+      "eligible": true,
+      "median_wall_seconds": {
+        "baseline": 0.21834019996458665,
+        "compact": 0.22305080003570765,
+        "classical": 0.14809940004488453
+      },
+      "median_engine_nps": {
+        "baseline": 1860465.1162790698,
+        "compact": 1818181.8181818181,
+        "classical": 2758620.6896551726
+      },
+      "mean_depth": {
+        "baseline": 9,
+        "compact": 9,
+        "classical": 10
+      },
+      "wall_speedup": 0.9788810438233492,
+      "trial_speedup_min_max": [
+        0.9399607808517523,
+        1.0929563717727688
+      ],
+      "nnue_classical_before": 0.6744186046511628,
+      "nnue_classical_after": 0.6590909090909091,
+      "cpu_single_core_percent": {
+        "baseline": 93.52593361852495,
+        "compact": 102.58379246753431,
+        "classical": 87.88532018939532
+      }
+    },
+    {
+      "position": "queen_gambit",
+      "mode": "nodes",
+      "budget": 400000,
+      "eligible": true,
+      "median_wall_seconds": {
+        "baseline": 0.3620989000191912,
+        "compact": 0.3096318000461906,
+        "classical": 0.24158319999696687
+      },
+      "median_engine_nps": {
+        "baseline": 1114206.128133705,
+        "compact": 1307189.5424836602,
+        "classical": 1680672.268907563
+      },
+      "mean_depth": {
+        "baseline": 7,
+        "compact": 7,
+        "classical": 7
+      },
+      "wall_speedup": 1.169449972403266,
+      "trial_speedup_min_max": [
+        1.169449972403266,
+        1.2933210258109864
+      ],
+      "nnue_classical_before": 0.6629526462395544,
+      "nnue_classical_after": 0.7777777777777778,
+      "cpu_single_core_percent": {
+        "baseline": 98.14864177969903,
+        "compact": 94.17003548756327,
+        "classical": 100.44042973997344
+      }
+    },
+    {
+      "position": "queen_rooks",
+      "mode": "nodes",
+      "budget": 400000,
+      "eligible": true,
+      "median_wall_seconds": {
+        "baseline": 0.2569078999804333,
+        "compact": 0.20691869995789602,
+        "classical": 0.1725505000213161
+      },
+      "median_engine_nps": {
+        "baseline": 1587301.5873015872,
+        "compact": 1970443.3497536944,
+        "classical": 2366863.9053254435
+      },
+      "mean_depth": {
+        "baseline": 7,
+        "compact": 7,
+        "classical": 8
+      },
+      "wall_speedup": 1.2415886047646205,
+      "trial_speedup_min_max": [
+        1.0603209140600327,
+        1.3365347099679292
+      ],
+      "nnue_classical_before": 0.6706349206349207,
+      "nnue_classical_after": 0.8325123152709359,
+      "cpu_single_core_percent": {
+        "baseline": 96.62830323808632,
+        "compact": 97.25019831652146,
+        "classical": 98.77520504930763
+      }
+    },
+    {
+      "position": "rook_bishop",
+      "mode": "nodes",
+      "budget": 400000,
+      "eligible": true,
+      "median_wall_seconds": {
+        "baseline": 0.26941379997879267,
+        "compact": 0.24020800000289455,
+        "classical": 0.18834789999527857
+      },
+      "median_engine_nps": {
+        "baseline": 1509433.9622641508,
+        "compact": 1687763.713080169,
+        "classical": 2162162.1621621624
+      },
+      "mean_depth": {
+        "baseline": 8,
+        "compact": 8,
+        "classical": 8
+      },
+      "wall_speedup": 1.1215854591668313,
+      "trial_speedup_min_max": [
+        1.0808374409221035,
+        1.19900729105506
+      ],
+      "nnue_classical_before": 0.6981132075471697,
+      "nnue_classical_after": 0.7805907172995781,
+      "cpu_single_core_percent": {
+        "baseline": 98.05509706323048,
+        "compact": 91.05743744539437,
+        "classical": 102.96807706465735
+      }
+    },
+    {
+      "position": "rook_minors",
+      "mode": "nodes",
+      "budget": 400000,
+      "eligible": true,
+      "median_wall_seconds": {
+        "baseline": 0.20618919999105856,
+        "compact": 0.18335810001008213,
+        "classical": 0.15790590003598481
+      },
+      "median_engine_nps": {
+        "baseline": 1970443.3497536944,
+        "compact": 2234636.87150838,
+        "classical": 2580645.1612903224
+      },
+      "mean_depth": {
+        "baseline": 8,
+        "compact": 8,
+        "classical": 8
+      },
+      "wall_speedup": 1.12451645157602,
+      "trial_speedup_min_max": [
+        1.0935720866678438,
+        1.220296330657287
+      ],
+      "nnue_classical_before": 0.7635467980295566,
+      "nnue_classical_after": 0.8659217877094972,
+      "cpu_single_core_percent": {
+        "baseline": 97.76235677777561,
+        "compact": 101.95473891147867,
+        "classical": 101.5373724591611
+      }
+    },
+    {
+      "position": "rook_pawn",
+      "mode": "nodes",
+      "budget": 400000,
+      "eligible": true,
+      "median_wall_seconds": {
+        "baseline": 0.1734009999781847,
+        "compact": 0.14608179999049753,
+        "classical": 0.11049589997855946
+      },
+      "median_engine_nps": {
+        "baseline": 2352941.176470588,
+        "compact": 2797202.7972027976,
+        "classical": 3738317.757009346
+      },
+      "mean_depth": {
+        "baseline": 10,
+        "compact": 10,
+        "classical": 10
+      },
+      "wall_speedup": 1.1870130296139851,
+      "trial_speedup_min_max": [
+        1.0121598740311428,
+        1.264878192025987
+      ],
+      "nnue_classical_before": 0.6294117647058822,
+      "nnue_classical_after": 0.7482517482517483,
+      "cpu_single_core_percent": {
+        "baseline": 98.21724371856442,
+        "compact": 98.04963403842862,
+        "classical": 94.47760573434377
+      }
+    },
+    {
+      "position": "rooks",
+      "mode": "nodes",
+      "budget": 400000,
+      "eligible": true,
+      "median_wall_seconds": {
+        "baseline": 0.2752646000008099,
+        "compact": 0.22396350000053644,
+        "classical": 0.1733343999949284
+      },
+      "median_engine_nps": {
+        "baseline": 1470588.2352941176,
+        "compact": 1818181.8181818181,
+        "classical": 2352941.176470588
+      },
+      "mean_depth": {
+        "baseline": 7,
+        "compact": 7,
+        "classical": 8
+      },
+      "wall_speedup": 1.229060092381797,
+      "trial_speedup_min_max": [
+        1.1625184459471483,
+        1.317428668867786
+      ],
+      "nnue_classical_before": 0.625,
+      "nnue_classical_after": 0.7727272727272728,
+      "cpu_single_core_percent": {
+        "baseline": 97.3338719443248,
+        "compact": 98.59591975002044,
+        "classical": 96.95681367131986
+      }
+    },
+    {
+      "position": "start",
+      "mode": "nodes",
+      "budget": 400000,
+      "eligible": true,
+      "median_wall_seconds": {
+        "baseline": 0.3550281999632716,
+        "compact": 0.2790165999904275,
+        "classical": 0.2529346999945119
+      },
+      "median_engine_nps": {
+        "baseline": 1139601.1396011396,
+        "compact": 1449275.3623188403,
+        "classical": 1612903.2258064516
+      },
+      "mean_depth": {
+        "baseline": 8,
+        "compact": 8,
+        "classical": 8
+      },
+      "wall_speedup": 1.2724268017582177,
+      "trial_speedup_min_max": [
+        1.1593196671978379,
+        1.294225863314954
+      ],
+      "nnue_classical_before": 0.7065527065527065,
+      "nnue_classical_after": 0.898550724637681,
+      "cpu_single_core_percent": {
+        "baseline": 93.75962234241472,
+        "compact": 94.18564200373403,
+        "classical": 89.69066294500729
+      }
+    },
+    {
+      "position": "underpromotion_perft",
+      "mode": "nodes",
+      "budget": 400000,
+      "eligible": true,
+      "median_wall_seconds": {
+        "baseline": 0.34182370000053197,
+        "compact": 0.2604564999928698,
+        "classical": 0.2001763000153005
+      },
+      "median_engine_nps": {
+        "baseline": 1183431.9526627217,
+        "compact": 1556420.233463035,
+        "classical": 2030456.8527918782
+      },
+      "mean_depth": {
+        "baseline": 8,
+        "compact": 8,
+        "classical": 7
+      },
+      "wall_speedup": 1.3124022629878298,
+      "trial_speedup_min_max": [
+        1.2468300686921916,
+        1.3884395282699986
+      ],
+      "nnue_classical_before": 0.5828402366863905,
+      "nnue_classical_after": 0.7665369649805447,
+      "cpu_single_core_percent": {
+        "baseline": 96.89732973520223,
+        "compact": 90.8366038282381,
+        "classical": 99.43869633759675
+      }
+    },
+    {
+      "position": "white_blocked",
+      "mode": "nodes",
+      "budget": 400000,
+      "eligible": true,
+      "median_wall_seconds": {
+        "baseline": 0.153387299971655,
+        "compact": 0.14369960001204163,
+        "classical": 0.11365279997698963
+      },
+      "median_engine_nps": {
+        "baseline": 2666666.666666667,
+        "compact": 2836879.4326241137,
+        "classical": 3636363.6363636362
+      },
+      "mean_depth": {
+        "baseline": 15,
+        "compact": 15,
+        "classical": 15
+      },
+      "wall_speedup": 1.0674163321178458,
+      "trial_speedup_min_max": [
+        0.9989535698916076,
+        1.104843489962579
+      ],
+      "nnue_classical_before": 0.7333333333333334,
+      "nnue_classical_after": 0.7801418439716313,
+      "cpu_single_core_percent": {
+        "baseline": 96.03193713945265,
+        "compact": 94.52547425317026,
+        "classical": 94.8494844042825
+      }
+    }
+  ]
+}

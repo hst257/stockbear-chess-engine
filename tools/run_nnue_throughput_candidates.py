@@ -10,7 +10,7 @@ from tools.analyze_nnue_throughput import summarize
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("labels", nargs="+", choices=("merge", "compact", "deferred", "fused"))
+    parser.add_argument("labels", nargs="+", choices=("merge", "compact", "deferred", "fused", "compact-small"))
     args = parser.parse_args()
     for label in args.labels:
         flags = ["--nnue-update", label]

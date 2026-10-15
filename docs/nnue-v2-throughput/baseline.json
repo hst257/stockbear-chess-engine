@@ -384,5 +384,10 @@
       }
     }
   },
-  "text_sha256": "2fcdef4e1aa35e8807b6cb05dbfe752625760e535f241c644e9eaeaa23b70d1e"
+  "text_sha256": "2fcdef4e1aa35e8807b6cb05dbfe752625760e535f241c644e9eaeaa23b70d1e",
+  "cpu": {
+    "brand": "13th Gen Intel(R) Core(TM) i5-13420H",
+    "avx2_os_enabled": true,
+    "fma_os_enabled": true
+  }
 }

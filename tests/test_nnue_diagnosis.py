@@ -154,7 +154,12 @@ def test_accumulator_counters_match_the_exhaustive_depth_one_oracle():
         assert result["nodes"] == d["visits"] == 21
         assert d["updates"] == d["copies"] == d["evaluated_visits"] == 20
         assert d["delta_rows"] == 40 and d["delta_histogram"][2] == 20
-        assert d["copy_payload_bytes"] == 20 * 408
+        sidecar = Path(os.environ["CHESSLAB_DIAGNOSTIC_ENGINE"]).with_suffix(".build.json")
+        strategy = json.loads(sidecar.read_text()).get("nnue_update", "legacy")
+        # Initial legal moves retain all four castling state rows, no legal EP.
+        # Compact metadata: 256 float bytes + 2*4 uint16 rows + one count.
+        payload = 408 if strategy in ("legacy", "merge") else 276
+        assert d["copy_payload_bytes"] == 20 * payload
         assert d["row_weight_bytes"] == 40 * 2 * 32 * 4
         assert d["row_value_read_write_bytes"] == 40 * 4 * 32 * 4
         assert d["evaluation_calls"] == 20 and d["refreshes"] == 1

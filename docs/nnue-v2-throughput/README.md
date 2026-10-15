@@ -50,8 +50,28 @@ protocols and final verification live here. Python commands use repository modul
 .\.venv\Scripts\python.exe -m tools.nnue_throughput compare --label <build> --repeats 5 --budgets 100000 400000 1000000
 .\.venv\Scripts\python.exe -m tools.nnue_throughput compare --label <build> --repeats 5 --budgets 50 200 1000 --time
 .\.venv\Scripts\python.exe -m tools.analyze_nnue_throughput docs/nnue-v2-throughput/benchmark-<build>.json
+.\.venv\Scripts\python.exe -m tools.run_nnue_throughput_final --strategy compact --matches
+StockBear_NNUE_training\.venv\Scripts\python.exe -m tools.report_nnue_throughput --plots
 ```
 
 Completed baseline stages are retained. Comparisons checkpoint complete searches;
 resume with the same label, model, executable and parameters. Build labels are
 immutable: use a fresh label for each changed candidate.
+
+The baseline command was executed **before** optimization, at the frozen tag.
+For a cold reproduction, build the original source from that tag in a separate
+checkout first; preserve both its executable and micro target under `baseline/`.
+Rebuilding current source with `--nnue-update legacy` restores update behavior,
+but is not a claim of byte-identical original machine code. Existing baseline
+labels are never overwritten. The serial final pipeline skips completed stages;
+its status/logs live under the artifact root. Do not run it concurrently with
+another engine benchmark. The match checkpoint is retained after completion.
+
+`--nnue-update compact` is the accepted build default. `legacy`, `merge`,
+`deferred`, `fused` and `compact-small` remain explicit A/B experiment options.
+The ordinary UCI evaluator default remains classical. Launch the measured v2
+build explicitly when checking the desktop application:
+
+```powershell
+.\.venv\Scripts\python.exe -m app.main --mode engine --evaluator nnue --engine artifacts/nnue-v2-throughput/final/engine.exe
+```

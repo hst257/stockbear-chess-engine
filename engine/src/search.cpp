@@ -80,6 +80,12 @@ public:
         if (limits_.use_nnue && limits_.nnue_incremental) {
             nnue_stack_ = std::make_unique<std::array<NnueAccumulator, MAX_SEARCH_PLY + 1>>();
             nnue_refresh(board, (*nnue_stack_)[0]);
+#if CHESSLAB_NNUE_UPDATE == 3
+            if (limits_.nnue_kernel != "reference" && !nnue_quantized()) {
+                nnue_pending_ = std::make_unique<std::array<NnuePending, MAX_SEARCH_PLY + 1>>();
+                (*nnue_pending_)[0].ready = true;
+            }
+#endif
         }
         chess::Movelist moves;
         generate(moves, board);
@@ -167,6 +173,20 @@ private:
     std::unique_ptr<PawnCache> pawn_cache_;
     OrderingHistory ordering_;
     std::unique_ptr<std::array<NnueAccumulator, MAX_SEARCH_PLY + 1>> nnue_stack_;
+#if CHESSLAB_NNUE_UPDATE == 3
+    struct NnuePending { NnueDelta delta; NnueFeatures states; bool ready = false; };
+    std::unique_ptr<std::array<NnuePending, MAX_SEARCH_PLY + 1>> nnue_pending_;
+
+    void materialize_nnue(int ply) {
+        auto& pending = (*nnue_pending_)[ply];
+        if (pending.ready) return;
+        // Every intermediate ancestor is cached, never replayed from just the
+        // nearest evaluated ancestor. Each live edge is applied at most once.
+        materialize_nnue(ply - 1);
+        nnue_update_search_states((*nnue_stack_)[ply - 1], pending.states, pending.delta, (*nnue_stack_)[ply]);
+        pending.ready = true;
+    }
+#endif
 
     int static_evaluation(const chess::Board& board, int ply) {
         ++result_.eval_calls;
@@ -176,7 +196,12 @@ private:
             diagnostics::evaluation(ply);
 #endif
             ++result_.nnue_evaluations;
-            if (nnue_stack_) return nnue_white_score(board, (*nnue_stack_)[ply]);
+            if (nnue_stack_) {
+#if CHESSLAB_NNUE_UPDATE == 3
+                if (nnue_pending_) materialize_nnue(ply);
+#endif
+                return nnue_white_score(board, (*nnue_stack_)[ply]);
+            }
             NnueAccumulator fresh;
             nnue_refresh(board, fresh);
             return nnue_white_score(board, fresh);
@@ -186,6 +211,15 @@ private:
 
     void descend_nnue(const chess::Board& board, int ply, const NnueDelta& delta = {}) {
         if (!nnue_stack_) return;
+#if CHESSLAB_NNUE_UPDATE == 3
+        if (nnue_pending_) {
+            auto& pending = (*nnue_pending_)[ply];
+            pending.delta = delta;
+            pending.states = nnue_search_states(board);
+            pending.ready = false;
+            return;
+        }
+#endif
         if (limits_.nnue_kernel == "reference") nnue_update((*nnue_stack_)[ply - 1], board, (*nnue_stack_)[ply]);
         else {
 #if CHESSLAB_NNUE_UPDATE > 0

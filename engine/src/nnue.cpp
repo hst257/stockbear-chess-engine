@@ -61,11 +61,12 @@ int piece_feature(chess::Piece piece, int square) {
     return (int(piece.color()) * 6 + int(piece.type())) * 64 + square;
 }
 // State-only extraction avoids traversing and sorting the board's pieces.
-NnueFeatures state_features(const chess::Board& board) {
+template<class Features>
+Features state_features_impl(const chess::Board& board) {
 #ifdef CHESSLAB_DIAGNOSTICS
     profiling::Scope state_measured(profiling::NNUE_STATE);
 #endif
-    NnueFeatures result;
+    Features result;
     auto append = [&](int f) {
         result.active[0][result.count] = f;
         result.active[1][result.count++] = reverse_feature(f);
@@ -89,6 +90,7 @@ NnueFeatures state_features(const chess::Board& board) {
     }
     return result;
 }
+NnueFeatures state_features(const chess::Board& board) { return state_features_impl<NnueFeatures>(board); }
 }
 
 NnueDelta nnue_move_delta(const chess::Board& before, chess::Move move) {
@@ -214,8 +216,35 @@ void nnue_update_search(const NnueAccumulator& parent, const chess::Board& after
         nnue_update_move(parent, after, delta, output);
         return;
     }
+    nnue_update_search_states(parent, nnue_search_states(after), delta, output);
+#endif
+}
+
+#if CHESSLAB_NNUE_UPDATE > 0
+NnueSearchFeatures nnue_search_states(const chess::Board& board) { return state_features_impl<NnueSearchFeatures>(board); }
+
+#if CHESSLAB_NNUE_UPDATE == 4
+template<int Count>
+void fused_rows(const float* parent, float* output, const int* changes) {
+    const float* rows[Count];
+    for (int i = 0; i < Count; ++i) rows[i] = w::transform_weight + (std::abs(changes[i]) - 1) * w::WIDTH;
+    // Keep each lane live across its ordered row operations. No reassociation,
+    // sign multiplication, FMA or change to the float32 rounding sequence.
+    for (int j = 0; j < w::WIDTH; ++j) {
+        float value = parent[j];
+        for (int i = 0; i < Count; ++i) {
+            if (changes[i] < 0) value -= rows[i][j];
+            else value += rows[i][j];
+        }
+        output[j] = value;
+    }
+}
+#endif
+
+void nnue_update_search_states(const NnueAccumulator& parent, const NnueSearchFeatures& supplied_states,
+                               const NnueDelta& delta, NnueAccumulator& output) {
     profiling::Scope measured(profiling::NNUE_UPDATE);
-    auto states = state_features(after);
+    auto states = supplied_states;
     for (auto& active : states.active) std::sort(active.begin(), active.begin() + states.count);
     for (int p = 0; p < 2; ++p) {
         int changes[16], size = 0;
@@ -263,11 +292,19 @@ void nnue_update_search(const NnueAccumulator& parent, const chess::Board& after
             if (p == 0) diagnostics::copied(2ULL * w::WIDTH * sizeof(float) +
                 (CHESSLAB_NNUE_UPDATE == 1 ? sizeof(NnueFeatures) : 2ULL * states.count * sizeof(std::uint16_t) + sizeof(int)));
 #endif
+#if CHESSLAB_NNUE_UPDATE == 4
+            if (size < 2 || size > 4)
+#endif
             std::copy_n(parent.values[p].begin(), w::WIDTH, output.values[p].begin());
         }
 #ifdef CHESSLAB_DIAGNOSTICS
         if (p == 0) diagnostics::rows(size, w::WIDTH, sizeof(float));
         profiling::Scope rows_measured(profiling::NNUE_ROWS);
+#endif
+#if CHESSLAB_NNUE_UPDATE == 4
+        if (size == 2) { fused_rows<2>(parent.values[p].data(), output.values[p].data(), changes); continue; }
+        if (size == 3) { fused_rows<3>(parent.values[p].data(), output.values[p].data(), changes); continue; }
+        if (size == 4) { fused_rows<4>(parent.values[p].data(), output.values[p].data(), changes); continue; }
 #endif
         for (int i = 0; i < size; ++i) {
             const float* row = w::transform_weight + (std::abs(changes[i]) - 1) * w::WIDTH;
@@ -276,8 +313,8 @@ void nnue_update_search(const NnueAccumulator& parent, const chess::Board& after
             else for (int j = 0; j < w::WIDTH; ++j) output.values[p][j] += row[j];
         }
     }
-#endif
 }
+#endif
 
 NnueFeatures nnue_features(const chess::Board& board) {
     profiling::Scope measured(profiling::NNUE_FEATURES);

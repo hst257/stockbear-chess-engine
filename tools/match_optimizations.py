@@ -207,19 +207,23 @@ def version_match(args):
         build = data.get("builds", {}).get(label) or {}
         if options.get("Evaluator") == "nnue" and build.get("nnue"):
             labels[label] += " " + Path(build["nnue"]["model"]).stem + " (" + options.get("NNUEKernel", "auto") + ")"
+    same_nnue = all(options.get("Evaluator") == "nnue" for options in overrides.values())
+    if same_nnue:
+        labels = {label: ("Optimized " if label == "candidate" else "Baseline ") + name for label, name in labels.items()}
     for record in data["games"]:
         board = chess.Board()
         for uci in record["opening"] + [s["move"] for s in record["searches"]]:
             board.push_uci(uci)
         game = chess.pgn.Game.from_board(board)
-        game.headers.update({"Event": "NNUE versus classical evaluator match" if evaluator_match else "Original versus optimized audit match", "Round": str(record["game"]),
+        game.headers.update({"Event": "NNUE implementation throughput validation" if same_nnue else "NNUE versus classical evaluator match" if evaluator_match else "Original versus optimized audit match", "Round": str(record["game"]),
                              "White": labels["candidate"] if record["candidate_color"] == "white" else labels["original"],
                              "Black": labels["original"] if record["candidate_color"] == "white" else labels["candidate"],
                              "Result": record["result"], "ThinkTimeMs": str(args.movetime),
                              "Termination": record["termination"]})
         games.append(str(game))
     write_record(args.output.with_suffix(".pgn"), "\n\n".join(games) + "\n")
-    progress.unlink()
+    if not getattr(args, "retain_progress", False):
+        progress.unlink()
     print(json.dumps(data["summary"], indent=2), flush=True)
 
 
@@ -236,6 +240,7 @@ def main():
     parser.add_argument("--opening-book", type=Path, help="Frozen shared JSON openings; bypass per-opponent filtering.")
     parser.add_argument("--seed", type=int, default=20261015)
     parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--retain-progress", action="store_true", help="Preserve the completed checkpoint alongside final records.")
     parser.add_argument("--max-new-games", type=int, help="Pause after this many new games, preserving the full schedule for --resume.")
     parser.add_argument("--max-plies", type=int, default=160)
     parser.add_argument("--output", type=Path, default=Path("artifacts/optimization-matches.json"))

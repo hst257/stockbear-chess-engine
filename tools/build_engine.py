@@ -26,13 +26,15 @@ def main() -> int:
     parser.add_argument("--diagnostics", action="store_true", help="Compile optional accumulator-work counters; no production-policy changes.")
     parser.add_argument("--optimization", choices=("O2", "O3"), default="O2")
     parser.add_argument("--lto", action="store_true")
-    parser.add_argument("--nnue-update", choices=("legacy", "merge", "compact", "deferred", "fused"), default="legacy",
+    parser.add_argument("--nnue-update", choices=("legacy", "merge", "compact", "deferred", "fused", "compact-small"), default="compact",
                         help="NNUE-only update experiment; identical model and search policy.")
     parser.add_argument("--output", type=Path)
     parser.add_argument("--nnue-model", type=Path, default=DEFAULT_MODEL,
                         help="Validate and embed a custom StockBear float32 v1 export.")
-    parser.add_argument("--sanitize", choices=("undefined",), help="Development-only undefined-behavior checks.")
+    parser.add_argument("--sanitize", choices=("undefined", "address"), help="Development-only sanitizer checks; platform support varies.")
     options = parser.parse_args()
+    if options.nnue_update == "deferred" and options.diagnostics:
+        parser.error("Deferred prototype does not implement eager-frame diagnostic lifetimes; use release parity/work benchmarks.")
     target = options.target
     if os.environ.get("CXX"):
         compiler = [os.environ["CXX"]]
@@ -68,9 +70,8 @@ def main() -> int:
         args.insert(len(compiler), "-DCHESSLAB_PROFILE")
     if options.diagnostics:
         args.insert(len(compiler), "-DCHESSLAB_DIAGNOSTICS")
-    update_strategy = ("legacy", "merge", "compact", "deferred", "fused").index(options.nnue_update)
-    if update_strategy:
-        args.insert(len(compiler), f"-DCHESSLAB_NNUE_UPDATE={update_strategy}")
+    update_strategy = ("legacy", "merge", "compact", "deferred", "fused", "compact-small").index(options.nnue_update)
+    args.insert(len(compiler), f"-DCHESSLAB_NNUE_UPDATE={update_strategy}")
     if options.lto:
         args.insert(len(compiler), "-flto")
     if options.sanitize:
