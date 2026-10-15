@@ -1,0 +1,30 @@
+{
+  "recorded_utc": "2026-10-15T08:30:42.254008+00:00",
+  "git_head": "acd9360087080a6be4ba4ac014f8bfb4e6701ef5",
+  "files": {
+    "stockbear\\audit.py": "d3b1e958199be06db59b6ec57bd531aec17ca6abcb14a7255a4323a5c8adf97f",
+    "stockbear\\common.py": "565d4c71a21fd54eb4b03b63afc6bff8e5d59b3bff3b1961f19bcbe396ff7ab2",
+    "stockbear\\diagnostics.py": "6cff45af7f6e672ded83c3c5c5e30c39c110a06ab152f4e65fe2b1203729447f",
+    "stockbear\\export.py": "6a03030f7be9aac4e67a7ca7177be4ed77dbf816af95ffbf198ccff7849862ee",
+    "stockbear\\features.py": "3a65d4eba587054e1518a1e5cf87d08418ab8e93f88a461496442ff517262329",
+    "stockbear\\model.py": "c5233e9978ad044091472bfcf14cbb833ef3316ffb07fece2eedfd310e7faac5",
+    "stockbear\\sample.py": "18788ee5b680c62aadd32890eb6b07881262395d2a47399962bd818d8395dd2e",
+    "stockbear\\teacher.py": "45f989069e6f25940ef65e95b8e4288c5d8198d8a0c3f7c51d1b7ad64f011ba1",
+    "stockbear\\train.py": "eb775d33b64a9bad7876d8f99a9b7dc439195f1f264634eab84703d14e3e4441",
+    "stockbear\\validate.py": "f2e218adf2f299ed685cdbfdcf4aa2a50a38c11c8756386abfd1bb1ed024cf37",
+    "stockbear\\__init__.py": "1c886d380387d213af4cddd95d5d637faeee5c47f6cfb3c569bec7298120f4db",
+    "stockbear\\__main__.py": "c667a36f9de9f7df44e8262ee3652bccc80102bfcfbc95fde4a793bf187756d2",
+    "stockbear\\v2\\data.py": "12a5884fb35841f1dbe93acc9bf666b8678625eeef139488eca310e831d5eefe",
+    "stockbear\\v2\\label.py": "ef90c4a0a663180eb8ecbc800e1148b7b295e8994c7e823ac25e07321886d804",
+    "stockbear\\v2\\learn.py": "67f60b734495f3660d60019ecececd52e8950a598c3f485c1427bfa3d5372777",
+    "stockbear\\v2\\pipeline.py": "74a93da89ae465b76b98e299ed75c99b733cb7c6927f9bab2a6cf9d1d4714967",
+    "stockbear\\v2\\report.py": "ed46110efc2296dbe2979f970b29f0ad2a3f10e68e186d062b385ab513475f5c",
+    "stockbear\\v2\\runner.py": "9fa549ac107bfa442520bd5401f0d78134be07cbb4481907e9039b3af4c53e33",
+    "stockbear\\v2\\verify.py": "4f282c12bc932ea7ec9311b4dcf11219128f7b749cfc86a40469a13d8b179a85",
+    "stockbear\\v2\\__init__.py": "0f0caf378eebdba93561b76bfc253d5d8175b27ff7d20f499957d2df10021a03",
+    "stockbear\\v2\\__main__.py": "26ad7ec80d6f1c78f019b3ec6b49a5bd2455a6ffdfe9d4bc4780afed3fc4e9a5",
+    "configs\\v2\\plan.json": "12edfc808728c62dd9096ff1993cc0f10d32dfa48ac52b87dde072d14c1b34fe",
+    "docs\\V2_PROTOCOL.md": "23681e6a159d1d89036cf3caae21a9126c0eaccfbd301cbe5b47c7c371bd190c"
+  },
+  "scope": "snapshot before full v2 training; pilot completed; final report source may be clarified without changing training semantics"
+}

@@ -1,0 +1,42 @@
+{
+  "bounded_budget_hours": 6,
+  "cache_reset_exact_positions": 64,
+  "estimated_label_hours": 1.9186789238785413,
+  "estimated_prepared_bytes": 182268180,
+  "estimated_sqlite_bytes": 455670450,
+  "largest_practical": 1012601,
+  "other_engine_experiments_present": false,
+  "profile": {
+    "clear_hash_each_position": true,
+    "counters": "0 1",
+    "executable": "stockfish-windows-x86-64-universal\\stockfish\\stockfish-windows-x86-64-universal.exe",
+    "hash_mb": 64,
+    "mate_cp": 2000,
+    "nodes": 16384,
+    "score_pov": "side_to_move",
+    "sha256": "45bc8e4969147db9c2eb533810637994619bff0eacc81ccfd9854394901bcbd0",
+    "threads": 1,
+    "version": 2
+  },
+  "profile_id": "ddc2b43b123677466a9a9f8478f67ffc028a6582266a73e36a3272bc85b30f92",
+  "reset_optimization": "one ucinewgame search_clear; redundant Clear Hash removed after exact parity",
+  "selected_workers": 6,
+  "trials": [
+    {
+      "positions": 1024,
+      "positions_per_second": 127.74451097799196,
+      "seconds": 8.01600000000326,
+      "system_cpu_percent": 39.8,
+      "teacher_cpu_percent_one_core_100": 366.8444361275953,
+      "workers": 4
+    },
+    {
+      "positions": 1024,
+      "positions_per_second": 146.5998568363705,
+      "seconds": 6.98499999998603,
+      "system_cpu_percent": 55.9,
+      "teacher_cpu_percent_one_core_100": 544.9176807455423,
+      "workers": 6
+    }
+  ]
+}

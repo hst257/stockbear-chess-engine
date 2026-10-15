@@ -1,0 +1,152 @@
+[
+  {
+    "common_holdout_prefix": 200000,
+    "fingerprint": "4c26c0e5d7c1f934e5853cfbbc3c3e2e1a52accd174effae7aa68acad1ea924b",
+    "nominal_pool_positions": 1000000,
+    "path": "data\\v2\\prepared\\1000000\\manifest.json",
+    "sha256": "209c46d7dc078e0766a27be4d45663704104a46a5d0ed0a0016ddbda3025b847",
+    "signature": {
+      "features": "dual-perspective-12x64-castling-ep-v1",
+      "pool": "{\"sampler\": {\"games_per_archive\": 3000, \"max_ply\": 300, \"min_ply\": 4, \"ply_gap\": 3, \"positions_per_game\": 16, \"seed\": 20261015}, \"sources\": \"81e2b46e3db8232b4cea5adecdcf3e42ab343b59b371698af87b174175dca0cc\", \"version\": 2}",
+      "profile": "ddc2b43b123677466a9a9f8478f67ffc028a6582266a73e36a3272bc85b30f92",
+      "size": 1000000
+    },
+    "splits": {
+      "test": {
+        "positions": 20152,
+        "x_sha256": "f84540d47a26f7441d173c8229ec5050a43a222f8d59933cb517f09fc449d41b",
+        "y_sha256": "a563551a4d409b97389439b1889b778d52ee819f4946229522e39321f616f41a"
+      },
+      "train": {
+        "positions": 799571,
+        "x_sha256": "b8c25d7f940a4a66dc3fedf55bbd8a0ad2d913fd559c86257318c2988e4b2294",
+        "y_sha256": "91014bcf859b88197fd3ac557c1b6013c5bf0cf3453c7012f883c62a3da58b72"
+      },
+      "validation": {
+        "positions": 19930,
+        "x_sha256": "b6515abcaaea6dbf7691ba56850d8276856f59c5adbe7d1144dd5ab53ef91fce",
+        "y_sha256": "adc4536f98322dbbf73589a032e9ed031e6b00c44f853a70101225ed7ae278ea"
+      }
+    }
+  },
+  {
+    "common_holdout_prefix": 200000,
+    "fingerprint": "0d0dc398fb03280de1f1e76e8c14ab7671bea6b5ced688bb51cc89225354d807",
+    "nominal_pool_positions": 1250000,
+    "path": "data\\v2\\prepared\\1250000\\manifest.json",
+    "sha256": "821cf5bb8d691eaf79dc45ba866e23978196aea162a9650dadabaaca190efb4d",
+    "signature": {
+      "features": "dual-perspective-12x64-castling-ep-v1",
+      "pool": "{\"sampler\": {\"games_per_archive\": 3000, \"max_ply\": 300, \"min_ply\": 4, \"ply_gap\": 3, \"positions_per_game\": 16, \"seed\": 20261015}, \"sources\": \"81e2b46e3db8232b4cea5adecdcf3e42ab343b59b371698af87b174175dca0cc\", \"version\": 2}",
+      "profile": "ddc2b43b123677466a9a9f8478f67ffc028a6582266a73e36a3272bc85b30f92",
+      "size": 1250000
+    },
+    "splits": {
+      "test": {
+        "positions": 20152,
+        "x_sha256": "f84540d47a26f7441d173c8229ec5050a43a222f8d59933cb517f09fc449d41b",
+        "y_sha256": "a563551a4d409b97389439b1889b778d52ee819f4946229522e39321f616f41a"
+      },
+      "train": {
+        "positions": 999464,
+        "x_sha256": "59e84b56c31a7970e34466b7e7a1b645fb6d5390b7f93d17cfa8a7ac5c252729",
+        "y_sha256": "a236771103a48702bda22e541eddfc16b66004e2ad657a36709812b44da71965"
+      },
+      "validation": {
+        "positions": 19930,
+        "x_sha256": "b6515abcaaea6dbf7691ba56850d8276856f59c5adbe7d1144dd5ab53ef91fce",
+        "y_sha256": "adc4536f98322dbbf73589a032e9ed031e6b00c44f853a70101225ed7ae278ea"
+      }
+    }
+  },
+  {
+    "common_holdout_prefix": 200000,
+    "fingerprint": "f71650db637316932fbc68b91c5cd521cb7670a1ec98d574ed2253fb119d897d",
+    "nominal_pool_positions": 200000,
+    "path": "data\\v2\\prepared\\200000\\manifest.json",
+    "sha256": "b25d3a783cf4d09c3cd115ba31e8c5e9f82e77e66a3ddb4d0f2aa5c1f211b214",
+    "signature": {
+      "features": "dual-perspective-12x64-castling-ep-v1",
+      "pool": "{\"sampler\": {\"games_per_archive\": 3000, \"max_ply\": 300, \"min_ply\": 4, \"ply_gap\": 3, \"positions_per_game\": 16, \"seed\": 20261015}, \"sources\": \"81e2b46e3db8232b4cea5adecdcf3e42ab343b59b371698af87b174175dca0cc\", \"version\": 2}",
+      "profile": "ddc2b43b123677466a9a9f8478f67ffc028a6582266a73e36a3272bc85b30f92",
+      "size": 200000
+    },
+    "splits": {
+      "test": {
+        "positions": 20152,
+        "x_sha256": "f84540d47a26f7441d173c8229ec5050a43a222f8d59933cb517f09fc449d41b",
+        "y_sha256": "a563551a4d409b97389439b1889b778d52ee819f4946229522e39321f616f41a"
+      },
+      "train": {
+        "positions": 159918,
+        "x_sha256": "024d8c9d72a3216279ec0f31b2f2a3654a74e12f136e560604c305b9535ac95f",
+        "y_sha256": "881069947bd68457b401550eb6d336c4d6d22505eb94957d6ae4e3b636448a87"
+      },
+      "validation": {
+        "positions": 19930,
+        "x_sha256": "b6515abcaaea6dbf7691ba56850d8276856f59c5adbe7d1144dd5ab53ef91fce",
+        "y_sha256": "adc4536f98322dbbf73589a032e9ed031e6b00c44f853a70101225ed7ae278ea"
+      }
+    }
+  },
+  {
+    "common_holdout_prefix": 4096,
+    "fingerprint": "71598a655a118193edccb602ee7455ca3e83a5de12424d284af23e26fa92afa0",
+    "nominal_pool_positions": 4096,
+    "path": "data\\v2\\prepared\\4096\\manifest.json",
+    "sha256": "98c102a158d9b452e9fb2c78ea9718f40d53fd66c7e79f1b778b889f4a4a6735",
+    "signature": {
+      "features": "dual-perspective-12x64-castling-ep-v1",
+      "pool": "{\"sampler\": {\"games_per_archive\": 3000, \"max_ply\": 300, \"min_ply\": 4, \"ply_gap\": 3, \"positions_per_game\": 16, \"seed\": 20261015}, \"sources\": \"81e2b46e3db8232b4cea5adecdcf3e42ab343b59b371698af87b174175dca0cc\", \"version\": 2}",
+      "profile": "ddc2b43b123677466a9a9f8478f67ffc028a6582266a73e36a3272bc85b30f92",
+      "size": 4096
+    },
+    "splits": {
+      "test": {
+        "positions": 412,
+        "x_sha256": "c954e7c5c6c897a0cf1d974135a4eec1b4cbad0eb3f5aaf98e15565f6dd8f029",
+        "y_sha256": "d2d1fd197211d9ec5a2e52e86a75710f44393b30a82bc822c92646406a5af5da"
+      },
+      "train": {
+        "positions": 3275,
+        "x_sha256": "99204af02e1935e0bb40d3214f31d937b27a7274b9c277047d8b0c3a79ae2b64",
+        "y_sha256": "1666afe71e8e1bfb8a20bf8e0ef27b252ec7bf30990063d291d6f1118552a6d8"
+      },
+      "validation": {
+        "positions": 409,
+        "x_sha256": "174fa440b9c04711189bae0619c122f3d2cd90dc09cccfa9282e818e7816d3a2",
+        "y_sha256": "e9abbf9a9290179a7918b9e0a346bf5665b06b2784ff48378f2566254bbde095"
+      }
+    }
+  },
+  {
+    "common_holdout_prefix": 200000,
+    "fingerprint": "e08852c98fbda4866bdf3fc84594dd6df951aea5e54a6b278ffcac993c8106d7",
+    "nominal_pool_positions": 500000,
+    "path": "data\\v2\\prepared\\500000\\manifest.json",
+    "sha256": "cb79c1844468c823686501befab7393b841b530c6169529fcaaf9a583fc486a0",
+    "signature": {
+      "features": "dual-perspective-12x64-castling-ep-v1",
+      "pool": "{\"sampler\": {\"games_per_archive\": 3000, \"max_ply\": 300, \"min_ply\": 4, \"ply_gap\": 3, \"positions_per_game\": 16, \"seed\": 20261015}, \"sources\": \"81e2b46e3db8232b4cea5adecdcf3e42ab343b59b371698af87b174175dca0cc\", \"version\": 2}",
+      "profile": "ddc2b43b123677466a9a9f8478f67ffc028a6582266a73e36a3272bc85b30f92",
+      "size": 500000
+    },
+    "splits": {
+      "test": {
+        "positions": 20152,
+        "x_sha256": "f84540d47a26f7441d173c8229ec5050a43a222f8d59933cb517f09fc449d41b",
+        "y_sha256": "a563551a4d409b97389439b1889b778d52ee819f4946229522e39321f616f41a"
+      },
+      "train": {
+        "positions": 399783,
+        "x_sha256": "926ad71b34e9b95d95998d717758a5cecc32ec1f9377385126dec042a256df50",
+        "y_sha256": "6d04d095c1b60b178c30e75dae59229e238d0a5f33b7a6b9c783876148e0672e"
+      },
+      "validation": {
+        "positions": 19930,
+        "x_sha256": "b6515abcaaea6dbf7691ba56850d8276856f59c5adbe7d1144dd5ab53ef91fce",
+        "y_sha256": "adc4536f98322dbbf73589a032e9ed031e6b00c44f853a70101225ed7ae278ea"
+      }
+    }
+  }
+]

@@ -1,0 +1,17 @@
+{
+  "utc": "2026-10-15T10:39:37.553187+00:00",
+  "critical_source_and_configuration_unchanged": {
+    "stockbear\\v2\\learn.py": true,
+    "stockbear\\v2\\label.py": true,
+    "stockbear\\v2\\runner.py": true,
+    "stockbear\\v2\\verify.py": true,
+    "stockbear\\features.py": true,
+    "stockbear\\model.py": true,
+    "stockbear\\teacher.py": true,
+    "stockbear\\train.py": true,
+    "configs\\v2\\plan.json": true
+  },
+  "preselection_test_metrics": [],
+  "preselection_test_predictions": [],
+  "later_changes": "Inventory cache recovery, reporting and documentation only; frozen pool, features, labels and neural training settings unchanged"
+}

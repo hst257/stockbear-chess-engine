@@ -1,0 +1,70 @@
+[
+  {
+    "architecture": "small",
+    "bytes": 218029,
+    "experiment": "final_small_1250000_base",
+    "max_numpy_cp_error": 9.5367431640625e-05,
+    "max_training_device_cp_error": 0.000164031982421875,
+    "model": {
+      "hidden": 32,
+      "width": 64
+    },
+    "native_format_reader_accepted": true,
+    "native_inference_or_matches_run": false,
+    "parity_positions": 128,
+    "path": "exports\\v2\\stockbear-v2-small-final_small_1250000_base.sbnnue",
+    "payload_sha256": "f3b3717ac82363fe261aea1eda937e6431c8e108cbdf13d71dee791c2241aa32",
+    "sha256": "c43a11890f0b876a906985d0c06c78da6b2c8ad45a454a3c868598753745b2e7"
+  },
+  {
+    "architecture": "compact",
+    "bytes": 105518,
+    "experiment": "final_compact_1250000_base",
+    "max_numpy_cp_error": 7.152557373046875e-05,
+    "max_training_device_cp_error": 0.00017547607421875,
+    "model": {
+      "hidden": 16,
+      "width": 32
+    },
+    "native_format_reader_accepted": true,
+    "native_inference_or_matches_run": false,
+    "parity_positions": 128,
+    "path": "exports\\v2\\stockbear-v2-compact-final_compact_1250000_base.sbnnue",
+    "payload_sha256": "6430669474029ef0effee25a8309e0751e8ca6411ff0b39d9e8ae50cf7fa5601",
+    "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7"
+  },
+  {
+    "architecture": "medium",
+    "bytes": 434618,
+    "experiment": "arch_medium_500000",
+    "max_numpy_cp_error": 9.5367431640625e-05,
+    "max_training_device_cp_error": 0.000110626220703125,
+    "model": {
+      "hidden": 32,
+      "width": 128
+    },
+    "native_format_reader_accepted": true,
+    "native_inference_or_matches_run": false,
+    "parity_positions": 128,
+    "path": "exports\\v2\\stockbear-v2-medium-arch_medium_500000.sbnnue",
+    "payload_sha256": "e07b31996d685c6e414256f696e7a497cbe68263a889b213fdbaec993e17b312",
+    "sha256": "f9a41eedd3e5430f8fe0550e7e3c8a78a6f091fb229c3dc12c1c08fb17f1329d"
+  },
+  {
+    "architecture": "large",
+    "bytes": 933547,
+    "experiment": "arch_large_500000",
+    "max_numpy_cp_error": 9.5367431640625e-05,
+    "max_training_device_cp_error": 0.000102996826171875,
+    "model": {
+      "hidden": 64,
+      "width": 256
+    },
+    "native_format_reader_accepted": true,
+    "native_inference_or_matches_run": false,
+    "parity_positions": 128,
+    "path": "exports\\v2\\stockbear-v2-large-arch_large_500000.sbnnue",
+    "payload_sha256": "67b2773b1b7d6fce403296a3f66220efe9a097ba95905321ba558a935592f6cb",
+    "sha256": "aabb004540f9c8635fdd6977ad9315f82fc260419cd1c1f529ea5b53efc38e6f"
+  }
+]

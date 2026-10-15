@@ -76,3 +76,8 @@ See the execution report in `reports/RESULTS.md` for measured results and limits
 The compact candidate was selected by validation loss before its test scores
 were computed. Its smaller capacity and stronger weight decay reduced the
 generalization gap. The selected export is `exports/stockbear-compact.sbnnue`.
+
+<!-- STOCKBEAR_V2 -->
+## NNUE v2 experiments
+
+The completed v2 plan and results are in `NNUE_V2_RESULTS.md`. Run or resume with `python -m stockbear.v2 run`. Configuration: `configs/v2/plan.json`. The selected model is `exports/v2/stockbear-v2-best.sbnnue`; independently named architecture candidates and golden scores are beside it. v1 artifacts and the native engine remain unchanged.
