@@ -14,6 +14,8 @@ dist/
 htmlcov/
 .ruff_cache/
 artifacts/
+docs/nnue-v2-throughput/*-checkpoint.json
+docs/nnue-v2-throughput/*.tmp
 
 # Local configuration
 .env

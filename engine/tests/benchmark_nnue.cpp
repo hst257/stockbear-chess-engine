@@ -31,6 +31,73 @@ template<class F> double time_calls(int n, F function) {
 int main(int argc, char** argv) {
     using namespace chesslab;
     std::cout << std::setprecision(10);
+    if (argc >= 2 && std::string(argv[1]) == "--verify-throughput") {
+        if (argc > 2) nnue_set_kernel(argv[2]);
+        std::mt19937 random(20261015);
+        int transitions = 0, nulls = 0;
+        const char* fixtures[] = {
+            chess::constants::STARTPOS,
+            "r3k2r/8/8/3pP3/8/8/8/R3K2R w KQkq d6 0 1",
+            "rnbqkbnr/1pp1ppp1/p6p/2Pp4/8/5N2/PP1PPPPP/RNBQKB1R w KQkq d6 0 4",
+            "r6k/1P6/8/8/8/8/8/K7 w - - 0 1",
+            "7k/4P3/8/8/8/8/5p2/K7 w - - 0 1",
+            "4r2k/8/8/3pP3/8/8/8/4K3 w - d6 0 1"};
+        auto check = [&](const chess::Board& board, const NnueAccumulator& expected, const NnueAccumulator& actual) {
+            for (int p = 0; p < 2; ++p) {
+                if (std::memcmp(expected.values[p].data(), actual.values[p].data(), nnue_width() * sizeof(float)))
+                    throw std::runtime_error("Search update changed float accumulator bits");
+                if (nnue_quantized() && expected.quantized[p] != actual.quantized[p])
+                    throw std::runtime_error("Search update changed integer lanes");
+            }
+            const float a = nnue_side_to_move(board, expected), b = nnue_side_to_move(board, actual);
+            if (std::memcmp(&a, &b, sizeof(float)) || nnue_white_score(board, expected) != nnue_white_score(board, actual))
+                throw std::runtime_error("Search update changed score bits");
+        };
+        for (auto fen : fixtures) for (int walk = 0; walk < 40; ++walk) {
+            chess::Board board(fen);
+            NnueAccumulator full, compact;
+            nnue_refresh(board, full); compact = full;
+            for (int ply = 0; ply < 120; ++ply) {
+                chess::Movelist moves; chess::movegen::legalmoves(moves, board);
+                if (moves.empty()) break;
+                const auto before = board;
+                const auto parent_snapshot = compact;
+                const int begin = ply == 0 ? 0 : int(random() % moves.size());
+                const int end = ply == 0 ? int(moves.size()) : begin + 1;
+                for (int i = begin; i < end; ++i) {
+                    const auto delta = nnue_move_delta(board, moves[i]);
+                    board.makeMove<true>(moves[i]);
+                    NnueAccumulator expected, actual;
+                    nnue_update_move(full, board, delta, expected);
+                    nnue_update_search(compact, board, delta, actual);
+                    check(board, expected, actual); ++transitions;
+                    board.unmakeMove(moves[i]);
+                    if (!board.fullyEquals(before) || compact.values != parent_snapshot.values ||
+                        compact.features.active != parent_snapshot.features.active || compact.features.count != parent_snapshot.features.count)
+                        throw std::runtime_error("Search update mutated sibling parent");
+                }
+                if (!board.inCheck()) {
+                    board.makeNullMove();
+                    NnueAccumulator expected, actual;
+                    nnue_update_move(full, board, {}, expected);
+                    nnue_update_search(compact, board, {}, actual);
+                    check(board, expected, actual); ++nulls;
+                    board.unmakeNullMove();
+                    if (!board.fullyEquals(before)) throw std::runtime_error("Null board restore");
+                }
+                const auto move = moves[random() % moves.size()];
+                const auto delta = nnue_move_delta(board, move);
+                board.makeMove<true>(move);
+                NnueAccumulator expected, actual;
+                nnue_update_move(full, board, delta, expected);
+                nnue_update_search(compact, board, delta, actual);
+                check(board, expected, actual);
+                full = expected; compact = actual;
+            }
+        }
+        std::cout << "{\"transitions\":" << transitions << ",\"nulls\":" << nulls << ",\"bitwise_exact\":true}\n";
+        return 0;
+    }
 #ifdef CHESSLAB_DIAGNOSTICS
     if (argc == 2 && std::string(argv[1]) == "--diagnostics-verify") {
         // Exact synthetic oracle: an unused ancestor has evaluated children;

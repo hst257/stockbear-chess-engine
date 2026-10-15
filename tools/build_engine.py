@@ -26,6 +26,8 @@ def main() -> int:
     parser.add_argument("--diagnostics", action="store_true", help="Compile optional accumulator-work counters; no production-policy changes.")
     parser.add_argument("--optimization", choices=("O2", "O3"), default="O2")
     parser.add_argument("--lto", action="store_true")
+    parser.add_argument("--nnue-update", choices=("legacy", "merge", "compact", "deferred", "fused"), default="legacy",
+                        help="NNUE-only update experiment; identical model and search policy.")
     parser.add_argument("--output", type=Path)
     parser.add_argument("--nnue-model", type=Path, default=DEFAULT_MODEL,
                         help="Validate and embed a custom StockBear float32 v1 export.")
@@ -66,6 +68,9 @@ def main() -> int:
         args.insert(len(compiler), "-DCHESSLAB_PROFILE")
     if options.diagnostics:
         args.insert(len(compiler), "-DCHESSLAB_DIAGNOSTICS")
+    update_strategy = ("legacy", "merge", "compact", "deferred", "fused").index(options.nnue_update)
+    if update_strategy:
+        args.insert(len(compiler), f"-DCHESSLAB_NNUE_UPDATE={update_strategy}")
     if options.lto:
         args.insert(len(compiler), "-flto")
     if options.sanitize:
@@ -82,6 +87,7 @@ def main() -> int:
         output.with_suffix(".build.json").write_text(json.dumps({
             "compiler": compiler, "flags": args[len(compiler):], "profile": options.profile,
             "diagnostics": options.diagnostics,
+            "nnue_update": options.nnue_update,
             "optimization": options.optimization, "lto": options.lto, "sanitizer": options.sanitize,
             "nnue": model_info,
             "generator_sha256": hashlib.sha256((ROOT / "tools/embed_nnue.py").read_bytes()).hexdigest(),

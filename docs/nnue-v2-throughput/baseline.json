@@ -1,0 +1,388 @@
+{
+  "revision": "a2fb045ca39e3a5ced430c83a1c3ded15a58941e",
+  "model": "engine\\networks\\v2\\stockbear-v2-compact.sbnnue",
+  "model_sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+  "preserved_classical_and_nnue": {
+    "utc": "2026-10-15T17:13:26.182079+00:00",
+    "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v2\\final-compact\\engine.exe",
+    "sha256": "d55439565b86d950eaac43fbfb29e6614c18e7f8192e3c6fb7f489452dec6c9a",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+    "logical_cpus": 12,
+    "python": "3.11.8",
+    "source_revision": "a2fb045ca39e3a5ced430c83a1c3ded15a58941e",
+    "build": {
+      "compiler": [
+        "Z:\\Code\\Chess\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ziglang",
+        "c++"
+      ],
+      "flags": [
+        "-std=c++17",
+        "-O2",
+        "-pthread",
+        "-Wall",
+        "-Wextra",
+        "-ffp-contract=off",
+        "-I",
+        "Z:\\Code\\Chess\\artifacts\\nnue-v2\\final-compact\\generated",
+        "-I",
+        "Z:\\Code\\Chess\\engine\\vendor\\chess-library",
+        "-I",
+        "Z:\\Code\\Chess\\engine\\src",
+        "Z:\\Code\\Chess\\engine\\src\\main.cpp",
+        "Z:\\Code\\Chess\\engine\\src\\search.cpp",
+        "Z:\\Code\\Chess\\engine\\src\\evaluation.cpp",
+        "Z:\\Code\\Chess\\engine\\src\\nnue.cpp",
+        "-o",
+        "Z:\\Code\\Chess\\artifacts\\nnue-v2\\final-compact\\engine.exe"
+      ],
+      "profile": false,
+      "optimization": "O2",
+      "lto": false,
+      "sanitizer": null,
+      "nnue": {
+        "model": "Z:\\Code\\Chess\\engine\\networks\\v2\\stockbear-v2-compact.sbnnue",
+        "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+        "payload_sha256": "6430669474029ef0effee25a8309e0751e8ca6411ff0b39d9e8ae50cf7fa5601",
+        "width": 32,
+        "hidden": 16,
+        "feature_version": "dual-perspective-12x64-castling-ep-v1",
+        "quantization": {
+          "supported": true,
+          "first_scale": 4096,
+          "activation_scale": 4096,
+          "head_weight_scale": 4096,
+          "output_weight_scale": 4096,
+          "accumulator_abs_bound": 123634,
+          "head_abs_bound": 238645611,
+          "output_abs_bound": 167827512,
+          "rounding": "nearest, ties away from zero",
+          "derived_bytes": 52260
+        }
+      },
+      "generator_sha256": "f00e0ed44fdc661549fd8345aabb175c4d8d33f8fe53e3fc32ff356dad546cf8",
+      "source_sha256": {
+        "engine\\src\\evaluation.cpp": "87ed00f717a19d593969b3b84d4e48586a8dc576d54ac1260350648a967639f7",
+        "engine\\src\\evaluation.hpp": "01f5eac3194175f4f6615629146ce95700de2a0c351cae49b8346ac635b05c91",
+        "engine\\src\\evaluation_masks.hpp": "2d1af8a6465e59bb0fce0878b694736207dcbd065c9419a3e7d5ba858196b92b",
+        "engine\\src\\main.cpp": "8b40f059ccb3e1029cccb84fba4500b9c08d9278e1cd5d0308539b1655f70041",
+        "engine\\src\\nnue.cpp": "05448bdd302defcfdbb38117d6eeda6801900ded50597f5e4ce0508b61e0ea8c",
+        "engine\\src\\nnue.hpp": "a0132cc742715390a151cc2bafcf544e9dead1a0c967c2df68089831ef227089",
+        "engine\\src\\pawn_cache.hpp": "f4240a187937c41f1b70ea2a901b1efd3b0b9c9309db8a0e4643a776bf6fc6ca",
+        "engine\\src\\principal_variation.hpp": "5a7b342185a4abbeca3638eaca0de2d9c3caa02a7f00710f631b9f87d4c5614c",
+        "engine\\src\\profiling.hpp": "2d5304f600d8d6760f75d43c6d0cef2b57e47487f3de8c9fc96c8a5dd772de7b",
+        "engine\\src\\pst.hpp": "a7f007ab55fd4bb3a6d4fae93b97b25e371faefc633351c0a70cd4eb40be111b",
+        "engine\\src\\scoped_move.hpp": "3e815c8e3f825105cf0f43a61750aa452c6f46a9c04a456b14a43dc09e07ea72",
+        "engine\\src\\search.cpp": "433183ea66249e3ba6252a85ad3566d871f2336ba37979552ad320c5984b7a3b",
+        "engine\\src\\search.hpp": "7aad55a31d2910112393a7dc66e0ce9d1e632a26d952d8f97c8f9c68d45b6a3d",
+        "engine\\src\\search_policy.hpp": "06cd21e30dc793570a2d717c9cd6976320342a2c21cac6f392fd64b548e54324",
+        "engine\\src\\strength.hpp": "133f330350dbf68f1f6e31bf67e8b310e1d639577918b626a5e4bb5b6cab7d68",
+        "engine\\src\\terminal_rules.hpp": "08880e1a158016cb43e4d05c818baa0d85f48a0d673837c3e43842251caf6f59",
+        "engine\\src\\transposition.hpp": "e41ab9b9e1bbf3f313d61e812e40e4dfebbc0debc6964ee85a83f68668b9d6a0"
+      }
+    }
+  },
+  "compiler_version": "0.13.0",
+  "positions": [
+    {
+      "category": "opening",
+      "id": "start",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "pieces": 32,
+      "nominal_phase": "opening",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "opening",
+      "id": "queen_gambit",
+      "fen": "rnbqkb1r/ppp2ppp/4pn2/3p4/2PP4/2N5/PP2PPPP/R1BQKBNR w KQkq - 2 4",
+      "pieces": 32,
+      "nominal_phase": "opening",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "quiet_middlegame",
+      "id": "old_middle",
+      "fen": "r1bq1rk1/ppp2ppp/2np1n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQ1RK1 w - - 4 7",
+      "pieces": 32,
+      "nominal_phase": "middlegame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "quiet_middlegame",
+      "id": "italian_structure",
+      "fen": "r1bq1rk1/pp2bppp/2nppn2/2p5/2B1P3/2NP1N2/PPP2PPP/R1BQ1RK1 w - - 4 8",
+      "pieces": 32,
+      "nominal_phase": "middlegame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "tactical",
+      "id": "kiwipete",
+      "fen": "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1",
+      "pieces": 32,
+      "nominal_phase": "middlegame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "tactical",
+      "id": "pins",
+      "fen": "r4rk1/1pp1qppp/p1np1n2/2b1p1B1/2B1P1b1/P1NP1N2/1PP1QPPP/R4RK1 w - - 0 10",
+      "pieces": 32,
+      "nominal_phase": "middlegame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "king_attack",
+      "id": "attack_complex",
+      "fen": "r3r1k1/ppp2ppp/2n2n2/2bq4/3P4/2PBBN2/PP3PPP/R2Q1RK1 w - - 0 12",
+      "pieces": 27,
+      "nominal_phase": "middlegame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "king_attack",
+      "id": "mate_net",
+      "fen": "6k1/5ppp/8/7Q/2B5/8/5PPP/6K1 w - - 0 1",
+      "pieces": 10,
+      "nominal_phase": "endgame",
+      "short_forced_fixture": true
+    },
+    {
+      "category": "material_imbalance",
+      "id": "queen_rooks",
+      "fen": "r3k2r/ppp2ppp/2n5/8/3Q4/2N5/PPP2PPP/R3K3 w Qkq - 0 1",
+      "pieces": 20,
+      "nominal_phase": "middlegame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "material_imbalance",
+      "id": "rook_minors",
+      "fen": "2r3k1/pp3ppp/8/8/2B5/2N5/PP3PPP/6K1 b - - 0 1",
+      "pieces": 15,
+      "nominal_phase": "middlegame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "pawn_endgame",
+      "id": "old_pawns",
+      "fen": "8/5pk1/6p1/8/3K4/6P1/5P2/8 w - - 0 1",
+      "pieces": 6,
+      "nominal_phase": "endgame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "pawn_endgame",
+      "id": "opposed_pawns",
+      "fen": "8/5pk1/6p1/3p4/3P4/5PK1/6P1/8 w - - 0 1",
+      "pieces": 8,
+      "nominal_phase": "endgame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "piece_endgame",
+      "id": "rooks",
+      "fen": "8/5pk1/6p1/3R4/8/5PK1/6P1/1r6 w - - 0 1",
+      "pieces": 8,
+      "nominal_phase": "endgame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "piece_endgame",
+      "id": "rook_bishop",
+      "fen": "8/2r2pk1/6p1/3B4/8/5PK1/6P1/1R6 w - - 0 1",
+      "pieces": 9,
+      "nominal_phase": "endgame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "passed_pawns",
+      "id": "outside_passer",
+      "fen": "8/5pk1/6p1/2P5/8/5PK1/6P1/8 w - - 0 1",
+      "pieces": 7,
+      "nominal_phase": "endgame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "passed_pawns",
+      "id": "rook_pawn",
+      "fen": "8/1p4k1/8/P7/8/8/6K1/8 b - - 0 1",
+      "pieces": 4,
+      "nominal_phase": "endgame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "promotion",
+      "id": "promotion_race",
+      "fen": "7k/4P3/8/8/8/8/5p2/K7 w - - 0 1",
+      "pieces": 4,
+      "nominal_phase": "endgame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "promotion",
+      "id": "underpromotion_perft",
+      "fen": "rnbq1k1r/pp1Pbppp/2p5/8/2B5/8/PPP1NnPP/RNBQK2R w KQ - 1 8",
+      "pieces": 28,
+      "nominal_phase": "middlegame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "zugzwang",
+      "id": "white_blocked",
+      "fen": "8/3k4/3P4/3K4/8/8/8/8 w - - 0 1",
+      "pieces": 3,
+      "nominal_phase": "endgame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "zugzwang",
+      "id": "black_blocked",
+      "fen": "8/8/8/3k4/3p4/3K4/8/8 b - - 0 1",
+      "pieces": 3,
+      "nominal_phase": "endgame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "defense",
+      "id": "defend_mate_net",
+      "fen": "6k1/5ppp/8/7Q/2B5/8/5PPP/6K1 b - - 0 1",
+      "pieces": 10,
+      "nominal_phase": "endgame",
+      "short_forced_fixture": true
+    },
+    {
+      "category": "defense",
+      "id": "defend_complex",
+      "fen": "r3r1k1/ppp2ppp/2n2n2/2bq4/3P4/2PBBN2/PP3PPP/R2Q1RK1 b - - 0 12",
+      "pieces": 27,
+      "nominal_phase": "middlegame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "long_term_planning",
+      "id": "carlsbad",
+      "fen": "r1bq1rk1/ppp2ppp/2n1pn2/3p4/3P4/2PBPN2/PP3PPP/RNBQ1RK1 w - - 0 8",
+      "pieces": 31,
+      "nominal_phase": "middlegame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "long_term_planning",
+      "id": "locked_center",
+      "fen": "r1bq1rk1/pp2bppp/2n1pn2/2ppP3/3P4/2PB1N2/PP3PPP/RNBQ1RK1 w - - 0 8",
+      "pieces": 32,
+      "nominal_phase": "middlegame",
+      "short_forced_fixture": false
+    }
+  ],
+  "options": {
+    "Hash": 16,
+    "NNUEKernel": "scalar",
+    "NNUEIncremental": true
+  },
+  "plan": {
+    "nodes": [
+      100000,
+      400000,
+      1000000
+    ],
+    "time_ms": [
+      50,
+      200,
+      1000
+    ],
+    "repeats": 5,
+    "hash_mb": 16,
+    "threads": 1,
+    "tournament": "60 games at 500ms; first 30 frozen neutral opening pairs, reverse colors; no expansion"
+  },
+  "rebuilt": {
+    "utc": "2026-10-15T17:17:59.842441+00:00",
+    "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v2-throughput\\baseline\\engine.exe",
+    "sha256": "f2258efc377dfef5738b5a78dd61eb291b9fc23fdc38a6be4fbbbd87fe256f97",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+    "logical_cpus": 12,
+    "python": "3.11.8",
+    "source_revision": "a2fb045ca39e3a5ced430c83a1c3ded15a58941e",
+    "build": {
+      "compiler": [
+        "Z:\\Code\\Chess\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ziglang",
+        "c++"
+      ],
+      "flags": [
+        "-std=c++17",
+        "-O2",
+        "-pthread",
+        "-Wall",
+        "-Wextra",
+        "-ffp-contract=off",
+        "-I",
+        "Z:\\Code\\Chess\\artifacts\\nnue-v2-throughput\\baseline\\generated",
+        "-I",
+        "Z:\\Code\\Chess\\engine\\vendor\\chess-library",
+        "-I",
+        "Z:\\Code\\Chess\\engine\\src",
+        "Z:\\Code\\Chess\\engine\\src\\main.cpp",
+        "Z:\\Code\\Chess\\engine\\src\\search.cpp",
+        "Z:\\Code\\Chess\\engine\\src\\evaluation.cpp",
+        "Z:\\Code\\Chess\\engine\\src\\nnue.cpp",
+        "-o",
+        "Z:\\Code\\Chess\\artifacts\\nnue-v2-throughput\\baseline\\engine.exe"
+      ],
+      "profile": false,
+      "diagnostics": false,
+      "optimization": "O2",
+      "lto": false,
+      "sanitizer": null,
+      "nnue": {
+        "model": "Z:\\Code\\Chess\\engine\\networks\\v2\\stockbear-v2-compact.sbnnue",
+        "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+        "payload_sha256": "6430669474029ef0effee25a8309e0751e8ca6411ff0b39d9e8ae50cf7fa5601",
+        "width": 32,
+        "hidden": 16,
+        "feature_version": "dual-perspective-12x64-castling-ep-v1",
+        "quantization": {
+          "supported": true,
+          "first_scale": 4096,
+          "activation_scale": 4096,
+          "head_weight_scale": 4096,
+          "output_weight_scale": 4096,
+          "accumulator_abs_bound": 247103,
+          "head_abs_bound": 238645611,
+          "output_abs_bound": 167827512,
+          "rounding": "nearest, ties away from zero",
+          "derived_bytes": 52260
+        }
+      },
+      "generator_sha256": "d12b0e688395da7cc3386aacafa06b8022b0f53d7a7cbed9d85459a34aca83a5",
+      "source_sha256": {
+        "engine\\src\\diagnostics.hpp": "65e4c0754331d9f19f643d4f6212c22bfbf1e088471ea5a523614e329671b35c",
+        "engine\\src\\evaluation.cpp": "87ed00f717a19d593969b3b84d4e48586a8dc576d54ac1260350648a967639f7",
+        "engine\\src\\evaluation.hpp": "01f5eac3194175f4f6615629146ce95700de2a0c351cae49b8346ac635b05c91",
+        "engine\\src\\evaluation_masks.hpp": "2d1af8a6465e59bb0fce0878b694736207dcbd065c9419a3e7d5ba858196b92b",
+        "engine\\src\\main.cpp": "00746cf6b3c03c8f774aa52cc072a4fa84a6d374288efe1f972deb4e8ccef811",
+        "engine\\src\\nnue.cpp": "8adac8812806a39e91c8d97c073428ab133d008b704f5d00af59a4e584302036",
+        "engine\\src\\nnue.hpp": "a0132cc742715390a151cc2bafcf544e9dead1a0c967c2df68089831ef227089",
+        "engine\\src\\pawn_cache.hpp": "f4240a187937c41f1b70ea2a901b1efd3b0b9c9309db8a0e4643a776bf6fc6ca",
+        "engine\\src\\principal_variation.hpp": "5a7b342185a4abbeca3638eaca0de2d9c3caa02a7f00710f631b9f87d4c5614c",
+        "engine\\src\\profiling.hpp": "9d5f862157eabc3f77bcece28207ff99e4bdb7eb5947f7fe3c4e62715681a806",
+        "engine\\src\\pst.hpp": "a7f007ab55fd4bb3a6d4fae93b97b25e371faefc633351c0a70cd4eb40be111b",
+        "engine\\src\\scoped_move.hpp": "3e815c8e3f825105cf0f43a61750aa452c6f46a9c04a456b14a43dc09e07ea72",
+        "engine\\src\\search.cpp": "64f24b630d46dc8d8ad141c11ef68362973f26a1271a566ebd7837ea6bdb2eea",
+        "engine\\src\\search.hpp": "ec72e15392f4b5988b8f7a87e1de045682049df269f2fee3f815c2af539f009f",
+        "engine\\src\\search_policy.hpp": "06cd21e30dc793570a2d717c9cd6976320342a2c21cac6f392fd64b548e54324",
+        "engine\\src\\strength.hpp": "133f330350dbf68f1f6e31bf67e8b310e1d639577918b626a5e4bb5b6cab7d68",
+        "engine\\src\\terminal_rules.hpp": "08880e1a158016cb43e4d05c818baa0d85f48a0d673837c3e43842251caf6f59",
+        "engine\\src\\transposition.hpp": "e41ab9b9e1bbf3f313d61e812e40e4dfebbc0debc6964ee85a83f68668b9d6a0"
+      }
+    }
+  },
+  "text_sha256": "2fcdef4e1aa35e8807b6cb05dbfe752625760e535f241c644e9eaeaa23b70d1e"
+}

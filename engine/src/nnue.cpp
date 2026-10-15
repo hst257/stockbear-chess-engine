@@ -62,6 +62,9 @@ int piece_feature(chess::Piece piece, int square) {
 }
 // State-only extraction avoids traversing and sorting the board's pieces.
 NnueFeatures state_features(const chess::Board& board) {
+#ifdef CHESSLAB_DIAGNOSTICS
+    profiling::Scope state_measured(profiling::NNUE_STATE);
+#endif
     NnueFeatures result;
     auto append = [&](int f) {
         result.active[0][result.count] = f;
@@ -89,6 +92,9 @@ NnueFeatures state_features(const chess::Board& board) {
 }
 
 NnueDelta nnue_move_delta(const chess::Board& before, chess::Move move) {
+#ifdef CHESSLAB_DIAGNOSTICS
+    profiling::Scope delta_measured(profiling::NNUE_DELTA);
+#endif
     NnueDelta delta;
     auto remove = [&](chess::Piece pc, int sq) { delta.removed[delta.removed_count++] = piece_feature(pc, sq); };
     auto add = [&](chess::Piece pc, int sq) { delta.added[delta.added_count++] = piece_feature(pc, sq); };
@@ -143,6 +149,10 @@ void nnue_update_move(const NnueAccumulator& parent, const chess::Board& after,
         std::sort(changes, changes + size, [](int a, int b) { return std::abs(a) < std::abs(b); });
         auto& active = output.features.active[p];
         int count = parent.features.count;
+#ifdef CHESSLAB_DIAGNOSTICS
+        {
+        profiling::Scope metadata_measured(profiling::NNUE_METADATA);
+#endif
         // Remove before inserting: a full 37-feature position must never need
         // an extra temporary slot when a new feature sorts before an old one.
         for (int i = 0; i < size; ++i) if (changes[i] < 0) {
@@ -157,6 +167,9 @@ void nnue_update_move(const NnueAccumulator& parent, const chess::Board& after,
             std::move_backward(it, active.begin() + count, active.begin() + count + 1);
             *it = f; ++count;
         }
+#ifdef CHESSLAB_DIAGNOSTICS
+        }
+#endif
         auto& values = output.values[p];
 #ifdef CHESSLAB_DIAGNOSTICS
         if (p == 0) diagnostics::rows(size, w::WIDTH, quant ? sizeof(std::int16_t) : sizeof(float));
@@ -168,6 +181,10 @@ void nnue_update_move(const NnueAccumulator& parent, const chess::Board& after,
 #else
         if (quant) std::copy_n(parent.quantized[p].begin(), w::WIDTH, output.quantized[p].begin());
         else std::copy_n(parent.values[p].begin(), w::WIDTH, values.begin());
+#endif
+        {
+#ifdef CHESSLAB_DIAGNOSTICS
+        profiling::Scope rows_measured(profiling::NNUE_ROWS);
 #endif
         for (int i = 0; i < size; ++i) {
             const bool remove = changes[i] < 0;
@@ -182,8 +199,84 @@ void nnue_update_move(const NnueAccumulator& parent, const chess::Board& after,
                 else for (int j = 0; j < w::WIDTH; ++j) values[j] += row[j];
             }
         }
+        }
         if (p == 1) output.features.count = count;
     }
+}
+
+void nnue_update_search(const NnueAccumulator& parent, const chess::Board& after,
+                        const NnueDelta& delta, NnueAccumulator& output) {
+#if CHESSLAB_NNUE_UPDATE == 0
+    nnue_update_move(parent, after, delta, output);
+#else
+    // The integer experiment and generic/reference APIs retain full metadata.
+    if (nnue_quantized()) {
+        nnue_update_move(parent, after, delta, output);
+        return;
+    }
+    profiling::Scope measured(profiling::NNUE_UPDATE);
+    auto states = state_features(after);
+    for (auto& active : states.active) std::sort(active.begin(), active.begin() + states.count);
+    for (int p = 0; p < 2; ++p) {
+        int changes[16], size = 0;
+        auto change = [&](int f, bool remove) { changes[size++] = (f + 1) * (remove ? -1 : 1); };
+        for (int i = 0; i < delta.removed_count; ++i) change(p == 0 ? delta.removed[i] : reverse_feature(delta.removed[i]), true);
+        for (int i = 0; i < delta.added_count; ++i) change(p == 0 ? delta.added[i] : reverse_feature(delta.added[i]), false);
+        const auto& previous = parent.features.active[p];
+        for (int i = parent.features.count - 1; i >= 0 && previous[i] >= 768; --i) {
+            if (!std::binary_search(states.active[p].begin(), states.active[p].begin() + states.count, previous[i])) change(previous[i], true);
+        }
+        for (int i = 0; i < states.count; ++i) {
+            if (!std::binary_search(previous.begin(), previous.begin() + parent.features.count, states.active[p][i])) change(states.active[p][i], false);
+        }
+        std::sort(changes, changes + size, [](int a, int b) { return std::abs(a) < std::abs(b); });
+        {
+#ifdef CHESSLAB_DIAGNOSTICS
+            profiling::Scope metadata_measured(profiling::NNUE_METADATA);
+#endif
+#if CHESSLAB_NNUE_UPDATE == 1
+            // Merge once rather than copying, searching and shifting per change.
+            int old = 0, next = 0, count = 0;
+            while (old < parent.features.count || next < size) {
+                if (next == size || (old < parent.features.count && previous[old] < std::abs(changes[next]) - 1)) {
+                    output.features.active[p][count++] = previous[old++];
+                } else if (changes[next] < 0) {
+                    if (old == parent.features.count || previous[old] != -changes[next] - 1)
+                        throw std::logic_error("NNUE delta missing piece");
+                    ++old; ++next;
+                } else {
+                    if (count == 37) throw std::logic_error("NNUE feature overflow");
+                    output.features.active[p][count++] = changes[next++] - 1;
+                }
+            }
+            output.features.count = count;
+#else
+            // Only state rows are queried by subsequent move-derived updates.
+            // Piece changes come from legal moves, not from these metadata lists.
+            std::copy_n(states.active[p].begin(), states.count, output.features.active[p].begin());
+            output.features.count = states.count;
+#endif
+        }
+        {
+#ifdef CHESSLAB_DIAGNOSTICS
+            profiling::Scope copy_measured(profiling::NNUE_COPY);
+            if (p == 0) diagnostics::copied(2ULL * w::WIDTH * sizeof(float) +
+                (CHESSLAB_NNUE_UPDATE == 1 ? sizeof(NnueFeatures) : 2ULL * states.count * sizeof(std::uint16_t) + sizeof(int)));
+#endif
+            std::copy_n(parent.values[p].begin(), w::WIDTH, output.values[p].begin());
+        }
+#ifdef CHESSLAB_DIAGNOSTICS
+        if (p == 0) diagnostics::rows(size, w::WIDTH, sizeof(float));
+        profiling::Scope rows_measured(profiling::NNUE_ROWS);
+#endif
+        for (int i = 0; i < size; ++i) {
+            const float* row = w::transform_weight + (std::abs(changes[i]) - 1) * w::WIDTH;
+            // Exact legacy feature order and one separate float operation per row.
+            if (changes[i] < 0) for (int j = 0; j < w::WIDTH; ++j) output.values[p][j] -= row[j];
+            else for (int j = 0; j < w::WIDTH; ++j) output.values[p][j] += row[j];
+        }
+    }
+#endif
 }
 
 NnueFeatures nnue_features(const chess::Board& board) {

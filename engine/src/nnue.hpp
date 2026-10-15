@@ -25,6 +25,15 @@ struct NnueDelta {
     int removed_count = 0, added_count = 0;
 };
 
+#ifndef CHESSLAB_NNUE_UPDATE
+#define CHESSLAB_NNUE_UPDATE 0
+#endif
+// Search-only contract: legal move-derived deltas, distinct child storage, and
+// no generic feature-diff update on a compact child. Roots always refresh fully.
+// Compact children retain sorted state features only; float sums remain complete.
+void nnue_update_search(const NnueAccumulator& parent, const chess::Board& after,
+                        const NnueDelta& delta, NnueAccumulator& output);
+
 NnueFeatures nnue_features(const chess::Board& board);
 void nnue_refresh(const chess::Board& board, NnueAccumulator& output);
 void nnue_update(const NnueAccumulator& parent, const chess::Board& board, NnueAccumulator& output);

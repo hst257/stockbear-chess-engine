@@ -10,6 +10,7 @@ enum Category { SEARCH, MOVEGEN, EVALUATION, ORDERING, MAKE, UNMAKE, TABLE, DRAW
                 NNUE_FEATURES, NNUE_REFRESH, NNUE_UPDATE, NNUE_HEAD,
 #ifdef CHESSLAB_DIAGNOSTICS
                 NNUE_COPY,
+                NNUE_DELTA, NNUE_STATE, NNUE_METADATA, NNUE_ROWS,
 #endif
                 COUNT };
 inline constexpr std::array<const char*, COUNT> NAMES = {
@@ -18,6 +19,7 @@ inline constexpr std::array<const char*, COUNT> NAMES = {
     "nnue_features", "nnue_refresh", "nnue_update", "nnue_head"
 #ifdef CHESSLAB_DIAGNOSTICS
     , "nnue_copy"
+    , "nnue_delta", "nnue_state", "nnue_metadata", "nnue_rows"
 #endif
 };
 struct Report {

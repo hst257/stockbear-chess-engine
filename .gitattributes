@@ -7,3 +7,11 @@ docs/nnue-v2-diagnosis/*.txt text eol=lf
 docs/nnue-v2-diagnosis/*.svg text eol=lf
 docs/nnue-v2-diagnosis/*.png binary
 NNUE_V2_SEARCH_DIAGNOSIS.md text eol=lf
+docs/nnue-v2-throughput/*.json text eol=lf
+docs/nnue-v2-throughput/*.pgn text eol=lf
+docs/nnue-v2-throughput/*.csv text eol=lf
+docs/nnue-v2-throughput/*.md text eol=lf
+docs/nnue-v2-throughput/*.txt text eol=lf
+docs/nnue-v2-throughput/*.svg text eol=lf
+docs/nnue-v2-throughput/*.png binary
+NNUE_V2_THROUGHPUT_OPTIMIZATION.md text eol=lf

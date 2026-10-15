@@ -187,7 +187,13 @@ private:
     void descend_nnue(const chess::Board& board, int ply, const NnueDelta& delta = {}) {
         if (!nnue_stack_) return;
         if (limits_.nnue_kernel == "reference") nnue_update((*nnue_stack_)[ply - 1], board, (*nnue_stack_)[ply]);
-        else nnue_update_move((*nnue_stack_)[ply - 1], board, delta, (*nnue_stack_)[ply]);
+        else {
+#if CHESSLAB_NNUE_UPDATE > 0
+            nnue_update_search((*nnue_stack_)[ply - 1], board, delta, (*nnue_stack_)[ply]);
+#else
+            nnue_update_move((*nnue_stack_)[ply - 1], board, delta, (*nnue_stack_)[ply]);
+#endif
+        }
 #ifdef CHESSLAB_DIAGNOSTICS
         diagnostics::prepare(ply);
 #endif
