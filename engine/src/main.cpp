@@ -53,6 +53,7 @@ std::string nnue_json(const chess::Board& board) {
     json << std::setprecision(9) << "{\"evaluator\":\"nnue\",\"model\":\"" << chesslab::nnue_model_name()
          << "\",\"sha256\":\"" << chesslab::nnue_model_sha256()
          << "\",\"width\":" << chesslab::nnue_width() << ",\"hidden\":" << chesslab::nnue_hidden()
+         << ",\"kernel\":\"" << chesslab::nnue_effective_kernel() << "\""
          << ",\"side_to_move_cp\":" << stm
          << ",\"raw_white_cp\":" << stm * (board.sideToMove() == chess::Color::WHITE ? 1 : -1)
          << ",\"total\":" << chesslab::nnue_white_score(board, accumulator) << ",\"features\":[";
@@ -280,7 +281,7 @@ public:
                     output("option name UseAdvancedEvaluation type check default true");
                     output("option name Evaluator type combo default classical var classical var nnue");
                     output("option name NNUEIncremental type check default true");
-                    output("option name NNUEKernel type combo default auto var auto var reference var scalar");
+                    output("option name NNUEKernel type combo default auto var auto var reference var scalar var simd");
                     for (const auto name : chesslab::EVAL_OPTION_NAMES)
                         output(std::string("option name ") + name + " type check default true");
                     output("option name TranspositionTable type check default true");
@@ -596,6 +597,7 @@ int main(int argc, char** argv) {
                 for (int i = 2; i < argc - 1; ++i) {
                     const std::string flag = argv[i];
                     if (flag == "--nnue") use_nnue = true;
+                    else if (flag == "--kernel" && i + 1 < argc - 1) chesslab::nnue_set_kernel(argv[++i]);
                     else if (flag == "--no-mopup") options.mop_up = false;
                     else if (flag == "--no-pst") use_pst = false;
                     else if (flag == "--baseline") options.advanced = false;

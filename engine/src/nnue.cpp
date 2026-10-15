@@ -6,15 +6,46 @@
 #include <algorithm>
 #include <cmath>
 #include <stdexcept>
+#include <cstdlib>
+#if (defined(__x86_64__) || defined(__i386__)) && (defined(__GNUC__) || defined(__clang__))
+#define CHESSLAB_X86_SIMD
+#include <cpuid.h>
+#include <immintrin.h>
+#endif
 
 namespace chesslab {
 namespace w = nnue_weights;
-namespace { thread_local std::string selected_kernel = "auto"; }
-void nnue_set_kernel(const std::string& name) {
-    if (name != "auto" && name != "reference" && name != "scalar") throw std::invalid_argument("Unknown NNUE kernel");
-    selected_kernel = name;
+namespace {
+enum class Kernel { AUTO, REFERENCE, SCALAR, SIMD };
+thread_local Kernel selected_kernel = Kernel::AUTO;
+constexpr const char* KERNEL_NAMES[] = {"auto", "reference", "scalar", "simd"};
 }
-const char* nnue_kernel() { return selected_kernel.c_str(); }
+void nnue_set_kernel(const std::string& name) {
+    for (int i = 0; i < 4; ++i) if (name == KERNEL_NAMES[i]) { selected_kernel = static_cast<Kernel>(i); return; }
+    throw std::invalid_argument("Unknown NNUE kernel");
+}
+const char* nnue_kernel() { return KERNEL_NAMES[static_cast<int>(selected_kernel)]; }
+bool nnue_simd_available() {
+    static const bool supported = [] {
+        if (std::getenv("CHESSLAB_DISABLE_SIMD")) return false;
+#ifdef CHESSLAB_X86_SIMD
+        unsigned a, b, c, d;
+        if (!__get_cpuid(1, &a, &b, &c, &d) || !(c & (1u << 27)) || !(c & (1u << 28))) return false;
+        unsigned low, high;
+        __asm__ volatile("xgetbv" : "=a"(low), "=d"(high) : "c"(0));
+        if ((low & 6) != 6) return false;
+        __cpuid_count(7, 0, a, b, c, d);
+        return (b & (1u << 5)) != 0;
+#else
+        return false;
+#endif
+    }();
+    return supported;
+}
+const char* nnue_effective_kernel() {
+    if (selected_kernel == Kernel::AUTO || selected_kernel == Kernel::SIMD) return nnue_simd_available() ? "simd" : "scalar";
+    return nnue_kernel();
+}
 
 namespace {
 int reverse_feature(int index) {
@@ -222,9 +253,33 @@ float nnue_reference_side_to_move(const chess::Board& board, const NnueAccumulat
     return output * 400.0f;
 }
 
+#ifdef CHESSLAB_X86_SIMD
+__attribute__((target("avx2")))
+static float simd_head(const chess::Board& board, const NnueAccumulator& accumulator) {
+    alignas(64) float hidden[w::HIDDEN];
+    std::copy_n(w::fc1_bias, w::HIDDEN, hidden);
+    const int first = board.sideToMove() == chess::Color::WHITE ? 0 : 1;
+    for (int p = 0; p < 2; ++p) for (int j = 0; j < w::WIDTH; ++j) {
+        const float input = std::clamp(accumulator.values[p == 0 ? first : 1 - first][j], 0.0f, 1.0f);
+        const auto x = _mm256_set1_ps(input);
+        const float* weights = w::fc1_transposed + (p * w::WIDTH + j) * w::HIDDEN;
+        int h = 0;
+        for (; h + 8 <= w::HIDDEN; h += 8) _mm256_storeu_ps(hidden + h,
+            _mm256_add_ps(_mm256_loadu_ps(hidden + h), _mm256_mul_ps(_mm256_loadu_ps(weights + h), x)));
+        for (; h < w::HIDDEN; ++h) hidden[h] += weights[h] * input;
+    }
+    float output = w::fc2_bias[0];
+    for (int h = 0; h < w::HIDDEN; ++h) output += w::fc2_weight[h] * std::clamp(hidden[h], 0.0f, 1.0f);
+    return output * 400.0f;
+}
+#endif
+
 float nnue_side_to_move(const chess::Board& board, const NnueAccumulator& accumulator) {
-    if (selected_kernel == "reference") return nnue_reference_side_to_move(board, accumulator);
+    if (selected_kernel == Kernel::REFERENCE) return nnue_reference_side_to_move(board, accumulator);
     profiling::Scope measured(profiling::NNUE_HEAD);
+#ifdef CHESSLAB_X86_SIMD
+    if ((selected_kernel == Kernel::AUTO || selected_kernel == Kernel::SIMD) && nnue_simd_available()) return simd_head(board, accumulator);
+#endif
     // Each neuron's additions retain their original order. Parallel neurons
     // give the compiler independent lanes without reassociating a dot product.
     alignas(64) float hidden[w::HIDDEN];

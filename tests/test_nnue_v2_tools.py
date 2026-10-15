@@ -38,7 +38,7 @@ def test_bundled_v2_identity_and_transposed_layout(tmp_path, name, width, hidden
     assert len(json.loads(model.with_suffix(".golden.json").read_text())) == 128
 
 
-@pytest.mark.parametrize("kernel", ["reference", "scalar", "auto"])
+@pytest.mark.parametrize("kernel", ["reference", "scalar", "simd", "auto"])
 def test_kernel_switch_is_search_local_and_reproducible(engine, kernel):
     import chess.engine
     engine.configure({"Evaluator": "nnue", "NNUEKernel": kernel})
@@ -48,3 +48,13 @@ def test_kernel_switch_is_search_local_and_reproducible(engine, kernel):
     engine.configure({"Evaluator": "nnue", "NNUEKernel": kernel})
     b = engine.play(chess.Board(), chess.engine.Limit(depth=3), info=chess.engine.INFO_ALL)
     assert (a.move, a.info["score"], a.info["nodes"]) == (b.move, b.info["score"], b.info["nodes"])
+
+
+def test_forced_portable_fallback(engine_path, monkeypatch):
+    import subprocess
+    monkeypatch.setenv("CHESSLAB_DISABLE_SIMD", "1")
+    def value(kernel):
+        return json.loads(subprocess.check_output([str(engine_path), "--eval", "--nnue", "--kernel", kernel, chess.STARTING_FEN], text=True))
+    scalar, simd, auto = (value(k) for k in ("scalar", "simd", "auto"))
+    assert scalar == simd == auto
+    assert auto["kernel"] == "scalar"

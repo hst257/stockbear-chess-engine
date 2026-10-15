@@ -86,6 +86,14 @@ int main(int argc, char** argv) {
                 parent = child;
             }
         }
+        // Clipping boundaries and deliberately extreme unclipped sums.
+        chess::Board board;
+        for (int pattern = 0; pattern < 20; ++pattern) {
+            NnueAccumulator acc;
+            for (int p = 0; p < 2; ++p) for (int j = 0; j < nnue_width(); ++j)
+                acc.values[p][j] = pattern < 4 ? float(pattern - 1) : float(int(random() % 200001) - 100000) / 1000;
+            if (std::abs(nnue_side_to_move(board, acc) - nnue_reference_side_to_move(board, acc)) > .01f) throw std::runtime_error("Extreme kernel mismatch");
+        }
         std::cout << "{\"transitions\":" << transitions << ",\"nulls\":" << nulls << ",\"max_lane_error\":" << maximum << "}\n";
         return 0;
     }

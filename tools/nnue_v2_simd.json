@@ -1,0 +1,38 @@
+{
+  "scalar-compact": {
+    "engine": "artifacts/nnue-v2/scalar-compact/engine.exe",
+    "micro": "artifacts/nnue-v2/scalar-compact/micro.exe",
+    "kernel": "scalar",
+    "options": {
+      "Evaluator": "nnue",
+      "NNUEKernel": "scalar"
+    }
+  },
+  "simd-compact": {
+    "engine": "artifacts/nnue-v2/simd-compact/engine.exe",
+    "micro": "artifacts/nnue-v2/simd-compact/micro.exe",
+    "kernel": "simd",
+    "options": {
+      "Evaluator": "nnue",
+      "NNUEKernel": "simd"
+    }
+  },
+  "scalar-small": {
+    "engine": "artifacts/nnue-v2/scalar-small/engine.exe",
+    "micro": "artifacts/nnue-v2/scalar-small/micro.exe",
+    "kernel": "scalar",
+    "options": {
+      "Evaluator": "nnue",
+      "NNUEKernel": "scalar"
+    }
+  },
+  "simd-small": {
+    "engine": "artifacts/nnue-v2/simd-small/engine.exe",
+    "micro": "artifacts/nnue-v2/simd-small/micro.exe",
+    "kernel": "simd",
+    "options": {
+      "Evaluator": "nnue",
+      "NNUEKernel": "simd"
+    }
+  }
+}

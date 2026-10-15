@@ -2,6 +2,7 @@
 
 #include <array>
 #include <cstdint>
+#include <string>
 #include "chess.hpp"
 
 namespace chesslab {
@@ -36,6 +37,8 @@ const char* nnue_model_sha256();
 // Selection is local to the calling thread; workers receive their own setting.
 void nnue_set_kernel(const std::string& name);
 const char* nnue_kernel();
+bool nnue_simd_available();
+const char* nnue_effective_kernel();
 float nnue_reference_side_to_move(const chess::Board& board, const NnueAccumulator& accumulator);
 
 }  // namespace chesslab
