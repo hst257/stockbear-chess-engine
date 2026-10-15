@@ -1,0 +1,61 @@
+{
+  "source_baseline": "1b0894335bc50f10cbd5a44d1eb73840729c7516",
+  "engine": "artifacts\\nnue-v2\\final-compact\\engine.exe",
+  "engine_sha256": "d55439565b86d950eaac43fbfb29e6614c18e7f8192e3c6fb7f489452dec6c9a",
+  "model": "engine\\networks\\v2\\stockbear-v2-compact.sbnnue",
+  "model_sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+  "opening_book": "docs\\nnue-v2-diagnosis\\openings.json",
+  "opening_book_sha256": "6ae0319c30bf2226ff9ce1b0909feac8bdc1bef0e7bebc27b27c34474593a2b3",
+  "method": "Fixed amended schedule, no extensions or outcome-based stopping; serial single search threads, identical defaults except Evaluator, fresh game/search state, claimable draws, unfinished caps excluded. Pilot is first two scheduled 50ms games. Trend uses first ten pairs at all controls. Family-related openings limit generalization.",
+  "schedule": [
+    {
+      "name": "50ms",
+      "games": 80,
+      "movetime": 50,
+      "max_plies": 240,
+      "seed": 20261017,
+      "output": "docs\\nnue-v2-diagnosis\\50ms.json",
+      "exploratory": false
+    },
+    {
+      "name": "200ms",
+      "games": 60,
+      "movetime": 200,
+      "max_plies": 240,
+      "seed": 20261017,
+      "output": "docs\\nnue-v2-diagnosis\\200ms.json",
+      "exploratory": false
+    },
+    {
+      "name": "500ms",
+      "games": 30,
+      "movetime": 500,
+      "max_plies": 240,
+      "seed": 20261017,
+      "output": "docs\\nnue-v2-diagnosis\\500ms.json",
+      "exploratory": true
+    },
+    {
+      "name": "1000ms",
+      "games": 20,
+      "movetime": 1000,
+      "max_plies": 240,
+      "seed": 20261017,
+      "output": "docs\\nnue-v2-diagnosis\\1000ms.json",
+      "exploratory": true
+    }
+  ],
+  "planned_games": 190,
+  "trend_pairs": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ]
+}

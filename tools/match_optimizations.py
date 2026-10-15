@@ -152,7 +152,9 @@ def version_match(args):
             if book_path:
                 data["opening_filter"] = book["method"]
         args.output.parent.mkdir(parents=True, exist_ok=True)
+        session_games = 0
         for index in range(len(data["games"]), args.games):
+            game_started = time.perf_counter()
             board = chess.Board()
             opening = data["openings"][index // 2]
             for uci in opening["moves"]:
@@ -164,12 +166,15 @@ def version_match(args):
                     break
                 optimized = board.turn == candidate_color
                 player = candidate if optimized else original
+                move_started = time.perf_counter()
                 result = player.play(board, chess.engine.Limit(time=args.movetime / 1000),
                                      game=index, info=chess.engine.INFO_ALL)
+                wall_seconds = time.perf_counter() - move_started
                 assert result.move in board.legal_moves
                 searches.append({"candidate": optimized, "move": result.move.uci(),
                                  "depth": result.info.get("depth", 0), "nodes": result.info["nodes"],
-                                 "seconds": result.info["time"], "nps": result.info["nps"],
+                                 "seconds": result.info["time"], "wall_seconds": wall_seconds,
+                                 "nps": result.info["nps"],
                                  "score_white": str(result.info["score"].white()) if "score" in result.info else None})
                 board.push(result.move)
             outcome = board.outcome(claim_draw=True)
@@ -179,11 +184,16 @@ def version_match(args):
                       "termination": outcome.termination.name.lower() if outcome else "ply cap (unfinished)",
                       "candidate_outcome": "unfinished" if outcome is None else "draw" if outcome.winner is None else
                                            "win" if outcome.winner == candidate_color else "loss",
-                      "plies": len(board.move_stack), "searches": searches}
+                      "plies": len(board.move_stack), "wall_seconds": time.perf_counter() - game_started,
+                      "searches": searches}
             data["games"].append(record)
             write_record(progress, json.dumps(data, indent=2) + "\n")
             print(f"Game {index + 1}/{args.games}: candidate {record['candidate_color']} {record['result']} "
                   f"({record['candidate_outcome']}, {record['plies']} plies)", flush=True)
+            session_games += 1
+            if getattr(args, "max_new_games", None) and session_games >= args.max_new_games and index + 1 < args.games:
+                print("Pilot/checkpoint complete; resume the unchanged scheduled cohort with --resume", flush=True)
+                return
     data["summary"] = strength_summary(data["games"])
     write_record(args.output, json.dumps(data, indent=2) + "\n")
     games = []
@@ -224,6 +234,7 @@ def main():
     parser.add_argument("--opening-book", type=Path, help="Frozen shared JSON openings; bypass per-opponent filtering.")
     parser.add_argument("--seed", type=int, default=20261015)
     parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--max-new-games", type=int, help="Pause after this many new games, preserving the full schedule for --resume.")
     parser.add_argument("--max-plies", type=int, default=160)
     parser.add_argument("--output", type=Path, default=Path("artifacts/optimization-matches.json"))
     args = parser.parse_args()

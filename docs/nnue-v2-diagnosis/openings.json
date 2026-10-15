@@ -1,0 +1,730 @@
+{
+  "seed": 20261017,
+  "method": "Twenty named opening families, two seeded quiet continuations each, sorted legal move choices. No evaluator queried or evaluation/outcome filter. Frozen before games; nested prefixes; reversed colors.",
+  "openings": [
+    {
+      "family": "Ruy Lopez",
+      "variant": 0,
+      "fen": "r1bqkb1r/1ppp1ppp/2n2n2/p3p3/B1P1P3/5N2/PP1P1PPP/RNBQK2R w KQkq - 0 6",
+      "moves": [
+        "e2e4",
+        "e7e5",
+        "g1f3",
+        "b8c6",
+        "f1b5",
+        "a7a6",
+        "b5a4",
+        "g8f6",
+        "c2c4",
+        "a6a5"
+      ]
+    },
+    {
+      "family": "Queen's Gambit Declined",
+      "variant": 0,
+      "fen": "rnb1k2r/pppqbppp/4pn2/3p4/2PP4/2N1B3/PP2PPPP/R2QKBNR w KQkq - 6 6",
+      "moves": [
+        "d2d4",
+        "d7d5",
+        "c2c4",
+        "e7e6",
+        "b1c3",
+        "g8f6",
+        "c1g5",
+        "f8e7",
+        "g5e3",
+        "d8d7"
+      ]
+    },
+    {
+      "family": "Sicilian Najdorf",
+      "variant": 0,
+      "fen": "rnb1kb1r/1p1qpppp/p2p1n2/8/3NPB2/2N5/PPP2PPP/R2QKB1R w KQkq - 2 7",
+      "moves": [
+        "e2e4",
+        "c7c5",
+        "g1f3",
+        "d7d6",
+        "d2d4",
+        "c5d4",
+        "f3d4",
+        "g8f6",
+        "b1c3",
+        "a7a6",
+        "c1f4",
+        "d8d7"
+      ]
+    },
+    {
+      "family": "King's Indian",
+      "variant": 0,
+      "fen": "rnbqk2r/ppp1ppbp/3p2p1/3n4/2PPP3/2N2N2/PP3PPP/R1BQKB1R w KQkq - 2 6",
+      "moves": [
+        "d2d4",
+        "g8f6",
+        "c2c4",
+        "g7g6",
+        "b1c3",
+        "f8g7",
+        "e2e4",
+        "d7d6",
+        "g1f3",
+        "f6d5"
+      ]
+    },
+    {
+      "family": "French",
+      "variant": 0,
+      "fen": "r1bqk2r/ppp1bppp/2n1pn1B/3p4/3PP3/2N5/PPP2PPP/R2QKBNR w KQkq - 6 6",
+      "moves": [
+        "e2e4",
+        "e7e6",
+        "d2d4",
+        "d7d5",
+        "b1c3",
+        "g8f6",
+        "c1g5",
+        "f8e7",
+        "g5h6",
+        "b8c6"
+      ]
+    },
+    {
+      "family": "English",
+      "variant": 0,
+      "fen": "rnbqk2r/ppp2ppp/8/3np3/1b6/2N3P1/PP1PPPBP/R1BQK1NR w KQkq - 2 6",
+      "moves": [
+        "c2c4",
+        "e7e5",
+        "b1c3",
+        "g8f6",
+        "g2g3",
+        "d7d5",
+        "c4d5",
+        "f6d5",
+        "f1g2",
+        "f8b4"
+      ]
+    },
+    {
+      "family": "Caro-Kann",
+      "variant": 0,
+      "fen": "rn1qkbnr/pp2pppp/2p5/6N1/3P4/3b4/PPP2PPP/R1BQKBNR w KQkq - 3 6",
+      "moves": [
+        "e2e4",
+        "c7c6",
+        "d2d4",
+        "d7d5",
+        "b1c3",
+        "d5e4",
+        "c3e4",
+        "c8f5",
+        "e4g5",
+        "f5d3"
+      ]
+    },
+    {
+      "family": "Slav",
+      "variant": 0,
+      "fen": "rn1qkb1r/pp2pppp/2p2n2/8/2pP4/2N2N1b/PP1BPPPP/R2QKB1R w KQkq - 2 6",
+      "moves": [
+        "d2d4",
+        "d7d5",
+        "c2c4",
+        "c7c6",
+        "g1f3",
+        "g8f6",
+        "b1c3",
+        "d5c4",
+        "c1d2",
+        "c8h3"
+      ]
+    },
+    {
+      "family": "Italian",
+      "variant": 0,
+      "fen": "r1bqk2r/pppp1ppp/2n1Bn2/4p3/4P3/2P1bN2/PP1P1PPP/RNBQK2R w KQkq - 3 6",
+      "moves": [
+        "e2e4",
+        "e7e5",
+        "g1f3",
+        "b8c6",
+        "f1c4",
+        "f8c5",
+        "c2c3",
+        "g8f6",
+        "c4e6",
+        "c5e3"
+      ]
+    },
+    {
+      "family": "Nimzo-Indian",
+      "variant": 0,
+      "fen": "r1bq1rk1/pppp1ppp/2n1pn2/8/1bPP4/2N1P3/PPQ2PPP/R1B1KBNR w KQ - 3 6",
+      "moves": [
+        "d2d4",
+        "g8f6",
+        "c2c4",
+        "e7e6",
+        "b1c3",
+        "f8b4",
+        "e2e3",
+        "e8g8",
+        "d1c2",
+        "b8c6"
+      ]
+    },
+    {
+      "family": "Scotch",
+      "variant": 0,
+      "fen": "r1bqk1nr/pppp1p1p/2n5/2b1P1p1/3N4/8/PPP2PPP/RNBQKB1R w KQkq - 0 6",
+      "moves": [
+        "e2e4",
+        "e7e5",
+        "g1f3",
+        "b8c6",
+        "d2d4",
+        "e5d4",
+        "f3d4",
+        "f8c5",
+        "e4e5",
+        "g7g5"
+      ]
+    },
+    {
+      "family": "Queen's Indian",
+      "variant": 0,
+      "fen": "rn1qkb1r/1bpp1ppp/1p2pn2/p7/2PP4/4BNP1/PP2PP1P/RN1QKB1R w KQkq - 0 6",
+      "moves": [
+        "d2d4",
+        "g8f6",
+        "c2c4",
+        "e7e6",
+        "g1f3",
+        "b7b6",
+        "g2g3",
+        "c8b7",
+        "c1e3",
+        "a7a5"
+      ]
+    },
+    {
+      "family": "Pirc",
+      "variant": 0,
+      "fen": "rn1qk2r/ppp1ppbp/3p1np1/5b2/3PP3/2N2N2/PPP1KPPP/R1BQ1B1R w kq - 4 6",
+      "moves": [
+        "e2e4",
+        "d7d6",
+        "d2d4",
+        "g8f6",
+        "b1c3",
+        "g7g6",
+        "g1f3",
+        "f8g7",
+        "e1e2",
+        "c8f5"
+      ]
+    },
+    {
+      "family": "Catalan",
+      "variant": 0,
+      "fen": "rnbq1k1r/ppp1bppp/4pn2/3p4/2PP4/P5P1/1P2PPBP/RNBQK1NR w KQ - 1 6",
+      "moves": [
+        "d2d4",
+        "g8f6",
+        "c2c4",
+        "e7e6",
+        "g2g3",
+        "d7d5",
+        "f1g2",
+        "f8e7",
+        "a2a3",
+        "e8f8"
+      ]
+    },
+    {
+      "family": "Scandinavian",
+      "variant": 0,
+      "fen": "rn2kb1r/ppp1pppp/5n2/q7/3P4/2N4b/PPPB1PPP/R2QKBNR w KQkq - 3 6",
+      "moves": [
+        "e2e4",
+        "d7d5",
+        "e4d5",
+        "d8d5",
+        "b1c3",
+        "d5a5",
+        "d2d4",
+        "g8f6",
+        "c1d2",
+        "c8h3"
+      ]
+    },
+    {
+      "family": "Dutch",
+      "variant": 0,
+      "fen": "rnbqk2r/pppp2pp/4pn2/2b2p2/3P4/4PNP1/PPP2PBP/RNBQK2R w KQkq - 1 6",
+      "moves": [
+        "d2d4",
+        "f7f5",
+        "g2g3",
+        "g8f6",
+        "f1g2",
+        "e7e6",
+        "g1f3",
+        "f8e7",
+        "e2e3",
+        "e7c5"
+      ]
+    },
+    {
+      "family": "Four Knights",
+      "variant": 0,
+      "fen": "r1bqk2r/pppp1ppp/5n2/nB2p3/1b1PP3/2N2N2/PPP2PPP/R1BQK2R w KQkq - 1 6",
+      "moves": [
+        "e2e4",
+        "e7e5",
+        "g1f3",
+        "b8c6",
+        "b1c3",
+        "g8f6",
+        "f1b5",
+        "f8b4",
+        "d2d4",
+        "c6a5"
+      ]
+    },
+    {
+      "family": "Grunfeld",
+      "variant": 0,
+      "fen": "rnbqkb1r/ppp1p2p/6p1/3n1p2/3P4/2N5/PPQ1PPPP/R1B1KBNR w KQkq - 0 6",
+      "moves": [
+        "d2d4",
+        "g8f6",
+        "c2c4",
+        "g7g6",
+        "b1c3",
+        "d7d5",
+        "c4d5",
+        "f6d5",
+        "d1c2",
+        "f7f5"
+      ]
+    },
+    {
+      "family": "Sicilian Closed",
+      "variant": 0,
+      "fen": "r1bqk1nr/pp1pppbp/2n3p1/8/2p1P3/2N3P1/PPPP1P1P/R1BQKBNR w KQkq - 0 6",
+      "moves": [
+        "e2e4",
+        "c7c5",
+        "b1c3",
+        "b8c6",
+        "g2g3",
+        "g7g6",
+        "f1g2",
+        "f8g7",
+        "g2f1",
+        "c5c4"
+      ]
+    },
+    {
+      "family": "Reti",
+      "variant": 0,
+      "fen": "rnbq3r/pppkbppp/4pn2/3p4/2P5/5NP1/PP1PPPBP/RNBQ1RK1 w - - 1 6",
+      "moves": [
+        "g1f3",
+        "d7d5",
+        "g2g3",
+        "g8f6",
+        "f1g2",
+        "e7e6",
+        "e1g1",
+        "f8e7",
+        "c2c4",
+        "e8d7"
+      ]
+    },
+    {
+      "family": "Ruy Lopez",
+      "variant": 1,
+      "fen": "r1bqkb1r/1pp2pp1/p1n2n2/3pp1Np/B3P3/3P4/PPP2PPP/RNBQK2R w KQkq - 0 7",
+      "moves": [
+        "e2e4",
+        "e7e5",
+        "g1f3",
+        "b8c6",
+        "f1b5",
+        "a7a6",
+        "b5a4",
+        "g8f6",
+        "d2d3",
+        "d7d5",
+        "f3g5",
+        "h7h5"
+      ]
+    },
+    {
+      "family": "Queen's Gambit Declined",
+      "variant": 1,
+      "fen": "rnbqk2r/pppn1ppp/4p3/3p2B1/2PP4/b1N2P2/PP2P1PP/RQ2KBNR w KQkq - 3 7",
+      "moves": [
+        "d2d4",
+        "d7d5",
+        "c2c4",
+        "e7e6",
+        "b1c3",
+        "g8f6",
+        "c1g5",
+        "f8e7",
+        "f2f3",
+        "e7a3",
+        "d1b1",
+        "f6d7"
+      ]
+    },
+    {
+      "family": "Sicilian Najdorf",
+      "variant": 1,
+      "fen": "r2qkb1r/1p2pppp/p1np1n2/5b2/1P1NPP2/2N5/P1P3PP/R1BQKB1R w KQkq - 1 8",
+      "moves": [
+        "e2e4",
+        "c7c5",
+        "g1f3",
+        "d7d6",
+        "d2d4",
+        "c5d4",
+        "f3d4",
+        "g8f6",
+        "b1c3",
+        "a7a6",
+        "b2b4",
+        "b8c6",
+        "f2f4",
+        "c8f5"
+      ]
+    },
+    {
+      "family": "King's Indian",
+      "variant": 1,
+      "fen": "rnb1k2r/pppqppbp/3p1n2/6p1/2PPP1P1/2N5/PP2KP1P/R1BQ1BNR w kq - 2 7",
+      "moves": [
+        "d2d4",
+        "g8f6",
+        "c2c4",
+        "g7g6",
+        "b1c3",
+        "f8g7",
+        "e2e4",
+        "d7d6",
+        "g2g4",
+        "g6g5",
+        "e1e2",
+        "d8d7"
+      ]
+    },
+    {
+      "family": "French",
+      "variant": 1,
+      "fen": "rnbqk2r/1ppnbppp/p3p3/3p2B1/3PP3/2N2B2/PPP2PPP/R2QK1NR w KQkq - 2 7",
+      "moves": [
+        "e2e4",
+        "e7e6",
+        "d2d4",
+        "d7d5",
+        "b1c3",
+        "g8f6",
+        "c1g5",
+        "f8e7",
+        "f1e2",
+        "a7a6",
+        "e2f3",
+        "f6d7"
+      ]
+    },
+    {
+      "family": "English",
+      "variant": 1,
+      "fen": "rnbq1b1r/pppk1ppp/1Q3n2/4p3/8/2N3P1/PP1PPP1P/R1B1KBNR w KQ - 4 7",
+      "moves": [
+        "c2c4",
+        "e7e5",
+        "b1c3",
+        "g8f6",
+        "g2g3",
+        "d7d5",
+        "c4d5",
+        "f6d5",
+        "d1b3",
+        "d5f6",
+        "b3b6",
+        "e8d7"
+      ]
+    },
+    {
+      "family": "Caro-Kann",
+      "variant": 1,
+      "fen": "rn1qkb1r/p3pppp/1pp4n/1B3b2/3P4/8/PPPN1PPP/R1BQK1NR w KQkq - 0 7",
+      "moves": [
+        "e2e4",
+        "c7c6",
+        "d2d4",
+        "d7d5",
+        "b1c3",
+        "d5e4",
+        "c3e4",
+        "c8f5",
+        "f1b5",
+        "g8h6",
+        "e4d2",
+        "b7b6"
+      ]
+    },
+    {
+      "family": "Slav",
+      "variant": 1,
+      "fen": "rnbqkb1r/1p1npppp/2p4B/p7/2pP3N/2N5/PP2PPPP/R2QKB1R w KQkq - 0 7",
+      "moves": [
+        "d2d4",
+        "d7d5",
+        "c2c4",
+        "c7c6",
+        "g1f3",
+        "g8f6",
+        "b1c3",
+        "d5c4",
+        "c1h6",
+        "f6d7",
+        "f3h4",
+        "a7a5"
+      ]
+    },
+    {
+      "family": "Italian",
+      "variant": 1,
+      "fen": "r1b1k2r/ppp1qppp/2n2n2/2bpp3/2BPP3/2P2NP1/PP3P1P/RNBQK2R w KQkq - 1 7",
+      "moves": [
+        "e2e4",
+        "e7e5",
+        "g1f3",
+        "b8c6",
+        "f1c4",
+        "f8c5",
+        "c2c3",
+        "g8f6",
+        "d2d4",
+        "d7d5",
+        "g2g3",
+        "d8e7"
+      ]
+    },
+    {
+      "family": "Nimzo-Indian",
+      "variant": 1,
+      "fen": "rnbq1rk1/ppp2ppp/3ppn2/3N4/2PP4/b3P3/PP1B1PPP/R2QKBNR w KQ - 0 7",
+      "moves": [
+        "d2d4",
+        "g8f6",
+        "c2c4",
+        "e7e6",
+        "b1c3",
+        "f8b4",
+        "e2e3",
+        "e8g8",
+        "c1d2",
+        "b4a3",
+        "c3d5",
+        "d7d6"
+      ]
+    },
+    {
+      "family": "Scotch",
+      "variant": 1,
+      "fen": "r1bqk1nr/pppp2pp/7B/n1b2p2/3NP3/1P6/P1P2PPP/RN1QKB1R w KQkq - 0 7",
+      "moves": [
+        "e2e4",
+        "e7e5",
+        "g1f3",
+        "b8c6",
+        "d2d4",
+        "e5d4",
+        "f3d4",
+        "f8c5",
+        "c1h6",
+        "c6a5",
+        "b2b3",
+        "f7f5"
+      ]
+    },
+    {
+      "family": "Queen's Indian",
+      "variant": 1,
+      "fen": "r2qkb1r/pbp2ppp/1pn1pn2/3p4/2PP4/2N2NPP/PP2PP2/R1BQKB1R w KQkq - 0 7",
+      "moves": [
+        "d2d4",
+        "g8f6",
+        "c2c4",
+        "e7e6",
+        "g1f3",
+        "b7b6",
+        "g2g3",
+        "c8b7",
+        "h2h3",
+        "b8c6",
+        "b1c3",
+        "d7d5"
+      ]
+    },
+    {
+      "family": "Pirc",
+      "variant": 1,
+      "fen": "rn1qk1nr/pppbppbp/3p2p1/8/3PP3/1PN2NP1/P1P2P1P/R1BQKB1R w KQkq - 1 7",
+      "moves": [
+        "e2e4",
+        "d7d6",
+        "d2d4",
+        "g8f6",
+        "b1c3",
+        "g7g6",
+        "g1f3",
+        "f8g7",
+        "g2g3",
+        "c8d7",
+        "b2b3",
+        "f6g8"
+      ]
+    },
+    {
+      "family": "Catalan",
+      "variant": 1,
+      "fen": "r1bq1rk1/ppp1bppp/n3pn2/2Pp4/3P4/6P1/PP1NPPBP/R1BQK1NR w KQ - 1 7",
+      "moves": [
+        "d2d4",
+        "g8f6",
+        "c2c4",
+        "e7e6",
+        "g2g3",
+        "d7d5",
+        "f1g2",
+        "f8e7",
+        "b1d2",
+        "b8a6",
+        "c4c5",
+        "e8g8"
+      ]
+    },
+    {
+      "family": "Scandinavian",
+      "variant": 1,
+      "fen": "rnb1kb1r/ppp1pppp/8/5q2/P2P2n1/2N5/1PP1NPPP/R1BQKB1R w KQkq - 1 7",
+      "moves": [
+        "e2e4",
+        "d7d5",
+        "e4d5",
+        "d8d5",
+        "b1c3",
+        "d5a5",
+        "d2d4",
+        "g8f6",
+        "g1e2",
+        "f6g4",
+        "a2a4",
+        "a5f5"
+      ]
+    },
+    {
+      "family": "Dutch",
+      "variant": 1,
+      "fen": "rnbqk2r/ppppb1pp/4p3/5p2/3P1n2/5NP1/PPPQPPBP/RNBK3R w kq - 6 7",
+      "moves": [
+        "d2d4",
+        "f7f5",
+        "g2g3",
+        "g8f6",
+        "f1g2",
+        "e7e6",
+        "g1f3",
+        "f8e7",
+        "d1d2",
+        "f6h5",
+        "e1d1",
+        "h5f4"
+      ]
+    },
+    {
+      "family": "Four Knights",
+      "variant": 1,
+      "fen": "r1bq1k1r/1ppp1ppp/2n2n2/pB2p3/1b1PP3/P1N2N2/1PP2PPP/R1BQK2R w KQ - 0 7",
+      "moves": [
+        "e2e4",
+        "e7e5",
+        "g1f3",
+        "b8c6",
+        "b1c3",
+        "g8f6",
+        "f1b5",
+        "f8b4",
+        "d2d4",
+        "e8f8",
+        "a2a3",
+        "a7a5"
+      ]
+    },
+    {
+      "family": "Grunfeld",
+      "variant": 1,
+      "fen": "r1bqkb1r/p1pnpp1p/6p1/1p1n4/3PP3/8/PP2NPPP/R1BQKBNR w KQkq - 0 7",
+      "moves": [
+        "d2d4",
+        "g8f6",
+        "c2c4",
+        "g7g6",
+        "b1c3",
+        "d7d5",
+        "c4d5",
+        "f6d5",
+        "e2e4",
+        "b8d7",
+        "c3e2",
+        "b7b5"
+      ]
+    },
+    {
+      "family": "Sicilian Closed",
+      "variant": 1,
+      "fen": "r1bq1knr/p2pppbp/2n3p1/1pp5/4P2P/2N3P1/PPPP1PB1/1RBQK1NR w K - 0 7",
+      "moves": [
+        "e2e4",
+        "c7c5",
+        "b1c3",
+        "b8c6",
+        "g2g3",
+        "g7g6",
+        "f1g2",
+        "f8g7",
+        "a1b1",
+        "e8f8",
+        "h2h4",
+        "b7b5"
+      ]
+    },
+    {
+      "family": "Reti",
+      "variant": 1,
+      "fen": "rnbqkr2/ppp2ppp/4pn2/3pN3/1b6/6PP/PPPPPPB1/RNBQ1RK1 w q - 1 7",
+      "moves": [
+        "g1f3",
+        "d7d5",
+        "g2g3",
+        "g8f6",
+        "f1g2",
+        "e7e6",
+        "e1g1",
+        "f8e7",
+        "f3e5",
+        "h8f8",
+        "h2h3",
+        "e7b4"
+      ]
+    }
+  ]
+}
