@@ -561,6 +561,9 @@ private:
                        (limits.quiescence ? "qsearch " : "static-leaf ") +
                        (pruning && limits.principal_variation_search ? "pvs " : "full-window ") +
                        table_info(result) + " " + search_info(result) + " " + metric_info(result) + " " + optimization_info(result));
+#ifdef CHESSLAB_DIAGNOSTICS
+                output("info string diagnostics " + result.diagnostics.json());
+#endif
 #ifdef CHESSLAB_PROFILE
                 std::ostringstream profile;
                 profile << "info string profile {\"allocations\":" << result.profile.allocations

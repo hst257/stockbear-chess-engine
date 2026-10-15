@@ -73,6 +73,10 @@ public:
         nnue_set_kernel(limits_.nnue_kernel);
         profiling::reset();
         profiling::Scope measured(profiling::SEARCH);
+#ifdef CHESSLAB_DIAGNOSTICS
+        diagnostics::reset(limits_.use_nnue && limits_.nnue_incremental,
+                           sizeof(NnueAccumulator), sizeof(std::array<NnueAccumulator, MAX_SEARCH_PLY + 1>));
+#endif
         if (limits_.use_nnue && limits_.nnue_incremental) {
             nnue_stack_ = std::make_unique<std::array<NnueAccumulator, MAX_SEARCH_PLY + 1>>();
             nnue_refresh(board, (*nnue_stack_)[0]);
@@ -144,6 +148,9 @@ public:
         result_.milliseconds = elapsed();
         result_.hashfull = table_ ? table_->hashfull() : 0;
         if (pawn_cache_) { result_.pawn_probes = pawn_cache_->probes; result_.pawn_hits = pawn_cache_->hits; }
+#ifdef CHESSLAB_DIAGNOSTICS
+        result_.diagnostics = diagnostics::finish();
+#endif
         result_.profile = profiling::finish();
         return result_;
     }
@@ -165,6 +172,9 @@ private:
         ++result_.eval_calls;
         profiling::Scope measured(profiling::EVALUATION);
         if (limits_.use_nnue) {
+#ifdef CHESSLAB_DIAGNOSTICS
+            diagnostics::evaluation(ply);
+#endif
             ++result_.nnue_evaluations;
             if (nnue_stack_) return nnue_white_score(board, (*nnue_stack_)[ply]);
             NnueAccumulator fresh;
@@ -178,6 +188,9 @@ private:
         if (!nnue_stack_) return;
         if (limits_.nnue_kernel == "reference") nnue_update((*nnue_stack_)[ply - 1], board, (*nnue_stack_)[ply]);
         else nnue_update_move((*nnue_stack_)[ply - 1], board, delta, (*nnue_stack_)[ply]);
+#ifdef CHESSLAB_DIAGNOSTICS
+        diagnostics::prepare(ply);
+#endif
     }
 
     void generate(chess::Movelist& moves, const chess::Board& board) {
@@ -243,6 +256,9 @@ private:
     int quiescence(chess::Board& board, int ply, int qply, int alpha, int beta,
                    PrincipalVariation& pv, bool null_subtree = false) {
         visit(ply, true);
+#ifdef CHESSLAB_DIAGNOSTICS
+        diagnostics::visit(ply, true, null_subtree);
+#endif
         const bool checked = board.inCheck();
         const auto promotion_rank = board.sideToMove() == chess::Color::WHITE ?
                                     0x00FF000000000000ULL : 0x000000000000FF00ULL;
@@ -316,6 +332,9 @@ private:
         if (ply >= MAX_SEARCH_PLY) depth = 0;
         if (depth == 0 && limits_.quiescence) return quiescence(board, ply, 0, alpha, beta, pv, null_subtree);
         visit(ply);
+#ifdef CHESSLAB_DIAGNOSTICS
+        diagnostics::visit(ply, false, null_subtree);
+#endif
         if (depth == 0 && limits_.fast_movegen) {
             if (const auto score = terminal(board, has_legal_move(board), ply, null_subtree)) return *score;
             return static_evaluation(board, ply);
@@ -383,6 +402,9 @@ private:
                 PrincipalVariation ignored_pv;
                 {
                     ScopedNullMove passed(board);
+#ifdef CHESSLAB_DIAGNOSTICS
+                    diagnostics::next_null = true;
+#endif
                     descend_nnue(board, ply + 1);
                     score = minimax(board, depth - 3, ply + 1,
                                     maximizing ? beta - 1 : alpha,

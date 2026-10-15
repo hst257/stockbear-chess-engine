@@ -1,0 +1,245 @@
+{
+  "method": "Frozen before position experiments; two legal hand-selected fixtures per requested category. Bounded diagnostic examples, not a random strength sample or training data. Some categories overlap; two short mate fixtures are excluded from aggregate throughput.",
+  "positions": [
+    {
+      "category": "opening",
+      "id": "start",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "pieces": 32,
+      "nominal_phase": "opening",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "opening",
+      "id": "queen_gambit",
+      "fen": "rnbqkb1r/ppp2ppp/4pn2/3p4/2PP4/2N5/PP2PPPP/R1BQKBNR w KQkq - 2 4",
+      "pieces": 32,
+      "nominal_phase": "opening",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "quiet_middlegame",
+      "id": "old_middle",
+      "fen": "r1bq1rk1/ppp2ppp/2np1n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQ1RK1 w - - 4 7",
+      "pieces": 32,
+      "nominal_phase": "middlegame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "quiet_middlegame",
+      "id": "italian_structure",
+      "fen": "r1bq1rk1/pp2bppp/2nppn2/2p5/2B1P3/2NP1N2/PPP2PPP/R1BQ1RK1 w - - 4 8",
+      "pieces": 32,
+      "nominal_phase": "middlegame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "tactical",
+      "id": "kiwipete",
+      "fen": "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1",
+      "pieces": 32,
+      "nominal_phase": "middlegame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "tactical",
+      "id": "pins",
+      "fen": "r4rk1/1pp1qppp/p1np1n2/2b1p1B1/2B1P1b1/P1NP1N2/1PP1QPPP/R4RK1 w - - 0 10",
+      "pieces": 32,
+      "nominal_phase": "middlegame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "king_attack",
+      "id": "attack_complex",
+      "fen": "r3r1k1/ppp2ppp/2n2n2/2bq4/3P4/2PBBN2/PP3PPP/R2Q1RK1 w - - 0 12",
+      "pieces": 27,
+      "nominal_phase": "middlegame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "king_attack",
+      "id": "mate_net",
+      "fen": "6k1/5ppp/8/7Q/2B5/8/5PPP/6K1 w - - 0 1",
+      "pieces": 10,
+      "nominal_phase": "endgame",
+      "short_forced_fixture": true
+    },
+    {
+      "category": "material_imbalance",
+      "id": "queen_rooks",
+      "fen": "r3k2r/ppp2ppp/2n5/8/3Q4/2N5/PPP2PPP/R3K3 w Qkq - 0 1",
+      "pieces": 20,
+      "nominal_phase": "middlegame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "material_imbalance",
+      "id": "rook_minors",
+      "fen": "2r3k1/pp3ppp/8/8/2B5/2N5/PP3PPP/6K1 b - - 0 1",
+      "pieces": 15,
+      "nominal_phase": "middlegame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "pawn_endgame",
+      "id": "old_pawns",
+      "fen": "8/5pk1/6p1/8/3K4/6P1/5P2/8 w - - 0 1",
+      "pieces": 6,
+      "nominal_phase": "endgame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "pawn_endgame",
+      "id": "opposed_pawns",
+      "fen": "8/5pk1/6p1/3p4/3P4/5PK1/6P1/8 w - - 0 1",
+      "pieces": 8,
+      "nominal_phase": "endgame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "piece_endgame",
+      "id": "rooks",
+      "fen": "8/5pk1/6p1/3R4/8/5PK1/6P1/1r6 w - - 0 1",
+      "pieces": 8,
+      "nominal_phase": "endgame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "piece_endgame",
+      "id": "rook_bishop",
+      "fen": "8/2r2pk1/6p1/3B4/8/5PK1/6P1/1R6 w - - 0 1",
+      "pieces": 9,
+      "nominal_phase": "endgame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "passed_pawns",
+      "id": "outside_passer",
+      "fen": "8/5pk1/6p1/2P5/8/5PK1/6P1/8 w - - 0 1",
+      "pieces": 7,
+      "nominal_phase": "endgame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "passed_pawns",
+      "id": "rook_pawn",
+      "fen": "8/1p4k1/8/P7/8/8/6K1/8 b - - 0 1",
+      "pieces": 4,
+      "nominal_phase": "endgame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "promotion",
+      "id": "promotion_race",
+      "fen": "7k/4P3/8/8/8/8/5p2/K7 w - - 0 1",
+      "pieces": 4,
+      "nominal_phase": "endgame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "promotion",
+      "id": "underpromotion_perft",
+      "fen": "rnbq1k1r/pp1Pbppp/2p5/8/2B5/8/PPP1NnPP/RNBQK2R w KQ - 1 8",
+      "pieces": 28,
+      "nominal_phase": "middlegame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "zugzwang",
+      "id": "white_blocked",
+      "fen": "8/3k4/3P4/3K4/8/8/8/8 w - - 0 1",
+      "pieces": 3,
+      "nominal_phase": "endgame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "zugzwang",
+      "id": "black_blocked",
+      "fen": "8/8/8/3k4/3p4/3K4/8/8 b - - 0 1",
+      "pieces": 3,
+      "nominal_phase": "endgame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "defense",
+      "id": "defend_mate_net",
+      "fen": "6k1/5ppp/8/7Q/2B5/8/5PPP/6K1 b - - 0 1",
+      "pieces": 10,
+      "nominal_phase": "endgame",
+      "short_forced_fixture": true
+    },
+    {
+      "category": "defense",
+      "id": "defend_complex",
+      "fen": "r3r1k1/ppp2ppp/2n2n2/2bq4/3P4/2PBBN2/PP3PPP/R2Q1RK1 b - - 0 12",
+      "pieces": 27,
+      "nominal_phase": "middlegame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "long_term_planning",
+      "id": "carlsbad",
+      "fen": "r1bq1rk1/ppp2ppp/2n1pn2/3p4/3P4/2PBPN2/PP3PPP/RNBQ1RK1 w - - 0 8",
+      "pieces": 31,
+      "nominal_phase": "middlegame",
+      "short_forced_fixture": false
+    },
+    {
+      "category": "long_term_planning",
+      "id": "locked_center",
+      "fen": "r1bq1rk1/pp2bppp/2n1pn2/2ppP3/3P4/2PB1N2/PP3PPP/RNBQ1RK1 w - - 0 8",
+      "pieces": 32,
+      "nominal_phase": "middlegame",
+      "short_forced_fixture": false
+    }
+  ],
+  "search_plan": {
+    "time_ms": [
+      50,
+      200,
+      1000
+    ],
+    "nodes": [
+      25000,
+      100000,
+      400000
+    ],
+    "depth": [
+      3,
+      4,
+      5
+    ],
+    "repeats": 3
+  },
+  "ablation_plan": {
+    "configurations": {
+      "production": {},
+      "no_lmr": {
+        "UseLMR": false
+      },
+      "no_null": {
+        "UseNullMovePruning": false
+      },
+      "no_futility": {
+        "UseFutility": false
+      },
+      "no_reverse_futility": {
+        "UseReverseFutility": false
+      },
+      "no_aspiration": {
+        "UseAspirationWindows": false
+      }
+    },
+    "time_ms": 200,
+    "nodes": 100000,
+    "repeats": 2
+  },
+  "reference_plan": {
+    "engine": "StockBear_NNUE_training\\stockfish-windows-x86-64-universal\\stockfish\\stockfish-windows-x86-64-universal.exe",
+    "threads": 1,
+    "hash_mb": 64,
+    "nodes": 300000,
+    "method": "One independent root search and a fresh child search for every distinct candidate move, each with 300000 nodes. Both mapped to original root side-to-move. Root and child context differ by one ply; raw deltas retained, negative CPL clipped to zero and reported. Mates kept separate. No tablebases or assistance during matches."
+  }
+}

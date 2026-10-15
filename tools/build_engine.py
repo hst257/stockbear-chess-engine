@@ -23,6 +23,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--target", choices=("engine", "tt-tests", "audit-tests", "nnue-bench"), default="engine")
     parser.add_argument("--profile", action="store_true", help="Instrument CPU categories and search-thread allocations.")
+    parser.add_argument("--diagnostics", action="store_true", help="Compile optional accumulator-work counters; no production-policy changes.")
     parser.add_argument("--optimization", choices=("O2", "O3"), default="O2")
     parser.add_argument("--lto", action="store_true")
     parser.add_argument("--output", type=Path)
@@ -63,6 +64,8 @@ def main() -> int:
                        str(ROOT / "engine" / "src" / "nnue.cpp"), "-o", str(output)]
     if options.profile:
         args.insert(len(compiler), "-DCHESSLAB_PROFILE")
+    if options.diagnostics:
+        args.insert(len(compiler), "-DCHESSLAB_DIAGNOSTICS")
     if options.lto:
         args.insert(len(compiler), "-flto")
     if options.sanitize:
@@ -78,6 +81,7 @@ def main() -> int:
         print(f"Built {output}")
         output.with_suffix(".build.json").write_text(json.dumps({
             "compiler": compiler, "flags": args[len(compiler):], "profile": options.profile,
+            "diagnostics": options.diagnostics,
             "optimization": options.optimization, "lto": options.lto, "sanitizer": options.sanitize,
             "nnue": model_info,
             "generator_sha256": hashlib.sha256((ROOT / "tools/embed_nnue.py").read_bytes()).hexdigest(),

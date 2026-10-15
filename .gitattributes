@@ -1,0 +1,4 @@
+# Diagnostic byte hashes must survive Windows checkouts unchanged.
+docs/nnue-v2-diagnosis/*.json text eol=lf
+docs/nnue-v2-diagnosis/*.pgn text eol=lf
+docs/nnue-v2-diagnosis/*.csv text eol=lf

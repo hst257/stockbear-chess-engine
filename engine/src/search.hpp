@@ -9,6 +9,7 @@
 #include "chess.hpp"
 #include "evaluation.hpp"
 #include "profiling.hpp"
+#include "diagnostics.hpp"
 #include "transposition.hpp"
 
 namespace chesslab {
@@ -47,6 +48,9 @@ struct SearchLimits {
 };
 
 struct SearchResult {
+#ifdef CHESSLAB_DIAGNOSTICS
+    diagnostics::Report diagnostics;
+#endif
     profiling::Report profile;
     std::uint64_t eval_calls = 0;
     std::uint64_t beta_cutoffs = 0;

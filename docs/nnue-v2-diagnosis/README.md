@@ -51,3 +51,28 @@ Counters/profiling must be explicitly compiled in and must not alter production
 search or model contracts. Profiled throughput is not release throughput.
 No network changes, retraining, search threshold tuning or lazy state implementation
 are part of this investigation. Final findings: `NNUE_V2_SEARCH_DIAGNOSIS.md` at root.
+
+The position schedule is frozen in `positions.json`: 24 positions, three trials
+at each of 50/200/1000ms, 25k/100k/400k nodes and depths 3/4/5. Ablations use
+200ms and 100k nodes, two trials, changing one of LMR, null move, futility,
+reverse futility or aspiration windows. No razoring, SEE quiescence pruning,
+static-evaluation move ordering or cached TT static evaluations exist here.
+
+```powershell
+.\.venv\Scripts\python.exe -m tools.run_nnue_diagnosis_positions --phase all
+```
+
+This command resumes controlled searches, ablations and the independent SF19
+child-analysis cache. Run it after tournaments, with no competing benchmarks.
+Quality summaries use the first trial, with repeats reserved for speed and
+stability; they are not counted as independent position samples. Root and child
+SF searches each use 300k nodes, one thread, Hash64 and cleared hash. Direct
+candidate child scores share the same context; raw root scores stay separate.
+
+Optional builds use `tools/build_engine.py --diagnostics`, and additionally
+`--profile` for exclusive clock scopes. Ordinary builds omit every new counter
+and scope. `tools/profile_nnue_diagnosis.py` compares all three builds serially;
+`tools/verify_nnue_diagnosis.py` checks preserved/rebuilt/counter/clock/UBSan trees,
+trained goldens, the held-out corpus, accumulator transitions and UCI lifecycle.
+Set `CHESSLAB_DIAGNOSTIC_ENGINE` when running the explicit depth-one counter oracle
+in `tests/test_nnue_diagnosis.py`.

@@ -2,6 +2,7 @@
 #include "nnue_weights.hpp"
 #include "transposition.hpp"
 #include "profiling.hpp"
+#include "diagnostics.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -115,7 +116,15 @@ void nnue_update_move(const NnueAccumulator& parent, const chess::Board& after,
     profiling::Scope measured(profiling::NNUE_UPDATE);
     const auto states = state_features(after);
     const bool quant = nnue_quantized();
+#ifdef CHESSLAB_DIAGNOSTICS
+    {
+        profiling::Scope copy_measured(profiling::NNUE_COPY);
+        output.features = parent.features;
+        diagnostics::copied(sizeof(NnueFeatures) + 2ULL * w::WIDTH * sizeof(float));
+    }
+#else
     output.features = parent.features;
+#endif
     for (int p = 0; p < 2; ++p) {
         // Sort only the changed rows, preserving the reference arithmetic order.
         int changes[16], size = 0;
@@ -149,8 +158,17 @@ void nnue_update_move(const NnueAccumulator& parent, const chess::Board& after,
             *it = f; ++count;
         }
         auto& values = output.values[p];
+#ifdef CHESSLAB_DIAGNOSTICS
+        if (p == 0) diagnostics::rows(size, w::WIDTH);
+        {
+            profiling::Scope copy_measured(profiling::NNUE_COPY);
+            if (quant) std::copy_n(parent.quantized[p].begin(), w::WIDTH, output.quantized[p].begin());
+            else std::copy_n(parent.values[p].begin(), w::WIDTH, values.begin());
+        }
+#else
         if (quant) std::copy_n(parent.quantized[p].begin(), w::WIDTH, output.quantized[p].begin());
         else std::copy_n(parent.values[p].begin(), w::WIDTH, values.begin());
+#endif
         for (int i = 0; i < size; ++i) {
             const bool remove = changes[i] < 0;
             const int f = std::abs(changes[i]) - 1;
@@ -218,6 +236,9 @@ NnueFeatures nnue_features(const chess::Board& board) {
 
 void nnue_refresh(const chess::Board& board, NnueAccumulator& output) {
     profiling::Scope measured(profiling::NNUE_REFRESH);
+#ifdef CHESSLAB_DIAGNOSTICS
+    if (diagnostics::active) ++diagnostics::report.refreshes;
+#endif
     output.features = nnue_features(board);
     for (int p = 0; p < 2; ++p) {
         auto& values = output.values[p];
@@ -241,10 +262,22 @@ void nnue_update(const NnueAccumulator& parent, const chess::Board& board, NnueA
     profiling::Scope measured(profiling::NNUE_UPDATE);
     output.features = nnue_features(board);
     const bool quant = nnue_quantized();
+#ifdef CHESSLAB_DIAGNOSTICS
+    diagnostics::copied(2ULL * w::WIDTH * sizeof(float));
+    unsigned changed_rows = 0;
+#endif
     for (int p = 0; p < 2; ++p) {
         auto& values = output.values[p];
+#ifdef CHESSLAB_DIAGNOSTICS
+        {
+            profiling::Scope copy_measured(profiling::NNUE_COPY);
+            if (quant) std::copy_n(parent.quantized[p].begin(), w::WIDTH, output.quantized[p].begin());
+            else std::copy_n(parent.values[p].begin(), w::WIDTH, values.begin());
+        }
+#else
         if (quant) std::copy_n(parent.quantized[p].begin(), w::WIDTH, output.quantized[p].begin());
         else std::copy_n(parent.values[p].begin(), w::WIDTH, values.begin());
+#endif
         int old = 0, next = 0;
         const auto& previous = parent.features.active[p];
         const auto& current = output.features.active[p];
@@ -257,6 +290,9 @@ void nnue_update(const NnueAccumulator& parent, const chess::Board& board, NnueA
             const bool remove = old < parent.features.count &&
                 (next >= output.features.count || previous[old] < current[next]);
             const int index = remove ? previous[old++] : current[next++];
+#ifdef CHESSLAB_DIAGNOSTICS
+            if (p == 0) ++changed_rows;
+#endif
             const auto* row = w::transform_weight + index * w::WIDTH;
             if (quant) {
                 const auto* qrow = w::q_transform_weight + index * w::WIDTH;
@@ -268,6 +304,9 @@ void nnue_update(const NnueAccumulator& parent, const chess::Board& board, NnueA
             }
         }
     }
+#ifdef CHESSLAB_DIAGNOSTICS
+    diagnostics::rows(changed_rows, w::WIDTH);
+#endif
 }
 
 float nnue_reference_side_to_move(const chess::Board& board, const NnueAccumulator& accumulator) {
