@@ -95,7 +95,7 @@ def main():
                             "seconds": result["time"], "move": info.move.uci(),
                             "score_white": str(result["score"].white())})
             row["summary"] = {label: {mode: {key: summary(samples, key) for key in
-                (("head_ns", "feature_ns", "copy_ns", "update_ns", "refresh_ns", "classical_ns") if mode == "micro" else ("nps", "depth", "nodes", "wall_seconds"))}
+                (tuple(k for k in ("head_ns", "feature_ns", "copy_ns", "update_ns", "move_update_ns", "refresh_ns", "classical_ns") if k in samples[0]) if mode == "micro" else ("nps", "depth", "nodes", "wall_seconds"))}
                 for mode, samples in modes.items() if samples} for label, modes in row["samples"].items()}
             data["positions"].append(row)
             print(category + ": " + "; ".join(f"{label} {row['summary'][label].get('time', {}).get('nps', {}).get('median', 0):,.0f} NPS" for label in labels), flush=True)

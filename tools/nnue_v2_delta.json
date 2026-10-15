@@ -1,0 +1,30 @@
+{
+  "original-compact": {
+    "engine": "artifacts/nnue-v2/baseline-compact/engine.exe",
+    "micro": "artifacts/nnue-v2/baseline-compact/micro.exe",
+    "options": {
+      "Evaluator": "nnue"
+    }
+  },
+  "delta-compact": {
+    "engine": "artifacts/nnue-v2/delta-compact/engine.exe",
+    "micro": "artifacts/nnue-v2/delta-compact/micro.exe",
+    "options": {
+      "Evaluator": "nnue"
+    }
+  },
+  "original-small": {
+    "engine": "artifacts/nnue-v2/baseline-small/engine.exe",
+    "micro": "artifacts/nnue-v2/baseline-small/micro.exe",
+    "options": {
+      "Evaluator": "nnue"
+    }
+  },
+  "delta-small": {
+    "engine": "artifacts/nnue-v2/delta-small/engine.exe",
+    "micro": "artifacts/nnue-v2/delta-small/micro.exe",
+    "options": {
+      "Evaluator": "nnue"
+    }
+  }
+}

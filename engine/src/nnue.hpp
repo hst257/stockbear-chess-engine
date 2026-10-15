@@ -15,10 +15,18 @@ struct NnueAccumulator {
     std::array<std::array<float, NNUE_MAX_WIDTH>, 2> values{};
     NnueFeatures features;
 };
+// Piece changes captured BEFORE makeMove. State features are checked after it.
+struct NnueDelta {
+    std::array<std::uint16_t, 4> removed{}, added{}; // White-perspective indices.
+    int removed_count = 0, added_count = 0;
+};
 
 NnueFeatures nnue_features(const chess::Board& board);
 void nnue_refresh(const chess::Board& board, NnueAccumulator& output);
 void nnue_update(const NnueAccumulator& parent, const chess::Board& board, NnueAccumulator& output);
+NnueDelta nnue_move_delta(const chess::Board& before, chess::Move move);
+void nnue_update_move(const NnueAccumulator& parent, const chess::Board& after,
+                      const NnueDelta& delta, NnueAccumulator& output);
 float nnue_side_to_move(const chess::Board& board, const NnueAccumulator& accumulator);
 int nnue_white_score(const chess::Board& board, const NnueAccumulator& accumulator);
 int nnue_width();

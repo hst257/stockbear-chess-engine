@@ -7,6 +7,9 @@
 #include <iomanip>
 #include <iostream>
 #include <string>
+#include <random>
+#include <cmath>
+#include <stdexcept>
 #if defined(__x86_64__) || defined(__i386__)
 #include <cpuid.h>
 #endif
@@ -26,6 +29,64 @@ template<class F> double time_calls(int n, F function) {
 int main(int argc, char** argv) {
     using namespace chesslab;
     std::cout << std::setprecision(10);
+    if (argc == 2 && std::string(argv[1]) == "--verify") {
+        std::mt19937 random(20261015);
+        int transitions = 0, nulls = 0;
+        float maximum = 0;
+        const char* positions[] = {
+            chess::constants::STARTPOS,
+            "r3k2r/8/8/3pP3/8/8/8/R3K2R w KQkq d6 0 1",
+            "7k/4P3/8/8/8/8/5p2/K7 w - - 0 1",
+            "4r2k/8/8/3pP3/8/8/8/4K3 w - d6 0 1"};
+        auto check = [&](const chess::Board& board, const NnueAccumulator& a) {
+            NnueAccumulator rebuilt;
+            nnue_refresh(board, rebuilt);
+            if (a.features.count != rebuilt.features.count) throw std::runtime_error("Feature count mismatch");
+            for (int p = 0; p < 2; ++p) {
+                for (int i = 0; i < a.features.count; ++i) if (a.features.active[p][i] != rebuilt.features.active[p][i]) throw std::runtime_error("Feature mismatch");
+                for (int j = 0; j < nnue_width(); ++j) {
+                    maximum = std::max(maximum, std::abs(a.values[p][j] - rebuilt.values[p][j]));
+                    if (maximum > .0001f) throw std::runtime_error("Accumulator lane mismatch");
+                }
+            }
+            if (std::abs(nnue_side_to_move(board, a) - nnue_side_to_move(board, rebuilt)) > .01f) throw std::runtime_error("Score mismatch");
+        };
+        for (auto fen : positions) for (int walk = 0; walk < 40; ++walk) {
+            chess::Board board(fen);
+            NnueAccumulator parent; nnue_refresh(board, parent);
+            for (int ply = 0; ply < 120; ++ply) {
+                chess::Movelist moves; chess::movegen::legalmoves(moves, board);
+                if (moves.empty()) break;
+                const auto before = board;
+                const auto snapshot = parent;
+                // Every sibling on the first ply, then one deterministic random child.
+                const int start = ply == 0 ? 0 : int(random() % moves.size());
+                const int end = ply == 0 ? int(moves.size()) : start + 1;
+                for (int i = start; i < end; ++i) {
+                    const auto delta = nnue_move_delta(board, moves[i]);
+                    board.makeMove<true>(moves[i]);
+                    NnueAccumulator child; nnue_update_move(parent, board, delta, child);
+                    check(board, child); ++transitions;
+                    board.unmakeMove(moves[i]);
+                    if (!board.fullyEquals(before) || parent.values != snapshot.values || parent.features.active != snapshot.features.active) throw std::runtime_error("Sibling mutated parent");
+                }
+                if (!board.inCheck()) {
+                    board.makeNullMove();
+                    NnueAccumulator child; nnue_update_move(parent, board, {}, child);
+                    check(board, child); ++nulls;
+                    board.unmakeNullMove();
+                    if (!board.fullyEquals(before)) throw std::runtime_error("Null restore mismatch");
+                }
+                const auto move = moves[random() % moves.size()];
+                const auto delta = nnue_move_delta(board, move);
+                board.makeMove<true>(move);
+                NnueAccumulator child; nnue_update_move(parent, board, delta, child);
+                parent = child;
+            }
+        }
+        std::cout << "{\"transitions\":" << transitions << ",\"nulls\":" << nulls << ",\"max_lane_error\":" << maximum << "}\n";
+        return 0;
+    }
     if (argc == 2 && std::string(argv[1]) == "--cpu") {
         bool avx2 = false, fma = false;
         std::string brand = "unknown";
@@ -72,6 +133,7 @@ int main(int argc, char** argv) {
     nnue_refresh(board, parent);
     chess::Movelist moves;
     chess::movegen::legalmoves(moves, child);
+    const auto delta = moves.empty() ? NnueDelta{} : nnue_move_delta(board, moves[0]);
     if (!moves.empty()) child.makeMove<true>(moves[0]);
     volatile double checksum = 0;
     const auto features = time_calls(n, [&](int) { checksum += nnue_features(child).count; });
@@ -80,6 +142,7 @@ int main(int argc, char** argv) {
         checksum += output.values[i % 2][i % nnue_width()];
     });
     const auto update = time_calls(n, [&](int) { nnue_update(parent, child, output); checksum += output.values[0][0]; });
+    const auto move_update = time_calls(n, [&](int) { nnue_update_move(parent, child, delta, output); checksum += output.values[0][0]; });
     const auto refresh = time_calls(n, [&](int) { nnue_refresh(child, output); checksum += output.values[0][0]; });
     const auto head = time_calls(n, [&](int) { checksum += nnue_side_to_move(board, parent); });
     const auto classical = time_calls(n, [&](int) { checksum += evaluate(board, true, EvaluationOptions{}); });
@@ -93,7 +156,7 @@ int main(int argc, char** argv) {
     std::cout << "{\"model\":\"" << nnue_model_name() << "\",\"sha256\":\"" << nnue_model_sha256()
               << "\",\"width\":" << nnue_width() << ",\"hidden\":" << nnue_hidden()
               << ",\"repeats\":" << n << ",\"feature_ns\":" << features << ",\"copy_ns\":" << copy
-              << ",\"update_ns\":" << update << ",\"refresh_ns\":" << refresh
+              << ",\"update_ns\":" << update << ",\"move_update_ns\":" << move_update << ",\"refresh_ns\":" << refresh
               << ",\"head_ns\":" << head << ",\"classical_ns\":" << classical
               << ",\"accumulator_bytes\":" << sizeof(NnueAccumulator)
               << ",\"working_set_bytes\":" << working << ",\"private_bytes\":" << private_bytes

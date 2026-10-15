@@ -173,8 +173,8 @@ private:
         return evaluate(board, limits_.use_pst, limits_.evaluation, pawn_cache_.get());
     }
 
-    void descend_nnue(const chess::Board& board, int ply) {
-        if (nnue_stack_) nnue_update((*nnue_stack_)[ply - 1], board, (*nnue_stack_)[ply]);
+    void descend_nnue(const chess::Board& board, int ply, const NnueDelta& delta = {}) {
+        if (nnue_stack_) nnue_update_move((*nnue_stack_)[ply - 1], board, delta, (*nnue_stack_)[ply]);
     }
 
     void generate(chess::Movelist& moves, const chess::Board& board) {
@@ -281,8 +281,9 @@ private:
             PrincipalVariation child_pv;
             int score;
             {
+                const auto nnue_delta = nnue_stack_ ? nnue_move_delta(board, move) : NnueDelta{};
                 ScopedMove played(board, move);
-                descend_nnue(board, ply + 1);
+                descend_nnue(board, ply + 1, nnue_delta);
                 score = quiescence(board, ply + 1, qply + 1, alpha, beta, child_pv, null_subtree);
             }
             if ((maximizing && score > best) || (!maximizing && score < best)) {
@@ -422,8 +423,9 @@ private:
                 std::clamp(limits_.lmr_reduction, 1, std::min(3, depth - 2))) : 0;
             int score;
             {
+                const auto nnue_delta = nnue_stack_ ? nnue_move_delta(board, move) : NnueDelta{};
                 ScopedMove played(board, move);
-                descend_nnue(board, ply + 1);
+                descend_nnue(board, ply + 1, nnue_delta);
                 const auto child_history = cacheable ? next_history(history, parent_key, board) : 0;
                 const bool child_follows_pv = follows_previous_pv && move == hint;
                 if (reduce) {
