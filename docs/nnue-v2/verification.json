@@ -1,0 +1,394 @@
+{
+  "tests": {
+    "full_suite": "1135 passed in 88.97s (0:01:28)",
+    "shared_opening_harness": "5 passed in 1.46s"
+  },
+  "sanitizer": {
+    "kind": "UndefinedBehaviorSanitizer, -fno-sanitize-recover=all",
+    "models": {
+      "compact": {
+        "scalar": {
+          "transitions": 31876,
+          "nulls": 26908,
+          "max_lane_error": 1.549720764e-06
+        },
+        "quant": {
+          "transitions": 31876,
+          "nulls": 26908,
+          "max_lane_error": 0
+        },
+        "builds": {
+          "engine": {
+            "compiler": [
+              "Z:\\Code\\Chess\\.venv\\Scripts\\python.exe",
+              "-m",
+              "ziglang",
+              "c++"
+            ],
+            "flags": [
+              "-fsanitize=undefined",
+              "-fno-sanitize-recover=all",
+              "-std=c++17",
+              "-O2",
+              "-pthread",
+              "-Wall",
+              "-Wextra",
+              "-ffp-contract=off",
+              "-I",
+              "Z:\\Code\\Chess\\artifacts\\nnue-v2\\ubsan-compact\\generated",
+              "-I",
+              "Z:\\Code\\Chess\\engine\\vendor\\chess-library",
+              "-I",
+              "Z:\\Code\\Chess\\engine\\src",
+              "Z:\\Code\\Chess\\engine\\src\\main.cpp",
+              "Z:\\Code\\Chess\\engine\\src\\search.cpp",
+              "Z:\\Code\\Chess\\engine\\src\\evaluation.cpp",
+              "Z:\\Code\\Chess\\engine\\src\\nnue.cpp",
+              "-o",
+              "Z:\\Code\\Chess\\artifacts\\nnue-v2\\ubsan-compact\\engine.exe"
+            ],
+            "profile": false,
+            "optimization": "O2",
+            "lto": false,
+            "sanitizer": "undefined",
+            "nnue": {
+              "model": "Z:\\Code\\Chess\\engine\\networks\\v2\\stockbear-v2-compact.sbnnue",
+              "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+              "payload_sha256": "6430669474029ef0effee25a8309e0751e8ca6411ff0b39d9e8ae50cf7fa5601",
+              "width": 32,
+              "hidden": 16,
+              "feature_version": "dual-perspective-12x64-castling-ep-v1",
+              "quantization": {
+                "supported": true,
+                "first_scale": 4096,
+                "activation_scale": 4096,
+                "head_weight_scale": 4096,
+                "output_weight_scale": 4096,
+                "accumulator_abs_bound": 247103,
+                "head_abs_bound": 238645611,
+                "output_abs_bound": 167827512,
+                "rounding": "nearest, ties away from zero",
+                "derived_bytes": 52260
+              }
+            },
+            "generator_sha256": "0fe2590fa21d93c2a0ab9201f81d89fb266be5d1e19c72d2f67a1655671af923",
+            "source_sha256": {
+              "engine\\src\\evaluation.cpp": "87ed00f717a19d593969b3b84d4e48586a8dc576d54ac1260350648a967639f7",
+              "engine\\src\\evaluation.hpp": "01f5eac3194175f4f6615629146ce95700de2a0c351cae49b8346ac635b05c91",
+              "engine\\src\\evaluation_masks.hpp": "2d1af8a6465e59bb0fce0878b694736207dcbd065c9419a3e7d5ba858196b92b",
+              "engine\\src\\main.cpp": "8b40f059ccb3e1029cccb84fba4500b9c08d9278e1cd5d0308539b1655f70041",
+              "engine\\src\\nnue.cpp": "05448bdd302defcfdbb38117d6eeda6801900ded50597f5e4ce0508b61e0ea8c",
+              "engine\\src\\nnue.hpp": "a0132cc742715390a151cc2bafcf544e9dead1a0c967c2df68089831ef227089",
+              "engine\\src\\pawn_cache.hpp": "f4240a187937c41f1b70ea2a901b1efd3b0b9c9309db8a0e4643a776bf6fc6ca",
+              "engine\\src\\principal_variation.hpp": "5a7b342185a4abbeca3638eaca0de2d9c3caa02a7f00710f631b9f87d4c5614c",
+              "engine\\src\\profiling.hpp": "2d5304f600d8d6760f75d43c6d0cef2b57e47487f3de8c9fc96c8a5dd772de7b",
+              "engine\\src\\pst.hpp": "a7f007ab55fd4bb3a6d4fae93b97b25e371faefc633351c0a70cd4eb40be111b",
+              "engine\\src\\scoped_move.hpp": "3e815c8e3f825105cf0f43a61750aa452c6f46a9c04a456b14a43dc09e07ea72",
+              "engine\\src\\search.cpp": "433183ea66249e3ba6252a85ad3566d871f2336ba37979552ad320c5984b7a3b",
+              "engine\\src\\search.hpp": "7aad55a31d2910112393a7dc66e0ce9d1e632a26d952d8f97c8f9c68d45b6a3d",
+              "engine\\src\\search_policy.hpp": "06cd21e30dc793570a2d717c9cd6976320342a2c21cac6f392fd64b548e54324",
+              "engine\\src\\strength.hpp": "133f330350dbf68f1f6e31bf67e8b310e1d639577918b626a5e4bb5b6cab7d68",
+              "engine\\src\\terminal_rules.hpp": "08880e1a158016cb43e4d05c818baa0d85f48a0d673837c3e43842251caf6f59",
+              "engine\\src\\transposition.hpp": "e41ab9b9e1bbf3f313d61e812e40e4dfebbc0debc6964ee85a83f68668b9d6a0"
+            }
+          },
+          "micro": {
+            "compiler": [
+              "Z:\\Code\\Chess\\.venv\\Scripts\\python.exe",
+              "-m",
+              "ziglang",
+              "c++"
+            ],
+            "flags": [
+              "-fsanitize=undefined",
+              "-fno-sanitize-recover=all",
+              "-std=c++17",
+              "-O2",
+              "-pthread",
+              "-Wall",
+              "-Wextra",
+              "-ffp-contract=off",
+              "-I",
+              "Z:\\Code\\Chess\\artifacts\\nnue-v2\\ubsan-compact\\generated",
+              "-I",
+              "Z:\\Code\\Chess\\engine\\vendor\\chess-library",
+              "-I",
+              "Z:\\Code\\Chess\\engine\\src",
+              "Z:\\Code\\Chess\\engine\\tests\\benchmark_nnue.cpp",
+              "Z:\\Code\\Chess\\engine\\src\\search.cpp",
+              "Z:\\Code\\Chess\\engine\\src\\evaluation.cpp",
+              "Z:\\Code\\Chess\\engine\\src\\nnue.cpp",
+              "-o",
+              "Z:\\Code\\Chess\\artifacts\\nnue-v2\\ubsan-compact\\micro.exe"
+            ],
+            "profile": false,
+            "optimization": "O2",
+            "lto": false,
+            "sanitizer": "undefined",
+            "nnue": {
+              "model": "Z:\\Code\\Chess\\engine\\networks\\v2\\stockbear-v2-compact.sbnnue",
+              "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+              "payload_sha256": "6430669474029ef0effee25a8309e0751e8ca6411ff0b39d9e8ae50cf7fa5601",
+              "width": 32,
+              "hidden": 16,
+              "feature_version": "dual-perspective-12x64-castling-ep-v1",
+              "quantization": {
+                "supported": true,
+                "first_scale": 4096,
+                "activation_scale": 4096,
+                "head_weight_scale": 4096,
+                "output_weight_scale": 4096,
+                "accumulator_abs_bound": 247103,
+                "head_abs_bound": 238645611,
+                "output_abs_bound": 167827512,
+                "rounding": "nearest, ties away from zero",
+                "derived_bytes": 52260
+              }
+            },
+            "generator_sha256": "0fe2590fa21d93c2a0ab9201f81d89fb266be5d1e19c72d2f67a1655671af923",
+            "source_sha256": {
+              "engine\\src\\evaluation.cpp": "87ed00f717a19d593969b3b84d4e48586a8dc576d54ac1260350648a967639f7",
+              "engine\\src\\evaluation.hpp": "01f5eac3194175f4f6615629146ce95700de2a0c351cae49b8346ac635b05c91",
+              "engine\\src\\evaluation_masks.hpp": "2d1af8a6465e59bb0fce0878b694736207dcbd065c9419a3e7d5ba858196b92b",
+              "engine\\src\\main.cpp": "8b40f059ccb3e1029cccb84fba4500b9c08d9278e1cd5d0308539b1655f70041",
+              "engine\\src\\nnue.cpp": "05448bdd302defcfdbb38117d6eeda6801900ded50597f5e4ce0508b61e0ea8c",
+              "engine\\src\\nnue.hpp": "a0132cc742715390a151cc2bafcf544e9dead1a0c967c2df68089831ef227089",
+              "engine\\src\\pawn_cache.hpp": "f4240a187937c41f1b70ea2a901b1efd3b0b9c9309db8a0e4643a776bf6fc6ca",
+              "engine\\src\\principal_variation.hpp": "5a7b342185a4abbeca3638eaca0de2d9c3caa02a7f00710f631b9f87d4c5614c",
+              "engine\\src\\profiling.hpp": "2d5304f600d8d6760f75d43c6d0cef2b57e47487f3de8c9fc96c8a5dd772de7b",
+              "engine\\src\\pst.hpp": "a7f007ab55fd4bb3a6d4fae93b97b25e371faefc633351c0a70cd4eb40be111b",
+              "engine\\src\\scoped_move.hpp": "3e815c8e3f825105cf0f43a61750aa452c6f46a9c04a456b14a43dc09e07ea72",
+              "engine\\src\\search.cpp": "433183ea66249e3ba6252a85ad3566d871f2336ba37979552ad320c5984b7a3b",
+              "engine\\src\\search.hpp": "7aad55a31d2910112393a7dc66e0ce9d1e632a26d952d8f97c8f9c68d45b6a3d",
+              "engine\\src\\search_policy.hpp": "06cd21e30dc793570a2d717c9cd6976320342a2c21cac6f392fd64b548e54324",
+              "engine\\src\\strength.hpp": "133f330350dbf68f1f6e31bf67e8b310e1d639577918b626a5e4bb5b6cab7d68",
+              "engine\\src\\terminal_rules.hpp": "08880e1a158016cb43e4d05c818baa0d85f48a0d673837c3e43842251caf6f59",
+              "engine\\src\\transposition.hpp": "e41ab9b9e1bbf3f313d61e812e40e4dfebbc0debc6964ee85a83f68668b9d6a0"
+            }
+          }
+        }
+      },
+      "small": {
+        "scalar": {
+          "transitions": 31876,
+          "nulls": 26908,
+          "max_lane_error": 1.072883606e-06
+        },
+        "quant": {
+          "transitions": 31876,
+          "nulls": 26908,
+          "max_lane_error": 0
+        },
+        "builds": {
+          "engine": {
+            "compiler": [
+              "Z:\\Code\\Chess\\.venv\\Scripts\\python.exe",
+              "-m",
+              "ziglang",
+              "c++"
+            ],
+            "flags": [
+              "-fsanitize=undefined",
+              "-fno-sanitize-recover=all",
+              "-std=c++17",
+              "-O2",
+              "-pthread",
+              "-Wall",
+              "-Wextra",
+              "-ffp-contract=off",
+              "-I",
+              "Z:\\Code\\Chess\\artifacts\\nnue-v2\\ubsan-small\\generated",
+              "-I",
+              "Z:\\Code\\Chess\\engine\\vendor\\chess-library",
+              "-I",
+              "Z:\\Code\\Chess\\engine\\src",
+              "Z:\\Code\\Chess\\engine\\src\\main.cpp",
+              "Z:\\Code\\Chess\\engine\\src\\search.cpp",
+              "Z:\\Code\\Chess\\engine\\src\\evaluation.cpp",
+              "Z:\\Code\\Chess\\engine\\src\\nnue.cpp",
+              "-o",
+              "Z:\\Code\\Chess\\artifacts\\nnue-v2\\ubsan-small\\engine.exe"
+            ],
+            "profile": false,
+            "optimization": "O2",
+            "lto": false,
+            "sanitizer": "undefined",
+            "nnue": {
+              "model": "Z:\\Code\\Chess\\engine\\networks\\v2\\stockbear-v2-small.sbnnue",
+              "sha256": "c43a11890f0b876a906985d0c06c78da6b2c8ad45a454a3c868598753745b2e7",
+              "payload_sha256": "f3b3717ac82363fe261aea1eda937e6431c8e108cbdf13d71dee791c2241aa32",
+              "width": 64,
+              "hidden": 32,
+              "feature_version": "dual-perspective-12x64-castling-ep-v1",
+              "quantization": {
+                "supported": true,
+                "first_scale": 4096,
+                "activation_scale": 4096,
+                "head_weight_scale": 4096,
+                "output_weight_scale": 4096,
+                "accumulator_abs_bound": 234018,
+                "head_abs_bound": 460231467,
+                "output_abs_bound": 190774394,
+                "rounding": "nearest, ties away from zero",
+                "derived_bytes": 108612
+              }
+            },
+            "generator_sha256": "0fe2590fa21d93c2a0ab9201f81d89fb266be5d1e19c72d2f67a1655671af923",
+            "source_sha256": {
+              "engine\\src\\evaluation.cpp": "87ed00f717a19d593969b3b84d4e48586a8dc576d54ac1260350648a967639f7",
+              "engine\\src\\evaluation.hpp": "01f5eac3194175f4f6615629146ce95700de2a0c351cae49b8346ac635b05c91",
+              "engine\\src\\evaluation_masks.hpp": "2d1af8a6465e59bb0fce0878b694736207dcbd065c9419a3e7d5ba858196b92b",
+              "engine\\src\\main.cpp": "8b40f059ccb3e1029cccb84fba4500b9c08d9278e1cd5d0308539b1655f70041",
+              "engine\\src\\nnue.cpp": "05448bdd302defcfdbb38117d6eeda6801900ded50597f5e4ce0508b61e0ea8c",
+              "engine\\src\\nnue.hpp": "a0132cc742715390a151cc2bafcf544e9dead1a0c967c2df68089831ef227089",
+              "engine\\src\\pawn_cache.hpp": "f4240a187937c41f1b70ea2a901b1efd3b0b9c9309db8a0e4643a776bf6fc6ca",
+              "engine\\src\\principal_variation.hpp": "5a7b342185a4abbeca3638eaca0de2d9c3caa02a7f00710f631b9f87d4c5614c",
+              "engine\\src\\profiling.hpp": "2d5304f600d8d6760f75d43c6d0cef2b57e47487f3de8c9fc96c8a5dd772de7b",
+              "engine\\src\\pst.hpp": "a7f007ab55fd4bb3a6d4fae93b97b25e371faefc633351c0a70cd4eb40be111b",
+              "engine\\src\\scoped_move.hpp": "3e815c8e3f825105cf0f43a61750aa452c6f46a9c04a456b14a43dc09e07ea72",
+              "engine\\src\\search.cpp": "433183ea66249e3ba6252a85ad3566d871f2336ba37979552ad320c5984b7a3b",
+              "engine\\src\\search.hpp": "7aad55a31d2910112393a7dc66e0ce9d1e632a26d952d8f97c8f9c68d45b6a3d",
+              "engine\\src\\search_policy.hpp": "06cd21e30dc793570a2d717c9cd6976320342a2c21cac6f392fd64b548e54324",
+              "engine\\src\\strength.hpp": "133f330350dbf68f1f6e31bf67e8b310e1d639577918b626a5e4bb5b6cab7d68",
+              "engine\\src\\terminal_rules.hpp": "08880e1a158016cb43e4d05c818baa0d85f48a0d673837c3e43842251caf6f59",
+              "engine\\src\\transposition.hpp": "e41ab9b9e1bbf3f313d61e812e40e4dfebbc0debc6964ee85a83f68668b9d6a0"
+            }
+          },
+          "micro": {
+            "compiler": [
+              "Z:\\Code\\Chess\\.venv\\Scripts\\python.exe",
+              "-m",
+              "ziglang",
+              "c++"
+            ],
+            "flags": [
+              "-fsanitize=undefined",
+              "-fno-sanitize-recover=all",
+              "-std=c++17",
+              "-O2",
+              "-pthread",
+              "-Wall",
+              "-Wextra",
+              "-ffp-contract=off",
+              "-I",
+              "Z:\\Code\\Chess\\artifacts\\nnue-v2\\ubsan-small\\generated",
+              "-I",
+              "Z:\\Code\\Chess\\engine\\vendor\\chess-library",
+              "-I",
+              "Z:\\Code\\Chess\\engine\\src",
+              "Z:\\Code\\Chess\\engine\\tests\\benchmark_nnue.cpp",
+              "Z:\\Code\\Chess\\engine\\src\\search.cpp",
+              "Z:\\Code\\Chess\\engine\\src\\evaluation.cpp",
+              "Z:\\Code\\Chess\\engine\\src\\nnue.cpp",
+              "-o",
+              "Z:\\Code\\Chess\\artifacts\\nnue-v2\\ubsan-small\\micro.exe"
+            ],
+            "profile": false,
+            "optimization": "O2",
+            "lto": false,
+            "sanitizer": "undefined",
+            "nnue": {
+              "model": "Z:\\Code\\Chess\\engine\\networks\\v2\\stockbear-v2-small.sbnnue",
+              "sha256": "c43a11890f0b876a906985d0c06c78da6b2c8ad45a454a3c868598753745b2e7",
+              "payload_sha256": "f3b3717ac82363fe261aea1eda937e6431c8e108cbdf13d71dee791c2241aa32",
+              "width": 64,
+              "hidden": 32,
+              "feature_version": "dual-perspective-12x64-castling-ep-v1",
+              "quantization": {
+                "supported": true,
+                "first_scale": 4096,
+                "activation_scale": 4096,
+                "head_weight_scale": 4096,
+                "output_weight_scale": 4096,
+                "accumulator_abs_bound": 234018,
+                "head_abs_bound": 460231467,
+                "output_abs_bound": 190774394,
+                "rounding": "nearest, ties away from zero",
+                "derived_bytes": 108612
+              }
+            },
+            "generator_sha256": "0fe2590fa21d93c2a0ab9201f81d89fb266be5d1e19c72d2f67a1655671af923",
+            "source_sha256": {
+              "engine\\src\\evaluation.cpp": "87ed00f717a19d593969b3b84d4e48586a8dc576d54ac1260350648a967639f7",
+              "engine\\src\\evaluation.hpp": "01f5eac3194175f4f6615629146ce95700de2a0c351cae49b8346ac635b05c91",
+              "engine\\src\\evaluation_masks.hpp": "2d1af8a6465e59bb0fce0878b694736207dcbd065c9419a3e7d5ba858196b92b",
+              "engine\\src\\main.cpp": "8b40f059ccb3e1029cccb84fba4500b9c08d9278e1cd5d0308539b1655f70041",
+              "engine\\src\\nnue.cpp": "05448bdd302defcfdbb38117d6eeda6801900ded50597f5e4ce0508b61e0ea8c",
+              "engine\\src\\nnue.hpp": "a0132cc742715390a151cc2bafcf544e9dead1a0c967c2df68089831ef227089",
+              "engine\\src\\pawn_cache.hpp": "f4240a187937c41f1b70ea2a901b1efd3b0b9c9309db8a0e4643a776bf6fc6ca",
+              "engine\\src\\principal_variation.hpp": "5a7b342185a4abbeca3638eaca0de2d9c3caa02a7f00710f631b9f87d4c5614c",
+              "engine\\src\\profiling.hpp": "2d5304f600d8d6760f75d43c6d0cef2b57e47487f3de8c9fc96c8a5dd772de7b",
+              "engine\\src\\pst.hpp": "a7f007ab55fd4bb3a6d4fae93b97b25e371faefc633351c0a70cd4eb40be111b",
+              "engine\\src\\scoped_move.hpp": "3e815c8e3f825105cf0f43a61750aa452c6f46a9c04a456b14a43dc09e07ea72",
+              "engine\\src\\search.cpp": "433183ea66249e3ba6252a85ad3566d871f2336ba37979552ad320c5984b7a3b",
+              "engine\\src\\search.hpp": "7aad55a31d2910112393a7dc66e0ce9d1e632a26d952d8f97c8f9c68d45b6a3d",
+              "engine\\src\\search_policy.hpp": "06cd21e30dc793570a2d717c9cd6976320342a2c21cac6f392fd64b548e54324",
+              "engine\\src\\strength.hpp": "133f330350dbf68f1f6e31bf67e8b310e1d639577918b626a5e4bb5b6cab7d68",
+              "engine\\src\\terminal_rules.hpp": "08880e1a158016cb43e4d05c818baa0d85f48a0d673837c3e43842251caf6f59",
+              "engine\\src\\transposition.hpp": "e41ab9b9e1bbf3f313d61e812e40e4dfebbc0debc6964ee85a83f68668b9d6a0"
+            }
+          }
+        }
+      }
+    },
+    "search_record": "sanitized-search.json"
+  },
+  "desktop": {
+    "driver": "Windows SDL (real native windows), 120 frames each, engine White played d4",
+    "compact": "screenshots/desktop-compact.png",
+    "small": "screenshots/desktop-small.png",
+    "visually_inspected": true
+  },
+  "quantization_proofs": {
+    "compact": {
+      "supported": true,
+      "first_scale": 4096,
+      "activation_scale": 4096,
+      "head_weight_scale": 4096,
+      "output_weight_scale": 4096,
+      "accumulator_abs_bound": 247103,
+      "head_abs_bound": 238645611,
+      "output_abs_bound": 167827512,
+      "rounding": "nearest, ties away from zero",
+      "derived_bytes": 52260
+    },
+    "small": {
+      "supported": true,
+      "first_scale": 4096,
+      "activation_scale": 4096,
+      "head_weight_scale": 4096,
+      "output_weight_scale": 4096,
+      "accumulator_abs_bound": 234018,
+      "head_abs_bound": 460231467,
+      "output_abs_bound": 190774394,
+      "rounding": "nearest, ties away from zero",
+      "derived_bytes": 108612
+    }
+  },
+  "original_exports": {
+    "StockBear_NNUE_training\\exports\\stockbear-compact.sbnnue": "47076595f00d6218ad8b7d6085da688bde43459d14571e2d456ceba436b1e512",
+    "StockBear_NNUE_training\\exports\\stockbear-pilot.sbnnue": "203a16fc8fcc56c3ad4d9108272bd933da7b84c768e19c7b9548d851e5d4f3c6",
+    "StockBear_NNUE_training\\exports\\stockbear-v1.sbnnue": "7541d5cc149cbaac92d62a7d162e7bead929854ef58c95d450a1324b12f03a2d",
+    "StockBear_NNUE_training\\exports\\v2\\stockbear-v2-best.sbnnue": "c43a11890f0b876a906985d0c06c78da6b2c8ad45a454a3c868598753745b2e7",
+    "StockBear_NNUE_training\\exports\\v2\\stockbear-v2-compact-final_compact_1250000_base.sbnnue": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+    "StockBear_NNUE_training\\exports\\v2\\stockbear-v2-compact-pilot_v2.sbnnue": "5c57eecb3849d961d4bf8761b6c16be7befcc53f248bfb51f132e4272bd0db90",
+    "StockBear_NNUE_training\\exports\\v2\\stockbear-v2-compact.sbnnue": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+    "StockBear_NNUE_training\\exports\\v2\\stockbear-v2-large-arch_large_500000.sbnnue": "aabb004540f9c8635fdd6977ad9315f82fc260419cd1c1f529ea5b53efc38e6f",
+    "StockBear_NNUE_training\\exports\\v2\\stockbear-v2-large.sbnnue": "aabb004540f9c8635fdd6977ad9315f82fc260419cd1c1f529ea5b53efc38e6f",
+    "StockBear_NNUE_training\\exports\\v2\\stockbear-v2-medium-arch_medium_500000.sbnnue": "f9a41eedd3e5430f8fe0550e7e3c8a78a6f091fb229c3dc12c1c08fb17f1329d",
+    "StockBear_NNUE_training\\exports\\v2\\stockbear-v2-medium.sbnnue": "f9a41eedd3e5430f8fe0550e7e3c8a78a6f091fb229c3dc12c1c08fb17f1329d",
+    "StockBear_NNUE_training\\exports\\v2\\stockbear-v2-small-final_small_1250000_base.sbnnue": "c43a11890f0b876a906985d0c06c78da6b2c8ad45a454a3c868598753745b2e7",
+    "StockBear_NNUE_training\\exports\\v2\\stockbear-v2-small.sbnnue": "c43a11890f0b876a906985d0c06c78da6b2c8ad45a454a3c868598753745b2e7"
+  },
+  "quant_simd_identical": {
+    "compact": {
+      "positions": 22165,
+      "exact_printed_float32_outputs": true
+    },
+    "small": {
+      "positions": 22165,
+      "exact_printed_float32_outputs": true
+    }
+  },
+  "v1_sha256": "47076595f00d6218ad8b7d6085da688bde43459d14571e2d456ceba436b1e512"
+}

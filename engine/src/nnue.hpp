@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <string>
 #include "chess.hpp"
+#include "nnue_dimensions.hpp"
 
 namespace chesslab {
 
@@ -13,9 +14,9 @@ struct NnueFeatures {
     int count = 0;
 };
 struct NnueAccumulator {
-    std::array<std::array<float, NNUE_MAX_WIDTH>, 2> values{};
+    std::array<std::array<float, NNUE_WIDTH>, 2> values{};
     // Experimental integer state. Only the selected representation is updated.
-    std::array<std::array<std::int32_t, NNUE_MAX_WIDTH>, 2> quantized{};
+    std::array<std::array<std::int32_t, NNUE_WIDTH>, 2> quantized{};
     NnueFeatures features;
 };
 // Piece changes captured BEFORE makeMove. State features are checked after it.

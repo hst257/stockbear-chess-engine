@@ -1,0 +1,149 @@
+{
+  "method": "GetProcessMemoryInfo every 10ms during one 500ms search; working/private bytes include the entire engine and Hash=16MB; peak working set is OS lifetime peak",
+  "configurations": {
+    "classical": {
+      "metadata": {
+        "utc": "2026-10-15T12:14:22.123110+00:00",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+        "logical_cpus": 12,
+        "python": "3.11.8",
+        "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v2\\baseline-v1\\engine.exe",
+        "sha256": "5be9d34603f10029a85ac2cd5dbf0d532ba1847ac52d928dd527e1c183495bad",
+        "git": "78e22acfed6e77589b7398ff4ce982941ded35c1"
+      },
+      "samples": 33,
+      "max": {
+        "working_set_bytes": 18497536,
+        "private_bytes": 14909440,
+        "peak_working_set_bytes": 18497536
+      }
+    },
+    "v1": {
+      "metadata": {
+        "utc": "2026-10-15T12:14:22.754732+00:00",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+        "logical_cpus": 12,
+        "python": "3.11.8",
+        "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v2\\baseline-v1\\engine.exe",
+        "sha256": "5be9d34603f10029a85ac2cd5dbf0d532ba1847ac52d928dd527e1c183495bad",
+        "git": "78e22acfed6e77589b7398ff4ce982941ded35c1"
+      },
+      "samples": 32,
+      "max": {
+        "working_set_bytes": 18636800,
+        "private_bytes": 14950400,
+        "peak_working_set_bytes": 18636800
+      }
+    },
+    "original-compact": {
+      "metadata": {
+        "utc": "2026-10-15T12:14:23.334823+00:00",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+        "logical_cpus": 12,
+        "python": "3.11.8",
+        "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v2\\baseline-compact\\engine.exe",
+        "sha256": "6bc1440cf55f9bd088d0bc73bf69375772959d5015471a0c89b9824a15eb3b7a",
+        "git": "78e22acfed6e77589b7398ff4ce982941ded35c1"
+      },
+      "samples": 33,
+      "max": {
+        "working_set_bytes": 18628608,
+        "private_bytes": 14954496,
+        "peak_working_set_bytes": 18628608
+      }
+    },
+    "scalar-compact": {
+      "metadata": {
+        "utc": "2026-10-15T12:14:23.916675+00:00",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+        "logical_cpus": 12,
+        "python": "3.11.8",
+        "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v2\\final-compact\\engine.exe",
+        "sha256": "d55439565b86d950eaac43fbfb29e6614c18e7f8192e3c6fb7f489452dec6c9a",
+        "git": "78e22acfed6e77589b7398ff4ce982941ded35c1"
+      },
+      "samples": 32,
+      "max": {
+        "working_set_bytes": 18571264,
+        "private_bytes": 14868480,
+        "peak_working_set_bytes": 18571264
+      }
+    },
+    "quant-compact": {
+      "metadata": {
+        "utc": "2026-10-15T12:14:24.496497+00:00",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+        "logical_cpus": 12,
+        "python": "3.11.8",
+        "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v2\\final-compact\\engine.exe",
+        "sha256": "d55439565b86d950eaac43fbfb29e6614c18e7f8192e3c6fb7f489452dec6c9a",
+        "git": "78e22acfed6e77589b7398ff4ce982941ded35c1"
+      },
+      "samples": 32,
+      "max": {
+        "working_set_bytes": 18579456,
+        "private_bytes": 14864384,
+        "peak_working_set_bytes": 18579456
+      }
+    },
+    "original-small": {
+      "metadata": {
+        "utc": "2026-10-15T12:14:25.076709+00:00",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+        "logical_cpus": 12,
+        "python": "3.11.8",
+        "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v2\\baseline-small\\engine.exe",
+        "sha256": "9cb039204a43ef65ff86e68fb28c15d62733b719ed75234b28a46ad764ed8873",
+        "git": "78e22acfed6e77589b7398ff4ce982941ded35c1"
+      },
+      "samples": 33,
+      "max": {
+        "working_set_bytes": 18726912,
+        "private_bytes": 14950400,
+        "peak_working_set_bytes": 18726912
+      }
+    },
+    "scalar-small": {
+      "metadata": {
+        "utc": "2026-10-15T12:14:25.664759+00:00",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+        "logical_cpus": 12,
+        "python": "3.11.8",
+        "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v2\\final-small\\engine.exe",
+        "sha256": "55aa9fb45fe1785e2ea9f80c1bb9e60c3e50b9a5317ba8de429b869f3ecfd38a",
+        "git": "78e22acfed6e77589b7398ff4ce982941ded35c1"
+      },
+      "samples": 32,
+      "max": {
+        "working_set_bytes": 18702336,
+        "private_bytes": 14897152,
+        "peak_working_set_bytes": 18702336
+      }
+    },
+    "quant-small": {
+      "metadata": {
+        "utc": "2026-10-15T12:14:26.265190+00:00",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+        "logical_cpus": 12,
+        "python": "3.11.8",
+        "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v2\\final-small\\engine.exe",
+        "sha256": "55aa9fb45fe1785e2ea9f80c1bb9e60c3e50b9a5317ba8de429b869f3ecfd38a",
+        "git": "78e22acfed6e77589b7398ff4ce982941ded35c1"
+      },
+      "samples": 32,
+      "max": {
+        "working_set_bytes": 18657280,
+        "private_bytes": 14888960,
+        "peak_working_set_bytes": 18657280
+      }
+    }
+  }
+}

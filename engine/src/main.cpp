@@ -281,7 +281,7 @@ public:
                     output("option name UseAdvancedEvaluation type check default true");
                     output("option name Evaluator type combo default classical var classical var nnue");
                     output("option name NNUEIncremental type check default true");
-                    output("option name NNUEKernel type combo default auto var auto var reference var scalar var quant var quant-simd");
+                    output("option name NNUEKernel type combo default auto var auto var reference var scalar var quant");
                     for (const auto name : chesslab::EVAL_OPTION_NAMES)
                         output(std::string("option name ") + name + " type check default true");
                     output("option name TranspositionTable type check default true");

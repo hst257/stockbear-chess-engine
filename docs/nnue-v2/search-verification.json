@@ -1,0 +1,734 @@
+{
+  "models": {
+    "compact": {
+      "metadata": {
+        "utc": "2026-10-15T12:11:31.357050+00:00",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+        "logical_cpus": 12,
+        "python": "3.11.8",
+        "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v2\\final-compact\\engine.exe",
+        "sha256": "d55439565b86d950eaac43fbfb29e6614c18e7f8192e3c6fb7f489452dec6c9a",
+        "git": "78e22acfed6e77589b7398ff4ce982941ded35c1"
+      },
+      "original": {
+        "utc": "2026-10-15T12:11:31.462661+00:00",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+        "logical_cpus": 12,
+        "python": "3.11.8",
+        "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v2\\baseline-compact\\engine.exe",
+        "sha256": "6bc1440cf55f9bd088d0bc73bf69375772959d5015471a0c89b9824a15eb3b7a",
+        "git": "78e22acfed6e77589b7398ff4ce982941ded35c1"
+      },
+      "positions": [
+        {
+          "category": "opening",
+          "limit": "depth",
+          "reference_and_scalar_identical": true,
+          "move": "d2d4",
+          "score": "+26",
+          "nodes": 2668,
+          "depth": 4,
+          "pv": [
+            "d2d4",
+            "g8f6",
+            "c2c4",
+            "e7e6"
+          ]
+        },
+        {
+          "category": "opening",
+          "limit": "nodes",
+          "reference_and_scalar_identical": true,
+          "move": "e2e4",
+          "score": "+22",
+          "nodes": 100000,
+          "depth": 7,
+          "pv": [
+            "e2e4",
+            "d7d5",
+            "e4d5",
+            "c7c6",
+            "d2d4",
+            "c6d5",
+            "b1c3"
+          ]
+        },
+        {
+          "category": "quiet_middlegame",
+          "limit": "depth",
+          "reference_and_scalar_identical": true,
+          "move": "c3d5",
+          "score": "+20",
+          "nodes": 22458,
+          "depth": 4,
+          "pv": [
+            "c3d5",
+            "c8e6",
+            "f1e1",
+            "f6d5",
+            "c4d5"
+          ]
+        },
+        {
+          "category": "quiet_middlegame",
+          "limit": "nodes",
+          "reference_and_scalar_identical": true,
+          "move": "c3d5",
+          "score": "+19",
+          "nodes": 100000,
+          "depth": 6,
+          "pv": [
+            "c3d5",
+            "f6d5",
+            "c4d5",
+            "c6e7",
+            "d5b3",
+            "c7c6"
+          ]
+        },
+        {
+          "category": "tactical",
+          "limit": "depth",
+          "reference_and_scalar_identical": true,
+          "move": "e2a6",
+          "score": "+85",
+          "nodes": 7448,
+          "depth": 4,
+          "pv": [
+            "e2a6",
+            "b4c3",
+            "d2c3",
+            "e6d5"
+          ]
+        },
+        {
+          "category": "tactical",
+          "limit": "nodes",
+          "reference_and_scalar_identical": true,
+          "move": "e2a6",
+          "score": "-2",
+          "nodes": 100000,
+          "depth": 6,
+          "pv": [
+            "e2a6",
+            "e6d5",
+            "e5f7",
+            "e8f7",
+            "e1g1",
+            "b4c3"
+          ]
+        },
+        {
+          "category": "king_attack",
+          "limit": "depth",
+          "reference_and_scalar_identical": true,
+          "move": "h5f7",
+          "score": "#+2",
+          "nodes": 12047,
+          "depth": 4,
+          "pv": [
+            "h5f7",
+            "g8h8",
+            "f7e8"
+          ]
+        },
+        {
+          "category": "king_attack",
+          "limit": "nodes",
+          "reference_and_scalar_identical": true,
+          "move": "h5f7",
+          "score": "#+2",
+          "nodes": 100000,
+          "depth": 5,
+          "pv": [
+            "h5f7",
+            "g8h8",
+            "f7e8"
+          ]
+        },
+        {
+          "category": "pawn_endgame",
+          "limit": "depth",
+          "reference_and_scalar_identical": true,
+          "move": "d4e5",
+          "score": "+128",
+          "nodes": 713,
+          "depth": 4,
+          "pv": [
+            "d4e5",
+            "g6g5",
+            "e5f5",
+            "g5g4"
+          ]
+        },
+        {
+          "category": "pawn_endgame",
+          "limit": "nodes",
+          "reference_and_scalar_identical": true,
+          "move": "d4e5",
+          "score": "+157",
+          "nodes": 100000,
+          "depth": 9,
+          "pv": [
+            "d4e5",
+            "g6g5",
+            "e5f5",
+            "f7f6",
+            "f5e6",
+            "g7g6",
+            "g3g4",
+            "g6g7",
+            "e6e7"
+          ]
+        },
+        {
+          "category": "piece_endgame",
+          "limit": "depth",
+          "reference_and_scalar_identical": true,
+          "move": "d5a5",
+          "score": "+19",
+          "nodes": 5153,
+          "depth": 4,
+          "pv": [
+            "d5a5",
+            "b1b3",
+            "a5a4",
+            "g7f6"
+          ]
+        },
+        {
+          "category": "piece_endgame",
+          "limit": "nodes",
+          "reference_and_scalar_identical": true,
+          "move": "d5a5",
+          "score": "-6",
+          "nodes": 100000,
+          "depth": 6,
+          "pv": [
+            "d5a5",
+            "b1d1",
+            "a5c5",
+            "d1b1",
+            "c5c6",
+            "b1h1"
+          ]
+        },
+        {
+          "category": "imbalance",
+          "limit": "depth",
+          "reference_and_scalar_identical": true,
+          "move": "d4d2",
+          "score": "+807",
+          "nodes": 5307,
+          "depth": 4,
+          "pv": [
+            "d4d2",
+            "c6e5",
+            "d2e2",
+            "e8c8"
+          ]
+        },
+        {
+          "category": "imbalance",
+          "limit": "nodes",
+          "reference_and_scalar_identical": true,
+          "move": "d4e3",
+          "score": "+911",
+          "nodes": 100000,
+          "depth": 6,
+          "pv": [
+            "d4e3",
+            "e8f8",
+            "e3c5",
+            "f8g8",
+            "e1c1",
+            "a8c8",
+            "c5b5",
+            "c6d4"
+          ]
+        },
+        {
+          "category": "castling_rights",
+          "limit": "depth",
+          "reference_and_scalar_identical": true,
+          "move": "a1a8",
+          "score": "+1045",
+          "nodes": 1302,
+          "depth": 4,
+          "pv": [
+            "a1a8",
+            "e8f7",
+            "a8h8",
+            "f7g7",
+            "e1d1"
+          ]
+        },
+        {
+          "category": "castling_rights",
+          "limit": "nodes",
+          "reference_and_scalar_identical": true,
+          "move": "a1a8",
+          "score": "+1138",
+          "nodes": 100000,
+          "depth": 7,
+          "pv": [
+            "a1a8",
+            "e8f7",
+            "a8h8",
+            "f7e6",
+            "e1d1",
+            "e6d6",
+            "h8h6",
+            "d6e7",
+            "h6h4"
+          ]
+        },
+        {
+          "category": "promotion",
+          "limit": "depth",
+          "reference_and_scalar_identical": true,
+          "move": "e7e8q",
+          "score": "+885",
+          "nodes": 1565,
+          "depth": 4,
+          "pv": [
+            "e7e8q",
+            "h8g7",
+            "e8e5",
+            "g7f7",
+            "e5f4",
+            "f7g8",
+            "f4f2"
+          ]
+        },
+        {
+          "category": "promotion",
+          "limit": "nodes",
+          "reference_and_scalar_identical": true,
+          "move": "e7e8q",
+          "score": "+1216",
+          "nodes": 100000,
+          "depth": 8,
+          "pv": [
+            "e7e8q",
+            "h8g7",
+            "e8e2",
+            "g7h7",
+            "e2f2",
+            "h7g6",
+            "f2d4",
+            "g6f5",
+            "d4h4"
+          ]
+        },
+        {
+          "category": "en_passant",
+          "limit": "depth",
+          "reference_and_scalar_identical": true,
+          "move": "h1h8",
+          "score": "+1033",
+          "nodes": 719,
+          "depth": 4,
+          "pv": [
+            "h1h8",
+            "e8e7",
+            "a1a8",
+            "e7e6",
+            "h8e8",
+            "e6f5"
+          ]
+        },
+        {
+          "category": "en_passant",
+          "limit": "nodes",
+          "reference_and_scalar_identical": true,
+          "move": "a1a8",
+          "score": "+1228",
+          "nodes": 100000,
+          "depth": 8,
+          "pv": [
+            "a1a8",
+            "e8f7",
+            "h1h8",
+            "d5d4",
+            "a8e8",
+            "f7g7",
+            "e5e6",
+            "d4d3",
+            "e6e7"
+          ]
+        }
+      ],
+      "cancellations": 20,
+      "terminal_checks": 10,
+      "evaluator_switch_and_fresh_tt": true
+    },
+    "small": {
+      "metadata": {
+        "utc": "2026-10-15T12:11:34.002404+00:00",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+        "logical_cpus": 12,
+        "python": "3.11.8",
+        "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v2\\final-small\\engine.exe",
+        "sha256": "55aa9fb45fe1785e2ea9f80c1bb9e60c3e50b9a5317ba8de429b869f3ecfd38a",
+        "git": "78e22acfed6e77589b7398ff4ce982941ded35c1"
+      },
+      "original": {
+        "utc": "2026-10-15T12:11:34.057405+00:00",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+        "logical_cpus": 12,
+        "python": "3.11.8",
+        "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v2\\baseline-small\\engine.exe",
+        "sha256": "9cb039204a43ef65ff86e68fb28c15d62733b719ed75234b28a46ad764ed8873",
+        "git": "78e22acfed6e77589b7398ff4ce982941ded35c1"
+      },
+      "positions": [
+        {
+          "category": "opening",
+          "limit": "depth",
+          "reference_and_scalar_identical": true,
+          "move": "e2e4",
+          "score": "+32",
+          "nodes": 2097,
+          "depth": 4,
+          "pv": [
+            "e2e4",
+            "d7d5",
+            "d2d4",
+            "d5e4"
+          ]
+        },
+        {
+          "category": "opening",
+          "limit": "nodes",
+          "reference_and_scalar_identical": true,
+          "move": "e2e4",
+          "score": "+28",
+          "nodes": 100000,
+          "depth": 7,
+          "pv": [
+            "e2e4",
+            "e7e6",
+            "g1f3",
+            "d7d5",
+            "e4d5",
+            "e6d5",
+            "f1b5",
+            "c8d7"
+          ]
+        },
+        {
+          "category": "quiet_middlegame",
+          "limit": "depth",
+          "reference_and_scalar_identical": true,
+          "move": "a2a4",
+          "score": "+15",
+          "nodes": 25815,
+          "depth": 4,
+          "pv": [
+            "a2a4",
+            "c8e6",
+            "a4a5",
+            "h7h6"
+          ]
+        },
+        {
+          "category": "quiet_middlegame",
+          "limit": "nodes",
+          "reference_and_scalar_identical": true,
+          "move": "a2a4",
+          "score": "+11",
+          "nodes": 100000,
+          "depth": 5,
+          "pv": [
+            "a2a4",
+            "a7a5",
+            "g1h1",
+            "c5a7",
+            "a1a3"
+          ]
+        },
+        {
+          "category": "tactical",
+          "limit": "depth",
+          "reference_and_scalar_identical": true,
+          "move": "e5g6",
+          "score": "-43",
+          "nodes": 25039,
+          "depth": 4,
+          "pv": [
+            "e5g6",
+            "f7g6",
+            "f3f6",
+            "h3g2"
+          ]
+        },
+        {
+          "category": "tactical",
+          "limit": "nodes",
+          "reference_and_scalar_identical": true,
+          "move": "d5e6",
+          "score": "-33",
+          "nodes": 100000,
+          "depth": 5,
+          "pv": [
+            "d5e6",
+            "e7e6",
+            "e2a6",
+            "e6e5",
+            "d2f4"
+          ]
+        },
+        {
+          "category": "king_attack",
+          "limit": "depth",
+          "reference_and_scalar_identical": true,
+          "move": "h5f7",
+          "score": "#+2",
+          "nodes": 12047,
+          "depth": 4,
+          "pv": [
+            "h5f7",
+            "g8h8",
+            "f7e8"
+          ]
+        },
+        {
+          "category": "king_attack",
+          "limit": "nodes",
+          "reference_and_scalar_identical": true,
+          "move": "h5f7",
+          "score": "#+2",
+          "nodes": 100000,
+          "depth": 5,
+          "pv": [
+            "h5f7",
+            "g8h8",
+            "f7e8"
+          ]
+        },
+        {
+          "category": "pawn_endgame",
+          "limit": "depth",
+          "reference_and_scalar_identical": true,
+          "move": "d4e5",
+          "score": "+109",
+          "nodes": 788,
+          "depth": 4,
+          "pv": [
+            "d4e5",
+            "g6g5",
+            "e5f5",
+            "g5g4",
+            "f5g4"
+          ]
+        },
+        {
+          "category": "pawn_endgame",
+          "limit": "nodes",
+          "reference_and_scalar_identical": true,
+          "move": "d4e5",
+          "score": "+132",
+          "nodes": 100000,
+          "depth": 8,
+          "pv": [
+            "d4e5",
+            "f7f6",
+            "e5d6",
+            "g7f7",
+            "d6d7",
+            "f7g7",
+            "d7e7",
+            "g6g5",
+            "e7d8"
+          ]
+        },
+        {
+          "category": "piece_endgame",
+          "limit": "depth",
+          "reference_and_scalar_identical": true,
+          "move": "g3f2",
+          "score": "-75",
+          "nodes": 4490,
+          "depth": 4,
+          "pv": [
+            "g3f2",
+            "b1a1",
+            "d5d8",
+            "g6g5"
+          ]
+        },
+        {
+          "category": "piece_endgame",
+          "limit": "nodes",
+          "reference_and_scalar_identical": true,
+          "move": "d5a5",
+          "score": "-62",
+          "nodes": 100000,
+          "depth": 7,
+          "pv": [
+            "d5a5",
+            "g7f6",
+            "a5a8",
+            "b1h1",
+            "g3f2",
+            "f6e7",
+            "a8g8"
+          ]
+        },
+        {
+          "category": "imbalance",
+          "limit": "depth",
+          "reference_and_scalar_identical": true,
+          "move": "d4d1",
+          "score": "+641",
+          "nodes": 2354,
+          "depth": 4,
+          "pv": [
+            "d4d1",
+            "e8g8",
+            "c3e4",
+            "a8d8"
+          ]
+        },
+        {
+          "category": "imbalance",
+          "limit": "nodes",
+          "reference_and_scalar_identical": true,
+          "move": "d4e3",
+          "score": "+800",
+          "nodes": 100000,
+          "depth": 6,
+          "pv": [
+            "d4e3",
+            "c6e7",
+            "c3d5",
+            "e8c8",
+            "d5e7",
+            "c8b8",
+            "e7c6",
+            "b7c6"
+          ]
+        },
+        {
+          "category": "castling_rights",
+          "limit": "depth",
+          "reference_and_scalar_identical": true,
+          "move": "a1a8",
+          "score": "+920",
+          "nodes": 683,
+          "depth": 4,
+          "pv": [
+            "a1a8",
+            "e8d7",
+            "a8h8",
+            "d7e7",
+            "h8b8"
+          ]
+        },
+        {
+          "category": "castling_rights",
+          "limit": "nodes",
+          "reference_and_scalar_identical": true,
+          "move": "a1a8",
+          "score": "+965",
+          "nodes": 100000,
+          "depth": 7,
+          "pv": [
+            "a1a8",
+            "e8e7",
+            "h1h8",
+            "e7f6",
+            "e1e2",
+            "f6g6",
+            "h8g8",
+            "g6h7",
+            "g8h8",
+            "h7g7"
+          ]
+        },
+        {
+          "category": "promotion",
+          "limit": "depth",
+          "reference_and_scalar_identical": true,
+          "move": "e7e8q",
+          "score": "+605",
+          "nodes": 1623,
+          "depth": 4,
+          "pv": [
+            "e7e8q",
+            "h8g7",
+            "e8e2",
+            "f2f1b",
+            "e2f1"
+          ]
+        },
+        {
+          "category": "promotion",
+          "limit": "nodes",
+          "reference_and_scalar_identical": true,
+          "move": "e7e8q",
+          "score": "+934",
+          "nodes": 100000,
+          "depth": 8,
+          "pv": [
+            "e7e8q",
+            "h8g7",
+            "e8e2",
+            "f2f1q",
+            "e2f1",
+            "g7g8",
+            "f1f3",
+            "g8h7",
+            "f3h3",
+            "h7g8"
+          ]
+        },
+        {
+          "category": "en_passant",
+          "limit": "depth",
+          "reference_and_scalar_identical": true,
+          "move": "h1h8",
+          "score": "+1019",
+          "nodes": 1076,
+          "depth": 4,
+          "pv": [
+            "h1h8",
+            "e8d7",
+            "a1a8",
+            "d7c6",
+            "e1d2"
+          ]
+        },
+        {
+          "category": "en_passant",
+          "limit": "nodes",
+          "reference_and_scalar_identical": true,
+          "move": "h1h8",
+          "score": "+1047",
+          "nodes": 100000,
+          "depth": 7,
+          "pv": [
+            "h1h8",
+            "e8f7",
+            "a1a8",
+            "f7e6",
+            "a8e8",
+            "e6f5",
+            "e1e2",
+            "f5e4",
+            "h8h4",
+            "e4f5"
+          ]
+        }
+      ],
+      "cancellations": 20,
+      "terminal_checks": 10,
+      "evaluator_switch_and_fresh_tt": true
+    }
+  }
+}

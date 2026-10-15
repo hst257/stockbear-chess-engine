@@ -1,0 +1,72 @@
+{
+  "method": "SDL dummy driver; real Pygame app and UCI subprocesses; not desktop interaction",
+  "evaluator": "nnue",
+  "engine": "Z:\\Code\\Chess\\artifacts\\nnue-v2\\final-small\\engine.exe",
+  "budgets": [
+    {
+      "budget_ms": 100,
+      "completed_depth": 7,
+      "frames": 44,
+      "median_ms": 1.4165000029606745,
+      "p95_ms": 1.9298999977763742,
+      "p99_ms": 2.1046999900136143,
+      "maximum_ms": 3.2014999887906015
+    },
+    {
+      "budget_ms": 500,
+      "completed_depth": 8,
+      "frames": 151,
+      "median_ms": 1.4253999979700893,
+      "p95_ms": 1.7735000001266599,
+      "p99_ms": 1.9295999954920262,
+      "maximum_ms": 3.5549000022001565
+    },
+    {
+      "budget_ms": 1000,
+      "completed_depth": 9,
+      "frames": 288,
+      "median_ms": 1.3661499979207292,
+      "p95_ms": 1.6762999875936657,
+      "p99_ms": 1.9480999908410013,
+      "maximum_ms": 3.0992999963928014
+    },
+    {
+      "budget_ms": 3000,
+      "completed_depth": 10,
+      "frames": 830,
+      "median_ms": 1.3359500153455883,
+      "p95_ms": 1.6553999739699066,
+      "p99_ms": 1.820300007238984,
+      "maximum_ms": 3.292600013082847
+    },
+    {
+      "budget_ms": 5000,
+      "completed_depth": 10,
+      "frames": 1375,
+      "median_ms": 1.3276999816298485,
+      "p95_ms": 1.6216000076383352,
+      "p99_ms": 1.8172000127378851,
+      "maximum_ms": 4.538599983789027
+    }
+  ],
+  "comparison": {
+    "depths": [
+      2,
+      9
+    ],
+    "frames": 435,
+    "median_ms": 2.4283999809995294,
+    "p95_ms": 3.1291999912355095,
+    "p99_ms": 3.3838000090327114,
+    "maximum_ms": 9.529300004942343
+  },
+  "undo_and_new_reject_stale_moves": true,
+  "worker_exit_codes": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ]
+}

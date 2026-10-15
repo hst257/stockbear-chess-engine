@@ -191,6 +191,10 @@ def version_match(args):
     labels = {label: {"nnue": "StockBear NNUE", "classical": "StockBear Classical"}.get(
               options.get("Evaluator"), "Optimized" if label == "candidate" else "Original")
               for label, options in overrides.items()}
+    for label, options in overrides.items():
+        build = data.get("builds", {}).get(label) or {}
+        if options.get("Evaluator") == "nnue" and build.get("nnue"):
+            labels[label] += " " + Path(build["nnue"]["model"]).stem + " (" + options.get("NNUEKernel", "auto") + ")"
     for record in data["games"]:
         board = chess.Board()
         for uci in record["opening"] + [s["move"] for s in record["searches"]]:

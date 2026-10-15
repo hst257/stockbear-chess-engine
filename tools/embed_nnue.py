@@ -29,7 +29,9 @@ def quantize_tensors(header, tensors):
     first = scale_for(tensors["transform.weight"])
     bias = [nearest(v * first) for v in tensors["bias"]]
     transform = [nearest(v * first) for v in tensors["transform.weight"]]
-    accumulator_bound = max(abs(bias[j]) + 37 * max(abs(transform[i * width + j]) for i in range(780)) for j in range(width))
+    # Also bound transient additions before removals in sorted reference updates:
+    # at most two complete 37-feature sets can overlap during the calculation.
+    accumulator_bound = max(abs(bias[j]) + 74 * max(abs(transform[i * width + j]) for i in range(780)) for j in range(width))
     if accumulator_bound >= 2**31:
         raise ValueError("Quantized accumulator bound exceeds int32")
     def dense(weight_name, bias_name, rows, cols):
@@ -132,6 +134,11 @@ def generate_header(model: Path, output: Path):
         lines.append("};")
     lines.append("}  // namespace chesslab::nnue_weights\n")
     output.parent.mkdir(parents=True, exist_ok=True)
+    dimensions = output.with_name("nnue_dimensions.hpp")
+    dimension_text = ("// Generated model dimensions; no weights.\n#pragma once\n"
+                      f"namespace chesslab {{ inline constexpr int NNUE_WIDTH = {width}; }}\n")
+    if not dimensions.exists() or dimensions.read_text(encoding="utf-8") != dimension_text:
+        dimensions.write_text(dimension_text, encoding="utf-8")
     contents = "\n".join(lines)
     if not output.exists() or output.read_text(encoding="utf-8") != contents:
         output.write_text(contents, encoding="utf-8")

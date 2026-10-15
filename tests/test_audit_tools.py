@@ -45,16 +45,26 @@ def test_checkpoint_survives_transient_windows_replace_error(tmp_path, monkeypat
     assert len(calls) == 3
 
 
-def test_real_version_match_saves_replayable_pgn_and_marks_caps(engine_path, tmp_path):
+@pytest.mark.parametrize("shared_book", [False, True])
+def test_real_version_match_saves_replayable_pgn_and_marks_caps(engine_path, tmp_path, shared_book):
     output = tmp_path / "match.json"
     options = tmp_path / "options.json"
     options.write_text(json.dumps({"uci_options": {"UseHistory": False, "WeightSpaceMG": 75}}))
+    extra = []
+    if shared_book:
+        board = chess.Board()
+        board.push_uci("e2e4")
+        book = tmp_path / "openings.json"
+        book.write_text(json.dumps({"method": "test shared opening", "openings": [{"moves": ["e2e4"], "fen": board.fen()}]}))
+        extra = ["--opening-book", str(book)]
     subprocess.run([sys.executable, "-m", "tools.match_optimizations", "--comparison", "versions",
                     "--engine", str(engine_path), "--opponent", str(engine_path), "--games", "2",
                     "--movetime", "5", "--max-plies", "6", "--output", str(output),
-                    "--candidate-options", str(options)],
+                    "--candidate-options", str(options)] + extra,
                    check=True, capture_output=True, text=True, timeout=20)
     data = json.loads(output.read_text())
+    if shared_book:
+        assert data["openings"][0]["moves"] == ["e2e4"] and data["opening_book_sha256"]
     assert data["overrides"] == {"candidate": {"UseHistory": False, "WeightSpaceMG": 75}, "original": {}}
     assert len(data["openings"]) == 1 and len(data["games"]) == 2
     assert data["games"][0]["candidate_color"] == "white"

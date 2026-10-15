@@ -1,5 +1,6 @@
 """Collect exclusive instrumented timings, never compare instrumented NPS to release."""
 import json
+import argparse
 from pathlib import Path
 import chess
 import chess.engine
@@ -8,12 +9,17 @@ from tools.benchmark_nnue_v2 import POSITIONS
 
 
 def main():
-    path = Path("docs/nnue-v2/profile-original.json")
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--stage", choices=("original", "final"), default="original")
+    parser.add_argument("--output", type=Path)
+    args = parser.parse_args()
+    path = args.output or Path(f"docs/nnue-v2/profile-{args.stage}.json")
     if path.exists():
         raise ValueError("Frozen report exists")
     data = {"method": "Internal steady_clock exclusive scopes, three 300ms searches/category; instrumentation overhead included. No hardware cache/branch counters collected; WPR installed, WPA/VS profiler unavailable.", "models": {}}
     for model in ("compact", "small"):
-        binary = Path(f"artifacts/nnue-v2/profile-{model}/engine.exe")
+        directory = f"profile-{model}" if args.stage == "original" else f"profile-final-{model}"
+        binary = Path(f"artifacts/nnue-v2/{directory}/engine.exe")
         rows = []
         with chess.engine.SimpleEngine.popen_uci(str(binary.resolve())) as engine:
             engine.configure({"Evaluator": "nnue", "Hash": 16})

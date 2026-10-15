@@ -11,6 +11,11 @@ Version 0.13 adds `Evaluator` (`classical` default, or `nnue`) and diagnostic
 and embedded during build. See the [NNUE guide](../docs/nnue.md) for the exact
 feature/score contract, model identity, selection controls and match results.
 
+Current builds also expose `NNUEKernel` (`auto`, `reference`, `scalar`, `quant`).
+Automatic NNUE inference uses optimized portable float32. Both v2 finalists can
+be embedded in [separate executables](networks/v2/README.md); classical remains
+the default evaluator and the regular build retains the original v1 export.
+
 Version 0.12 adds switchable history/killer ordering, legal-recapture SEE,
 adaptive LMR, guarded forward/reverse futility, two-ply-budget check extensions,
 bare-king conversion and MG/EG component weight tuning. See the

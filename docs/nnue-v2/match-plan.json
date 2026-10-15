@@ -1,0 +1,116 @@
+{
+  "method": "Fixed before the first game; no optional stopping or kernel selection on game outcomes. All matches serial. Smoke is validation only; primary and longer controls reported separately.",
+  "opening_book": "docs\\nnue-v2\\openings.json",
+  "opening_book_sha256": "15a1308df5ec1febfd09bebbaeae0e2e01f5aaee4c8a1867f0868add04e2471e",
+  "schedule": [
+    {
+      "name": "smoke-compact-classical",
+      "engine": "artifacts/nnue-v2/final-compact/engine.exe",
+      "opponent": "artifacts/nnue-v2/final-compact/engine.exe",
+      "candidate_options": "docs\\nnue-v2\\float-options.json",
+      "opponent_options": "docs\\nnue-v2\\classical-options.json",
+      "games": 2,
+      "movetime": 25,
+      "max_plies": 240,
+      "seed": 20261016,
+      "output": "docs\\nnue-v2\\smoke-compact-classical.json"
+    },
+    {
+      "name": "smoke-small-classical",
+      "engine": "artifacts/nnue-v2/final-small/engine.exe",
+      "opponent": "artifacts/nnue-v2/final-small/engine.exe",
+      "candidate_options": "docs\\nnue-v2\\float-options.json",
+      "opponent_options": "docs\\nnue-v2\\classical-options.json",
+      "games": 2,
+      "movetime": 25,
+      "max_plies": 240,
+      "seed": 20261016,
+      "output": "docs\\nnue-v2\\smoke-small-classical.json"
+    },
+    {
+      "name": "smoke-compact-small",
+      "engine": "artifacts/nnue-v2/final-compact/engine.exe",
+      "opponent": "artifacts/nnue-v2/final-small/engine.exe",
+      "candidate_options": "docs\\nnue-v2\\float-options.json",
+      "opponent_options": "docs\\nnue-v2\\float-options.json",
+      "games": 2,
+      "movetime": 25,
+      "max_plies": 240,
+      "seed": 20261016,
+      "output": "docs\\nnue-v2\\smoke-compact-small.json"
+    },
+    {
+      "name": "primary-compact-classical",
+      "engine": "artifacts/nnue-v2/final-compact/engine.exe",
+      "opponent": "artifacts/nnue-v2/final-compact/engine.exe",
+      "candidate_options": "docs\\nnue-v2\\float-options.json",
+      "opponent_options": "docs\\nnue-v2\\classical-options.json",
+      "games": 100,
+      "movetime": 50,
+      "max_plies": 240,
+      "seed": 20261016,
+      "output": "docs\\nnue-v2\\primary-compact-classical.json"
+    },
+    {
+      "name": "primary-small-classical",
+      "engine": "artifacts/nnue-v2/final-small/engine.exe",
+      "opponent": "artifacts/nnue-v2/final-small/engine.exe",
+      "candidate_options": "docs\\nnue-v2\\float-options.json",
+      "opponent_options": "docs\\nnue-v2\\classical-options.json",
+      "games": 100,
+      "movetime": 50,
+      "max_plies": 240,
+      "seed": 20261016,
+      "output": "docs\\nnue-v2\\primary-small-classical.json"
+    },
+    {
+      "name": "primary-compact-small",
+      "engine": "artifacts/nnue-v2/final-compact/engine.exe",
+      "opponent": "artifacts/nnue-v2/final-small/engine.exe",
+      "candidate_options": "docs\\nnue-v2\\float-options.json",
+      "opponent_options": "docs\\nnue-v2\\float-options.json",
+      "games": 100,
+      "movetime": 50,
+      "max_plies": 240,
+      "seed": 20261016,
+      "output": "docs\\nnue-v2\\primary-compact-small.json"
+    },
+    {
+      "name": "long-compact-classical",
+      "engine": "artifacts/nnue-v2/final-compact/engine.exe",
+      "opponent": "artifacts/nnue-v2/final-compact/engine.exe",
+      "candidate_options": "docs\\nnue-v2\\float-options.json",
+      "opponent_options": "docs\\nnue-v2\\classical-options.json",
+      "games": 20,
+      "movetime": 200,
+      "max_plies": 240,
+      "seed": 20261016,
+      "output": "docs\\nnue-v2\\long-compact-classical.json"
+    },
+    {
+      "name": "long-small-classical",
+      "engine": "artifacts/nnue-v2/final-small/engine.exe",
+      "opponent": "artifacts/nnue-v2/final-small/engine.exe",
+      "candidate_options": "docs\\nnue-v2\\float-options.json",
+      "opponent_options": "docs\\nnue-v2\\classical-options.json",
+      "games": 20,
+      "movetime": 200,
+      "max_plies": 240,
+      "seed": 20261016,
+      "output": "docs\\nnue-v2\\long-small-classical.json"
+    },
+    {
+      "name": "long-compact-small",
+      "engine": "artifacts/nnue-v2/final-compact/engine.exe",
+      "opponent": "artifacts/nnue-v2/final-small/engine.exe",
+      "candidate_options": "docs\\nnue-v2\\float-options.json",
+      "opponent_options": "docs\\nnue-v2\\float-options.json",
+      "games": 20,
+      "movetime": 200,
+      "max_plies": 240,
+      "seed": 20261016,
+      "output": "docs\\nnue-v2\\long-compact-small.json"
+    }
+  ],
+  "planned_games": 366
+}

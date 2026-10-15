@@ -243,6 +243,8 @@ Running that tool without `--offline` checks the source licenses online and down
 4. **Implemented:** iterative deepening, move ordering, switchable PST evaluation, transposition tables, quiescence, Principal Variation Search, configurable time-controlled gameplay, aspiration windows, null-move pruning, LMR, and modular advanced classical evaluation.
 5. **Implemented:** history/killer ordering, SEE, adaptive LMR, guarded futility pruning, bounded check extensions, bare-king conversion, and classical weight tuning with held-out validation. See the [strength upgrade](docs/strength-upgrade.md).
 6. **Implemented:** native experimental NNUE, classical/NNUE selection, golden and incremental validation, and paired evaluator matches. See [NNUE results](docs/nnue.md).
+   Native v2 inference optimization, both finalist networks and controlled comparisons
+   are documented in [NNUE v2 optimization results](NNUE_V2_OPTIMIZATION_RESULTS.md).
 7. **Implemented:** matched performance benchmarks and color-balanced engine smoke games; broader strength testing remains future work.
 
 Later phases require an explicit request. The engine performs its own search and evaluation without delegating them to another engine.

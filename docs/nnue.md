@@ -1,5 +1,9 @@
 # Experimental StockBear NNUE integration
 
+The [v2 optimization report](../NNUE_V2_OPTIMIZATION_RESULTS.md) covers the newer
+finalists, native kernels and new controlled matches. The measurements below
+remain the frozen v1 integration results.
+
 ChessLab 0.13 supports the existing classical evaluator and the trained compact
 StockBear NNUE. **Classical remains the default.** Both run inside the native
 engine; Python/PyTorch never supplies evaluations or moves during play.
@@ -56,8 +60,9 @@ mirroring. Extraction matches python-chess castling rights and legal EP,
 including pinned EP rejection. Unclipped accumulators stay in fixed White/Black
 order. Every search refreshes its root; real/null children copy the parent sums,
 subtract removed rows and add new ones. A private stack preserves parent state
-through siblings, undo, re-search and cancellation. Child feature sets are
-extracted from the board for clear special-move correctness; sums are incremental.
+through siblings, undo, re-search and cancellation. Current builds derive piece
+deltas before the move and check rights/legal-EP afterward; `NNUEKernel=reference`
+retains the original board-extracted path for verification.
 
 Inference clips side-to-move/opponent accumulators, applies the clipped hidden
 layer and scalar output, multiplies by 400, then converts to White's perspective

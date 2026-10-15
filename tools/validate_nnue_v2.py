@@ -61,7 +61,7 @@ def main():
     rows = corpus()
     report = {"method": "20152 original grouped test positions, 2000 seeded random legal positions, ten category fixtures and three extremes; no training or selection on teacher targets", "corpus_sha256": hashlib.sha256(json.dumps(rows).encode()).hexdigest(), "configurations": {}}
     for label, config in configs.items():
-        if not config.get("micro") or label.startswith("original-"):
+        if not config.get("micro") or label.startswith("original-") or label == "v1":
             continue
         binary = Path(config["micro"])
         build = json.loads(binary.with_suffix(".build.json").read_text())

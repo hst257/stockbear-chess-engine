@@ -10,18 +10,17 @@
 #if (defined(__x86_64__) || defined(__i386__)) && (defined(__GNUC__) || defined(__clang__))
 #define CHESSLAB_X86_SIMD
 #include <cpuid.h>
-#include <immintrin.h>
 #endif
 
 namespace chesslab {
 namespace w = nnue_weights;
 namespace {
-enum class Kernel { AUTO, REFERENCE, SCALAR, QUANT, QUANT_SIMD };
+enum class Kernel { AUTO, REFERENCE, SCALAR, QUANT };
 thread_local Kernel selected_kernel = Kernel::AUTO;
-constexpr const char* KERNEL_NAMES[] = {"auto", "reference", "scalar", "quant", "quant-simd"};
+constexpr const char* KERNEL_NAMES[] = {"auto", "reference", "scalar", "quant"};
 }
 void nnue_set_kernel(const std::string& name) {
-    for (int i = 0; i < 5; ++i) if (name == KERNEL_NAMES[i]) {
+    for (int i = 0; i < 4; ++i) if (name == KERNEL_NAMES[i]) {
         if (i >= 3 && !w::Q_ENABLED) throw std::invalid_argument("This model has no safe quantized representation");
         selected_kernel = static_cast<Kernel>(i); return;
     }
@@ -47,10 +46,9 @@ bool nnue_simd_available() {
 }
 const char* nnue_effective_kernel() {
     if (selected_kernel == Kernel::AUTO) return "scalar";
-    if (selected_kernel == Kernel::QUANT_SIMD && !nnue_simd_available()) return "quant";
     return nnue_kernel();
 }
-bool nnue_quantized() { return selected_kernel == Kernel::QUANT || selected_kernel == Kernel::QUANT_SIMD; }
+bool nnue_quantized() { return selected_kernel == Kernel::QUANT; }
 int nnue_quant_first_scale() { return w::Q_FIRST_SCALE; }
 
 namespace {
@@ -294,22 +292,6 @@ static std::int32_t scalar_dot(const std::int16_t* a, const std::int16_t* b, int
     for (int i = 0; i < count; ++i) sum += std::int32_t(a[i]) * b[i];
     return sum;
 }
-#ifdef CHESSLAB_X86_SIMD
-__attribute__((target("avx2")))
-static std::int32_t integer_simd_dot(const std::int16_t* a, const std::int16_t* b, int count) {
-    auto sum = _mm256_setzero_si256();
-    int i = 0;
-    for (; i + 16 <= count; i += 16) sum = _mm256_add_epi32(sum,
-        _mm256_madd_epi16(_mm256_loadu_si256(reinterpret_cast<const __m256i*>(a + i)),
-                         _mm256_loadu_si256(reinterpret_cast<const __m256i*>(b + i))));
-    alignas(32) std::int32_t lanes[8];
-    _mm256_store_si256(reinterpret_cast<__m256i*>(lanes), sum);
-    std::int32_t result = 0;
-    for (int lane : lanes) result += lane;
-    for (; i < count; ++i) result += std::int32_t(a[i]) * b[i];
-    return result;
-}
-#endif
 static float quantized_head(const chess::Board& board, const NnueAccumulator& accumulator) {
     constexpr int qa = w::Q_ACTIVATION_SCALE;
     std::int16_t input[2 * w::WIDTH], hidden[w::HIDDEN];
@@ -319,9 +301,6 @@ static float quantized_head(const chess::Board& board, const NnueAccumulator& ac
         input[p * w::WIDTH + j] = (value * qa + w::Q_FIRST_SCALE / 2) / w::Q_FIRST_SCALE;
     }
     auto dot = scalar_dot;
-#ifdef CHESSLAB_X86_SIMD
-    if (selected_kernel == Kernel::QUANT_SIMD && nnue_simd_available()) dot = integer_simd_dot;
-#endif
     for (int h = 0; h < w::HIDDEN; ++h) {
         const auto value = w::q_fc1_bias[h] + dot(input, w::q_fc1_weight + h * 2 * w::WIDTH, 2 * w::WIDTH);
         hidden[h] = (std::clamp(value, 0, qa * w::Q_HEAD_WEIGHT_SCALE) + w::Q_HEAD_WEIGHT_SCALE / 2) / w::Q_HEAD_WEIGHT_SCALE;
