@@ -1,4 +1,5 @@
 #include "search.hpp"
+#include "strength.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -125,7 +126,13 @@ std::string optimization_info(const chesslab::SearchResult& result) {
            " lmr_attempts " + std::to_string(result.lmr_attempts) +
            " lmr_searches " + std::to_string(result.lmr_searches) +
            " lmr_researches " + std::to_string(result.lmr_researches) +
-           " lmr_verifications " + std::to_string(result.lmr_verifications);
+           " lmr_verifications " + std::to_string(result.lmr_verifications) +
+           " history_updates " + std::to_string(result.history_updates) +
+           " killer_cutoffs " + std::to_string(result.killer_cutoffs) +
+           " see_calls " + std::to_string(result.see_calls) +
+           " reverse_futility_cutoffs " + std::to_string(result.reverse_futility_cutoffs) +
+           " futility_prunes " + std::to_string(result.futility_prunes) +
+           " check_extensions " + std::to_string(result.check_extensions);
 }
 
 std::vector<std::string> words(const std::string& line) {
@@ -236,7 +243,7 @@ public:
             try {
                 const auto& command = tokens[0];
                 if (command == "uci") {
-                    output("id name ChessLab 0.11");
+                    output("id name ChessLab 0.12");
                     output("id author ChessLab contributors");
                     output("option name AlphaBeta type check default true");
                     output("option name IterativeDeepening type check default true");
@@ -257,6 +264,20 @@ public:
                     output("option name LMRReduction type spin default 1 min 1 max 3");
                     output("option name Hash type spin default 16 min 1 max 256");
                     output("option name Depth type spin default 3 min 1 max 8");
+                    output("option name UseHistory type check default true");
+                    output("option name UseKillers type check default true");
+                    output("option name UseSEE type check default true");
+                    output("option name UseAdaptiveLMR type check default true");
+                    output("option name UseReverseFutility type check default true");
+                    output("option name UseFutility type check default true");
+                    output("option name UseCheckExtensions type check default true");
+                    output("option name UseMopUp type check default true");
+                    for (std::size_t i = 0; i < chesslab::WEIGHT_OPTION_NAMES.size(); ++i) {
+                        output(std::string("option name ") + chesslab::WEIGHT_OPTION_NAMES[i] +
+                               "MG type spin default " + std::to_string(chesslab::DEFAULT_EVAL_WEIGHTS[i].middlegame) + " min 0 max 200");
+                        output(std::string("option name ") + chesslab::WEIGHT_OPTION_NAMES[i] +
+                               "EG type spin default " + std::to_string(chesslab::DEFAULT_EVAL_WEIGHTS[i].endgame) + " min 0 max 200");
+                    }
                     output("uciok");
                 } else if (command == "isready") output("readyok");
                 else if (command == "setoption") set_option(tokens);
@@ -294,6 +315,14 @@ private:
     bool null_move_pruning_ = true;
     bool late_move_reductions_ = true;
     int lmr_reduction_ = 1;
+    bool history_heuristic_ = true;
+    bool killer_heuristic_ = true;
+    bool static_exchange_ = true;
+    bool adaptive_lmr_ = true;
+    bool reverse_futility_ = true;
+    bool futility_ = true;
+    bool check_extensions_ = true;
+
     int hash_megabytes_ = 16;
     std::uint64_t history_ = 0;
     int depth_ = 3;
@@ -309,6 +338,55 @@ private:
         stop_search();
         if (tokens.size() != 5 || tokens[1] != "name" || tokens[3] != "value") {
             throw std::invalid_argument("expected setoption name <option> value <value> (see uci for supported options)");
+        }
+        if (tokens[2] == "UseMopUp") {
+            if (tokens[4] != "true" && tokens[4] != "false") throw std::invalid_argument("check options must be true or false");
+            evaluation_.mop_up = tokens[4] == "true";
+            return;
+        }
+        for (std::size_t i = 0; i < chesslab::WEIGHT_OPTION_NAMES.size(); ++i) {
+            const std::string name = chesslab::WEIGHT_OPTION_NAMES[i];
+            if (tokens[2] == name + "MG" || tokens[2] == name + "EG") {
+                const int weight = integer(tokens[4], 0, 200);
+                if (tokens[2] == name + "MG") evaluation_.weights[i].middlegame = weight;
+                else evaluation_.weights[i].endgame = weight;
+                return;
+            }
+        }
+        if (tokens[2] == "UseHistory") {
+            if (tokens[4] != "true" && tokens[4] != "false") throw std::invalid_argument("check options must be true or false");
+            history_heuristic_ = tokens[4] == "true";
+            return;
+        }
+        if (tokens[2] == "UseKillers") {
+            if (tokens[4] != "true" && tokens[4] != "false") throw std::invalid_argument("check options must be true or false");
+            killer_heuristic_ = tokens[4] == "true";
+            return;
+        }
+        if (tokens[2] == "UseSEE") {
+            if (tokens[4] != "true" && tokens[4] != "false") throw std::invalid_argument("check options must be true or false");
+            static_exchange_ = tokens[4] == "true";
+            return;
+        }
+        if (tokens[2] == "UseAdaptiveLMR") {
+            if (tokens[4] != "true" && tokens[4] != "false") throw std::invalid_argument("check options must be true or false");
+            adaptive_lmr_ = tokens[4] == "true";
+            return;
+        }
+        if (tokens[2] == "UseReverseFutility") {
+            if (tokens[4] != "true" && tokens[4] != "false") throw std::invalid_argument("check options must be true or false");
+            reverse_futility_ = tokens[4] == "true";
+            return;
+        }
+        if (tokens[2] == "UseFutility") {
+            if (tokens[4] != "true" && tokens[4] != "false") throw std::invalid_argument("check options must be true or false");
+            futility_ = tokens[4] == "true";
+            return;
+        }
+        if (tokens[2] == "UseCheckExtensions") {
+            if (tokens[4] != "true" && tokens[4] != "false") throw std::invalid_argument("check options must be true or false");
+            check_extensions_ = tokens[4] == "true";
+            return;
         }
         const auto eval_option = std::find(chesslab::EVAL_OPTION_NAMES.begin(), chesslab::EVAL_OPTION_NAMES.end(), tokens[2]);
         if (tokens[2] == "UseAdvancedEvaluation" || eval_option != chesslab::EVAL_OPTION_NAMES.end()) {
@@ -384,6 +462,14 @@ private:
         limits.null_move_pruning = null_move_pruning_;
         limits.late_move_reductions = late_move_reductions_;
         limits.lmr_reduction = lmr_reduction_;
+        limits.history_heuristic = history_heuristic_;
+        limits.killer_heuristic = killer_heuristic_;
+        limits.static_exchange = static_exchange_;
+        limits.adaptive_lmr = adaptive_lmr_;
+        limits.reverse_futility = reverse_futility_;
+        limits.futility = futility_;
+        limits.check_extensions = check_extensions_;
+
         bool explicit_depth = false;
         for (std::size_t i = 1; i < tokens.size(); ++i) {
             if (tokens[i] == "infinite") limits.depth = 64;
@@ -458,7 +544,8 @@ int main(int argc, char** argv) {
                 int repeats = 200000;
                 for (int i = 2; i < argc - 1; ++i) {
                     const std::string flag = argv[i];
-                    if (flag == "--no-pst") use_pst = false;
+                    if (flag == "--no-mopup") options.mop_up = false;
+                    else if (flag == "--no-pst") use_pst = false;
                     else if (flag == "--baseline") options.advanced = false;
                     else if (flag == "--disable" && i + 1 < argc - 1) {
                         const std::string name = argv[++i];
@@ -478,6 +565,13 @@ int main(int argc, char** argv) {
                     std::cout << "{\"calls\":" << repeats << ",\"ns_per_call\":" << double(ns) / repeats
                               << ",\"checksum\":" << checksum << "}\n";
                 }
+            } else if (command == "--see" && argc == 4) {
+                const auto board = board_from_fen(argv[2]);
+                const auto move = chess::uci::uciToMove(board, argv[3]);
+                chess::Movelist moves;
+                chess::movegen::legalmoves(moves, board);
+                if (std::find(moves.begin(), moves.end(), move) == moves.end()) throw std::invalid_argument("SEE needs a legal move");
+                std::cout << chesslab::static_exchange(board, move) << '\n';
             } else if (command == "--legal-moves" && argc == 3) {
                 auto board = board_from_fen(argv[2]);
                 chess::Movelist moves;

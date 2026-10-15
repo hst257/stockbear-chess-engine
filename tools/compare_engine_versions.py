@@ -21,6 +21,8 @@ def main():
     parser.add_argument("--depth", type=int, default=6)
     parser.add_argument("--times", type=int, nargs="*", default=[100, 500, 1000])
     parser.add_argument("--repeats", type=int, default=5)
+    parser.add_argument("--allow-search-changes", action="store_true",
+                        help="Compare strength changes without requiring identical search trees/results.")
     parser.add_argument("--positions", nargs="+", choices=list(POSITIONS), default=list(POSITIONS))
     args = parser.parse_args()
     if args.output.exists():
@@ -40,7 +42,7 @@ def main():
                     order = list(engines) if repeat % 2 == 0 else list(engines)[::-1]
                     for name in order:
                         runs[name].append(measure(engines[name], chess.Board(fen), depth=depth, ms=ms))
-                if depth:
+                if depth and not args.allow_search_changes:
                     first = next(iter(runs.values()))[0]
                     for samples in runs.values():
                         for sample in samples:

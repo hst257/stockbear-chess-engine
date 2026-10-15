@@ -1,0 +1,31 @@
+{
+  "method": "Bounded coordinate descent; deeper own-engine soft labels; opening-pair holdout",
+  "data_sha256": "ce7007efa7f0737d47b20fe82e1ad4e1501c03f828c774f3fae45359dbce5fbf",
+  "train_positions": 635,
+  "holdout_positions": 165,
+  "train_before": 0.01167344823537684,
+  "train_after": 0.011020101384542512,
+  "holdout_before": 0.015165629742881393,
+  "holdout_after": 0.015080556396998929,
+  "uci_options": {
+    "WeightPawnsMG": 90,
+    "WeightPawnsEG": 150,
+    "WeightPassersMG": 100,
+    "WeightPassersEG": 150,
+    "WeightBishopPairMG": 50,
+    "WeightBishopPairEG": 50,
+    "WeightRooksMG": 150,
+    "WeightRooksEG": 150,
+    "WeightMobilityMG": 130,
+    "WeightMobilityEG": 90,
+    "WeightOutpostsMG": 150,
+    "WeightOutpostsEG": 90,
+    "WeightKingSafetyMG": 120,
+    "WeightKingSafetyEG": 100,
+    "WeightSpaceMG": 140,
+    "WeightSpaceEG": 100,
+    "WeightEndgameMG": 100,
+    "WeightEndgameEG": 150
+  },
+  "limitations": "Own-engine targets and a small dataset; held-out loss is not playing strength. Require game tests before changing defaults."
+}

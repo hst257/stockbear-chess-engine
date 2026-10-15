@@ -61,7 +61,7 @@ Choose **Fixed depth** for debugging and reproducible comparisons. The debug tar
 
 `--engine PATH` selects another build of ChessLab. Missing engines are reported in the interface; local play remains available. Longer thinking generally helps search strength but does not guarantee a better move in every position. Scheduling, table allocation, and UCI overhead prevent exact millisecond precision. See the [time-control guide and all five measured results](docs/time-control.md).
 
-Move ordering is also on by default: a matching table move first, then the previous completed principal variation along its original path, promotions, and captures ranked by victim value and attacker cost. Equal priorities retain their original order. Sorting can change which equally scored move wins a tie while preserving full-depth scores. With caching off, ordering alone does not reduce exhaustive Minimax's node count or guarantee a speedup.
+Move ordering is also on by default: a matching table move first, then the previous completed principal variation along its original path, promotions, favorable captures, killer moves, quiet moves ranked by history, and losing captures. SEE estimates exchanges with pin and king-safety checks. Equal priorities retain their original order. Sorting can change which equally scored move wins a tie while preserving full-depth scores. With caching off, ordering alone does not reduce exhaustive Minimax's node count or guarantee a speedup.
 
 **PST is on by default.** Classical piece-square tables add modest positional bonuses for every piece, encouraging central knights, useful development, and sheltered kings. The king blends middlegame/endgame tables using remaining non-pawn material (phase 0–24). Black mirrors ranks; scores still favor White. Choose **PST: off** in setup or Search lab to disable square bonuses. For the original material-only evaluator, also launch with `--no-advanced-evaluation`. See the [PST guide](docs/pst.md) for all tables, attribution, phase arithmetic, evaluation diagnostics, and benchmarks.
 
@@ -236,8 +236,9 @@ Running that tool without `--offline` checks the source licenses online and down
 1. **Implemented:** playable Python/Pygame local two-player application.
 2. **Implemented together (Phases 2–3):** independent C++ UCI engine, material evaluation, Minimax, switchable alpha-beta, Human vs Engine, and search comparisons.
 4. **Implemented:** iterative deepening, move ordering, switchable PST evaluation, transposition tables, quiescence, Principal Variation Search, configurable time-controlled gameplay, aspiration windows, null-move pruning, LMR, and modular advanced classical evaluation.
-5. Tune evaluation weights and consider further optimizations only after broader testing.
-6. **Implemented:** matched performance benchmarks and color-balanced engine smoke games; broader strength testing remains future work.
+5. **Implemented:** history/killer ordering, SEE, adaptive LMR, guarded futility pruning, bounded check extensions, bare-king conversion, and classical weight tuning with held-out validation. See the [strength upgrade](docs/strength-upgrade.md).
+6. **Next:** NNUE, after a separate implementation request.
+7. **Implemented:** matched performance benchmarks and color-balanced engine smoke games; broader strength testing remains future work.
 
 Later phases require an explicit request. The engine performs its own search and evaluation without delegating them to another engine.
 

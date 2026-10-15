@@ -79,10 +79,18 @@ def version_match(args):
     with ExitStack() as stack:
         candidate = stack.enter_context(chess.engine.SimpleEngine.popen_uci(str(args.engine), timeout=10, **flags))
         original = stack.enter_context(chess.engine.SimpleEngine.popen_uci(str(args.opponent), timeout=10, **flags))
+        overrides = {}
+        for label, player, path in (("candidate", candidate, args.candidate_options),
+                                    ("original", original, args.opponent_options)):
+            config = json.loads(path.read_text(encoding="utf-8")) if path else {}
+            config = config.get("uci_options", config)
+            player.configure(config)
+            overrides[label] = config
         if args.resume:
             data = json.loads(progress.read_text(encoding="utf-8"))
             assert data["hashes"] == hashes and data["requested_games"] == args.games
             assert data["movetime_ms"] == args.movetime and data["max_plies"] == args.max_plies
+            assert data.get("overrides", {"candidate": {}, "original": {}}) == overrides
         else:
             if progress.exists():
                 raise ValueError("Progress exists; use --resume or choose another output")
@@ -117,6 +125,7 @@ def version_match(args):
                     "source_revision": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
                     "options": {"candidate": {n: o.default for n, o in candidate.options.items()},
                                 "original": {n: o.default for n, o in original.options.items()}},
+                    "overrides": overrides,
                     "paths": {"candidate": str(args.engine), "original": str(args.opponent)},
                     "names": {"candidate": candidate.id, "original": original.id},
                     "requested_games": args.games, "movetime_ms": args.movetime, "max_plies": args.max_plies,
@@ -182,6 +191,8 @@ def main():
     parser.add_argument("--games", type=int, default=4)
     parser.add_argument("--movetime", type=int, default=100)
     parser.add_argument("--opponent", type=Path)
+    parser.add_argument("--candidate-options", type=Path, help="JSON UCI options or a tuning report with uci_options.")
+    parser.add_argument("--opponent-options", type=Path)
     parser.add_argument("--seed", type=int, default=20261015)
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--max-plies", type=int, default=160)

@@ -35,6 +35,14 @@ class EngineSettings:
     null_move_pruning: bool = True
     late_move_reductions: bool = True
     advanced_evaluation: bool = True
+    history_heuristic: bool = True
+    killer_heuristic: bool = True
+    static_exchange: bool = True
+    adaptive_lmr: bool = True
+    reverse_futility: bool = True
+    futility: bool = True
+    check_extensions: bool = True
+    mop_up: bool = True
 
     def __post_init__(self) -> None:
         if not 1 <= self.depth <= 5:
@@ -243,7 +251,11 @@ class EngineClient:
                                   "TranspositionTable": settings.transposition_table,
                                   "Quiescence": settings.quiescence, "PVS": settings.principal_variation_search,
                                   "UseAspirationWindows": settings.aspiration_windows,
-                                  "UseNullMovePruning": settings.null_move_pruning, "UseLMR": settings.late_move_reductions})
+                                  "UseNullMovePruning": settings.null_move_pruning, "UseLMR": settings.late_move_reductions,
+                                  "UseHistory": settings.history_heuristic, "UseKillers": settings.killer_heuristic,
+                                  "UseSEE": settings.static_exchange, "UseAdaptiveLMR": settings.adaptive_lmr,
+                                  "UseReverseFutility": settings.reverse_futility, "UseFutility": settings.futility,
+                                  "UseCheckExtensions": settings.check_extensions, "UseMopUp": settings.mop_up})
                 if job.canceled.is_set():
                     return
                 iterations: list[SearchIteration] = []

@@ -236,9 +236,34 @@ int king_distance(int a, int b) {
     return std::max(std::abs(a / 8 - b / 8), std::abs(a % 8 - b % 8));
 }
 
-void evaluate_endgame(const chess::Board& board, const EvalContext& ctx, Evaluation& result) {
+void evaluate_endgame(const chess::Board& board, const EvalContext& ctx, Evaluation& result, bool mop_up) {
     profiling::Scope measured(profiling::ENDGAME);
     const int kings[] = {board.kingSq(chess::Color::WHITE).index(), board.kingSq(chess::Color::BLACK).index()};
+    if (mop_up && !(ctx.pawns[0] | ctx.pawns[1])) {
+        for (int c = 0; c < 2; ++c) {
+            const auto color = c == 0 ? chess::Color::WHITE : chess::Color::BLACK;
+            // Restrict this gradient to proven mating material against a bare
+            // king. No false winning incentive for two knights or same-color bishops.
+            if (board.us(~color).count() != 1) continue;
+            const auto bishops = board.pieces(chess::PieceType::BISHOP, color);
+            const bool opposite_bishops = (bishops & 0x55AA55AA55AA55AAULL) &&
+                                          (bishops & 0xAA55AA55AA55AA55ULL);
+            const bool heavy = bool(board.pieces(chess::PieceType::ROOK, color) |
+                                    board.pieces(chess::PieceType::QUEEN, color));
+            const bool bishop_knight = bool(bishops) && bool(board.pieces(chess::PieceType::KNIGHT, color));
+            if (!heavy && !opposite_bishops && !bishop_knight) continue;
+            const int enemy = kings[1 - c], rank = enemy / 8, file = enemy % 8;
+            int drive = 14 * (3 - std::min({rank, 7 - rank, file, 7 - file}));
+            if (!heavy && !opposite_bishops && bishop_knight) {
+                // B+N needs a corner matching the bishop's color.
+                const bool dark = bool(bishops & 0xAA55AA55AA55AA55ULL);
+                const int corner_distance = dark ? std::min(king_distance(enemy, 0), king_distance(enemy, 63)) :
+                                                  std::min(king_distance(enemy, 7), king_distance(enemy, 56));
+                drive = 14 * (7 - corner_distance);
+            }
+            result.components[ENDGAME].add(0, drive + 12 * (7 - king_distance(kings[c], enemy)), c == 0 ? 1 : -1);
+        }
+    }
     for (int c = 0; c < 2; ++c) {
         const int sign = c == 0 ? 1 : -1;
         int activity = 0, targets = 0;
@@ -407,7 +432,11 @@ Evaluation advanced_breakdown(const chess::Board& board, bool use_pst, const Eva
     evaluate_mobility_outposts(board, context, result, options);
     if (options.uses(KING_SAFETY)) evaluate_king_safety(board, context, result);
     if (options.uses(SPACE)) evaluate_space(board, context, result);
-    if (options.uses(ENDGAME)) evaluate_endgame(board, context, result);
+    if (options.uses(ENDGAME)) evaluate_endgame(board, context, result, options.mop_up);
+    for (int i = 2; i < COMPONENT_COUNT; ++i) {
+        result.components[i].middlegame = result.components[i].middlegame * options.weights[i - 2].middlegame / 100;
+        result.components[i].endgame = result.components[i].endgame * options.weights[i - 2].endgame / 100;
+    }
     int rounded_sum = 0;
     for (const auto component : result.components) {
         result.sum.add(component.middlegame, component.endgame);

@@ -1,6 +1,7 @@
 #include "search.hpp"
 #include "scoped_move.hpp"
 #include "pawn_cache.hpp"
+#include "strength.hpp"
 
 #include <iostream>
 #include <random>
@@ -13,6 +14,16 @@ void require(bool condition, const char* message) {
 
 int main() {
     try {
+        chesslab::OrderingHistory ordering;
+        const chess::Board start;
+        const auto quiet = chess::uci::uciToMove(start, "g1f3");
+        for (int i = 0; i < 10000; ++i) ordering.update(start, quiet, 2048);
+        require(ordering.score(start, quiet) <= 8192, "History overflowed positive bound");
+        for (int i = 0; i < 10000; ++i) ordering.update(start, quiet, -2048);
+        require(ordering.score(start, quiet) >= -8192, "History overflowed negative bound");
+        require(chesslab::adaptive_reduction(6, 16, -2000, 1) >
+                chesslab::adaptive_reduction(6, 4, 2000, 1), "Adaptive LMR ignores move/history signals");
+        require(chesslab::adaptive_reduction(3, 30, -8192, 3) == 1, "LMR reduced through static horizon");
         std::mt19937 random(20261015);
         const char* positions[] = {chess::constants::STARTPOS,
             "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1",

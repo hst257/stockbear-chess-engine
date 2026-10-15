@@ -29,6 +29,14 @@ class Protocol:
         self.send("setoption name UseNullMovePruning value false")
         self.send("setoption name UseLMR value false")
 
+        self.send("setoption name UseHistory value false")
+        self.send("setoption name UseKillers value false")
+        self.send("setoption name UseSEE value false")
+        self.send("setoption name UseAdaptiveLMR value false")
+        self.send("setoption name UseReverseFutility value false")
+        self.send("setoption name UseFutility value false")
+        self.send("setoption name UseCheckExtensions value false")
+
     def _read(self):
         for line in self.process.stdout:
             self.lines.put(line.strip())

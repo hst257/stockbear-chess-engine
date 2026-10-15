@@ -25,4 +25,5 @@ def engine(engine_path):
         # Preserve historical material/search baselines. Evaluation tests opt in;
         # fresh-process tests verify the production defaults independently.
         instance.configure({"UseAdvancedEvaluation": False, "UsePST": False, "TranspositionTable": False, "Quiescence": False, "PVS": False, "UseAspirationWindows": False, "UseNullMovePruning": False, "UseLMR": False})
+        instance.configure({'UseHistory': False, 'UseKillers': False, 'UseSEE': False, 'UseAdaptiveLMR': False, 'UseReverseFutility': False, 'UseFutility': False, 'UseCheckExtensions': False})
         yield instance

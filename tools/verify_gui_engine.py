@@ -1,5 +1,6 @@
 """Exercise real UCI workers through the Pygame app without desktop input."""
 import json
+import argparse
 import os
 from pathlib import Path
 import statistics
@@ -44,7 +45,9 @@ def timings(frames):
 
 
 def main():
-    output = Path("artifacts/audit")
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output", type=Path, default=Path("artifacts/audit"))
+    output = parser.parse_args().output
     output.mkdir(parents=True, exist_ok=True)
     report = {"method": "SDL dummy driver; real Pygame app and UCI subprocesses; not desktop interaction",
               "budgets": []}

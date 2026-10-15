@@ -40,6 +40,14 @@ def main() -> int:
                         help="Conservative null-move scouts (default: enabled).")
     parser.add_argument("--lmr", action=argparse.BooleanOptionalAction, default=True,
                         help="Conservative late quiet-move reductions (default: enabled).")
+    parser.add_argument("--history", action=argparse.BooleanOptionalAction, default=True)
+    parser.add_argument("--killers", action=argparse.BooleanOptionalAction, default=True)
+    parser.add_argument("--see", action=argparse.BooleanOptionalAction, default=True)
+    parser.add_argument("--adaptive-lmr", action=argparse.BooleanOptionalAction, default=True)
+    parser.add_argument("--reverse-futility", action=argparse.BooleanOptionalAction, default=True)
+    parser.add_argument("--futility", action=argparse.BooleanOptionalAction, default=True)
+    parser.add_argument("--check-extensions", action=argparse.BooleanOptionalAction, default=True)
+    parser.add_argument("--mop-up", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--engine", metavar="PATH", help="Path to the compiled ChessLab UCI executable.")
     args = parser.parse_args()
     if args.smoke_test is not None and args.smoke_test < 1:
@@ -59,7 +67,8 @@ def main() -> int:
         settings = EngineSettings(args.mode == "engine", args.human_color == "white",
                                   args.algorithm == "alphabeta", args.depth, args.iterative_deepening,
                                   args.move_ordering, args.pst, args.transposition_table,
-                                  args.quiescence, args.pvs, args.search_mode == "time", args.thinking_time, args.aspiration_windows, args.null_move_pruning, args.lmr, args.advanced_evaluation)
+                                  args.quiescence, args.pvs, args.search_mode == "time", args.thinking_time, args.aspiration_windows, args.null_move_pruning, args.lmr, args.advanced_evaluation,
+                                  history_heuristic=args.history, killer_heuristic=args.killers, static_exchange=args.see, adaptive_lmr=args.adaptive_lmr, reverse_futility=args.reverse_futility, futility=args.futility, check_extensions=args.check_extensions, mop_up=args.mop_up)
         app = Application(settings=settings, engine_path=Path(args.engine) if args.engine else DEFAULT_ENGINE)
         app.run(args.smoke_test, args.screenshot)
         return 0

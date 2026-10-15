@@ -264,7 +264,7 @@ def test_individual_category_switches(engine_path, option, category):
     "8/5pk1/6p1/8/3K4/6P1/5P2/8 w - - 0 1"])
 def test_advanced_full_window_pvs_and_cache_agree(engine_path, fen, qsearch):
     with chess.engine.SimpleEngine.popen_uci(str(engine_path)) as engine:
-        engine.configure({"UseNullMovePruning": False, "UseLMR": False, "Quiescence": qsearch})
+        engine.configure({"UseReverseFutility": False, "UseFutility": False, "UseCheckExtensions": False, "UseNullMovePruning": False, "UseLMR": False, "Quiescence": qsearch})
         scores = []
         for pvs, cached in ((False, False), (True, False), (True, True)):
             engine.configure({"PVS": pvs, "TranspositionTable": cached})

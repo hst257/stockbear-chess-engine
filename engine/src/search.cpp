@@ -4,6 +4,7 @@
 #include "principal_variation.hpp"
 #include "pawn_cache.hpp"
 #include "terminal_rules.hpp"
+#include "strength.hpp"
 
 #include <algorithm>
 #include <memory>
@@ -16,7 +17,9 @@ constexpr int MAX_QUIESCENCE_PLY = 16;
 struct Interrupted {};
 
 void order_moves(chess::Movelist& moves, const chess::Board& board,
-                 chess::Move pv_move, chess::Move table_move) {
+                 chess::Move pv_move, chess::Move table_move,
+                 const OrderingHistory& history, const SearchLimits& limits,
+                 SearchResult& result, int ply) {
     profiling::Scope measured(profiling::ORDERING);
     for (auto& move : moves) {
         int priority = 0;
@@ -27,9 +30,17 @@ void order_moves(chess::Movelist& moves, const chess::Board& board,
             capture_bonus = 10 * PIECE_VALUES[board.getCapturing<chess::PieceType>(move)] -
                             PIECE_VALUES[board.at<chess::PieceType>(move.from())];
             priority = 10000 + capture_bonus;
+            if (limits.static_exchange) {
+                ++result.see_calls;
+                if (static_exchange(board, move) < 0) priority = -12000 + capture_bonus;
+            }
         }
         if (move.typeOf() == chess::Move::PROMOTION) {
             priority = 20000 + PIECE_VALUES[move.promotionType()] + capture_bonus;
+        }
+        if (!board.isCapture(move) && move.typeOf() != chess::Move::PROMOTION) {
+            if (limits.history_heuristic) priority = history.score(board, move) / 2;
+            if (limits.killer_heuristic && history.killer(move, ply)) priority = 6000;
         }
         if (move == pv_move) priority = 32000;
         if (move == table_move) priority = 32500;
@@ -141,6 +152,7 @@ private:
     SearchResult result_;
     std::unique_ptr<TranspositionTable> table_;  // Fresh per search; shared across completed passes.
     std::unique_ptr<PawnCache> pawn_cache_;
+    OrderingHistory ordering_;
 
     int static_evaluation(const chess::Board& board) {
         ++result_.eval_calls;
@@ -247,7 +259,7 @@ private:
         else for (const auto move : moves) {
                 if (checked || board.isCapture(move) || move.typeOf() == chess::Move::PROMOTION) tactical.add(move);
             }
-        if (limits_.move_ordering) order_moves(tactical, board, chess::Move{}, chess::Move{});
+        if (limits_.move_ordering) order_moves(tactical, board, chess::Move{}, chess::Move{}, ordering_, limits_, result_, ply);
         for (const auto move : tactical) {
             PrincipalVariation child_pv;
             int score;
@@ -270,7 +282,16 @@ private:
 
     int minimax(chess::Board& board, int depth, int ply, int alpha, int beta,
                 PrincipalVariation& pv, bool follows_previous_pv, std::uint64_t history,
-                bool null_subtree = false) {
+                bool null_subtree = false, int extensions = 0) {
+        // A bounded extension budget prevents check chains from postponing the
+        // leaf forever. Minimax remains an exhaustive nominal-depth baseline.
+        if (pruning_ && limits_.check_extensions && !null_subtree && ply > 0 && depth > 0 &&
+            extensions < 2 && ply + depth < MAX_SEARCH_PLY && board.inCheck()) {
+            ++depth;
+            ++extensions;
+            ++result_.check_extensions;
+        }
+        if (ply >= MAX_SEARCH_PLY) depth = 0;
         if (depth == 0 && limits_.quiescence) return quiescence(board, ply, 0, alpha, beta, pv, null_subtree);
         visit(ply);
         if (depth == 0 && limits_.fast_movegen) {
@@ -284,13 +305,16 @@ private:
 
         const int original_alpha = alpha;
         const int original_beta = beta;
+        // Extension budget changes the horizon. Keep its TT contexts separate.
+        const auto table_key = board.hash() ^ (limits_.check_extensions && pruning_ ?
+            0x9E3779B97F4A7C15ULL * static_cast<std::uint64_t>(extensions + 1) : 0);
         chess::Move table_move{};
         const bool cacheable = table_ && !null_subtree;
         if (cacheable) {
             ++result_.tt_probes;
             const auto* entry = [&] {
                 profiling::Scope measured(profiling::TABLE);
-                return table_->probe(board.hash(), history, board.halfMoveClock());
+                return table_->probe(table_key, history, board.halfMoveClock());
             }();
             // A matching hash never licenses an illegal move.
             if (entry && std::find(moves.begin(), moves.end(), entry->move()) != moves.end()) {
@@ -312,8 +336,20 @@ private:
         // merely at the same ply. result_.pv changes only after a complete pass.
         const auto hint = follows_previous_pv && static_cast<std::size_t>(ply) < result_.pv.size()
                             ? result_.pv[ply] : chess::Move{};
-        if (limits_.move_ordering) order_moves(moves, board, hint, table_move);
+        if (limits_.move_ordering) order_moves(moves, board, hint, table_move, ordering_, limits_, result_, ply);
         const bool maximizing = board.sideToMove() == chess::Color::WHITE;
+        const bool selective = pruning_ && !null_subtree && ply > 0 && beta - alpha == 1 &&
+            !board.inCheck() && depth <= 3 && game_phase(board) >= 4 &&
+            board.halfMoveClock() < 90 && !board.isRepetition(1) &&
+            std::abs(alpha) < MATE_THRESHOLD && std::abs(beta) < MATE_THRESHOLD;
+        const bool need_static = selective && (limits_.reverse_futility || limits_.futility);
+        const int stand = need_static ? static_evaluation(board) : 0;
+        if (selective && limits_.reverse_futility && std::abs(stand) < MATE_THRESHOLD &&
+            ((maximizing && stand - 120 * depth >= beta) ||
+             (!maximizing && stand + 120 * depth <= alpha))) {
+            ++result_.reverse_futility_cutoffs;
+            return maximizing ? beta : alpha;
+        }
         // A unit window is a non-PV scout. Avoid low material/zugzwang risks,
         // near draw/mate bounds, repeated positions, and every nested null path.
         if (pruning_ && limits_.null_move_pruning &&
@@ -340,12 +376,31 @@ private:
         int best = maximizing ? -INFINITY_SCORE : INFINITY_SCORE;
         bool first = true;
         int move_index = 0;
+        chess::Movelist unsuccessful_quiets;
         // Minimax and alpha-beta share the same ordering and first-best tie rule.
         for (const auto move : moves) {
+            const bool quiet = !board.isCapture(move) && move.typeOf() != chess::Move::PROMOTION &&
+                               move.typeOf() != chess::Move::CASTLING;
+            if (!first && selective && limits_.futility && depth <= 2 && quiet &&
+                std::abs(best) < MATE_THRESHOLD &&
+                move != table_move && move != hint && !ordering_.killer(move, ply) &&
+                ordering_.score(board, move) <= 1024 &&
+                board.givesCheck(move) == chess::CheckType::NO_CHECK &&
+                ((maximizing && stand + 180 * depth <= alpha) ||
+                 (!maximizing && stand - 180 * depth >= beta))) {
+                ++result_.futility_prunes;
+                ++move_index;
+                continue;
+            }
             PrincipalVariation child_pv;
             const auto parent_key = board.hash();
             const bool reduce = pruning_ && limits_.late_move_reductions && limits_.move_ordering &&
-                lmr_candidate(board, move, depth, ply, move_index, alpha, beta, table_move, hint, null_subtree);
+                lmr_candidate(board, move, depth, ply, move_index, alpha, beta, table_move, hint, null_subtree) &&
+                !(limits_.killer_heuristic && ordering_.killer(move, ply));
+            const int reduction = reduce ? (limits_.adaptive_lmr ?
+                adaptive_reduction(depth, move_index, limits_.history_heuristic ? ordering_.score(board, move) : 0,
+                                   limits_.lmr_reduction) :
+                std::clamp(limits_.lmr_reduction, 1, std::min(3, depth - 2))) : 0;
             int score;
             {
                 ScopedMove played(board, move);
@@ -354,9 +409,8 @@ private:
                 if (reduce) {
                     ++result_.lmr_attempts;
                     ++result_.lmr_searches;
-                    const int reduction = std::clamp(limits_.lmr_reduction, 1, std::min(3, depth - 2));
                     score = minimax(board, depth - 1 - reduction, ply + 1, alpha, beta,
-                                    child_pv, child_follows_pv, child_history, null_subtree);
+                                    child_pv, child_follows_pv, child_history, null_subtree, extensions);
                     if ((maximizing && score > alpha) || (!maximizing && score < beta)) {
                         ++result_.lmr_researches;
                         ++result_.lmr_verifications;
@@ -364,23 +418,23 @@ private:
                         // Verify at nominal depth using this scout's window.
                         // An enclosing PVS node handles any wider PV re-search.
                         score = minimax(board, depth - 1, ply + 1, alpha, beta,
-                                        child_pv, child_follows_pv, child_history, null_subtree);
+                                        child_pv, child_follows_pv, child_history, null_subtree, extensions);
                     }
                 } else if (pruning_ && limits_.principal_variation_search && !first && beta - alpha > 1) {
                     ++result_.pvs_scouts;
                     const int scout_alpha = maximizing ? alpha : beta - 1;
                     const int scout_beta = maximizing ? alpha + 1 : beta;
                     score = minimax(board, depth - 1, ply + 1, scout_alpha, scout_beta,
-                                    child_pv, child_follows_pv, child_history, null_subtree);
+                                    child_pv, child_follows_pv, child_history, null_subtree, extensions);
                     if (score > alpha && score < beta) {
                         ++result_.pvs_researches;
                         child_pv.clear();
                         score = minimax(board, depth - 1, ply + 1, alpha, beta,
-                                        child_pv, child_follows_pv, child_history, null_subtree);
+                                        child_pv, child_follows_pv, child_history, null_subtree, extensions);
                     }
                 } else {
                     score = minimax(board, depth - 1, ply + 1, alpha, beta,
-                                    child_pv, child_follows_pv, child_history, null_subtree);
+                                    child_pv, child_follows_pv, child_history, null_subtree, extensions);
                 }
             }
             first = false;
@@ -392,8 +446,18 @@ private:
             if (pruning_) {
                 if (maximizing) alpha = std::max(alpha, best);
                 else beta = std::min(beta, best);
-                if (alpha >= beta) { ++result_.beta_cutoffs; break; }
+                if (alpha >= beta) {
+                    ++result_.beta_cutoffs;
+                    if (quiet && limits_.move_ordering && !null_subtree) {
+                        if (limits_.killer_heuristic && ordering_.killer(move, ply)) ++result_.killer_cutoffs;
+                        if (limits_.history_heuristic) ++result_.history_updates;
+                        ordering_.cutoff(board, move, ply, depth, unsuccessful_quiets,
+                                         limits_.history_heuristic, limits_.killer_heuristic);
+                    }
+                    break;
+                }
             }
+            if (quiet) unsuccessful_quiets.add(move);
         }
         if (cacheable) {
             const auto bound = best <= original_alpha ? Bound::UPPER :
@@ -401,7 +465,7 @@ private:
             // Interrupted nodes throw before reaching this store. Completed
             // descendants remain valid, even when their parent pass is stopped.
             profiling::Scope measured(profiling::TABLE);
-            table_->store(board.hash(), history, board.halfMoveClock(), depth,
+            table_->store(table_key, history, board.halfMoveClock(), depth,
                           score_to_table(best, ply), bound, pv, ply);
         }
         return best;

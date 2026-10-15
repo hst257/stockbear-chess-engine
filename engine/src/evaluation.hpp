@@ -24,9 +24,17 @@ inline constexpr std::array<const char*, COMPONENT_COUNT> COMPONENT_NAMES = {
 inline constexpr std::array<const char*, COMPONENT_COUNT - 2> EVAL_OPTION_NAMES = {
     "EvalPawns", "EvalPassers", "EvalBishopPair", "EvalRooks", "EvalMobility",
     "EvalOutposts", "EvalKingSafety", "EvalSpace", "EvalEndgame"};
+inline constexpr std::array<const char*, COMPONENT_COUNT - 2> WEIGHT_OPTION_NAMES = {
+    "WeightPawns", "WeightPassers", "WeightBishopPair", "WeightRooks", "WeightMobility",
+    "WeightOutposts", "WeightKingSafety", "WeightSpace", "WeightEndgame"};
+inline constexpr std::array<EvalScore, COMPONENT_COUNT - 2> DEFAULT_EVAL_WEIGHTS = {{
+    {100, 100}, {100, 100}, {100, 100}, {100, 100}, {100, 100},
+    {100, 100}, {100, 100}, {100, 100}, {100, 100}}};
 
 struct EvaluationOptions {
     bool advanced = true;
+    bool mop_up = true;
+    std::array<EvalScore, COMPONENT_COUNT - 2> weights = DEFAULT_EVAL_WEIGHTS;
     std::array<bool, COMPONENT_COUNT - 2> enabled = {true, true, true, true, true, true, true, true, true};
     bool uses(EvalComponent component) const { return enabled[component - 2]; }
 };

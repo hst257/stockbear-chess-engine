@@ -47,11 +47,15 @@ def test_checkpoint_survives_transient_windows_replace_error(tmp_path, monkeypat
 
 def test_real_version_match_saves_replayable_pgn_and_marks_caps(engine_path, tmp_path):
     output = tmp_path / "match.json"
+    options = tmp_path / "options.json"
+    options.write_text(json.dumps({"uci_options": {"UseHistory": False, "WeightSpaceMG": 75}}))
     subprocess.run([sys.executable, "-m", "tools.match_optimizations", "--comparison", "versions",
                     "--engine", str(engine_path), "--opponent", str(engine_path), "--games", "2",
-                    "--movetime", "5", "--max-plies", "6", "--output", str(output)],
+                    "--movetime", "5", "--max-plies", "6", "--output", str(output),
+                    "--candidate-options", str(options)],
                    check=True, capture_output=True, text=True, timeout=20)
     data = json.loads(output.read_text())
+    assert data["overrides"] == {"candidate": {"UseHistory": False, "WeightSpaceMG": 75}, "original": {}}
     assert len(data["openings"]) == 1 and len(data["games"]) == 2
     assert data["games"][0]["candidate_color"] == "white"
     assert data["games"][1]["candidate_color"] == "black"
