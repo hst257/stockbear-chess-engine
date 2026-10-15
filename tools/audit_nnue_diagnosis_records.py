@@ -48,6 +48,10 @@ def main() -> None:
     reference = json.loads((ROOT / "stockfish-quality.json").read_text(encoding="utf-8"))
     assert len(reference["records"]) == 24
     report["stockfish"] = {"positions": 24, "distinct_candidate_child_analyses": sum(len(r["candidates"]) for r in reference["records"]), "metadata": reference["metadata"], "id": reference["engine_id"]}
+    games = json.loads((ROOT / "tournament-position-quality.json").read_text(encoding="utf-8"))
+    assert len(games["records"]) == 12 and sum(len(r["searches"]) for r in games["records"]) == 48
+    report["supplementary_game_positions"] = {"positions": 12, "searches": 48,
+        "distinct_candidate_child_analyses": sum(len(r["candidates"]) for r in games["records"])}
     save(ROOT / "record-audit.json", report)
     print(json.dumps({"games": 190, "search_records": sum(v["records"] for v in report["position_experiments"].values()), "stockfish_candidate_analyses": report["stockfish"]["distinct_candidate_child_analyses"]}))
 

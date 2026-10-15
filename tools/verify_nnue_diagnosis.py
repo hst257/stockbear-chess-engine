@@ -103,6 +103,7 @@ def main() -> None:
     data["evaluation"] = {}
     for name in ("counters", "ubsan"):
         binary = builds[name].with_name("micro.exe")
+        counter_oracle = json.loads(subprocess.check_output([str(binary.resolve()), "--diagnostics-verify"], text=True, timeout=10))
         actual = batch(binary, rows, "scalar")
         difference = errors(expected, actual)
         assert difference["max_cp"] == 0
@@ -112,7 +113,8 @@ def main() -> None:
         transitions = json.loads(subprocess.check_output([str(binary.resolve()), "--verify", "scalar"], text=True, timeout=90))
         assert transitions["transitions"] > 30000 and transitions["nulls"] > 25000
         data["evaluation"][name] = {"metadata": metadata(binary), "heldout_random_extreme_parity": difference,
-                                    "trained_golden_parity": golden_difference, "transitions": transitions}
+                                    "trained_golden_parity": golden_difference, "transitions": transitions,
+                                    "synthetic_counter_oracle": counter_oracle}
     save(path, data)
     print("Verified", len(data["searches"]), "fixed-budget search cases across five builds", flush=True)
 

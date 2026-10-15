@@ -48,7 +48,7 @@ capped pairs never silently disappear from the requested ten-pair comparison.
 All capped final positions receive offline reference analysis. They remain
 unfinished, and the reduced-runtime amendment rules out adding tournament games.
 
-## Remaining diagnostic protocol
+## Position and instrumentation protocol
 
 Use a shared legal stratified FEN suite for equal-time, equal-node and equal-depth
 searches, completed-iteration PVs and single-feature runtime ablations. Analyze
@@ -58,6 +58,11 @@ Counters/profiling must be explicitly compiled in and must not alter production
 search or model contracts. Profiled throughput is not release throughput.
 No network changes, retraining, search threshold tuning or lazy state implementation
 are part of this investigation. Final findings: `NNUE_V2_SEARCH_DIAGNOSIS.md` at root.
+Supplementary actual-game analysis selects one position per phase/control from
+the first ten opening pairs, using the minimum seeded SHA256 key and legal/material
+criteria only. The 12 positions receive paired 100k/400k-node searches and identical
+SF300k child analysis, with complete pre-root move histories. Scores and outcomes
+do not enter the sampling rule. This adds position analysis, not tournament games.
 
 The position schedule is frozen in `positions.json`: 24 positions, three trials
 at each of 50/200/1000ms, 25k/100k/400k nodes and depths 3/4/5. Ablations use

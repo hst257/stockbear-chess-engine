@@ -107,7 +107,7 @@ def reference_search(engine: chess.engine.SimpleEngine, board: chess.Board, root
     return {"score_root": score_value(info["score"].pov(root_color)), "depth": info["depth"],
             "nodes": info["nodes"], "seconds": info["time"], "nps": info.get("nps"),
             "wall_seconds": time.perf_counter() - started, "move": info["pv"][0].uci(),
-            "pv": [m.uci() for m in info["pv"]]}
+            "pv": [m.uci() for m in info["pv"]], "info_string": info.get("string")}
 
 
 def run_reference() -> None:
@@ -132,8 +132,11 @@ def run_reference() -> None:
         data["engine_id"] = engine.id
         assert "Stockfish 19" in engine.id.get("name", ""), engine.id
         options = {"Threads": 1, "Hash": 64, "SyzygyPath": "", "UCI_LimitStrength": False}
+        if "UCI_AnalyseMode" in engine.options:
+            options["UCI_AnalyseMode"] = True
         engine.configure(options)
         data["overrides"] = options
+        data["external_network_files"] = {str(p): sha(p) for p in STOCKFISH.parent.glob("*.nnue")}
         data["defaults"] = {name: option.default for name, option in engine.options.items()}
         for row in suite["positions"]:
             board = chess.Board(row["fen"])

@@ -97,6 +97,11 @@ def score_value(score: chess.engine.Score) -> dict:
 def capture(engine: chess.engine.SimpleEngine, row: dict, mode: str, budget: int) -> dict:
     """Capture final totals and each published complete iteration separately."""
     board = chess.Board(row["fen"])
+    if "moves" in row:
+        board = chess.Board()
+        for move in row["moves"]:
+            board.push_uci(move)
+        assert board.fen() == row["fen"]
     limit = {"time": chess.engine.Limit(time=budget / 1000), "nodes": chess.engine.Limit(nodes=budget),
              "depth": chess.engine.Limit(depth=budget)}[mode]
     iterations, counters, special = [], {}, {}

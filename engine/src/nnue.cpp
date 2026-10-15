@@ -120,8 +120,8 @@ void nnue_update_move(const NnueAccumulator& parent, const chess::Board& after,
     {
         profiling::Scope copy_measured(profiling::NNUE_COPY);
         output.features = parent.features;
-        diagnostics::copied(sizeof(NnueFeatures) + 2ULL * w::WIDTH * sizeof(float));
     }
+    diagnostics::copied(sizeof(NnueFeatures) + 2ULL * w::WIDTH * sizeof(float));
 #else
     output.features = parent.features;
 #endif
@@ -159,7 +159,7 @@ void nnue_update_move(const NnueAccumulator& parent, const chess::Board& after,
         }
         auto& values = output.values[p];
 #ifdef CHESSLAB_DIAGNOSTICS
-        if (p == 0) diagnostics::rows(size, w::WIDTH);
+        if (p == 0) diagnostics::rows(size, w::WIDTH, quant ? sizeof(std::int16_t) : sizeof(float));
         {
             profiling::Scope copy_measured(profiling::NNUE_COPY);
             if (quant) std::copy_n(parent.quantized[p].begin(), w::WIDTH, output.quantized[p].begin());
@@ -305,7 +305,7 @@ void nnue_update(const NnueAccumulator& parent, const chess::Board& board, NnueA
         }
     }
 #ifdef CHESSLAB_DIAGNOSTICS
-    diagnostics::rows(changed_rows, w::WIDTH);
+    diagnostics::rows(changed_rows, w::WIDTH, quant ? sizeof(std::int16_t) : sizeof(float));
 #endif
 }
 

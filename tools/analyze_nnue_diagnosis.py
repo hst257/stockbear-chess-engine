@@ -173,7 +173,7 @@ def tournaments() -> dict:
     limits = contrasts(partial_vectors)
     rng = random.Random(SEED)
     resamples = [contrasts(rng.choices(partial_vectors, k=10)) for _ in range(20000)]
-    data["all_ten_censoring_aware_trend"] = {"pair_ids": all_ids, "paired_score_bounds": partial_maps,
+    data["all_ten_censoring_aware_trend"] = {"pair_ids": all_ids, "paired_score_bounds": dict(zip(map(str, times), partial_maps)),
         "endpoint_score_difference_bounds": list(limits[:2]), "slope_bounds": list(limits[2:]),
         "endpoint_bootstrap_95_envelope": [quantile([r[0] for r in resamples], .025), quantile([r[1] for r in resamples], .975)],
         "slope_bootstrap_95_envelope": [quantile([r[2] for r in resamples], .025), quantile([r[3] for r in resamples], .975)],
@@ -230,6 +230,10 @@ def stability(record: dict) -> dict:
             "max_adjacent_score_swing_cp": max(swings, default=0), "depth_moves": list(zip([i["depth"] for i in iterations], moves)),
             "aspiration_retries": record["counters"].get("aspiration_retries", 0),
             "pvs_researches": record["counters"].get("researches", 0), "lmr_researches": record["counters"].get("lmr_researches", 0),
+            "aspiration_retries_per_1000_nodes": 1000 * record["counters"].get("aspiration_retries", 0) / max(1, record["nodes"]),
+            "pvs_researches_per_1000_nodes": 1000 * record["counters"].get("researches", 0) / max(1, record["nodes"]),
+            "mate_iterations": [{"depth": i["depth"], "mate_white": i["score_white"]["mate"]}
+                                for i in iterations if i["score_white"]["mate"] is not None],
             "qnode_fraction": record["counters"].get("qnodes", 0) / max(1, record["nodes"])}
 
 
@@ -352,7 +356,17 @@ def position_analysis() -> dict:
     with (ROOT / "position-summary.csv").open("w", newline="", encoding="utf-8") as stream:
         writer = csv.DictWriter(stream, fieldnames=list(summary[0]))
         writer.writeheader(); writer.writerows(summary)
-    save(ROOT / "search-stability.json", {"method": "Published completed-iteration PVs; repeated choices and score swings are descriptive. A changed PV alone is not a tactical failure.", "records": detailed})
+    sequences: dict[tuple, list[dict]] = defaultdict(list)
+    for r in detailed:
+        if r["experiment"] == "controlled":
+            sequences[(r["position"], r["evaluator"], r["mode"])].append(r)
+    budget_sequences = []
+    for key, rows in sequences.items():
+        rows.sort(key=lambda r: r["budget"])
+        budget_sequences.append({"position": key[0], "evaluator": key[1], "mode": key[2],
+                                 "move_changes_with_increasing_budget": sum(a["move"] != b["move"] for a, b in zip(rows, rows[1:])),
+                                 "sequence": [{k: r[k] for k in ("budget", "depth", "move", "score_white", "pv", "quality", "stability")} for r in rows]})
+    save(ROOT / "search-stability.json", {"method": "Published completed-iteration PVs remain in the controlled raw records. Repeated choices and score swings are descriptive; a changed PV alone is not a tactical failure. Budget sequences below use the first trial consistently.", "budget_sequences": budget_sequences, "records": detailed})
     return data
 
 
@@ -373,8 +387,14 @@ def plots(data: dict) -> None:
         if row["unfinished"]:
             lo, hi = row["unfinished_worst_best_score"]
             axes[0, 0].vlines(t, lo * 100, hi * 100, color="black", linewidth=5)
-    axes[0, 0].axhline(50, color="gray", linestyle="--"); axes[0, 0].set_title("NNUE score: same first 10 pairs"); axes[0, 0].set_ylabel("Score (%) / paired bootstrap 95%")
+    axes[0, 0].axhline(50, color="gray", linestyle="--"); axes[0, 0].set_title("NNUE score: same first 10 pairs"); axes[0, 0].set_ylabel("Score (%) / 95% sensitivity envelope")
     axes[0, 1].plot(times, [elo(r["paired_score"]) if not r["unfinished"] else float("nan") for r in matched], marker="o"); axes[0, 1].axhline(0, color="gray", linestyle="--"); axes[0, 1].set_title("Matched relative Elo (capped point omitted)")
+    for t, row, bounds in zip(times, matched, ci):
+        if 0 < bounds[0] < bounds[1] < 1:
+            axes[0, 1].vlines(t, elo(bounds[0]), elo(bounds[1]), color="steelblue", linewidth=2)
+        lo, hi = row["unfinished_worst_best_score"]
+        if row["unfinished"] and 0 < lo < hi < 1:
+            axes[0, 1].vlines(t, elo(lo), elo(hi), color="black", linewidth=5)
     axes[0, 2].plot(times, [r["nnue"]["aggregate_nps"] / r["classical"]["aggregate_nps"] for r in matched], marker="o"); axes[0, 2].set_title("Matched-game NNUE / classical NPS")
     axes[1, 0].plot(times, [r["nnue"]["mean_completed_depth"] - r["classical"]["mean_completed_depth"] for r in matched], marker="o"); axes[1, 0].set_title("Mean completed-depth difference")
     for label in ("nnue", "classical"):

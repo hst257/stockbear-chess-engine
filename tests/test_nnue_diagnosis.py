@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 import os
 from pathlib import Path
+import subprocess
 from types import SimpleNamespace
 
 import chess
@@ -101,6 +102,48 @@ def test_pilot_resume_retains_the_full_schedule_and_replayable_games(tmp_path, m
     assert all("wall_seconds" in s for g in finished["games"] for s in g["searches"])
 
 
+def test_actual_game_capture_preserves_pre_root_draw_history():
+    moves = ["g1f3", "g8f6", "f3g1", "f6g8"]
+    board = chess.Board()
+    for move in moves:
+        board.push_uci(move)
+    chosen = chess.Move.from_uci("e2e4")
+
+    class Analysis:
+        info = {"depth": 1, "seldepth": 1, "nodes": 21, "time": .001, "nps": 21000,
+                "score": chess.engine.PovScore(chess.engine.Cp(0), chess.WHITE), "pv": [chosen]}
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            pass
+
+        def __iter__(self):
+            yield self.info
+
+        def wait(self):
+            return SimpleNamespace(move=chosen)
+
+    class Engine:
+        def analysis(self, root, limit, **kwargs):
+            assert [m.uci() for m in root.move_stack] == moves
+            assert root.is_repetition(2) and not root.is_game_over(claim_draw=True)
+            return Analysis()
+
+    result = capture(Engine(), {"id": "history", "fen": board.fen(), "moves": moves}, "depth", 1)
+    assert result["move"] == "e2e4" and result["iterations"][0]["pv"] == ["e2e4"]
+
+
+@pytest.mark.skipif(not os.environ.get("CHESSLAB_DIAGNOSTIC_ENGINE"), reason="Explicit diagnostic build required")
+def test_counter_oracle_distinguishes_unused_ancestors_from_unused_leaves():
+    binary = Path(os.environ["CHESSLAB_DIAGNOSTIC_ENGINE"]).with_name("micro.exe")
+    d = json.loads(subprocess.check_output([str(binary), "--diagnostics-verify"], text=True, timeout=10))
+    assert d["unused_updates"] == 2 and d["unused_leaf_updates"] == 1
+    assert d["unused_null_updates"] == 1 and d["evaluation_calls"] == 3
+    assert d["pending_edges"] == 4 and d["pending_rows"] == 9
+
+
 @pytest.mark.skipif(not os.environ.get("CHESSLAB_DIAGNOSTIC_ENGINE"), reason="Explicit diagnostic build required")
 def test_accumulator_counters_match_the_exhaustive_depth_one_oracle():
     with open_engine(Path(os.environ["CHESSLAB_DIAGNOSTIC_ENGINE"])) as engine:
@@ -112,6 +155,8 @@ def test_accumulator_counters_match_the_exhaustive_depth_one_oracle():
         assert d["updates"] == d["copies"] == d["evaluated_visits"] == 20
         assert d["delta_rows"] == 40 and d["delta_histogram"][2] == 20
         assert d["copy_payload_bytes"] == 20 * 408
+        assert d["row_weight_bytes"] == 40 * 2 * 32 * 4
+        assert d["row_value_read_write_bytes"] == 40 * 4 * 32 * 4
         assert d["evaluation_calls"] == 20 and d["refreshes"] == 1
         assert d["unused_updates"] == d["null_updates"] == d["qvisits"] == 0
         assert d["pending_edges"] == 20 and d["pending_rows"] == 40

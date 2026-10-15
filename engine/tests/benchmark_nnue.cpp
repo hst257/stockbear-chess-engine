@@ -1,6 +1,7 @@
 // Development-only microbenchmarks. Search binaries never link this entry point.
 #include "nnue.hpp"
 #include "evaluation.hpp"
+#include "diagnostics.hpp"
 #include <algorithm>
 #include <atomic>
 #include <chrono>
@@ -30,6 +31,39 @@ template<class F> double time_calls(int n, F function) {
 int main(int argc, char** argv) {
     using namespace chesslab;
     std::cout << std::setprecision(10);
+#ifdef CHESSLAB_DIAGNOSTICS
+    if (argc == 2 && std::string(argv[1]) == "--diagnostics-verify") {
+        // Exact synthetic oracle: an unused ancestor has evaluated children;
+        // a null sibling is an unused leaf; reusing a ply retires it once.
+        namespace d = chesslab::diagnostics;
+        const unsigned width = nnue_width();
+        const std::uint64_t copy = sizeof(NnueFeatures) + 2ULL * width * sizeof(float);
+        d::reset(true, sizeof(NnueAccumulator), 65 * sizeof(NnueAccumulator));
+        auto prepare = [&](int ply, unsigned rows, bool null_edge = false) {
+            d::rows(rows, width, sizeof(float)); d::copied(copy);
+            d::next_null = null_edge; d::prepare(ply);
+        };
+        d::visit(0, false, false);
+        prepare(1, 2); d::visit(1, false, false);
+        prepare(2, 3); d::visit(2, true, false); d::evaluation(2); d::evaluation(2);
+        prepare(2, 0, true); d::visit(2, true, true);
+        prepare(2, 2); d::visit(2, false, false); d::evaluation(2);
+        const auto r = d::finish();
+        if (r.updates != 4 || r.copies != 4 || r.visits != 5 || r.qvisits != 2 ||
+            r.evaluation_calls != 3 || r.evaluated_visits != 2 || r.evaluated_frames != 2 ||
+            r.unused_updates != 2 || r.unused_leaf_updates != 1 || r.unused_leaf_rows != 0 ||
+            r.unused_q_updates != 1 || r.unused_null_updates != 1 || r.null_updates != 1 ||
+            r.normal_updates != 2 || r.q_updates != 2 || r.unvisited_updates != 0 ||
+            r.null_visits != 1 || r.evaluated_null_visits != 0 || r.evaluated_qvisits != 1 ||
+            r.pending_edges != 4 || r.pending_rows != 9 || r.maximum_pending_rows != 5 ||
+            r.maximum_pending_edges != 2 || r.delta_rows != 7 || r.zero_delta_updates != 1 ||
+            r.copy_payload_bytes != 4 * copy || r.row_weight_bytes != 14ULL * width * sizeof(float) ||
+            r.row_value_read_write_bytes != 28ULL * width * sizeof(float))
+            throw std::runtime_error("Diagnostic counter oracle mismatch");
+        std::cout << r.json() << '\n';
+        return 0;
+    }
+#endif
     if (argc >= 2 && std::string(argv[1]) == "--verify") {
         if (argc > 2) nnue_set_kernel(argv[2]);
         std::mt19937 random(20261015);

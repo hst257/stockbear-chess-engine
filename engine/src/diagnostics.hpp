@@ -74,7 +74,7 @@ inline void retire(Frame& frame) {
         if (!frame.descendant_evaluated) { ++report.unused_leaf_updates; report.unused_leaf_rows += frame.delta; }
     }
 }
-inline void rows(unsigned count, unsigned width) {
+inline void rows(unsigned count, unsigned width, unsigned weight_bytes) {
     if (!active) return;
     last_delta = count;
     report.delta_rows += count;
@@ -82,7 +82,7 @@ inline void rows(unsigned count, unsigned width) {
     if (count == 0) ++report.zero_delta_updates;
     ++report.delta_histogram[count < 16 ? count : 16];
     // Two perspectives. Values read + written; weights read once per row.
-    report.row_weight_bytes += 2ULL * count * width * sizeof(float);
+    report.row_weight_bytes += 2ULL * count * width * weight_bytes;
     report.row_value_read_write_bytes += 4ULL * count * width * sizeof(float);
 }
 inline void copied(std::uint64_t bytes) {
