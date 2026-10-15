@@ -181,7 +181,7 @@ def tournaments() -> dict:
     save(ROOT / "tournament-summary.json", data)
     with (ROOT / "tournament-summary.csv").open("w", newline="", encoding="utf-8") as stream:
         columns = ["cohort", "ms", "games", "wins", "draws", "losses", "unfinished", "score", "relative_elo", "complete_pairs"]
-        writer = csv.DictWriter(stream, fieldnames=columns)
+        writer = csv.DictWriter(stream, fieldnames=columns, lineterminator="\n")
         writer.writeheader()
         for group in ("full", "matched_first_ten"):
             for ms, row in data[group].items():
@@ -270,6 +270,32 @@ def throughput() -> dict:
     return data
 
 
+def ablation_throughput() -> dict:
+    source = json.loads((ROOT / "ablations.json").read_text(encoding="utf-8"))
+    groups: dict[tuple, list[dict]] = defaultdict(list)
+    excluded = {r["id"] for r in json.loads((ROOT / "positions.json").read_text(encoding="utf-8"))["positions"] if r["short_forced_fixture"]}
+    for r in source["records"]:
+        groups[(r["configuration"], r["evaluator"], r["mode"], r["position"])].append(r)
+    summaries = []
+    for configuration in ("production", "no_lmr", "no_null", "no_futility", "no_reverse_futility", "no_aspiration"):
+        for evaluator in ("nnue", "classical"):
+            for mode in ("time", "nodes"):
+                ratios = []
+                for key, rows in groups.items():
+                    if key[:3] != (configuration, evaluator, mode) or key[3] in excluded:
+                        continue
+                    baseline = groups[("production", evaluator, mode, key[3])]
+                    if min(statistics.median(r["seconds"] for r in sample) for sample in (rows, baseline)) < .01:
+                        continue
+                    ratios.append(statistics.median(r["nps"] for r in rows) / statistics.median(r["nps"] for r in baseline))
+                summaries.append({"configuration": configuration, "evaluator": evaluator, "mode": mode,
+                                  "eligible_positions": len(ratios),
+                                  "geometric_mean_nps_ratio_to_production": math.exp(statistics.mean(math.log(v) for v in ratios))})
+    data = {"method": "Per-FEN median of two trials, geometric mean ratio to the same evaluator's production baseline. Two short mate fixtures and sub-10ms searches excluded. A changed tree can change NPS; this does not demonstrate improved strength.", "summary": summaries}
+    save(ROOT / "ablation-throughput.json", data)
+    return data
+
+
 def position_analysis() -> dict:
     positions = {r["id"]: r for r in json.loads((ROOT / "positions.json").read_text(encoding="utf-8"))["positions"]}
     reference = {r["position"]: r for r in json.loads((ROOT / "stockfish-quality.json").read_text(encoding="utf-8"))["records"]}
@@ -354,7 +380,7 @@ def position_analysis() -> dict:
             "ablation_effects": ablation_effects, "details": detailed}
     save(ROOT / "position-summary.json", data)
     with (ROOT / "position-summary.csv").open("w", newline="", encoding="utf-8") as stream:
-        writer = csv.DictWriter(stream, fieldnames=list(summary[0]))
+        writer = csv.DictWriter(stream, fieldnames=list(summary[0]), lineterminator="\n")
         writer.writeheader(); writer.writerows(summary)
     sequences: dict[tuple, list[dict]] = defaultdict(list)
     for r in detailed:
@@ -403,9 +429,23 @@ def plots(data: dict) -> None:
     axes[1, 2].axis("off")
     trend = data["all_ten_censoring_aware_trend"]
     axes[1, 2].text(0, .9, "Same 10 opening pairs, reversed colors\n500ms and 1000ms: exploratory\nBlue bars: paired bootstrap/censoring envelope\nBlack bars: possible score for capped games\nCapped scores have no point estimate\nGame NPS reflects different positions\n\n1000ms − 50ms score difference:\n" + f"{trend['endpoint_score_difference_bounds'][0] * 100:+.1f} to {trend['endpoint_score_difference_bounds'][1] * 100:+.1f} percentage points\n95% sensitivity envelope:\n{trend['endpoint_bootstrap_95_envelope'][0] * 100:+.1f} to {trend['endpoint_bootstrap_95_envelope'][1] * 100:+.1f}", va="top", transform=axes[1, 2].transAxes)
+    # Shared limits avoid log-axis padding from reference-line transforms and
+    # keep small differences in ratios/depth from looking artificially large.
+    for ax in list(axes.flat)[:5]:
+        ax.set_xlim(40, 1250)
+    axes[0, 0].set_ylim(0, 100)
+    axes[0, 1].set_ylim(-400, 400)
+    axes[0, 2].set_ylim(0, 1.05)
+    axes[0, 2].axhline(1, color="gray", linestyle="--")
+    axes[1, 0].set_ylim(-1, .25)
+    axes[1, 0].axhline(0, color="gray", linestyle="--")
+    axes[1, 1].set_ylim(bottom=0)
     fig.suptitle("Compact v2 diagnosis — matched time-control trend")
     fig.savefig(ROOT / "matched-trends.png", dpi=160)
     fig.savefig(ROOT / "matched-trends.svg")
+    svg = ROOT / "matched-trends.svg"
+    svg.write_text("\n".join(line.rstrip() for line in svg.read_text(encoding="utf-8").splitlines()) + "\n",
+                   encoding="utf-8", newline="\n")
     plt.close(fig)
 
 
@@ -421,6 +461,7 @@ def main() -> None:
     if args.phase in ("positions", "all"):
         position_analysis()
         throughput()
+        ablation_throughput()
 
 
 if __name__ == "__main__":

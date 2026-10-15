@@ -125,3 +125,6 @@ select a Python environment containing matplotlib. Run prepare, the first-pair
 pilot, the fixed schedule, then the follow-up pipeline. The held-out SQLite
 corpus, Stockfish 19 and training plot environment are local prerequisites for
 the complete regression/reproduction workflow; they are not downloaded by it.
+The report renderer validates `report-inputs.json` because its interpretation is
+specific to this frozen study. New measurements require a fresh interpretation,
+not reusing this report's conclusions automatically.

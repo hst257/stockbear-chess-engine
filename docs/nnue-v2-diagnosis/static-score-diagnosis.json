@@ -1,0 +1,3701 @@
+{
+  "metadata": {
+    "utc": "2026-10-15T14:56:38.580874+00:00",
+    "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v2\\final-compact\\engine.exe",
+    "sha256": "d55439565b86d950eaac43fbfb29e6614c18e7f8192e3c6fb7f489452dec6c9a",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+    "logical_cpus": 12,
+    "python": "3.11.8",
+    "source_revision": "ded07bdf3445404ad9bcec3a45f5489b8bd52108",
+    "build": {
+      "compiler": [
+        "Z:\\Code\\Chess\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ziglang",
+        "c++"
+      ],
+      "flags": [
+        "-std=c++17",
+        "-O2",
+        "-pthread",
+        "-Wall",
+        "-Wextra",
+        "-ffp-contract=off",
+        "-I",
+        "Z:\\Code\\Chess\\artifacts\\nnue-v2\\final-compact\\generated",
+        "-I",
+        "Z:\\Code\\Chess\\engine\\vendor\\chess-library",
+        "-I",
+        "Z:\\Code\\Chess\\engine\\src",
+        "Z:\\Code\\Chess\\engine\\src\\main.cpp",
+        "Z:\\Code\\Chess\\engine\\src\\search.cpp",
+        "Z:\\Code\\Chess\\engine\\src\\evaluation.cpp",
+        "Z:\\Code\\Chess\\engine\\src\\nnue.cpp",
+        "-o",
+        "Z:\\Code\\Chess\\artifacts\\nnue-v2\\final-compact\\engine.exe"
+      ],
+      "profile": false,
+      "optimization": "O2",
+      "lto": false,
+      "sanitizer": null,
+      "nnue": {
+        "model": "Z:\\Code\\Chess\\engine\\networks\\v2\\stockbear-v2-compact.sbnnue",
+        "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+        "payload_sha256": "6430669474029ef0effee25a8309e0751e8ca6411ff0b39d9e8ae50cf7fa5601",
+        "width": 32,
+        "hidden": 16,
+        "feature_version": "dual-perspective-12x64-castling-ep-v1",
+        "quantization": {
+          "supported": true,
+          "first_scale": 4096,
+          "activation_scale": 4096,
+          "head_weight_scale": 4096,
+          "output_weight_scale": 4096,
+          "accumulator_abs_bound": 123634,
+          "head_abs_bound": 238645611,
+          "output_abs_bound": 167827512,
+          "rounding": "nearest, ties away from zero",
+          "derived_bytes": 52260
+        }
+      },
+      "generator_sha256": "f00e0ed44fdc661549fd8345aabb175c4d8d33f8fe53e3fc32ff356dad546cf8",
+      "source_sha256": {
+        "engine\\src\\evaluation.cpp": "87ed00f717a19d593969b3b84d4e48586a8dc576d54ac1260350648a967639f7",
+        "engine\\src\\evaluation.hpp": "01f5eac3194175f4f6615629146ce95700de2a0c351cae49b8346ac635b05c91",
+        "engine\\src\\evaluation_masks.hpp": "2d1af8a6465e59bb0fce0878b694736207dcbd065c9419a3e7d5ba858196b92b",
+        "engine\\src\\main.cpp": "8b40f059ccb3e1029cccb84fba4500b9c08d9278e1cd5d0308539b1655f70041",
+        "engine\\src\\nnue.cpp": "05448bdd302defcfdbb38117d6eeda6801900ded50597f5e4ce0508b61e0ea8c",
+        "engine\\src\\nnue.hpp": "a0132cc742715390a151cc2bafcf544e9dead1a0c967c2df68089831ef227089",
+        "engine\\src\\pawn_cache.hpp": "f4240a187937c41f1b70ea2a901b1efd3b0b9c9309db8a0e4643a776bf6fc6ca",
+        "engine\\src\\principal_variation.hpp": "5a7b342185a4abbeca3638eaca0de2d9c3caa02a7f00710f631b9f87d4c5614c",
+        "engine\\src\\profiling.hpp": "2d5304f600d8d6760f75d43c6d0cef2b57e47487f3de8c9fc96c8a5dd772de7b",
+        "engine\\src\\pst.hpp": "a7f007ab55fd4bb3a6d4fae93b97b25e371faefc633351c0a70cd4eb40be111b",
+        "engine\\src\\scoped_move.hpp": "3e815c8e3f825105cf0f43a61750aa452c6f46a9c04a456b14a43dc09e07ea72",
+        "engine\\src\\search.cpp": "433183ea66249e3ba6252a85ad3566d871f2336ba37979552ad320c5984b7a3b",
+        "engine\\src\\search.hpp": "7aad55a31d2910112393a7dc66e0ce9d1e632a26d952d8f97c8f9c68d45b6a3d",
+        "engine\\src\\search_policy.hpp": "06cd21e30dc793570a2d717c9cd6976320342a2c21cac6f392fd64b548e54324",
+        "engine\\src\\strength.hpp": "133f330350dbf68f1f6e31bf67e8b310e1d639577918b626a5e4bb5b6cab7d68",
+        "engine\\src\\terminal_rules.hpp": "08880e1a158016cb43e4d05c818baa0d85f48a0d673837c3e43842251caf6f59",
+        "engine\\src\\transposition.hpp": "e41ab9b9e1bbf3f313d61e812e40e4dfebbc0debc6964ee85a83f68668b9d6a0"
+      }
+    }
+  },
+  "method": "Static White scores converted to root side-to-move and compared with SF19 root searches at 300k nodes. These are different horizons: errors mix static-evaluation limitations and tactics. Twenty-four selected positions cannot establish global calibration or justify changing scale. Mate references remain separate. Training uses 0.9*sigmoid(clamp(teacher_cp,-2000,2000)/400)+0.1*game_result, sigmoid-space MSE; it does not directly minimize CP error.",
+  "records": [
+    {
+      "position": "start",
+      "category": "opening",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "reference_root_cp": 25,
+      "reference_root_mate": null,
+      "nnue": {
+        "white_cp": 19,
+        "side_to_move_cp": 19,
+        "raw": {
+          "evaluator": "nnue",
+          "model": "stockbear-v2-compact.sbnnue",
+          "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+          "width": 32,
+          "hidden": 16,
+          "kernel": "scalar",
+          "side_to_move_cp": 18.9865284,
+          "raw_white_cp": 18.9865284,
+          "total": 19,
+          "features": [
+            [
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              65,
+              70,
+              130,
+              133,
+              192,
+              199,
+              259,
+              324,
+              432,
+              433,
+              434,
+              435,
+              436,
+              437,
+              438,
+              439,
+              505,
+              510,
+              570,
+              573,
+              632,
+              639,
+              699,
+              764,
+              768,
+              769,
+              770,
+              771
+            ],
+            [
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              65,
+              70,
+              130,
+              133,
+              192,
+              199,
+              259,
+              324,
+              432,
+              433,
+              434,
+              435,
+              436,
+              437,
+              438,
+              439,
+              505,
+              510,
+              570,
+              573,
+              632,
+              639,
+              699,
+              764,
+              768,
+              769,
+              770,
+              771
+            ]
+          ]
+        }
+      },
+      "classical": {
+        "white_cp": 0,
+        "side_to_move_cp": 0,
+        "raw": {
+          "use_pst": true,
+          "material": 0,
+          "pst": {
+            "pawn": 0,
+            "knight": 0,
+            "bishop": 0,
+            "rook": 0,
+            "queen": 0,
+            "king": 0
+          },
+          "positional": 0,
+          "total": 0,
+          "phase": 24,
+          "advanced": true,
+          "components": {
+            "material": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "pst": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "pawn_structure": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "passed_pawns": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "bishop_pair": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "rook_activity": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "mobility": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "outposts": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "king_safety": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "space": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "endgame": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            }
+          },
+          "mg": 0,
+          "eg": 0,
+          "rounding": 0,
+          "scale": 256,
+          "scaling": 0
+        }
+      }
+    },
+    {
+      "position": "queen_gambit",
+      "category": "opening",
+      "fen": "rnbqkb1r/ppp2ppp/4pn2/3p4/2PP4/2N5/PP2PPPP/R1BQKBNR w KQkq - 2 4",
+      "reference_root_cp": 22,
+      "reference_root_mate": null,
+      "nnue": {
+        "white_cp": 44,
+        "side_to_move_cp": 44,
+        "raw": {
+          "evaluator": "nnue",
+          "model": "stockbear-v2-compact.sbnnue",
+          "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+          "width": 32,
+          "hidden": 16,
+          "kernel": "scalar",
+          "side_to_move_cp": 43.9213943,
+          "raw_white_cp": 43.9213943,
+          "total": 44,
+          "features": [
+            [
+              8,
+              9,
+              12,
+              13,
+              14,
+              15,
+              26,
+              27,
+              70,
+              82,
+              130,
+              133,
+              192,
+              199,
+              259,
+              324,
+              419,
+              428,
+              432,
+              433,
+              434,
+              437,
+              438,
+              439,
+              493,
+              505,
+              570,
+              573,
+              632,
+              639,
+              699,
+              764,
+              768,
+              769,
+              770,
+              771
+            ],
+            [
+              8,
+              9,
+              10,
+              13,
+              14,
+              15,
+              20,
+              27,
+              65,
+              85,
+              130,
+              133,
+              192,
+              199,
+              259,
+              324,
+              418,
+              419,
+              432,
+              433,
+              436,
+              437,
+              438,
+              439,
+              490,
+              510,
+              570,
+              573,
+              632,
+              639,
+              699,
+              764,
+              768,
+              769,
+              770,
+              771
+            ]
+          ]
+        }
+      },
+      "classical": {
+        "white_cp": -27,
+        "side_to_move_cp": -27,
+        "raw": {
+          "use_pst": true,
+          "material": 0,
+          "pst": {
+            "pawn": -30,
+            "knight": 0,
+            "bishop": 0,
+            "rook": 0,
+            "queen": 0,
+            "king": 0
+          },
+          "positional": -30,
+          "total": -27,
+          "phase": 24,
+          "advanced": true,
+          "components": {
+            "material": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "pst": {
+              "mg": -30,
+              "eg": -30,
+              "cp": -30
+            },
+            "pawn_structure": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "passed_pawns": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "bishop_pair": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "rook_activity": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "mobility": {
+              "mg": -4,
+              "eg": -4,
+              "cp": -4
+            },
+            "outposts": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "king_safety": {
+              "mg": 5,
+              "eg": 0,
+              "cp": 5
+            },
+            "space": {
+              "mg": 2,
+              "eg": 1,
+              "cp": 2
+            },
+            "endgame": {
+              "mg": 0,
+              "eg": -1,
+              "cp": 0
+            }
+          },
+          "mg": -27,
+          "eg": -34,
+          "rounding": 0,
+          "scale": 256,
+          "scaling": 0
+        }
+      }
+    },
+    {
+      "position": "old_middle",
+      "category": "quiet_middlegame",
+      "fen": "r1bq1rk1/ppp2ppp/2np1n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQ1RK1 w - - 4 7",
+      "reference_root_cp": 17,
+      "reference_root_mate": null,
+      "nnue": {
+        "white_cp": 19,
+        "side_to_move_cp": 19,
+        "raw": {
+          "evaluator": "nnue",
+          "model": "stockbear-v2-compact.sbnnue",
+          "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+          "width": 32,
+          "hidden": 16,
+          "kernel": "scalar",
+          "side_to_move_cp": 19.0539474,
+          "raw_white_cp": 19.0539474,
+          "total": 19,
+          "features": [
+            [
+              8,
+              9,
+              10,
+              13,
+              14,
+              15,
+              19,
+              28,
+              82,
+              85,
+              130,
+              154,
+              192,
+              197,
+              259,
+              326,
+              420,
+              427,
+              432,
+              433,
+              434,
+              437,
+              438,
+              439,
+              490,
+              493,
+              546,
+              570,
+              632,
+              637,
+              699,
+              766
+            ],
+            [
+              8,
+              9,
+              10,
+              13,
+              14,
+              15,
+              19,
+              28,
+              82,
+              85,
+              130,
+              154,
+              192,
+              197,
+              259,
+              326,
+              420,
+              427,
+              432,
+              433,
+              434,
+              437,
+              438,
+              439,
+              490,
+              493,
+              546,
+              570,
+              632,
+              637,
+              699,
+              766
+            ]
+          ]
+        }
+      },
+      "classical": {
+        "white_cp": 0,
+        "side_to_move_cp": 0,
+        "raw": {
+          "use_pst": true,
+          "material": 0,
+          "pst": {
+            "pawn": 0,
+            "knight": 0,
+            "bishop": 0,
+            "rook": 0,
+            "queen": 0,
+            "king": 0
+          },
+          "positional": 0,
+          "total": 0,
+          "phase": 24,
+          "advanced": true,
+          "components": {
+            "material": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "pst": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "pawn_structure": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "passed_pawns": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "bishop_pair": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "rook_activity": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "mobility": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "outposts": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "king_safety": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "space": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "endgame": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            }
+          },
+          "mg": 0,
+          "eg": 0,
+          "rounding": 0,
+          "scale": 256,
+          "scaling": 0
+        }
+      }
+    },
+    {
+      "position": "italian_structure",
+      "category": "quiet_middlegame",
+      "fen": "r1bq1rk1/pp2bppp/2nppn2/2p5/2B1P3/2NP1N2/PPP2PPP/R1BQ1RK1 w - - 4 8",
+      "reference_root_cp": -19,
+      "reference_root_mate": null,
+      "nnue": {
+        "white_cp": -40,
+        "side_to_move_cp": -40,
+        "raw": {
+          "evaluator": "nnue",
+          "model": "stockbear-v2-compact.sbnnue",
+          "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+          "width": 32,
+          "hidden": 16,
+          "kernel": "scalar",
+          "side_to_move_cp": -39.694828,
+          "raw_white_cp": -39.694828,
+          "total": -40,
+          "features": [
+            [
+              8,
+              9,
+              10,
+              13,
+              14,
+              15,
+              19,
+              28,
+              82,
+              85,
+              130,
+              154,
+              192,
+              197,
+              259,
+              326,
+              418,
+              427,
+              428,
+              432,
+              433,
+              437,
+              438,
+              439,
+              490,
+              493,
+              564,
+              570,
+              632,
+              637,
+              699,
+              766
+            ],
+            [
+              8,
+              9,
+              13,
+              14,
+              15,
+              19,
+              20,
+              26,
+              82,
+              85,
+              130,
+              140,
+              192,
+              197,
+              259,
+              326,
+              420,
+              427,
+              432,
+              433,
+              434,
+              437,
+              438,
+              439,
+              490,
+              493,
+              546,
+              570,
+              632,
+              637,
+              699,
+              766
+            ]
+          ]
+        }
+      },
+      "classical": {
+        "white_cp": 43,
+        "side_to_move_cp": 43,
+        "raw": {
+          "use_pst": true,
+          "material": 0,
+          "pst": {
+            "pawn": 30,
+            "knight": 0,
+            "bishop": 10,
+            "rook": 0,
+            "queen": 0,
+            "king": 0
+          },
+          "positional": 40,
+          "total": 43,
+          "phase": 24,
+          "advanced": true,
+          "components": {
+            "material": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "pst": {
+              "mg": 40,
+              "eg": 40,
+              "cp": 40
+            },
+            "pawn_structure": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "passed_pawns": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "bishop_pair": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "rook_activity": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "mobility": {
+              "mg": 10,
+              "eg": 15,
+              "cp": 10
+            },
+            "outposts": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "king_safety": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "space": {
+              "mg": -7,
+              "eg": -1,
+              "cp": -7
+            },
+            "endgame": {
+              "mg": 0,
+              "eg": 1,
+              "cp": 0
+            }
+          },
+          "mg": 43,
+          "eg": 55,
+          "rounding": 0,
+          "scale": 256,
+          "scaling": 0
+        }
+      }
+    },
+    {
+      "position": "kiwipete",
+      "category": "tactical",
+      "fen": "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1",
+      "reference_root_cp": -229,
+      "reference_root_mate": null,
+      "nnue": {
+        "white_cp": -7,
+        "side_to_move_cp": -7,
+        "raw": {
+          "evaluator": "nnue",
+          "model": "stockbear-v2-compact.sbnnue",
+          "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+          "width": 32,
+          "hidden": 16,
+          "kernel": "scalar",
+          "side_to_move_cp": -7.03902817,
+          "raw_white_cp": -7.03902817,
+          "total": -7,
+          "features": [
+            [
+              8,
+              9,
+              10,
+              13,
+              14,
+              15,
+              28,
+              35,
+              82,
+              100,
+              139,
+              140,
+              192,
+              199,
+              277,
+              324,
+              407,
+              409,
+              428,
+              430,
+              432,
+              434,
+              435,
+              437,
+              489,
+              493,
+              552,
+              566,
+              632,
+              639,
+              692,
+              764,
+              768,
+              769,
+              770,
+              771
+            ],
+            [
+              8,
+              10,
+              11,
+              13,
+              20,
+              22,
+              33,
+              47,
+              81,
+              85,
+              142,
+              144,
+              192,
+              199,
+              268,
+              324,
+              411,
+              420,
+              432,
+              433,
+              434,
+              437,
+              438,
+              439,
+              476,
+              490,
+              563,
+              564,
+              632,
+              639,
+              685,
+              764,
+              768,
+              769,
+              770,
+              771
+            ]
+          ]
+        }
+      },
+      "classical": {
+        "white_cp": 117,
+        "side_to_move_cp": 117,
+        "raw": {
+          "use_pst": true,
+          "material": 0,
+          "pst": {
+            "pawn": 80,
+            "knight": 15,
+            "bishop": 5,
+            "rook": 0,
+            "queen": 5,
+            "king": 0
+          },
+          "positional": 105,
+          "total": 117,
+          "phase": 24,
+          "advanced": true,
+          "components": {
+            "material": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "pst": {
+              "mg": 105,
+              "eg": 105,
+              "cp": 105
+            },
+            "pawn_structure": {
+              "mg": 15,
+              "eg": 24,
+              "cp": 15
+            },
+            "passed_pawns": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "bishop_pair": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "rook_activity": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "mobility": {
+              "mg": 12,
+              "eg": 13,
+              "cp": 12
+            },
+            "outposts": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "king_safety": {
+              "mg": -15,
+              "eg": 0,
+              "cp": -15
+            },
+            "space": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "endgame": {
+              "mg": 0,
+              "eg": 1,
+              "cp": 0
+            }
+          },
+          "mg": 117,
+          "eg": 143,
+          "rounding": 0,
+          "scale": 256,
+          "scaling": 0
+        }
+      }
+    },
+    {
+      "position": "pins",
+      "category": "tactical",
+      "fen": "r4rk1/1pp1qppp/p1np1n2/2b1p1B1/2B1P1b1/P1NP1N2/1PP1QPPP/R4RK1 w - - 0 10",
+      "reference_root_cp": 336,
+      "reference_root_mate": null,
+      "nnue": {
+        "white_cp": 28,
+        "side_to_move_cp": 28,
+        "raw": {
+          "evaluator": "nnue",
+          "model": "stockbear-v2-compact.sbnnue",
+          "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+          "width": 32,
+          "hidden": 16,
+          "kernel": "scalar",
+          "side_to_move_cp": 27.5166683,
+          "raw_white_cp": 27.5166683,
+          "total": 28,
+          "features": [
+            [
+              9,
+              10,
+              13,
+              14,
+              15,
+              16,
+              19,
+              28,
+              82,
+              85,
+              154,
+              166,
+              192,
+              197,
+              268,
+              326,
+              420,
+              424,
+              427,
+              433,
+              434,
+              437,
+              438,
+              439,
+              490,
+              493,
+              542,
+              546,
+              632,
+              637,
+              692,
+              766
+            ],
+            [
+              9,
+              10,
+              13,
+              14,
+              15,
+              16,
+              19,
+              28,
+              82,
+              85,
+              154,
+              166,
+              192,
+              197,
+              268,
+              326,
+              420,
+              424,
+              427,
+              433,
+              434,
+              437,
+              438,
+              439,
+              490,
+              493,
+              542,
+              546,
+              632,
+              637,
+              692,
+              766
+            ]
+          ]
+        }
+      },
+      "classical": {
+        "white_cp": 0,
+        "side_to_move_cp": 0,
+        "raw": {
+          "use_pst": true,
+          "material": 0,
+          "pst": {
+            "pawn": 0,
+            "knight": 0,
+            "bishop": 0,
+            "rook": 0,
+            "queen": 0,
+            "king": 0
+          },
+          "positional": 0,
+          "total": 0,
+          "phase": 24,
+          "advanced": true,
+          "components": {
+            "material": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "pst": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "pawn_structure": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "passed_pawns": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "bishop_pair": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "rook_activity": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "mobility": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "outposts": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "king_safety": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "space": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "endgame": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            }
+          },
+          "mg": 0,
+          "eg": 0,
+          "rounding": 0,
+          "scale": 256,
+          "scaling": 0
+        }
+      }
+    },
+    {
+      "position": "attack_complex",
+      "category": "king_attack",
+      "fen": "r3r1k1/ppp2ppp/2n2n2/2bq4/3P4/2PBBN2/PP3PPP/R2Q1RK1 w - - 0 12",
+      "reference_root_cp": 740,
+      "reference_root_mate": null,
+      "nnue": {
+        "white_cp": 313,
+        "side_to_move_cp": 313,
+        "raw": {
+          "evaluator": "nnue",
+          "model": "stockbear-v2-compact.sbnnue",
+          "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+          "width": 32,
+          "hidden": 16,
+          "kernel": "scalar",
+          "side_to_move_cp": 313.152832,
+          "raw_white_cp": 313.152832,
+          "total": 313,
+          "features": [
+            [
+              8,
+              9,
+              13,
+              14,
+              15,
+              18,
+              27,
+              85,
+              147,
+              148,
+              192,
+              197,
+              259,
+              326,
+              432,
+              433,
+              434,
+              437,
+              438,
+              439,
+              490,
+              493,
+              546,
+              632,
+              636,
+              675,
+              766
+            ],
+            [
+              8,
+              9,
+              10,
+              13,
+              14,
+              15,
+              82,
+              85,
+              154,
+              192,
+              196,
+              283,
+              326,
+              419,
+              426,
+              432,
+              433,
+              437,
+              438,
+              439,
+              493,
+              555,
+              556,
+              632,
+              637,
+              699,
+              766
+            ]
+          ]
+        }
+      },
+      "classical": {
+        "white_cp": 105,
+        "side_to_move_cp": 105,
+        "raw": {
+          "use_pst": true,
+          "material": 110,
+          "pst": {
+            "pawn": 0,
+            "knight": -10,
+            "bishop": 10,
+            "rook": -5,
+            "queen": -10,
+            "king": 0
+          },
+          "positional": -15,
+          "total": 105,
+          "phase": 22,
+          "advanced": true,
+          "components": {
+            "material": {
+              "mg": 110,
+              "eg": 110,
+              "cp": 110
+            },
+            "pst": {
+              "mg": -15,
+              "eg": -15,
+              "cp": -15
+            },
+            "pawn_structure": {
+              "mg": 5,
+              "eg": 8,
+              "cp": 5
+            },
+            "passed_pawns": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "bishop_pair": {
+              "mg": 25,
+              "eg": 40,
+              "cp": 26
+            },
+            "rook_activity": {
+              "mg": -18,
+              "eg": -12,
+              "cp": -18
+            },
+            "mobility": {
+              "mg": -9,
+              "eg": -15,
+              "cp": -10
+            },
+            "outposts": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "king_safety": {
+              "mg": 3,
+              "eg": 0,
+              "cp": 3
+            },
+            "space": {
+              "mg": 3,
+              "eg": 1,
+              "cp": 3
+            },
+            "endgame": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            }
+          },
+          "mg": 104,
+          "eg": 117,
+          "rounding": 1,
+          "scale": 256,
+          "scaling": 0
+        }
+      }
+    },
+    {
+      "position": "mate_net",
+      "category": "king_attack",
+      "fen": "6k1/5ppp/8/7Q/2B5/8/5PPP/6K1 w - - 0 1",
+      "reference_root_cp": null,
+      "reference_root_mate": 2,
+      "nnue": {
+        "white_cp": 1075,
+        "side_to_move_cp": 1075,
+        "raw": {
+          "evaluator": "nnue",
+          "model": "stockbear-v2-compact.sbnnue",
+          "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+          "width": 32,
+          "hidden": 16,
+          "kernel": "scalar",
+          "side_to_move_cp": 1075.20728,
+          "raw_white_cp": 1075.20728,
+          "total": 1075,
+          "features": [
+            [
+              13,
+              14,
+              15,
+              154,
+              295,
+              326,
+              437,
+              438,
+              439,
+              766
+            ],
+            [
+              13,
+              14,
+              15,
+              326,
+              437,
+              438,
+              439,
+              546,
+              671,
+              766
+            ]
+          ]
+        }
+      },
+      "classical": {
+        "white_cp": 1251,
+        "side_to_move_cp": 1251,
+        "raw": {
+          "use_pst": true,
+          "material": 1230,
+          "pst": {
+            "pawn": 0,
+            "knight": 0,
+            "bishop": 10,
+            "rook": 0,
+            "queen": -5,
+            "king": 0
+          },
+          "positional": 5,
+          "total": 1251,
+          "phase": 5,
+          "advanced": true,
+          "components": {
+            "material": {
+              "mg": 1230,
+              "eg": 1230,
+              "cp": 1230
+            },
+            "pst": {
+              "mg": 5,
+              "eg": 5,
+              "cp": 5
+            },
+            "pawn_structure": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "passed_pawns": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "bishop_pair": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "rook_activity": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "mobility": {
+              "mg": 7,
+              "eg": 9,
+              "cp": 9
+            },
+            "outposts": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "king_safety": {
+              "mg": 22,
+              "eg": 0,
+              "cp": 5
+            },
+            "space": {
+              "mg": 4,
+              "eg": 2,
+              "cp": 2
+            },
+            "endgame": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            }
+          },
+          "mg": 1268,
+          "eg": 1246,
+          "rounding": 0,
+          "scale": 256,
+          "scaling": 0
+        }
+      }
+    },
+    {
+      "position": "queen_rooks",
+      "category": "material_imbalance",
+      "fen": "r3k2r/ppp2ppp/2n5/8/3Q4/2N5/PPP2PPP/R3K3 w Qkq - 0 1",
+      "reference_root_cp": 808,
+      "reference_root_mate": null,
+      "nnue": {
+        "white_cp": 943,
+        "side_to_move_cp": 943,
+        "raw": {
+          "evaluator": "nnue",
+          "model": "stockbear-v2-compact.sbnnue",
+          "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+          "width": 32,
+          "hidden": 16,
+          "kernel": "scalar",
+          "side_to_move_cp": 942.993164,
+          "raw_white_cp": 942.993164,
+          "total": 943,
+          "features": [
+            [
+              8,
+              9,
+              10,
+              13,
+              14,
+              15,
+              82,
+              192,
+              283,
+              324,
+              432,
+              433,
+              434,
+              437,
+              438,
+              439,
+              490,
+              632,
+              639,
+              764,
+              769,
+              770,
+              771
+            ],
+            [
+              8,
+              9,
+              10,
+              13,
+              14,
+              15,
+              82,
+              192,
+              199,
+              324,
+              432,
+              433,
+              434,
+              437,
+              438,
+              439,
+              490,
+              632,
+              675,
+              764,
+              768,
+              769,
+              771
+            ]
+          ]
+        }
+      },
+      "classical": {
+        "white_cp": 438,
+        "side_to_move_cp": 438,
+        "raw": {
+          "use_pst": true,
+          "material": 400,
+          "pst": {
+            "pawn": 0,
+            "knight": 0,
+            "bishop": 0,
+            "rook": 0,
+            "queen": 5,
+            "king": 0
+          },
+          "positional": 5,
+          "total": 438,
+          "phase": 12,
+          "advanced": true,
+          "components": {
+            "material": {
+              "mg": 400,
+              "eg": 400,
+              "cp": 400
+            },
+            "pst": {
+              "mg": 5,
+              "eg": 5,
+              "cp": 5
+            },
+            "pawn_structure": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "passed_pawns": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "bishop_pair": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "rook_activity": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "mobility": {
+              "mg": 17,
+              "eg": 22,
+              "cp": 20
+            },
+            "outposts": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "king_safety": {
+              "mg": 23,
+              "eg": 0,
+              "cp": 12
+            },
+            "space": {
+              "mg": 2,
+              "eg": 1,
+              "cp": 2
+            },
+            "endgame": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            }
+          },
+          "mg": 447,
+          "eg": 428,
+          "rounding": -1,
+          "scale": 256,
+          "scaling": 0
+        }
+      }
+    },
+    {
+      "position": "rook_minors",
+      "category": "material_imbalance",
+      "fen": "2r3k1/pp3ppp/8/8/2B5/2N5/PP3PPP/6K1 b - - 0 1",
+      "reference_root_cp": 557,
+      "reference_root_mate": null,
+      "nnue": {
+        "white_cp": 262,
+        "side_to_move_cp": -262,
+        "raw": {
+          "evaluator": "nnue",
+          "model": "stockbear-v2-compact.sbnnue",
+          "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+          "width": 32,
+          "hidden": 16,
+          "kernel": "scalar",
+          "side_to_move_cp": -262.359283,
+          "raw_white_cp": 262.359283,
+          "total": 262,
+          "features": [
+            [
+              8,
+              9,
+              13,
+              14,
+              15,
+              82,
+              154,
+              326,
+              432,
+              433,
+              437,
+              438,
+              439,
+              634,
+              766
+            ],
+            [
+              8,
+              9,
+              13,
+              14,
+              15,
+              194,
+              326,
+              432,
+              433,
+              437,
+              438,
+              439,
+              490,
+              546,
+              766
+            ]
+          ]
+        }
+      },
+      "classical": {
+        "white_cp": 163,
+        "side_to_move_cp": -163,
+        "raw": {
+          "use_pst": true,
+          "material": 150,
+          "pst": {
+            "pawn": 0,
+            "knight": 10,
+            "bishop": 10,
+            "rook": 0,
+            "queen": 0,
+            "king": 0
+          },
+          "positional": 20,
+          "total": 163,
+          "phase": 4,
+          "advanced": true,
+          "components": {
+            "material": {
+              "mg": 150,
+              "eg": 150,
+              "cp": 150
+            },
+            "pst": {
+              "mg": 20,
+              "eg": 20,
+              "cp": 20
+            },
+            "pawn_structure": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "passed_pawns": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "bishop_pair": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "rook_activity": {
+              "mg": -18,
+              "eg": -12,
+              "cp": -13
+            },
+            "mobility": {
+              "mg": 5,
+              "eg": 3,
+              "cp": 3
+            },
+            "outposts": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "king_safety": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "space": {
+              "mg": 4,
+              "eg": 2,
+              "cp": 2
+            },
+            "endgame": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            }
+          },
+          "mg": 161,
+          "eg": 163,
+          "rounding": 1,
+          "scale": 256,
+          "scaling": 0
+        }
+      }
+    },
+    {
+      "position": "old_pawns",
+      "category": "pawn_endgame",
+      "fen": "8/5pk1/6p1/8/3K4/6P1/5P2/8 w - - 0 1",
+      "reference_root_cp": 16,
+      "reference_root_mate": null,
+      "nnue": {
+        "white_cp": 17,
+        "side_to_move_cp": 17,
+        "raw": {
+          "evaluator": "nnue",
+          "model": "stockbear-v2-compact.sbnnue",
+          "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+          "width": 32,
+          "hidden": 16,
+          "kernel": "scalar",
+          "side_to_move_cp": 17.1752281,
+          "raw_white_cp": 17.1752281,
+          "total": 17,
+          "features": [
+            [
+              13,
+              22,
+              347,
+              430,
+              437,
+              758
+            ],
+            [
+              13,
+              22,
+              334,
+              430,
+              437,
+              739
+            ]
+          ]
+        }
+      },
+      "classical": {
+        "white_cp": 76,
+        "side_to_move_cp": 76,
+        "raw": {
+          "use_pst": true,
+          "material": 0,
+          "pst": {
+            "pawn": 0,
+            "knight": 0,
+            "bishop": 0,
+            "rook": 0,
+            "queen": 0,
+            "king": 70
+          },
+          "positional": 70,
+          "total": 76,
+          "phase": 0,
+          "advanced": true,
+          "components": {
+            "material": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "pst": {
+              "mg": -60,
+              "eg": 70,
+              "cp": 70
+            },
+            "pawn_structure": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "passed_pawns": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "bishop_pair": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "rook_activity": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "mobility": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "outposts": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "king_safety": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "space": {
+              "mg": 6,
+              "eg": 3,
+              "cp": 3
+            },
+            "endgame": {
+              "mg": 0,
+              "eg": 3,
+              "cp": 3
+            }
+          },
+          "mg": -54,
+          "eg": 76,
+          "rounding": 0,
+          "scale": 256,
+          "scaling": 0
+        }
+      }
+    },
+    {
+      "position": "opposed_pawns",
+      "category": "pawn_endgame",
+      "fen": "8/5pk1/6p1/3p4/3P4/5PK1/6P1/8 w - - 0 1",
+      "reference_root_cp": 9,
+      "reference_root_mate": null,
+      "nnue": {
+        "white_cp": 36,
+        "side_to_move_cp": 36,
+        "raw": {
+          "evaluator": "nnue",
+          "model": "stockbear-v2-compact.sbnnue",
+          "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+          "width": 32,
+          "hidden": 16,
+          "kernel": "scalar",
+          "side_to_move_cp": 36.2960167,
+          "raw_white_cp": 36.2960167,
+          "total": 36,
+          "features": [
+            [
+              14,
+              21,
+              27,
+              342,
+              419,
+              430,
+              437,
+              758
+            ],
+            [
+              13,
+              22,
+              27,
+              334,
+              419,
+              429,
+              438,
+              750
+            ]
+          ]
+        }
+      },
+      "classical": {
+        "white_cp": 17,
+        "side_to_move_cp": 17,
+        "raw": {
+          "use_pst": true,
+          "material": 0,
+          "pst": {
+            "pawn": -5,
+            "knight": 0,
+            "bishop": 0,
+            "rook": 0,
+            "queen": 0,
+            "king": 20
+          },
+          "positional": 15,
+          "total": 17,
+          "phase": 0,
+          "advanced": true,
+          "components": {
+            "material": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "pst": {
+              "mg": -45,
+              "eg": 15,
+              "cp": 15
+            },
+            "pawn_structure": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "passed_pawns": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "bishop_pair": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "rook_activity": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "mobility": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "outposts": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "king_safety": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "space": {
+              "mg": 2,
+              "eg": 1,
+              "cp": 1
+            },
+            "endgame": {
+              "mg": 0,
+              "eg": 1,
+              "cp": 1
+            }
+          },
+          "mg": -43,
+          "eg": 17,
+          "rounding": 0,
+          "scale": 256,
+          "scaling": 0
+        }
+      }
+    },
+    {
+      "position": "rooks",
+      "category": "piece_endgame",
+      "fen": "8/5pk1/6p1/3R4/8/5PK1/6P1/1r6 w - - 0 1",
+      "reference_root_cp": 0,
+      "reference_root_mate": null,
+      "nnue": {
+        "white_cp": 60,
+        "side_to_move_cp": 60,
+        "raw": {
+          "evaluator": "nnue",
+          "model": "stockbear-v2-compact.sbnnue",
+          "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+          "width": 32,
+          "hidden": 16,
+          "kernel": "scalar",
+          "side_to_move_cp": 59.9822578,
+          "raw_white_cp": 59.9822578,
+          "total": 60,
+          "features": [
+            [
+              14,
+              21,
+              227,
+              342,
+              430,
+              437,
+              577,
+              758
+            ],
+            [
+              13,
+              22,
+              249,
+              334,
+              429,
+              438,
+              603,
+              750
+            ]
+          ]
+        }
+      },
+      "classical": {
+        "white_cp": 4,
+        "side_to_move_cp": 4,
+        "raw": {
+          "use_pst": true,
+          "material": 0,
+          "pst": {
+            "pawn": -5,
+            "knight": 0,
+            "bishop": 0,
+            "rook": 0,
+            "queen": 0,
+            "king": 10
+          },
+          "positional": 5,
+          "total": 4,
+          "phase": 4,
+          "advanced": true,
+          "components": {
+            "material": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "pst": {
+              "mg": -45,
+              "eg": 15,
+              "cp": 5
+            },
+            "pawn_structure": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "passed_pawns": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "bishop_pair": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "rook_activity": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "mobility": {
+              "mg": -4,
+              "eg": -6,
+              "cp": -6
+            },
+            "outposts": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "king_safety": {
+              "mg": -2,
+              "eg": 0,
+              "cp": 0
+            },
+            "space": {
+              "mg": 6,
+              "eg": 3,
+              "cp": 4
+            },
+            "endgame": {
+              "mg": 0,
+              "eg": 2,
+              "cp": 2
+            }
+          },
+          "mg": -45,
+          "eg": 14,
+          "rounding": -1,
+          "scale": 256,
+          "scaling": 0
+        }
+      }
+    },
+    {
+      "position": "rook_bishop",
+      "category": "piece_endgame",
+      "fen": "8/2r2pk1/6p1/3B4/8/5PK1/6P1/1R6 w - - 0 1",
+      "reference_root_cp": 539,
+      "reference_root_mate": null,
+      "nnue": {
+        "white_cp": 411,
+        "side_to_move_cp": 411,
+        "raw": {
+          "evaluator": "nnue",
+          "model": "stockbear-v2-compact.sbnnue",
+          "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+          "width": 32,
+          "hidden": 16,
+          "kernel": "scalar",
+          "side_to_move_cp": 410.706604,
+          "raw_white_cp": 410.706604,
+          "total": 411,
+          "features": [
+            [
+              14,
+              21,
+              163,
+              193,
+              342,
+              430,
+              437,
+              626,
+              758
+            ],
+            [
+              13,
+              22,
+              202,
+              334,
+              429,
+              438,
+              539,
+              633,
+              750
+            ]
+          ]
+        }
+      },
+      "classical": {
+        "white_cp": 359,
+        "side_to_move_cp": 359,
+        "raw": {
+          "use_pst": true,
+          "material": 330,
+          "pst": {
+            "pawn": -5,
+            "knight": 0,
+            "bishop": 10,
+            "rook": 0,
+            "queen": 0,
+            "king": 8
+          },
+          "positional": 13,
+          "total": 359,
+          "phase": 5,
+          "advanced": true,
+          "components": {
+            "material": {
+              "mg": 330,
+              "eg": 330,
+              "cp": 330
+            },
+            "pst": {
+              "mg": -35,
+              "eg": 25,
+              "cp": 13
+            },
+            "pawn_structure": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "passed_pawns": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "bishop_pair": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "rook_activity": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "mobility": {
+              "mg": 9,
+              "eg": 14,
+              "cp": 13
+            },
+            "outposts": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "king_safety": {
+              "mg": 2,
+              "eg": 0,
+              "cp": 0
+            },
+            "space": {
+              "mg": 2,
+              "eg": 1,
+              "cp": 1
+            },
+            "endgame": {
+              "mg": 0,
+              "eg": 2,
+              "cp": 2
+            }
+          },
+          "mg": 308,
+          "eg": 372,
+          "rounding": 0,
+          "scale": 256,
+          "scaling": 0
+        }
+      }
+    },
+    {
+      "position": "outside_passer",
+      "category": "passed_pawns",
+      "fen": "8/5pk1/6p1/2P5/8/5PK1/6P1/8 w - - 0 1",
+      "reference_root_cp": 931,
+      "reference_root_mate": null,
+      "nnue": {
+        "white_cp": 278,
+        "side_to_move_cp": 278,
+        "raw": {
+          "evaluator": "nnue",
+          "model": "stockbear-v2-compact.sbnnue",
+          "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+          "width": 32,
+          "hidden": 16,
+          "kernel": "scalar",
+          "side_to_move_cp": 278.047668,
+          "raw_white_cp": 278.047668,
+          "total": 278,
+          "features": [
+            [
+              14,
+              21,
+              34,
+              342,
+              430,
+              437,
+              758
+            ],
+            [
+              13,
+              22,
+              334,
+              410,
+              429,
+              438,
+              750
+            ]
+          ]
+        }
+      },
+      "classical": {
+        "white_cp": 159,
+        "side_to_move_cp": 159,
+        "raw": {
+          "use_pst": true,
+          "material": 100,
+          "pst": {
+            "pawn": 5,
+            "knight": 0,
+            "bishop": 0,
+            "rook": 0,
+            "queen": 0,
+            "king": 20
+          },
+          "positional": 25,
+          "total": 159,
+          "phase": 0,
+          "advanced": true,
+          "components": {
+            "material": {
+              "mg": 100,
+              "eg": 100,
+              "cp": 100
+            },
+            "pst": {
+              "mg": -35,
+              "eg": 25,
+              "cp": 25
+            },
+            "pawn_structure": {
+              "mg": -10,
+              "eg": -14,
+              "cp": -14
+            },
+            "passed_pawns": {
+              "mg": 22,
+              "eg": 45,
+              "cp": 45
+            },
+            "bishop_pair": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "rook_activity": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "mobility": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "outposts": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "king_safety": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "space": {
+              "mg": 3,
+              "eg": 1,
+              "cp": 1
+            },
+            "endgame": {
+              "mg": 0,
+              "eg": 2,
+              "cp": 2
+            }
+          },
+          "mg": 80,
+          "eg": 159,
+          "rounding": 0,
+          "scale": 256,
+          "scaling": 0
+        }
+      }
+    },
+    {
+      "position": "rook_pawn",
+      "category": "passed_pawns",
+      "fen": "8/1p4k1/8/P7/8/8/6K1/8 b - - 0 1",
+      "reference_root_cp": 0,
+      "reference_root_mate": null,
+      "nnue": {
+        "white_cp": -40,
+        "side_to_move_cp": 40,
+        "raw": {
+          "evaluator": "nnue",
+          "model": "stockbear-v2-compact.sbnnue",
+          "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+          "width": 32,
+          "hidden": 16,
+          "kernel": "scalar",
+          "side_to_move_cp": 40.3442688,
+          "raw_white_cp": -40.3442688,
+          "total": -40,
+          "features": [
+            [
+              32,
+              334,
+              433,
+              758
+            ],
+            [
+              9,
+              334,
+              408,
+              758
+            ]
+          ]
+        }
+      },
+      "classical": {
+        "white_cp": -3,
+        "side_to_move_cp": 3,
+        "raw": {
+          "use_pst": true,
+          "material": 0,
+          "pst": {
+            "pawn": -5,
+            "knight": 0,
+            "bishop": 0,
+            "rook": 0,
+            "queen": 0,
+            "king": 0
+          },
+          "positional": -5,
+          "total": -3,
+          "phase": 0,
+          "advanced": true,
+          "components": {
+            "material": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "pst": {
+              "mg": -5,
+              "eg": -5,
+              "cp": -5
+            },
+            "pawn_structure": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "passed_pawns": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "bishop_pair": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "rook_activity": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "mobility": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "outposts": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "king_safety": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "space": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "endgame": {
+              "mg": 0,
+              "eg": 2,
+              "cp": 2
+            }
+          },
+          "mg": -5,
+          "eg": -3,
+          "rounding": 0,
+          "scale": 256,
+          "scaling": 0
+        }
+      }
+    },
+    {
+      "position": "promotion_race",
+      "category": "promotion",
+      "fen": "7k/4P3/8/8/8/8/5p2/K7 w - - 0 1",
+      "reference_root_cp": null,
+      "reference_root_mate": 14,
+      "nnue": {
+        "white_cp": 33,
+        "side_to_move_cp": 33,
+        "raw": {
+          "evaluator": "nnue",
+          "model": "stockbear-v2-compact.sbnnue",
+          "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+          "width": 32,
+          "hidden": 16,
+          "kernel": "scalar",
+          "side_to_move_cp": 33.4552383,
+          "raw_white_cp": 33.4552383,
+          "total": 33,
+          "features": [
+            [
+              52,
+              320,
+              397,
+              767
+            ],
+            [
+              53,
+              327,
+              396,
+              760
+            ]
+          ]
+        }
+      },
+      "classical": {
+        "white_cp": -24,
+        "side_to_move_cp": -24,
+        "raw": {
+          "use_pst": true,
+          "material": 0,
+          "pst": {
+            "pawn": 0,
+            "knight": 0,
+            "bishop": 0,
+            "rook": 0,
+            "queen": 0,
+            "king": 0
+          },
+          "positional": 0,
+          "total": -24,
+          "phase": 0,
+          "advanced": true,
+          "components": {
+            "material": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "pst": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "pawn_structure": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "passed_pawns": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "bishop_pair": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "rook_activity": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "mobility": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "outposts": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "king_safety": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "space": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "endgame": {
+              "mg": 0,
+              "eg": -24,
+              "cp": -24
+            }
+          },
+          "mg": 0,
+          "eg": -24,
+          "rounding": 0,
+          "scale": 256,
+          "scaling": 0
+        }
+      }
+    },
+    {
+      "position": "underpromotion_perft",
+      "category": "promotion",
+      "fen": "rnbq1k1r/pp1Pbppp/2p5/8/2B5/8/PPP1NnPP/RNBQK2R w KQ - 1 8",
+      "reference_root_cp": 769,
+      "reference_root_mate": null,
+      "nnue": {
+        "white_cp": 192,
+        "side_to_move_cp": 192,
+        "raw": {
+          "evaluator": "nnue",
+          "model": "stockbear-v2-compact.sbnnue",
+          "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+          "width": 32,
+          "hidden": 16,
+          "kernel": "scalar",
+          "side_to_move_cp": 191.9646,
+          "raw_white_cp": 191.9646,
+          "total": 192,
+          "features": [
+            [
+              8,
+              9,
+              10,
+              14,
+              15,
+              51,
+              65,
+              76,
+              130,
+              154,
+              192,
+              199,
+              259,
+              324,
+              426,
+              432,
+              433,
+              437,
+              438,
+              439,
+              461,
+              505,
+              564,
+              570,
+              632,
+              639,
+              699,
+              765,
+              768,
+              769
+            ],
+            [
+              8,
+              9,
+              13,
+              14,
+              15,
+              18,
+              65,
+              117,
+              130,
+              140,
+              192,
+              199,
+              259,
+              325,
+              395,
+              432,
+              433,
+              434,
+              438,
+              439,
+              500,
+              505,
+              546,
+              570,
+              632,
+              639,
+              699,
+              764,
+              770,
+              771
+            ]
+          ]
+        }
+      },
+      "classical": {
+        "white_cp": 66,
+        "side_to_move_cp": 66,
+        "raw": {
+          "use_pst": true,
+          "material": 0,
+          "pst": {
+            "pawn": 60,
+            "knight": 5,
+            "bishop": 10,
+            "rook": 0,
+            "queen": 0,
+            "king": -10
+          },
+          "positional": 65,
+          "total": 66,
+          "phase": 24,
+          "advanced": true,
+          "components": {
+            "material": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "pst": {
+              "mg": 65,
+              "eg": 75,
+              "cp": 65
+            },
+            "pawn_structure": {
+              "mg": -5,
+              "eg": -8,
+              "cp": -5
+            },
+            "passed_pawns": {
+              "mg": 32,
+              "eg": 65,
+              "cp": 32
+            },
+            "bishop_pair": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "rook_activity": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "mobility": {
+              "mg": 7,
+              "eg": 8,
+              "cp": 7
+            },
+            "outposts": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "king_safety": {
+              "mg": -30,
+              "eg": 0,
+              "cp": -30
+            },
+            "space": {
+              "mg": -3,
+              "eg": -1,
+              "cp": -3
+            },
+            "endgame": {
+              "mg": 0,
+              "eg": -51,
+              "cp": 0
+            }
+          },
+          "mg": 66,
+          "eg": 88,
+          "rounding": 0,
+          "scale": 256,
+          "scaling": 0
+        }
+      }
+    },
+    {
+      "position": "white_blocked",
+      "category": "zugzwang",
+      "fen": "8/3k4/3P4/3K4/8/8/8/8 w - - 0 1",
+      "reference_root_cp": 0,
+      "reference_root_mate": null,
+      "nnue": {
+        "white_cp": 267,
+        "side_to_move_cp": 267,
+        "raw": {
+          "evaluator": "nnue",
+          "model": "stockbear-v2-compact.sbnnue",
+          "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+          "width": 32,
+          "hidden": 16,
+          "kernel": "scalar",
+          "side_to_move_cp": 267.362915,
+          "raw_white_cp": 267.362915,
+          "total": 267,
+          "features": [
+            [
+              43,
+              355,
+              755
+            ],
+            [
+              331,
+              403,
+              731
+            ]
+          ]
+        }
+      },
+      "classical": {
+        "white_cp": 171,
+        "side_to_move_cp": 171,
+        "raw": {
+          "use_pst": true,
+          "material": 100,
+          "pst": {
+            "pawn": 30,
+            "knight": 0,
+            "bishop": 0,
+            "rook": 0,
+            "queen": 0,
+            "king": 40
+          },
+          "positional": 70,
+          "total": 171,
+          "phase": 0,
+          "advanced": true,
+          "components": {
+            "material": {
+              "mg": 100,
+              "eg": 100,
+              "cp": 100
+            },
+            "pst": {
+              "mg": -20,
+              "eg": 70,
+              "cp": 70
+            },
+            "pawn_structure": {
+              "mg": -10,
+              "eg": -14,
+              "cp": -14
+            },
+            "passed_pawns": {
+              "mg": 19,
+              "eg": 40,
+              "cp": 40
+            },
+            "bishop_pair": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "rook_activity": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "mobility": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "outposts": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "king_safety": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "space": {
+              "mg": 6,
+              "eg": 3,
+              "cp": 3
+            },
+            "endgame": {
+              "mg": 0,
+              "eg": -28,
+              "cp": -28
+            }
+          },
+          "mg": 95,
+          "eg": 171,
+          "rounding": 0,
+          "scale": 256,
+          "scaling": 0
+        }
+      }
+    },
+    {
+      "position": "black_blocked",
+      "category": "zugzwang",
+      "fen": "8/8/8/3k4/3p4/3K4/8/8 b - - 0 1",
+      "reference_root_cp": 0,
+      "reference_root_mate": null,
+      "nnue": {
+        "white_cp": -168,
+        "side_to_move_cp": 168,
+        "raw": {
+          "evaluator": "nnue",
+          "model": "stockbear-v2-compact.sbnnue",
+          "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+          "width": 32,
+          "hidden": 16,
+          "kernel": "scalar",
+          "side_to_move_cp": 167.92955,
+          "raw_white_cp": -167.92955,
+          "total": -168,
+          "features": [
+            [
+              339,
+              411,
+              739
+            ],
+            [
+              35,
+              347,
+              747
+            ]
+          ]
+        }
+      },
+      "classical": {
+        "white_cp": -120,
+        "side_to_move_cp": 120,
+        "raw": {
+          "use_pst": true,
+          "material": -100,
+          "pst": {
+            "pawn": -25,
+            "knight": 0,
+            "bishop": 0,
+            "rook": 0,
+            "queen": 0,
+            "king": -10
+          },
+          "positional": -35,
+          "total": -120,
+          "phase": 0,
+          "advanced": true,
+          "components": {
+            "material": {
+              "mg": -100,
+              "eg": -100,
+              "cp": -100
+            },
+            "pst": {
+              "mg": -5,
+              "eg": -35,
+              "cp": -35
+            },
+            "pawn_structure": {
+              "mg": 10,
+              "eg": 14,
+              "cp": 14
+            },
+            "passed_pawns": {
+              "mg": -11,
+              "eg": -22,
+              "cp": -22
+            },
+            "bishop_pair": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "rook_activity": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "mobility": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "outposts": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "king_safety": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "space": {
+              "mg": -4,
+              "eg": -1,
+              "cp": -1
+            },
+            "endgame": {
+              "mg": 0,
+              "eg": 24,
+              "cp": 24
+            }
+          },
+          "mg": -110,
+          "eg": -120,
+          "rounding": 0,
+          "scale": 256,
+          "scaling": 0
+        }
+      }
+    },
+    {
+      "position": "defend_mate_net",
+      "category": "defense",
+      "fen": "6k1/5ppp/8/7Q/2B5/8/5PPP/6K1 b - - 0 1",
+      "reference_root_cp": null,
+      "reference_root_mate": -3,
+      "nnue": {
+        "white_cp": 925,
+        "side_to_move_cp": -925,
+        "raw": {
+          "evaluator": "nnue",
+          "model": "stockbear-v2-compact.sbnnue",
+          "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+          "width": 32,
+          "hidden": 16,
+          "kernel": "scalar",
+          "side_to_move_cp": -925.035767,
+          "raw_white_cp": 925.035767,
+          "total": 925,
+          "features": [
+            [
+              13,
+              14,
+              15,
+              154,
+              295,
+              326,
+              437,
+              438,
+              439,
+              766
+            ],
+            [
+              13,
+              14,
+              15,
+              326,
+              437,
+              438,
+              439,
+              546,
+              671,
+              766
+            ]
+          ]
+        }
+      },
+      "classical": {
+        "white_cp": 1251,
+        "side_to_move_cp": -1251,
+        "raw": {
+          "use_pst": true,
+          "material": 1230,
+          "pst": {
+            "pawn": 0,
+            "knight": 0,
+            "bishop": 10,
+            "rook": 0,
+            "queen": -5,
+            "king": 0
+          },
+          "positional": 5,
+          "total": 1251,
+          "phase": 5,
+          "advanced": true,
+          "components": {
+            "material": {
+              "mg": 1230,
+              "eg": 1230,
+              "cp": 1230
+            },
+            "pst": {
+              "mg": 5,
+              "eg": 5,
+              "cp": 5
+            },
+            "pawn_structure": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "passed_pawns": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "bishop_pair": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "rook_activity": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "mobility": {
+              "mg": 7,
+              "eg": 9,
+              "cp": 9
+            },
+            "outposts": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "king_safety": {
+              "mg": 22,
+              "eg": 0,
+              "cp": 5
+            },
+            "space": {
+              "mg": 4,
+              "eg": 2,
+              "cp": 2
+            },
+            "endgame": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            }
+          },
+          "mg": 1268,
+          "eg": 1246,
+          "rounding": 0,
+          "scale": 256,
+          "scaling": 0
+        }
+      }
+    },
+    {
+      "position": "defend_complex",
+      "category": "defense",
+      "fen": "r3r1k1/ppp2ppp/2n2n2/2bq4/3P4/2PBBN2/PP3PPP/R2Q1RK1 b - - 0 12",
+      "reference_root_cp": -435,
+      "reference_root_mate": null,
+      "nnue": {
+        "white_cp": 161,
+        "side_to_move_cp": -161,
+        "raw": {
+          "evaluator": "nnue",
+          "model": "stockbear-v2-compact.sbnnue",
+          "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+          "width": 32,
+          "hidden": 16,
+          "kernel": "scalar",
+          "side_to_move_cp": -161.177704,
+          "raw_white_cp": 161.177704,
+          "total": 161,
+          "features": [
+            [
+              8,
+              9,
+              13,
+              14,
+              15,
+              18,
+              27,
+              85,
+              147,
+              148,
+              192,
+              197,
+              259,
+              326,
+              432,
+              433,
+              434,
+              437,
+              438,
+              439,
+              490,
+              493,
+              546,
+              632,
+              636,
+              675,
+              766
+            ],
+            [
+              8,
+              9,
+              10,
+              13,
+              14,
+              15,
+              82,
+              85,
+              154,
+              192,
+              196,
+              283,
+              326,
+              419,
+              426,
+              432,
+              433,
+              437,
+              438,
+              439,
+              493,
+              555,
+              556,
+              632,
+              637,
+              699,
+              766
+            ]
+          ]
+        }
+      },
+      "classical": {
+        "white_cp": 105,
+        "side_to_move_cp": -105,
+        "raw": {
+          "use_pst": true,
+          "material": 110,
+          "pst": {
+            "pawn": 0,
+            "knight": -10,
+            "bishop": 10,
+            "rook": -5,
+            "queen": -10,
+            "king": 0
+          },
+          "positional": -15,
+          "total": 105,
+          "phase": 22,
+          "advanced": true,
+          "components": {
+            "material": {
+              "mg": 110,
+              "eg": 110,
+              "cp": 110
+            },
+            "pst": {
+              "mg": -15,
+              "eg": -15,
+              "cp": -15
+            },
+            "pawn_structure": {
+              "mg": 5,
+              "eg": 8,
+              "cp": 5
+            },
+            "passed_pawns": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "bishop_pair": {
+              "mg": 25,
+              "eg": 40,
+              "cp": 26
+            },
+            "rook_activity": {
+              "mg": -18,
+              "eg": -12,
+              "cp": -18
+            },
+            "mobility": {
+              "mg": -9,
+              "eg": -15,
+              "cp": -10
+            },
+            "outposts": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "king_safety": {
+              "mg": 3,
+              "eg": 0,
+              "cp": 3
+            },
+            "space": {
+              "mg": 3,
+              "eg": 1,
+              "cp": 3
+            },
+            "endgame": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            }
+          },
+          "mg": 104,
+          "eg": 117,
+          "rounding": 1,
+          "scale": 256,
+          "scaling": 0
+        }
+      }
+    },
+    {
+      "position": "carlsbad",
+      "category": "long_term_planning",
+      "fen": "r1bq1rk1/ppp2ppp/2n1pn2/3p4/3P4/2PBPN2/PP3PPP/RNBQ1RK1 w - - 0 8",
+      "reference_root_cp": 805,
+      "reference_root_mate": null,
+      "nnue": {
+        "white_cp": 519,
+        "side_to_move_cp": 519,
+        "raw": {
+          "evaluator": "nnue",
+          "model": "stockbear-v2-compact.sbnnue",
+          "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+          "width": 32,
+          "hidden": 16,
+          "kernel": "scalar",
+          "side_to_move_cp": 518.949707,
+          "raw_white_cp": 518.949707,
+          "total": 519,
+          "features": [
+            [
+              8,
+              9,
+              13,
+              14,
+              15,
+              18,
+              20,
+              27,
+              65,
+              85,
+              130,
+              147,
+              192,
+              197,
+              259,
+              326,
+              419,
+              428,
+              432,
+              433,
+              434,
+              437,
+              438,
+              439,
+              490,
+              493,
+              570,
+              632,
+              637,
+              699,
+              766
+            ],
+            [
+              8,
+              9,
+              10,
+              13,
+              14,
+              15,
+              20,
+              27,
+              82,
+              85,
+              130,
+              192,
+              197,
+              259,
+              326,
+              419,
+              426,
+              428,
+              432,
+              433,
+              437,
+              438,
+              439,
+              493,
+              505,
+              555,
+              570,
+              632,
+              637,
+              699,
+              766
+            ]
+          ]
+        }
+      },
+      "classical": {
+        "white_cp": 281,
+        "side_to_move_cp": 281,
+        "raw": {
+          "use_pst": true,
+          "material": 330,
+          "pst": {
+            "pawn": -20,
+            "knight": -50,
+            "bishop": 10,
+            "rook": 0,
+            "queen": 0,
+            "king": 0
+          },
+          "positional": -60,
+          "total": 281,
+          "phase": 23,
+          "advanced": true,
+          "components": {
+            "material": {
+              "mg": 330,
+              "eg": 330,
+              "cp": 330
+            },
+            "pst": {
+              "mg": -60,
+              "eg": -60,
+              "cp": -60
+            },
+            "pawn_structure": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "passed_pawns": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "bishop_pair": {
+              "mg": 25,
+              "eg": 40,
+              "cp": 26
+            },
+            "rook_activity": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "mobility": {
+              "mg": -15,
+              "eg": -19,
+              "cp": -15
+            },
+            "outposts": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "king_safety": {
+              "mg": 4,
+              "eg": 0,
+              "cp": 4
+            },
+            "space": {
+              "mg": -3,
+              "eg": 0,
+              "cp": -3
+            },
+            "endgame": {
+              "mg": 0,
+              "eg": -1,
+              "cp": 0
+            }
+          },
+          "mg": 281,
+          "eg": 290,
+          "rounding": -1,
+          "scale": 256,
+          "scaling": 0
+        }
+      }
+    },
+    {
+      "position": "locked_center",
+      "category": "long_term_planning",
+      "fen": "r1bq1rk1/pp2bppp/2n1pn2/2ppP3/3P4/2PB1N2/PP3PPP/RNBQ1RK1 w - - 0 8",
+      "reference_root_cp": 620,
+      "reference_root_mate": null,
+      "nnue": {
+        "white_cp": 80,
+        "side_to_move_cp": 80,
+        "raw": {
+          "evaluator": "nnue",
+          "model": "stockbear-v2-compact.sbnnue",
+          "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+          "width": 32,
+          "hidden": 16,
+          "kernel": "scalar",
+          "side_to_move_cp": 79.8839951,
+          "raw_white_cp": 79.8839951,
+          "total": 80,
+          "features": [
+            [
+              8,
+              9,
+              13,
+              14,
+              15,
+              18,
+              27,
+              36,
+              65,
+              85,
+              130,
+              147,
+              192,
+              197,
+              259,
+              326,
+              418,
+              419,
+              428,
+              432,
+              433,
+              437,
+              438,
+              439,
+              490,
+              493,
+              564,
+              570,
+              632,
+              637,
+              699,
+              766
+            ],
+            [
+              8,
+              9,
+              13,
+              14,
+              15,
+              20,
+              26,
+              27,
+              82,
+              85,
+              130,
+              140,
+              192,
+              197,
+              259,
+              326,
+              412,
+              419,
+              426,
+              432,
+              433,
+              437,
+              438,
+              439,
+              493,
+              505,
+              555,
+              570,
+              632,
+              637,
+              699,
+              766
+            ]
+          ]
+        }
+      },
+      "classical": {
+        "white_cp": -17,
+        "side_to_move_cp": -17,
+        "raw": {
+          "use_pst": true,
+          "material": 0,
+          "pst": {
+            "pawn": 15,
+            "knight": -50,
+            "bishop": 10,
+            "rook": 0,
+            "queen": 0,
+            "king": 0
+          },
+          "positional": -25,
+          "total": -17,
+          "phase": 24,
+          "advanced": true,
+          "components": {
+            "material": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "pst": {
+              "mg": -25,
+              "eg": -25,
+              "cp": -25
+            },
+            "pawn_structure": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "passed_pawns": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "bishop_pair": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "rook_activity": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "mobility": {
+              "mg": 11,
+              "eg": 16,
+              "cp": 11
+            },
+            "outposts": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            },
+            "king_safety": {
+              "mg": 4,
+              "eg": 0,
+              "cp": 4
+            },
+            "space": {
+              "mg": -7,
+              "eg": -1,
+              "cp": -7
+            },
+            "endgame": {
+              "mg": 0,
+              "eg": 0,
+              "cp": 0
+            }
+          },
+          "mg": -17,
+          "eg": -10,
+          "rounding": 0,
+          "scale": 256,
+          "scaling": 0
+        }
+      }
+    }
+  ],
+  "finite_reference_summary": {
+    "nnue": {
+      "positions": 21,
+      "mae_cp": 237.28571428571428,
+      "mean_reference_cp": 262.42857142857144,
+      "mean_static_cp": 141.14285714285714,
+      "median_abs_reference_cp": 229,
+      "median_abs_static_cp": 80,
+      "ols_static_on_searched_slope": 0.3901541469365256,
+      "correlation": 0.6045586586395275,
+      "decisive_sign_disagreements": 1,
+      "decisive_positions": 11
+    },
+    "classical": {
+      "positions": 21,
+      "mae_cp": 289.14285714285717,
+      "mean_reference_cp": 262.42857142857144,
+      "mean_static_cp": 78.42857142857143,
+      "median_abs_reference_cp": 229,
+      "median_abs_static_cp": 76,
+      "ols_static_on_searched_slope": 0.16719222875950365,
+      "correlation": 0.46439339939971985,
+      "decisive_sign_disagreements": 4,
+      "decisive_positions": 11
+    }
+  },
+  "balanced_reference_summary": {
+    "nnue": {
+      "positions": 13,
+      "mae_cp": 109.07692307692308,
+      "mean_reference_cp": -19.846153846153847,
+      "mean_static_cp": 37.69230769230769,
+      "median_abs_reference_cp": 17,
+      "median_abs_static_cp": 40,
+      "ols_static_on_searched_slope": 0.26709117525421283,
+      "correlation": 0.45937013888035483,
+      "decisive_sign_disagreements": 0,
+      "decisive_positions": 3
+    },
+    "classical": {
+      "positions": 13,
+      "mae_cp": 117.76923076923077,
+      "mean_reference_cp": -19.846153846153847,
+      "mean_static_cp": 32.23076923076923,
+      "median_abs_reference_cp": 17,
+      "median_abs_static_cp": 27,
+      "ols_static_on_searched_slope": 0.07724787143954363,
+      "correlation": 0.18172848692494964,
+      "decisive_sign_disagreements": 2,
+      "decisive_positions": 3
+    }
+  }
+}

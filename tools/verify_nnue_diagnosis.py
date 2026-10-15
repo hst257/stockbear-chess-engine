@@ -93,7 +93,7 @@ def main() -> None:
             terminal.append(repeated)
             for board in terminal:
                 result = engine.play(board, chess.engine.Limit(depth=3), info=chess.engine.INFO_ALL)
-                assert result.move is None
+                assert not result.move  # python-chess may represent UCI 0000 as Move.null().
                 assert result.info["score"].white().is_mate() if board.is_checkmate() else result.info["score"].white().score() == 0
             data["integration"].append({"build": name, "cancellations": 12, "terminal_and_draws": 5,
                                          "switching_and_fresh_tt": True})

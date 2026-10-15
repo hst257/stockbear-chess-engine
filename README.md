@@ -245,6 +245,8 @@ Running that tool without `--offline` checks the source licenses online and down
 6. **Implemented:** native experimental NNUE, classical/NNUE selection, golden and incremental validation, and paired evaluator matches. See [NNUE results](docs/nnue.md).
    Native v2 inference optimization, both finalist networks and controlled comparisons
    are documented in [NNUE v2 optimization results](NNUE_V2_OPTIMIZATION_RESULTS.md).
+   The complete 190-game study, equal-work reference checks, heuristic ablations
+   and accumulator findings are in [NNUE v2 search diagnosis](NNUE_V2_SEARCH_DIAGNOSIS.md).
 7. **Implemented:** matched performance benchmarks and color-balanced engine smoke games; broader strength testing remains future work.
 
 Later phases require an explicit request. The engine performs its own search and evaluation without delegating them to another engine.
