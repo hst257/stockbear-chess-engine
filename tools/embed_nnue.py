@@ -13,7 +13,7 @@ DEFAULT_MODEL = ROOT / "engine/networks/stockbear-compact.sbnnue"
 FEATURE_VERSION = "dual-perspective-12x64-castling-ep-v1"
 
 
-def quantize_tensors(header, tensors):
+def quantize_tensors(header: dict, tensors: dict) -> tuple[dict, dict]:
     """Derived experimental integers; original export bytes are never changed."""
     width, hidden = header["model"]["width"], header["model"]["hidden"]
     def nearest(v):

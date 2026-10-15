@@ -1,0 +1,73 @@
+{
+  "method": "Fresh processes with CHESSLAB_DISABLE_SIMD=1, actual selected-kernel JSON and full-corpus output equality",
+  "checks": [
+    {
+      "model": "compact",
+      "requested": "simd",
+      "selected": "scalar",
+      "positions": 22165,
+      "exact_outputs": true,
+      "metadata": {
+        "utc": "2026-10-15T13:07:07.747731+00:00",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+        "logical_cpus": 12,
+        "python": "3.11.8",
+        "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v2\\simd-compact\\engine.exe",
+        "sha256": "2b62df4250739dfcd96df0d604890a9c42bd9bf7607c173bd23f5e25e11077ad",
+        "git": "8079845a9870bd0dfc56da81b156121e2db04905"
+      }
+    },
+    {
+      "model": "compact",
+      "requested": "quant-simd",
+      "selected": "quant",
+      "positions": 22165,
+      "exact_outputs": true,
+      "metadata": {
+        "utc": "2026-10-15T13:07:08.197273+00:00",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+        "logical_cpus": 12,
+        "python": "3.11.8",
+        "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v2\\quant-compact\\engine.exe",
+        "sha256": "2be550bc1ab34765f80baa2596c9b55ca6650f9375b6810b1d48c1d54b007df4",
+        "git": "8079845a9870bd0dfc56da81b156121e2db04905"
+      }
+    },
+    {
+      "model": "small",
+      "requested": "simd",
+      "selected": "scalar",
+      "positions": 22165,
+      "exact_outputs": true,
+      "metadata": {
+        "utc": "2026-10-15T13:07:08.618953+00:00",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+        "logical_cpus": 12,
+        "python": "3.11.8",
+        "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v2\\simd-small\\engine.exe",
+        "sha256": "62eb3be06f1930c0be510ac725140285bc82d2ad67ce93aefa16fe708f524dc5",
+        "git": "8079845a9870bd0dfc56da81b156121e2db04905"
+      }
+    },
+    {
+      "model": "small",
+      "requested": "quant-simd",
+      "selected": "quant",
+      "positions": 22165,
+      "exact_outputs": true,
+      "metadata": {
+        "utc": "2026-10-15T13:07:09.055502+00:00",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+        "logical_cpus": 12,
+        "python": "3.11.8",
+        "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v2\\quant-small\\engine.exe",
+        "sha256": "97408949a64fda46d32020366145684ca75d4c4bf8c92011bb65c03f0c4b48a1",
+        "git": "8079845a9870bd0dfc56da81b156121e2db04905"
+      }
+    }
+  ]
+}

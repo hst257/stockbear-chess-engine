@@ -9,30 +9,30 @@ import statistics
 ROOT = Path("docs/nnue-v2")
 
 
-def read(name):
+def read(name: str) -> dict:
     return json.loads((ROOT / name).read_text())
 
 
-def table(headers, rows):
+def table(headers: list[str], rows: list[list]) -> str:
     return "\n".join(["| " + " | ".join(headers) + " |", "| " + " | ".join(["---"] * len(headers)) + " |"] +
                      ["| " + " | ".join(str(v) for v in row) + " |" for row in rows])
 
 
-def ratio(data, a, b):
+def ratio(data: dict, a: str, b: str) -> float:
     values = [p["summary"][a]["time"]["nps"]["median"] / p["summary"][b]["time"]["nps"]["median"]
               for p in data["positions"] if p["category"] != "king_attack"]
     return math.prod(values) ** (1 / len(values))
 
 
-def head(data, label):
+def head(data: dict, label: str) -> float:
     return statistics.median(p["summary"][label]["micro"]["head_ns"]["median"] for p in data["positions"])
 
 
-def rating(value, lower=False):
+def rating(value: float | None, lower: bool = False) -> str:
     return ("−∞" if lower else "+∞") if value is None else f"{value:+.0f}"
 
 
-def main():
+def main() -> None:
     destination = Path("NNUE_V2_OPTIMIZATION_RESULTS.md")
     if destination.exists():
         raise ValueError("Final report already exists; edit it explicitly rather than overwriting")
@@ -91,6 +91,11 @@ def main():
                         phase_errors.append([model, category.removeprefix("heldout_"), values["n"],
                             f"{values['mae_cp']:.4f}", f"{values['rmse_cp']:.4f}", f"{values['max_cp']:.4f}", values["sign_disagreements"]])
     perf = []
+    white_rows = []
+    white = read("white-evaluation.json")
+    for label in final["configurations"]:
+        ns = statistics.median(p["summary"][label]["median_ns"] for p in white["positions"])
+        white_rows.append([label, f"{ns:.2f}", f"{1000/ns:.2f}M"])
     for model in ("compact", "small"):
         for mode in ("original", "scalar", "quant"):
             label = mode + "-" + model
@@ -194,7 +199,8 @@ board-derived update and rebuild latency are separately measured in the raw
 microbenchmarks. Heap allocation is absent inside the normal inference/update
 loops; search-level allocation counts include stacks and PV/reporting work.
 
-WPR was installed; WPA/Visual Studio profiler were unavailable. No hardware
+WPR was on the command path; WPA/Visual Studio profiler were not found there
+and were not used. No hardware
 cache-miss, branch-misprediction or bandwidth counters were collected. Internal
 timers cannot separate overlapping weight loads, arithmetic, activation and
 cache/branch penalties, so no such attribution is claimed. Cache-friendly access
@@ -296,7 +302,9 @@ Regression evidence:
 Median head latency across categories (three trials/category); raw evaluations
 per second exclude feature/accumulator/search work. NPS ratios are geometric
 means of the nine nonterminal fixed-time position medians.
-""" + "\n" + table(["Model", "Kernel", "Head ns", "Raw eval/s", "NPS vs original", "Frame bytes"], perf)
+""" + "\n" + table(["Model", "Kernel", "Head ns", "Head calls/s", "NPS vs original", "Frame bytes"], perf)
+    text += "\n\nA separate confirmation includes the actual integer White-score endpoint, including NNUE POV conversion, mate-band clamp and rounding. It still uses a cached accumulator, rather than a full refresh:\n\n" + table(["Evaluator", "White-score ns", "Complete cached eval/s"], white_rows)
+    text += "\n\nSee [white-evaluation.json](docs/nnue-v2/white-evaluation.json) for all repeated trials. These later measurements are not subtracted from the earlier head timings to infer component costs.\n"
     text += "\n\n200ms search **median NPS / completed depth**:\n\n" + table(["Category", "Classical", "Compact float", "Small float"], search_rows)
     text += f"""
 
@@ -314,7 +322,7 @@ constants are 52,260 and 108,612 bytes but coexist with float/reference weights,
 so the retained binary does **not** halve its deployment footprint. Exact binary
 sizes/hashes/builds can be checked with the record paths and build sidecars.
 
-""" + table(["Model", "Export bytes", "Original executable bytes", "Retained executable bytes"], binary_rows) + """
+""" + table(["Model", "Export bytes", "Original executable bytes", "Retained executable bytes"], binary_rows) + f"""
 
 Quantized Compact was mixed by position; Small was consistently slower than
 float. Float is preferred for both. Explicit SIMD failed to give a useful
@@ -331,6 +339,8 @@ thread, Hash=16MB, paired openings/reversed colors, seed 20261016 and the same
 [50-opening book](docs/nnue-v2/openings.json). No evaluator-based opening filter
 or outcome-based stopping was used. Each match records exact binaries, models,
 options, limits and every move; checkpoints support recovery.
+The 200ms cohorts use the first ten book pairs, whereas the primary cohorts use
+all fifty; cross-control score differences are not a clean thinking-time effect.
 
 Candidate is the first name: Compact/Small versus classical, or Compact versus
 Small. Draw rules use python-chess `claim_draw=True`; no evaluation adjudication.
@@ -346,7 +356,7 @@ The raw summary helper's legacy opening-filter caveat is generic; the recorded
 `opening_book_sha256`/`opening_filter` fields identify the actual shared protocol.
 """ + "\n" + table(["Match", "ms", "W/D/L", "Capped", "Score", "Relative Elo", "Paired 95% bound"], game_rows)
     text += "\n\nAverage completed depth / pooled nodes per engine-reported second:\n\n" + table(["Match", "Candidate depth / NPS", "Opponent depth / NPS"], depth_rows)
-    text += "\n\nGame termination reasons:\n\n" + table(["Match", "Reasons"], termination_rows)
+    text += "\n\nThese averages follow different game trajectories. Use the fixed-position benchmarks for throughput comparisons between evaluators.\n\nGame termination reasons:\n\n" + table(["Match", "Reasons"], termination_rows)
     text += "\n\n" + "\n".join(conclusions)
     text += """
 
@@ -368,7 +378,9 @@ v2 Elo comparators.
 - **Teacher accuracy:** Compact has slightly lower primary test teacher MSE
   (0.011022 vs 0.011128). Small won the original two-seed validation selection
   (blended MSE 0.013153 vs 0.013253) and has slightly lower test cp MAE
-  (143.53 vs 143.93). These close metrics do not select a chess-strength winner.
+  (143.53 vs 143.93). MSE here is in the training sigmoid-score space, not
+  squared centipawns. See the [training report](StockBear_NNUE_training/reports/v2/NNUE_V2_RESULTS.md).
+  These close metrics do not select a chess-strength winner.
 - **Playing strength:** use the measured WDL and paired bounds above. Where a
   bound includes equal strength, the sample does not establish a winner.
   Short-control point estimates must not be promoted to definitive Elo gains;
@@ -384,7 +396,9 @@ v2 Elo comparators.
   Classical stays the product default as requested.
 - **Next investigation (hypotheses):** reduce measured state-bookkeeping cost,
   consider lazy accumulator materialization at actual evaluation nodes, and
-  test broader opening suites/longer controls. Further training changes should
+  test broader opening suites/longer controls. Compare existing selective-search
+  switches off/on to diagnose evaluator/search interactions before changing
+  search margins. Further training changes should
   follow strength evidence and preserve the grouped holdout contract. No such
   search, training or calibration changes were made here.
 

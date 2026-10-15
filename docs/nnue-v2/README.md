@@ -23,6 +23,7 @@ Always choose fresh result paths. Run CPU measurements serially:
 
 ```powershell
 .\.venv\Scripts\python.exe -m tools.benchmark_nnue_v2 --config tools/nnue_v2_final.json --output artifacts/new-performance.json
+.\.venv\Scripts\python.exe -m tools.benchmark_nnue_white --output artifacts/new-white-evaluation.json
 .\.venv\Scripts\python.exe -m tools.validate_nnue_v2 --config tools/nnue_v2_final.json --output artifacts/new-parity.json
 .\.venv\Scripts\python.exe -m tools.measure_nnue_memory --config tools/nnue_v2_final.json --output artifacts/new-memory.json
 .\.venv\Scripts\python.exe -m pytest -q

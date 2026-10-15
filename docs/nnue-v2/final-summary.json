@@ -1,0 +1,16 @@
+{
+  "binaries": {
+    "compact": {
+      "original_bytes": 841728,
+      "retained_bytes": 911360,
+      "nps_speedup": 1.4452963297520505
+    },
+    "small": {
+      "original_bytes": 953344,
+      "retained_bytes": 1092608,
+      "nps_speedup": 2.492968049056321
+    }
+  },
+  "scheduled_games_completed": 366,
+  "report_source_checkpoint": "0d37b15"
+}

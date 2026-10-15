@@ -27,13 +27,13 @@ POSITIONS = {
 }
 
 
-def summary(samples, key):
+def summary(samples: list[dict], key: str) -> dict[str, float]:
     values = [s[key] for s in samples]
     return {"median": statistics.median(values), "min": min(values), "max": max(values),
             "stdev": statistics.stdev(values) if len(values) > 1 else 0}
 
 
-def main():
+def main() -> None:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--config", type=Path, required=True)
     p.add_argument("--output", type=Path, required=True)

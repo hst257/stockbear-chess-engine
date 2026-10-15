@@ -8,7 +8,7 @@ from tools.audit_engine import metadata, measure
 from tools.benchmark_nnue_v2 import POSITIONS
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--stage", choices=("original", "final"), default="original")
     parser.add_argument("--output", type=Path)

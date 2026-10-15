@@ -13,7 +13,7 @@ from tools.benchmark_nnue_v2 import POSITIONS
 from tools.audit_engine import metadata
 
 
-def corpus():
+def corpus() -> list[tuple[str, str]]:
     root = Path("StockBear_NNUE_training")
     cfg = json.loads((root / "configs/v2/plan.json").read_text())
     with sqlite3.connect((root / cfg["pool"]).resolve().as_uri() + "?mode=ro", uri=True) as db:
@@ -35,14 +35,14 @@ def corpus():
     return rows
 
 
-def errors(reference, candidate):
+def errors(reference: list[float], candidate: list[float]) -> dict[str, int | float]:
     diff = [abs(a - b) for a, b in zip(reference, candidate)]
     return {"n": len(diff), "mae_cp": sum(diff) / len(diff), "max_cp": max(diff),
             "rmse_cp": math.sqrt(sum(d*d for d in diff) / len(diff)),
             "sign_disagreements": sum((a > 0) != (b > 0) for a, b in zip(reference, candidate))}
 
 
-def batch(path, rows, kernel=None):
+def batch(path: Path | str, rows: list[tuple[str, str]], kernel: str | None = None) -> list[float]:
     command = [str(Path(path).resolve()), "--batch"] + ([kernel] if kernel else [])
     out = subprocess.check_output(command, input="\n".join(fen for fen, _ in rows) + "\n", text=True, timeout=120)
     values = [float(v) for v in out.splitlines()]
@@ -50,7 +50,7 @@ def batch(path, rows, kernel=None):
     return values
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)

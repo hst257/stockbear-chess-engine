@@ -1,0 +1,2009 @@
+{
+  "method": "Serial rotated trials of --eval-bench; includes White POV, mate-band clamp and lround for NNUE; cached root accumulator, excludes refresh/search. Classical is uncached advanced/PST. Separate confirmation after tournaments, not a component subtraction from earlier head timings.",
+  "calls_per_trial": 20000,
+  "repeats": 3,
+  "binaries": {
+    "classical": {
+      "utc": "2026-10-15T13:06:20.879774+00:00",
+      "platform": "Windows-10-10.0.26200-SP0",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 12,
+      "python": "3.11.8",
+      "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v2\\baseline-v1\\engine.exe",
+      "sha256": "5be9d34603f10029a85ac2cd5dbf0d532ba1847ac52d928dd527e1c183495bad",
+      "git": "8079845a9870bd0dfc56da81b156121e2db04905"
+    },
+    "v1": {
+      "utc": "2026-10-15T13:06:20.992241+00:00",
+      "platform": "Windows-10-10.0.26200-SP0",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 12,
+      "python": "3.11.8",
+      "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v2\\baseline-v1\\engine.exe",
+      "sha256": "5be9d34603f10029a85ac2cd5dbf0d532ba1847ac52d928dd527e1c183495bad",
+      "git": "8079845a9870bd0dfc56da81b156121e2db04905"
+    },
+    "original-compact": {
+      "utc": "2026-10-15T13:06:21.048117+00:00",
+      "platform": "Windows-10-10.0.26200-SP0",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 12,
+      "python": "3.11.8",
+      "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v2\\baseline-compact\\engine.exe",
+      "sha256": "6bc1440cf55f9bd088d0bc73bf69375772959d5015471a0c89b9824a15eb3b7a",
+      "git": "8079845a9870bd0dfc56da81b156121e2db04905"
+    },
+    "scalar-compact": {
+      "utc": "2026-10-15T13:06:21.105197+00:00",
+      "platform": "Windows-10-10.0.26200-SP0",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 12,
+      "python": "3.11.8",
+      "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v2\\final-compact\\engine.exe",
+      "sha256": "d55439565b86d950eaac43fbfb29e6614c18e7f8192e3c6fb7f489452dec6c9a",
+      "git": "8079845a9870bd0dfc56da81b156121e2db04905"
+    },
+    "quant-compact": {
+      "utc": "2026-10-15T13:06:21.160211+00:00",
+      "platform": "Windows-10-10.0.26200-SP0",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 12,
+      "python": "3.11.8",
+      "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v2\\final-compact\\engine.exe",
+      "sha256": "d55439565b86d950eaac43fbfb29e6614c18e7f8192e3c6fb7f489452dec6c9a",
+      "git": "8079845a9870bd0dfc56da81b156121e2db04905"
+    },
+    "original-small": {
+      "utc": "2026-10-15T13:06:21.214298+00:00",
+      "platform": "Windows-10-10.0.26200-SP0",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 12,
+      "python": "3.11.8",
+      "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v2\\baseline-small\\engine.exe",
+      "sha256": "9cb039204a43ef65ff86e68fb28c15d62733b719ed75234b28a46ad764ed8873",
+      "git": "8079845a9870bd0dfc56da81b156121e2db04905"
+    },
+    "scalar-small": {
+      "utc": "2026-10-15T13:06:21.269852+00:00",
+      "platform": "Windows-10-10.0.26200-SP0",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 12,
+      "python": "3.11.8",
+      "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v2\\final-small\\engine.exe",
+      "sha256": "55aa9fb45fe1785e2ea9f80c1bb9e60c3e50b9a5317ba8de429b869f3ecfd38a",
+      "git": "8079845a9870bd0dfc56da81b156121e2db04905"
+    },
+    "quant-small": {
+      "utc": "2026-10-15T13:06:21.326280+00:00",
+      "platform": "Windows-10-10.0.26200-SP0",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 12,
+      "python": "3.11.8",
+      "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v2\\final-small\\engine.exe",
+      "sha256": "55aa9fb45fe1785e2ea9f80c1bb9e60c3e50b9a5317ba8de429b869f3ecfd38a",
+      "git": "8079845a9870bd0dfc56da81b156121e2db04905"
+    }
+  },
+  "positions": [
+    {
+      "category": "opening",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "samples": {
+        "classical": [
+          {
+            "calls": 20000,
+            "ns_per_call": 156.41,
+            "checksum": 0
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 248.065,
+            "checksum": 0
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 164.12,
+            "checksum": 0
+          }
+        ],
+        "v1": [
+          {
+            "calls": 20000,
+            "ns_per_call": 341.94,
+            "checksum": 920000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 339.18,
+            "checksum": 920000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 405.03,
+            "checksum": 920000
+          }
+        ],
+        "original-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 317.95,
+            "checksum": 380000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 324.345,
+            "checksum": 380000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 411.665,
+            "checksum": 380000
+          }
+        ],
+        "scalar-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 57.63,
+            "checksum": 380000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 60.115,
+            "checksum": 380000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 88.42,
+            "checksum": 380000
+          }
+        ],
+        "quant-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 88.955,
+            "checksum": 380000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 91.67,
+            "checksum": 380000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 147.66,
+            "checksum": 380000
+          }
+        ],
+        "original-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 1384.66,
+            "checksum": 400000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 1915.24,
+            "checksum": 400000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 2148.91,
+            "checksum": 400000
+          }
+        ],
+        "scalar-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 130.695,
+            "checksum": 400000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 176.505,
+            "checksum": 400000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 169.7,
+            "checksum": 400000
+          }
+        ],
+        "quant-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 328.33,
+            "checksum": 400000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 382.425,
+            "checksum": 400000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 376.8,
+            "checksum": 400000
+          }
+        ]
+      },
+      "summary": {
+        "classical": {
+          "median_ns": 164.12,
+          "min_ns": 156.41,
+          "max_ns": 248.065,
+          "stdev_ns": 50.83772573919228
+        },
+        "v1": {
+          "median_ns": 341.94,
+          "min_ns": 339.18,
+          "max_ns": 405.03,
+          "stdev_ns": 37.24734487181601
+        },
+        "original-compact": {
+          "median_ns": 324.345,
+          "min_ns": 317.95,
+          "max_ns": 411.665,
+          "stdev_ns": 52.35802970891858
+        },
+        "scalar-compact": {
+          "median_ns": 60.115,
+          "min_ns": 57.63,
+          "max_ns": 88.42,
+          "stdev_ns": 17.10444557222868
+        },
+        "quant-compact": {
+          "median_ns": 91.67,
+          "min_ns": 88.955,
+          "max_ns": 147.66,
+          "stdev_ns": 33.137411762739305
+        },
+        "original-small": {
+          "median_ns": 1915.24,
+          "min_ns": 1384.66,
+          "max_ns": 2148.91,
+          "stdev_ns": 391.61947257510053
+        },
+        "scalar-small": {
+          "median_ns": 169.7,
+          "min_ns": 130.695,
+          "max_ns": 176.505,
+          "stdev_ns": 24.719270991138337
+        },
+        "quant-small": {
+          "median_ns": 376.8,
+          "min_ns": 328.33,
+          "max_ns": 382.425,
+          "stdev_ns": 29.741246751495375
+        }
+      }
+    },
+    {
+      "category": "quiet_middlegame",
+      "fen": "r1bq1rk1/ppp2ppp/2np1n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQ1RK1 w - - 4 7",
+      "samples": {
+        "classical": [
+          {
+            "calls": 20000,
+            "ns_per_call": 204.775,
+            "checksum": 0
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 156.65,
+            "checksum": 0
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 169.61,
+            "checksum": 0
+          }
+        ],
+        "v1": [
+          {
+            "calls": 20000,
+            "ns_per_call": 341.08,
+            "checksum": 60000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 332.215,
+            "checksum": 60000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 346.89,
+            "checksum": 60000
+          }
+        ],
+        "original-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 386.775,
+            "checksum": 380000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 372.75,
+            "checksum": 380000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 441.95,
+            "checksum": 380000
+          }
+        ],
+        "scalar-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 59.635,
+            "checksum": 380000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 58.01,
+            "checksum": 380000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 57.885,
+            "checksum": 380000
+          }
+        ],
+        "quant-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 90.515,
+            "checksum": 380000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 96.475,
+            "checksum": 380000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 95.425,
+            "checksum": 380000
+          }
+        ],
+        "original-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 1570.15,
+            "checksum": 220000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 1597.33,
+            "checksum": 220000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 1370.78,
+            "checksum": 220000
+          }
+        ],
+        "scalar-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 126.68,
+            "checksum": 220000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 125.035,
+            "checksum": 220000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 125.5,
+            "checksum": 220000
+          }
+        ],
+        "quant-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 391.3,
+            "checksum": 220000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 387.195,
+            "checksum": 220000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 376.905,
+            "checksum": 220000
+          }
+        ]
+      },
+      "summary": {
+        "classical": {
+          "median_ns": 169.61,
+          "min_ns": 156.65,
+          "max_ns": 204.775,
+          "stdev_ns": 24.901654730827293
+        },
+        "v1": {
+          "median_ns": 341.08,
+          "min_ns": 332.215,
+          "max_ns": 346.89,
+          "stdev_ns": 7.390308405833509
+        },
+        "original-compact": {
+          "median_ns": 386.775,
+          "min_ns": 372.75,
+          "max_ns": 441.95,
+          "stdev_ns": 36.58237565185363
+        },
+        "scalar-compact": {
+          "median_ns": 58.01,
+          "min_ns": 57.885,
+          "max_ns": 59.635,
+          "stdev_ns": 0.9762812094883317
+        },
+        "quant-compact": {
+          "median_ns": 95.425,
+          "min_ns": 90.515,
+          "max_ns": 96.475,
+          "stdev_ns": 3.181514314494485
+        },
+        "original-small": {
+          "median_ns": 1570.15,
+          "min_ns": 1370.78,
+          "max_ns": 1597.33,
+          "stdev_ns": 123.7012879210776
+        },
+        "scalar-small": {
+          "median_ns": 125.5,
+          "min_ns": 125.035,
+          "max_ns": 126.68,
+          "stdev_ns": 0.8480025550276026
+        },
+        "quant-small": {
+          "median_ns": 387.195,
+          "min_ns": 376.905,
+          "max_ns": 391.3,
+          "stdev_ns": 7.415649555725622
+        }
+      }
+    },
+    {
+      "category": "tactical",
+      "fen": "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1",
+      "samples": {
+        "classical": [
+          {
+            "calls": 20000,
+            "ns_per_call": 194.405,
+            "checksum": 2340000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 204.65,
+            "checksum": 2340000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 203.38,
+            "checksum": 2340000
+          }
+        ],
+        "v1": [
+          {
+            "calls": 20000,
+            "ns_per_call": 428.57,
+            "checksum": -980000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 323.18,
+            "checksum": -980000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 338.78,
+            "checksum": -980000
+          }
+        ],
+        "original-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 385.105,
+            "checksum": -140000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 329.42,
+            "checksum": -140000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 323.95,
+            "checksum": -140000
+          }
+        ],
+        "scalar-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 54.31,
+            "checksum": -140000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 64.415,
+            "checksum": -140000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 54.93,
+            "checksum": -140000
+          }
+        ],
+        "quant-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 90.475,
+            "checksum": -140000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 93.535,
+            "checksum": -140000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 91.945,
+            "checksum": -140000
+          }
+        ],
+        "original-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 1378.47,
+            "checksum": -320000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 1411.27,
+            "checksum": -320000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 1356.92,
+            "checksum": -320000
+          }
+        ],
+        "scalar-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 165.94,
+            "checksum": -320000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 123.77,
+            "checksum": -320000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 125.575,
+            "checksum": -320000
+          }
+        ],
+        "quant-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 459.755,
+            "checksum": -320000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 350.03,
+            "checksum": -320000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 347.345,
+            "checksum": -320000
+          }
+        ]
+      },
+      "summary": {
+        "classical": {
+          "median_ns": 203.38,
+          "min_ns": 194.405,
+          "max_ns": 204.65,
+          "stdev_ns": 5.584555338908671
+        },
+        "v1": {
+          "median_ns": 338.78,
+          "min_ns": 323.18,
+          "max_ns": 428.57,
+          "stdev_ns": 56.88095199625266
+        },
+        "original-compact": {
+          "median_ns": 329.42,
+          "min_ns": 323.95,
+          "max_ns": 385.105,
+          "stdev_ns": 33.83950883705811
+        },
+        "scalar-compact": {
+          "median_ns": 54.93,
+          "min_ns": 54.31,
+          "max_ns": 64.415,
+          "stdev_ns": 5.663636199474683
+        },
+        "quant-compact": {
+          "median_ns": 91.945,
+          "min_ns": 90.475,
+          "max_ns": 93.535,
+          "stdev_ns": 1.5303921066184325
+        },
+        "original-small": {
+          "median_ns": 1378.47,
+          "min_ns": 1356.92,
+          "max_ns": 1411.27,
+          "stdev_ns": 27.368366776261926
+        },
+        "scalar-small": {
+          "median_ns": 125.575,
+          "min_ns": 123.77,
+          "max_ns": 165.94,
+          "stdev_ns": 23.842889051734762
+        },
+        "quant-small": {
+          "median_ns": 350.03,
+          "min_ns": 347.345,
+          "max_ns": 459.755,
+          "stdev_ns": 64.13890258649582
+        }
+      }
+    },
+    {
+      "category": "king_attack",
+      "fen": "6k1/5ppp/8/7Q/2B5/8/5PPP/6K1 w - - 0 1",
+      "samples": {
+        "classical": [
+          {
+            "calls": 20000,
+            "ns_per_call": 92.15,
+            "checksum": 25020000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 135.77,
+            "checksum": 25020000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 160.975,
+            "checksum": 25020000
+          }
+        ],
+        "v1": [
+          {
+            "calls": 20000,
+            "ns_per_call": 331.23,
+            "checksum": 23660000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 341.67,
+            "checksum": 23660000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 365.48,
+            "checksum": 23660000
+          }
+        ],
+        "original-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 332.255,
+            "checksum": 21500000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 351.005,
+            "checksum": 21500000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 333.46,
+            "checksum": 21500000
+          }
+        ],
+        "scalar-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 70.36,
+            "checksum": 21500000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 55.6,
+            "checksum": 21500000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 57.675,
+            "checksum": 21500000
+          }
+        ],
+        "quant-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 90.115,
+            "checksum": 21500000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 91.18,
+            "checksum": 21500000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 91.375,
+            "checksum": 21500000
+          }
+        ],
+        "original-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 1450.92,
+            "checksum": 21800000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 1373.54,
+            "checksum": 21800000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 1332.85,
+            "checksum": 21800000
+          }
+        ],
+        "scalar-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 122.72,
+            "checksum": 21800000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 151.555,
+            "checksum": 21800000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 131.41,
+            "checksum": 21800000
+          }
+        ],
+        "quant-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 338.965,
+            "checksum": 21780000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 471.74,
+            "checksum": 21780000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 341.885,
+            "checksum": 21780000
+          }
+        ]
+      },
+      "summary": {
+        "classical": {
+          "median_ns": 135.77,
+          "min_ns": 92.15,
+          "max_ns": 160.975,
+          "stdev_ns": 34.82067644853174
+        },
+        "v1": {
+          "median_ns": 341.67,
+          "min_ns": 331.23,
+          "max_ns": 365.48,
+          "stdev_ns": 17.554544520816634
+        },
+        "original-compact": {
+          "median_ns": 333.46,
+          "min_ns": 332.255,
+          "max_ns": 351.005,
+          "stdev_ns": 10.494772905276866
+        },
+        "scalar-compact": {
+          "median_ns": 57.675,
+          "min_ns": 55.6,
+          "max_ns": 70.36,
+          "stdev_ns": 7.990332179160847
+        },
+        "quant-compact": {
+          "median_ns": 91.18,
+          "min_ns": 90.115,
+          "max_ns": 91.375,
+          "stdev_ns": 0.6782145678175941
+        },
+        "original-small": {
+          "median_ns": 1373.54,
+          "min_ns": 1332.85,
+          "max_ns": 1450.92,
+          "stdev_ns": 59.97758664701348
+        },
+        "scalar-small": {
+          "median_ns": 131.41,
+          "min_ns": 122.72,
+          "max_ns": 151.555,
+          "stdev_ns": 14.791857839140203
+        },
+        "quant-small": {
+          "median_ns": 341.885,
+          "min_ns": 338.965,
+          "max_ns": 471.74,
+          "stdev_ns": 75.82880724588338
+        }
+      }
+    },
+    {
+      "category": "pawn_endgame",
+      "fen": "8/5pk1/6p1/8/3K4/6P1/5P2/8 w - - 0 1",
+      "samples": {
+        "classical": [
+          {
+            "calls": 20000,
+            "ns_per_call": 90.465,
+            "checksum": 1520000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 73.84,
+            "checksum": 1520000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 91.835,
+            "checksum": 1520000
+          }
+        ],
+        "v1": [
+          {
+            "calls": 20000,
+            "ns_per_call": 323.335,
+            "checksum": -980000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 307.77,
+            "checksum": -980000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 326.74,
+            "checksum": -980000
+          }
+        ],
+        "original-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 339.405,
+            "checksum": 340000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 312.72,
+            "checksum": 340000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 327.835,
+            "checksum": 340000
+          }
+        ],
+        "scalar-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 55.255,
+            "checksum": 340000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 86.185,
+            "checksum": 340000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 50.48,
+            "checksum": 340000
+          }
+        ],
+        "quant-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 94.695,
+            "checksum": 340000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 92.455,
+            "checksum": 340000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 98.49,
+            "checksum": 340000
+          }
+        ],
+        "original-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 1372.99,
+            "checksum": 820000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 1387.91,
+            "checksum": 820000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 1360.94,
+            "checksum": 820000
+          }
+        ],
+        "scalar-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 123.03,
+            "checksum": 820000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 125.475,
+            "checksum": 820000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 123.745,
+            "checksum": 820000
+          }
+        ],
+        "quant-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 346.68,
+            "checksum": 820000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 338.82,
+            "checksum": 820000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 341.405,
+            "checksum": 820000
+          }
+        ]
+      },
+      "summary": {
+        "classical": {
+          "median_ns": 90.465,
+          "min_ns": 73.84,
+          "max_ns": 91.835,
+          "stdev_ns": 10.017381144790285
+        },
+        "v1": {
+          "median_ns": 323.335,
+          "min_ns": 307.77,
+          "max_ns": 326.74,
+          "stdev_ns": 10.113721290075851
+        },
+        "original-compact": {
+          "median_ns": 327.835,
+          "min_ns": 312.72,
+          "max_ns": 339.405,
+          "stdev_ns": 13.381687424735812
+        },
+        "scalar-compact": {
+          "median_ns": 55.255,
+          "min_ns": 50.48,
+          "max_ns": 86.185,
+          "stdev_ns": 19.383466107312525
+        },
+        "quant-compact": {
+          "median_ns": 94.695,
+          "min_ns": 92.455,
+          "max_ns": 98.49,
+          "stdev_ns": 3.050706202395328
+        },
+        "original-small": {
+          "median_ns": 1372.99,
+          "min_ns": 1360.94,
+          "max_ns": 1387.91,
+          "stdev_ns": 13.510426837570076
+        },
+        "scalar-small": {
+          "median_ns": 123.745,
+          "min_ns": 123.03,
+          "max_ns": 125.475,
+          "stdev_ns": 1.2571230382636867
+        },
+        "quant-small": {
+          "median_ns": 341.405,
+          "min_ns": 338.82,
+          "max_ns": 346.68,
+          "stdev_ns": 4.005984065536633
+        }
+      }
+    },
+    {
+      "category": "piece_endgame",
+      "fen": "8/5pk1/6p1/3R4/8/5PK1/6P1/1r6 w - - 0 1",
+      "samples": {
+        "classical": [
+          {
+            "calls": 20000,
+            "ns_per_call": 92.195,
+            "checksum": 80000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 91.495,
+            "checksum": 80000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 92.69,
+            "checksum": 80000
+          }
+        ],
+        "v1": [
+          {
+            "calls": 20000,
+            "ns_per_call": 308.815,
+            "checksum": 3260000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 371.555,
+            "checksum": 3260000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 318.665,
+            "checksum": 3260000
+          }
+        ],
+        "original-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 337.085,
+            "checksum": 1200000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 335.63,
+            "checksum": 1200000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 316.68,
+            "checksum": 1200000
+          }
+        ],
+        "scalar-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 53.36,
+            "checksum": 1200000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 55.57,
+            "checksum": 1200000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 60.74,
+            "checksum": 1200000
+          }
+        ],
+        "quant-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 94.02,
+            "checksum": 1200000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 93.76,
+            "checksum": 1200000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 90.58,
+            "checksum": 1200000
+          }
+        ],
+        "original-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 1413.26,
+            "checksum": -1900000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 1429.77,
+            "checksum": -1900000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 1343.9,
+            "checksum": -1900000
+          }
+        ],
+        "scalar-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 142.925,
+            "checksum": -1900000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 129.865,
+            "checksum": -1900000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 123.635,
+            "checksum": -1900000
+          }
+        ],
+        "quant-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 348.95,
+            "checksum": -1880000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 334.08,
+            "checksum": -1880000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 337.66,
+            "checksum": -1880000
+          }
+        ]
+      },
+      "summary": {
+        "classical": {
+          "median_ns": 92.195,
+          "min_ns": 91.495,
+          "max_ns": 92.69,
+          "stdev_ns": 0.6004234616779467
+        },
+        "v1": {
+          "median_ns": 318.665,
+          "min_ns": 308.815,
+          "max_ns": 371.555,
+          "stdev_ns": 33.74088074329616
+        },
+        "original-compact": {
+          "median_ns": 335.63,
+          "min_ns": 316.68,
+          "max_ns": 337.085,
+          "stdev_ns": 11.384079160535254
+        },
+        "scalar-compact": {
+          "median_ns": 55.57,
+          "min_ns": 53.36,
+          "max_ns": 60.74,
+          "stdev_ns": 3.7876421865500105
+        },
+        "quant-compact": {
+          "median_ns": 93.76,
+          "min_ns": 90.58,
+          "max_ns": 94.02,
+          "stdev_ns": 1.9154459881012926
+        },
+        "original-small": {
+          "median_ns": 1413.26,
+          "min_ns": 1343.9,
+          "max_ns": 1429.77,
+          "stdev_ns": 45.565057152749496
+        },
+        "scalar-small": {
+          "median_ns": 129.865,
+          "min_ns": 123.635,
+          "max_ns": 142.925,
+          "stdev_ns": 9.844462064192912
+        },
+        "quant-small": {
+          "median_ns": 337.66,
+          "min_ns": 334.08,
+          "max_ns": 348.95,
+          "stdev_ns": 7.760985762130989
+        }
+      }
+    },
+    {
+      "category": "imbalance",
+      "fen": "r3k2r/ppp2ppp/2n5/8/3Q4/2N5/PPP2PPP/R3K3 w Qkq - 0 1",
+      "samples": {
+        "classical": [
+          {
+            "calls": 20000,
+            "ns_per_call": 129.415,
+            "checksum": 8760000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 126.395,
+            "checksum": 8760000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 123.505,
+            "checksum": 8760000
+          }
+        ],
+        "v1": [
+          {
+            "calls": 20000,
+            "ns_per_call": 307.265,
+            "checksum": 6040000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 320.24,
+            "checksum": 6040000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 316.835,
+            "checksum": 6040000
+          }
+        ],
+        "original-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 313.67,
+            "checksum": 18860000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 321.445,
+            "checksum": 18860000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 309.675,
+            "checksum": 18860000
+          }
+        ],
+        "scalar-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 48.885,
+            "checksum": 18860000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 51.525,
+            "checksum": 18860000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 51.015,
+            "checksum": 18860000
+          }
+        ],
+        "quant-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 95.145,
+            "checksum": 18860000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 95.2,
+            "checksum": 18860000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 90.385,
+            "checksum": 18860000
+          }
+        ],
+        "original-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 1329.78,
+            "checksum": 16480000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 1347.77,
+            "checksum": 16480000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 1347.85,
+            "checksum": 16480000
+          }
+        ],
+        "scalar-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 125.005,
+            "checksum": 16480000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 129.48,
+            "checksum": 16480000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 123.99,
+            "checksum": 16480000
+          }
+        ],
+        "quant-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 334.185,
+            "checksum": 16480000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 346.89,
+            "checksum": 16480000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 334.66,
+            "checksum": 16480000
+          }
+        ]
+      },
+      "summary": {
+        "classical": {
+          "median_ns": 126.395,
+          "min_ns": 123.505,
+          "max_ns": 129.415,
+          "stdev_ns": 2.9552382870647373
+        },
+        "v1": {
+          "median_ns": 316.835,
+          "min_ns": 307.265,
+          "max_ns": 320.24,
+          "stdev_ns": 6.727178085943623
+        },
+        "original-compact": {
+          "median_ns": 313.67,
+          "min_ns": 309.675,
+          "max_ns": 321.445,
+          "stdev_ns": 5.9853090981168116
+        },
+        "scalar-compact": {
+          "median_ns": 51.015,
+          "min_ns": 48.885,
+          "max_ns": 51.525,
+          "stdev_ns": 1.4003928020380574
+        },
+        "quant-compact": {
+          "median_ns": 95.145,
+          "min_ns": 90.385,
+          "max_ns": 95.2,
+          "stdev_ns": 2.764201210717721
+        },
+        "original-small": {
+          "median_ns": 1347.77,
+          "min_ns": 1329.78,
+          "max_ns": 1347.85,
+          "stdev_ns": 10.409702205154558
+        },
+        "scalar-small": {
+          "median_ns": 125.005,
+          "min_ns": 123.99,
+          "max_ns": 129.48,
+          "stdev_ns": 2.9210714358490644
+        },
+        "quant-small": {
+          "median_ns": 334.66,
+          "min_ns": 334.185,
+          "max_ns": 346.89,
+          "stdev_ns": 7.202031542095127
+        }
+      }
+    },
+    {
+      "category": "castling_rights",
+      "fen": "r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1",
+      "samples": {
+        "classical": [
+          {
+            "calls": 20000,
+            "ns_per_call": 78.665,
+            "checksum": 0
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 83.94,
+            "checksum": 0
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 78.075,
+            "checksum": 0
+          }
+        ],
+        "v1": [
+          {
+            "calls": 20000,
+            "ns_per_call": 309.015,
+            "checksum": -1180000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 323.775,
+            "checksum": -1180000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 385.59,
+            "checksum": -1180000
+          }
+        ],
+        "original-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 318.78,
+            "checksum": -180000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 322.195,
+            "checksum": -180000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 311.91,
+            "checksum": -180000
+          }
+        ],
+        "scalar-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 55.85,
+            "checksum": -180000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 52.895,
+            "checksum": -180000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 69.385,
+            "checksum": -180000
+          }
+        ],
+        "quant-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 97.935,
+            "checksum": -180000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 90.395,
+            "checksum": -180000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 96.565,
+            "checksum": -180000
+          }
+        ],
+        "original-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 1335.97,
+            "checksum": 1640000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 1330.31,
+            "checksum": 1640000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 1372.33,
+            "checksum": 1640000
+          }
+        ],
+        "scalar-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 126.105,
+            "checksum": 1640000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 120.335,
+            "checksum": 1640000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 121.665,
+            "checksum": 1640000
+          }
+        ],
+        "quant-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 335.335,
+            "checksum": 1640000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 337.175,
+            "checksum": 1640000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 371.5,
+            "checksum": 1640000
+          }
+        ]
+      },
+      "summary": {
+        "classical": {
+          "median_ns": 78.665,
+          "min_ns": 78.075,
+          "max_ns": 83.94,
+          "stdev_ns": 3.2293433285009057
+        },
+        "v1": {
+          "median_ns": 323.775,
+          "min_ns": 309.015,
+          "max_ns": 385.59,
+          "stdev_ns": 40.62569476328989
+        },
+        "original-compact": {
+          "median_ns": 318.78,
+          "min_ns": 311.91,
+          "max_ns": 322.195,
+          "stdev_ns": 5.238325909423079
+        },
+        "scalar-compact": {
+          "median_ns": 55.85,
+          "min_ns": 52.895,
+          "max_ns": 69.385,
+          "stdev_ns": 8.792500118472184
+        },
+        "quant-compact": {
+          "median_ns": 96.565,
+          "min_ns": 90.395,
+          "max_ns": 97.935,
+          "stdev_ns": 4.016578145635912
+        },
+        "original-small": {
+          "median_ns": 1335.97,
+          "min_ns": 1330.31,
+          "max_ns": 1372.33,
+          "stdev_ns": 22.802651892561357
+        },
+        "scalar-small": {
+          "median_ns": 121.665,
+          "min_ns": 120.335,
+          "max_ns": 126.105,
+          "stdev_ns": 3.0214621184673747
+        },
+        "quant-small": {
+          "median_ns": 337.175,
+          "min_ns": 335.335,
+          "max_ns": 371.5,
+          "stdev_ns": 20.369497007371915
+        }
+      }
+    },
+    {
+      "category": "promotion",
+      "fen": "7k/4P3/8/8/8/8/5p2/K7 w - - 0 1",
+      "samples": {
+        "classical": [
+          {
+            "calls": 20000,
+            "ns_per_call": 80.655,
+            "checksum": -480000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 69.15,
+            "checksum": -480000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 70.245,
+            "checksum": -480000
+          }
+        ],
+        "v1": [
+          {
+            "calls": 20000,
+            "ns_per_call": 330.92,
+            "checksum": 7680000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 320.11,
+            "checksum": 7680000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 308.14,
+            "checksum": 7680000
+          }
+        ],
+        "original-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 331.205,
+            "checksum": 660000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 323.305,
+            "checksum": 660000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 307.44,
+            "checksum": 660000
+          }
+        ],
+        "scalar-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 58.135,
+            "checksum": 660000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 56.725,
+            "checksum": 660000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 54.51,
+            "checksum": 660000
+          }
+        ],
+        "quant-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 96.575,
+            "checksum": 680000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 89.895,
+            "checksum": 680000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 94.71,
+            "checksum": 680000
+          }
+        ],
+        "original-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 1339.78,
+            "checksum": 4720000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 1324.71,
+            "checksum": 4720000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 1315.63,
+            "checksum": 4720000
+          }
+        ],
+        "scalar-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 127.31,
+            "checksum": 4720000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 120.105,
+            "checksum": 4720000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 121.755,
+            "checksum": 4720000
+          }
+        ],
+        "quant-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 329.14,
+            "checksum": 4720000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 329.72,
+            "checksum": 4720000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 330.145,
+            "checksum": 4720000
+          }
+        ]
+      },
+      "summary": {
+        "classical": {
+          "median_ns": 70.245,
+          "min_ns": 69.15,
+          "max_ns": 80.655,
+          "stdev_ns": 6.349962598315046
+        },
+        "v1": {
+          "median_ns": 320.11,
+          "min_ns": 308.14,
+          "max_ns": 330.92,
+          "stdev_ns": 11.394921383376618
+        },
+        "original-compact": {
+          "median_ns": 323.305,
+          "min_ns": 307.44,
+          "max_ns": 331.205,
+          "stdev_ns": 12.102915970955094
+        },
+        "scalar-compact": {
+          "median_ns": 56.725,
+          "min_ns": 54.51,
+          "max_ns": 58.135,
+          "stdev_ns": 1.827336403986232
+        },
+        "quant-compact": {
+          "median_ns": 94.71,
+          "min_ns": 89.895,
+          "max_ns": 96.575,
+          "stdev_ns": 3.446854846571487
+        },
+        "original-small": {
+          "median_ns": 1324.71,
+          "min_ns": 1315.63,
+          "max_ns": 1339.78,
+          "stdev_ns": 12.198181558467299
+        },
+        "scalar-small": {
+          "median_ns": 121.755,
+          "min_ns": 120.105,
+          "max_ns": 127.31,
+          "stdev_ns": 3.774752751284955
+        },
+        "quant-small": {
+          "median_ns": 329.72,
+          "min_ns": 329.14,
+          "max_ns": 330.145,
+          "stdev_ns": 0.5044881894884491
+        }
+      }
+    },
+    {
+      "category": "en_passant",
+      "fen": "r3k2r/8/8/3pP3/8/8/8/R3K2R w KQkq d6 0 1",
+      "samples": {
+        "classical": [
+          {
+            "calls": 20000,
+            "ns_per_call": 95.33,
+            "checksum": -180000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 94.18,
+            "checksum": -180000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 101.6,
+            "checksum": -180000
+          }
+        ],
+        "v1": [
+          {
+            "calls": 20000,
+            "ns_per_call": 309.655,
+            "checksum": 700000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 325.555,
+            "checksum": 700000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 307.755,
+            "checksum": 700000
+          }
+        ],
+        "original-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 313.38,
+            "checksum": 1200000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 353.615,
+            "checksum": 1200000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 328.125,
+            "checksum": 1200000
+          }
+        ],
+        "scalar-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 53.475,
+            "checksum": 1200000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 56.02,
+            "checksum": 1200000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 51.305,
+            "checksum": 1200000
+          }
+        ],
+        "quant-compact": [
+          {
+            "calls": 20000,
+            "ns_per_call": 92.055,
+            "checksum": 1200000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 92.325,
+            "checksum": 1200000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 91.615,
+            "checksum": 1200000
+          }
+        ],
+        "original-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 1309.55,
+            "checksum": 3320000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 1330.33,
+            "checksum": 3320000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 1334.22,
+            "checksum": 3320000
+          }
+        ],
+        "scalar-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 119.28,
+            "checksum": 3320000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 119.17,
+            "checksum": 3320000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 121.235,
+            "checksum": 3320000
+          }
+        ],
+        "quant-small": [
+          {
+            "calls": 20000,
+            "ns_per_call": 340.815,
+            "checksum": 3320000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 338.15,
+            "checksum": 3320000
+          },
+          {
+            "calls": 20000,
+            "ns_per_call": 329.59,
+            "checksum": 3320000
+          }
+        ]
+      },
+      "summary": {
+        "classical": {
+          "median_ns": 95.33,
+          "min_ns": 94.18,
+          "max_ns": 101.6,
+          "stdev_ns": 3.9935740049901782
+        },
+        "v1": {
+          "median_ns": 309.655,
+          "min_ns": 307.755,
+          "max_ns": 325.555,
+          "stdev_ns": 9.774627017607044
+        },
+        "original-compact": {
+          "median_ns": 328.125,
+          "min_ns": 313.38,
+          "max_ns": 353.615,
+          "stdev_ns": 20.355221893492924
+        },
+        "scalar-compact": {
+          "median_ns": 53.475,
+          "min_ns": 51.305,
+          "max_ns": 56.02,
+          "stdev_ns": 2.3599841101159997
+        },
+        "quant-compact": {
+          "median_ns": 92.055,
+          "min_ns": 91.615,
+          "max_ns": 92.325,
+          "stdev_ns": 0.3583759664560901
+        },
+        "original-small": {
+          "median_ns": 1330.33,
+          "min_ns": 1309.55,
+          "max_ns": 1334.22,
+          "stdev_ns": 13.263668421669797
+        },
+        "scalar-small": {
+          "median_ns": 119.28,
+          "min_ns": 119.17,
+          "max_ns": 121.235,
+          "stdev_ns": 1.1617766566771761
+        },
+        "quant-small": {
+          "median_ns": 338.15,
+          "min_ns": 329.59,
+          "max_ns": 340.815,
+          "stdev_ns": 5.864816706428267
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "focused_tests": "20 passed in 11.51s",
+  "replayed_games": 366,
+  "replayed_legal_plies": 36987,
+  "ready_binaries": {
+    "compact": {
+      "path": "engine\\build\\stockbear-v2-compact.exe",
+      "sha256": "d55439565b86d950eaac43fbfb29e6614c18e7f8192e3c6fb7f489452dec6c9a"
+    },
+    "small": {
+      "path": "engine\\build\\stockbear-v2-small.exe",
+      "sha256": "55aa9fb45fe1785e2ea9f80c1bb9e60c3e50b9a5317ba8de429b869f3ecfd38a"
+    }
+  },
+  "report_local_links_checked": true
+}

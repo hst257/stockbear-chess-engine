@@ -10,7 +10,7 @@ from tools.audit_engine import metadata
 from tools.benchmark_nnue_v2 import POSITIONS
 
 
-def search(engine, board, limit):
+def search(engine: chess.engine.SimpleEngine, board: chess.Board, limit: chess.engine.Limit) -> dict:
     r = engine.play(board, limit, info=chess.engine.INFO_ALL)
     assert r.move in board.legal_moves if r.move else board.is_game_over(claim_draw=True)
     replay = board.copy()
@@ -22,7 +22,7 @@ def search(engine, board, limit):
             "pv": [m.uci() for m in r.info.get("pv", [])]}
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--prefix", default="final", help="Candidate directory prefix under artifacts/nnue-v2")
     parser.add_argument("--output", type=Path, default=Path("docs/nnue-v2/search-verification.json"))

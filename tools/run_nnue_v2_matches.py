@@ -15,7 +15,7 @@ ROOT = Path("docs/nnue-v2")
 PLAN = ROOT / "match-plan.json"
 
 
-def create_plan():
+def create_plan() -> dict:
     if PLAN.exists():
         return json.loads(PLAN.read_text())
     rng, book, seen = random.Random(20261016), [], set()
@@ -59,7 +59,7 @@ def create_plan():
     return data
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--prepare-only", action="store_true")
     args = parser.parse_args()
