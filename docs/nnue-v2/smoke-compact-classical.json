@@ -1,0 +1,1883 @@
+{
+  "generated_utc": "2026-10-15T12:24:22.184775+00:00",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "comparison": "candidate versus original executables/options",
+  "hashes": {
+    "candidate": "d55439565b86d950eaac43fbfb29e6614c18e7f8192e3c6fb7f489452dec6c9a",
+    "original": "d55439565b86d950eaac43fbfb29e6614c18e7f8192e3c6fb7f489452dec6c9a"
+  },
+  "source_revision": "0d37b1566b9a3d9f3b50482cde4b939eb9b46617",
+  "options": {
+    "candidate": {
+      "AlphaBeta": true,
+      "IterativeDeepening": true,
+      "MoveOrdering": true,
+      "UsePST": true,
+      "PawnCache": true,
+      "FastMovegen": true,
+      "UseAdvancedEvaluation": true,
+      "Evaluator": "classical",
+      "NNUEIncremental": true,
+      "NNUEKernel": "auto",
+      "EvalPawns": true,
+      "EvalPassers": true,
+      "EvalBishopPair": true,
+      "EvalRooks": true,
+      "EvalMobility": true,
+      "EvalOutposts": true,
+      "EvalKingSafety": true,
+      "EvalSpace": true,
+      "EvalEndgame": true,
+      "TranspositionTable": true,
+      "Quiescence": true,
+      "PVS": true,
+      "UseAspirationWindows": true,
+      "AspirationDelta": 25,
+      "UseNullMovePruning": true,
+      "UseLMR": true,
+      "LMRReduction": 1,
+      "Hash": 16,
+      "Depth": 3,
+      "UseHistory": true,
+      "UseKillers": true,
+      "UseSEE": true,
+      "UseAdaptiveLMR": true,
+      "UseReverseFutility": true,
+      "UseFutility": true,
+      "UseCheckExtensions": true,
+      "UseMopUp": true,
+      "WeightPawnsMG": 100,
+      "WeightPawnsEG": 100,
+      "WeightPassersMG": 100,
+      "WeightPassersEG": 100,
+      "WeightBishopPairMG": 100,
+      "WeightBishopPairEG": 100,
+      "WeightRooksMG": 100,
+      "WeightRooksEG": 100,
+      "WeightMobilityMG": 100,
+      "WeightMobilityEG": 100,
+      "WeightOutpostsMG": 100,
+      "WeightOutpostsEG": 100,
+      "WeightKingSafetyMG": 100,
+      "WeightKingSafetyEG": 100,
+      "WeightSpaceMG": 100,
+      "WeightSpaceEG": 100,
+      "WeightEndgameMG": 100,
+      "WeightEndgameEG": 100
+    },
+    "original": {
+      "AlphaBeta": true,
+      "IterativeDeepening": true,
+      "MoveOrdering": true,
+      "UsePST": true,
+      "PawnCache": true,
+      "FastMovegen": true,
+      "UseAdvancedEvaluation": true,
+      "Evaluator": "classical",
+      "NNUEIncremental": true,
+      "NNUEKernel": "auto",
+      "EvalPawns": true,
+      "EvalPassers": true,
+      "EvalBishopPair": true,
+      "EvalRooks": true,
+      "EvalMobility": true,
+      "EvalOutposts": true,
+      "EvalKingSafety": true,
+      "EvalSpace": true,
+      "EvalEndgame": true,
+      "TranspositionTable": true,
+      "Quiescence": true,
+      "PVS": true,
+      "UseAspirationWindows": true,
+      "AspirationDelta": 25,
+      "UseNullMovePruning": true,
+      "UseLMR": true,
+      "LMRReduction": 1,
+      "Hash": 16,
+      "Depth": 3,
+      "UseHistory": true,
+      "UseKillers": true,
+      "UseSEE": true,
+      "UseAdaptiveLMR": true,
+      "UseReverseFutility": true,
+      "UseFutility": true,
+      "UseCheckExtensions": true,
+      "UseMopUp": true,
+      "WeightPawnsMG": 100,
+      "WeightPawnsEG": 100,
+      "WeightPassersMG": 100,
+      "WeightPassersEG": 100,
+      "WeightBishopPairMG": 100,
+      "WeightBishopPairEG": 100,
+      "WeightRooksMG": 100,
+      "WeightRooksEG": 100,
+      "WeightMobilityMG": 100,
+      "WeightMobilityEG": 100,
+      "WeightOutpostsMG": 100,
+      "WeightOutpostsEG": 100,
+      "WeightKingSafetyMG": 100,
+      "WeightKingSafetyEG": 100,
+      "WeightSpaceMG": 100,
+      "WeightSpaceEG": 100,
+      "WeightEndgameMG": 100,
+      "WeightEndgameEG": 100
+    }
+  },
+  "overrides": {
+    "candidate": {
+      "Evaluator": "nnue",
+      "NNUEIncremental": true,
+      "NNUEKernel": "scalar"
+    },
+    "original": {
+      "Evaluator": "classical"
+    }
+  },
+  "builds": {
+    "candidate": {
+      "compiler": [
+        "Z:\\Code\\Chess\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ziglang",
+        "c++"
+      ],
+      "flags": [
+        "-std=c++17",
+        "-O2",
+        "-pthread",
+        "-Wall",
+        "-Wextra",
+        "-ffp-contract=off",
+        "-I",
+        "Z:\\Code\\Chess\\artifacts\\nnue-v2\\final-compact\\generated",
+        "-I",
+        "Z:\\Code\\Chess\\engine\\vendor\\chess-library",
+        "-I",
+        "Z:\\Code\\Chess\\engine\\src",
+        "Z:\\Code\\Chess\\engine\\src\\main.cpp",
+        "Z:\\Code\\Chess\\engine\\src\\search.cpp",
+        "Z:\\Code\\Chess\\engine\\src\\evaluation.cpp",
+        "Z:\\Code\\Chess\\engine\\src\\nnue.cpp",
+        "-o",
+        "Z:\\Code\\Chess\\artifacts\\nnue-v2\\final-compact\\engine.exe"
+      ],
+      "profile": false,
+      "optimization": "O2",
+      "lto": false,
+      "sanitizer": null,
+      "nnue": {
+        "model": "Z:\\Code\\Chess\\engine\\networks\\v2\\stockbear-v2-compact.sbnnue",
+        "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+        "payload_sha256": "6430669474029ef0effee25a8309e0751e8ca6411ff0b39d9e8ae50cf7fa5601",
+        "width": 32,
+        "hidden": 16,
+        "feature_version": "dual-perspective-12x64-castling-ep-v1",
+        "quantization": {
+          "supported": true,
+          "first_scale": 4096,
+          "activation_scale": 4096,
+          "head_weight_scale": 4096,
+          "output_weight_scale": 4096,
+          "accumulator_abs_bound": 123634,
+          "head_abs_bound": 238645611,
+          "output_abs_bound": 167827512,
+          "rounding": "nearest, ties away from zero",
+          "derived_bytes": 52260
+        }
+      },
+      "generator_sha256": "f00e0ed44fdc661549fd8345aabb175c4d8d33f8fe53e3fc32ff356dad546cf8",
+      "source_sha256": {
+        "engine\\src\\evaluation.cpp": "87ed00f717a19d593969b3b84d4e48586a8dc576d54ac1260350648a967639f7",
+        "engine\\src\\evaluation.hpp": "01f5eac3194175f4f6615629146ce95700de2a0c351cae49b8346ac635b05c91",
+        "engine\\src\\evaluation_masks.hpp": "2d1af8a6465e59bb0fce0878b694736207dcbd065c9419a3e7d5ba858196b92b",
+        "engine\\src\\main.cpp": "8b40f059ccb3e1029cccb84fba4500b9c08d9278e1cd5d0308539b1655f70041",
+        "engine\\src\\nnue.cpp": "05448bdd302defcfdbb38117d6eeda6801900ded50597f5e4ce0508b61e0ea8c",
+        "engine\\src\\nnue.hpp": "a0132cc742715390a151cc2bafcf544e9dead1a0c967c2df68089831ef227089",
+        "engine\\src\\pawn_cache.hpp": "f4240a187937c41f1b70ea2a901b1efd3b0b9c9309db8a0e4643a776bf6fc6ca",
+        "engine\\src\\principal_variation.hpp": "5a7b342185a4abbeca3638eaca0de2d9c3caa02a7f00710f631b9f87d4c5614c",
+        "engine\\src\\profiling.hpp": "2d5304f600d8d6760f75d43c6d0cef2b57e47487f3de8c9fc96c8a5dd772de7b",
+        "engine\\src\\pst.hpp": "a7f007ab55fd4bb3a6d4fae93b97b25e371faefc633351c0a70cd4eb40be111b",
+        "engine\\src\\scoped_move.hpp": "3e815c8e3f825105cf0f43a61750aa452c6f46a9c04a456b14a43dc09e07ea72",
+        "engine\\src\\search.cpp": "433183ea66249e3ba6252a85ad3566d871f2336ba37979552ad320c5984b7a3b",
+        "engine\\src\\search.hpp": "7aad55a31d2910112393a7dc66e0ce9d1e632a26d952d8f97c8f9c68d45b6a3d",
+        "engine\\src\\search_policy.hpp": "06cd21e30dc793570a2d717c9cd6976320342a2c21cac6f392fd64b548e54324",
+        "engine\\src\\strength.hpp": "133f330350dbf68f1f6e31bf67e8b310e1d639577918b626a5e4bb5b6cab7d68",
+        "engine\\src\\terminal_rules.hpp": "08880e1a158016cb43e4d05c818baa0d85f48a0d673837c3e43842251caf6f59",
+        "engine\\src\\transposition.hpp": "e41ab9b9e1bbf3f313d61e812e40e4dfebbc0debc6964ee85a83f68668b9d6a0"
+      }
+    },
+    "original": {
+      "compiler": [
+        "Z:\\Code\\Chess\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ziglang",
+        "c++"
+      ],
+      "flags": [
+        "-std=c++17",
+        "-O2",
+        "-pthread",
+        "-Wall",
+        "-Wextra",
+        "-ffp-contract=off",
+        "-I",
+        "Z:\\Code\\Chess\\artifacts\\nnue-v2\\final-compact\\generated",
+        "-I",
+        "Z:\\Code\\Chess\\engine\\vendor\\chess-library",
+        "-I",
+        "Z:\\Code\\Chess\\engine\\src",
+        "Z:\\Code\\Chess\\engine\\src\\main.cpp",
+        "Z:\\Code\\Chess\\engine\\src\\search.cpp",
+        "Z:\\Code\\Chess\\engine\\src\\evaluation.cpp",
+        "Z:\\Code\\Chess\\engine\\src\\nnue.cpp",
+        "-o",
+        "Z:\\Code\\Chess\\artifacts\\nnue-v2\\final-compact\\engine.exe"
+      ],
+      "profile": false,
+      "optimization": "O2",
+      "lto": false,
+      "sanitizer": null,
+      "nnue": {
+        "model": "Z:\\Code\\Chess\\engine\\networks\\v2\\stockbear-v2-compact.sbnnue",
+        "sha256": "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7",
+        "payload_sha256": "6430669474029ef0effee25a8309e0751e8ca6411ff0b39d9e8ae50cf7fa5601",
+        "width": 32,
+        "hidden": 16,
+        "feature_version": "dual-perspective-12x64-castling-ep-v1",
+        "quantization": {
+          "supported": true,
+          "first_scale": 4096,
+          "activation_scale": 4096,
+          "head_weight_scale": 4096,
+          "output_weight_scale": 4096,
+          "accumulator_abs_bound": 123634,
+          "head_abs_bound": 238645611,
+          "output_abs_bound": 167827512,
+          "rounding": "nearest, ties away from zero",
+          "derived_bytes": 52260
+        }
+      },
+      "generator_sha256": "f00e0ed44fdc661549fd8345aabb175c4d8d33f8fe53e3fc32ff356dad546cf8",
+      "source_sha256": {
+        "engine\\src\\evaluation.cpp": "87ed00f717a19d593969b3b84d4e48586a8dc576d54ac1260350648a967639f7",
+        "engine\\src\\evaluation.hpp": "01f5eac3194175f4f6615629146ce95700de2a0c351cae49b8346ac635b05c91",
+        "engine\\src\\evaluation_masks.hpp": "2d1af8a6465e59bb0fce0878b694736207dcbd065c9419a3e7d5ba858196b92b",
+        "engine\\src\\main.cpp": "8b40f059ccb3e1029cccb84fba4500b9c08d9278e1cd5d0308539b1655f70041",
+        "engine\\src\\nnue.cpp": "05448bdd302defcfdbb38117d6eeda6801900ded50597f5e4ce0508b61e0ea8c",
+        "engine\\src\\nnue.hpp": "a0132cc742715390a151cc2bafcf544e9dead1a0c967c2df68089831ef227089",
+        "engine\\src\\pawn_cache.hpp": "f4240a187937c41f1b70ea2a901b1efd3b0b9c9309db8a0e4643a776bf6fc6ca",
+        "engine\\src\\principal_variation.hpp": "5a7b342185a4abbeca3638eaca0de2d9c3caa02a7f00710f631b9f87d4c5614c",
+        "engine\\src\\profiling.hpp": "2d5304f600d8d6760f75d43c6d0cef2b57e47487f3de8c9fc96c8a5dd772de7b",
+        "engine\\src\\pst.hpp": "a7f007ab55fd4bb3a6d4fae93b97b25e371faefc633351c0a70cd4eb40be111b",
+        "engine\\src\\scoped_move.hpp": "3e815c8e3f825105cf0f43a61750aa452c6f46a9c04a456b14a43dc09e07ea72",
+        "engine\\src\\search.cpp": "433183ea66249e3ba6252a85ad3566d871f2336ba37979552ad320c5984b7a3b",
+        "engine\\src\\search.hpp": "7aad55a31d2910112393a7dc66e0ce9d1e632a26d952d8f97c8f9c68d45b6a3d",
+        "engine\\src\\search_policy.hpp": "06cd21e30dc793570a2d717c9cd6976320342a2c21cac6f392fd64b548e54324",
+        "engine\\src\\strength.hpp": "133f330350dbf68f1f6e31bf67e8b310e1d639577918b626a5e4bb5b6cab7d68",
+        "engine\\src\\terminal_rules.hpp": "08880e1a158016cb43e4d05c818baa0d85f48a0d673837c3e43842251caf6f59",
+        "engine\\src\\transposition.hpp": "e41ab9b9e1bbf3f313d61e812e40e4dfebbc0debc6964ee85a83f68668b9d6a0"
+      }
+    }
+  },
+  "paths": {
+    "candidate": "artifacts\\nnue-v2\\final-compact\\engine.exe",
+    "original": "artifacts\\nnue-v2\\final-compact\\engine.exe"
+  },
+  "names": {
+    "candidate": {
+      "name": "ChessLab 0.13",
+      "author": "ChessLab contributors"
+    },
+    "original": {
+      "name": "ChessLab 0.13",
+      "author": "ChessLab contributors"
+    }
+  },
+  "requested_games": 2,
+  "movetime_ms": 25,
+  "max_plies": 240,
+  "seed": 20261016,
+  "opening_filter": "Frozen evaluator-independent seeded quiet continuations of four opening families; no evaluation filter; identical paired openings/reversed colors in every comparison. Limited opening diversity, no universal Elo claim.",
+  "opening_book_sha256": "15a1308df5ec1febfd09bebbaeae0e2e01f5aaee4c8a1867f0868add04e2471e",
+  "openings": [
+    {
+      "moves": [
+        "c2c4",
+        "d7d5",
+        "a2a3",
+        "c7c6"
+      ],
+      "fen": "rnbqkbnr/pp2pppp/2p5/3p4/2P5/P7/1P1PPPPP/RNBQKBNR w KQkq - 0 3",
+      "parent_opening": 0
+    }
+  ],
+  "games": [
+    {
+      "game": 1,
+      "pair": 1,
+      "opening": [
+        "c2c4",
+        "d7d5",
+        "a2a3",
+        "c7c6"
+      ],
+      "candidate_color": "white",
+      "result": "1-0",
+      "termination": "checkmate",
+      "candidate_outcome": "win",
+      "plies": 91,
+      "searches": [
+        {
+          "candidate": true,
+          "move": "g1f3",
+          "depth": 5,
+          "nodes": 45312,
+          "seconds": 0.025,
+          "nps": 1812480,
+          "score_white": "+11"
+        },
+        {
+          "candidate": false,
+          "move": "g8f6",
+          "depth": 5,
+          "nodes": 59392,
+          "seconds": 0.025,
+          "nps": 2375680,
+          "score_white": "-30"
+        },
+        {
+          "candidate": true,
+          "move": "b2b4",
+          "depth": 5,
+          "nodes": 45568,
+          "seconds": 0.025,
+          "nps": 1822720,
+          "score_white": "+14"
+        },
+        {
+          "candidate": false,
+          "move": "d5c4",
+          "depth": 6,
+          "nodes": 59392,
+          "seconds": 0.025,
+          "nps": 2375680,
+          "score_white": "-60"
+        },
+        {
+          "candidate": true,
+          "move": "e2e3",
+          "depth": 5,
+          "nodes": 45312,
+          "seconds": 0.025,
+          "nps": 1812480,
+          "score_white": "+20"
+        },
+        {
+          "candidate": false,
+          "move": "c8e6",
+          "depth": 6,
+          "nodes": 59136,
+          "seconds": 0.025,
+          "nps": 2365440,
+          "score_white": "-57"
+        },
+        {
+          "candidate": true,
+          "move": "d1c2",
+          "depth": 4,
+          "nodes": 42240,
+          "seconds": 0.025,
+          "nps": 1689600,
+          "score_white": "+20"
+        },
+        {
+          "candidate": false,
+          "move": "b7b5",
+          "depth": 5,
+          "nodes": 54016,
+          "seconds": 0.025,
+          "nps": 2160640,
+          "score_white": "-68"
+        },
+        {
+          "candidate": true,
+          "move": "f3g5",
+          "depth": 5,
+          "nodes": 40704,
+          "seconds": 0.025,
+          "nps": 1628160,
+          "score_white": "+25"
+        },
+        {
+          "candidate": false,
+          "move": "e6d5",
+          "depth": 5,
+          "nodes": 57600,
+          "seconds": 0.025,
+          "nps": 2304000,
+          "score_white": "-78"
+        },
+        {
+          "candidate": true,
+          "move": "d2d3",
+          "depth": 5,
+          "nodes": 43008,
+          "seconds": 0.025,
+          "nps": 1720320,
+          "score_white": "+30"
+        },
+        {
+          "candidate": false,
+          "move": "c4d3",
+          "depth": 6,
+          "nodes": 56576,
+          "seconds": 0.025,
+          "nps": 2263040,
+          "score_white": "-81"
+        },
+        {
+          "candidate": true,
+          "move": "f1d3",
+          "depth": 5,
+          "nodes": 41984,
+          "seconds": 0.025,
+          "nps": 1679360,
+          "score_white": "+49"
+        },
+        {
+          "candidate": false,
+          "move": "d5g2",
+          "depth": 6,
+          "nodes": 50944,
+          "seconds": 0.025,
+          "nps": 2037760,
+          "score_white": "-145"
+        },
+        {
+          "candidate": true,
+          "move": "h1g1",
+          "depth": 5,
+          "nodes": 38144,
+          "seconds": 0.025,
+          "nps": 1525760,
+          "score_white": "+75"
+        },
+        {
+          "candidate": false,
+          "move": "g2d5",
+          "depth": 5,
+          "nodes": 53504,
+          "seconds": 0.025,
+          "nps": 2140160,
+          "score_white": "-109"
+        },
+        {
+          "candidate": true,
+          "move": "b1c3",
+          "depth": 5,
+          "nodes": 40192,
+          "seconds": 0.025,
+          "nps": 1607680,
+          "score_white": "+78"
+        },
+        {
+          "candidate": false,
+          "move": "h7h6",
+          "depth": 5,
+          "nodes": 55040,
+          "seconds": 0.025,
+          "nps": 2201600,
+          "score_white": "-119"
+        },
+        {
+          "candidate": true,
+          "move": "c3d5",
+          "depth": 5,
+          "nodes": 39936,
+          "seconds": 0.025,
+          "nps": 1597440,
+          "score_white": "+81"
+        },
+        {
+          "candidate": false,
+          "move": "d8d5",
+          "depth": 6,
+          "nodes": 55040,
+          "seconds": 0.025,
+          "nps": 2201600,
+          "score_white": "-168"
+        },
+        {
+          "candidate": true,
+          "move": "g5f7",
+          "depth": 5,
+          "nodes": 40960,
+          "seconds": 0.025,
+          "nps": 1638400,
+          "score_white": "+159"
+        },
+        {
+          "candidate": false,
+          "move": "e8f7",
+          "depth": 5,
+          "nodes": 68864,
+          "seconds": 0.025,
+          "nps": 2754560,
+          "score_white": "-296"
+        },
+        {
+          "candidate": true,
+          "move": "d3g6",
+          "depth": 5,
+          "nodes": 42240,
+          "seconds": 0.025,
+          "nps": 1689600,
+          "score_white": "+152"
+        },
+        {
+          "candidate": false,
+          "move": "f7g8",
+          "depth": 6,
+          "nodes": 59136,
+          "seconds": 0.025,
+          "nps": 2365440,
+          "score_white": "-325"
+        },
+        {
+          "candidate": true,
+          "move": "c1b2",
+          "depth": 5,
+          "nodes": 43520,
+          "seconds": 0.025,
+          "nps": 1740800,
+          "score_white": "+47"
+        },
+        {
+          "candidate": false,
+          "move": "d5d6",
+          "depth": 5,
+          "nodes": 61184,
+          "seconds": 0.025,
+          "nps": 2447360,
+          "score_white": "-298"
+        },
+        {
+          "candidate": true,
+          "move": "f2f4",
+          "depth": 4,
+          "nodes": 43520,
+          "seconds": 0.025,
+          "nps": 1740800,
+          "score_white": "+277"
+        },
+        {
+          "candidate": false,
+          "move": "b8d7",
+          "depth": 5,
+          "nodes": 61440,
+          "seconds": 0.025,
+          "nps": 2457600,
+          "score_white": "-341"
+        },
+        {
+          "candidate": true,
+          "move": "e1f2",
+          "depth": 4,
+          "nodes": 42496,
+          "seconds": 0.025,
+          "nps": 1699840,
+          "score_white": "+222"
+        },
+        {
+          "candidate": false,
+          "move": "e7e5",
+          "depth": 4,
+          "nodes": 63488,
+          "seconds": 0.025,
+          "nps": 2539520,
+          "score_white": "-340"
+        },
+        {
+          "candidate": true,
+          "move": "a1d1",
+          "depth": 4,
+          "nodes": 45056,
+          "seconds": 0.025,
+          "nps": 1802240,
+          "score_white": "+191"
+        },
+        {
+          "candidate": false,
+          "move": "f6d5",
+          "depth": 5,
+          "nodes": 59904,
+          "seconds": 0.025,
+          "nps": 2396160,
+          "score_white": "-280"
+        },
+        {
+          "candidate": true,
+          "move": "c2f5",
+          "depth": 5,
+          "nodes": 43776,
+          "seconds": 0.025,
+          "nps": 1751040,
+          "score_white": "+179"
+        },
+        {
+          "candidate": false,
+          "move": "d6e7",
+          "depth": 4,
+          "nodes": 63744,
+          "seconds": 0.025,
+          "nps": 2549760,
+          "score_white": "-278"
+        },
+        {
+          "candidate": true,
+          "move": "f4e5",
+          "depth": 4,
+          "nodes": 47616,
+          "seconds": 0.025,
+          "nps": 1904640,
+          "score_white": "+231"
+        },
+        {
+          "candidate": false,
+          "move": "d7b6",
+          "depth": 4,
+          "nodes": 63744,
+          "seconds": 0.025,
+          "nps": 2549760,
+          "score_white": "-271"
+        },
+        {
+          "candidate": true,
+          "move": "e5e6",
+          "depth": 5,
+          "nodes": 49152,
+          "seconds": 0.025,
+          "nps": 1966080,
+          "score_white": "+567"
+        },
+        {
+          "candidate": false,
+          "move": "e7h4",
+          "depth": 6,
+          "nodes": 61184,
+          "seconds": 0.025,
+          "nps": 2447360,
+          "score_white": "+234"
+        },
+        {
+          "candidate": true,
+          "move": "f2f3",
+          "depth": 6,
+          "nodes": 35072,
+          "seconds": 0.025,
+          "nps": 1402880,
+          "score_white": "+629"
+        },
+        {
+          "candidate": false,
+          "move": "h8h7",
+          "depth": 6,
+          "nodes": 57344,
+          "seconds": 0.025,
+          "nps": 2293760,
+          "score_white": "+338"
+        },
+        {
+          "candidate": true,
+          "move": "g6h7",
+          "depth": 5,
+          "nodes": 45568,
+          "seconds": 0.025,
+          "nps": 1822720,
+          "score_white": "+671"
+        },
+        {
+          "candidate": false,
+          "move": "g8h8",
+          "depth": 6,
+          "nodes": 62720,
+          "seconds": 0.025,
+          "nps": 2508800,
+          "score_white": "+416"
+        },
+        {
+          "candidate": true,
+          "move": "h7g8",
+          "depth": 5,
+          "nodes": 39936,
+          "seconds": 0.025,
+          "nps": 1597440,
+          "score_white": "+671"
+        },
+        {
+          "candidate": false,
+          "move": "d5f6",
+          "depth": 6,
+          "nodes": 60160,
+          "seconds": 0.025,
+          "nps": 2406400,
+          "score_white": "+347"
+        },
+        {
+          "candidate": true,
+          "move": "b2f6",
+          "depth": 5,
+          "nodes": 47616,
+          "seconds": 0.025,
+          "nps": 1904640,
+          "score_white": "+668"
+        },
+        {
+          "candidate": false,
+          "move": "h4f6",
+          "depth": 7,
+          "nodes": 69120,
+          "seconds": 0.025,
+          "nps": 2764800,
+          "score_white": "+286"
+        },
+        {
+          "candidate": true,
+          "move": "f5f6",
+          "depth": 7,
+          "nodes": 56576,
+          "seconds": 0.025,
+          "nps": 2263040,
+          "score_white": "+653"
+        },
+        {
+          "candidate": false,
+          "move": "g7f6",
+          "depth": 7,
+          "nodes": 68096,
+          "seconds": 0.025,
+          "nps": 2723840,
+          "score_white": "+295"
+        },
+        {
+          "candidate": true,
+          "move": "g8f7",
+          "depth": 6,
+          "nodes": 48640,
+          "seconds": 0.025,
+          "nps": 1945600,
+          "score_white": "+618"
+        },
+        {
+          "candidate": false,
+          "move": "f8e7",
+          "depth": 7,
+          "nodes": 69120,
+          "seconds": 0.025,
+          "nps": 2764800,
+          "score_white": "+278"
+        },
+        {
+          "candidate": true,
+          "move": "g1g6",
+          "depth": 6,
+          "nodes": 66048,
+          "seconds": 0.025,
+          "nps": 2641920,
+          "score_white": "+686"
+        },
+        {
+          "candidate": false,
+          "move": "b6c4",
+          "depth": 7,
+          "nodes": 65536,
+          "seconds": 0.025,
+          "nps": 2621440,
+          "score_white": "+322"
+        },
+        {
+          "candidate": true,
+          "move": "g6h6",
+          "depth": 6,
+          "nodes": 50176,
+          "seconds": 0.025,
+          "nps": 2007040,
+          "score_white": "+683"
+        },
+        {
+          "candidate": false,
+          "move": "h8g7",
+          "depth": 7,
+          "nodes": 64256,
+          "seconds": 0.025,
+          "nps": 2570240,
+          "score_white": "+313"
+        },
+        {
+          "candidate": true,
+          "move": "h6h5",
+          "depth": 6,
+          "nodes": 47104,
+          "seconds": 0.025,
+          "nps": 1884160,
+          "score_white": "+608"
+        },
+        {
+          "candidate": false,
+          "move": "c4e5",
+          "depth": 6,
+          "nodes": 61184,
+          "seconds": 0.025,
+          "nps": 2447360,
+          "score_white": "+272"
+        },
+        {
+          "candidate": true,
+          "move": "f3f4",
+          "depth": 7,
+          "nodes": 54016,
+          "seconds": 0.025,
+          "nps": 2160640,
+          "score_white": "+690"
+        },
+        {
+          "candidate": false,
+          "move": "e5f7",
+          "depth": 7,
+          "nodes": 61696,
+          "seconds": 0.025,
+          "nps": 2467840,
+          "score_white": "+261"
+        },
+        {
+          "candidate": true,
+          "move": "d1d7",
+          "depth": 6,
+          "nodes": 60928,
+          "seconds": 0.025,
+          "nps": 2437120,
+          "score_white": "+638"
+        },
+        {
+          "candidate": false,
+          "move": "f7g5",
+          "depth": 7,
+          "nodes": 59392,
+          "seconds": 0.025,
+          "nps": 2375680,
+          "score_white": "+280"
+        },
+        {
+          "candidate": true,
+          "move": "d7e7",
+          "depth": 6,
+          "nodes": 47360,
+          "seconds": 0.025,
+          "nps": 1894400,
+          "score_white": "+630"
+        },
+        {
+          "candidate": false,
+          "move": "g7f8",
+          "depth": 7,
+          "nodes": 73728,
+          "seconds": 0.025,
+          "nps": 2949120,
+          "score_white": "+298"
+        },
+        {
+          "candidate": true,
+          "move": "e7d7",
+          "depth": 7,
+          "nodes": 53504,
+          "seconds": 0.025,
+          "nps": 2140160,
+          "score_white": "+688"
+        },
+        {
+          "candidate": false,
+          "move": "g5e6",
+          "depth": 7,
+          "nodes": 65024,
+          "seconds": 0.025,
+          "nps": 2600960,
+          "score_white": "+347"
+        },
+        {
+          "candidate": true,
+          "move": "f4g4",
+          "depth": 7,
+          "nodes": 50432,
+          "seconds": 0.025,
+          "nps": 2017280,
+          "score_white": "+690"
+        },
+        {
+          "candidate": false,
+          "move": "f8g8",
+          "depth": 7,
+          "nodes": 65536,
+          "seconds": 0.025,
+          "nps": 2621440,
+          "score_white": "+347"
+        },
+        {
+          "candidate": true,
+          "move": "h5h7",
+          "depth": 6,
+          "nodes": 53504,
+          "seconds": 0.025,
+          "nps": 2140160,
+          "score_white": "+718"
+        },
+        {
+          "candidate": false,
+          "move": "a8e8",
+          "depth": 6,
+          "nodes": 68352,
+          "seconds": 0.025,
+          "nps": 2734080,
+          "score_white": "+365"
+        },
+        {
+          "candidate": true,
+          "move": "g4f5",
+          "depth": 6,
+          "nodes": 48896,
+          "seconds": 0.025,
+          "nps": 1955840,
+          "score_white": "+761"
+        },
+        {
+          "candidate": false,
+          "move": "a7a5",
+          "depth": 7,
+          "nodes": 62208,
+          "seconds": 0.025,
+          "nps": 2488320,
+          "score_white": "+392"
+        },
+        {
+          "candidate": true,
+          "move": "b4a5",
+          "depth": 7,
+          "nodes": 47872,
+          "seconds": 0.025,
+          "nps": 1914880,
+          "score_white": "+817"
+        },
+        {
+          "candidate": false,
+          "move": "e6g5",
+          "depth": 7,
+          "nodes": 60928,
+          "seconds": 0.025,
+          "nps": 2437120,
+          "score_white": "+462"
+        },
+        {
+          "candidate": true,
+          "move": "h7g7",
+          "depth": 6,
+          "nodes": 46592,
+          "seconds": 0.025,
+          "nps": 1863680,
+          "score_white": "+817"
+        },
+        {
+          "candidate": false,
+          "move": "g8f8",
+          "depth": 7,
+          "nodes": 65280,
+          "seconds": 0.025,
+          "nps": 2611200,
+          "score_white": "+510"
+        },
+        {
+          "candidate": true,
+          "move": "a5a6",
+          "depth": 6,
+          "nodes": 47616,
+          "seconds": 0.025,
+          "nps": 1904640,
+          "score_white": "+841"
+        },
+        {
+          "candidate": false,
+          "move": "e8e3",
+          "depth": 6,
+          "nodes": 59392,
+          "seconds": 0.025,
+          "nps": 2375680,
+          "score_white": "+439"
+        },
+        {
+          "candidate": true,
+          "move": "f5f6",
+          "depth": 6,
+          "nodes": 46848,
+          "seconds": 0.025,
+          "nps": 1873920,
+          "score_white": "+1021"
+        },
+        {
+          "candidate": false,
+          "move": "e3f3",
+          "depth": 6,
+          "nodes": 65536,
+          "seconds": 0.025,
+          "nps": 2621440,
+          "score_white": "+672"
+        },
+        {
+          "candidate": true,
+          "move": "f6g5",
+          "depth": 7,
+          "nodes": 50688,
+          "seconds": 0.025,
+          "nps": 2027520,
+          "score_white": "+1118"
+        },
+        {
+          "candidate": false,
+          "move": "f3a3",
+          "depth": 6,
+          "nodes": 80384,
+          "seconds": 0.025,
+          "nps": 3215360,
+          "score_white": "+707"
+        },
+        {
+          "candidate": true,
+          "move": "g7h7",
+          "depth": 5,
+          "nodes": 65024,
+          "seconds": 0.025,
+          "nps": 2600960,
+          "score_white": "+1113"
+        },
+        {
+          "candidate": false,
+          "move": "f8g8",
+          "depth": 5,
+          "nodes": 10966,
+          "seconds": 0.004,
+          "nps": 2741500,
+          "score_white": "#+3"
+        },
+        {
+          "candidate": true,
+          "move": "g5g6",
+          "depth": 4,
+          "nodes": 6042,
+          "seconds": 0.003,
+          "nps": 2014000,
+          "score_white": "#+3"
+        },
+        {
+          "candidate": false,
+          "move": "a3f3",
+          "depth": 3,
+          "nodes": 667,
+          "seconds": 0.002,
+          "nps": 333500,
+          "score_white": "#+2"
+        },
+        {
+          "candidate": true,
+          "move": "d7g7",
+          "depth": 2,
+          "nodes": 263,
+          "seconds": 0.001,
+          "nps": 263000,
+          "score_white": "#+2"
+        },
+        {
+          "candidate": false,
+          "move": "g8f8",
+          "depth": 2,
+          "nodes": 54,
+          "seconds": 0.001,
+          "nps": 54000,
+          "score_white": "#+1"
+        },
+        {
+          "candidate": true,
+          "move": "h7h8",
+          "depth": 1,
+          "nodes": 25,
+          "seconds": 0.001,
+          "nps": 25000,
+          "score_white": "#+1"
+        }
+      ]
+    },
+    {
+      "game": 2,
+      "pair": 1,
+      "opening": [
+        "c2c4",
+        "d7d5",
+        "a2a3",
+        "c7c6"
+      ],
+      "candidate_color": "black",
+      "result": "1-0",
+      "termination": "checkmate",
+      "candidate_outcome": "loss",
+      "plies": 85,
+      "searches": [
+        {
+          "candidate": false,
+          "move": "c4d5",
+          "depth": 5,
+          "nodes": 58112,
+          "seconds": 0.025,
+          "nps": 2324480,
+          "score_white": "+8"
+        },
+        {
+          "candidate": true,
+          "move": "c6d5",
+          "depth": 6,
+          "nodes": 40704,
+          "seconds": 0.025,
+          "nps": 1628160,
+          "score_white": "+1"
+        },
+        {
+          "candidate": false,
+          "move": "d1a4",
+          "depth": 6,
+          "nodes": 62976,
+          "seconds": 0.025,
+          "nps": 2519040,
+          "score_white": "-25"
+        },
+        {
+          "candidate": true,
+          "move": "c8d7",
+          "depth": 7,
+          "nodes": 41472,
+          "seconds": 0.025,
+          "nps": 1658880,
+          "score_white": "-26"
+        },
+        {
+          "candidate": false,
+          "move": "a4b3",
+          "depth": 6,
+          "nodes": 54272,
+          "seconds": 0.025,
+          "nps": 2170880,
+          "score_white": "-29"
+        },
+        {
+          "candidate": true,
+          "move": "g8f6",
+          "depth": 5,
+          "nodes": 41216,
+          "seconds": 0.025,
+          "nps": 1648640,
+          "score_white": "-26"
+        },
+        {
+          "candidate": false,
+          "move": "g1f3",
+          "depth": 6,
+          "nodes": 55808,
+          "seconds": 0.025,
+          "nps": 2232320,
+          "score_white": "-34"
+        },
+        {
+          "candidate": true,
+          "move": "b8c6",
+          "depth": 6,
+          "nodes": 43520,
+          "seconds": 0.025,
+          "nps": 1740800,
+          "score_white": "-22"
+        },
+        {
+          "candidate": false,
+          "move": "b3b7",
+          "depth": 5,
+          "nodes": 57088,
+          "seconds": 0.025,
+          "nps": 2283520,
+          "score_white": "+11"
+        },
+        {
+          "candidate": true,
+          "move": "a8b8",
+          "depth": 5,
+          "nodes": 41728,
+          "seconds": 0.025,
+          "nps": 1669120,
+          "score_white": "-44"
+        },
+        {
+          "candidate": false,
+          "move": "b7a6",
+          "depth": 6,
+          "nodes": 54272,
+          "seconds": 0.025,
+          "nps": 2170880,
+          "score_white": "-27"
+        },
+        {
+          "candidate": true,
+          "move": "c6a5",
+          "depth": 5,
+          "nodes": 42240,
+          "seconds": 0.025,
+          "nps": 1689600,
+          "score_white": "-50"
+        },
+        {
+          "candidate": false,
+          "move": "b1c3",
+          "depth": 6,
+          "nodes": 47104,
+          "seconds": 0.025,
+          "nps": 1884160,
+          "score_white": "-41"
+        },
+        {
+          "candidate": true,
+          "move": "a5b3",
+          "depth": 6,
+          "nodes": 39168,
+          "seconds": 0.025,
+          "nps": 1566720,
+          "score_white": "-59"
+        },
+        {
+          "candidate": false,
+          "move": "a1b1",
+          "depth": 6,
+          "nodes": 48384,
+          "seconds": 0.025,
+          "nps": 1935360,
+          "score_white": "-85"
+        },
+        {
+          "candidate": true,
+          "move": "d5d4",
+          "depth": 6,
+          "nodes": 37888,
+          "seconds": 0.025,
+          "nps": 1515520,
+          "score_white": "-90"
+        },
+        {
+          "candidate": false,
+          "move": "c3a2",
+          "depth": 5,
+          "nodes": 51968,
+          "seconds": 0.025,
+          "nps": 2078720,
+          "score_white": "-15"
+        },
+        {
+          "candidate": true,
+          "move": "e7e6",
+          "depth": 5,
+          "nodes": 42752,
+          "seconds": 0.025,
+          "nps": 1710080,
+          "score_white": "-122"
+        },
+        {
+          "candidate": false,
+          "move": "e2e3",
+          "depth": 5,
+          "nodes": 61184,
+          "seconds": 0.025,
+          "nps": 2447360,
+          "score_white": "+6"
+        },
+        {
+          "candidate": true,
+          "move": "f8c5",
+          "depth": 5,
+          "nodes": 43008,
+          "seconds": 0.025,
+          "nps": 1720320,
+          "score_white": "-144"
+        },
+        {
+          "candidate": false,
+          "move": "f1c4",
+          "depth": 4,
+          "nodes": 59904,
+          "seconds": 0.025,
+          "nps": 2396160,
+          "score_white": "-8"
+        },
+        {
+          "candidate": true,
+          "move": "d4e3",
+          "depth": 5,
+          "nodes": 36608,
+          "seconds": 0.025,
+          "nps": 1464320,
+          "score_white": "-150"
+        },
+        {
+          "candidate": false,
+          "move": "d2e3",
+          "depth": 5,
+          "nodes": 58624,
+          "seconds": 0.025,
+          "nps": 2344960,
+          "score_white": "-8"
+        },
+        {
+          "candidate": true,
+          "move": "e8g8",
+          "depth": 4,
+          "nodes": 19968,
+          "seconds": 0.025,
+          "nps": 798720,
+          "score_white": "-112"
+        },
+        {
+          "candidate": false,
+          "move": "e1g1",
+          "depth": 5,
+          "nodes": 57600,
+          "seconds": 0.025,
+          "nps": 2304000,
+          "score_white": "+38"
+        },
+        {
+          "candidate": true,
+          "move": "b3c1",
+          "depth": 4,
+          "nodes": 21504,
+          "seconds": 0.025,
+          "nps": 860160,
+          "score_white": "-78"
+        },
+        {
+          "candidate": false,
+          "move": "f1c1",
+          "depth": 4,
+          "nodes": 30720,
+          "seconds": 0.025,
+          "nps": 1228800,
+          "score_white": "+50"
+        },
+        {
+          "candidate": true,
+          "move": "f6e4",
+          "depth": 4,
+          "nodes": 30976,
+          "seconds": 0.025,
+          "nps": 1239040,
+          "score_white": "-55"
+        },
+        {
+          "candidate": false,
+          "move": "a2c3",
+          "depth": 4,
+          "nodes": 34816,
+          "seconds": 0.025,
+          "nps": 1392640,
+          "score_white": "+99"
+        },
+        {
+          "candidate": true,
+          "move": "e4f2",
+          "depth": 4,
+          "nodes": 16128,
+          "seconds": 0.025,
+          "nps": 645120,
+          "score_white": "-17"
+        },
+        {
+          "candidate": false,
+          "move": "c4e6",
+          "depth": 3,
+          "nodes": 32000,
+          "seconds": 0.025,
+          "nps": 1280000,
+          "score_white": "-6"
+        },
+        {
+          "candidate": true,
+          "move": "c5e3",
+          "depth": 4,
+          "nodes": 16896,
+          "seconds": 0.025,
+          "nps": 675840,
+          "score_white": "-403"
+        },
+        {
+          "candidate": false,
+          "move": "c1e1",
+          "depth": 4,
+          "nodes": 24832,
+          "seconds": 0.025,
+          "nps": 993280,
+          "score_white": "-116"
+        },
+        {
+          "candidate": true,
+          "move": "f2h3",
+          "depth": 4,
+          "nodes": 16896,
+          "seconds": 0.025,
+          "nps": 675840,
+          "score_white": "-477"
+        },
+        {
+          "candidate": false,
+          "move": "g1f1",
+          "depth": 6,
+          "nodes": 36608,
+          "seconds": 0.025,
+          "nps": 1464320,
+          "score_white": "-54"
+        },
+        {
+          "candidate": true,
+          "move": "d7e6",
+          "depth": 4,
+          "nodes": 15616,
+          "seconds": 0.025,
+          "nps": 624640,
+          "score_white": "-456"
+        },
+        {
+          "candidate": false,
+          "move": "e1e3",
+          "depth": 5,
+          "nodes": 35840,
+          "seconds": 0.025,
+          "nps": 1433600,
+          "score_white": "+57"
+        },
+        {
+          "candidate": true,
+          "move": "b8b6",
+          "depth": 4,
+          "nodes": 23552,
+          "seconds": 0.025,
+          "nps": 942080,
+          "score_white": "-343"
+        },
+        {
+          "candidate": false,
+          "move": "a6a4",
+          "depth": 5,
+          "nodes": 32000,
+          "seconds": 0.025,
+          "nps": 1280000,
+          "score_white": "+51"
+        },
+        {
+          "candidate": true,
+          "move": "e6f5",
+          "depth": 3,
+          "nodes": 15360,
+          "seconds": 0.025,
+          "nps": 614400,
+          "score_white": "-366"
+        },
+        {
+          "candidate": false,
+          "move": "b1d1",
+          "depth": 5,
+          "nodes": 35072,
+          "seconds": 0.025,
+          "nps": 1402880,
+          "score_white": "+75"
+        },
+        {
+          "candidate": true,
+          "move": "d8c8",
+          "depth": 4,
+          "nodes": 20736,
+          "seconds": 0.025,
+          "nps": 829440,
+          "score_white": "-194"
+        },
+        {
+          "candidate": false,
+          "move": "d1d2",
+          "depth": 4,
+          "nodes": 39424,
+          "seconds": 0.025,
+          "nps": 1576960,
+          "score_white": "+165"
+        },
+        {
+          "candidate": true,
+          "move": "c8c5",
+          "depth": 4,
+          "nodes": 18944,
+          "seconds": 0.025,
+          "nps": 757760,
+          "score_white": "-142"
+        },
+        {
+          "candidate": false,
+          "move": "e3e5",
+          "depth": 5,
+          "nodes": 28928,
+          "seconds": 0.025,
+          "nps": 1157120,
+          "score_white": "+234"
+        },
+        {
+          "candidate": true,
+          "move": "f5d3",
+          "depth": 5,
+          "nodes": 15360,
+          "seconds": 0.025,
+          "nps": 614400,
+          "score_white": "-112"
+        },
+        {
+          "candidate": false,
+          "move": "f1e1",
+          "depth": 6,
+          "nodes": 22784,
+          "seconds": 0.025,
+          "nps": 911360,
+          "score_white": "+226"
+        },
+        {
+          "candidate": true,
+          "move": "b6e6",
+          "depth": 5,
+          "nodes": 19456,
+          "seconds": 0.025,
+          "nps": 778240,
+          "score_white": "-160"
+        },
+        {
+          "candidate": false,
+          "move": "e5e6",
+          "depth": 6,
+          "nodes": 29696,
+          "seconds": 0.025,
+          "nps": 1187840,
+          "score_white": "+230"
+        },
+        {
+          "candidate": true,
+          "move": "f7e6",
+          "depth": 5,
+          "nodes": 19712,
+          "seconds": 0.025,
+          "nps": 788480,
+          "score_white": "-279"
+        },
+        {
+          "candidate": false,
+          "move": "d2d3",
+          "depth": 5,
+          "nodes": 26368,
+          "seconds": 0.025,
+          "nps": 1054720,
+          "score_white": "+94"
+        },
+        {
+          "candidate": true,
+          "move": "c5f2",
+          "depth": 5,
+          "nodes": 25856,
+          "seconds": 0.025,
+          "nps": 1034240,
+          "score_white": "-75"
+        },
+        {
+          "candidate": false,
+          "move": "e1d1",
+          "depth": 6,
+          "nodes": 29440,
+          "seconds": 0.025,
+          "nps": 1177600,
+          "score_white": "+150"
+        },
+        {
+          "candidate": true,
+          "move": "f2g2",
+          "depth": 4,
+          "nodes": 22784,
+          "seconds": 0.025,
+          "nps": 911360,
+          "score_white": "-159"
+        },
+        {
+          "candidate": false,
+          "move": "c3e4",
+          "depth": 5,
+          "nodes": 33024,
+          "seconds": 0.025,
+          "nps": 1320960,
+          "score_white": "+87"
+        },
+        {
+          "candidate": true,
+          "move": "g2f1",
+          "depth": 4,
+          "nodes": 26112,
+          "seconds": 0.025,
+          "nps": 1044480,
+          "score_white": "-164"
+        },
+        {
+          "candidate": false,
+          "move": "d1c2",
+          "depth": 5,
+          "nodes": 29184,
+          "seconds": 0.025,
+          "nps": 1167360,
+          "score_white": "+184"
+        },
+        {
+          "candidate": true,
+          "move": "f1e2",
+          "depth": 4,
+          "nodes": 25344,
+          "seconds": 0.025,
+          "nps": 1013760,
+          "score_white": "-126"
+        },
+        {
+          "candidate": false,
+          "move": "f3d2",
+          "depth": 6,
+          "nodes": 36352,
+          "seconds": 0.025,
+          "nps": 1454080,
+          "score_white": "+236"
+        },
+        {
+          "candidate": true,
+          "move": "h3g1",
+          "depth": 4,
+          "nodes": 22272,
+          "seconds": 0.025,
+          "nps": 890880,
+          "score_white": "+10"
+        },
+        {
+          "candidate": false,
+          "move": "a4a7",
+          "depth": 5,
+          "nodes": 34121,
+          "seconds": 0.025,
+          "nps": 1364840,
+          "score_white": "+343"
+        },
+        {
+          "candidate": true,
+          "move": "e2g4",
+          "depth": 4,
+          "nodes": 23040,
+          "seconds": 0.025,
+          "nps": 921600,
+          "score_white": "0"
+        },
+        {
+          "candidate": false,
+          "move": "d3g3",
+          "depth": 6,
+          "nodes": 38144,
+          "seconds": 0.025,
+          "nps": 1525760,
+          "score_white": "+703"
+        },
+        {
+          "candidate": true,
+          "move": "f8c8",
+          "depth": 5,
+          "nodes": 17920,
+          "seconds": 0.025,
+          "nps": 716800,
+          "score_white": "+245"
+        },
+        {
+          "candidate": false,
+          "move": "c2b1",
+          "depth": 6,
+          "nodes": 30464,
+          "seconds": 0.025,
+          "nps": 1218560,
+          "score_white": "+768"
+        },
+        {
+          "candidate": true,
+          "move": "g4d1",
+          "depth": 5,
+          "nodes": 17920,
+          "seconds": 0.025,
+          "nps": 716800,
+          "score_white": "+563"
+        },
+        {
+          "candidate": false,
+          "move": "b1a2",
+          "depth": 6,
+          "nodes": 28672,
+          "seconds": 0.025,
+          "nps": 1146880,
+          "score_white": "+768"
+        },
+        {
+          "candidate": true,
+          "move": "g7g6",
+          "depth": 5,
+          "nodes": 20992,
+          "seconds": 0.025,
+          "nps": 839680,
+          "score_white": "+766"
+        },
+        {
+          "candidate": false,
+          "move": "e4f6",
+          "depth": 6,
+          "nodes": 36096,
+          "seconds": 0.025,
+          "nps": 1443840,
+          "score_white": "+1143"
+        },
+        {
+          "candidate": true,
+          "move": "g8f8",
+          "depth": 6,
+          "nodes": 24064,
+          "seconds": 0.025,
+          "nps": 962560,
+          "score_white": "+757"
+        },
+        {
+          "candidate": false,
+          "move": "f6h7",
+          "depth": 6,
+          "nodes": 38400,
+          "seconds": 0.025,
+          "nps": 1536000,
+          "score_white": "+1596"
+        },
+        {
+          "candidate": true,
+          "move": "f8e8",
+          "depth": 6,
+          "nodes": 27136,
+          "seconds": 0.025,
+          "nps": 1085440,
+          "score_white": "+1255"
+        },
+        {
+          "candidate": false,
+          "move": "g3g6",
+          "depth": 5,
+          "nodes": 28672,
+          "seconds": 0.025,
+          "nps": 1146880,
+          "score_white": "+2001"
+        },
+        {
+          "candidate": true,
+          "move": "d1a1",
+          "depth": 5,
+          "nodes": 27904,
+          "seconds": 0.025,
+          "nps": 1116160,
+          "score_white": "+1458"
+        },
+        {
+          "candidate": false,
+          "move": "a2a1",
+          "depth": 6,
+          "nodes": 15632,
+          "seconds": 0.011,
+          "nps": 1421090,
+          "score_white": "#+4"
+        },
+        {
+          "candidate": true,
+          "move": "c8c1",
+          "depth": 5,
+          "nodes": 10377,
+          "seconds": 0.009,
+          "nps": 1153000,
+          "score_white": "#+3"
+        },
+        {
+          "candidate": false,
+          "move": "a1a2",
+          "depth": 5,
+          "nodes": 13194,
+          "seconds": 0.007,
+          "nps": 1884857,
+          "score_white": "#+3"
+        },
+        {
+          "candidate": true,
+          "move": "c1a1",
+          "depth": 5,
+          "nodes": 17817,
+          "seconds": 0.011,
+          "nps": 1619727,
+          "score_white": "#+2"
+        },
+        {
+          "candidate": false,
+          "move": "a2a1",
+          "depth": 3,
+          "nodes": 266,
+          "seconds": 0.002,
+          "nps": 133000,
+          "score_white": "#+2"
+        },
+        {
+          "candidate": true,
+          "move": "g1e2",
+          "depth": 2,
+          "nodes": 182,
+          "seconds": 0.001,
+          "nps": 182000,
+          "score_white": "#+1"
+        },
+        {
+          "candidate": false,
+          "move": "g6g8",
+          "depth": 1,
+          "nodes": 62,
+          "seconds": 0.002,
+          "nps": 31000,
+          "score_white": "#+1"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "wins": 1,
+    "draws": 0,
+    "losses": 1,
+    "unfinished": 0,
+    "completed_games": 2,
+    "score_percent": 50.0,
+    "rating_difference_estimate": 0.0,
+    "complete_pairs": 1,
+    "paired_score": 0.5,
+    "paired_score_95_bound": [
+      0,
+      1
+    ],
+    "paired_rating_95_bound": [
+      null,
+      null
+    ],
+    "uncertainty_method": "Hoeffding bounded pair-score 95% interval; nominal independent opening pairs",
+    "limitations": "Fast time control; own-evaluator opening filter; capped pairs excluded; no universal Elo claim. Null rating endpoints mean unbounded tails."
+  }
+}

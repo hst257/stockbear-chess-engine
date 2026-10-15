@@ -1,0 +1,23 @@
+[Event "NNUE versus classical evaluator match"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "1"]
+[White "StockBear NNUE stockbear-v2-compact (scalar)"]
+[Black "StockBear NNUE stockbear-v2-small (scalar)"]
+[Result "1/2-1/2"]
+[ThinkTimeMs "25"]
+[Termination "threefold_repetition"]
+
+1. c4 d5 2. a3 c6 3. Nf3 e5 4. Nxe5 dxc4 5. e3 b5 6. b3 Bd6 7. Bb2 Qe7 8. Nxc4 bxc4 9. Bxg7 Be5 10. Bxh8 Bxh8 11. Nc3 Be6 12. Qc2 Nf6 13. Bxc4 Nbd7 14. Bxe6 Qxe6 15. O-O Rb8 16. Rab1 Kf8 17. Rfc1 Kg8 18. Ne2 c5 19. Ng3 h6 20. b4 Rb5 21. a4 Rxb4 22. Rxb4 cxb4 23. Qc8+ Kh7 24. Qc2+ Kg8 25. Rb1 a5 26. Nf5 Ne4 27. d3 Nc3 28. d4 Nxb1 29. d5 Qf6 30. Qxb1 Qa1 31. Nxh6+ Kf8 32. Qxa1 Bxa1 33. g4 b3 34. g5 b2 35. Kg2 b1=Q 36. f4 Bc3 37. h4 Qe4+ 38. Kf2 Be1+ 39. Ke2 Bxh4 40. d6 Qg2+ 41. Kd1 Qf3+ 42. Kd2 Qd5+ 43. Kc1 Qc4+ 44. Kd2 Qd5+ 45. Kc1 Qc4+ 46. Kd2 1/2-1/2
+
+[Event "NNUE versus classical evaluator match"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "2"]
+[White "StockBear NNUE stockbear-v2-small (scalar)"]
+[Black "StockBear NNUE stockbear-v2-compact (scalar)"]
+[Result "1/2-1/2"]
+[ThinkTimeMs "25"]
+[Termination "threefold_repetition"]
+
+1. c4 d5 2. a3 c6 3. d4 dxc4 4. Nf3 Nf6 5. Nc3 Be6 6. e4 Qa5 7. Ng5 Nxe4 8. Nxe4 Na6 9. Be2 h5 10. Ng5 Nc7 11. O-O a6 12. Bxh5 g6 13. d5 O-O-O 14. Qf3 cxd5 15. Nxe6 fxe6 16. b4 cxb3 17. Bxg6 Bg7 18. Qf7 Qxc3 19. Bg5 Kb8 20. Rac1 Qe5 21. Bf4 Rdf8 22. Bxe5 Bxe5 23. Qxf8+ Rxf8 24. Rb1 b2 25. Bc2 Nb5 26. Rfe1 Bd4 27. Re3 Rc8 28. Bd3 Nxa3 29. Rxb2 Bxb2 30. Rxe6 Rc1+ 31. Bf1 Nc2 32. Rxe7 b5 33. g3 b4 34. Re8+ Kc7 35. Re7+ Kb6 36. Re6+ Kc5 37. Rxa6 b3 38. Ra5+ Kc6 39. Kg2 Bd4 40. Rb5 Rxf1 41. Rxb3 Rxf2+ 42. Kh3 Kd6 43. Rb8 Ne3 44. Re8 Rf7 45. Kh4 Rh7+ 46. Kg5 Rxh2 47. Rf8 Re2 48. Rd8+ Ke7 49. Ra8 Nf1 50. Rg8 Re4 51. Kh5 Be5 52. g4 Ng3+ 53. Kh4 Nf1 54. Kh5 Ng3+ 55. Kh4 Re1 56. g5 Re4+ 57. Kh3 d4 58. g6 d3 59. g7 Kf7 60. Rd8 Kxg7 61. Rxd3 Nf5 62. Kg2 Bf6 63. Kf2 Rd4 64. Rf3 Kg6 65. Kf1 Ra4 66. Rd3 Rh4 67. Kg1 Bd4+ 68. Kf1 Rh1+ 69. Kg2 Rh4 70. Kf3 Rh3+ 71. Ke4 Re3+ 72. Rxe3 Bxe3 73. Kd3 Bb6 74. Kd2 Nd4 75. Kd3 Ne6 76. Kc3 Nf8 77. Kb4 Bd8 78. Kb3 Kf7 79. Kb4 Be7+ 80. Kb5 Ke8 81. Kc6 Nd7 82. Kc7 Bd8+ 83. Kc6 Ne5+ 84. Kd5 Bc7 85. Ke6 Nd7 86. Kd5 Nf8 87. Kc6 Kd8 88. Kd5 Nd7 89. Kc6 Ne5+ 90. Kd5 Ke8 91. Ke6 Nd7 92. Kd5 1/2-1/2
