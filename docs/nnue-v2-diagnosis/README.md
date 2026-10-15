@@ -42,6 +42,11 @@ related openings and small cohorts limit generalization. Capped pairs are exclud
 from complete-pair inference, with censoring sensitivity reported separately.
 Full-cohort summaries additionally resample named opening families as clusters,
 because two variants of the same family may be correlated.
+The all-ten trend also reports worst/best unknown-outcome bounds and joint
+paired bootstrap sensitivity envelopes. Complete-case trends are supplementary;
+capped pairs never silently disappear from the requested ten-pair comparison.
+All capped final positions receive offline reference analysis. They remain
+unfinished, and the reduced-runtime amendment rules out adding tournament games.
 
 ## Remaining diagnostic protocol
 

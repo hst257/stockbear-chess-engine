@@ -6,6 +6,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import platform
 import re
 import subprocess
 import time
@@ -67,6 +68,8 @@ def sha(path: Path) -> str:
 def metadata(path: Path) -> dict:
     sidecar = path.with_suffix(".build.json")
     return {"utc": datetime.now(timezone.utc).isoformat(), "executable": str(path.resolve()), "sha256": sha(path),
+            "platform": platform.platform(), "processor": os.environ.get("PROCESSOR_IDENTIFIER", platform.processor()),
+            "logical_cpus": os.cpu_count(), "python": platform.python_version(),
             "source_revision": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
             "build": json.loads(sidecar.read_text(encoding="utf-8")) if sidecar.exists() else None}
 

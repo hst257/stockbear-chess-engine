@@ -10,7 +10,7 @@ import chess
 import chess.engine
 import pytest
 
-from tools.analyze_nnue_diagnosis import bootstrap, candidate_quality, pair_scores
+from tools.analyze_nnue_diagnosis import bootstrap, candidate_quality, pair_scores, partial_pair_scores
 from tools.nnue_diagnosis import capture, open_engine, positions
 from tools.match_optimizations import version_match
 from tools.verify_match_records import verify_record
@@ -27,6 +27,7 @@ def test_paired_analysis_excludes_censored_pairs_without_calling_them_draws():
     games = [{"pair": 1, "candidate_outcome": "win"}, {"pair": 1, "candidate_outcome": "loss"},
              {"pair": 2, "candidate_outcome": "win"}, {"pair": 2, "candidate_outcome": "unfinished"}]
     assert pair_scores(games) == {1: .5}
+    assert partial_pair_scores(games) == {1: [.5, .5], 2: [.5, 1.]}
     assert bootstrap([.5] * 10) == [.5, .5]
     assert bootstrap([0, .25, .75, 1]) == bootstrap([0, .25, .75, 1])
 

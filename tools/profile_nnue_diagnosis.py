@@ -60,6 +60,7 @@ def main() -> None:
                 print("Accumulator profile", repeat + 1, row["id"], flush=True)
     micro = RELEASE.with_name("micro.exe")
     data["micro_metadata"] = metadata(micro)
+    data["cpu"] = json.loads(subprocess.check_output([str(micro.resolve()), "--cpu"], text=True, timeout=10))
     # The preserved developer microbenchmark excludes child make/unmake. Its
     # isolated copy loop copies lanes only, not feature metadata or full frames.
     for repeat in range(5):

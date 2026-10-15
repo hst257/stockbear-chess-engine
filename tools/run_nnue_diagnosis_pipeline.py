@@ -66,6 +66,7 @@ def main() -> None:
         run("ablations", [sys.executable, "-m", "tools.run_nnue_diagnosis_positions", "--phase", "ablations"], ROOT / "ablations.json")
         run("stockfish-reference", [sys.executable, "-m", "tools.run_nnue_diagnosis_positions", "--phase", "reference"], ROOT / "stockfish-quality.json")
         run("static-score-diagnosis", [sys.executable, "-m", "tools.diagnose_nnue_score_scale"], ROOT / "static-score-diagnosis.json")
+        run("capped-position-analysis", [sys.executable, "-m", "tools.diagnose_nnue_caps"], ROOT / "capped-position-analysis.json")
         run("accumulator-profile", [sys.executable, "-m", "tools.profile_nnue_diagnosis"], ROOT / "accumulator-profile.json")
         run("correctness", [sys.executable, "-m", "tools.verify_nnue_diagnosis"], ROOT / "correctness.json")
         run("pytest", [sys.executable, "-m", "pytest", "-q"])

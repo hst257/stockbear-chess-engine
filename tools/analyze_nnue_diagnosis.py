@@ -50,6 +50,20 @@ def pair_scores(games: list[dict]) -> dict[int, float]:
             for pair, rows in pairs.items() if len(rows) == 2 and all(g["candidate_outcome"] in points for g in rows)}
 
 
+def partial_pair_scores(games: list[dict]) -> dict[int, list[float]]:
+    pairs: dict[int, list[dict]] = defaultdict(list)
+    for game in games:
+        pairs[game["pair"]].append(game)
+    points = {"win": 1., "draw": .5, "loss": 0.}
+    result = {}
+    for pair, rows in pairs.items():
+        assert len(rows) == 2
+        known = sum(points.get(g["candidate_outcome"], 0) for g in rows)
+        missing = sum(g["candidate_outcome"] == "unfinished" for g in rows)
+        result[pair] = [known / 2, (known + missing) / 2]
+    return result
+
+
 def move_metrics(games: list[dict], candidate: bool) -> dict:
     rows = [s for game in games for s in game["searches"] if s["candidate"] == candidate]
     nodes = sum(s["nodes"] for s in rows)
@@ -74,12 +88,18 @@ def cohort(games: list[dict]) -> dict:
     margin = math.sqrt(math.log(40) / (2 * len(pairs))) if pairs else None
     conservative = [max(0, paired_score - margin), min(1, paired_score + margin)] if pairs else None
     finished_points = counts["win"] + counts["draw"] / 2
+    partial = list(partial_pair_scores(games).values())
+    rng = random.Random(SEED)
+    draws = [rng.choices(partial, k=len(partial)) for _ in range(20000)]
+    censoring_ci = [quantile([statistics.mean(v[0] for v in draw) for draw in draws], .025),
+                    quantile([statistics.mean(v[1] for v in draw) for draw in draws], .975)]
     return {"games": len(games), "wins": counts["win"], "draws": counts["draw"], "losses": counts["loss"],
             "unfinished": counts["unfinished"], "score": score, "relative_elo": elo(score),
             "complete_pairs": len(pairs), "paired_score": paired_score, "paired_bootstrap_95": ci,
             "paired_elo_bootstrap_95": [elo(x) for x in ci] if ci else None,
             "paired_hoeffding_95": conservative,
             "unfinished_worst_best_score": [finished_points / len(games), (finished_points + counts["unfinished"]) / len(games)],
+            "paired_censoring_bootstrap_95_envelope": censoring_ci,
             "termination_counts": dict(Counter(g["termination"] for g in games)),
             "game_wall_seconds": sum(g["wall_seconds"] for g in games),
             "nnue": move_metrics(games, True), "classical": move_metrics(games, False)}
@@ -88,7 +108,7 @@ def cohort(games: list[dict]) -> dict:
 def tournaments() -> dict:
     plan = json.loads((ROOT / "match-plan.json").read_text(encoding="utf-8"))
     data = {"method": "20,000 percentile bootstrap resamples of complete opening pairs, seed 20261017; both colors remain together. Complete-pair score intervals accompany all-completed-game WDL estimates. Also bounded-pair Hoeffding 95% intervals. Opening-family dependence, censoring and small samples limit nominal coverage. No optional stopping or extra games.", "full": {}, "matched_first_ten": {}}
-    pair_maps = []
+    pair_maps, partial_maps = [], []
     records_by_time = {}
     book = json.loads(Path(plan["opening_book"]).read_text(encoding="utf-8"))["openings"]
     for match in plan["schedule"]:
@@ -111,6 +131,7 @@ def tournaments() -> dict:
         common = [g for g in record["games"] if g["pair"] <= 10]
         data["matched_first_ten"][label] = cohort(common)
         pair_maps.append(pair_scores(common))
+        partial_maps.append(partial_pair_scores(common))
     ids = sorted(set.intersection(*(set(pairs) for pairs in pair_maps)))
     assert ids, "No fully completed common pairs"
     data["matched_common_complete"] = {label: cohort([g for g in record["games"] if g["pair"] in ids])
@@ -137,6 +158,26 @@ def tournaments() -> dict:
                      "slope_score_per_log10_ms": slope(means), "slope_bootstrap_95": interval([slope(s) for s in samples]),
                      "endpoint_two_sided_sign_flip_p": sum(v >= abs(observed) - 1e-12 for v in flips) / len(flips),
                      "test_limitations": "One prespecified endpoint contrast, whole-pair exchangeable symmetric differences assumed; observational time-control experiment with ten opening pairs. Percentile bootstrap is approximate, especially near endpoints. No universal Elo/time extrapolation."}
+    # Primary all-ten analysis: keep every requested opening even if a game is
+    # capped. Unknown outcomes range from zero to one; never impute a draw.
+    all_ids = sorted(set.intersection(*(set(pairs) for pairs in partial_maps)))
+    assert all_ids == list(range(1, 11))
+    partial_vectors = [[pairs[i] for pairs in partial_maps] for i in all_ids]
+    weights = [(v - xbar) / denom for v in x]
+    def contrasts(draw: list[list[list[float]]]) -> tuple[float, float, float, float]:
+        lower = [statistics.mean(v[j][0] for v in draw) for j in range(4)]
+        upper = [statistics.mean(v[j][1] for v in draw) for j in range(4)]
+        return (lower[-1] - upper[0], upper[-1] - lower[0],
+                sum(w * (lo if w >= 0 else hi) for w, lo, hi in zip(weights, lower, upper)),
+                sum(w * (hi if w >= 0 else lo) for w, lo, hi in zip(weights, lower, upper)))
+    limits = contrasts(partial_vectors)
+    rng = random.Random(SEED)
+    resamples = [contrasts(rng.choices(partial_vectors, k=10)) for _ in range(20000)]
+    data["all_ten_censoring_aware_trend"] = {"pair_ids": all_ids, "paired_score_bounds": partial_maps,
+        "endpoint_score_difference_bounds": list(limits[:2]), "slope_bounds": list(limits[2:]),
+        "endpoint_bootstrap_95_envelope": [quantile([r[0] for r in resamples], .025), quantile([r[1] for r in resamples], .975)],
+        "slope_bootstrap_95_envelope": [quantile([r[2] for r in resamples], .025), quantile([r[3] for r in resamples], .975)],
+        "method": "All ten opening pairs at all four controls, jointly resampled by pair. Every capped game's unknown points range [0,1]. Envelopes combine percentile sampling variability with worst/best unknown outcomes; approximate sensitivity envelopes, not proof of 95% coverage under arbitrary censoring. Complete-case results are supplementary."}
     save(ROOT / "tournament-summary.json", data)
     with (ROOT / "tournament-summary.csv").open("w", newline="", encoding="utf-8") as stream:
         columns = ["cohort", "ms", "games", "wins", "draws", "losses", "unfinished", "score", "relative_elo", "complete_pairs"]
@@ -320,23 +361,28 @@ def plots(data: dict) -> None:
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     times = [50, 200, 500, 1000]
-    matched = [data["matched_common_complete"][str(t)] for t in times]
+    matched = [data["matched_first_ten"][str(t)] for t in times]
     fig, axes = plt.subplots(2, 3, figsize=(14, 8), layout="constrained")
     for ax in axes.flat:
         ax.set_xscale("log"); ax.set_xticks(times, labels=times); ax.set_xlabel("Requested ms/move"); ax.grid(alpha=.25)
-    scores = [r["paired_score"] * 100 for r in matched]
-    ci = [r["paired_bootstrap_95"] for r in matched]
-    axes[0, 0].errorbar(times, scores, yerr=[[s - c[0] * 100 for s, c in zip(scores, ci)], [c[1] * 100 - s for s, c in zip(scores, ci)]], marker="o", capsize=4)
+    scores = [r["paired_score"] * 100 if not r["unfinished"] else float("nan") for r in matched]
+    ci = [r["paired_censoring_bootstrap_95_envelope"] for r in matched]
+    axes[0, 0].plot(times, scores, marker="o")
+    for t, row, bounds in zip(times, matched, ci):
+        axes[0, 0].vlines(t, bounds[0] * 100, bounds[1] * 100, color="steelblue", linewidth=2)
+        if row["unfinished"]:
+            lo, hi = row["unfinished_worst_best_score"]
+            axes[0, 0].vlines(t, lo * 100, hi * 100, color="black", linewidth=5)
     axes[0, 0].axhline(50, color="gray", linestyle="--"); axes[0, 0].set_title("NNUE score: same first 10 pairs"); axes[0, 0].set_ylabel("Score (%) / paired bootstrap 95%")
-    axes[0, 1].plot(times, [elo(r["paired_score"]) for r in matched], marker="o"); axes[0, 1].axhline(0, color="gray", linestyle="--"); axes[0, 1].set_title("Matched relative Elo (descriptive)")
+    axes[0, 1].plot(times, [elo(r["paired_score"]) if not r["unfinished"] else float("nan") for r in matched], marker="o"); axes[0, 1].axhline(0, color="gray", linestyle="--"); axes[0, 1].set_title("Matched relative Elo (capped point omitted)")
     axes[0, 2].plot(times, [r["nnue"]["aggregate_nps"] / r["classical"]["aggregate_nps"] for r in matched], marker="o"); axes[0, 2].set_title("Matched-game NNUE / classical NPS")
     axes[1, 0].plot(times, [r["nnue"]["mean_completed_depth"] - r["classical"]["mean_completed_depth"] for r in matched], marker="o"); axes[1, 0].set_title("Mean completed-depth difference")
     for label in ("nnue", "classical"):
         axes[1, 1].plot(times, [r[label]["mean_nodes"] for r in matched], marker="o", label=label)
     axes[1, 1].legend(); axes[1, 1].set_title("Mean searched nodes per move")
     axes[1, 2].axis("off")
-    trend = data["trend"]
-    axes[1, 2].text(0, .9, "Common 10 opening pairs, reversed colors\n500ms and 1000ms: exploratory\nIntervals resample whole opening pairs\nGame NPS reflects different searched positions\n\n1000ms − 50ms score:\n" + f"{trend['endpoint_score_difference'] * 100:+.1f} percentage points\n95% interval: {trend['endpoint_bootstrap_95'][0] * 100:+.1f} to {trend['endpoint_bootstrap_95'][1] * 100:+.1f}", va="top", transform=axes[1, 2].transAxes)
+    trend = data["all_ten_censoring_aware_trend"]
+    axes[1, 2].text(0, .9, "Same 10 opening pairs, reversed colors\n500ms and 1000ms: exploratory\nBlue bars: paired bootstrap/censoring envelope\nBlack bars: possible score for capped games\nCapped scores have no point estimate\nGame NPS reflects different positions\n\n1000ms − 50ms score difference:\n" + f"{trend['endpoint_score_difference_bounds'][0] * 100:+.1f} to {trend['endpoint_score_difference_bounds'][1] * 100:+.1f} percentage points\n95% sensitivity envelope:\n{trend['endpoint_bootstrap_95_envelope'][0] * 100:+.1f} to {trend['endpoint_bootstrap_95_envelope'][1] * 100:+.1f}", va="top", transform=axes[1, 2].transAxes)
     fig.suptitle("Compact v2 diagnosis — matched time-control trend")
     fig.savefig(ROOT / "matched-trends.png", dpi=160)
     fig.savefig(ROOT / "matched-trends.svg")
