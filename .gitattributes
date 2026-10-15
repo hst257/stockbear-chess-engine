@@ -2,3 +2,8 @@
 docs/nnue-v2-diagnosis/*.json text eol=lf
 docs/nnue-v2-diagnosis/*.pgn text eol=lf
 docs/nnue-v2-diagnosis/*.csv text eol=lf
+docs/nnue-v2-diagnosis/*.md text eol=lf
+docs/nnue-v2-diagnosis/*.txt text eol=lf
+docs/nnue-v2-diagnosis/*.svg text eol=lf
+docs/nnue-v2-diagnosis/*.png binary
+NNUE_V2_SEARCH_DIAGNOSIS.md text eol=lf

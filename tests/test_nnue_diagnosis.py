@@ -4,12 +4,16 @@ from __future__ import annotations
 import json
 import os
 from pathlib import Path
+from types import SimpleNamespace
 
 import chess
+import chess.engine
 import pytest
 
 from tools.analyze_nnue_diagnosis import bootstrap, candidate_quality, pair_scores
 from tools.nnue_diagnosis import capture, open_engine, positions
+from tools.match_optimizations import version_match
+from tools.verify_match_records import verify_record
 
 
 def test_stratified_positions_are_legal_and_nonterminal():
@@ -49,6 +53,51 @@ def test_frozen_schedule_is_nested_and_exactly_190_games():
         for move in opening["moves"]:
             board.push_uci(move)
         assert board.fen() == opening["fen"]
+
+
+def test_pilot_resume_retains_the_full_schedule_and_replayable_games(tmp_path, monkeypatch):
+    class Player:
+        id = {"name": "test player"}
+        options = {"Evaluator": SimpleNamespace(default="classical")}
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            pass
+
+        def configure(self, options):
+            pass
+
+        def play(self, board, limit, **kwargs):
+            return SimpleNamespace(move=next(iter(board.legal_moves)),
+                                   info={"depth": 1, "nodes": 1, "time": .01, "nps": 100,
+                                         "score": chess.engine.PovScore(chess.engine.Cp(0), chess.WHITE)})
+
+    monkeypatch.setattr(chess.engine.SimpleEngine, "popen_uci", lambda *args, **kwargs: Player())
+    binary, book, output = (tmp_path / name for name in ("engine.exe", "book.json", "match.json"))
+    binary.write_bytes(b"fake engine identity")
+    openings = []
+    for moves in ([], ["e2e4"]):
+        board = chess.Board()
+        for move in moves:
+            board.push_uci(move)
+        openings.append({"moves": moves, "fen": board.fen()})
+    book.write_text(json.dumps({"method": "test neutral book", "openings": openings}), encoding="utf-8")
+    args = SimpleNamespace(engine=binary, opponent=binary, opening_book=book, output=output,
+                           games=4, movetime=50, max_plies=2, seed=1, candidate_options=None,
+                           opponent_options=None, resume=False, max_new_games=2)
+    version_match(args)
+    progress = output.with_suffix(".progress.json")
+    pilot = json.loads(progress.read_text(encoding="utf-8"))
+    assert not output.exists() and pilot["requested_games"] == 4 and len(pilot["games"]) == 2
+    args.resume, args.max_new_games = True, None
+    version_match(args)
+    finished = json.loads(output.read_text(encoding="utf-8"))
+    assert finished["games"][:2] == pilot["games"] and not progress.exists()
+    assert verify_record(output, check_binaries=True)["games"] == 4
+    assert finished["summary"]["unfinished"] == 4 and finished["summary"]["draws"] == 0
+    assert all("wall_seconds" in s for g in finished["games"] for s in g["searches"])
 
 
 @pytest.mark.skipif(not os.environ.get("CHESSLAB_DIAGNOSTIC_ENGINE"), reason="Explicit diagnostic build required")

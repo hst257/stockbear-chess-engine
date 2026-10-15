@@ -89,17 +89,32 @@ def tournaments() -> dict:
     plan = json.loads((ROOT / "match-plan.json").read_text(encoding="utf-8"))
     data = {"method": "20,000 percentile bootstrap resamples of complete opening pairs, seed 20261017; both colors remain together. Complete-pair score intervals accompany all-completed-game WDL estimates. Also bounded-pair Hoeffding 95% intervals. Opening-family dependence, censoring and small samples limit nominal coverage. No optional stopping or extra games.", "full": {}, "matched_first_ten": {}}
     pair_maps = []
+    records_by_time = {}
+    book = json.loads(Path(plan["opening_book"]).read_text(encoding="utf-8"))["openings"]
     for match in plan["schedule"]:
         record = json.loads(Path(match["output"]).read_text(encoding="utf-8"))
         assert len(record["games"]) == match["games"]
         assert record["opening_book_sha256"] == plan["opening_book_sha256"]
         label = str(match["movetime"])
+        records_by_time[label] = record
         data["full"][label] = cohort(record["games"]) | {"exploratory": match["exploratory"]}
+        family_groups: dict[str, list[float]] = defaultdict(list)
+        for pair, value in pair_scores(record["games"]).items():
+            family_groups[book[pair - 1]["family"]].append(value)
+        families = list(family_groups.values())
+        rng = random.Random(SEED)
+        family_samples = []
+        for _ in range(20000):
+            draw = rng.choices(families, k=len(families))
+            family_samples.append(sum(map(sum, draw)) / sum(map(len, draw)))
+        data["full"][label]["opening_family_cluster_bootstrap_95"] = interval(family_samples)
         common = [g for g in record["games"] if g["pair"] <= 10]
         data["matched_first_ten"][label] = cohort(common)
         pair_maps.append(pair_scores(common))
     ids = sorted(set.intersection(*(set(pairs) for pairs in pair_maps)))
     assert ids, "No fully completed common pairs"
+    data["matched_common_complete"] = {label: cohort([g for g in record["games"] if g["pair"] in ids])
+                                       for label, record in records_by_time.items()}
     times = [m["movetime"] for m in plan["schedule"]]
     x = [math.log10(t) for t in times]
     xbar = statistics.mean(x)
@@ -305,7 +320,7 @@ def plots(data: dict) -> None:
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     times = [50, 200, 500, 1000]
-    matched = [data["matched_first_ten"][str(t)] for t in times]
+    matched = [data["matched_common_complete"][str(t)] for t in times]
     fig, axes = plt.subplots(2, 3, figsize=(14, 8), layout="constrained")
     for ax in axes.flat:
         ax.set_xscale("log"); ax.set_xticks(times, labels=times); ax.set_xlabel("Requested ms/move"); ax.grid(alpha=.25)

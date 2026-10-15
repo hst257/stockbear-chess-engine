@@ -238,7 +238,7 @@ def main():
     parser.add_argument("--max-plies", type=int, default=160)
     parser.add_argument("--output", type=Path, default=Path("artifacts/optimization-matches.json"))
     args = parser.parse_args()
-    if args.max_plies < 1 or args.games < 2 or args.games % 2 or args.movetime < 1:
+    if args.max_plies < 1 or args.games < 2 or args.games % 2 or args.movetime < 1 or (args.max_new_games is not None and args.max_new_games < 1):
         parser.error("Use positive time/plies and a positive even game count")
     if args.comparison == "versions":
         version_match(args)

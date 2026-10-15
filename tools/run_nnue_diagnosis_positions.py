@@ -74,6 +74,13 @@ def run_searches(ablation: bool = False) -> None:
                                                  {option: True for config in ABLATIONS.values() for option in config} |
                                                  configs[configuration])
                                 result = capture(engine, row, mode, budget)
+                                disabled_counters = {"UseLMR": ("lmr_attempts", "lmr_searches", "lmr_researches"),
+                                                     "UseNullMovePruning": ("null_attempts", "null_cutoffs"),
+                                                     "UseFutility": ("futility_prunes",),
+                                                     "UseReverseFutility": ("reverse_futility_cutoffs",),
+                                                     "UseAspirationWindows": ("aspiration_attempts", "aspiration_retries")}
+                                for option in configs[configuration]:
+                                    assert all(result["counters"][key] == 0 for key in disabled_counters[option]), (configuration, result)
                                 result.update(evaluator=evaluator, configuration=configuration, repeat=repeat,
                                               overrides=BASE_OPTIONS | {"Evaluator": evaluator} | configs[configuration])
                                 data["records"].append(result)
@@ -93,6 +100,10 @@ def reference_search(engine: chess.engine.SimpleEngine, board: chess.Board, root
     engine.configure({"Clear Hash": None})
     started = time.perf_counter()
     info = engine.analyse(board, chess.engine.Limit(nodes=nodes), game=object(), info=chess.engine.INFO_ALL)
+    replay = board.copy()
+    for move in info["pv"]:
+        assert move in replay.legal_moves
+        replay.push(move)
     return {"score_root": score_value(info["score"].pov(root_color)), "depth": info["depth"],
             "nodes": info["nodes"], "seconds": info["time"], "nps": info.get("nps"),
             "wall_seconds": time.perf_counter() - started, "move": info["pv"][0].uci(),

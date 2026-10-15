@@ -115,6 +115,8 @@ def capture(engine: chess.engine.SimpleEngine, row: dict, mode: str, budget: int
         result = analysis.wait()
         info = dict(analysis.info)
     wall = time.perf_counter() - started
+    if mode == "time":
+        assert wall < budget / 1000 + 5, (row["id"], "time watchdog", wall)
     assert result.move in board.legal_moves, (row["id"], result)
     replay = board.copy()
     for move in info.get("pv", []):

@@ -40,6 +40,8 @@ The same command resumes checkpoints and verifies completed cohorts before skipp
 them. Never overwrite finished results. Bootstrap sampling keeps both colors together;
 related openings and small cohorts limit generalization. Capped pairs are excluded
 from complete-pair inference, with censoring sensitivity reported separately.
+Full-cohort summaries additionally resample named opening families as clusters,
+because two variants of the same family may be correlated.
 
 ## Remaining diagnostic protocol
 
@@ -76,3 +78,22 @@ and scope. `tools/profile_nnue_diagnosis.py` compares all three builds serially;
 trained goldens, the held-out corpus, accumulator transitions and UCI lifecycle.
 Set `CHESSLAB_DIAGNOSTIC_ENGINE` when running the explicit depth-one counter oracle
 in `tests/test_nnue_diagnosis.py`.
+
+To run the bounded follow-up automatically after the match schedule:
+
+```powershell
+.\.venv\Scripts\python.exe -m tools.run_nnue_diagnosis_pipeline --wait-for-matches
+```
+
+This waits for all four JSON/PGN cohorts, then serially builds release, counter,
+clock-profile and UBSan variants; runs the frozen position plan and reference
+analysis; verifies native parity and the full test suite; exercises GUI workers;
+and computes summaries/plots. The local training environment supplies matplotlib
+for plotting only. Detailed stage logs remain in `artifacts/nnue-v2-diagnosis/`.
+After a failure, fix its cause and resume, retaining completed experiment files;
+use `--skip-builds` only when the recorded native sources and binaries still match.
+
+Raw match-helper summaries retain a legacy limitations sentence mentioning its
+old own-evaluator filter. That sentence does not describe this investigation:
+the authoritative `opening_filter`, frozen book/source and book hash show that
+no evaluator was queried to select openings. New analysis uses the actual protocol.
