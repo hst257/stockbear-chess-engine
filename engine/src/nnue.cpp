@@ -16,12 +16,15 @@
 namespace chesslab {
 namespace w = nnue_weights;
 namespace {
-enum class Kernel { AUTO, REFERENCE, SCALAR, SIMD };
+enum class Kernel { AUTO, REFERENCE, SCALAR, QUANT, QUANT_SIMD };
 thread_local Kernel selected_kernel = Kernel::AUTO;
-constexpr const char* KERNEL_NAMES[] = {"auto", "reference", "scalar", "simd"};
+constexpr const char* KERNEL_NAMES[] = {"auto", "reference", "scalar", "quant", "quant-simd"};
 }
 void nnue_set_kernel(const std::string& name) {
-    for (int i = 0; i < 4; ++i) if (name == KERNEL_NAMES[i]) { selected_kernel = static_cast<Kernel>(i); return; }
+    for (int i = 0; i < 5; ++i) if (name == KERNEL_NAMES[i]) {
+        if (i >= 3 && !w::Q_ENABLED) throw std::invalid_argument("This model has no safe quantized representation");
+        selected_kernel = static_cast<Kernel>(i); return;
+    }
     throw std::invalid_argument("Unknown NNUE kernel");
 }
 const char* nnue_kernel() { return KERNEL_NAMES[static_cast<int>(selected_kernel)]; }
@@ -43,9 +46,12 @@ bool nnue_simd_available() {
     return supported;
 }
 const char* nnue_effective_kernel() {
-    if (selected_kernel == Kernel::AUTO || selected_kernel == Kernel::SIMD) return nnue_simd_available() ? "simd" : "scalar";
+    if (selected_kernel == Kernel::AUTO) return "scalar";
+    if (selected_kernel == Kernel::QUANT_SIMD && !nnue_simd_available()) return "quant";
     return nnue_kernel();
 }
+bool nnue_quantized() { return selected_kernel == Kernel::QUANT || selected_kernel == Kernel::QUANT_SIMD; }
+int nnue_quant_first_scale() { return w::Q_FIRST_SCALE; }
 
 namespace {
 int reverse_feature(int index) {
@@ -110,6 +116,7 @@ void nnue_update_move(const NnueAccumulator& parent, const chess::Board& after,
                       const NnueDelta& delta, NnueAccumulator& output) {
     profiling::Scope measured(profiling::NNUE_UPDATE);
     const auto states = state_features(after);
+    const bool quant = nnue_quantized();
     output.features = parent.features;
     for (int p = 0; p < 2; ++p) {
         // Sort only the changed rows, preserving the reference arithmetic order.
@@ -129,22 +136,35 @@ void nnue_update_move(const NnueAccumulator& parent, const chess::Board& after,
         std::sort(changes, changes + size, [](int a, int b) { return std::abs(a) < std::abs(b); });
         auto& active = output.features.active[p];
         int count = parent.features.count;
+        // Remove before inserting: a full 37-feature position must never need
+        // an extra temporary slot when a new feature sorts before an old one.
+        for (int i = 0; i < size; ++i) if (changes[i] < 0) {
+            const int f = -changes[i] - 1;
+            auto it = std::lower_bound(active.begin(), active.begin() + count, f);
+            if (it == active.begin() + count || *it != f) throw std::logic_error("NNUE delta missing piece");
+            std::move(it + 1, active.begin() + count, it); --count;
+        }
+        for (int i = 0; i < size; ++i) if (changes[i] > 0) {
+            const int f = changes[i] - 1;
+            auto it = std::lower_bound(active.begin(), active.begin() + count, f);
+            std::move_backward(it, active.begin() + count, active.begin() + count + 1);
+            *it = f; ++count;
+        }
         auto& values = output.values[p];
-        std::copy_n(parent.values[p].begin(), w::WIDTH, values.begin());
+        if (quant) std::copy_n(parent.quantized[p].begin(), w::WIDTH, output.quantized[p].begin());
+        else std::copy_n(parent.values[p].begin(), w::WIDTH, values.begin());
         for (int i = 0; i < size; ++i) {
             const bool remove = changes[i] < 0;
             const int f = std::abs(changes[i]) - 1;
-            auto it = std::lower_bound(active.begin(), active.begin() + count, f);
-            if (remove) {
-                if (it == active.begin() + count || *it != f) throw std::logic_error("NNUE delta missing piece");
-                std::move(it + 1, active.begin() + count, it); --count;
+            if (quant) {
+                const auto* row = w::q_transform_weight + f * w::WIDTH;
+                if (remove) for (int j = 0; j < w::WIDTH; ++j) output.quantized[p][j] -= row[j];
+                else for (int j = 0; j < w::WIDTH; ++j) output.quantized[p][j] += row[j];
             } else {
-                std::move_backward(it, active.begin() + count, active.begin() + count + 1);
-                *it = f; ++count;
+                const float* row = w::transform_weight + f * w::WIDTH;
+                if (remove) for (int j = 0; j < w::WIDTH; ++j) values[j] -= row[j];
+                else for (int j = 0; j < w::WIDTH; ++j) values[j] += row[j];
             }
-            const float* row = w::transform_weight + f * w::WIDTH;
-            if (remove) for (int j = 0; j < w::WIDTH; ++j) values[j] -= row[j];
-            else for (int j = 0; j < w::WIDTH; ++j) values[j] += row[j];
         }
         if (p == 1) output.features.count = count;
     }
@@ -209,15 +229,24 @@ void nnue_refresh(const chess::Board& board, NnueAccumulator& output) {
             for (int j = 0; j < w::WIDTH; ++j) values[j] += row[j];
         }
         for (int j = 0; j < w::WIDTH; ++j) values[j] += w::bias[j];
+        if (nnue_quantized()) {
+            std::copy_n(w::q_bias, w::WIDTH, output.quantized[p].begin());
+            for (int i = 0; i < output.features.count; ++i) {
+                const auto* row = w::q_transform_weight + output.features.active[p][i] * w::WIDTH;
+                for (int j = 0; j < w::WIDTH; ++j) output.quantized[p][j] += row[j];
+            }
+        }
     }
 }
 
 void nnue_update(const NnueAccumulator& parent, const chess::Board& board, NnueAccumulator& output) {
     profiling::Scope measured(profiling::NNUE_UPDATE);
     output.features = nnue_features(board);
+    const bool quant = nnue_quantized();
     for (int p = 0; p < 2; ++p) {
         auto& values = output.values[p];
-        std::copy_n(parent.values[p].begin(), w::WIDTH, values.begin());
+        if (quant) std::copy_n(parent.quantized[p].begin(), w::WIDTH, output.quantized[p].begin());
+        else std::copy_n(parent.values[p].begin(), w::WIDTH, values.begin());
         int old = 0, next = 0;
         const auto& previous = parent.features.active[p];
         const auto& current = output.features.active[p];
@@ -231,8 +260,14 @@ void nnue_update(const NnueAccumulator& parent, const chess::Board& board, NnueA
                 (next >= output.features.count || previous[old] < current[next]);
             const int index = remove ? previous[old++] : current[next++];
             const auto* row = w::transform_weight + index * w::WIDTH;
-            if (remove) for (int j = 0; j < w::WIDTH; ++j) values[j] -= row[j];
-            else for (int j = 0; j < w::WIDTH; ++j) values[j] += row[j];
+            if (quant) {
+                const auto* qrow = w::q_transform_weight + index * w::WIDTH;
+                if (remove) for (int j = 0; j < w::WIDTH; ++j) output.quantized[p][j] -= qrow[j];
+                else for (int j = 0; j < w::WIDTH; ++j) output.quantized[p][j] += qrow[j];
+            } else {
+                if (remove) for (int j = 0; j < w::WIDTH; ++j) values[j] -= row[j];
+                else for (int j = 0; j < w::WIDTH; ++j) values[j] += row[j];
+            }
         }
     }
 }
@@ -253,33 +288,52 @@ float nnue_reference_side_to_move(const chess::Board& board, const NnueAccumulat
     return output * 400.0f;
 }
 
+// Dot products are bounded at embedding time, including bias and all signs.
+static std::int32_t scalar_dot(const std::int16_t* a, const std::int16_t* b, int count) {
+    std::int32_t sum = 0;
+    for (int i = 0; i < count; ++i) sum += std::int32_t(a[i]) * b[i];
+    return sum;
+}
 #ifdef CHESSLAB_X86_SIMD
 __attribute__((target("avx2")))
-static float simd_head(const chess::Board& board, const NnueAccumulator& accumulator) {
-    alignas(64) float hidden[w::HIDDEN];
-    std::copy_n(w::fc1_bias, w::HIDDEN, hidden);
-    const int first = board.sideToMove() == chess::Color::WHITE ? 0 : 1;
-    for (int p = 0; p < 2; ++p) for (int j = 0; j < w::WIDTH; ++j) {
-        const float input = std::clamp(accumulator.values[p == 0 ? first : 1 - first][j], 0.0f, 1.0f);
-        const auto x = _mm256_set1_ps(input);
-        const float* weights = w::fc1_transposed + (p * w::WIDTH + j) * w::HIDDEN;
-        int h = 0;
-        for (; h + 8 <= w::HIDDEN; h += 8) _mm256_storeu_ps(hidden + h,
-            _mm256_add_ps(_mm256_loadu_ps(hidden + h), _mm256_mul_ps(_mm256_loadu_ps(weights + h), x)));
-        for (; h < w::HIDDEN; ++h) hidden[h] += weights[h] * input;
-    }
-    float output = w::fc2_bias[0];
-    for (int h = 0; h < w::HIDDEN; ++h) output += w::fc2_weight[h] * std::clamp(hidden[h], 0.0f, 1.0f);
-    return output * 400.0f;
+static std::int32_t integer_simd_dot(const std::int16_t* a, const std::int16_t* b, int count) {
+    auto sum = _mm256_setzero_si256();
+    int i = 0;
+    for (; i + 16 <= count; i += 16) sum = _mm256_add_epi32(sum,
+        _mm256_madd_epi16(_mm256_loadu_si256(reinterpret_cast<const __m256i*>(a + i)),
+                         _mm256_loadu_si256(reinterpret_cast<const __m256i*>(b + i))));
+    alignas(32) std::int32_t lanes[8];
+    _mm256_store_si256(reinterpret_cast<__m256i*>(lanes), sum);
+    std::int32_t result = 0;
+    for (int lane : lanes) result += lane;
+    for (; i < count; ++i) result += std::int32_t(a[i]) * b[i];
+    return result;
 }
 #endif
+static float quantized_head(const chess::Board& board, const NnueAccumulator& accumulator) {
+    constexpr int qa = w::Q_ACTIVATION_SCALE;
+    std::int16_t input[2 * w::WIDTH], hidden[w::HIDDEN];
+    const int first = board.sideToMove() == chess::Color::WHITE ? 0 : 1;
+    for (int p = 0; p < 2; ++p) for (int j = 0; j < w::WIDTH; ++j) {
+        const auto value = std::clamp(accumulator.quantized[p == 0 ? first : 1 - first][j], 0, w::Q_FIRST_SCALE);
+        input[p * w::WIDTH + j] = (value * qa + w::Q_FIRST_SCALE / 2) / w::Q_FIRST_SCALE;
+    }
+    auto dot = scalar_dot;
+#ifdef CHESSLAB_X86_SIMD
+    if (selected_kernel == Kernel::QUANT_SIMD && nnue_simd_available()) dot = integer_simd_dot;
+#endif
+    for (int h = 0; h < w::HIDDEN; ++h) {
+        const auto value = w::q_fc1_bias[h] + dot(input, w::q_fc1_weight + h * 2 * w::WIDTH, 2 * w::WIDTH);
+        hidden[h] = (std::clamp(value, 0, qa * w::Q_HEAD_WEIGHT_SCALE) + w::Q_HEAD_WEIGHT_SCALE / 2) / w::Q_HEAD_WEIGHT_SCALE;
+    }
+    const auto result = w::q_fc2_bias[0] + dot(hidden, w::q_fc2_weight, w::HIDDEN);
+    return float(result) * (400.0f / (qa * w::Q_OUTPUT_WEIGHT_SCALE));
+}
 
 float nnue_side_to_move(const chess::Board& board, const NnueAccumulator& accumulator) {
     if (selected_kernel == Kernel::REFERENCE) return nnue_reference_side_to_move(board, accumulator);
     profiling::Scope measured(profiling::NNUE_HEAD);
-#ifdef CHESSLAB_X86_SIMD
-    if ((selected_kernel == Kernel::AUTO || selected_kernel == Kernel::SIMD) && nnue_simd_available()) return simd_head(board, accumulator);
-#endif
+    if (nnue_quantized()) return quantized_head(board, accumulator);
     // Each neuron's additions retain their original order. Parallel neurons
     // give the compiler independent lanes without reassociating a dot product.
     alignas(64) float hidden[w::HIDDEN];

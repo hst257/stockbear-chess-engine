@@ -10,6 +10,7 @@
 #include <random>
 #include <cmath>
 #include <stdexcept>
+#include <cstring>
 #if defined(__x86_64__) || defined(__i386__)
 #include <cpuid.h>
 #endif
@@ -37,6 +38,8 @@ int main(int argc, char** argv) {
         const char* positions[] = {
             chess::constants::STARTPOS,
             "r3k2r/8/8/3pP3/8/8/8/R3K2R w KQkq d6 0 1",
+            "rnbqkbnr/1pp1ppp1/p6p/2Pp4/8/5N2/PP1PPPPP/RNBQKB1R w KQkq d6 0 4",
+            "r6k/1P6/8/8/8/8/8/K7 w - - 0 1",
             "7k/4P3/8/8/8/8/5p2/K7 w - - 0 1",
             "4r2k/8/8/3pP3/8/8/8/4K3 w - d6 0 1"};
         auto check = [&](const chess::Board& board, const NnueAccumulator& a) {
@@ -46,12 +49,16 @@ int main(int argc, char** argv) {
             for (int p = 0; p < 2; ++p) {
                 for (int i = 0; i < a.features.count; ++i) if (a.features.active[p][i] != rebuilt.features.active[p][i]) throw std::runtime_error("Feature mismatch");
                 for (int j = 0; j < nnue_width(); ++j) {
+                    if (nnue_quantized()) {
+                        if (a.quantized[p][j] != rebuilt.quantized[p][j]) throw std::runtime_error("Quantized accumulator mismatch");
+                        continue;
+                    }
                     maximum = std::max(maximum, std::abs(a.values[p][j] - rebuilt.values[p][j]));
                     if (maximum > .0001f) throw std::runtime_error("Accumulator lane mismatch");
                 }
             }
             if (std::abs(nnue_side_to_move(board, a) - nnue_side_to_move(board, rebuilt)) > .01f) throw std::runtime_error("Score mismatch");
-            if (std::abs(nnue_side_to_move(board, a) - nnue_reference_side_to_move(board, a)) > .01f) throw std::runtime_error("Kernel mismatch");
+            if (std::abs(nnue_side_to_move(board, a) - nnue_reference_side_to_move(board, rebuilt)) > (nnue_quantized() ? 5.f : .01f)) throw std::runtime_error("Kernel mismatch");
         };
         for (auto fen : positions) for (int walk = 0; walk < 40; ++walk) {
             chess::Board board(fen);
@@ -70,7 +77,7 @@ int main(int argc, char** argv) {
                     NnueAccumulator child; nnue_update_move(parent, board, delta, child);
                     check(board, child); ++transitions;
                     board.unmakeMove(moves[i]);
-                    if (!board.fullyEquals(before) || parent.values != snapshot.values || parent.features.active != snapshot.features.active) throw std::runtime_error("Sibling mutated parent");
+                    if (!board.fullyEquals(before) || parent.values != snapshot.values || parent.quantized != snapshot.quantized || parent.features.active != snapshot.features.active) throw std::runtime_error("Sibling mutated parent");
                 }
                 if (!board.inCheck()) {
                     board.makeNullMove();
@@ -90,9 +97,11 @@ int main(int argc, char** argv) {
         chess::Board board;
         for (int pattern = 0; pattern < 20; ++pattern) {
             NnueAccumulator acc;
-            for (int p = 0; p < 2; ++p) for (int j = 0; j < nnue_width(); ++j)
+            for (int p = 0; p < 2; ++p) for (int j = 0; j < nnue_width(); ++j) {
                 acc.values[p][j] = pattern < 4 ? float(pattern - 1) : float(int(random() % 200001) - 100000) / 1000;
-            if (std::abs(nnue_side_to_move(board, acc) - nnue_reference_side_to_move(board, acc)) > .01f) throw std::runtime_error("Extreme kernel mismatch");
+                acc.quantized[p][j] = std::lround(acc.values[p][j] * nnue_quant_first_scale());
+            }
+            if (std::abs(nnue_side_to_move(board, acc) - nnue_reference_side_to_move(board, acc)) > (nnue_quantized() ? 5.f : .01f)) throw std::runtime_error("Extreme kernel mismatch");
         }
         std::cout << "{\"transitions\":" << transitions << ",\"nulls\":" << nulls << ",\"max_lane_error\":" << maximum << "}\n";
         return 0;
@@ -115,8 +124,8 @@ int main(int argc, char** argv) {
         if (__get_cpuid_max(0x80000000, nullptr) >= 0x80000004) {
             for (unsigned i = 0; i < 3; ++i) {
                 __cpuid(0x80000002 + i, a, b, c, d);
-                auto* out = reinterpret_cast<unsigned*>(name + 16 * i);
-                out[0] = a; out[1] = b; out[2] = c; out[3] = d;
+                const unsigned words[] = {a, b, c, d};
+                std::memcpy(name + 16 * i, words, sizeof(words));
             }
             brand = name;
         }

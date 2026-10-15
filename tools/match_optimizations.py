@@ -75,6 +75,8 @@ def version_match(args):
     progress = args.output.with_suffix(".progress.json")
     hashes = {"candidate": hashlib.sha256(args.engine.read_bytes()).hexdigest(),
               "original": hashlib.sha256(args.opponent.read_bytes()).hexdigest()}
+    book_path = getattr(args, "opening_book", None)
+    book_hash = hashlib.sha256(book_path.read_bytes()).hexdigest() if book_path else None
     flags = {"creationflags": subprocess.CREATE_NO_WINDOW} if os.name == "nt" else {}
     with ExitStack() as stack:
         candidate = stack.enter_context(chess.engine.SimpleEngine.popen_uci(str(args.engine), timeout=10, **flags))
@@ -91,12 +93,24 @@ def version_match(args):
             assert data["hashes"] == hashes and data["requested_games"] == args.games
             assert data["movetime_ms"] == args.movetime and data["max_plies"] == args.max_plies
             assert data.get("overrides", {"candidate": {}, "original": {}}) == overrides
+            assert data.get("opening_book_sha256") == book_hash
         else:
             if progress.exists():
                 raise ValueError("Progress exists; use --resume or choose another output")
             rng = random.Random(args.seed)
             suite, seen = [], set()
             attempts = 0
+            if book_path:
+                book = json.loads(book_path.read_text(encoding="utf-8"))
+                suite = book["openings"][:args.games // 2]
+                if len(suite) != args.games // 2:
+                    raise ValueError("Opening book has too few unique pairs")
+                for opening in suite:
+                    board = chess.Board()
+                    for uci in opening["moves"]:
+                        board.push_uci(uci)
+                    assert board.fen() == opening["fen"] and not board.is_game_over(claim_draw=True)
+                assert len({o["fen"] for o in suite}) == len(suite)
             while len(suite) < args.games // 2:
                 attempts += 1
                 if attempts > args.games * 200:
@@ -133,7 +147,10 @@ def version_match(args):
                     "names": {"candidate": candidate.id, "original": original.id},
                     "requested_games": args.games, "movetime_ms": args.movetime, "max_plies": args.max_plies,
                     "seed": args.seed, "opening_filter": "Seeded noncapture/noncheck continuations of four named openings; original depth3 |cp| <=80; heuristic balance only",
+                    "opening_book_sha256": book_hash,
                     "openings": suite, "games": []}
+            if book_path:
+                data["opening_filter"] = book["method"]
         args.output.parent.mkdir(parents=True, exist_ok=True)
         for index in range(len(data["games"]), args.games):
             board = chess.Board()
@@ -200,6 +217,7 @@ def main():
     parser.add_argument("--opponent", type=Path)
     parser.add_argument("--candidate-options", type=Path, help="JSON UCI options or a tuning report with uci_options.")
     parser.add_argument("--opponent-options", type=Path)
+    parser.add_argument("--opening-book", type=Path, help="Frozen shared JSON openings; bypass per-opponent filtering.")
     parser.add_argument("--seed", type=int, default=20261015)
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--max-plies", type=int, default=160)

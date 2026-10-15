@@ -7,7 +7,7 @@ import pytest
 
 from tools.benchmark_nnue_v2 import POSITIONS, summary
 from tools.validate_nnue_v2 import errors
-from tools.embed_nnue import generate_header, read_model
+from tools.embed_nnue import generate_header, read_model, quantize_tensors
 
 
 def test_benchmark_categories_are_valid_orthodox_positions():
@@ -38,7 +38,7 @@ def test_bundled_v2_identity_and_transposed_layout(tmp_path, name, width, hidden
     assert len(json.loads(model.with_suffix(".golden.json").read_text())) == 128
 
 
-@pytest.mark.parametrize("kernel", ["reference", "scalar", "simd", "auto"])
+@pytest.mark.parametrize("kernel", ["reference", "scalar", "quant", "quant-simd", "auto"])
 def test_kernel_switch_is_search_local_and_reproducible(engine, kernel):
     import chess.engine
     engine.configure({"Evaluator": "nnue", "NNUEKernel": kernel})
@@ -55,6 +55,19 @@ def test_forced_portable_fallback(engine_path, monkeypatch):
     monkeypatch.setenv("CHESSLAB_DISABLE_SIMD", "1")
     def value(kernel):
         return json.loads(subprocess.check_output([str(engine_path), "--eval", "--nnue", "--kernel", kernel, chess.STARTING_FEN], text=True))
-    scalar, simd, auto = (value(k) for k in ("scalar", "simd", "auto"))
-    assert scalar == simd == auto
+    scalar, auto = (value(k) for k in ("scalar", "auto"))
+    assert scalar == auto
     assert auto["kernel"] == "scalar"
+    quant, simd = (value(k) for k in ("quant", "quant-simd"))
+    assert quant == simd and simd["kernel"] == "quant"
+
+
+@pytest.mark.parametrize("name", ["compact", "small"])
+def test_quantized_overflow_proofs_include_all_active_rows(name):
+    header, tensors, _ = read_model(Path(f"engine/networks/v2/stockbear-v2-{name}.sbnnue"))
+    arrays, info = quantize_tensors(header, tensors)
+    for key in ("accumulator_abs_bound", "head_abs_bound", "output_abs_bound"):
+        assert info[key] < 2**31
+    assert info["activation_scale"] < 32768
+    assert all(-32768 <= v <= 32767 for kind, values in arrays.values() if kind == "std::int16_t" for v in values)
+    assert all(v == 0 for v in arrays["q_transform_weight"][1][-header["model"]["width"]:])

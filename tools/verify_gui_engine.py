@@ -14,7 +14,7 @@ import chess
 import pygame
 
 from app.application import Application
-from app.engine_client import EngineSettings, THINKING_TIMES
+from app.engine_client import DEFAULT_ENGINE, EngineSettings, THINKING_TIMES
 
 
 def drain(app, seconds=10):
@@ -48,15 +48,17 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=Path("artifacts/audit"))
     parser.add_argument("--evaluator", choices=("classical", "nnue"), default="classical")
+    parser.add_argument("--engine", type=Path, default=DEFAULT_ENGINE)
     args = parser.parse_args()
     output = args.output
     output.mkdir(parents=True, exist_ok=True)
     report = {"method": "SDL dummy driver; real Pygame app and UCI subprocesses; not desktop interaction",
               "evaluator": args.evaluator,
+              "engine": str(args.engine.resolve()),
               "budgets": []}
     all_jobs = []
     for _, ms in THINKING_TIMES:
-        app = Application(settings=EngineSettings(enabled=True, thinking_time_ms=ms, evaluator=args.evaluator))
+        app = Application(settings=EngineSettings(enabled=True, thinking_time_ms=ms, evaluator=args.evaluator), engine_path=args.engine)
         try:
             for _ in range(5):
                 app.draw()
@@ -76,7 +78,7 @@ def main():
                 pygame.image.save(app.surface, output / "gui-default.png")
         finally:
             app.close()
-    app = Application(size=(960, 680), settings=EngineSettings(enabled=True, evaluator=args.evaluator))
+    app = Application(size=(960, 680), settings=EngineSettings(enabled=True, evaluator=args.evaluator), engine_path=args.engine)
     try:
         for action in ("undo", "new"):
             assert app.game.play(chess.Move.from_uci("e2e4"))

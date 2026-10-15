@@ -5,6 +5,7 @@ for the project-local Zig C++ driver. No compiler is needed at engine runtime.
 """
 
 import json
+import hashlib
 import importlib.util
 import argparse
 import os
@@ -79,6 +80,8 @@ def main() -> int:
             "compiler": compiler, "flags": args[len(compiler):], "profile": options.profile,
             "optimization": options.optimization, "lto": options.lto, "sanitizer": options.sanitize,
             "nnue": model_info,
+            "source_sha256": {str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
+                              for path in sorted((ROOT / "engine/src").glob("*")) if path.is_file()},
         }, indent=2) + "\n", encoding="utf-8")
     return result.returncode
 

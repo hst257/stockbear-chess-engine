@@ -80,6 +80,8 @@ def main():
             record["by_category"][category] = errors([reference[i] for i in selected], [values[i] for i in selected])
         if kernel not in ("quant", "quant-simd"):
             assert record["golden"]["max_cp"] < .01 and record["all"]["max_cp"] < .01
+        else:
+            assert record["all"]["max_cp"] < 5 and record["all"]["mae_cp"] < 1
         command = [str(binary.resolve()), "--verify"] + ([kernel] if kernel else [])
         record["incremental"] = json.loads(subprocess.check_output(command, text=True, timeout=120))
         report["configurations"][label] = record

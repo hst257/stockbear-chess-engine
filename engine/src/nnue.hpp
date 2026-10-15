@@ -14,6 +14,8 @@ struct NnueFeatures {
 };
 struct NnueAccumulator {
     std::array<std::array<float, NNUE_MAX_WIDTH>, 2> values{};
+    // Experimental integer state. Only the selected representation is updated.
+    std::array<std::array<std::int32_t, NNUE_MAX_WIDTH>, 2> quantized{};
     NnueFeatures features;
 };
 // Piece changes captured BEFORE makeMove. State features are checked after it.
@@ -39,6 +41,8 @@ void nnue_set_kernel(const std::string& name);
 const char* nnue_kernel();
 bool nnue_simd_available();
 const char* nnue_effective_kernel();
+bool nnue_quantized();
+int nnue_quant_first_scale();
 float nnue_reference_side_to_move(const chess::Board& board, const NnueAccumulator& accumulator);
 
 }  // namespace chesslab
