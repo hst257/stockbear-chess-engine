@@ -41,6 +41,8 @@ struct SearchLimits {
     bool reverse_futility = true;
     bool futility = true;
     bool check_extensions = true;
+    bool use_nnue = false;
+    bool nnue_incremental = true;
 };
 
 struct SearchResult {
@@ -79,6 +81,7 @@ struct SearchResult {
     std::uint64_t lmr_verifications = 0;
     std::uint64_t history_updates = 0, killer_cutoffs = 0, see_calls = 0;
     std::uint64_t reverse_futility_cutoffs = 0, futility_prunes = 0, check_extensions = 0;
+    std::uint64_t nnue_evaluations = 0;
 };
 
 using SearchProgress = std::function<void(const SearchResult&)>;

@@ -5,6 +5,7 @@
 #include "pawn_cache.hpp"
 #include "terminal_rules.hpp"
 #include "strength.hpp"
+#include "nnue.hpp"
 
 #include <algorithm>
 #include <memory>
@@ -66,11 +67,15 @@ public:
         : limits_(limits), pruning_(pruning), stop_(stop), start_(Clock::now()),
           deadline_(limits.milliseconds ? start_ + std::chrono::milliseconds(limits.milliseconds) : Clock::time_point::max()),
           table_(limits.transposition_table ? std::make_unique<TranspositionTable>(limits.hash_megabytes) : nullptr),
-          pawn_cache_(limits.pawn_cache && limits.evaluation.advanced ? std::make_unique<PawnCache>() : nullptr) {}
+          pawn_cache_(limits.pawn_cache && limits.evaluation.advanced && !limits.use_nnue ? std::make_unique<PawnCache>() : nullptr) {}
 
     SearchResult run(chess::Board& board, const SearchProgress& progress) {
         profiling::reset();
         profiling::Scope measured(profiling::SEARCH);
+        if (limits_.use_nnue && limits_.nnue_incremental) {
+            nnue_stack_ = std::make_unique<std::array<NnueAccumulator, MAX_SEARCH_PLY + 1>>();
+            nnue_refresh(board, (*nnue_stack_)[0]);
+        }
         chess::Movelist moves;
         generate(moves, board);
         // If stopped before depth one finishes, still return a legal move.
@@ -153,11 +158,23 @@ private:
     std::unique_ptr<TranspositionTable> table_;  // Fresh per search; shared across completed passes.
     std::unique_ptr<PawnCache> pawn_cache_;
     OrderingHistory ordering_;
+    std::unique_ptr<std::array<NnueAccumulator, MAX_SEARCH_PLY + 1>> nnue_stack_;
 
-    int static_evaluation(const chess::Board& board) {
+    int static_evaluation(const chess::Board& board, int ply) {
         ++result_.eval_calls;
         profiling::Scope measured(profiling::EVALUATION);
+        if (limits_.use_nnue) {
+            ++result_.nnue_evaluations;
+            if (nnue_stack_) return nnue_white_score(board, (*nnue_stack_)[ply]);
+            NnueAccumulator fresh;
+            nnue_refresh(board, fresh);
+            return nnue_white_score(board, fresh);
+        }
         return evaluate(board, limits_.use_pst, limits_.evaluation, pawn_cache_.get());
+    }
+
+    void descend_nnue(const chess::Board& board, int ply) {
+        if (nnue_stack_) nnue_update((*nnue_stack_)[ply - 1], board, (*nnue_stack_)[ply]);
     }
 
     void generate(chess::Movelist& moves, const chess::Board& board) {
@@ -243,7 +260,7 @@ private:
             }
             best = maximizing ? -INFINITY_SCORE : INFINITY_SCORE;
         } else {
-            best = static_evaluation(board);
+            best = static_evaluation(board, ply);
             if (qply >= MAX_QUIESCENCE_PLY || ply >= MAX_SEARCH_PLY) {
                 ++result_.qcaps;
                 return best;
@@ -265,6 +282,7 @@ private:
             int score;
             {
                 ScopedMove played(board, move);
+                descend_nnue(board, ply + 1);
                 score = quiescence(board, ply + 1, qply + 1, alpha, beta, child_pv, null_subtree);
             }
             if ((maximizing && score > best) || (!maximizing && score < best)) {
@@ -296,12 +314,12 @@ private:
         visit(ply);
         if (depth == 0 && limits_.fast_movegen) {
             if (const auto score = terminal(board, has_legal_move(board), ply, null_subtree)) return *score;
-            return static_evaluation(board);
+            return static_evaluation(board, ply);
         }
         chess::Movelist moves;
         generate(moves, board);
         if (const auto score = terminal(board, moves, ply, null_subtree)) return *score;
-        if (depth == 0) return static_evaluation(board);
+        if (depth == 0) return static_evaluation(board, ply);
 
         const int original_alpha = alpha;
         const int original_beta = beta;
@@ -343,7 +361,7 @@ private:
             board.halfMoveClock() < 90 && !board.isRepetition(1) &&
             std::abs(alpha) < MATE_THRESHOLD && std::abs(beta) < MATE_THRESHOLD;
         const bool need_static = selective && (limits_.reverse_futility || limits_.futility);
-        const int stand = need_static ? static_evaluation(board) : 0;
+        const int stand = need_static ? static_evaluation(board, ply) : 0;
         if (selective && limits_.reverse_futility && std::abs(stand) < MATE_THRESHOLD &&
             ((maximizing && stand - 120 * depth >= beta) ||
              (!maximizing && stand + 120 * depth <= alpha))) {
@@ -354,13 +372,14 @@ private:
         // near draw/mate bounds, repeated positions, and every nested null path.
         if (pruning_ && limits_.null_move_pruning &&
             null_move_allowed(board, depth, ply, alpha, beta, null_subtree)) {
-            const int stand = static_evaluation(board);
+            const int stand = static_evaluation(board, ply);
             if ((maximizing && stand >= beta) || (!maximizing && stand <= alpha)) {
                 ++result_.null_attempts;
                 int score;
                 PrincipalVariation ignored_pv;
                 {
                     ScopedNullMove passed(board);
+                    descend_nnue(board, ply + 1);
                     score = minimax(board, depth - 3, ply + 1,
                                     maximizing ? beta - 1 : alpha,
                                     maximizing ? beta : alpha + 1, ignored_pv, false, 0, true);
@@ -404,6 +423,7 @@ private:
             int score;
             {
                 ScopedMove played(board, move);
+                descend_nnue(board, ply + 1);
                 const auto child_history = cacheable ? next_history(history, parent_key, board) : 0;
                 const bool child_follows_pv = follows_previous_pv && move == hint;
                 if (reduce) {

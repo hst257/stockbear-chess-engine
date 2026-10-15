@@ -28,6 +28,8 @@ def main() -> int:
                         help="Add piece-square bonuses to material evaluation (default: enabled).")
     parser.add_argument("--advanced-evaluation", action=argparse.BooleanOptionalAction, default=True,
                         help="Use phase-aware positional evaluation (default: enabled).")
+    parser.add_argument("--evaluator", choices=("classical", "nnue"), default="classical",
+                        help="Choose classical evaluation or the bundled experimental StockBear NNUE.")
     parser.add_argument("--transposition-table", action=argparse.BooleanOptionalAction, default=True,
                         help="Cache search results by Zobrist key and draw context (default: enabled).")
     parser.add_argument("--quiescence", action=argparse.BooleanOptionalAction, default=True,
@@ -71,7 +73,8 @@ def main() -> int:
                                   history_heuristic=args.history, killer_heuristic=args.killers,
                                   static_exchange=args.see, adaptive_lmr=args.adaptive_lmr,
                                   reverse_futility=args.reverse_futility, futility=args.futility,
-                                  check_extensions=args.check_extensions, mop_up=args.mop_up)
+                                  check_extensions=args.check_extensions, mop_up=args.mop_up,
+                                  evaluator=args.evaluator)
         app = Application(settings=settings, engine_path=Path(args.engine) if args.engine else DEFAULT_ENGINE)
         app.run(args.smoke_test, args.screenshot)
         return 0

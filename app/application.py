@@ -42,7 +42,7 @@ class Application:
         self.engine_error = ""
         self.search_rows = ()
         self.last_play_stats = None
-        self.search_position = "No search yet. Compare the current position."
+        self.search_position = "No search yet."
         self._request_revision: int | None = None
         self._request_token: int | None = None
         self._search_started = 0.0
@@ -76,7 +76,7 @@ class Application:
             self.engine_error = ""
             self.search_rows = ()
             self.last_play_stats = None
-            self.search_position = "No search yet. Compare the current position."
+            self.search_position = "No search yet."
         if name == "new":
             self.game.reset()
             self.flipped = self.settings.enabled and not self.settings.human_color
@@ -163,10 +163,11 @@ class Application:
             elif target == "cancel":
                 self.settings_dialog = False
             elif target == "apply":
-                if (self.settings.enabled, self.settings.human_color) != (self.draft_settings.enabled, self.draft_settings.human_color):
+                if (self.settings.enabled, self.settings.human_color, self.settings.evaluator) != (self.draft_settings.enabled, self.draft_settings.human_color, self.draft_settings.evaluator):
                     self.engine.cancel()
                     self._request_revision = self._request_token = None
                     self.search_rows = ()
+                    self.last_play_stats = None
                 self.settings = self.draft_settings
                 self.settings_dialog = False
             else:
@@ -184,7 +185,10 @@ class Application:
             elif target == "toggle_ordering" and not self.engine.busy:
                 self.settings = replace(self.settings, move_ordering=not self.settings.move_ordering)
                 self.search_rows = ()
-            elif target == "toggle_pst" and not self.engine.busy:
+            elif target == "toggle_evaluator" and not self.engine.busy:
+                self.settings = engine_panels.adjust(self.settings, target)
+                self.search_rows = ()
+            elif target == "toggle_pst" and not self.engine.busy and self.settings.evaluator == "classical":
                 self.settings = replace(self.settings, use_pst=not self.settings.use_pst)
                 self.search_rows = ()
             elif target == "toggle_tt" and not self.engine.busy:
@@ -284,6 +288,8 @@ class Application:
                 last = self.last_play_stats
                 depth = str(last.depth) if last.timed_search else f"{last.depth}/{last.requested_depth}"
                 detail = f"{last.san} · d{depth} · {last.seconds:.2f}s · {last.nodes:,} nodes"
+        if detail and self.settings.enabled:
+            detail = ("NNUE" if self.settings.evaluator == "nnue" else "Classical") + " · " + detail
         self.sidebar.draw(surface, self.sidebar_rect, self.game, self.pieces,
                           detail=detail, undo_enabled=self.can_undo,
                           claim_enabled=bool(self.game.draw_claims) and self.human_turn,

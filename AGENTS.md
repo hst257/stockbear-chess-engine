@@ -48,3 +48,5 @@ Use imperative subjects, such as `Add promotion selection dialog`. Keep commits 
 ## Development boundaries
 
 Gameplay defaults to timed deepening. Search features are switchable; Minimax ignores selective pruning/extensions. Disable selective features for exhaustive baselines. Preserve aspiration retries, isolated null histories/cache, LMR verification, extension-budget TT context, draw context, bounds, fallbacks, board restoration, and completed snapshots. Never equate selective scores with exhaustive results. Keep history/killers private to one search; SEE estimates order moves only. Tune weights with grouped holdout and game validation. Keep UCI off the GUI thread, reject stale replies, and play only final validated moves. Preserve complete pawn-cache keys, live occupancy-dependent terms, and attribution.
+
+NNUE: preserve the trained feature/score contract and golden parity. Keep unclipped accumulators in fixed White/Black order, refresh roots, and isolate child state. Classical remains the default; compare evaluators with paired openings and identical search limits.

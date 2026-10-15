@@ -121,11 +121,14 @@ def version_match(args):
                 suite.append({"moves": [m.uci() for m in board.move_stack], "fen": board.fen(),
                               "baseline_depth3_cp": score, "parent_opening": len(suite) % len(OPENINGS)})
             data = {"generated_utc": datetime.now(timezone.utc).isoformat(), "platform": platform.platform(),
-                    "comparison": "original versus optimized executables", "hashes": hashes,
+                    "comparison": "candidate versus original executables/options", "hashes": hashes,
                     "source_revision": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
                     "options": {"candidate": {n: o.default for n, o in candidate.options.items()},
                                 "original": {n: o.default for n, o in original.options.items()}},
                     "overrides": overrides,
+                    "builds": {label: json.loads(path.with_suffix(".build.json").read_text())
+                               if path.with_suffix(".build.json").exists() else None
+                               for label, path in (("candidate", args.engine), ("original", args.opponent))},
                     "paths": {"candidate": str(args.engine), "original": str(args.opponent)},
                     "names": {"candidate": candidate.id, "original": original.id},
                     "requested_games": args.games, "movetime_ms": args.movetime, "max_plies": args.max_plies,
@@ -167,14 +170,18 @@ def version_match(args):
     data["summary"] = strength_summary(data["games"])
     write_record(args.output, json.dumps(data, indent=2) + "\n")
     games = []
+    evaluator_match = any("Evaluator" in options for options in overrides.values())
+    labels = {label: {"nnue": "StockBear NNUE", "classical": "StockBear Classical"}.get(
+              options.get("Evaluator"), "Optimized" if label == "candidate" else "Original")
+              for label, options in overrides.items()}
     for record in data["games"]:
         board = chess.Board()
         for uci in record["opening"] + [s["move"] for s in record["searches"]]:
             board.push_uci(uci)
         game = chess.pgn.Game.from_board(board)
-        game.headers.update({"Event": "Original versus optimized audit match", "Round": str(record["game"]),
-                             "White": "Optimized" if record["candidate_color"] == "white" else "Original",
-                             "Black": "Original" if record["candidate_color"] == "white" else "Optimized",
+        game.headers.update({"Event": "NNUE versus classical evaluator match" if evaluator_match else "Original versus optimized audit match", "Round": str(record["game"]),
+                             "White": labels["candidate"] if record["candidate_color"] == "white" else labels["original"],
+                             "Black": labels["original"] if record["candidate_color"] == "white" else labels["candidate"],
                              "Result": record["result"], "ThinkTimeMs": str(args.movetime),
                              "Termination": record["termination"]})
         games.append(str(game))

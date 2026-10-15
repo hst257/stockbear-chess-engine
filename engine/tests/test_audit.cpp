@@ -2,6 +2,8 @@
 #include "scoped_move.hpp"
 #include "pawn_cache.hpp"
 #include "strength.hpp"
+#include "nnue.hpp"
+#include <cmath>
 
 #include <iostream>
 #include <random>
@@ -32,10 +34,34 @@ int main() {
             "rnbq1k1r/pp1Pbppp/2p5/8/2B5/8/PPP1NnPP/RNBQK2R w KQ - 1 8",
             "r3k2r/8/8/3pP3/8/8/8/R3K2R w KQkq d6 0 1"};
         unsigned verified = 0;
+        for (const auto fen : positions) {
+            chess::Board board(fen);
+            chesslab::NnueAccumulator parent;
+            chesslab::nnue_refresh(board, parent);
+            chess::Movelist moves;
+            chess::movegen::legalmoves(moves, board);
+            for (const auto move : moves) {
+                chesslab::NnueAccumulator updated, rebuilt;
+                {
+                    chesslab::ScopedMove guard(board, move);
+                    chesslab::nnue_update(parent, board, updated);
+                    chesslab::nnue_refresh(board, rebuilt);
+                    require(std::abs(chesslab::nnue_side_to_move(board, updated) -
+                                     chesslab::nnue_side_to_move(board, rebuilt)) < 0.01f,
+                            "Special-move NNUE delta differs from rebuild");
+                }
+                chesslab::nnue_refresh(board, rebuilt);
+                require(std::abs(chesslab::nnue_side_to_move(board, parent) -
+                                 chesslab::nnue_side_to_move(board, rebuilt)) < 0.01f,
+                        "Child NNUE update mutated parent accumulator");
+            }
+        }
         chesslab::PawnCache pawn_cache;
         for (const auto fen : positions) {
             for (int walk = 0; walk < 40; ++walk) {
                 chess::Board board(fen), original = board;
+                chesslab::NnueAccumulator accumulator;
+                chesslab::nnue_refresh(board, accumulator);
                 std::vector<chess::Move> played;
                 for (int ply = 0; ply < 120; ++ply) {
                     chess::Movelist moves;
@@ -57,10 +83,23 @@ int main() {
                     require(board.fullyEquals(before), "RAII move failed to restore board/history");
                     if (!board.inCheck()) {
                         { chesslab::ScopedNullMove guard(board);
-                          require(board.hash() == board.zobrist(), "Null hash mismatch"); }
+                          require(board.hash() == board.zobrist(), "Null hash mismatch");
+                          chesslab::NnueAccumulator updated, fresh;
+                          chesslab::nnue_update(accumulator, board, updated);
+                          chesslab::nnue_refresh(board, fresh);
+                          require(std::abs(chesslab::nnue_side_to_move(board, updated) -
+                                           chesslab::nnue_side_to_move(board, fresh)) < 0.01f,
+                                  "Null NNUE accumulator differs from rebuild"); }
                         require(board.fullyEquals(before), "Null move failed to restore full history/state");
                     }
                     board.makeMove<true>(move);
+                    chesslab::NnueAccumulator updated, fresh;
+                    chesslab::nnue_update(accumulator, board, updated);
+                    chesslab::nnue_refresh(board, fresh);
+                    require(std::abs(chesslab::nnue_side_to_move(board, updated) -
+                                     chesslab::nnue_side_to_move(board, fresh)) < 0.01f,
+                            "Real NNUE accumulator differs from rebuild");
+                    accumulator = updated;
                     played.push_back(move);
                     ++verified;
                 }

@@ -4,6 +4,11 @@ ChessLab is a desktop chess game and a project for learning search algorithms. T
 
 ![ChessLab game board](docs/chesslab.png)
 
+**Experimental NNUE is available:** click **Eval: Classical/NNUE** in game setup
+or Search lab, or launch with `--evaluator nnue`. Native inference uses the trained
+compact model with incremental accumulators and no PyTorch dependency. Classical
+remains the default. See [validation and head-to-head results](docs/nnue.md).
+
 ## Install and play on Windows
 
 Install **Python 3.11 or newer** with Python on PATH. The verified environment is Windows with Python 3.11.8 and Pygame 2.6.1. Open PowerShell in this folder and run:

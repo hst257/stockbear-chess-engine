@@ -1,5 +1,6 @@
 #include "search.hpp"
 #include "strength.hpp"
+#include "nnue.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -14,6 +15,7 @@
 #include <vector>
 #include <cstdlib>
 #include <new>
+#include <iomanip>
 
 #ifdef CHESSLAB_PROFILE
 // Diagnostic build only: count allocations on the search thread while active.
@@ -41,6 +43,29 @@ std::mutex output_mutex;
 void output(const std::string& line) {
     std::lock_guard<std::mutex> lock(output_mutex);
     std::cout << line << std::endl;
+}
+
+std::string nnue_json(const chess::Board& board) {
+    chesslab::NnueAccumulator accumulator;
+    chesslab::nnue_refresh(board, accumulator);
+    const auto stm = chesslab::nnue_side_to_move(board, accumulator);
+    std::ostringstream json;
+    json << std::setprecision(9) << "{\"evaluator\":\"nnue\",\"model\":\"" << chesslab::nnue_model_name()
+         << "\",\"sha256\":\"" << chesslab::nnue_model_sha256()
+         << "\",\"width\":" << chesslab::nnue_width() << ",\"hidden\":" << chesslab::nnue_hidden()
+         << ",\"side_to_move_cp\":" << stm
+         << ",\"raw_white_cp\":" << stm * (board.sideToMove() == chess::Color::WHITE ? 1 : -1)
+         << ",\"total\":" << chesslab::nnue_white_score(board, accumulator) << ",\"features\":[";
+    for (int p = 0; p < 2; ++p) {
+        if (p) json << ',';
+        json << '[';
+        for (int i = 0; i < accumulator.features.count; ++i) {
+            if (i) json << ',';
+            json << accumulator.features.active[p][i];
+        }
+        json << ']';
+    }
+    return json.str() + "]}";
 }
 
 std::string evaluation_json(const chess::Board& board, bool use_pst, const chesslab::EvaluationOptions& options) {
@@ -111,7 +136,8 @@ std::string search_info(const chesslab::SearchResult& result) {
 
 std::string metric_info(const chesslab::SearchResult& result) {
     return "eval_calls " + std::to_string(result.eval_calls) + " beta_cutoffs " + std::to_string(result.beta_cutoffs) +
-           " pawn_probes " + std::to_string(result.pawn_probes) + " pawn_hits " + std::to_string(result.pawn_hits);
+           " pawn_probes " + std::to_string(result.pawn_probes) + " pawn_hits " + std::to_string(result.pawn_hits) +
+           " nnue_evaluations " + std::to_string(result.nnue_evaluations);
 }
 
 std::string optimization_info(const chesslab::SearchResult& result) {
@@ -243,7 +269,7 @@ public:
             try {
                 const auto& command = tokens[0];
                 if (command == "uci") {
-                    output("id name ChessLab 0.12");
+                    output("id name ChessLab 0.13");
                     output("id author ChessLab contributors");
                     output("option name AlphaBeta type check default true");
                     output("option name IterativeDeepening type check default true");
@@ -252,6 +278,8 @@ public:
                     output("option name PawnCache type check default true");
                     output("option name FastMovegen type check default true");
                     output("option name UseAdvancedEvaluation type check default true");
+                    output("option name Evaluator type combo default classical var classical var nnue");
+                    output("option name NNUEIncremental type check default true");
                     for (const auto name : chesslab::EVAL_OPTION_NAMES)
                         output(std::string("option name ") + name + " type check default true");
                     output("option name TranspositionTable type check default true");
@@ -287,7 +315,7 @@ public:
                 else if (command == "stop") stop_search();
                 else if (command == "eval") {
                     stop_search();
-                    output("info string eval " + evaluation_json(board_, use_pst_, evaluation_));
+                    output("info string eval " + (use_nnue_ ? nnue_json(board_) : evaluation_json(board_, use_pst_, evaluation_)));
                 }
                 else if (command == "quit") break;
                 // UCI permits unrecognized commands to be ignored.
@@ -307,6 +335,8 @@ private:
     bool pawn_cache_ = true;
     bool fast_movegen_ = true;
     chesslab::EvaluationOptions evaluation_;
+    bool use_nnue_ = false;
+    bool nnue_incremental_ = true;
     bool transposition_table_ = true;
     bool quiescence_ = true;
     bool pvs_ = true;
@@ -338,6 +368,16 @@ private:
         stop_search();
         if (tokens.size() != 5 || tokens[1] != "name" || tokens[3] != "value") {
             throw std::invalid_argument("expected setoption name <option> value <value> (see uci for supported options)");
+        }
+        if (tokens[2] == "Evaluator") {
+            if (tokens[4] != "classical" && tokens[4] != "nnue") throw std::invalid_argument("Evaluator must be classical or nnue");
+            use_nnue_ = tokens[4] == "nnue";
+            return;
+        }
+        if (tokens[2] == "NNUEIncremental") {
+            if (tokens[4] != "true" && tokens[4] != "false") throw std::invalid_argument("check options must be true or false");
+            nnue_incremental_ = tokens[4] == "true";
+            return;
         }
         if (tokens[2] == "UseMopUp") {
             if (tokens[4] != "true" && tokens[4] != "false") throw std::invalid_argument("check options must be true or false");
@@ -452,6 +492,8 @@ private:
         limits.pawn_cache = pawn_cache_;
         limits.fast_movegen = fast_movegen_;
         limits.evaluation = evaluation_;
+        limits.use_nnue = use_nnue_;
+        limits.nnue_incremental = nnue_incremental_;
         limits.transposition_table = transposition_table_;
         limits.hash_megabytes = hash_megabytes_;
         limits.history = history_;
@@ -540,11 +582,13 @@ int main(int argc, char** argv) {
             const std::string command = argv[1];
             if ((command == "--eval" || command == "--eval-bench") && argc >= 3) {
                 bool use_pst = true;
+                bool use_nnue = false;
                 chesslab::EvaluationOptions options;
                 int repeats = 200000;
                 for (int i = 2; i < argc - 1; ++i) {
                     const std::string flag = argv[i];
-                    if (flag == "--no-mopup") options.mop_up = false;
+                    if (flag == "--nnue") use_nnue = true;
+                    else if (flag == "--no-mopup") options.mop_up = false;
                     else if (flag == "--no-pst") use_pst = false;
                     else if (flag == "--baseline") options.advanced = false;
                     else if (flag == "--disable" && i + 1 < argc - 1) {
@@ -556,11 +600,13 @@ int main(int argc, char** argv) {
                     else throw std::invalid_argument("unknown evaluation flag");
                 }
                 const auto board = board_from_fen(argv[argc - 1]);
-                if (command == "--eval") std::cout << evaluation_json(board, use_pst, options) << '\n';
+                if (command == "--eval") std::cout << (use_nnue ? nnue_json(board) : evaluation_json(board, use_pst, options)) << '\n';
                 else {
+                    chesslab::NnueAccumulator accumulator;
+                    if (use_nnue) chesslab::nnue_refresh(board, accumulator);
                     volatile std::int64_t checksum = 0;
                     const auto start = std::chrono::steady_clock::now();
-                    for (int i = 0; i < repeats; ++i) checksum += chesslab::evaluate(board, use_pst, options);
+                    for (int i = 0; i < repeats; ++i) checksum += use_nnue ? chesslab::nnue_white_score(board, accumulator) : chesslab::evaluate(board, use_pst, options);
                     const auto ns = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now() - start).count();
                     std::cout << "{\"calls\":" << repeats << ",\"ns_per_call\":" << double(ns) / repeats
                               << ",\"checksum\":" << checksum << "}\n";

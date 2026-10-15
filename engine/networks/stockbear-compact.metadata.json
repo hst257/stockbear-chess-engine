@@ -1,0 +1,91 @@
+{
+  "origin": "StockBear_NNUE_training/exports/stockbear-compact.sbnnue",
+  "selection": "StockBear_NNUE_training/reports/selection.json",
+  "model_sha256": "47076595f00d6218ad8b7d6085da688bde43459d14571e2d456ceba436b1e512",
+  "export_header": {
+    "activation": "clip(x,0,1)",
+    "best_epoch": 10,
+    "feature_version": "dual-perspective-12x64-castling-ep-v1",
+    "features": 780,
+    "format": "StockBear float32 v1",
+    "model": {
+      "hidden": 16,
+      "width": 32
+    },
+    "output_cp_scale": 400,
+    "payload_sha256": "76de34fb91ee3e835e7dadec926080cbbf37b1df1b14209170a5cb5454e0389d",
+    "score_pov": "side_to_move",
+    "signature": {
+      "dataset": "9070f359605e3d1bc6fa786dcdae2d900424dcce33653d1249c814ddc78ad53e",
+      "feature_version": "dual-perspective-12x64-castling-ep-v1",
+      "profile_id": "ddc2b43b123677466a9a9f8478f67ffc028a6582266a73e36a3272bc85b30f92",
+      "seed": 20261015,
+      "training": {
+        "batch_size": 512,
+        "gradient_clip": 1.0,
+        "hidden": 16,
+        "learning_rate": 0.0015,
+        "min_delta": 1e-05,
+        "patience": 10,
+        "require_cuda": false,
+        "teacher_weight": 0.9,
+        "weight_decay": 0.05,
+        "width": 32
+      }
+    },
+    "tensors": [
+      {
+        "dtype": "<f4",
+        "name": "bias",
+        "offset": 0,
+        "shape": [
+          32
+        ]
+      },
+      {
+        "dtype": "<f4",
+        "name": "transform.weight",
+        "offset": 128,
+        "shape": [
+          781,
+          32
+        ]
+      },
+      {
+        "dtype": "<f4",
+        "name": "fc1.weight",
+        "offset": 100096,
+        "shape": [
+          16,
+          64
+        ]
+      },
+      {
+        "dtype": "<f4",
+        "name": "fc1.bias",
+        "offset": 104192,
+        "shape": [
+          16
+        ]
+      },
+      {
+        "dtype": "<f4",
+        "name": "fc2.weight",
+        "offset": 104256,
+        "shape": [
+          1,
+          16
+        ]
+      },
+      {
+        "dtype": "<f4",
+        "name": "fc2.bias",
+        "offset": 104320,
+        "shape": [
+          1
+        ]
+      }
+    ]
+  },
+  "deployment": "Exact float32 export embedded at build time; no quantization, material blend or runtime Torch dependency."
+}

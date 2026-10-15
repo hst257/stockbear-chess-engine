@@ -6,6 +6,11 @@ Zobrist-based transposition caching, quiescence, Principal Variation Search, asp
 It owns its board independently of Python.
 No search or evaluation is delegated to another engine.
 
+Version 0.13 adds `Evaluator` (`classical` default, or `nnue`) and diagnostic
+`NNUEIncremental` (true default). The compact StockBear float32 model is validated
+and embedded during build. See the [NNUE guide](../docs/nnue.md) for the exact
+feature/score contract, model identity, selection controls and match results.
+
 Version 0.12 adds switchable history/killer ordering, legal-recapture SEE,
 adaptive LMR, guarded forward/reverse futility, two-ply-budget check extensions,
 bare-king conversion and MG/EG component weight tuning. See the

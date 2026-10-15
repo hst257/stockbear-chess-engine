@@ -14,6 +14,8 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from tools.embed_nnue import DEFAULT_MODEL, generate_header
 
 
 def main() -> int:
@@ -23,6 +25,8 @@ def main() -> int:
     parser.add_argument("--optimization", choices=("O2", "O3"), default="O2")
     parser.add_argument("--lto", action="store_true")
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--nnue-model", type=Path, default=DEFAULT_MODEL,
+                        help="Validate and embed a custom StockBear float32 v1 export.")
     parser.add_argument("--sanitize", choices=("undefined",), help="Development-only undefined-behavior checks.")
     options = parser.parse_args()
     target = options.target
@@ -40,13 +44,21 @@ def main() -> int:
     output = options.output or ROOT / "engine" / "build" / (name + (".exe" if os.name == "nt" else ""))
     output = output.resolve()
     output.parent.mkdir(parents=True, exist_ok=True)
-    args = compiler + ["-std=c++17", "-" + options.optimization, "-pthread", "-Wall", "-Wextra",
+    generated = output.parent / "generated"
+    try:
+        model_info = generate_header(options.nnue_model.resolve(), generated / "nnue_weights.hpp")
+    except (ValueError, KeyError, OSError) as error:
+        print(f"NNUE model validation failed: {error}", file=sys.stderr)
+        return 1
+    args = compiler + ["-std=c++17", "-" + options.optimization, "-pthread", "-Wall", "-Wextra", "-ffp-contract=off",
+                       "-I", str(generated),
                        "-I", str(ROOT / "engine" / "vendor" / "chess-library"),
                        "-I", str(ROOT / "engine" / "src"),
                        str(ROOT / "engine" / ("src/main.cpp" if target == "engine" else
                            "tests/test_transposition.cpp" if target == "tt-tests" else "tests/test_audit.cpp")),
                        str(ROOT / "engine" / "src" / "search.cpp"),
-                       str(ROOT / "engine" / "src" / "evaluation.cpp"), "-o", str(output)]
+                       str(ROOT / "engine" / "src" / "evaluation.cpp"),
+                       str(ROOT / "engine" / "src" / "nnue.cpp"), "-o", str(output)]
     if options.profile:
         args.insert(len(compiler), "-DCHESSLAB_PROFILE")
     if options.lto:
@@ -65,6 +77,7 @@ def main() -> int:
         output.with_suffix(".build.json").write_text(json.dumps({
             "compiler": compiler, "flags": args[len(compiler):], "profile": options.profile,
             "optimization": options.optimization, "lto": options.lto, "sanitizer": options.sanitize,
+            "nnue": model_info,
         }, indent=2) + "\n", encoding="utf-8")
     return result.returncode
 

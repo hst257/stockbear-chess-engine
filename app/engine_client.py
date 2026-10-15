@@ -43,8 +43,11 @@ class EngineSettings:
     futility: bool = True
     check_extensions: bool = True
     mop_up: bool = True
+    evaluator: str = "classical"
 
     def __post_init__(self) -> None:
+        if self.evaluator not in ("classical", "nnue"):
+            raise ValueError("Evaluator must be classical or nnue.")
         if not 1 <= self.depth <= 5:
             raise ValueError("GUI search depth must be between 1 and 5 plies.")
         if self.thinking_time_ms not in dict(THINKING_TIMES).values():
@@ -99,6 +102,7 @@ class SearchStats:
     thinking_time_ms: int = 0
     nps: int = 0
     advanced_evaluation: bool = True
+    evaluator: str = "classical"
 
 
 @dataclass(frozen=True)
@@ -165,7 +169,7 @@ def search_stats(info: chess.engine.InfoDict, move: chess.Move | None, board: ch
                        counters.get("qnodes", 0), counters.get("scouts", 0), counters.get("researches", 0),
                        counters.get("qcaps", 0), bool(counters.get("plylimit", 0)),
                        settings.timed_search, settings.thinking_time_ms if settings.timed_search else 0,
-                       info.get("nps", 0), settings.advanced_evaluation)
+                       info.get("nps", 0), settings.advanced_evaluation, settings.evaluator)
 
 
 class EngineClient:
@@ -256,6 +260,7 @@ class EngineClient:
                                   "UseSEE": settings.static_exchange, "UseAdaptiveLMR": settings.adaptive_lmr,
                                   "UseReverseFutility": settings.reverse_futility, "UseFutility": settings.futility,
                                   "UseCheckExtensions": settings.check_extensions, "UseMopUp": settings.mop_up})
+                engine.configure({"Evaluator": settings.evaluator})
                 if job.canceled.is_set():
                     return
                 iterations: list[SearchIteration] = []
