@@ -1,0 +1,9 @@
+{
+  "utc": "2026-10-15T18:35:46.126402+00:00",
+  "original_games": 60,
+  "completed_games": 35,
+  "complete_opening_pairs": 17,
+  "unpaired_game": 35,
+  "instruction": "actually stop at 35 games, no need for 60",
+  "method": "Human-requested mid-run stop. Study process tree stopped after the atomic 35-game checkpoint. Original 60-game checkpoint/plan retained; no automatic outcome-based stopping or extra completed games. Game 35 reported separately from paired uncertainty."
+}

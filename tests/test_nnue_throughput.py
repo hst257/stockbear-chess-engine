@@ -47,3 +47,19 @@ def test_native_search_only_state_matches_full_reference_bitwise():
     result = json.loads(subprocess.check_output([str(binary.resolve()), "--verify-throughput", "scalar"], text=True, timeout=90))
     assert result["bitwise_exact"]
     assert result["transitions"] > 30000 and result["nulls"] > 25000
+
+
+def test_human_amended_odd_match_requires_explicit_partial_pair_marker(tmp_path):
+    from tools.verify_match_records import verify_record
+    source = Path("docs/nnue-v2-throughput/validation-500ms.json")
+    if not source.exists():
+        pytest.skip("Frozen amended tournament evidence is not present")
+    assert verify_record(source)["games"] == 35
+    record = json.loads(source.read_text())
+    assert record["incomplete_last_pair"] and record["summary"]["complete_pairs"] == 17
+    target = tmp_path / "missing-marker.json"
+    record["incomplete_last_pair"] = False
+    target.write_text(json.dumps(record))
+    target.with_suffix(".pgn").write_bytes(source.with_suffix(".pgn").read_bytes())
+    with pytest.raises(AssertionError):
+        verify_record(target)

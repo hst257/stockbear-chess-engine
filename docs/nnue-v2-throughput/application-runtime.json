@@ -1,0 +1,398 @@
+{
+  "before": {
+    "utc": "2026-10-15T18:36:22.947453+00:00",
+    "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v2-throughput\\runtime-before\\engine.exe",
+    "sha256": "b6216bbaefb491cdccc06a2d26984ac60cb13ce2fab2369aa5119ee1b26c1329",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+    "logical_cpus": 12,
+    "python": "3.11.8",
+    "source_revision": "76a9dcf83963b27694309a520f0b1687bda30d41",
+    "build": {
+      "compiler": [
+        "Z:\\Code\\Chess\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ziglang",
+        "c++"
+      ],
+      "flags": [
+        "-std=c++17",
+        "-O2",
+        "-pthread",
+        "-Wall",
+        "-Wextra",
+        "-ffp-contract=off",
+        "-I",
+        "Z:\\Code\\Chess\\engine\\build\\generated",
+        "-I",
+        "Z:\\Code\\Chess\\engine\\vendor\\chess-library",
+        "-I",
+        "Z:\\Code\\Chess\\engine\\src",
+        "Z:\\Code\\Chess\\engine\\src\\main.cpp",
+        "Z:\\Code\\Chess\\engine\\src\\search.cpp",
+        "Z:\\Code\\Chess\\engine\\src\\evaluation.cpp",
+        "Z:\\Code\\Chess\\engine\\src\\nnue.cpp",
+        "-o",
+        "Z:\\Code\\Chess\\engine\\build\\chesslab-engine.exe"
+      ],
+      "profile": false,
+      "optimization": "O2",
+      "lto": false,
+      "sanitizer": null,
+      "nnue": {
+        "model": "Z:\\Code\\Chess\\engine\\networks\\stockbear-compact.sbnnue",
+        "sha256": "47076595f00d6218ad8b7d6085da688bde43459d14571e2d456ceba436b1e512",
+        "payload_sha256": "76de34fb91ee3e835e7dadec926080cbbf37b1df1b14209170a5cb5454e0389d",
+        "width": 32,
+        "hidden": 16,
+        "feature_version": "dual-perspective-12x64-castling-ep-v1",
+        "quantization": {
+          "supported": true,
+          "first_scale": 4096,
+          "activation_scale": 4096,
+          "head_weight_scale": 4096,
+          "output_weight_scale": 4096,
+          "accumulator_abs_bound": 55231,
+          "head_abs_bound": 233326009,
+          "output_abs_bound": 91339687,
+          "rounding": "nearest, ties away from zero",
+          "derived_bytes": 52260
+        }
+      },
+      "generator_sha256": "f00e0ed44fdc661549fd8345aabb175c4d8d33f8fe53e3fc32ff356dad546cf8",
+      "source_sha256": {
+        "engine\\src\\evaluation.cpp": "87ed00f717a19d593969b3b84d4e48586a8dc576d54ac1260350648a967639f7",
+        "engine\\src\\evaluation.hpp": "01f5eac3194175f4f6615629146ce95700de2a0c351cae49b8346ac635b05c91",
+        "engine\\src\\evaluation_masks.hpp": "2d1af8a6465e59bb0fce0878b694736207dcbd065c9419a3e7d5ba858196b92b",
+        "engine\\src\\main.cpp": "8b40f059ccb3e1029cccb84fba4500b9c08d9278e1cd5d0308539b1655f70041",
+        "engine\\src\\nnue.cpp": "05448bdd302defcfdbb38117d6eeda6801900ded50597f5e4ce0508b61e0ea8c",
+        "engine\\src\\nnue.hpp": "a0132cc742715390a151cc2bafcf544e9dead1a0c967c2df68089831ef227089",
+        "engine\\src\\pawn_cache.hpp": "f4240a187937c41f1b70ea2a901b1efd3b0b9c9309db8a0e4643a776bf6fc6ca",
+        "engine\\src\\principal_variation.hpp": "5a7b342185a4abbeca3638eaca0de2d9c3caa02a7f00710f631b9f87d4c5614c",
+        "engine\\src\\profiling.hpp": "2d5304f600d8d6760f75d43c6d0cef2b57e47487f3de8c9fc96c8a5dd772de7b",
+        "engine\\src\\pst.hpp": "a7f007ab55fd4bb3a6d4fae93b97b25e371faefc633351c0a70cd4eb40be111b",
+        "engine\\src\\scoped_move.hpp": "3e815c8e3f825105cf0f43a61750aa452c6f46a9c04a456b14a43dc09e07ea72",
+        "engine\\src\\search.cpp": "433183ea66249e3ba6252a85ad3566d871f2336ba37979552ad320c5984b7a3b",
+        "engine\\src\\search.hpp": "7aad55a31d2910112393a7dc66e0ce9d1e632a26d952d8f97c8f9c68d45b6a3d",
+        "engine\\src\\search_policy.hpp": "06cd21e30dc793570a2d717c9cd6976320342a2c21cac6f392fd64b548e54324",
+        "engine\\src\\strength.hpp": "133f330350dbf68f1f6e31bf67e8b310e1d639577918b626a5e4bb5b6cab7d68",
+        "engine\\src\\terminal_rules.hpp": "08880e1a158016cb43e4d05c818baa0d85f48a0d673837c3e43842251caf6f59",
+        "engine\\src\\transposition.hpp": "e41ab9b9e1bbf3f313d61e812e40e4dfebbc0debc6964ee85a83f68668b9d6a0"
+      }
+    }
+  },
+  "after": {
+    "utc": "2026-10-15T18:36:23.082389+00:00",
+    "executable": "Z:\\Code\\Chess\\engine\\build\\chesslab-engine.exe",
+    "sha256": "932f3b112ea6c0882462a4bb0623a40c1d73814d0d534bfe80ac6de698b27367",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+    "logical_cpus": 12,
+    "python": "3.11.8",
+    "source_revision": "76a9dcf83963b27694309a520f0b1687bda30d41",
+    "build": {
+      "compiler": [
+        "Z:\\Code\\Chess\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ziglang",
+        "c++"
+      ],
+      "flags": [
+        "-DCHESSLAB_NNUE_UPDATE=2",
+        "-std=c++17",
+        "-O2",
+        "-pthread",
+        "-Wall",
+        "-Wextra",
+        "-ffp-contract=off",
+        "-I",
+        "Z:\\Code\\Chess\\engine\\build\\generated",
+        "-I",
+        "Z:\\Code\\Chess\\engine\\vendor\\chess-library",
+        "-I",
+        "Z:\\Code\\Chess\\engine\\src",
+        "Z:\\Code\\Chess\\engine\\src\\main.cpp",
+        "Z:\\Code\\Chess\\engine\\src\\search.cpp",
+        "Z:\\Code\\Chess\\engine\\src\\evaluation.cpp",
+        "Z:\\Code\\Chess\\engine\\src\\nnue.cpp",
+        "-o",
+        "Z:\\Code\\Chess\\engine\\build\\chesslab-engine.exe"
+      ],
+      "profile": false,
+      "diagnostics": false,
+      "nnue_update": "compact",
+      "optimization": "O2",
+      "lto": false,
+      "sanitizer": null,
+      "nnue": {
+        "model": "Z:\\Code\\Chess\\engine\\networks\\stockbear-compact.sbnnue",
+        "sha256": "47076595f00d6218ad8b7d6085da688bde43459d14571e2d456ceba436b1e512",
+        "payload_sha256": "76de34fb91ee3e835e7dadec926080cbbf37b1df1b14209170a5cb5454e0389d",
+        "width": 32,
+        "hidden": 16,
+        "feature_version": "dual-perspective-12x64-castling-ep-v1",
+        "quantization": {
+          "supported": true,
+          "first_scale": 4096,
+          "activation_scale": 4096,
+          "head_weight_scale": 4096,
+          "output_weight_scale": 4096,
+          "accumulator_abs_bound": 110065,
+          "head_abs_bound": 233326009,
+          "output_abs_bound": 91339687,
+          "rounding": "nearest, ties away from zero",
+          "derived_bytes": 52260
+        }
+      },
+      "generator_sha256": "d12b0e688395da7cc3386aacafa06b8022b0f53d7a7cbed9d85459a34aca83a5",
+      "source_sha256": {
+        "engine\\src\\diagnostics.hpp": "65e4c0754331d9f19f643d4f6212c22bfbf1e088471ea5a523614e329671b35c",
+        "engine\\src\\evaluation.cpp": "87ed00f717a19d593969b3b84d4e48586a8dc576d54ac1260350648a967639f7",
+        "engine\\src\\evaluation.hpp": "01f5eac3194175f4f6615629146ce95700de2a0c351cae49b8346ac635b05c91",
+        "engine\\src\\evaluation_masks.hpp": "2d1af8a6465e59bb0fce0878b694736207dcbd065c9419a3e7d5ba858196b92b",
+        "engine\\src\\main.cpp": "00746cf6b3c03c8f774aa52cc072a4fa84a6d374288efe1f972deb4e8ccef811",
+        "engine\\src\\nnue.cpp": "8916fa27783fb88cfd7219a88e411f1f3df431e076f6d19424f051da8909bfbd",
+        "engine\\src\\nnue.hpp": "276ec5bca364106193e10bf550f355ecfbe86be86e6084c5b3d60f4e030ecf79",
+        "engine\\src\\pawn_cache.hpp": "f4240a187937c41f1b70ea2a901b1efd3b0b9c9309db8a0e4643a776bf6fc6ca",
+        "engine\\src\\principal_variation.hpp": "5a7b342185a4abbeca3638eaca0de2d9c3caa02a7f00710f631b9f87d4c5614c",
+        "engine\\src\\profiling.hpp": "845501b14addab91c5839f89b747344b28e9b99846bafb8fddc50e0090d0a1e6",
+        "engine\\src\\pst.hpp": "a7f007ab55fd4bb3a6d4fae93b97b25e371faefc633351c0a70cd4eb40be111b",
+        "engine\\src\\scoped_move.hpp": "3e815c8e3f825105cf0f43a61750aa452c6f46a9c04a456b14a43dc09e07ea72",
+        "engine\\src\\search.cpp": "0610984ed01d1155dce698741a01fc1d9c68b0a85f433e5e28f1845ffc93f181",
+        "engine\\src\\search.hpp": "ec72e15392f4b5988b8f7a87e1de045682049df269f2fee3f815c2af539f009f",
+        "engine\\src\\search_policy.hpp": "06cd21e30dc793570a2d717c9cd6976320342a2c21cac6f392fd64b548e54324",
+        "engine\\src\\strength.hpp": "133f330350dbf68f1f6e31bf67e8b310e1d639577918b626a5e4bb5b6cab7d68",
+        "engine\\src\\terminal_rules.hpp": "08880e1a158016cb43e4d05c818baa0d85f48a0d673837c3e43842251caf6f59",
+        "engine\\src\\transposition.hpp": "e41ab9b9e1bbf3f313d61e812e40e4dfebbc0debc6964ee85a83f68668b9d6a0"
+      }
+    }
+  },
+  "same_model_sha256": "47076595f00d6218ad8b7d6085da688bde43459d14571e2d456ceba436b1e512",
+  "note": "Normal application runtime keeps its original v1 model and classical default. All v2 measurements/desktop launch explicitly use the separately preserved final Compact v2 build.",
+  "searches": [
+    {
+      "position": "start",
+      "evaluator": "classical",
+      "mode": "depth",
+      "budget": 4,
+      "identical": true
+    },
+    {
+      "position": "start",
+      "evaluator": "classical",
+      "mode": "nodes",
+      "budget": 100000,
+      "identical": true
+    },
+    {
+      "position": "italian_structure",
+      "evaluator": "classical",
+      "mode": "depth",
+      "budget": 4,
+      "identical": true
+    },
+    {
+      "position": "italian_structure",
+      "evaluator": "classical",
+      "mode": "nodes",
+      "budget": 100000,
+      "identical": true
+    },
+    {
+      "position": "attack_complex",
+      "evaluator": "classical",
+      "mode": "depth",
+      "budget": 4,
+      "identical": true
+    },
+    {
+      "position": "attack_complex",
+      "evaluator": "classical",
+      "mode": "nodes",
+      "budget": 100000,
+      "identical": true
+    },
+    {
+      "position": "rook_minors",
+      "evaluator": "classical",
+      "mode": "depth",
+      "budget": 4,
+      "identical": true
+    },
+    {
+      "position": "rook_minors",
+      "evaluator": "classical",
+      "mode": "nodes",
+      "budget": 100000,
+      "identical": true
+    },
+    {
+      "position": "rooks",
+      "evaluator": "classical",
+      "mode": "depth",
+      "budget": 4,
+      "identical": true
+    },
+    {
+      "position": "rooks",
+      "evaluator": "classical",
+      "mode": "nodes",
+      "budget": 100000,
+      "identical": true
+    },
+    {
+      "position": "rook_pawn",
+      "evaluator": "classical",
+      "mode": "depth",
+      "budget": 4,
+      "identical": true
+    },
+    {
+      "position": "rook_pawn",
+      "evaluator": "classical",
+      "mode": "nodes",
+      "budget": 100000,
+      "identical": true
+    },
+    {
+      "position": "white_blocked",
+      "evaluator": "classical",
+      "mode": "depth",
+      "budget": 4,
+      "identical": true
+    },
+    {
+      "position": "white_blocked",
+      "evaluator": "classical",
+      "mode": "nodes",
+      "budget": 100000,
+      "identical": true
+    },
+    {
+      "position": "defend_complex",
+      "evaluator": "classical",
+      "mode": "depth",
+      "budget": 4,
+      "identical": true
+    },
+    {
+      "position": "defend_complex",
+      "evaluator": "classical",
+      "mode": "nodes",
+      "budget": 100000,
+      "identical": true
+    },
+    {
+      "position": "start",
+      "evaluator": "nnue",
+      "mode": "depth",
+      "budget": 4,
+      "identical": true
+    },
+    {
+      "position": "start",
+      "evaluator": "nnue",
+      "mode": "nodes",
+      "budget": 100000,
+      "identical": true
+    },
+    {
+      "position": "italian_structure",
+      "evaluator": "nnue",
+      "mode": "depth",
+      "budget": 4,
+      "identical": true
+    },
+    {
+      "position": "italian_structure",
+      "evaluator": "nnue",
+      "mode": "nodes",
+      "budget": 100000,
+      "identical": true
+    },
+    {
+      "position": "attack_complex",
+      "evaluator": "nnue",
+      "mode": "depth",
+      "budget": 4,
+      "identical": true
+    },
+    {
+      "position": "attack_complex",
+      "evaluator": "nnue",
+      "mode": "nodes",
+      "budget": 100000,
+      "identical": true
+    },
+    {
+      "position": "rook_minors",
+      "evaluator": "nnue",
+      "mode": "depth",
+      "budget": 4,
+      "identical": true
+    },
+    {
+      "position": "rook_minors",
+      "evaluator": "nnue",
+      "mode": "nodes",
+      "budget": 100000,
+      "identical": true
+    },
+    {
+      "position": "rooks",
+      "evaluator": "nnue",
+      "mode": "depth",
+      "budget": 4,
+      "identical": true
+    },
+    {
+      "position": "rooks",
+      "evaluator": "nnue",
+      "mode": "nodes",
+      "budget": 100000,
+      "identical": true
+    },
+    {
+      "position": "rook_pawn",
+      "evaluator": "nnue",
+      "mode": "depth",
+      "budget": 4,
+      "identical": true
+    },
+    {
+      "position": "rook_pawn",
+      "evaluator": "nnue",
+      "mode": "nodes",
+      "budget": 100000,
+      "identical": true
+    },
+    {
+      "position": "white_blocked",
+      "evaluator": "nnue",
+      "mode": "depth",
+      "budget": 4,
+      "identical": true
+    },
+    {
+      "position": "white_blocked",
+      "evaluator": "nnue",
+      "mode": "nodes",
+      "budget": 100000,
+      "identical": true
+    },
+    {
+      "position": "defend_complex",
+      "evaluator": "nnue",
+      "mode": "depth",
+      "budget": 4,
+      "identical": true
+    },
+    {
+      "position": "defend_complex",
+      "evaluator": "nnue",
+      "mode": "nodes",
+      "budget": 100000,
+      "identical": true
+    }
+  ]
+}

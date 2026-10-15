@@ -1,0 +1,31 @@
+{
+  "method": "Same 24 FENs at 400k nodes. Logical source payload, not DRAM traffic. Clock-build allocations include instrumented search scope only; counter-only builds do not measure allocations.",
+  "builds": {
+    "legacy_clocks": {
+      "searches": 24,
+      "nodes": 9600000,
+      "allocation_count": 3097,
+      "evaluation_calls": 7580323,
+      "updates": 9594665,
+      "refreshes": 24,
+      "delta_rows": 22052448,
+      "copy_payload_bytes": 3914623320,
+      "row_weight_bytes": 5645426688,
+      "qvisits": 7141943,
+      "q_updates": 7141431
+    },
+    "optimized_counters": {
+      "searches": 24,
+      "nodes": 9600000,
+      "allocation_count": null,
+      "evaluation_calls": 7580323,
+      "updates": 9594665,
+      "refreshes": 24,
+      "delta_rows": 22052448,
+      "copy_payload_bytes": 2514301508,
+      "row_weight_bytes": 5645426688,
+      "qvisits": 7141943,
+      "q_updates": 7141431
+    }
+  }
+}

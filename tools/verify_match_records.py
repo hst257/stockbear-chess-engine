@@ -15,7 +15,9 @@ def verify_record(path: Path, check_binaries=False):
     data = json.loads(path.read_text(encoding="utf-8"))
     source = io.StringIO(path.with_suffix(".pgn").read_text(encoding="utf-8"))
     assert len(data["games"]) == data["requested_games"]
-    assert len(data["openings"]) == len(data["games"]) // 2
+    partial_pair = bool(data.get("incomplete_last_pair", False))
+    assert not partial_pair or len(data["games"]) % 2 == 1
+    assert len(data["openings"]) == (len(data["games"]) + int(partial_pair)) // 2
     assert len({p["fen"] for p in data["openings"]}) == len(data["openings"])
     plies = 0
     for index, record in enumerate(data["games"]):

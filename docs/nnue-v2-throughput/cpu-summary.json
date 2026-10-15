@@ -1,0 +1,113 @@
+{
+  "method": "Windows process user+kernel CPU / UCI wall, pooled over all FEN/trials. OS accounting is coarse for short runs. 100% means one fully utilized logical CPU, not the whole 12-CPU machine.",
+  "records": [
+    {
+      "mode": "nodes",
+      "budget": 100000,
+      "build": "baseline",
+      "single_core_percent": 93.39223717456721
+    },
+    {
+      "mode": "nodes",
+      "budget": 100000,
+      "build": "classical",
+      "single_core_percent": 96.06117953744867
+    },
+    {
+      "mode": "nodes",
+      "budget": 100000,
+      "build": "final",
+      "single_core_percent": 91.90041828317152
+    },
+    {
+      "mode": "nodes",
+      "budget": 400000,
+      "build": "baseline",
+      "single_core_percent": 96.51847750408773
+    },
+    {
+      "mode": "nodes",
+      "budget": 400000,
+      "build": "classical",
+      "single_core_percent": 96.3035973420192
+    },
+    {
+      "mode": "nodes",
+      "budget": 400000,
+      "build": "final",
+      "single_core_percent": 96.31475384935077
+    },
+    {
+      "mode": "nodes",
+      "budget": 1000000,
+      "build": "baseline",
+      "single_core_percent": 96.83194668453984
+    },
+    {
+      "mode": "nodes",
+      "budget": 1000000,
+      "build": "classical",
+      "single_core_percent": 96.94773915636075
+    },
+    {
+      "mode": "nodes",
+      "budget": 1000000,
+      "build": "final",
+      "single_core_percent": 97.26298252984446
+    },
+    {
+      "mode": "time",
+      "budget": 50,
+      "build": "baseline",
+      "single_core_percent": 93.23948124565857
+    },
+    {
+      "mode": "time",
+      "budget": 50,
+      "build": "classical",
+      "single_core_percent": 91.90491986549257
+    },
+    {
+      "mode": "time",
+      "budget": 50,
+      "build": "final",
+      "single_core_percent": 91.29590635399194
+    },
+    {
+      "mode": "time",
+      "budget": 200,
+      "build": "baseline",
+      "single_core_percent": 96.08009165368911
+    },
+    {
+      "mode": "time",
+      "budget": 200,
+      "build": "classical",
+      "single_core_percent": 96.00864161428251
+    },
+    {
+      "mode": "time",
+      "budget": 200,
+      "build": "final",
+      "single_core_percent": 96.39066114508972
+    },
+    {
+      "mode": "time",
+      "budget": 1000,
+      "build": "baseline",
+      "single_core_percent": 97.48597546313786
+    },
+    {
+      "mode": "time",
+      "budget": 1000,
+      "build": "classical",
+      "single_core_percent": 97.18945190580813
+    },
+    {
+      "mode": "time",
+      "budget": 1000,
+      "build": "final",
+      "single_core_percent": 97.296914581458
+    }
+  ]
+}

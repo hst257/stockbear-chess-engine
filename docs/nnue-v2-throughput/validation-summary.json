@@ -1,0 +1,87 @@
+{
+  "games": 35,
+  "wins": 14,
+  "draws": 13,
+  "losses": 8,
+  "unfinished": 0,
+  "score": 0.5857142857142857,
+  "relative_elo": 51.46664365101722,
+  "complete_pairs": 17,
+  "paired_score": 0.5735294117647058,
+  "paired_bootstrap_95": [
+    0.4852941176470588,
+    0.6617647058823529
+  ],
+  "paired_elo_bootstrap_95": [
+    -10.221641788955246,
+    116.59387110310031
+  ],
+  "paired_hoeffding_95": [
+    0.24414141178176352,
+    0.9029174117476482
+  ],
+  "unfinished_worst_best_score": [
+    0.5857142857142857,
+    0.5857142857142857
+  ],
+  "paired_censoring_bootstrap_95_envelope": [
+    0.4852941176470588,
+    0.6617647058823529
+  ],
+  "termination_counts": {
+    "checkmate": 22,
+    "threefold_repetition": 12,
+    "insufficient_material": 1
+  },
+  "game_wall_seconds": 2038.5387873,
+  "paired_completed_game_score": 0.5735294117647058,
+  "paired_games": 34,
+  "paired_wdl_unfinished": [
+    13,
+    13,
+    8,
+    0
+  ],
+  "unpaired_game": {
+    "game": 35,
+    "pair": 18,
+    "candidate_color": "white",
+    "result": "1-0",
+    "candidate_outcome": "win",
+    "termination": "checkmate",
+    "plies": 167
+  },
+  "optimized": {
+    "moves": 2108,
+    "mean_completed_depth": 8.151328273244781,
+    "median_completed_depth": 8.0,
+    "mean_nodes": 848423.809772296,
+    "mean_reported_nps": 1732846.0474383302,
+    "aggregate_nps": 1761760.2961095,
+    "aggregate_wall_nps": 1753812.3393710544,
+    "mean_engine_seconds": 0.4815773244781782,
+    "mean_wall_seconds": 0.4837597448291158,
+    "total_nodes": 1788477391,
+    "total_engine_seconds": 1015.1649999999996,
+    "total_wall_seconds": 1019.7655420997762
+  },
+  "baseline": {
+    "moves": 2102,
+    "mean_completed_depth": 8.035204567078972,
+    "median_completed_depth": 8.0,
+    "mean_nodes": 718759.2540437678,
+    "mean_reported_nps": 1471030.617507136,
+    "aggregate_nps": 1491737.709320696,
+    "aggregate_wall_nps": 1484975.980863525,
+    "mean_engine_seconds": 0.48182683158896256,
+    "mean_wall_seconds": 0.48402079448167484,
+    "total_nodes": 1510831952,
+    "total_engine_seconds": 1012.7999999999993,
+    "total_wall_seconds": 1017.4117100004805
+  },
+  "family_cluster_complete_pair_bootstrap95": [
+    0.4852941176470588,
+    0.6617647058823529
+  ],
+  "method": "User-amended stop at 35 completed games, 500ms. First 34 games form 17 complete opening pairs and supply all paired uncertainty/Elo. Game 35 is unpaired and reported separately; full WDL/score includes it. 20k pair bootstrap/censoring sensitivity, supplementary family clusters. Human mid-run stop, not automatically expanded or outcome-based by the engine. Caps unknown, never draws."
+}

@@ -23,10 +23,12 @@ feature, activation, score or training changes are allowed.
    from aggregate throughput, while preserving every raw record.
 5. Re-run full regressions, native model and transition oracles, cancellation,
    classical deterministic parity and available sanitizers before deployment.
-6. Exactly 60 games at **500ms/move**, first 30 pairs of the earlier frozen
-   evaluator-neutral opening book, reversed colors. Optimized NNUE vs frozen
-   baseline NNUE is the primary validation. The first pair is the smoke test and
-   remains in the 60-game total. No automatic expansion or extra tournaments.
+6. Originally 60 games at **500ms/move**; the user subsequently requested stopping
+   at **35 completed games**. Games 1–34 form the first 17 complete pairs of the
+   frozen evaluator-neutral book; game 35 is the White half of pair 18, reported
+   separately and excluded from paired uncertainty/Elo. Optimized NNUE vs frozen
+   baseline NNUE is the validation. The smoke pair remains in the 35-game total.
+   The original plan/checkpoint and human amendment are preserved. No expansion.
    Claimable draws; 240 searched-ply cap; capped games remain unfinished.
    Pair-resampled uncertainty; no definitive Elo claim from a small match.
 
@@ -51,12 +53,20 @@ protocols and final verification live here. Python commands use repository modul
 .\.venv\Scripts\python.exe -m tools.nnue_throughput compare --label <build> --repeats 5 --budgets 50 200 1000 --time
 .\.venv\Scripts\python.exe -m tools.analyze_nnue_throughput docs/nnue-v2-throughput/benchmark-<build>.json
 .\.venv\Scripts\python.exe -m tools.run_nnue_throughput_final --strategy compact --matches
+.\.venv\Scripts\python.exe -m tools.finalize_nnue_throughput_match
+.\.venv\Scripts\python.exe -m tools.work_nnue_throughput
+.\.venv\Scripts\python.exe -m tools.finish_nnue_throughput
 StockBear_NNUE_training\.venv\Scripts\python.exe -m tools.report_nnue_throughput --plots
 ```
 
 Completed baseline stages are retained. Comparisons checkpoint complete searches;
 resume with the same label, model, executable and parameters. Build labels are
 immutable: use a fresh label for each changed candidate.
+For a new investigation, set `STOCKBEAR_THROUGHPUT_ROOT` and
+`STOCKBEAR_THROUGHPUT_ARTIFACTS` to fresh directories, and
+`STOCKBEAR_THROUGHPUT_REPORT` to a new Markdown path. Original measurements,
+baseline files and report remain separate. Completed baseline preparation verifies
+hashes and returns without rewriting frozen metadata.
 
 The baseline command was executed **before** optimization, at the frozen tag.
 For a cold reproduction, build the original source from that tag in a separate
@@ -66,6 +76,9 @@ but is not a claim of byte-identical original machine code. Existing baseline
 labels are never overwritten. The serial final pipeline skips completed stages;
 its status/logs live under the artifact root. Do not run it concurrently with
 another engine benchmark. The match checkpoint is retained after completion.
+The amendment file prevents the serial pipeline from resuming the old 60-game
+schedule. Finalization independently replays the saved 35 games and marks the
+17-pair/one-unpaired boundary explicitly. No remaining games are launched.
 
 `--nnue-update compact` is the accepted build default. `legacy`, `merge`,
 `deferred`, `fused` and `compact-small` remain explicit A/B experiment options.

@@ -2,7 +2,7 @@
 
 All candidates keep float32 row additions/subtractions in the same per-perspective
 feature-index order. Roots use full refresh. Legacy full-metadata APIs remain
-available. `--nnue-update legacy|merge|compact|deferred|fused` selects a build-time
+available. `--nnue-update legacy|merge|compact|deferred|fused|compact-small` selects a build-time
 experiment, not a new UCI/search setting. Model/kernel/search options are frozen.
 
 ## Merge full metadata

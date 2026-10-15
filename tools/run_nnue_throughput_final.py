@@ -79,6 +79,10 @@ def main() -> None:
             save(ROOT / "asan-availability.json", {"available": True, "verification": "correctness-asan.json"})
 
     def games():
+        if (ROOT / "validation-amendment.json").exists():
+            from tools.finalize_nnue_throughput_match import main as finalize_amended
+            finalize_amended()
+            return
         options = ROOT / "nnue-options.json"
         save(options, {"Evaluator": "nnue", "Hash": 16, "NNUEKernel": "scalar", "NNUEIncremental": True})
         book = Path("docs/nnue-v2-diagnosis/openings.json")
@@ -127,7 +131,8 @@ def main() -> None:
         stage("gui", lambda: run("gui", [sys.executable, "-m", "tools.verify_gui_engine", "--evaluator", "nnue", "--engine", str(ART / "final/engine.exe"),
                                              "--output", str(ART / "gui")], env))
         if args.matches:
-            stage("validation-60games-500ms", games)
+            name = "validation-35games-500ms" if (ROOT / "validation-amendment.json").exists() else "validation-60games-500ms"
+            stage(name, games)
         status.update(state="complete", active=None)
         save(status_path, status)
     except Exception as error:

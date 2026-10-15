@@ -15,8 +15,8 @@ import time
 from tools.nnue_diagnosis import BASE_OPTIONS, capture, metadata, open_engine, positions, sha
 from tools.profile_nnue_diagnosis import canonical
 
-ROOT = Path("docs/nnue-v2-throughput")
-ART = Path("artifacts/nnue-v2-throughput")
+ROOT = Path(os.environ.get("STOCKBEAR_THROUGHPUT_ROOT", "docs/nnue-v2-throughput"))
+ART = Path(os.environ.get("STOCKBEAR_THROUGHPUT_ARTIFACTS", "artifacts/nnue-v2-throughput"))
 MODEL = Path("engine/networks/v2/stockbear-v2-compact.sbnnue")
 MODEL_SHA = "788b865a15dbdeeb3e03b7493f8155fd19d6c73b9b0873453ad16fba51a65aa7"
 
@@ -61,6 +61,12 @@ def build(label: str, flags: list[str] = (), micro: bool = False) -> Path:
 def baseline() -> None:
     assert sha(MODEL) == MODEL_SHA
     path = ROOT / "baseline.json"
+    if path.exists() and (ROOT / "initial-profile.json").exists() and (ROOT / "baseline-tests.txt").exists():
+        frozen = json.loads(path.read_text())
+        assert sha(ART / "baseline/engine.exe") == frozen["rebuilt"]["sha256"]
+        assert sha(Path(frozen["preserved_classical_and_nnue"]["executable"])) == frozen["preserved_classical_and_nnue"]["sha256"]
+        print("Retaining completed untouched baseline", flush=True)
+        return
     if not path.exists():
         original = Path("artifacts/nnue-v2/final-compact/engine.exe")
         data = {"revision": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
