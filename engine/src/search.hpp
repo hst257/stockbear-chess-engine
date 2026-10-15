@@ -43,6 +43,7 @@ struct SearchLimits {
     bool check_extensions = true;
     bool use_nnue = false;
     bool nnue_incremental = true;
+    std::string nnue_kernel = "auto";
 };
 
 struct SearchResult {

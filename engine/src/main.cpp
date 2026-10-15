@@ -280,6 +280,7 @@ public:
                     output("option name UseAdvancedEvaluation type check default true");
                     output("option name Evaluator type combo default classical var classical var nnue");
                     output("option name NNUEIncremental type check default true");
+                    output("option name NNUEKernel type combo default auto var auto var reference var scalar");
                     for (const auto name : chesslab::EVAL_OPTION_NAMES)
                         output(std::string("option name ") + name + " type check default true");
                     output("option name TranspositionTable type check default true");
@@ -337,6 +338,7 @@ private:
     chesslab::EvaluationOptions evaluation_;
     bool use_nnue_ = false;
     bool nnue_incremental_ = true;
+    std::string nnue_kernel_ = "auto";
     bool transposition_table_ = true;
     bool quiescence_ = true;
     bool pvs_ = true;
@@ -372,6 +374,11 @@ private:
         if (tokens[2] == "Evaluator") {
             if (tokens[4] != "classical" && tokens[4] != "nnue") throw std::invalid_argument("Evaluator must be classical or nnue");
             use_nnue_ = tokens[4] == "nnue";
+            return;
+        }
+        if (tokens[2] == "NNUEKernel") {
+            chesslab::nnue_set_kernel(tokens[4]);
+            nnue_kernel_ = tokens[4];
             return;
         }
         if (tokens[2] == "NNUEIncremental") {
@@ -494,6 +501,7 @@ private:
         limits.evaluation = evaluation_;
         limits.use_nnue = use_nnue_;
         limits.nnue_incremental = nnue_incremental_;
+        limits.nnue_kernel = nnue_kernel_;
         limits.transposition_table = transposition_table_;
         limits.hash_megabytes = hash_megabytes_;
         limits.history = history_;

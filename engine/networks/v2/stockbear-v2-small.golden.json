@@ -1,0 +1,514 @@
+[
+  {
+    "fen": "rbbqk2r/1p1pnp2/4p2p/1NP1PP2/1B6/8/PP2Q1BP/1R3RK1 b kq - 0 1",
+    "side_to_move_cp": -667.3747062683105
+  },
+  {
+    "fen": "1b2r1k1/2N2r1p/6p1/pq1P4/2RQ4/6PP/1P3P2/2R3K1 b - - 0 1",
+    "side_to_move_cp": -456.3530445098877
+  },
+  {
+    "fen": "3r2k1/pp3p2/1q4p1/7p/2P1R1P1/K1Q1P3/P6P/8 b - - 0 1",
+    "side_to_move_cp": 517.1994686126709
+  },
+  {
+    "fen": "r2q1rk1/pb1nbppp/1p3n2/2Pp4/8/1PN2NP1/PB2PPBP/R2Q1RK1 b - - 0 1",
+    "side_to_move_cp": -105.31619787216187
+  },
+  {
+    "fen": "1r4k1/2p1bppp/Q3p3/3nP3/3P4/1q3N2/3B1PPP/2R3K1 b - - 0 1",
+    "side_to_move_cp": 138.41638565063477
+  },
+  {
+    "fen": "r5k1/1bq1ppb1/p1n1p1p1/1p2P1Qp/5B1P/2P1NN2/PP3PP1/3R2K1 b - - 0 1",
+    "side_to_move_cp": 19.066350162029266
+  },
+  {
+    "fen": "8/6R1/5kp1/p4p1p/7P/4p1P1/1P1bKnB1/8 w - - 0 1",
+    "side_to_move_cp": 216.63599014282227
+  },
+  {
+    "fen": "8/5ppk/3p1q1p/b1pQ1P2/P2p4/6PP/2P1RP1K/8 b - - 0 1",
+    "side_to_move_cp": -183.26622247695923
+  },
+  {
+    "fen": "8/8/1nPk4/6np/pK5N/8/P7/8 b - - 0 1",
+    "side_to_move_cp": 310.57586669921875
+  },
+  {
+    "fen": "8/p7/6Kp/1k3P2/8/6q1/6P1/8 w - - 0 1",
+    "side_to_move_cp": -576.6806602478027
+  },
+  {
+    "fen": "r4rk1/p1n1ppbp/1qp1b1p1/4N3/3PP3/Q1P3PP/3B1P2/RR3BK1 b - - 0 1",
+    "side_to_move_cp": -221.79040908813477
+  },
+  {
+    "fen": "8/5R1p/3P4/8/bB6/P3k1P1/r7/4K3 w - - 0 1",
+    "side_to_move_cp": 397.1193552017212
+  },
+  {
+    "fen": "8/4prk1/3p2p1/2pPnp2/1pPn3P/2qP2P1/r1NQ1RB1/3R2K1 w - - 0 1",
+    "side_to_move_cp": -521.4321136474609
+  },
+  {
+    "fen": "8/8/2b1k2p/5p1P/pK3P2/P3N1P1/8/8 w - - 0 1",
+    "side_to_move_cp": 353.3492088317871
+  },
+  {
+    "fen": "7k/4R3/p7/5r1p/2P1N3/4p3/4Kb2/8 b - - 0 1",
+    "side_to_move_cp": 208.08768272399902
+  },
+  {
+    "fen": "q1rr2k1/1b2npp1/pp1ppn1p/8/2PN4/2N1P3/PP1RBPPP/2R2QK1 b - - 0 1",
+    "side_to_move_cp": 45.15412449836731
+  },
+  {
+    "fen": "rn3rk1/1p2nppp/p1pq4/3p1b2/1P1P1N2/P1NBP3/5PPP/R2Q1RK1 w - - 0 1",
+    "side_to_move_cp": 110.95478534698486
+  },
+  {
+    "fen": "r4k1r/1qpn1pbp/p1N2np1/P5B1/1p1P4/8/1P3PPP/RN1QR1K1 w - - 0 1",
+    "side_to_move_cp": 504.48594093322754
+  },
+  {
+    "fen": "r2qkb1r/pp3ppp/2n1p3/1BppPn2/8/2N3QP/PPPP1PP1/R1B2RK1 w kq - 0 1",
+    "side_to_move_cp": -75.80912709236145
+  },
+  {
+    "fen": "r1qr2k1/pp2bpp1/1n2p2p/2n1N3/2P5/PPN1B2R/2Q2PPP/R5K1 b - - 0 1",
+    "side_to_move_cp": -78.68515849113464
+  },
+  {
+    "fen": "r1bq1rk1/pppp1ppp/2n2n2/4p3/4P3/P1PPB3/2P2PPP/R2QKBNR w KQ - 0 1",
+    "side_to_move_cp": -17.22894459962845
+  },
+  {
+    "fen": "r1b1k2r/pp1pbppp/1qn1p3/4n3/2P5/1NN1P1P1/PP2BP1P/R1BQK2R w KQkq - 0 1",
+    "side_to_move_cp": 74.06349778175354
+  },
+  {
+    "fen": "r4r2/5ppk/2p2n1p/p1q1p3/P3P2Q/2N4P/1PP2RP1/5R1K b - - 0 1",
+    "side_to_move_cp": 71.15684151649475
+  },
+  {
+    "fen": "rnbqk2r/p2nbppp/1p2p3/2ppP3/3P1P2/2PB1N2/PP1N2PP/R1BQK2R b KQkq - 0 1",
+    "side_to_move_cp": -105.91751337051392
+  },
+  {
+    "fen": "r1bk3r/1p1n1pp1/p3p3/4P3/5p1P/3p4/PPP5/2K3QR w - - 0 1",
+    "side_to_move_cp": -83.47743153572083
+  },
+  {
+    "fen": "r1bq1rk1/pp2bppp/2n1pn2/3p4/3NP3/2N1BP2/PPPQ2PP/2KR1B1R w - - 0 1",
+    "side_to_move_cp": 91.37281775474548
+  },
+  {
+    "fen": "r5k1/1p1n2pp/2p1q3/4p3/pP6/2PPB3/2Q3PP/R5K1 w - - 0 1",
+    "side_to_move_cp": -114.12665843963623
+  },
+  {
+    "fen": "r2qkbnr/pp2pppp/2n5/2pp4/3P1Pb1/2P1PN2/PP4PP/RNBQKB1R b KQkq - 0 1",
+    "side_to_move_cp": 46.02817893028259
+  },
+  {
+    "fen": "2r2rk1/1p3ppp/p3pn2/4Nb2/3n4/2NB4/PP3PPP/R4RK1 b - - 0 1",
+    "side_to_move_cp": 336.2790107727051
+  },
+  {
+    "fen": "2kr2nr/p2b2pp/nppQpp2/8/2P1q3/2B5/PP2BPPP/2KR2NR w - - 0 1",
+    "side_to_move_cp": 212.46283054351807
+  },
+  {
+    "fen": "r1b2k2/1pq1bpp1/4p2r/1PnpP2p/p7/P2B1NQ1/2PN1PPP/R4RK1 w - - 0 1",
+    "side_to_move_cp": 48.94487261772156
+  },
+  {
+    "fen": "8/3kb3/1p3p1p/p1p1pPpP/2P3P1/1P2BP2/P7/6K1 b - - 0 1",
+    "side_to_move_cp": -47.06900715827942
+  },
+  {
+    "fen": "1r2r1k1/p3npb1/6p1/q1p1p2p/b1N4P/2PP2P1/1P3PB1/2BRR1K1 w - - 0 1",
+    "side_to_move_cp": 20.854513347148895
+  },
+  {
+    "fen": "5bk1/6p1/p6p/Pb1RBp2/5P2/6P1/2r3PK/8 b - - 0 1",
+    "side_to_move_cp": 634.9966526031494
+  },
+  {
+    "fen": "5rk1/5qp1/4p2p/4P3/2QPRb2/P4P2/1r4P1/3R1NK1 w - - 0 1",
+    "side_to_move_cp": 37.183135747909546
+  },
+  {
+    "fen": "1rbq1rk1/4n1bp/2n1p1p1/1pppPpP1/5P2/3P1N2/1PP1N1BP/R1BQ1RK1 b - - 0 1",
+    "side_to_move_cp": 38.069337606430054
+  },
+  {
+    "fen": "r1b3rk/pn2q2n/1p1p1p1p/2pPp1p1/2P1P1PP/2PBB3/P1QN1P2/R3K1R1 w Q - 0 1",
+    "side_to_move_cp": 138.0234956741333
+  },
+  {
+    "fen": "1k6/5pp1/B3b2p/n1ppPn2/8/2P2N1P/5PP1/2B1K3 b - - 0 1",
+    "side_to_move_cp": -126.93237066268921
+  },
+  {
+    "fen": "2n5/p1P5/2K5/1p6/8/P1P2pk1/2P5/8 b - - 0 1",
+    "side_to_move_cp": 373.9147663116455
+  },
+  {
+    "fen": "3r3k/6p1/3q3p/2p5/4Q2P/6P1/2R2P1K/8 w - - 0 1",
+    "side_to_move_cp": 88.62752318382263
+  },
+  {
+    "fen": "8/2PK2k1/5rpp/pP6/7P/P7/8/8 b - - 0 1",
+    "side_to_move_cp": -219.51022148132324
+  },
+  {
+    "fen": "8/8/p2P1B2/P4b2/1pk5/8/1K6/8 b - - 0 1",
+    "side_to_move_cp": 278.6081790924072
+  },
+  {
+    "fen": "r1bqr1k1/1pp2p2/3p2pp/8/p1PRnB2/6PP/PPQ2PB1/R5K1 b - - 0 1",
+    "side_to_move_cp": 36.3922655582428
+  },
+  {
+    "fen": "3r2k1/1pqr1pp1/2ppbn1p/p3p3/P1P1P3/1PN1QN1P/2PR1PP1/3R1K2 b - - 0 1",
+    "side_to_move_cp": 32.467907667160034
+  },
+  {
+    "fen": "2rq1rk1/p1n3pp/b3p3/n1bpPp2/Pp3P2/1P1P1NPP/4QNB1/1RBR2K1 w - - 0 1",
+    "side_to_move_cp": 63.522869348526
+  },
+  {
+    "fen": "1r5r/1p1q2k1/p2b1p1n/7p/3P4/PQ2PBP1/1P3P1P/R3R1K1 w - - 0 1",
+    "side_to_move_cp": 181.33093118667603
+  },
+  {
+    "fen": "8/4k3/6K1/7P/8/8/8/8 w - - 0 1",
+    "side_to_move_cp": 365.2170419692993
+  },
+  {
+    "fen": "6k1/5b1p/q5p1/p3Q1PP/1p1Np3/1P2P1K1/P7/8 b - - 0 1",
+    "side_to_move_cp": -438.02881240844727
+  },
+  {
+    "fen": "1rb3k1/r2n1p1p/1qpQp1p1/p2p4/2P5/1P1N2P1/P3PPBP/2R2RK1 w - - 0 1",
+    "side_to_move_cp": 166.16982221603394
+  },
+  {
+    "fen": "2r2rk1/ppP2pp1/2q1p2p/6n1/Pb3B2/2NQ4/1PP2PPP/3RR1K1 w - - 0 1",
+    "side_to_move_cp": 33.85280966758728
+  },
+  {
+    "fen": "6k1/R7/2p5/1p6/1P1N3p/3P3r/5K2/2r5 b - - 0 1",
+    "side_to_move_cp": 516.8594837188721
+  },
+  {
+    "fen": "8/3B4/5b1k/2R5/7p/6r1/5K2/8 w - - 0 1",
+    "side_to_move_cp": 33.84215235710144
+  },
+  {
+    "fen": "8/Q7/8/1p1r4/2r1k3/P7/KP6/8 w - - 0 1",
+    "side_to_move_cp": 371.98076248168945
+  },
+  {
+    "fen": "4r3/pp3kp1/2p2qp1/3p4/3P2P1/2P2p1P/P1PQ1P2/4R1K1 b - - 0 1",
+    "side_to_move_cp": 85.43660044670105
+  },
+  {
+    "fen": "8/8/8/6K1/k6P/8/7P/8 b - - 0 1",
+    "side_to_move_cp": -478.5895347595215
+  },
+  {
+    "fen": "1rbqr3/1p1n2k1/p2PpnPp/2p1N3/P1P5/3B2B1/4Q1PP/4RRK1 w - - 0 1",
+    "side_to_move_cp": 1017.2688484191895
+  },
+  {
+    "fen": "r2q1rk1/p1p2ppp/bp1b1n2/2np4/8/1P2PNP1/PB1PNPBP/R2Q1RK1 b - - 0 1",
+    "side_to_move_cp": 10.854105651378632
+  },
+  {
+    "fen": "r3rk2/1pp3p1/2bpnp1p/p6P/2P1P1P1/1PN1RP2/P2K4/1R3B2 w - - 0 1",
+    "side_to_move_cp": 25.552767515182495
+  },
+  {
+    "fen": "r3k2r/pppqbppp/2np4/8/6P1/2PbBN1P/PPP1QP2/2KR3R w kq - 0 1",
+    "side_to_move_cp": 88.59851956367493
+  },
+  {
+    "fen": "R4rk1/4bppp/5n2/2np4/3P4/5N2/3B1PPP/1N2R1K1 b - - 0 1",
+    "side_to_move_cp": -20.115526020526886
+  },
+  {
+    "fen": "r1r2bk1/5p1p/b5p1/q3p3/1pP1Pn2/5N1P/PNQ2PPK/1B1RR3 b - - 0 1",
+    "side_to_move_cp": 93.43484044075012
+  },
+  {
+    "fen": "r3kbr1/5p1p/p1p1p1p1/P3B3/3P4/4P3/5PPP/R4RK1 b q - 0 1",
+    "side_to_move_cp": -118.07187795639038
+  },
+  {
+    "fen": "3b4/1p3kpp/8/2R1p3/r2pN3/3P4/6PP/3K4 w - - 0 1",
+    "side_to_move_cp": -313.28039169311523
+  },
+  {
+    "fen": "r2qk1nr/ppp2pbp/3pn1p1/8/2P5/2N1BP1P/PP3PP1/R2QKB1R w KQkq - 0 1",
+    "side_to_move_cp": 83.5774838924408
+  },
+  {
+    "fen": "5rk1/p3bppp/b2qpn2/1Bn5/Pp1p4/6P1/1PQ1PP1P/RNBR2K1 b - - 0 1",
+    "side_to_move_cp": 200.2983570098877
+  },
+  {
+    "fen": "5r1k/pp3qpp/2pb4/3p2Bn/5p1P/2PB1P2/PPP2P2/1K2Q1R1 b - - 0 1",
+    "side_to_move_cp": 68.88081431388855
+  },
+  {
+    "fen": "r2r2k1/1pq1bppp/p1n1pn2/2p5/2Pp2b1/PP1PPN2/1BQNBPPP/2R2RK1 w - - 0 1",
+    "side_to_move_cp": 4.368738830089569
+  },
+  {
+    "fen": "1r4rk/4qppp/2n1pn2/2p3Q1/b2pPP2/3P1B2/P2B3P/2R1N1RK b - - 0 1",
+    "side_to_move_cp": -94.52324509620667
+  },
+  {
+    "fen": "r4r2/pp1b2kn/3p1pp1/2pP2Pp/2P1P2P/3B4/PP3R1B/5RK1 w - - 0 1",
+    "side_to_move_cp": 101.94991827011108
+  },
+  {
+    "fen": "2r1r1k1/1b3q1p/p2p2p1/1p1Pnp2/5B2/5B2/PPPQ2PP/4RR1K w - - 0 1",
+    "side_to_move_cp": 4.899744689464569
+  },
+  {
+    "fen": "r2r2k1/pp1nppbp/3p2p1/qB1P4/4P3/1Q2B3/PP3PPP/2R2RK1 w - - 0 1",
+    "side_to_move_cp": 159.52976942062378
+  },
+  {
+    "fen": "r4rk1/4qp2/p3p1b1/1p2Q3/6R1/6R1/PP3P1P/K7 b - - 0 1",
+    "side_to_move_cp": 411.9852542877197
+  },
+  {
+    "fen": "r2r2k1/2q1bppp/pp2pn2/n1p5/2P5/2NPP1P1/PB2QPNP/R2R2K1 w - - 0 1",
+    "side_to_move_cp": -27.219289541244507
+  },
+  {
+    "fen": "8/4r2k/1p1NPn1p/1Pp2Pp1/b1B5/P1K5/7P/4R3 w - - 0 1",
+    "side_to_move_cp": 739.8617267608643
+  },
+  {
+    "fen": "8/8/4p1k1/1p3pBp/8/P3KNr1/8/8 w - - 0 1",
+    "side_to_move_cp": -391.3434028625488
+  },
+  {
+    "fen": "rnb1kb1r/pp2qppp/5n2/2pp4/3P4/2N2NP1/PP2PP1P/R1BQKB1R w KQkq - 0 1",
+    "side_to_move_cp": 20.522432029247284
+  },
+  {
+    "fen": "rnbqr1k1/1pp2ppp/p2b1n2/3p4/3P4/2NBPN2/PP1B1PPP/R2Q1RK1 w - - 0 1",
+    "side_to_move_cp": 26.245874166488647
+  },
+  {
+    "fen": "rnb1k2r/pp3ppp/2p2N2/8/3q4/3B4/PP1Q1PPP/R3K1NR b KQkq - 0 1",
+    "side_to_move_cp": -115.56010246276855
+  },
+  {
+    "fen": "5bk1/1Rr2p1p/1Q2pnp1/1NPp4/p5q1/B3P3/P4PPP/5RK1 b - - 0 1",
+    "side_to_move_cp": -568.9745426177979
+  },
+  {
+    "fen": "r4rk1/pp2bppp/2n5/3q1n2/3P4/1N3N2/PB3PPP/R2Q1RK1 b - - 0 1",
+    "side_to_move_cp": 66.89148545265198
+  },
+  {
+    "fen": "r1bqk2r/pp2bppp/2nppn2/8/3NP3/1P1B4/PBP2PPP/RN1Q1RK1 b kq - 0 1",
+    "side_to_move_cp": -28.50964665412903
+  },
+  {
+    "fen": "8/p1pk1p1R/3p4/3nrPK1/8/8/P1R5/8 b - - 0 1",
+    "side_to_move_cp": -40.56780934333801
+  },
+  {
+    "fen": "r2qr1k1/pp3ppb/1b5p/3p1P2/3PNBP1/7P/PP1Q1RB1/R5K1 b - - 0 1",
+    "side_to_move_cp": 15.801362693309784
+  },
+  {
+    "fen": "r1bqk2r/1p2bppp/p1n1pn2/2p5/P1B5/2NP1N1P/1PP2PP1/R1BQ1RK1 w kq - 0 1",
+    "side_to_move_cp": -3.4568026661872864
+  },
+  {
+    "fen": "4Q2k/p6n/4b3/3p2P1/1Pp5/4P1rP/Pq4P1/2RR2K1 b - - 0 1",
+    "side_to_move_cp": -139.8839235305786
+  },
+  {
+    "fen": "1r4k1/1rpq1pp1/P2p1nnp/4p3/2PP4/P3P2P/1BQ2PP1/2R2RK1 w - - 0 1",
+    "side_to_move_cp": 36.45145297050476
+  },
+  {
+    "fen": "8/6R1/4p2p/r6k/8/5N1P/5P1K/8 b - - 0 1",
+    "side_to_move_cp": -625.8498191833496
+  },
+  {
+    "fen": "8/R4ppk/7p/4r3/1P6/P7/4NPPP/4R1K1 b - - 0 1",
+    "side_to_move_cp": -1368.7077522277832
+  },
+  {
+    "fen": "4k3/p6p/1P1P4/P2K1pp1/8/6P1/7P/8 w - - 0 1",
+    "side_to_move_cp": 940.6064033508301
+  },
+  {
+    "fen": "r1b2rk1/ppp1n1pp/8/3pqp2/4P3/2PB4/PP1N1PPP/2RQ1RK1 w - - 0 1",
+    "side_to_move_cp": 86.46745085716248
+  },
+  {
+    "fen": "r2q1rk1/1b3ppp/p3pn2/1p6/2pP4/P1NBP1P1/1P3PP1/2RQ1RK1 w - - 0 1",
+    "side_to_move_cp": -42.641013860702515
+  },
+  {
+    "fen": "r3qrk1/pp4p1/1n2b2p/3pPp2/2p2P1b/N1P4P/PPB3PB/R2Q1RK1 w - - 0 1",
+    "side_to_move_cp": 123.07145595550537
+  },
+  {
+    "fen": "1r5k/pB1R2bp/6p1/8/4Q3/4n1qP/PP4P1/6NK w - - 0 1",
+    "side_to_move_cp": -3.119666874408722
+  },
+  {
+    "fen": "r1b1k2r/pp1pppbp/5np1/q7/2B1P3/2p2Q2/PP1PNPPP/R1B1K2R w KQkq - 0 1",
+    "side_to_move_cp": -170.5875039100647
+  },
+  {
+    "fen": "3rr1k1/pp3p1p/1q4p1/3Pb3/8/1N3QB1/PP4PP/R6K w - - 0 1",
+    "side_to_move_cp": -343.38674545288086
+  },
+  {
+    "fen": "b1rr2k1/2q1ppb1/p2p2p1/8/2p5/P3BPPp/1PPQN2P/2R2RK1 w - - 0 1",
+    "side_to_move_cp": -414.81995582580566
+  },
+  {
+    "fen": "5r1k/p1Bn2bp/1p6/5P2/3PQ3/1q1R3P/8/4R2K b - - 0 1",
+    "side_to_move_cp": -448.34136962890625
+  },
+  {
+    "fen": "r4rk1/ppqnbppp/2pp1n2/3Pp2b/PPB1P3/2N2N1P/1BP1QPP1/R3R1K1 b - - 0 1",
+    "side_to_move_cp": -33.259040117263794
+  },
+  {
+    "fen": "b2r3k/P1p3p1/6qp/P4p2/4p3/2P1Q2P/2B2PP1/4R1K1 b - - 0 1",
+    "side_to_move_cp": -644.1038608551025
+  },
+  {
+    "fen": "r2r2k1/pb3ppp/1p2p3/5P2/3pP3/3B2R1/PPP3PP/3R3K b - - 0 1",
+    "side_to_move_cp": 82.17210173606873
+  },
+  {
+    "fen": "R7/6k1/p5p1/2p3bp/2P5/P4B1P/5PP1/4r1K1 w - - 0 1",
+    "side_to_move_cp": 224.42193031311035
+  },
+  {
+    "fen": "1r2n3/5kpp/1p1pR3/p2P4/P1P5/1P2B1P1/4K3/8 w - - 0 1",
+    "side_to_move_cp": 197.25875854492188
+  },
+  {
+    "fen": "r1bq1rk1/p3bppp/2p1p3/3n4/2B5/2P2Q2/PP3PPP/RNBR2K1 b - - 0 1",
+    "side_to_move_cp": -12.904353439807892
+  },
+  {
+    "fen": "3R4/1pp1rppk/pn5p/8/8/1PN4P/1PP2PP1/6K1 w - - 0 1",
+    "side_to_move_cp": 127.889883518219
+  },
+  {
+    "fen": "rnb2rk1/pp2bp1p/1qp2pp1/7Q/3P4/4B3/PPP2PPP/2KR1BNR w - - 0 1",
+    "side_to_move_cp": 77.91880965232849
+  },
+  {
+    "fen": "r2qk2r/1pp2pp1/p1nbpn1p/3p4/3P1BPP/2NPPP2/PP2N3/2RQK2R b Kkq - 0 1",
+    "side_to_move_cp": -27.894872426986694
+  },
+  {
+    "fen": "4r1k1/5ppp/r7/2qP4/8/5PK1/PP4PP/R2QR3 b - - 0 1",
+    "side_to_move_cp": -76.23373866081238
+  },
+  {
+    "fen": "5k2/pp2qp1p/6p1/2bp4/4Q3/2P3B1/PP3PPP/6K1 w - - 0 1",
+    "side_to_move_cp": -40.54022431373596
+  },
+  {
+    "fen": "r2q1rk1/3nbppp/b1n1p3/3pP1B1/2pP2NP/p1P2NP1/P4PB1/R2QR1K1 b - - 0 1",
+    "side_to_move_cp": -12.982328236103058
+  },
+  {
+    "fen": "8/4P3/R7/8/1k1r2pp/p7/6K1/8 b - - 0 1",
+    "side_to_move_cp": 214.91632461547852
+  },
+  {
+    "fen": "2r1k2r/1b1n1ppp/pq2pn2/1pb3B1/8/2NQ1NP1/PP2PPBP/R4RK1 b k - 0 1",
+    "side_to_move_cp": 69.59933638572693
+  },
+  {
+    "fen": "2k5/4P3/2P2n2/1P6/2N3p1/5p2/5P1K/8 w - - 0 1",
+    "side_to_move_cp": 930.1535606384277
+  },
+  {
+    "fen": "2qk4/pb1n2rp/1pp1Pp2/8/4B3/1P4P1/P1P2P1P/R2Q1RK1 w - - 0 1",
+    "side_to_move_cp": 913.9373779296875
+  },
+  {
+    "fen": "6k1/1R3pb1/1n4pp/2p1nb2/8/2N4P/1P2N1P1/2B3K1 b - - 0 1",
+    "side_to_move_cp": -9.408719837665558
+  },
+  {
+    "fen": "r1b2rk1/ppqnbppp/2p2n2/3p4/2PPp3/PPN1P1P1/1B1N1PBP/R2QK2R b KQ - 0 1",
+    "side_to_move_cp": 77.01074481010437
+  },
+  {
+    "fen": "8/8/6r1/3pqk1R/8/6P1/7K/2Q5 b - - 0 1",
+    "side_to_move_cp": -133.20659399032593
+  },
+  {
+    "fen": "2r5/5pk1/P1r3p1/8/8/8/R1pK4/2R5 w - - 0 1",
+    "side_to_move_cp": -177.66380310058594
+  },
+  {
+    "fen": "r4rk1/3b1q1p/2nbp1p1/p2p1p2/1ppP1PP1/P1P1PN1Q/1PB2B1P/R3K2R w KQ - 0 1",
+    "side_to_move_cp": -28.139716386795044
+  },
+  {
+    "fen": "1r1q1rk1/3bppbp/p2p1np1/n1pP4/2P5/2N3P1/PB1NPPBP/R1QR2K1 b - - 0 1",
+    "side_to_move_cp": -18.336887657642365
+  },
+  {
+    "fen": "r3kb1r/1p1b1pp1/pqn1p3/3pPn2/P4P1P/2NP1N2/1P1B2BP/R2Q1R1K b kq - 0 1",
+    "side_to_move_cp": 7.608751952648163
+  },
+  {
+    "fen": "r1bqkbnr/ppp3pp/2n1pp2/3pP3/3P4/2N2N2/PPP2PPP/R1BQKB1R b KQkq - 0 1",
+    "side_to_move_cp": -71.75484299659729
+  },
+  {
+    "fen": "r1b1nrk1/1pp1qp1p/3p2pP/p1nPp1b1/2P1P1P1/1NN1B3/PP2BP2/R2QK2R w KQ - 0 1",
+    "side_to_move_cp": 164.28946256637573
+  },
+  {
+    "fen": "r1bq1k1r/p4p2/5b2/2pPQ1p1/2P2p1p/5P1P/P2N2P1/1R1N1RK1 w - - 0 1",
+    "side_to_move_cp": 220.3298807144165
+  },
+  {
+    "fen": "r1bqk2r/p2pnpbp/2p3p1/8/3pP3/5N2/PP3PPP/RNBQ1RK1 w kq - 0 1",
+    "side_to_move_cp": 59.64868664741516
+  },
+  {
+    "fen": "r1bqkb1r/pp1ppp1p/1nn3p1/4P3/4Q3/2N2N2/PPP2PPP/R1B1KB1R b KQkq - 0 1",
+    "side_to_move_cp": -55.7526171207428
+  },
+  {
+    "fen": "4K2k/8/6PP/8/8/8/8/8 b - - 0 1",
+    "side_to_move_cp": -602.8012752532959
+  },
+  {
+    "fen": "3r1rk1/bb3ppp/p1n1p3/1p6/1P2B3/P3PN2/1B3PPP/2RR1K2 b - - 0 1",
+    "side_to_move_cp": -70.50707936286926
+  },
+  {
+    "fen": "3rr1k1/1pp5/4bBp1/p3Pp2/7R/3q3P/PP3QP1/R5K1 w - - 0 1",
+    "side_to_move_cp": 120.44702768325806
+  }
+]

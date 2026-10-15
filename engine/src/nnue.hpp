@@ -33,5 +33,9 @@ int nnue_width();
 int nnue_hidden();
 const char* nnue_model_name();
 const char* nnue_model_sha256();
+// Selection is local to the calling thread; workers receive their own setting.
+void nnue_set_kernel(const std::string& name);
+const char* nnue_kernel();
+float nnue_reference_side_to_move(const chess::Board& board, const NnueAccumulator& accumulator);
 
 }  // namespace chesslab

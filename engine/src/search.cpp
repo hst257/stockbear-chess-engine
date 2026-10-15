@@ -70,6 +70,7 @@ public:
           pawn_cache_(limits.pawn_cache && limits.evaluation.advanced && !limits.use_nnue ? std::make_unique<PawnCache>() : nullptr) {}
 
     SearchResult run(chess::Board& board, const SearchProgress& progress) {
+        nnue_set_kernel(limits_.nnue_kernel);
         profiling::reset();
         profiling::Scope measured(profiling::SEARCH);
         if (limits_.use_nnue && limits_.nnue_incremental) {
@@ -174,7 +175,9 @@ private:
     }
 
     void descend_nnue(const chess::Board& board, int ply, const NnueDelta& delta = {}) {
-        if (nnue_stack_) nnue_update_move((*nnue_stack_)[ply - 1], board, delta, (*nnue_stack_)[ply]);
+        if (!nnue_stack_) return;
+        if (limits_.nnue_kernel == "reference") nnue_update((*nnue_stack_)[ply - 1], board, (*nnue_stack_)[ply]);
+        else nnue_update_move((*nnue_stack_)[ply - 1], board, delta, (*nnue_stack_)[ply]);
     }
 
     void generate(chess::Movelist& moves, const chess::Board& board) {
@@ -281,7 +284,7 @@ private:
             PrincipalVariation child_pv;
             int score;
             {
-                const auto nnue_delta = nnue_stack_ ? nnue_move_delta(board, move) : NnueDelta{};
+                const auto nnue_delta = nnue_stack_ && limits_.nnue_kernel != "reference" ? nnue_move_delta(board, move) : NnueDelta{};
                 ScopedMove played(board, move);
                 descend_nnue(board, ply + 1, nnue_delta);
                 score = quiescence(board, ply + 1, qply + 1, alpha, beta, child_pv, null_subtree);
@@ -423,7 +426,7 @@ private:
                 std::clamp(limits_.lmr_reduction, 1, std::min(3, depth - 2))) : 0;
             int score;
             {
-                const auto nnue_delta = nnue_stack_ ? nnue_move_delta(board, move) : NnueDelta{};
+                const auto nnue_delta = nnue_stack_ && limits_.nnue_kernel != "reference" ? nnue_move_delta(board, move) : NnueDelta{};
                 ScopedMove played(board, move);
                 descend_nnue(board, ply + 1, nnue_delta);
                 const auto child_history = cacheable ? next_history(history, parent_key, board) : 0;

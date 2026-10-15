@@ -77,7 +77,7 @@ def main():
                     samples = row["samples"][label]
                     if config.get("micro"):
                         samples["micro"].append(json.loads(subprocess.check_output(
-                            [config["micro"], fen, str(args.micro_repeats)], text=True)))
+                            [config["micro"], fen, str(args.micro_repeats)] + ([config["kernel"]] if config.get("kernel") else []), text=True)))
                     if args.micro_only:
                         continue
                     for mode, limit in (("nodes", chess.engine.Limit(nodes=args.nodes)),

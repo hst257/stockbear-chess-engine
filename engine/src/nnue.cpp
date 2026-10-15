@@ -9,6 +9,12 @@
 
 namespace chesslab {
 namespace w = nnue_weights;
+namespace { thread_local std::string selected_kernel = "auto"; }
+void nnue_set_kernel(const std::string& name) {
+    if (name != "auto" && name != "reference" && name != "scalar") throw std::invalid_argument("Unknown NNUE kernel");
+    selected_kernel = name;
+}
+const char* nnue_kernel() { return selected_kernel.c_str(); }
 
 namespace {
 int reverse_feature(int index) {
@@ -200,7 +206,7 @@ void nnue_update(const NnueAccumulator& parent, const chess::Board& board, NnueA
     }
 }
 
-float nnue_side_to_move(const chess::Board& board, const NnueAccumulator& accumulator) {
+float nnue_reference_side_to_move(const chess::Board& board, const NnueAccumulator& accumulator) {
     profiling::Scope measured(profiling::NNUE_HEAD);
     float input[2 * w::WIDTH];
     const int first = board.sideToMove() == chess::Color::WHITE ? 0 : 1;
@@ -213,6 +219,24 @@ float nnue_side_to_move(const chess::Board& board, const NnueAccumulator& accumu
         for (int j = 0; j < 2 * w::WIDTH; ++j) hidden += w::fc1_weight[h * 2 * w::WIDTH + j] * input[j];
         output += w::fc2_weight[h] * std::clamp(hidden, 0.0f, 1.0f);
     }
+    return output * 400.0f;
+}
+
+float nnue_side_to_move(const chess::Board& board, const NnueAccumulator& accumulator) {
+    if (selected_kernel == "reference") return nnue_reference_side_to_move(board, accumulator);
+    profiling::Scope measured(profiling::NNUE_HEAD);
+    // Each neuron's additions retain their original order. Parallel neurons
+    // give the compiler independent lanes without reassociating a dot product.
+    alignas(64) float hidden[w::HIDDEN];
+    std::copy_n(w::fc1_bias, w::HIDDEN, hidden);
+    const int first = board.sideToMove() == chess::Color::WHITE ? 0 : 1;
+    for (int p = 0; p < 2; ++p) for (int j = 0; j < w::WIDTH; ++j) {
+        const float input = std::clamp(accumulator.values[p == 0 ? first : 1 - first][j], 0.0f, 1.0f);
+        const auto* weights = w::fc1_transposed + (p * w::WIDTH + j) * w::HIDDEN;
+        for (int h = 0; h < w::HIDDEN; ++h) hidden[h] += weights[h] * input;
+    }
+    float output = w::fc2_bias[0];
+    for (int h = 0; h < w::HIDDEN; ++h) output += w::fc2_weight[h] * std::clamp(hidden[h], 0.0f, 1.0f);
     return output * 400.0f;
 }
 

@@ -67,6 +67,12 @@ def generate_header(model: Path, output: Path):
         for i in range(0, len(values), 8):
             lines.append("    " + ", ".join(v.hex() + "f" for v in values[i:i + 8]) + ",")
         lines.append("};")
+    width, hidden = header["model"]["width"], header["model"]["hidden"]
+    transposed = [tensors["fc1.weight"][h * 2 * width + j] for j in range(2 * width) for h in range(hidden)]
+    lines.append("alignas(64) inline constexpr float fc1_transposed[] = {")
+    for i in range(0, len(transposed), 8):
+        lines.append("    " + ", ".join(v.hex() + "f" for v in transposed[i:i + 8]) + ",")
+    lines.append("};")
     lines.append("}  // namespace chesslab::nnue_weights\n")
     output.parent.mkdir(parents=True, exist_ok=True)
     contents = "\n".join(lines)

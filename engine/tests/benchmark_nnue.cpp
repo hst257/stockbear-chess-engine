@@ -29,7 +29,8 @@ template<class F> double time_calls(int n, F function) {
 int main(int argc, char** argv) {
     using namespace chesslab;
     std::cout << std::setprecision(10);
-    if (argc == 2 && std::string(argv[1]) == "--verify") {
+    if (argc >= 2 && std::string(argv[1]) == "--verify") {
+        if (argc > 2) nnue_set_kernel(argv[2]);
         std::mt19937 random(20261015);
         int transitions = 0, nulls = 0;
         float maximum = 0;
@@ -50,6 +51,7 @@ int main(int argc, char** argv) {
                 }
             }
             if (std::abs(nnue_side_to_move(board, a) - nnue_side_to_move(board, rebuilt)) > .01f) throw std::runtime_error("Score mismatch");
+            if (std::abs(nnue_side_to_move(board, a) - nnue_reference_side_to_move(board, a)) > .01f) throw std::runtime_error("Kernel mismatch");
         };
         for (auto fen : positions) for (int walk = 0; walk < 40; ++walk) {
             chess::Board board(fen);
@@ -115,7 +117,8 @@ int main(int argc, char** argv) {
                   << ",\"fma_os_enabled\":" << (fma ? "true" : "false") << "}\n";
         return 0;
     }
-    if (argc == 2 && std::string(argv[1]) == "--batch") {
+    if (argc >= 2 && std::string(argv[1]) == "--batch") {
+        if (argc > 2) nnue_set_kernel(argv[2]);
         std::string fen;
         while (std::getline(std::cin, fen)) {
             chess::Board board(fen);
@@ -128,6 +131,7 @@ int main(int argc, char** argv) {
     if (argc < 2) return 1;
     chess::Board board(argv[1]), child = board;
     const int n = argc > 2 ? std::stoi(argv[2]) : 20000;
+    if (argc > 3) nnue_set_kernel(argv[3]);
     if (n < 1) return 1;
     NnueAccumulator parent, output;
     nnue_refresh(board, parent);
