@@ -1,0 +1,23 @@
+{
+  "canonical_positions_checked": 56721,
+  "exact_fen_overlap": 0,
+  "game_overlap": 0,
+  "missing_labels": 0,
+  "splits": {
+    "test": {
+      "games": 735,
+      "positions": 5618
+    },
+    "train": {
+      "games": 5984,
+      "positions": 45450
+    },
+    "validation": {
+      "games": 740,
+      "positions": 5653
+    }
+  },
+  "teacher_profile_id": "ddc2b43b123677466a9a9f8478f67ffc028a6582266a73e36a3272bc85b30f92",
+  "teacher_repeat_positions": 16,
+  "teacher_repeats_exact_cp_mate_depth_nodes": true
+}

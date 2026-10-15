@@ -1,0 +1,10 @@
+{
+  "bytes": 434575,
+  "format": "StockBear float32 v1",
+  "max_abs_cp_error": 0.00019073486328125,
+  "max_abs_cp_error_vs_training_device": 0.000148773193359375,
+  "mean_abs_cp_error": 1.8998980522155762e-05,
+  "parity_positions": 128,
+  "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\exports\\stockbear-v1.sbnnue",
+  "payload_sha256": "bff7fce1a39fd1457d2547ec760dd8cda4345a38f3c044a4dd6093a5134fac2b"
+}

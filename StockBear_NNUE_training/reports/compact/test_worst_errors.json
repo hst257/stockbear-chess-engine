@@ -1,0 +1,162 @@
+[
+  {
+    "cp": 2000,
+    "fen": "5rk1/1ppR3p/p3p1p1/2b1p1Q1/P3P3/1RN2PKP/1PP3P1/6q1 b - - 0 1",
+    "game": "fae79abcee075a680c0bd89caccdf9baa51fbc8a0af81e8025b81fcc08f6c6e9",
+    "id": "1cbdb132eb65c8be0455feb12609aadcb43b99b810c8dbed15874886f60abbc3",
+    "predicted_cp": -650.6344604492188,
+    "source": "lichess_db_broadcast_2026-06.pgn.zst"
+  },
+  {
+    "cp": 2000,
+    "fen": "2r1r1k1/p4p2/1p1pn2R/3qP3/2p2P1Q/P1P5/6PP/1R4K1 w - - 0 1",
+    "game": "7c0dd809aeb91129fcb185b8872c4fbaf96c2c76556eaf80d985de7c354bc17a",
+    "id": "9946ee6369938335d2a3e24210f7951e493e17e79c10178e0ec465b788ac04ea",
+    "predicted_cp": -429.5173645019531,
+    "source": "lichess_db_broadcast_2026-06.pgn.zst"
+  },
+  {
+    "cp": 2000,
+    "fen": "8/p2k1b1p/4qp2/1p1p3P/2pP1P1B/2P1QK2/PP2B1r1/7R b - - 0 1",
+    "game": "b85b6e0a23e53efdd505793f63b68d35f126d3da987bcf8ea69981515859323c",
+    "id": "82096bc81bac0a41b89fe4afcadfa3a7c6154bfa1d5e87e83fd41878fc22bbf1",
+    "predicted_cp": -354.86309814453125,
+    "source": "lichess_db_broadcast_2026-08.pgn.zst"
+  },
+  {
+    "cp": 2000,
+    "fen": "r7/pp4R1/3ppk2/2b1p3/4P3/3P3n/PPP2P2/3K2R1 w - - 0 1",
+    "game": "51531580525a59f6c36ad0f7fff6dc92d6ba835a1f252187b3f88bfb2213c8cc",
+    "id": "beb1ded7f60e5da29e7be3ddd99e043814d8bdcd5202f58e7707af436d55f289",
+    "predicted_cp": -214.69772338867188,
+    "source": "lichess_db_broadcast_2026-09.pgn.zst"
+  },
+  {
+    "cp": 2000,
+    "fen": "1r3r2/1b3pk1/p3P2p/1pqp1Q2/5N2/PB5P/1PP3P1/3R3K w - - 0 1",
+    "game": "5bf1bd0d27f35f2db9206118a46c12cf790cc9f38b7a8ee5af5cdd165bcdad02",
+    "id": "f3ffba91cd34eb2bb47173e393cee6f84d7d327085b807ec2cf12f099656c815",
+    "predicted_cp": -158.88833618164062,
+    "source": "lichess_db_broadcast_2026-09.pgn.zst"
+  },
+  {
+    "cp": 2000,
+    "fen": "r5k1/p1p1q1pp/2p2p2/2b5/2b2B2/5P2/PP2Q1PP/RN3K1R b - - 0 1",
+    "game": "aa74a49ac7602aababae1273a22a0690d7a8cf8fe624b2295d5fa0cf77023b65",
+    "id": "881d146073fa45aa7fd6b64b4e8bab33f99730fda3816601c0581a3f68cd2290",
+    "predicted_cp": -130.85385131835938,
+    "source": "lichess_db_broadcast_2026-06.pgn.zst"
+  },
+  {
+    "cp": 2000,
+    "fen": "1r3r1k/1b3p2/p3P2p/1pqp3N/6Q1/PB5P/1PP3P1/3R3K w - - 0 1",
+    "game": "5bf1bd0d27f35f2db9206118a46c12cf790cc9f38b7a8ee5af5cdd165bcdad02",
+    "id": "e159e291128de02205da225d905d651e6fa6a826c3c53f5996394f0ec31261d7",
+    "predicted_cp": -24.407344818115234,
+    "source": "lichess_db_broadcast_2026-09.pgn.zst"
+  },
+  {
+    "cp": 2000,
+    "fen": "5r1k/pbpB2pp/2pp4/8/8/2N2Q2/PPP3PP/2q1R2K b - - 0 1",
+    "game": "89ab2c57fd4c27a0b5b884a331a5779da66a533231b9d21c63f5b29a0df60806",
+    "id": "01c0b35e3de7a83ee418dff1d902968294db01891db672bd29f17c7a7182a0d6",
+    "predicted_cp": -22.324663162231445,
+    "source": "lichess_db_broadcast_2026-06.pgn.zst"
+  },
+  {
+    "cp": 2000,
+    "fen": "2bqk2r/1p2bp1p/2n3p1/1p1N4/r3Q3/8/PPP2PPP/R1B1K1NR w KQk - 0 1",
+    "game": "3895fe0e1173deb9ca0b55e1fcf39448f82cf1bdad5c633ed9ab69b302ecce57",
+    "id": "49d06e720f4918d93f5b1bd3f4fe7cd715ff9a010c9e417cd86e0f2f767967e8",
+    "predicted_cp": 19.457250595092773,
+    "source": "lichess_db_broadcast_2026-08.pgn.zst"
+  },
+  {
+    "cp": 2000,
+    "fen": "2kr3r/Qppqb1pp/2b2p2/1P2p3/8/P2PB1P1/4PP1P/R4RK1 w - - 0 1",
+    "game": "a5611f86c1a3b49a2b68b9ff992d1deffbd1099935b74a793a369efeb91190f4",
+    "id": "6c9a1a1982d13077a583584adbaa0d56c2846650eb045705672293e1911e4461",
+    "predicted_cp": 26.248079299926758,
+    "source": "lichess_db_broadcast_2026-06.pgn.zst"
+  },
+  {
+    "cp": 2000,
+    "fen": "8/pp1N1pkp/6p1/8/5P2/Q2B2KP/PP4P1/2r3q1 b - - 0 1",
+    "game": "841b40e17b9d4558af0ded5a4a8fb7a2826db137621fd081cbf69eb431060f9c",
+    "id": "74dd032fe9865b36714df47ae13cac8e5eb479b696c0aebb1fa9dd57071e2dd6",
+    "predicted_cp": 41.89292907714844,
+    "source": "lichess_db_broadcast_2026-09.pgn.zst"
+  },
+  {
+    "cp": 2000,
+    "fen": "8/pp1N1pk1/6p1/7p/5P1K/Q2Bq2P/PP4P1/2r5 b - - 0 1",
+    "game": "841b40e17b9d4558af0ded5a4a8fb7a2826db137621fd081cbf69eb431060f9c",
+    "id": "645483a7ed75bfbb9ba537777aa9bbf9008d7ab59364b741d19d2e5fbbe891b8",
+    "predicted_cp": 64.65576171875,
+    "source": "lichess_db_broadcast_2026-09.pgn.zst"
+  },
+  {
+    "cp": 2000,
+    "fen": "1k1r2r1/2pqbppn/Q1p4p/3PP3/8/pPN1B2P/P1P5/2KR2R1 w - - 0 1",
+    "game": "022d7921802f6fb78e79f0f030cf2eea094fffd6b3caa5d971d7bcf7aa5d7b25",
+    "id": "82e8237f50a5e551e217b9c26834f9b4691083c23acd8eab0d51cdbd7727fb12",
+    "predicted_cp": 83.9989013671875,
+    "source": "lichess_db_broadcast_2026-09.pgn.zst"
+  },
+  {
+    "cp": 2000,
+    "fen": "r2q1rk1/1b2np2/p3p3/1pp1PpNp/3p1P2/P2P2P1/1PPBQ2P/R3K2R w KQ - 0 1",
+    "game": "54c08f67f671f35dce7ac84cbf616d589792243256b32491fd9ff3527d95effb",
+    "id": "c6a0d15b20e49243cd32c0c711010f4cb4144ea4b8b05d13d31b871cbdd5971b",
+    "predicted_cp": 95.75851440429688,
+    "source": "lichess_db_broadcast_2026-08.pgn.zst"
+  },
+  {
+    "cp": 2000,
+    "fen": "3r1r1k/6p1/1p1bq2p/p4p2/8/P1B3Q1/1P3PPP/3R1RK1 w - - 0 1",
+    "game": "82c21b82a235ad056557de1d1fb201a679e7dde2a89cc7b32bc57b7d2033802f",
+    "id": "f2e2d8853ec3ebdeff1dbd040858b70e49451a51b543b1cac92765789c4435ed",
+    "predicted_cp": 134.7687225341797,
+    "source": "lichess_db_broadcast_2026-07.pgn.zst"
+  },
+  {
+    "cp": 2000,
+    "fen": "8/1pb2pk1/p1b1rp2/2P5/1P2B1P1/P5qP/2Q3R1/4R1K1 b - - 0 1",
+    "game": "7881fddf7585c70796f1d8f5e35dbe5d7e25e9a82338c96b5a7ec8db4d68e362",
+    "id": "c9cd88b3a1be765dbe21126e2a49c4daa8ab627dd7b2e32488263cc1144923d5",
+    "predicted_cp": 159.46705627441406,
+    "source": "lichess_db_broadcast_2026-07.pgn.zst"
+  },
+  {
+    "cp": 2000,
+    "fen": "r5k1/p1p3pp/1p1pp1q1/5p2/1PPPb2b/1QB1P1rP/P3R1PK/3R1B2 b - - 0 1",
+    "game": "acad8daf93c98bc7790185d30b0d4f2e0918a3de5a7ece12b4129e298a2f1a69",
+    "id": "21887335f459cc18080de4abbe4ea698f05111604a55d0c899708c7c66e15c42",
+    "predicted_cp": 160.79212951660156,
+    "source": "lichess_db_broadcast_2026-09.pgn.zst"
+  },
+  {
+    "cp": 2000,
+    "fen": "2q1rbk1/pp2r1p1/2ppP1Qp/3n1N2/1P6/P4RP1/6KP/B4R2 w - - 0 1",
+    "game": "08fb234bbb1458f0e939ab5354c80f01182a20c8f817316154bcab027418eae4",
+    "id": "63ef0fd607833aa224224726a7f16b7de745a6b8b77c74b414b19200d52ce2bd",
+    "predicted_cp": 174.62705993652344,
+    "source": "lichess_db_broadcast_2026-08.pgn.zst"
+  },
+  {
+    "cp": 2000,
+    "fen": "2k4r/1pp3p1/p4p2/P2rn2p/1bBP4/1P4Pq/1B3P1P/R2Q1RK1 b - - 0 1",
+    "game": "f2238d720baeb9b4a859a30fde0a0176ebd4369a70337a1965a69175e75369e1",
+    "id": "f20283e45d42ccc00b5b7913965531bf3c4b82e1abbf6469b0513b52a1577471",
+    "predicted_cp": 185.8768768310547,
+    "source": "lichess_db_broadcast_2026-06.pgn.zst"
+  },
+  {
+    "cp": 2000,
+    "fen": "6k1/p1p2p2/4r1pp/2P5/3QB3/6PP/4qP2/1R4K1 w - - 0 1",
+    "game": "03308e7d70e29a7784ccff35e758abfdf0b7e552a4647656e485f5a0122e31ca",
+    "id": "35bbfe50a815c44bb0c256bae7de5696bf164566a3e4038c7ac21514aeb9e217",
+    "predicted_cp": 202.20315551757812,
+    "source": "lichess_db_broadcast_2026-07.pgn.zst"
+  }
+]

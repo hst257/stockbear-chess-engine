@@ -1,0 +1,29 @@
+{
+  "seed": 20261015,
+  "months": ["2026-06", "2026-07", "2026-08", "2026-09"],
+  "dataset": "data/processed/pilot.sqlite",
+  "cache": "data/cache/teacher.sqlite",
+  "run": "runs/pilot",
+  "export": "exports/stockbear-pilot.sbnnue",
+  "sampler": {
+    "games_per_month": 64,
+    "positions_per_game": 8,
+    "min_ply": 16,
+    "max_ply": 180,
+    "ply_gap": 4
+  },
+  "teacher": {"nodes": 16384, "workers": 4, "hash_mb": 64},
+  "training": {
+    "width": 128,
+    "hidden": 32,
+    "epochs": 50,
+    "batch_size": 256,
+    "learning_rate": 0.003,
+    "weight_decay": 0.01,
+    "teacher_weight": 0.9,
+    "gradient_clip": 1.0,
+    "patience": 8,
+    "min_delta": 0.00001,
+    "require_cuda": false
+  }
+}

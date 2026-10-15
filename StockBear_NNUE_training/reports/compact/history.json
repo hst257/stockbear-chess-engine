@@ -1,0 +1,182 @@
+[
+  {
+    "epoch": 1,
+    "lr": 0.0015,
+    "seconds": 0.875,
+    "train_mse": 0.040538170551604566,
+    "validation_cp_mae": 247.9623305013111,
+    "validation_mse": 0.03136473605216509,
+    "validation_teacher_probability_mse": 0.02768032848408307
+  },
+  {
+    "epoch": 2,
+    "lr": 0.0015,
+    "seconds": 0.5,
+    "train_mse": 0.02809223005373945,
+    "validation_cp_mae": 227.6802545482029,
+    "validation_mse": 0.026136965555953236,
+    "validation_teacher_probability_mse": 0.023102561784208196
+  },
+  {
+    "epoch": 3,
+    "lr": 0.0015,
+    "seconds": 0.5309999999881256,
+    "train_mse": 0.022941946940060104,
+    "validation_cp_mae": 213.25512540372054,
+    "validation_mse": 0.02302932735040254,
+    "validation_teacher_probability_mse": 0.020206891346091303
+  },
+  {
+    "epoch": 4,
+    "lr": 0.0015,
+    "seconds": 0.48499999998603016,
+    "train_mse": 0.019027825113185102,
+    "validation_cp_mae": 204.65375504117506,
+    "validation_mse": 0.021152392353987075,
+    "validation_teacher_probability_mse": 0.018448935633250535
+  },
+  {
+    "epoch": 5,
+    "lr": 0.0015,
+    "seconds": 0.4539999999979045,
+    "train_mse": 0.015854689589362463,
+    "validation_cp_mae": 198.84474685895177,
+    "validation_mse": 0.01992068698970107,
+    "validation_teacher_probability_mse": 0.01736234669811625
+  },
+  {
+    "epoch": 6,
+    "lr": 0.0015,
+    "seconds": 0.46899999998277053,
+    "train_mse": 0.01369815108598885,
+    "validation_cp_mae": 196.79104830007014,
+    "validation_mse": 0.01932271860056212,
+    "validation_teacher_probability_mse": 0.0169886242481454
+  },
+  {
+    "epoch": 7,
+    "lr": 0.0015,
+    "seconds": 0.45300000000861473,
+    "train_mse": 0.012023298107620381,
+    "validation_cp_mae": 195.41950339653545,
+    "validation_mse": 0.019383910797600955,
+    "validation_teacher_probability_mse": 0.017031033721971612
+  },
+  {
+    "epoch": 8,
+    "lr": 0.0015,
+    "seconds": 0.3129999999946449,
+    "train_mse": 0.010875087742692698,
+    "validation_cp_mae": 194.34094966303536,
+    "validation_mse": 0.01904938477405337,
+    "validation_teacher_probability_mse": 0.016740199150857248
+  },
+  {
+    "epoch": 9,
+    "lr": 0.0015,
+    "seconds": 0.3289999999979045,
+    "train_mse": 0.01001335072955086,
+    "validation_cp_mae": 194.61240689568493,
+    "validation_mse": 0.018993837789541935,
+    "validation_teacher_probability_mse": 0.016769793290874045
+  },
+  {
+    "epoch": 10,
+    "lr": 0.0015,
+    "seconds": 0.3129999999946449,
+    "train_mse": 0.009410190598914202,
+    "validation_cp_mae": 193.67456957565543,
+    "validation_mse": 0.018856265229417985,
+    "validation_teacher_probability_mse": 0.016718125349321537
+  },
+  {
+    "epoch": 11,
+    "lr": 0.0015,
+    "seconds": 0.40700000000651926,
+    "train_mse": 0.008828954770382416,
+    "validation_cp_mae": 194.92698665283515,
+    "validation_mse": 0.019114545746311853,
+    "validation_teacher_probability_mse": 0.016942700808778962
+  },
+  {
+    "epoch": 12,
+    "lr": 0.0015,
+    "seconds": 0.5629999999946449,
+    "train_mse": 0.008428253818700875,
+    "validation_cp_mae": 196.63277976744453,
+    "validation_mse": 0.01957107044712919,
+    "validation_teacher_probability_mse": 0.017418201629774654
+  },
+  {
+    "epoch": 13,
+    "lr": 0.0015,
+    "seconds": 0.46900000001187436,
+    "train_mse": 0.008062455981060026,
+    "validation_cp_mae": 197.83855685233732,
+    "validation_mse": 0.01947541757113276,
+    "validation_teacher_probability_mse": 0.01735226837585379
+  },
+  {
+    "epoch": 14,
+    "lr": 0.00075,
+    "seconds": 0.5470000000204891,
+    "train_mse": 0.007731107047813298,
+    "validation_cp_mae": 197.79388473039387,
+    "validation_mse": 0.02006795226884441,
+    "validation_teacher_probability_mse": 0.017861151606049373
+  },
+  {
+    "epoch": 15,
+    "lr": 0.00075,
+    "seconds": 0.4370000000053551,
+    "train_mse": 0.006900368286040586,
+    "validation_cp_mae": 196.6084917347009,
+    "validation_mse": 0.019452157820639686,
+    "validation_teacher_probability_mse": 0.01736011499140421
+  },
+  {
+    "epoch": 16,
+    "lr": 0.00075,
+    "seconds": 0.48399999999674037,
+    "train_mse": 0.0066423833728393965,
+    "validation_cp_mae": 196.1971139895184,
+    "validation_mse": 0.019430179311683827,
+    "validation_teacher_probability_mse": 0.01736093965176437
+  },
+  {
+    "epoch": 17,
+    "lr": 0.00075,
+    "seconds": 0.5310000000172295,
+    "train_mse": 0.0065062294266421275,
+    "validation_cp_mae": 196.04076821580938,
+    "validation_mse": 0.01949708553071615,
+    "validation_teacher_probability_mse": 0.017424856764756518
+  },
+  {
+    "epoch": 18,
+    "lr": 0.000375,
+    "seconds": 0.5,
+    "train_mse": 0.006407737698922358,
+    "validation_cp_mae": 197.4122064207247,
+    "validation_mse": 0.0197709889068617,
+    "validation_teacher_probability_mse": 0.017699846304185834
+  },
+  {
+    "epoch": 19,
+    "lr": 0.000375,
+    "seconds": 0.4539999999979045,
+    "train_mse": 0.006014557048243985,
+    "validation_cp_mae": 196.67785694446053,
+    "validation_mse": 0.01964024739963026,
+    "validation_teacher_probability_mse": 0.017573142497938527
+  },
+  {
+    "epoch": 20,
+    "lr": 0.000375,
+    "seconds": 0.46900000001187436,
+    "train_mse": 0.00591710898904304,
+    "validation_cp_mae": 196.65657102216056,
+    "validation_mse": 0.019653402913382217,
+    "validation_teacher_probability_mse": 0.017592440643763894
+  }
+]

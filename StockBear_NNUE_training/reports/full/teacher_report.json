@@ -1,0 +1,28 @@
+{
+  "depth_min_mean_max": [
+    5,
+    14.747906419139296,
+    245
+  ],
+  "mate_labels": 1158,
+  "mean_nodes": 16354.023307064403,
+  "new_failures": 0,
+  "new_labels": 54832,
+  "positions_per_second": 72.96651354415687,
+  "profile": {
+    "clear_hash_each_position": true,
+    "counters": "0 1",
+    "executable": "stockfish-windows-x86-64-universal\\stockfish\\stockfish-windows-x86-64-universal.exe",
+    "hash_mb": 64,
+    "mate_cp": 2000,
+    "nodes": 16384,
+    "score_pov": "side_to_move",
+    "sha256": "45bc8e4969147db9c2eb533810637994619bff0eacc81ccfd9854394901bcbd0",
+    "threads": 1,
+    "version": 2
+  },
+  "profile_id": "ddc2b43b123677466a9a9f8478f67ffc028a6582266a73e36a3272bc85b30f92",
+  "remaining": 0,
+  "seconds": 751.4679999999935,
+  "total": 56721
+}

@@ -1,0 +1,152 @@
+{
+  "available_ram_bytes": 11893915648,
+  "cpu": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+  "disk_free_bytes": 131614859264,
+  "gpu": {
+    "cuda_available": false,
+    "torch_cuda": null
+  },
+  "logical_cores": 12,
+  "nvidia_smi": "NVIDIA GeForce RTX 4050 Laptop GPU, 610.88, 6141 MiB",
+  "packages": {
+    "chess": "1.11.2",
+    "numpy": "2.2.6",
+    "psutil": "7.0.0",
+    "pytest": "8.4.1",
+    "torch": "2.7.1+cpu",
+    "zstandard": "0.23.0"
+  },
+  "physical_cores": 8,
+  "platform": "Windows-10-10.0.26200-SP0",
+  "python": "3.11.8",
+  "python_executable": "Z:\\Code\\Chess\\StockBear_NNUE_training\\.venv\\Scripts\\python.exe",
+  "ram_bytes": 34049220608,
+  "raw_files": [
+    {
+      "bytes": 22797518,
+      "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\lichess_db_broadcast_2026-06.pgn.zst",
+      "sha256": "65905d611c0d78d90ab57cd9edd3821f4119b46c22b5489fd7e265a74c6767b3"
+    },
+    {
+      "bytes": 24535400,
+      "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\lichess_db_broadcast_2026-07.pgn.zst",
+      "sha256": "714d0eb99f99fca8d791142038b6c59b5ca6a51b3339bd3891a92f4bdffcbf0c"
+    },
+    {
+      "bytes": 31010232,
+      "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\lichess_db_broadcast_2026-08.pgn.zst",
+      "sha256": "e227c35c3207ebade754849c1825982e2717ae82c013013d896778e27be77724"
+    },
+    {
+      "bytes": 18414369,
+      "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\lichess_db_broadcast_2026-09.pgn.zst",
+      "sha256": "27a39d035767a30901b89602f33f2a7b27d4ab5025842071165fa079f8fff1df"
+    }
+  ],
+  "root": "Z:\\Code\\Chess\\StockBear_NNUE_training",
+  "teacher": {
+    "identity": {
+      "author": "the Stockfish developers (see AUTHORS file)",
+      "name": "Stockfish 19"
+    },
+    "options": {
+      "Clear Hash": {
+        "default": null,
+        "max": null,
+        "min": null
+      },
+      "Debug Log File": {
+        "default": "<empty>",
+        "max": null,
+        "min": null
+      },
+      "EvalFile": {
+        "default": "nn-1a298aa575a0.nnue",
+        "max": null,
+        "min": null
+      },
+      "Hash": {
+        "default": 16,
+        "max": 33554432,
+        "min": 1
+      },
+      "Move Overhead": {
+        "default": 10,
+        "max": 5000,
+        "min": 0
+      },
+      "MultiPV": {
+        "default": 1,
+        "max": 256,
+        "min": 1
+      },
+      "NumaPolicy": {
+        "default": "auto",
+        "max": null,
+        "min": null
+      },
+      "Ponder": {
+        "default": false,
+        "max": null,
+        "min": null
+      },
+      "Skill Level": {
+        "default": 20,
+        "max": 20,
+        "min": 0
+      },
+      "Syzygy50MoveRule": {
+        "default": true,
+        "max": null,
+        "min": null
+      },
+      "SyzygyPath": {
+        "default": "<empty>",
+        "max": null,
+        "min": null
+      },
+      "SyzygyProbeDepth": {
+        "default": 1,
+        "max": 100,
+        "min": 1
+      },
+      "SyzygyProbeLimit": {
+        "default": 7,
+        "max": 7,
+        "min": 0
+      },
+      "Threads": {
+        "default": 1,
+        "max": 1024,
+        "min": 1
+      },
+      "UCI_Chess960": {
+        "default": false,
+        "max": null,
+        "min": null
+      },
+      "UCI_Elo": {
+        "default": 1320,
+        "max": 3190,
+        "min": 1320
+      },
+      "UCI_LimitStrength": {
+        "default": false,
+        "max": null,
+        "min": null
+      },
+      "UCI_ShowWDL": {
+        "default": false,
+        "max": null,
+        "min": null
+      },
+      "nodestime": {
+        "default": 0,
+        "max": 10000,
+        "min": 0
+      }
+    },
+    "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\stockfish-windows-x86-64-universal\\stockfish\\stockfish-windows-x86-64-universal.exe",
+    "sha256": "45bc8e4969147db9c2eb533810637994619bff0eacc81ccfd9854394901bcbd0"
+  }
+}

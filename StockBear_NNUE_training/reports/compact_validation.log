@@ -1,0 +1,160 @@
+{"epoch": 1, "train_mse": 0.040538170551604566, "validation_mse": 0.03136473605216509, "validation_teacher_probability_mse": 0.02768032848408307, "validation_cp_mae": 247.9623305013111, "lr": 0.0015, "seconds": 0.875}
+{"epoch": 2, "train_mse": 0.02809223005373945, "validation_mse": 0.026136965555953236, "validation_teacher_probability_mse": 0.023102561784208196, "validation_cp_mae": 227.6802545482029, "lr": 0.0015, "seconds": 0.5}
+{"epoch": 3, "train_mse": 0.022941946940060104, "validation_mse": 0.02302932735040254, "validation_teacher_probability_mse": 0.020206891346091303, "validation_cp_mae": 213.25512540372054, "lr": 0.0015, "seconds": 0.5309999999881256}
+{"epoch": 4, "train_mse": 0.019027825113185102, "validation_mse": 0.021152392353987075, "validation_teacher_probability_mse": 0.018448935633250535, "validation_cp_mae": 204.65375504117506, "lr": 0.0015, "seconds": 0.48499999998603016}
+{"epoch": 5, "train_mse": 0.015854689589362463, "validation_mse": 0.01992068698970107, "validation_teacher_probability_mse": 0.01736234669811625, "validation_cp_mae": 198.84474685895177, "lr": 0.0015, "seconds": 0.4539999999979045}
+{"epoch": 6, "train_mse": 0.01369815108598885, "validation_mse": 0.01932271860056212, "validation_teacher_probability_mse": 0.0169886242481454, "validation_cp_mae": 196.79104830007014, "lr": 0.0015, "seconds": 0.46899999998277053}
+{"epoch": 7, "train_mse": 0.012023298107620381, "validation_mse": 0.019383910797600955, "validation_teacher_probability_mse": 0.017031033721971612, "validation_cp_mae": 195.41950339653545, "lr": 0.0015, "seconds": 0.45300000000861473}
+{"epoch": 8, "train_mse": 0.010875087742692698, "validation_mse": 0.01904938477405337, "validation_teacher_probability_mse": 0.016740199150857248, "validation_cp_mae": 194.34094966303536, "lr": 0.0015, "seconds": 0.3129999999946449}
+{"epoch": 9, "train_mse": 0.01001335072955086, "validation_mse": 0.018993837789541935, "validation_teacher_probability_mse": 0.016769793290874045, "validation_cp_mae": 194.61240689568493, "lr": 0.0015, "seconds": 0.3289999999979045}
+{"epoch": 10, "train_mse": 0.009410190598914202, "validation_mse": 0.018856265229417985, "validation_teacher_probability_mse": 0.016718125349321537, "validation_cp_mae": 193.67456957565543, "lr": 0.0015, "seconds": 0.3129999999946449}
+{"epoch": 11, "train_mse": 0.008828954770382416, "validation_mse": 0.019114545746311853, "validation_teacher_probability_mse": 0.016942700808778962, "validation_cp_mae": 194.92698665283515, "lr": 0.0015, "seconds": 0.40700000000651926}
+{"epoch": 12, "train_mse": 0.008428253818700875, "validation_mse": 0.01957107044712919, "validation_teacher_probability_mse": 0.017418201629774654, "validation_cp_mae": 196.63277976744453, "lr": 0.0015, "seconds": 0.5629999999946449}
+{"epoch": 13, "train_mse": 0.008062455981060026, "validation_mse": 0.01947541757113276, "validation_teacher_probability_mse": 0.01735226837585379, "validation_cp_mae": 197.83855685233732, "lr": 0.0015, "seconds": 0.46900000001187436}
+{"epoch": 14, "train_mse": 0.007731107047813298, "validation_mse": 0.02006795226884441, "validation_teacher_probability_mse": 0.017861151606049373, "validation_cp_mae": 197.79388473039387, "lr": 0.00075, "seconds": 0.5470000000204891}
+{"epoch": 15, "train_mse": 0.006900368286040586, "validation_mse": 0.019452157820639686, "validation_teacher_probability_mse": 0.01736011499140421, "validation_cp_mae": 196.6084917347009, "lr": 0.00075, "seconds": 0.4370000000053551}
+{"epoch": 16, "train_mse": 0.0066423833728393965, "validation_mse": 0.019430179311683827, "validation_teacher_probability_mse": 0.01736093965176437, "validation_cp_mae": 196.1971139895184, "lr": 0.00075, "seconds": 0.48399999999674037}
+{"epoch": 17, "train_mse": 0.0065062294266421275, "validation_mse": 0.01949708553071615, "validation_teacher_probability_mse": 0.017424856764756518, "validation_cp_mae": 196.04076821580938, "lr": 0.00075, "seconds": 0.5310000000172295}
+{"epoch": 18, "train_mse": 0.006407737698922358, "validation_mse": 0.0197709889068617, "validation_teacher_probability_mse": 0.017699846304185834, "validation_cp_mae": 197.4122064207247, "lr": 0.000375, "seconds": 0.5}
+{"epoch": 19, "train_mse": 0.006014557048243985, "validation_mse": 0.01964024739963026, "validation_teacher_probability_mse": 0.017573142497938527, "validation_cp_mae": 196.67785694446053, "lr": 0.000375, "seconds": 0.4539999999979045}
+{"epoch": 20, "train_mse": 0.00591710898904304, "validation_mse": 0.019653402913382217, "validation_teacher_probability_mse": 0.017592440643763894, "validation_cp_mae": 196.65657102216056, "lr": 0.000375, "seconds": 0.46900000001187436}
+{
+  "status": "complete",
+  "device": "cuda",
+  "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU",
+  "parameters": 26081,
+  "epochs": 20,
+  "best_epoch": 10,
+  "early_stopping": true,
+  "seconds_this_invocation": 26.89000000001397,
+  "dataset_fingerprint": "9070f359605e3d1bc6fa786dcdae2d900424dcce33653d1249c814ddc78ad53e",
+  "metrics": {
+    "train": {
+      "positions": 45450,
+      "blended_mse": 0.00817004053768414,
+      "teacher_probability_mse": 0.007314069797518063,
+      "clipped_cp_mae": 144.50479290926023,
+      "clipped_cp_rmse": 234.22826164724165,
+      "balanced_cp_mae": 102.59513273444952,
+      "sign_accuracy_abs_cp_ge_100": 0.9492726439081323,
+      "prediction_cp_percentiles": [
+        -764.2709350585938,
+        -435.7185836791991,
+        53.60700607299805,
+        841.0585754394529,
+        1183.42724609375
+      ],
+      "teacher_cp_percentiles": [
+        -5100.0,
+        -553.5499999999997,
+        31.0,
+        841.0,
+        10088.0
+      ],
+      "constant_baseline_teacher_probability_mse": 0.03611068495075806,
+      "material_baseline_teacher_probability_mse": 0.019530347731020376,
+      "by_phase": {
+        "early_ply_le_30": {
+          "positions": 12297,
+          "teacher_probability_mse": 0.004456105881502867
+        },
+        "middle_ply_31_80": {
+          "positions": 26087,
+          "teacher_probability_mse": 0.008467833017745171
+        },
+        "late_ply_gt_80": {
+          "positions": 7066,
+          "teacher_probability_mse": 0.00802821657775784
+        }
+      },
+      "games": 5984,
+      "game_bootstrap_teacher_mse_95_ci": [
+        0.007161925112281326,
+        0.007471263666606823
+      ],
+      "by_source": {
+        "lichess_db_broadcast_2026-06.pgn.zst": {
+          "positions": 11398,
+          "teacher_probability_mse": 0.0074622208583217395
+        },
+        "lichess_db_broadcast_2026-07.pgn.zst": {
+          "positions": 11006,
+          "teacher_probability_mse": 0.007273901814268129
+        },
+        "lichess_db_broadcast_2026-08.pgn.zst": {
+          "positions": 11560,
+          "teacher_probability_mse": 0.007339970243585836
+        },
+        "lichess_db_broadcast_2026-09.pgn.zst": {
+          "positions": 11486,
+          "teacher_probability_mse": 0.007179475846278727
+        }
+      }
+    },
+    "validation": {
+      "positions": 5653,
+      "blended_mse": 0.018856265229417985,
+      "teacher_probability_mse": 0.016718125349321537,
+      "clipped_cp_mae": 193.67456957565543,
+      "clipped_cp_rmse": 301.680846231959,
+      "balanced_cp_mae": 142.5692271986757,
+      "sign_accuracy_abs_cp_ge_100": 0.8535665294924554,
+      "prediction_cp_percentiles": [
+        -760.059814453125,
+        -364.50255737304684,
+        56.119529724121094,
+        726.4479370117186,
+        1183.42724609375
+      ],
+      "teacher_cp_percentiles": [
+        -4310.0,
+        -548.4,
+        35.0,
+        800.3999999999996,
+        2558.0
+      ],
+      "constant_baseline_teacher_probability_mse": 0.03360379450115509,
+      "material_baseline_teacher_probability_mse": 0.01936163599199531,
+      "by_phase": {
+        "early_ply_le_30": {
+          "positions": 1526,
+          "teacher_probability_mse": 0.006882619156271661
+        },
+        "middle_ply_31_80": {
+          "positions": 3329,
+          "teacher_probability_mse": 0.020224961580846728
+        },
+        "late_ply_gt_80": {
+          "positions": 798,
+          "teacher_probability_mse": 0.020896978276447802
+        }
+      },
+      "games": 740,
+      "game_bootstrap_teacher_mse_95_ci": [
+        0.015540453776403977,
+        0.0177680503370989
+      ],
+      "by_source": {
+        "lichess_db_broadcast_2026-06.pgn.zst": {
+          "positions": 1445,
+          "teacher_probability_mse": 0.016671969322894192
+        },
+        "lichess_db_broadcast_2026-07.pgn.zst": {
+          "positions": 1426,
+          "teacher_probability_mse": 0.015732469266374994
+        },
+        "lichess_db_broadcast_2026-08.pgn.zst": {
+          "positions": 1430,
+          "teacher_probability_mse": 0.016680975389888827
+        },
+        "lichess_db_broadcast_2026-09.pgn.zst": {
+          "positions": 1352,
+          "teacher_probability_mse": 0.01784635425054792
+        }
+      }
+    }
+  },
+  "generalization_gap": 0.010686224691733845,
+  "peak_cuda_allocated_bytes": 69850112,
+  "validation_only": true
+}
