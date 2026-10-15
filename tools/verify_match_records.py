@@ -45,7 +45,7 @@ def verify_record(path: Path, check_binaries=False):
         else:
             assert record["termination"] == outcome.termination.name.lower()
     assert chess.pgn.read_game(source) is None
-    assert data["summary"] == strength_summary(data["games"])
+    assert data["summary"] == strength_summary(data["games"], neutral_book=data.get("summary_neutral_book", False))
     if check_binaries:
         for label, binary in data["paths"].items():
             assert hashlib.sha256(Path(binary).read_bytes()).hexdigest() == data["hashes"][label]

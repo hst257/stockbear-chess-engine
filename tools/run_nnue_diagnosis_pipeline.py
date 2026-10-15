@@ -33,6 +33,7 @@ def main() -> None:
     environment = os.environ.copy()
     environment["ZIG_GLOBAL_CACHE_DIR"] = str(Path("engine/build/zig-cache").resolve())
     environment["CHESSLAB_DIAGNOSTIC_ENGINE"] = str((ARTIFACTS / "counters/engine.exe").resolve())
+    environment["CHESSLAB_TEST_ENGINE"] = str((ARTIFACTS / "test-v1/engine.exe").resolve())
 
     def run(name: str, command: list[str], output: Path | None = None) -> None:
         if output and output.exists():
@@ -54,13 +55,14 @@ def main() -> None:
         if not args.skip_builds:
             for label, flags in (("release", []), ("counters", ["--diagnostics"]),
                                  ("profile", ["--diagnostics", "--profile"]),
-                                 ("ubsan", ["--diagnostics", "--sanitize", "undefined"])):
+                                 ("ubsan", ["--diagnostics", "--sanitize", "undefined"]), ("test-v1", [])):
                 for target, filename in (("engine", "engine.exe"), ("nnue-bench", "micro.exe")):
                     if target == "nnue-bench" and label not in ("counters", "ubsan"):
                         continue
                     binary = ARTIFACTS / label / filename
+                    model = "engine/networks/stockbear-compact.sbnnue" if label == "test-v1" else plan["model"]
                     run(f"build-{label}-{target}", [sys.executable, "tools/build_engine.py", "--target", target,
-                         "--nnue-model", plan["model"], "--output", str(binary), *flags])
+                         "--nnue-model", model, "--output", str(binary), *flags])
         run("counter-oracle", [sys.executable, "-m", "pytest", "tests/test_nnue_diagnosis.py", "-q"])
         run("controlled-searches", [sys.executable, "-m", "tools.run_nnue_diagnosis_positions", "--phase", "searches"], ROOT / "controlled-searches.json")
         run("ablations", [sys.executable, "-m", "tools.run_nnue_diagnosis_positions", "--phase", "ablations"], ROOT / "ablations.json")

@@ -100,13 +100,18 @@ clock-profile and UBSan variants; runs the frozen position plan and reference
 analysis; verifies native parity and the full test suite; exercises GUI workers;
 and computes summaries/plots. The local training environment supplies matplotlib
 for plotting only. Detailed stage logs remain in `artifacts/nnue-v2-diagnosis/`.
+The existing regression suite expects the original bundled v1 model, so its
+engine fixture uses a separately rebuilt v1 test executable. All diagnostic
+searches, matches and performance measurements use Compact v2.
 After a failure, fix its cause and resume, retaining completed experiment files;
 use `--skip-builds` only when the recorded native sources and binaries still match.
 
-Raw match-helper summaries retain a legacy limitations sentence mentioning its
-old own-evaluator filter. That sentence does not describe this investigation:
+These four preserved raw match-helper summaries retain a legacy limitations
+sentence mentioning its old own-evaluator filter. That sentence does not describe this investigation:
 the authoritative `opening_filter`, frozen book/source and book hash show that
 no evaluator was queried to select openings. New analysis uses the actual protocol.
+The helper now labels future neutral-book runs correctly, with a versioned
+summary-context field; verification remains compatible with all preserved records.
 
 ## Fresh reproduction
 

@@ -42,7 +42,7 @@ def write_record(path, text):
             time.sleep(.1)
 
 
-def strength_summary(records):
+def strength_summary(records, *, neutral_book=False):
     counts = Counter(r["candidate_outcome"] for r in records)
     completed = counts["win"] + counts["draw"] + counts["loss"]
     score = (counts["win"] + .5 * counts["draw"]) / completed if completed else None
@@ -64,7 +64,8 @@ def strength_summary(records):
             "paired_score": pair_score, "paired_score_95_bound": interval,
             "paired_rating_95_bound": [rating(s) for s in interval],
             "uncertainty_method": "Hoeffding bounded pair-score 95% interval; nominal independent opening pairs",
-            "limitations": "Fast time control; own-evaluator opening filter; capped pairs excluded; no universal Elo claim. Null rating endpoints mean unbounded tails."}
+            "limitations": ("Frozen evaluator-neutral opening book; capped pairs excluded from complete-pair inference; no universal Elo claim. Null rating endpoints mean unbounded tails."
+                            if neutral_book else "Fast time control; own-evaluator opening filter; capped pairs excluded; no universal Elo claim. Null rating endpoints mean unbounded tails.")}
 
 
 def version_match(args):
@@ -194,7 +195,8 @@ def version_match(args):
             if getattr(args, "max_new_games", None) and session_games >= args.max_new_games and index + 1 < args.games:
                 print("Pilot/checkpoint complete; resume the unchanged scheduled cohort with --resume", flush=True)
                 return
-    data["summary"] = strength_summary(data["games"])
+    data["summary_neutral_book"] = bool(book_path)
+    data["summary"] = strength_summary(data["games"], neutral_book=bool(book_path))
     write_record(args.output, json.dumps(data, indent=2) + "\n")
     games = []
     evaluator_match = any("Evaluator" in options for options in overrides.values())
