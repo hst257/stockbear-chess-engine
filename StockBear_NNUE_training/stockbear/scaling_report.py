@@ -1,6 +1,7 @@
 """Reproduce the scaling report from recorded training/validation/native results."""
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 from .common import file_hash
@@ -30,6 +31,7 @@ def learning_curves(models: dict) -> None:
         ax.grid(alpha=.2)
         ax.legend(fontsize=8)
     fig.savefig(EXPERIMENT / "learning-curves.svg", metadata={"Date": None})
+    fig.savefig(EXPERIMENT / "artifacts/learning-curves-preview.png", dpi=120)
     plt.close(fig)
 
 
@@ -46,6 +48,23 @@ def generate() -> None:
     comparison = json.loads((EXPERIMENT / "comparison.json").read_text(encoding="utf-8"))
     native = json.loads((EXPERIMENT / "native-benchmark.json").read_text(encoding="utf-8"))
     models = comparison["models"]
+    outputs = []
+    for name, result in models.items():
+        run = ROOT / result["config"]["run"]
+        for filename in ("best.pt", "last.pt", "raw_best.pt", "final.pt", "history.json", "training.json"):
+            path = run / filename
+            if path.is_file():
+                outputs.append({"model": name, "path": str(path.resolve()),
+                                "bytes": path.stat().st_size, "sha256": file_hash(path)})
+        for filename in (f"{name}.sbnnue", "micro.exe", "micro.build.json"):
+            path = EXPERIMENT / "artifacts/native" / name / filename
+            outputs.append({"model": name, "path": str(path.resolve()),
+                            "bytes": path.stat().st_size, "sha256": file_hash(path)})
+    atomic_json(EXPERIMENT / "artifact-manifest.json", {
+        "dataset_fingerprint": comparison["dataset_fingerprint"], "test_arrays_opened_or_hashed": False,
+        "outputs": outputs, "code_lf_sha256": {
+            path.name: hashlib.sha256(path.read_text(encoding="utf-8").encode()).hexdigest()
+            for path in (ROOT / "stockbear").glob("scaling_*.py")}})
     learning_curves(models)
     names = ("baseline", "medium", "large")
     labels = {"baseline": "32/16", "medium": "64/32", "large": "128/32"}
@@ -85,7 +104,8 @@ def generate() -> None:
         "Only train/validation arrays and ordinal files are checksum-verified and memory-mapped. The prepared manifest is read as metadata.", "",
         "All runs use seed 20261016, epoch shuffle `default_rng(seed + epoch)`, batch 2048, AdamW (fused CUDA), "
         "initial LR 0.0015, weight decay 0.05, gradient clipping 1.0, at most 60 epochs, patience 8, "
-        "ReduceLROnPlateau patience 2/factor 0.5/minimum LR 1e-5, and deterministic algorithms with TF32 disabled. "
+        "ReduceLROnPlateau patience 2/factor 0.5/minimum LR 1e-5, four CPU threads, float32 (no AMP), "
+        "and deterministic algorithms with TF32 disabled. "
         "Target: `0.9 * sigmoid(clip(stm_cp,-2000,2000)/400) + 0.1 * stm_outcome`; loss is probability MSE.", "",
         "Runtime: PyTorch 2.7.1+cu128, NumPy 2.2.6, NVIDIA GeForce RTX 4050 Laptop GPU. Each larger model passed a two-full-epoch "
         "pilot with falling training/validation loss, finite gradients and <1 GiB peak allocation. Pilots resumed into full runs "
@@ -126,7 +146,7 @@ def generate() -> None:
         "Teacher probability uses clipped teacher CP. All selected checkpoints were reloaded and their saved validation MSE "
         "reproduced within 1e-7. Training duration sums measured epoch times, including pilots and validation; it excludes "
         "startup, verification, checkpoint writes, pauses and this investigation. Background native compilation affected some "
-        "medium epochs, so duration is descriptive, not a controlled training-speed benchmark.", "",
+        "training epochs, so duration is descriptive, not a controlled training-speed benchmark.", "",
         "### Differences relative to the selected baseline", "",
         "Entries are signed candidate-minus-baseline differences, followed by relative percent. Lower is better except sign accuracy; "
         "its absolute difference is shown in percentage points.", "",
@@ -135,7 +155,10 @@ def generate() -> None:
         cells = []
         for n in ("medium", "large"):
             d = models[n]["differences_vs_baseline"][metric]
-            absolute = f"{100*d['absolute']:+.4f} pp" if metric.startswith("sign") else f"{d['absolute']:+.9f}"
+            if metric.startswith("sign"):
+                absolute = f"{100*d['absolute']:+.4f} pp"
+            else:
+                absolute = f"{d['absolute']:+.9f}" if metric in ("blended_mse", "teacher_probability_mse") else f"{d['absolute']:+.3f}"
             cells.append(f"{absolute} ({d['percent']:+.3f}%)")
         lines.append("| " + metric + " | " + " | ".join(cells) + " |")
     lines += ["", "### Phase analysis", "", "Material/ply-based phase metadata is consistent across sources. The old-v1 "
@@ -146,6 +169,10 @@ def generate() -> None:
         count = models["baseline"]["by_phase"][phase]["positions"]
         lines.append(f"| {phase} ({count:,}) | " + " | ".join(
             f"{models[n]['by_phase'][phase]['teacher_probability_mse']:.7f} / {models[n]['by_phase'][phase]['clipped_cp_mae']:.2f}" for n in names) + " |")
+    lines += ["", "Teacher-MSE reductions by phase relative to 32/16: " + "; ".join(
+        labels[n] + " " + ", ".join(
+            f"{phase} {100*(1-models[n]['by_phase'][phase]['teacher_probability_mse']/models['baseline']['by_phase'][phase]['teacher_probability_mse']):+.2f}%"
+            for phase in ("opening", "middlegame", "endgame")) for n in ("medium", "large")) + "."]
     lines += ["", "### Generalization, uncertainty and diminishing returns", "",
         "Selected-weight train/validation gaps above distinguish generalization from training fit; epoch training loss also "
         "averages weights changing throughout the epoch and should not be treated as the selected model's exact training score. "
@@ -163,6 +190,12 @@ def generate() -> None:
         f"{labels[n]}: {models[n]['history'][-1]['validation']['blended_mse']-models[n]['raw_minimum_history_mse']:.8f}"
         for n in names) + ". This quantifies late plateau/overfit rather than judging from training loss alone.", "",
         "![Training and validation learning curves](StockBear_NNUE_training/scaling-experiment-20261016/learning-curves.svg)"]
+    lines += ["", f"For 128/32, selected-weight training MSE falls "
+        f"{100*(1-models['large']['selected_training_metrics']['blended_mse']/models['baseline']['selected_training_metrics']['blended_mse']):.2f}% "
+        f"versus the baseline, while validation MSE falls {100*(1-models['large']['validation']['blended_mse']/base['blended_mse']):.2f}%. "
+        "The increasing gap indicates more overfitting even as validation prediction improves. "
+        "The second capacity doubling yields a smaller relative validation gain than the first, indicating diminishing "
+        "returns per parameter in this experiment."]
     lines += ["", "These intervals resample matched game families; they do not include training-seed uncertainty, repeated model "
         "selection or source-distribution shift. Only one training seed was run per architecture. "
         f"The 128/32-versus-64/32 blended-MSE change is a {marginal:.2f}% reduction, for roughly twice the parameters and "
@@ -193,8 +226,10 @@ def generate() -> None:
         "update bits. This verifies isolated accumulator behavior, not whole-search or UCI integration of new networks.", "",
         "Benchmarks used unchanged production inference with isolated `nnue-bench` binaries, Zig C++17 `-O2`, "
         "`-ffp-contract=off`, default compact update strategy, on the i5-13420H. Twelve validation positions (four per phase), "
-        "five repeats and 20,000 calls per operation/repeat were used. Values are medians across 60 hot per-position samples. "
-        "There was no concurrent training during final measurements. CPU scheduling/frequency and hot-cache effects remain; "
+        "six repeats and 20,000 calls per operation/repeat were used, after 50,000 warmup calls. "
+        "Final runs use one fixed logical CPU (affinity inherited by child processes), rotate architecture order and "
+        "alternate float/integer order. Values are medians across 72 hot per-position samples. "
+        "There was no concurrent training during final measurements. Frequency and hot-cache effects remain; "
         "this is not a search NPS benchmark.", "",
         "| Float operation (ns) | 32/16 | 64/32 | 128/32 |", "|---|---:|---:|---:|"]
     for metric in ("feature_ns", "copy_ns", "move_update_ns", "refresh_ns", "head_ns"):
@@ -202,6 +237,10 @@ def generate() -> None:
     lines += ["", "Move-update timings include state-feature handling and parent copying; the benchmark times the move-derived "
         "update, not a complete search node. The separately verified compact search path is not timed as a search workload. "
         "Full refresh is a root/fallback cost; it should not be charged at every node.", "",
+        "For a cost projection, if baseline head and move-update time fractions are `f_h` and `f_u`, "
+        "a first approximation is `T_candidate/T_baseline = 1 + f_h*(head_ratio-1) + f_u*(update_ratio-1)`, "
+        "holding the search tree and all other work fixed. These fractions must be measured in whole search; "
+        "a changed evaluator also changes the tree. No numerical NPS projection is asserted here.", "",
         "### Export parity and optional integer inference", "",
         "| Architecture | Float max CP error | Quant max CP error | Quant head ns | Quant update ns | Native frame bytes |",
         "|---|---:|---:|---:|---:|---:|"]
@@ -209,6 +248,9 @@ def generate() -> None:
         s, q = native[n]["kernels"]["scalar"], native[n]["kernels"]["quant"]
         lines.append(f"| {labels[n]} | {s['max_cp_error_vs_torch']:.6f} | {q['max_cp_error_vs_torch']:.6f} | "
                      f"{q['median_ns']['head_ns']:.1f} | {q['median_ns']['move_update_ns']:.1f} | {s['samples'][0]['accumulator_bytes']:,} |")
+    lines += ["", "The current integer head is slower than float by " + ", ".join(
+        f"{labels[n]}: {native[n]['kernels']['quant']['median_ns']['head_ns']/scalar[n]['head_ns']:.2f}×"
+        for n in names) + ". Retain float for the next native comparison; this integer implementation is not a speed win."]
     lines += ["", "Parity used the same 128 seeded validation FENs, including both sides to move; float tolerance 0.01 CP "
         "and experimental quantized tolerance 5 CP. The integer representation is derived separately with overflow bounds. "
         "Passing this small parity set does not establish full-distribution quantization quality or safe deployment.", "",
@@ -240,6 +282,7 @@ def generate() -> None:
         "`comparison.json`; native samples, build flags and source hashes are in `native-benchmark.json`. "
         "`validation-goldens.json` records validation-only benchmark provenance. `baseline-audit.json`, "
         "`pilot-health.json`, `phase-provenance.json` and `preservation-after.json` retain the investigation evidence. "
+        "`artifact-manifest.json` identifies all checkpoints, native outputs and normalized experiment sources. "
         "Native exports/binaries and logs are under `artifacts/native/{baseline,medium,large}/`. "
         "The export `payload_sha256` and full file hashes are recorded. No tournament or label-generation process was launched.", "",
         "From the training root in PowerShell:", "", "```powershell",

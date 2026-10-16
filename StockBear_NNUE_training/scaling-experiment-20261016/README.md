@@ -26,3 +26,20 @@ configuration, dataset or runtime. Keep source files unchanged during training.
 or the primary selection criterion. `last.pt` is resumable; `final.pt` is written
 only on completion. All checkpoints include explicit architecture metadata.
 Only train/validation arrays are verified or loaded; test arrays are never opened.
+
+Both runs have completed. The full results and checkpoint paths are in
+[the final report](../../NNUE_SCALING_EXPERIMENT_REPORT.md). To reproduce analysis
+after training (same working directory as above):
+
+```powershell
+.\.venv\Scripts\python.exe -m stockbear.scaling_analysis compare
+.\.venv\Scripts\python.exe -m stockbear.scaling_analysis native
+.\.venv\Scripts\python.exe -m stockbear.scaling_report
+```
+
+`native` builds separate benchmark binaries under `artifacts/native/`, checks
+incremental/parity behavior, then times all models on one fixed logical CPU with
+rotating model/kernel order. `retime` repeats only that timing stage using the
+existing verified binaries. The initial unpinned measurements are preserved in
+`native-benchmark-unpinned.json`; `native-benchmark.json` contains the final fixed
+affinity results. No engine replacement, search games or test evaluation occurs.

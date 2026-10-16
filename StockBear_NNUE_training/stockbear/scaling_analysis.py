@@ -33,7 +33,8 @@ def phase_metrics(prediction: np.ndarray, y: np.ndarray) -> dict:
             "sign_accuracy_abs_cp_ge_100": float(np.mean((prediction[decisive] > 0) == (teacher[decisive] > 0))) if decisive.any() else None}
 
 
-def paired_game_interval(prediction, baseline, y, repetitions=1000) -> dict:
+def paired_game_interval(prediction: np.ndarray, baseline: np.ndarray,
+                         y: np.ndarray, repetitions: int = 1000) -> dict:
     teacher = 1 / (1 + np.exp(-np.clip(y[:, 0].astype(np.float64), -2000, 2000) / 400))
     error = lambda p: (1 / (1 + np.exp(-np.clip(p / 400, -80, 80))) - teacher) ** 2
     difference = error(prediction) - error(baseline)
@@ -166,13 +167,18 @@ def validation_fens(directory: Path, count=128) -> list[dict]:
     return rows
 
 
-def native(build_only=False) -> dict:
+def native(build_only: bool = False) -> dict:
     """Compile unchanged production inference into separate development binaries."""
     import torch
     from .features import encode
     import chess
     cfg = json.loads((EXPERIMENT / "baseline.json").read_text(encoding="utf-8"))
     directory, _ = verify_dataset(cfg)
+    for name in ("baseline", "medium", "large"):
+        current = json.loads((EXPERIMENT / f"{name}.json").read_text(encoding="utf-8"))
+        receipt = ROOT / current["run"] / "training.json"
+        if not receipt.is_file() or not json.loads(receipt.read_text(encoding="utf-8"))["complete"]:
+            raise ValueError("Complete all controlled runs before freezing native exports")
     rows = validation_fens(directory)
     benchmark_rows = [row for phase in range(3) for row in [r for r in rows if r["phase"] == phase][:4]]
     if len(benchmark_rows) != 12:
@@ -215,33 +221,83 @@ def native(build_only=False) -> dict:
             tolerance = .01 if kernel == "scalar" else 5.
             if error.max() > tolerance:
                 raise AssertionError(f"Native {kernel} parity failed: {error.max()} cp")
-            samples = []
-            # Same 12 phase-balanced validation positions; hot per-position loops.
-            for repeat in range(5):
-                for index, row in enumerate(benchmark_rows):
-                    measurement = json.loads(subprocess.check_output(
-                        [str(binary), row["fen"], "20000", kernel], text=True))
-                    samples.append({"repeat": repeat, "position": index,
-                                    "validation_index": row["validation_index"], "phase": row["phase"], **measurement})
             results["kernels"][kernel] = {"accumulator_verification": verified, "compact_update_verification": compact,
                 "validation_golden_positions": len(rows), "max_cp_error_vs_torch": float(error.max()),
-                "mean_cp_error_vs_torch": float(error.mean()), "samples": samples,
-                "median_ns": {metric: float(np.median([s[metric] for s in samples])) for metric in
-                              ("feature_ns", "copy_ns", "update_ns", "move_update_ns", "refresh_ns", "head_ns")}}
+                "mean_cp_error_vs_torch": float(error.mean()), "samples": [], "median_ns": {}}
         all_results[name] = results
         atomic_json(EXPERIMENT / "native-benchmark.json", all_results)
-        print(json.dumps({"model": name, "kernels": {k: v["median_ns"] for k, v in results["kernels"].items()}}), flush=True)
-    return all_results
+        print(json.dumps({"model": name, "native_parity_passed": True}), flush=True)
+    return retime(all_results) if not build_only else all_results
 
 
-def main():
+def retime(results: dict | None = None) -> dict:
+    """Interleave already verified binaries on one logical CPU; no training runs."""
+    import ctypes
+    if os.name != "nt":
+        raise RuntimeError("This experiment's fixed-affinity protocol is Windows-specific")
+    if results is None:
+        results = json.loads((EXPERIMENT / "native-benchmark.json").read_text(encoding="utf-8"))
+    rows = json.loads((EXPERIMENT / "validation-goldens.json").read_text(encoding="utf-8"))
+    selected = [row for phase in range(3) for row in [r for r in rows if r["phase"] == phase][:4]]
+    if len(selected) != 12:
+        raise ValueError("Benchmark positions must contain four per phase")
+    api = ctypes.WinDLL("kernel32", use_last_error=True)
+    api.GetCurrentProcess.restype = ctypes.c_void_p
+    api.GetProcessAffinityMask.argtypes = [ctypes.c_void_p, ctypes.POINTER(ctypes.c_size_t), ctypes.POINTER(ctypes.c_size_t)]
+    api.SetProcessAffinityMask.argtypes = [ctypes.c_void_p, ctypes.c_size_t]
+    process = api.GetCurrentProcess()
+    original, system = ctypes.c_size_t(), ctypes.c_size_t()
+    if not api.GetProcessAffinityMask(process, ctypes.byref(original), ctypes.byref(system)):
+        raise ctypes.WinError(ctypes.get_last_error())
+    # Use the lowest allowed logical CPU; child processes inherit this affinity.
+    mask = original.value & -original.value
+    if not api.SetProcessAffinityMask(process, mask):
+        raise ctypes.WinError(ctypes.get_last_error())
+    try:
+        names = ("baseline", "medium", "large")
+        for name in names:
+            for kernel in ("scalar", "quant"):
+                results[name]["kernels"][kernel]["samples"] = []
+            binary = EXPERIMENT / "artifacts/native" / name / "micro.exe"
+            subprocess.check_output([str(binary), selected[0]["fen"], "50000", "scalar"], text=True)
+        for repeat in range(6):
+            order = names[repeat % 3:] + names[:repeat % 3]
+            for name in order:
+                binary = EXPERIMENT / "artifacts/native" / name / "micro.exe"
+                for kernel in (("scalar", "quant") if repeat % 2 == 0 else ("quant", "scalar")):
+                    for index, row in enumerate(selected):
+                        measurement = json.loads(subprocess.check_output(
+                            [str(binary), row["fen"], "20000", kernel], text=True))
+                        results[name]["kernels"][kernel]["samples"].append({
+                            "repeat": repeat, "position": index, "validation_index": row["validation_index"],
+                            "phase": row["phase"], **measurement})
+            print(json.dumps({"interleaved_timing_repeat": repeat + 1, "total": 6}), flush=True)
+        for name in names:
+            results[name]["timing_protocol"] = {"affinity_mask": mask, "repeats": 6,
+                "samples_per_kernel": 72, "calls_per_operation": 20000, "positions": 12,
+                "order": "Rotate architectures by repeat; alternate float/integer order; four validation FENs per phase",
+                "warmup_calls": 50000, "training_running": False}
+            for kernel in ("scalar", "quant"):
+                samples = results[name]["kernels"][kernel]["samples"]
+                results[name]["kernels"][kernel]["median_ns"] = {
+                    metric: float(np.median([s[metric] for s in samples])) for metric in
+                    ("feature_ns", "copy_ns", "update_ns", "move_update_ns", "refresh_ns", "head_ns")}
+        atomic_json(EXPERIMENT / "native-benchmark.json", results)
+        return results
+    finally:
+        api.SetProcessAffinityMask(process, original.value)
+
+
+def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=("compare", "native"))
+    parser.add_argument("action", choices=("compare", "native", "retime"))
     args = parser.parse_args()
     if args.action == "compare":
         compare()
-    else:
+    elif args.action == "native":
         native()
+    else:
+        retime()
 
 
 if __name__ == "__main__":

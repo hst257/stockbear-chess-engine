@@ -41,3 +41,4 @@ StockBear_NNUE_training/stockbear/scaling_*.py text eol=lf
 StockBear_NNUE_training/tests/test_scaling.py text eol=lf
 StockBear_NNUE_training/scaling-experiment-20261016/*.json text eol=lf
 StockBear_NNUE_training/scaling-experiment-20261016/*.md text eol=lf
+StockBear_NNUE_training/scaling-experiment-20261016/*.svg text eol=lf
