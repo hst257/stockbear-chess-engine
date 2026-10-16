@@ -69,9 +69,20 @@ runner and actual concurrency. `-ExecutionWorkers` is an execution override;
 The legacy resume path remains available. Fast resume refuses an incomplete
 ingestion or unplanned queue, and never rebuilds either.
 
+To try eight single-thread workers, use the same command with
+`-ExecutionWorkers 8`. An explicit override may use up to the reported logical
+CPU count, capped at eight workers and 4096 MiB total hash; the default remains
+conservative. Stop the old run with Ctrl+C before switching worker counts.
+The i5-13420H's bounded 48-position comparison measured 109.9/s with four workers
+and 136.5/s with eight (+24.3%), with identical labels. This short warm test does
+not establish sustained throughput or thermal behavior; use live ETA to judge.
+[Raw results and preservation checks](docs/labeling-workers-20261016.json).
+
 See the [measured throughput diagnosis](LABELING_THROUGHPUT_DIAGNOSIS.md) for
 the multi-million-row query bottleneck, preservation proof and bounded worker
 comparison. Its short-batch ETA is an estimate; live progress measures the actual run.
+That report's source manifest records the original fix at commit `76c539d`;
+the explicit eight-worker extension is identified as runtime version 2.
 
 Paths are discovered relative to the script, rather than this machine's username
 or drive letter. Defaults: local Stockfish, **16,384 nodes, 2 workers × 1 thread,

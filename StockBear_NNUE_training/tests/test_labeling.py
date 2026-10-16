@@ -389,8 +389,9 @@ def test_previous_pipeline_output_is_a_readonly_frozen_corpus(tmp_path):
         assert current.execute("SELECT count(*) FROM positions p JOIN previous.positions o ON p.id=o.id").fetchone()[0]==0
 
 
-def test_fast_runtime_preserves_signature_and_skips_completed(tmp_path):
+def test_fast_runtime_preserves_signature_and_skips_completed(tmp_path,monkeypatch):
     from stockbear.labeling_runtime import label_fast
+    monkeypatch.setattr("stockbear.labeling_runtime.os.cpu_count",lambda:12)
     cfg=dict(config(),threads=1,hash_mb=64)
     db,cfg,run,sources,aliases=fixture(tmp_path,cfg=cfg)
     with closing(db):
@@ -398,13 +399,32 @@ def test_fast_runtime_preserves_signature_and_skips_completed(tmp_path):
         signature=get_meta(db,"signature")
         with db: set_meta(db,"config",cfg)
         FakeWorkers.calls=0
-        result=label_fast(db,cfg,run,workers=4,worker_factory=FakeWorkers)
+        result=label_fast(db,cfg,run,workers=8,worker_factory=FakeWorkers)
         assert FakeWorkers.calls==counts(db)["positions"]
         assert result["execution"]["saved_workers"]==2
-        assert result["execution"]["execution_workers"]==4
+        assert result["execution"]["execution_workers"]==8
         assert get_meta(db,"config")==cfg and get_meta(db,"signature")==signature
-        label_fast(db,cfg,run,workers=4,worker_factory=FakeWorkers)
+        label_fast(db,cfg,run,workers=8,worker_factory=FakeWorkers)
         assert FakeWorkers.calls==counts(db)["positions"]
+
+
+def test_fast_worker_override_keeps_default_and_resource_limits(monkeypatch):
+    from stockbear.labeling_runtime import execution_workers
+    monkeypatch.setattr("stockbear.labeling_runtime.os.cpu_count",lambda:12)
+    cfg=dict(workers=2,threads=1,hash_mb=64)
+    assert execution_workers(cfg,None)==2
+    assert execution_workers(cfg,8)==8
+    with pytest.raises(ValueError,match="CPU threads"):
+        execution_workers(dict(cfg,workers=8),None)
+    with pytest.raises(ValueError,match="CPU threads"):
+        execution_workers(cfg,9)
+    with pytest.raises(ValueError,match="CPU threads"):
+        execution_workers(dict(cfg,threads=2),8)
+    with pytest.raises(ValueError,match="hash allocation"):
+        execution_workers(dict(cfg,hash_mb=1024),8)
+    monkeypatch.setattr("stockbear.labeling_runtime.os.cpu_count",lambda:4)
+    with pytest.raises(ValueError,match="CPU threads"):
+        execution_workers(cfg,8)
 
 
 def test_fast_keyset_retries_rows_behind_cursor(tmp_path):

@@ -31,8 +31,11 @@ READY_SQL = """SELECT p.id,p.fen,l.attempts,p.ordinal FROM positions p
 
 def execution_workers(cfg: dict, override: int | None) -> int:
     workers = cfg["workers"] if override is None else override
-    if not 1<=workers<=8 or workers*cfg["threads"]>max(1,(os.cpu_count() or 2)//2):
-        raise ValueError("Execution worker count exceeds the existing conservative CPU cap")
+    cpu_threads = os.cpu_count() or 2
+    # Explicit execution overrides may use the logical CPUs; defaults stay conservative.
+    cpu_budget = cpu_threads if override is not None else max(1,cpu_threads//2)
+    if not 1<=workers<=8 or workers*cfg["threads"]>cpu_budget:
+        raise ValueError(f"Execution workers exceed {cpu_budget} CPU threads or the 8-worker cap")
     if workers*cfg["hash_mb"]>4096:
         raise ValueError("Execution hash allocation exceeds 4096 MiB")
     return workers
@@ -49,7 +52,7 @@ def require_planned(db: sqlite3.Connection, cfg: dict, aliases: list[str]) -> No
 
 
 def runtime_identity(cfg: dict, workers: int, signature: dict | None) -> dict:
-    return {"runner":"stockbear.labeling_runtime","version":1,
+    return {"runner":"stockbear.labeling_runtime","version":2,
         "source_lf_sha256":hashlib.sha256(Path(__file__).read_bytes().replace(b"\r\n",b"\n")).hexdigest(),
         "saved_signature_sha256":hashlib.sha256(json.dumps(signature,sort_keys=True).encode()).hexdigest(),
         "saved_workers":cfg["workers"],"execution_workers":workers,"threads_each":cfg["threads"],

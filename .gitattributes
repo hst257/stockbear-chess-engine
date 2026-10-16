@@ -32,4 +32,5 @@ StockBear_NNUE_training/reports/v3/source-*/*.py text eol=lf
 StockBear_NNUE_training/reports/v3/*.json text eol=lf
 StockBear_NNUE_training/reports/v3/*.log text eol=lf
 docs/labeling-performance/*.json text eol=lf
+docs/labeling-workers-*.json text eol=lf
 LABELING_THROUGHPUT_DIAGNOSIS.md text eol=lf
