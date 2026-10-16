@@ -1,0 +1,759 @@
+{
+  "bounded_test": "smoke-32-20261016",
+  "engine_code_changed": false,
+  "full_run_started": false,
+  "native_commands_checked": [
+    "PowerShell run -DryRun -Limit 32",
+    "run -Resume",
+    "status",
+    "prepare -Features v3-bucket16"
+  ],
+  "new_positions": 32,
+  "nnue_training_started": false,
+  "reference_position_analyses": 8,
+  "resume_new_labels": 0,
+  "source_signature": {
+    "code": {
+      "common.py": "565d4c71a21fd54eb4b03b63afc6bff8e5d59b3bff3b1961f19bcbe396ff7ab2",
+      "features.py": "3a65d4eba587054e1518a1e5cf87d08418ab8e93f88a461496442ff517262329",
+      "labeling/__init__.py": "5c55f925a4a5e8603c28dc53a805bfc85bab2dd02e542af81f015b765bc15105",
+      "labeling/__main__.py": "1de60588d251fa5d550ebb9d6eecc3e8a7bd2c4a932f3aeb149f6e00c146141e",
+      "labeling/ingest.py": "cbe59e90dbf084b54d8d5cf658650543f0ad50ba74ec2a619b6880acab1f9ef3",
+      "labeling/output.py": "23e83aeefad5beb1f8bd7ac59477baee18f10203ad8fc2cc0e7c25b308f7e077",
+      "labeling/storage.py": "afbd066bd10d1a97c2d0ed1560be02868a2d344acf02411f6c676d8645c1cd2f",
+      "labeling/teacher.py": "8520f9fa3fa50d095e834619f977b642d50936a326e37a65f4eb402e536d02aa",
+      "sample.py": "18788ee5b680c62aadd32890eb6b07881262395d2a47399962bd818d8395dd2e",
+      "v2/data.py": "ee938ad72b3aeca7ff030d496d819f2d8df757dd07ece4b003a13b538c5ed094",
+      "v3/features.py": "1d930ba94f788da54990ec443d3db202e717faf2d3746998fd075354c1e81fe5"
+    },
+    "config": {
+      "dry_run": true,
+      "encoding": "utf-8-sig",
+      "existing_corpus": [
+        "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\processed\\full.sqlite",
+        "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\v2\\pool.sqlite"
+      ],
+      "hash_mb": 64,
+      "input": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data",
+      "limit": 32,
+      "max_attempts": 3,
+      "max_ply": 240,
+      "min_ply": 16,
+      "nodes": 16384,
+      "ply_gap": 4,
+      "positions_per_game": 16,
+      "prefix_plies": 20,
+      "progress_seconds": 10.0,
+      "seed": 20261015,
+      "stockfish": "Z:\\Code\\Chess\\StockBear_NNUE_training\\stockfish-windows-x86-64-universal\\stockfish\\stockfish-windows-x86-64-universal.exe",
+      "threads": 1,
+      "timeout": 30.0,
+      "workers": 2
+    },
+    "existing_corpora": [
+      {
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\processed\\full.sqlite",
+        "sha256": "47c9b7761813b711deb5ff77f7ff06b45f2b270f1bd464b3066b8a63f5cdb320",
+        "wal_sha256": null
+      },
+      {
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\v2\\pool.sqlite",
+        "sha256": "65c6f174a111eb6fd424baa367a0187bd241f2682dd83e8db1637efffe5401e9",
+        "wal_sha256": null
+      }
+    ],
+    "runtime": {
+      "chess": "1.11.2",
+      "numpy": "2.2.6",
+      "python": "3.11.8",
+      "zstandard": "0.23.0"
+    },
+    "sources": [
+      {
+        "bytes": 612,
+        "id": "8e16b8e26a0811336f787795da55383a331f0ba04c9d1864f1d7d59f3e131dd9",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\ct-Almeida Quintana, Omar-Miranda Camus, Joaquin Ignacio-III Temuco Open 2026-6.5-2026-01-12.pgn",
+        "relative": "ct-Almeida Quintana, Omar-Miranda Camus, Joaquin Ignacio-III Temuco Open 2026-6.5-2026-01-12.pgn",
+        "sha256": "cc41ac3fc041a930d6be75b37acdc77c60c871a95e6edbf002fbd3b29f343966"
+      },
+      {
+        "bytes": 38040,
+        "id": "611683a2076b40ec207a022dd6b83c11347e02158602bbc662fcd8b9142559f2",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (1).pgn",
+        "relative": "master_games (1).pgn",
+        "sha256": "957f8d5d8580d7a7ba8117ea433a8f36d3fb8033de3fbb7aaa20c35c600571c0"
+      },
+      {
+        "bytes": 62747,
+        "id": "db09a66c4fd9abe96636fa12aaeb3600910275f1f7a129935621b165512aad18",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (10).pgn",
+        "relative": "master_games (10).pgn",
+        "sha256": "9ae7c68e0f3f9f2fdb2a80b9ce9146dfc10406496d77d973f38911eaa42d6744"
+      },
+      {
+        "bytes": 69456,
+        "id": "0664793d2a36d4dee9b1298c6444cb3cacc3a41679f6975c508b88d90c52f894",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (11).pgn",
+        "relative": "master_games (11).pgn",
+        "sha256": "d89fba68c9be04290df4dce236aba9e1f176d0413115036f7b53239aead258a8"
+      },
+      {
+        "bytes": 59565,
+        "id": "509a7f79c60e73415802495d169bf304e20c1b9f81f998106d91be5f4d99ddcd",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (12).pgn",
+        "relative": "master_games (12).pgn",
+        "sha256": "e6de5f7f51bae7ee26675fde7e18d58ca46c850cf95d250e3a98f94e3d3f68f8"
+      },
+      {
+        "bytes": 57979,
+        "id": "85331885dbb0a68ac88e780e5bcda72a70c87029c04ae7ce54e81e45abfbdae9",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (13).pgn",
+        "relative": "master_games (13).pgn",
+        "sha256": "35f6c4d09bcebe1158c6de7bf5c85e6c1120a7df6faecfffc8a6430b3b375208"
+      },
+      {
+        "bytes": 54255,
+        "id": "4b1da73086b43ab8365c3105c65ac59a311cfb7cff090b0af96458f80999a99f",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (14).pgn",
+        "relative": "master_games (14).pgn",
+        "sha256": "2847c05722fe995af8c88cc318eedd72f90615f35398492b7095c270701ad6d4"
+      },
+      {
+        "bytes": 59605,
+        "id": "1c29c83a77e6fecacae3aefa1fa40d42cad6e6bcedea07fb984a0c86d76a11c2",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (15).pgn",
+        "relative": "master_games (15).pgn",
+        "sha256": "085bb84124e4d8208e75c7e64c3d7ebe3a17f1812526ed99fabd17337371d2db"
+      },
+      {
+        "bytes": 71382,
+        "id": "440b7e967b4d6fe21b1277b7a9b7fbb381d2201358ba1a7f80a0fdd428da8206",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (16).pgn",
+        "relative": "master_games (16).pgn",
+        "sha256": "05b0c82878589cc2fa543ba4b30629b6f91a2ee5f50acd589131f86db1d1d98b"
+      },
+      {
+        "bytes": 78975,
+        "id": "dd59894df4eaf6884ca17c28ee117e49feb6719136de659135df953498fe5858",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (17).pgn",
+        "relative": "master_games (17).pgn",
+        "sha256": "f1306f1db862d54975737ba497beb8f3b9e7ce59ba6d638db5bbdcbc520b72b2"
+      },
+      {
+        "bytes": 72568,
+        "id": "f77ec819814e818969e5b365db2b655abd7689b89761b837d4c545dbcf67e08c",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (18).pgn",
+        "relative": "master_games (18).pgn",
+        "sha256": "6ecbe21d9b1c7f769efe57ac6b6cacc20d4b9f438da6e31351882e8bbe4598fc"
+      },
+      {
+        "bytes": 70666,
+        "id": "276bec47bd3e58cb1e0af75b6288547e07a27ef0463e809b769cfe1d45f0a938",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (19).pgn",
+        "relative": "master_games (19).pgn",
+        "sha256": "fe6d22615aef3d3ccfc39852dc37d275f59a9c7dd7fca5dbc255774510b651fd"
+      },
+      {
+        "bytes": 19719,
+        "id": "8ad21d4a5404a1d967a3aca015cc69b2a0b96b2c593b29c4047800315d31a5f7",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (2).pgn",
+        "relative": "master_games (2).pgn",
+        "sha256": "ad121720dce02f4e65d4138455b4449c1c8b76e455d2a792666f3d57632a752e"
+      },
+      {
+        "bytes": 70172,
+        "id": "cf0b4a0819f9be5a209b94a93b0a8c701cbcae81f42b822747ecf4c91d6eca01",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (20).pgn",
+        "relative": "master_games (20).pgn",
+        "sha256": "074ec330d366c1678918d766074b2ee48366c0ee9dba4264377c7f4b3f45d4d7"
+      },
+      {
+        "bytes": 63205,
+        "id": "ebb990dc550cde8982680af24bc2d1edf3e63745f15ebf525c8fb0a20f00ccea",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (21).pgn",
+        "relative": "master_games (21).pgn",
+        "sha256": "d7a59d5e0a0085ea2494377fa7f952b10aab087c4b47c9e8498baa31f5c8cc6c"
+      },
+      {
+        "bytes": 63316,
+        "id": "e877c709cc29a6a990f3f65d87bd91bca853a3f1ccfe2b9849fd25e48609619c",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (22).pgn",
+        "relative": "master_games (22).pgn",
+        "sha256": "6262bea7037e514af456e67a8d167508996e6f44ae9b15f6f9c2f37136ea9ede"
+      },
+      {
+        "bytes": 61780,
+        "id": "5dc0a5fb8ecca79b61c8d08d611476af3227fa77f2425878802f129bfe828f88",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (23).pgn",
+        "relative": "master_games (23).pgn",
+        "sha256": "87c4e975ef6cd12d077cd14379d1ee6dcfcaaa4e7d75fb738e4a1ecb87d45f4b"
+      },
+      {
+        "bytes": 63403,
+        "id": "ae4ec42ba2b9e58981199d71601e84a5ca980e9bb4abb601c6f5f39972423bf0",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (24).pgn",
+        "relative": "master_games (24).pgn",
+        "sha256": "d3d99f70f1da70476c540f4732555a5acbf1f69259eb9b4166dc20e2374911d4"
+      },
+      {
+        "bytes": 58943,
+        "id": "2b2f53de2a6380103b708f1f03d1172d8527da9157b719ddf0d9f2883b97e8f4",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (25).pgn",
+        "relative": "master_games (25).pgn",
+        "sha256": "d8049318872cd7f0be20a5547739c76cde503febb51ff649226c7bd518181632"
+      },
+      {
+        "bytes": 88825,
+        "id": "ef346127bdca45f88e5314bc047b03d104c31ee3cc32019263e35b99ba0fdfe6",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (26).pgn",
+        "relative": "master_games (26).pgn",
+        "sha256": "e7ad29e84b68766f40ee3f0b7b899f00b9b6a66344751f0136f625ab5ac0312e"
+      },
+      {
+        "bytes": 67809,
+        "id": "d8ec8950881f63f888c727cbdad0aad7ca051c71ebd36b5a33f722f1e23e3ba3",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (27).pgn",
+        "relative": "master_games (27).pgn",
+        "sha256": "65474ade7e5d718898b96a0dbdacf92591dfc0b82414e768a61022c2e08c54db"
+      },
+      {
+        "bytes": 48937,
+        "id": "c8c9d74886c6ae045b0c96e04dd49c849b9cef77fc9bd13a056e93a1cfc4ca6a",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (28).pgn",
+        "relative": "master_games (28).pgn",
+        "sha256": "b4d1dc12fc45226d7d19eaeed7a9ac7805883e11584acc63bb448dd5edb8a20a"
+      },
+      {
+        "bytes": 61132,
+        "id": "49b595637b9e8bb13caf14ba03a6199a8e81338394e64d07396c9f3c35ba9b2c",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (29).pgn",
+        "relative": "master_games (29).pgn",
+        "sha256": "ec9f078ee39fd0c6193c809b395e1ec775ec95dc30859e9d5b56635b959ff094"
+      },
+      {
+        "bytes": 21278,
+        "id": "93004a5e61b6ba7202a28878ffd118d34b21505265109e8b64639e27fe31455e",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (3).pgn",
+        "relative": "master_games (3).pgn",
+        "sha256": "eb67d1ced256e4e59401665862607cdab09750ea3ea2c0f9d43a64f1b175c3af"
+      },
+      {
+        "bytes": 63371,
+        "id": "080a442a7c912396ed8c5722139fcf292ef6ba42cd08a60604fcff5e9e26e879",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (30).pgn",
+        "relative": "master_games (30).pgn",
+        "sha256": "3f0c34e849a34953e5030c95517dcded453e5eef534647bea03118f24272bb4b"
+      },
+      {
+        "bytes": 62371,
+        "id": "3ab9f501b5614e7710a0b1c56522dea7983fdb8d9139aec3ba138828ebecde76",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (31).pgn",
+        "relative": "master_games (31).pgn",
+        "sha256": "df266b85ee1fc2aec2c82540785dfbd0f6a2a48561d7155a859dd4d807fa3f61"
+      },
+      {
+        "bytes": 70144,
+        "id": "91a6a6ec21c46a69c3e043e8269bafe98a244811ff8b2eae3a2df1dabc7ba983",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (32).pgn",
+        "relative": "master_games (32).pgn",
+        "sha256": "6ad3c4b2b784a5307b91e15318d920e5d4492515c0352fd2f78f1c242df689bd"
+      },
+      {
+        "bytes": 72693,
+        "id": "643a050f874ca2b32f9039252e957e8f3ec89470bd34ea8ddd865073a8fb6cac",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (33).pgn",
+        "relative": "master_games (33).pgn",
+        "sha256": "eae26bc6905c84f8825480645909e17ff3a10ee16eb9c0637de433a8d89eb9e5"
+      },
+      {
+        "bytes": 68621,
+        "id": "7de775e02f2bfc08d6597c7dc1d30b3fde8a6177ecc6c237c665cb7011980a5d",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (34).pgn",
+        "relative": "master_games (34).pgn",
+        "sha256": "e38740ba835b9506e7936de4134a2eb08805fcd03c7f99629d1fe9c8da867a86"
+      },
+      {
+        "bytes": 69034,
+        "id": "03c982970e0d802b16234aa59d87c6ce6c7f66d701dcb17461095cf9ba4f6d74",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (35).pgn",
+        "relative": "master_games (35).pgn",
+        "sha256": "c9e941889dc2b6da752438dbb18179b70ead0247eaca2056227234606cf07dbe"
+      },
+      {
+        "bytes": 64315,
+        "id": "9632c040980d575051b79aa2504c2b8686914638f0920760a6bc378b8bc1b78f",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (36).pgn",
+        "relative": "master_games (36).pgn",
+        "sha256": "92bc0a6cb9345109bc767e6e3516c4197532fab7f1411c9a7ba2c913723e13cc"
+      },
+      {
+        "bytes": 63178,
+        "id": "704e5b5e876c8a81f3783f966a298f2d57c42547112fb3a103bba1d2699b00b2",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (37).pgn",
+        "relative": "master_games (37).pgn",
+        "sha256": "e0eff4312be510b4ca5985565254b712ab78937b4a2a0f8c14a58579e4f11915"
+      },
+      {
+        "bytes": 67327,
+        "id": "bf3ae9afa3543a9a3511e77a89a61b31f8ba2997449bbb437c37146e50f462eb",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (38).pgn",
+        "relative": "master_games (38).pgn",
+        "sha256": "0a65de518f2e4a2ff0fd10bd78794386d1d37d7999d923bff3a85b3d2f498e88"
+      },
+      {
+        "bytes": 53316,
+        "id": "eb400f9ad93d572a0a7f4be52f3db87da55f4049d5e7c2c8997d954c10d4fd6f",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (39).pgn",
+        "relative": "master_games (39).pgn",
+        "sha256": "8a94df27b9545aa9a78a0f08dfd84581ad94e282418792d7b724b224a8089536"
+      },
+      {
+        "bytes": 20235,
+        "id": "e86060a4008b684e28069d8b390a976f167e9ab08bce7bc1c30aa878716037dd",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (4).pgn",
+        "relative": "master_games (4).pgn",
+        "sha256": "ac4308a6cea5e0657aaf203834bfc317fb1917c20f99548aaef7c8c00fe45c90"
+      },
+      {
+        "bytes": 55595,
+        "id": "33cee7983a830dc8c3a411e6e30aa258499a914a6aaf205e734fd232e36a4d9d",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (40).pgn",
+        "relative": "master_games (40).pgn",
+        "sha256": "5534bb74352a7af6d6d6e9963765e9326142cd479a2f404b6ffd51066726d216"
+      },
+      {
+        "bytes": 58789,
+        "id": "9a11c587b2016a3baa6442b9c6d97ca23cf21d5bacd692d068ad3d73d2424b10",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (41).pgn",
+        "relative": "master_games (41).pgn",
+        "sha256": "bf529c778956e09cb975e667f3d3233078154825fce0b03e841022e1ff557ba4"
+      },
+      {
+        "bytes": 66260,
+        "id": "57697742638cc46d3bed05994292c97268544b2db28cdcfa05c83fbdd9e9b8cf",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (42).pgn",
+        "relative": "master_games (42).pgn",
+        "sha256": "6110e31badf52b6b4447c9f6cef40b30eb2f5fe8f366c5e8fd9f0f10f702b7f2"
+      },
+      {
+        "bytes": 60414,
+        "id": "90eedda6d51f6e0fd6b1889a3f5ef7be7a41d72dad641d300f27edd30ef29727",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (43).pgn",
+        "relative": "master_games (43).pgn",
+        "sha256": "d5d59a6bb9ed3f4c9b1391317e08f77fd3e316ab8b83957fce8f7241ce5e28cb"
+      },
+      {
+        "bytes": 59305,
+        "id": "c56a15c684a31dac9ee073dd72892fece6bb0a1c03121b34525087c9db3bd32c",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (44).pgn",
+        "relative": "master_games (44).pgn",
+        "sha256": "c5c2c36dac88557ab130b4a347e7965376e3bfc8fc84265d2c113fec02c10735"
+      },
+      {
+        "bytes": 58168,
+        "id": "7589a50618097dd41f9935b5f06fb06371225a675a0d2f0b38b4c87d5f3c7433",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (45).pgn",
+        "relative": "master_games (45).pgn",
+        "sha256": "a873ba44e346d14a0711625421dccbbb160d221fb12c7e48c68e609e8d00d822"
+      },
+      {
+        "bytes": 60845,
+        "id": "7e934659a1c6b7523b9a23b6b9359ab51a83826f7d7b86db231c0b8dd36303cd",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (46).pgn",
+        "relative": "master_games (46).pgn",
+        "sha256": "01831d1da8680493f8ffb05c9c84af766c307596b2d04021fc671def0a9adad7"
+      },
+      {
+        "bytes": 64004,
+        "id": "e7b90e9f2c87d7cadc05ddbeb2a9043fbc538e4f19aad7d1fbacac2cf8b593d3",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (47).pgn",
+        "relative": "master_games (47).pgn",
+        "sha256": "4c84b0410de8544fdc3d6e9517c1c597007e7c63c8ca9f30c30485e100c281b6"
+      },
+      {
+        "bytes": 64382,
+        "id": "b83e34ce49cd55e394dd935b17825e46be8d7a01ae61089caff8abd629893a7c",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (48).pgn",
+        "relative": "master_games (48).pgn",
+        "sha256": "6e6011bcf27ad44584ef71dd90075b5630ecd680740702d753e7a7ea88d97a91"
+      },
+      {
+        "bytes": 59389,
+        "id": "4145c6f2de263c93246aa574371de076fa2113e275f2ac6e4d55b00dbce1db1c",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (49).pgn",
+        "relative": "master_games (49).pgn",
+        "sha256": "93a6e853d250c64c733623b610c6e8181e1fff21b66430d5d89fe6acf41d9d8a"
+      },
+      {
+        "bytes": 21790,
+        "id": "ba9299740a37afd0c481cadc6f3349af0c1a705249fa6cb16f04e6eca3343272",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (5).pgn",
+        "relative": "master_games (5).pgn",
+        "sha256": "5d140f82c95cbf0b518b691193c4624f9d8de2d59421dd9f759a16715978edb8"
+      },
+      {
+        "bytes": 51598,
+        "id": "87bd7962aefcf83043dd7eb95aadc4bc4e0f90ecad5a66bbccb3a2c188df3141",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (50).pgn",
+        "relative": "master_games (50).pgn",
+        "sha256": "270adf27fc208db31003d6e485f754ea74868aba40e21b795443ab9b20db18cd"
+      },
+      {
+        "bytes": 62795,
+        "id": "f7d2ab16df019fa6eca1a1f1f25aff08a65ab19e06e6816f3d4d741fffb60311",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (51).pgn",
+        "relative": "master_games (51).pgn",
+        "sha256": "bccc1d97bb593b221bebc68c03a5ff43b6a948dc3b26fd60c9d6836ece21fc9d"
+      },
+      {
+        "bytes": 58021,
+        "id": "ed9c83297e9542ea88b2f10ad4b67cc0f1477a478d9af563add4eda94c55d328",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (52).pgn",
+        "relative": "master_games (52).pgn",
+        "sha256": "f0c7e39719971bd0e3b0170c9ff59057e5c56ec792e5c12bd77ae83e8a034a09"
+      },
+      {
+        "bytes": 66609,
+        "id": "35459dd34093fdc50316a2575f4ef6264755853f9e17808b3f4559639f40d5d0",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (53).pgn",
+        "relative": "master_games (53).pgn",
+        "sha256": "a8b308768b8d2abf8fe6a66847bb2fcc4af7cde9b33de00c2f2716e403e3bdd8"
+      },
+      {
+        "bytes": 65942,
+        "id": "a318ee48c35a774472db4771b7744449ffdfbbdbaab6e4a8715af0518ba856ec",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (54).pgn",
+        "relative": "master_games (54).pgn",
+        "sha256": "81ae128a737353be34b8a52e2eaba5b96dbcd8a5caec83f0d38cfa0a9a2a747e"
+      },
+      {
+        "bytes": 68294,
+        "id": "1d39ac51ebf32ca2c25f9dfaceda2836399f30f2c961035493c5437b0ef9778e",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (55).pgn",
+        "relative": "master_games (55).pgn",
+        "sha256": "fb6d009e2521db94984fd022fc6647353bb83b5e01a4fa920a0030fa4b81627c"
+      },
+      {
+        "bytes": 63058,
+        "id": "05b13ff3043d707ea632f420d4a1f98aa046dbfaf4adca59ccd52e9e30feb3cd",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (56).pgn",
+        "relative": "master_games (56).pgn",
+        "sha256": "c8855e897b8417e6053beda79325c78b3e2479fda953f65d9479e62b203bc6ca"
+      },
+      {
+        "bytes": 66797,
+        "id": "e6371576765a7ea4b64254dcb0540e1bdb88bd1fd4391d7c5fe2f45ee8cce854",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (57).pgn",
+        "relative": "master_games (57).pgn",
+        "sha256": "42d03182e3f71299c09a1c7d1bf261de2c58a8d545fed578a5e5880f9299ed49"
+      },
+      {
+        "bytes": 58522,
+        "id": "fd7404ade1674a996de19f63c4836292eaa35db680101c91fc9c1fd9af127545",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (58).pgn",
+        "relative": "master_games (58).pgn",
+        "sha256": "90dca77098a9cd33fb6ca8dd4dd17d6ac733d7fbd98d40e72ecab78c70f45d59"
+      },
+      {
+        "bytes": 62368,
+        "id": "33e37ab717b1421774167d5414b9764305ee52643e0de49883d0890f2004a8f9",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (59).pgn",
+        "relative": "master_games (59).pgn",
+        "sha256": "8d296e51abd66e38a1657ef6bae54ec03ee868288b6210d996ab1eeaa805644f"
+      },
+      {
+        "bytes": 20620,
+        "id": "6bce1b0dfefe271a4bbc26f0cdb5960bc05850e886d19b4459b624846beb59bc",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (6).pgn",
+        "relative": "master_games (6).pgn",
+        "sha256": "a2db836b9bc569398c26e82e20bc4cfe1445a9c513568a30f1c1bdf430b36b95"
+      },
+      {
+        "bytes": 68559,
+        "id": "86ac1d6c421364b166af3d8f866b3eda5bf72ffcbe3eec16be051ebe51ee01b2",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (60).pgn",
+        "relative": "master_games (60).pgn",
+        "sha256": "82c872c4fe22e4e6abfd3ccaa082af9c7e3fd9b207a49f32ecf4a1acfc1f64ab"
+      },
+      {
+        "bytes": 64149,
+        "id": "7cb50d46b4101c642a2f2655a6707e72080009e32d60700eaa6e4266f96ba05a",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (61).pgn",
+        "relative": "master_games (61).pgn",
+        "sha256": "9378aff5cdf0f6e82fbee44133305a9df33f06cdebefbe99ac772d97b3214da6"
+      },
+      {
+        "bytes": 69750,
+        "id": "a49ffa510a27643c32565d129169568e40c55861d48ac7b028e8911faa106717",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (62).pgn",
+        "relative": "master_games (62).pgn",
+        "sha256": "e417439ac1c002e772f9f196039b33adae07bbb954ec9538f22f41b0ddb37eb7"
+      },
+      {
+        "bytes": 20583,
+        "id": "f92f9687147eccfaf2ea17a2d59237d1b0ba67693571ba2140725556735d5ae6",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (63).pgn",
+        "relative": "master_games (63).pgn",
+        "sha256": "56d664368dd5c393e094899d6cdb7e2bc602735da63a83b6b114915f59c262f7"
+      },
+      {
+        "bytes": 68892,
+        "id": "b1dcac625862b12f3887a09c6c3233a9fe0bfa2e744157cf5c4d4531998bf272",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (64).pgn",
+        "relative": "master_games (64).pgn",
+        "sha256": "4799ab310432e3d937cdc5d9ffa95735d69758ec220025e0905823fcdd5d54ab"
+      },
+      {
+        "bytes": 65781,
+        "id": "b6940f362ff3d090a5197fb2666245084a08b654d138809d5ddbccb1ac94fb28",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (65).pgn",
+        "relative": "master_games (65).pgn",
+        "sha256": "eef5145172e23633dbb37d8ffd698f10b2033d14e85988e4b2210c2d2aae82f4"
+      },
+      {
+        "bytes": 64812,
+        "id": "4ee17626fe7e3f40adddd2805677f8318a7530a66d0ed817fbad651913701098",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (66).pgn",
+        "relative": "master_games (66).pgn",
+        "sha256": "2cd96d6acb152ecc99041a917dec35faac3dff1493e604aa05a2ed4cdb6e9406"
+      },
+      {
+        "bytes": 59793,
+        "id": "747085dc6bfb444c1d72962aa9bec85f08796bcfcce7b1ab7d313c26173721ef",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (67).pgn",
+        "relative": "master_games (67).pgn",
+        "sha256": "504bc5dab981fc4f739ccf91004903553f83350d1a0b87604af4e926d5212fd8"
+      },
+      {
+        "bytes": 56000,
+        "id": "d7b8c2d7264fd69ff8936973c31584c2e93e2f9e46da8a8d0fa6338756a672cc",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (68).pgn",
+        "relative": "master_games (68).pgn",
+        "sha256": "c1e327cb155dd2f19cd667d397e73e4bd88d3637924e1ef73b608b0b89be464d"
+      },
+      {
+        "bytes": 69564,
+        "id": "1387f260dc775074c20dffe6e1c9dd213a828f331d1ec7b3d7cab53661def968",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (69).pgn",
+        "relative": "master_games (69).pgn",
+        "sha256": "516798fac49314b8033c7e0e0b8e2e78342f4b422837fdc396c7973105402e76"
+      },
+      {
+        "bytes": 14907,
+        "id": "cb53ce1fd2e990b18d83b3fd6b1008cd94d6bda5caf9f8e16d725e80a5bf0c52",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (7).pgn",
+        "relative": "master_games (7).pgn",
+        "sha256": "8b0da9ec9d1ad12f193e281b8c65a2dedadf74ea4f198ee7e44d28db3dde03a0"
+      },
+      {
+        "bytes": 16171,
+        "id": "b0214760c95f410444e08526fbfb5e6d9a155d91c0e00c72683729da44023774",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (8).pgn",
+        "relative": "master_games (8).pgn",
+        "sha256": "bb92194caadc8b2f4837332d817b0d36f1e01126b65be9fc4bf0c7a524caa525"
+      },
+      {
+        "bytes": 17676,
+        "id": "28da0337fe6790180e13568d99c483b3627df96dc3969b684b5fba596f59a1a3",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games (9).pgn",
+        "relative": "master_games (9).pgn",
+        "sha256": "fa60cd1615d5f8c1474c71d33128018fa3ee7f19cb8302a214b946456064870b"
+      },
+      {
+        "bytes": 38888,
+        "id": "28edf839babc6bf644852a554e9d9a8d5a680af5d9102b086b33f6d800a9eb68",
+        "member": null,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\raw\\new_data\\master_games.pgn",
+        "relative": "master_games.pgn",
+        "sha256": "078c5c539642be71e22dd54012d80662cfcaf930f94fc49e19127bea8af41297"
+      }
+    ],
+    "teacher_sha256": "45bc8e4969147db9c2eb533810637994619bff0eacc81ccfd9854394901bcbd0",
+    "version": 1
+  },
+  "teacher_compatibility": {
+    "additional_reference_positions": 8,
+    "exact_original_label_searches": [
+      {
+        "cp": 546,
+        "depth": 14,
+        "id": "34c04c7346729075fc0f3be032d1b5314f9784341e481b4c9544db9f966388ef",
+        "identical": true,
+        "mate": null,
+        "nodes": 16405
+      },
+      {
+        "cp": 61,
+        "depth": 12,
+        "id": "f863bd9b94336537755a0778a38a78e644ea5edb36c3c69dafd5ca6eaabf3c1d",
+        "identical": true,
+        "mate": null,
+        "nodes": 16396
+      },
+      {
+        "cp": -150,
+        "depth": 14,
+        "id": "c409a6d974d9c14625422bb97c2a15adb6088eae29b9c2561370757bc9a14e41",
+        "identical": true,
+        "mate": null,
+        "nodes": 16389
+      },
+      {
+        "cp": -32,
+        "depth": 10,
+        "id": "3e58fea28aa23a0baadd12f80e9439bc1ddd602b35f403cb8d655ab621165c42",
+        "identical": true,
+        "mate": null,
+        "nodes": 16396
+      },
+      {
+        "cp": 0,
+        "depth": 28,
+        "id": "21cd452e586951993cdad5c791cad12be8ea8fc56e7e7c9f13ca73f28ac830d0",
+        "identical": true,
+        "mate": null,
+        "nodes": 16387
+      },
+      {
+        "cp": 665,
+        "depth": 15,
+        "id": "28d87096ff9dc3e6e3c42e91ecf32239fc8f999460a5e7a71e75920e9cdbd878",
+        "identical": true,
+        "mate": null,
+        "nodes": 16387
+      },
+      {
+        "cp": -389,
+        "depth": 13,
+        "id": "dec88858dc12abe184e8a62d15a4a0435707a3c0e8a0297b229f0c9c5164c548",
+        "identical": true,
+        "mate": null,
+        "nodes": 16393
+      },
+      {
+        "cp": -114,
+        "depth": 11,
+        "id": "5757b8e1051595c48e2b610239408b4561cd4829b3354d63a1def60f17adbf13",
+        "identical": true,
+        "mate": null,
+        "nodes": 16396
+      }
+    ],
+    "new_positions_labeled": 32,
+    "profile_id": "ddc2b43b123677466a9a9f8478f67ffc028a6582266a73e36a3272bc85b30f92",
+    "total_real_position_analyses": 40
+  },
+  "tests": "19 passed in 2.76s; fake teachers only, including a real hard kill of a fake-worker subprocess",
+  "total_real_position_analyses": 40,
+  "validation": {
+    "all_fens_and_labels_checked": true,
+    "attempts": 32,
+    "complete": true,
+    "completed": 32,
+    "cp_max": 1067,
+    "cp_min": -744,
+    "errors": 4,
+    "failed": 0,
+    "fingerprint": "7f6cc64c6947d1591cd00a8be41491bfe71a9b12eb3d61e161ef6f9e7394e4b9",
+    "games": 1747,
+    "grouped_splits_disjoint": true,
+    "mate_labels": 0,
+    "original_corpus_overlap": 0,
+    "pending": 0,
+    "positions": 32,
+    "profile_id": "ddc2b43b123677466a9a9f8478f67ffc028a6582266a73e36a3272bc85b30f92",
+    "remaining": 0,
+    "sampling": {
+      "conflicting_outcome_positions_excluded": 49,
+      "existing_positions_excluded": 320,
+      "families": 1474,
+      "near_duplicate_policy": "Legacy header identity; complete move hash; normalized same-player/day or 20-ply prefix; >=3 uncommon shared sampled FENs after ply24. Frozen anchors by header/moves or >=2 late sampled matches to one old game. Conflicting anchors quarantine the family. Not a proof against arbitrary semantic similarity.",
+      "observations": 24304,
+      "quarantined_families": 1,
+      "selected_positions": 32,
+      "splits": {
+        "test": 6,
+        "train": 26
+      },
+      "unique_sampled_positions": 24017
+    },
+    "sources_complete": 71,
+    "sources_total": 71,
+    "splits": {
+      "test": 6,
+      "train": 26
+    },
+    "unique_positions": 32,
+    "utc": "2026-10-16T04:05:21.491881+00:00"
+  }
+}

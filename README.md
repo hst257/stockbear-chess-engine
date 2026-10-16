@@ -254,6 +254,10 @@ Running that tool without `--offline` checks the source licenses online and down
    v3-versus-v2 match are documented in the
    [NNUE v3 research report](NNUE_V3_KING_RELATIVE_REPORT.md). V3 remains optional;
    the measured candidate trails optimized v2, and classical remains the default.
+   Additional PGNs can be labeled independently with the resumable
+   [standalone Stockfish pipeline](LABELING_README.md). Run `start_labeling.ps1`
+   manually to ingest `StockBear_NNUE_training/data/raw/new_data`; the full
+   labeling run is separate from engine use and NNUE training.
 7. **Implemented:** matched performance benchmarks and color-balanced engine smoke games; broader strength testing remains future work.
 
 Later phases require an explicit request. The engine performs its own search and evaluation without delegating them to another engine.

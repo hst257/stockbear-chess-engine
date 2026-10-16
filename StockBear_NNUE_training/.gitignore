@@ -1,4 +1,5 @@
 .venv/
+.venv-labeling/
 __pycache__/
 .pytest_cache/
 data/
