@@ -1,0 +1,745 @@
+{
+  "configuration_files": {
+    "StockBear_NNUE_training/configs/expanded-20261016/v2.json": {
+      "dataset": "data/expanded/cc-events-20261016/prepared/v2",
+      "format": "v2",
+      "run": "runs/expanded-20261016/v2",
+      "seed": 20261016,
+      "training": {
+        "batch_size": 2048,
+        "epochs": 60,
+        "gradient_clip": 1.0,
+        "hidden": 16,
+        "learning_rate": 0.0015,
+        "min_delta": 1e-05,
+        "patience": 8,
+        "require_cuda": true,
+        "scheduler_patience": 2,
+        "teacher_weight": 0.9,
+        "weight_decay": 0.05,
+        "width": 32
+      }
+    },
+    "StockBear_NNUE_training/configs/expanded-20261016/v3-bucket16.json": {
+      "dataset": "data/expanded/cc-events-20261016/prepared/v3-bucket16",
+      "format": "v3-bucket16",
+      "run": "runs/expanded-20261016/v3-bucket16",
+      "seed": 20261016,
+      "training": {
+        "batch_size": 2048,
+        "epochs": 60,
+        "gradient_clip": 1.0,
+        "hidden": 16,
+        "learning_rate": 0.0015,
+        "min_delta": 1e-05,
+        "patience": 8,
+        "require_cuda": true,
+        "scheduler_patience": 2,
+        "teacher_weight": 0.9,
+        "weight_decay": 0.05,
+        "width": 32
+      }
+    },
+    "StockBear_NNUE_training/configs/expanded-20261016/v3-full.json": {
+      "dataset": "data/expanded/cc-events-20261016/prepared/v3-full",
+      "format": "v3-full",
+      "run": "runs/expanded-20261016/v3-full",
+      "seed": 20261016,
+      "training": {
+        "batch_size": 2048,
+        "epochs": 60,
+        "gradient_clip": 1.0,
+        "hidden": 16,
+        "learning_rate": 0.0015,
+        "min_delta": 1e-05,
+        "patience": 8,
+        "require_cuda": true,
+        "scheduler_patience": 2,
+        "teacher_weight": 0.9,
+        "weight_decay": 0.05,
+        "width": 32
+      }
+    }
+  },
+  "data_files": "Large SQLite/NPY sources and outputs remain on the project drive and are intentionally not in Git.",
+  "loader_checks": {
+    "v2": {
+      "dataset": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\expanded\\cc-events-20261016\\prepared\\v2",
+      "format": "v2",
+      "ready": true,
+      "splits": {
+        "test": {
+          "ordinal_sha256": "8205e1802fd1c515d0ca65fc287ebdad6bb3dfcb5a10afad0956bfb871ffbc4d",
+          "positions": 578136,
+          "x_sha256": "320e5bf425912eef7043a5c70f5b447f76108f0112a15e14ee9afea6fc39bc48",
+          "y_sha256": "72e9d83e690f2ca1a8af8bc2a25398218714876bc5ff3a466938343e5c66cfc5"
+        },
+        "train": {
+          "ordinal_sha256": "7a50a9a0027e6978702dfde2461416a5c2af7705d8536026c3cd8c717014d6b2",
+          "positions": 4616965,
+          "x_sha256": "5752269aafc58b792ce165c83d6f446523cd48a0ed189584de462023debc2474",
+          "y_sha256": "af88db27e9845fcb318e60b3b5ac243d6c01fb0d91d798ad88f3a7778abf8ab9"
+        },
+        "validation": {
+          "ordinal_sha256": "78765ce3573bd655b5801862f2fca4994c9d5dd81ee63bd78546b9cc0d70b224",
+          "positions": 573685,
+          "x_sha256": "8f7b4ab0414dcc6a73df69d44ca8b28178fc58498f119d6ebb5b7b02943dc132",
+          "y_sha256": "822e41ca025802af21808d5d6343aa5f447647f6a3c8857497f310ca146291d8"
+        }
+      },
+      "training_started": false
+    },
+    "v3-bucket16": {
+      "dataset": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\expanded\\cc-events-20261016\\prepared\\v3-bucket16",
+      "format": "v3-bucket16",
+      "ready": true,
+      "splits": {
+        "test": {
+          "ordinal_sha256": "8205e1802fd1c515d0ca65fc287ebdad6bb3dfcb5a10afad0956bfb871ffbc4d",
+          "positions": 578136,
+          "x_sha256": "5e83d94dccaaaf37452c057b1b64e647a4a632c7b3bb4a0942310c346d4f457b",
+          "y_sha256": "72e9d83e690f2ca1a8af8bc2a25398218714876bc5ff3a466938343e5c66cfc5"
+        },
+        "train": {
+          "ordinal_sha256": "7a50a9a0027e6978702dfde2461416a5c2af7705d8536026c3cd8c717014d6b2",
+          "positions": 4616965,
+          "x_sha256": "6c29345bc06ee09bbd376340c4b09f5078d1ef3694ebfa1c04f2a0ee90b11ce8",
+          "y_sha256": "af88db27e9845fcb318e60b3b5ac243d6c01fb0d91d798ad88f3a7778abf8ab9"
+        },
+        "validation": {
+          "ordinal_sha256": "78765ce3573bd655b5801862f2fca4994c9d5dd81ee63bd78546b9cc0d70b224",
+          "positions": 573685,
+          "x_sha256": "79526b6a5e9738f17c3bfd20480f5a04c57ca023e2da3c2f1d2e66b7fd2b5772",
+          "y_sha256": "822e41ca025802af21808d5d6343aa5f447647f6a3c8857497f310ca146291d8"
+        }
+      },
+      "training_started": false
+    },
+    "v3-full": {
+      "dataset": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\expanded\\cc-events-20261016\\prepared\\v3-full",
+      "format": "v3-full",
+      "ready": true,
+      "splits": {
+        "test": {
+          "ordinal_sha256": "8205e1802fd1c515d0ca65fc287ebdad6bb3dfcb5a10afad0956bfb871ffbc4d",
+          "positions": 578136,
+          "x_sha256": "5ea832800f132462a9dc3cc59afb00d11126c007f6937684b66cebbc35ea5424",
+          "y_sha256": "72e9d83e690f2ca1a8af8bc2a25398218714876bc5ff3a466938343e5c66cfc5"
+        },
+        "train": {
+          "ordinal_sha256": "7a50a9a0027e6978702dfde2461416a5c2af7705d8536026c3cd8c717014d6b2",
+          "positions": 4616965,
+          "x_sha256": "63b451b74e81de9705f9eb3594717488bd1dab524831604d58b026cdd1387aa4",
+          "y_sha256": "af88db27e9845fcb318e60b3b5ac243d6c01fb0d91d798ad88f3a7778abf8ab9"
+        },
+        "validation": {
+          "ordinal_sha256": "78765ce3573bd655b5801862f2fca4994c9d5dd81ee63bd78546b9cc0d70b224",
+          "positions": 573685,
+          "x_sha256": "2f8c9d3c4b96cb39b3907b3e985d9d2bad7eb44ce0415921fe13698112c0fbc8",
+          "y_sha256": "822e41ca025802af21808d5d6343aa5f447647f6a3c8857497f310ca146291d8"
+        }
+      },
+      "training_started": false
+    }
+  },
+  "merge": {
+    "database_sha256": "8efff65a9209b9f54e8eff8f3330e816fec45929c06faa4d13f45ee4dd21ddbd",
+    "duplicate_policy": "Same-FEN old rows are retained once; conflicting outcome, split or teacher-cp IDs are excluded from this derived corpus. No original record is modified.",
+    "duplicates": 10486,
+    "excluded_family_positions": {
+      "expanded": 0,
+      "v1": 0,
+      "v2": 0
+    },
+    "excluded_position_ids": 241,
+    "exclusions_by_reason": {
+      "conflicting frozen position splits": 31,
+      "conflicting game outcomes": 210
+    },
+    "grouped_splits_disjoint": true,
+    "groups": {
+      "canonical_families": 441185,
+      "conflicting_split_families": 0,
+      "policy": "Stable game IDs, old complete-mainline aliases and all recorded new-to-old anchors are unioned. Conflicting frozen splits are quarantined; original partitions are never reassigned.",
+      "raw_game_ids": 441503
+    },
+    "inserted_by_origin": {
+      "expanded": 4470665,
+      "v1": 46235,
+      "v2": 1251886
+    },
+    "positions": 5768786,
+    "provenance": "records.origin/original_game/source_ordinal/owner link to the read-only source databases; duplicate_provenance retains both old game identities.",
+    "source_counts": {
+      "expanded": 4470665,
+      "v1": 56721,
+      "v2": 1252127
+    },
+    "splits": {
+      "test": 578136,
+      "train": 4616965,
+      "validation": 573685
+    },
+    "teacher_profile": "ddc2b43b123677466a9a9f8478f67ffc028a6582266a73e36a3272bc85b30f92",
+    "unique_positions": true,
+    "utc": "2026-10-16T16:36:46.558839+00:00"
+  },
+  "preparation_runtime": {
+    "checkpoint_only_compatibility": true,
+    "execution_code_sha256": "248341a55ff87d7bae99bfc61581dd1a27e207718df6a7cc3a050a960a6813d3",
+    "saved_merge_code_sha256": "745afc28a7b540b409355b566e93790cb96e5ce83e41fa2fb88244d28d2941a5",
+    "saved_signature_unchanged": true
+  },
+  "prepared_manifests": {
+    "v2": {
+      "all_fens_canonical_and_ids_verified": true,
+      "feature_version": "dual-perspective-12x64-castling-ep-v1",
+      "files": {
+        "game_ids.json": "91fa3edabc96f174ae36bde0b033201b341f16ed2b5929548b07ddc03e9c3215",
+        "test_ordinal.npy": "8205e1802fd1c515d0ca65fc287ebdad6bb3dfcb5a10afad0956bfb871ffbc4d",
+        "test_x.npy": "320e5bf425912eef7043a5c70f5b447f76108f0112a15e14ee9afea6fc39bc48",
+        "test_y.npy": "72e9d83e690f2ca1a8af8bc2a25398218714876bc5ff3a466938343e5c66cfc5",
+        "train_ordinal.npy": "7a50a9a0027e6978702dfde2461416a5c2af7705d8536026c3cd8c717014d6b2",
+        "train_x.npy": "5752269aafc58b792ce165c83d6f446523cd48a0ed189584de462023debc2474",
+        "train_y.npy": "af88db27e9845fcb318e60b3b5ac243d6c01fb0d91d798ad88f3a7778abf8ab9",
+        "validation_ordinal.npy": "78765ce3573bd655b5801862f2fca4994c9d5dd81ee63bd78546b9cc0d70b224",
+        "validation_x.npy": "8f7b4ab0414dcc6a73df69d44ca8b28178fc58498f119d6ebb5b7b02943dc132",
+        "validation_y.npy": "822e41ca025802af21808d5d6343aa5f447647f6a3c8857497f310ca146291d8"
+      },
+      "fingerprint": "99dc8cbe82f7fe529cbe219297891431e4c4fe4f65e601ca4ee504313aca8bdb",
+      "format": "v2",
+      "grouped_splits_disjoint": true,
+      "independent_fens_checked": 768,
+      "king_buckets": null,
+      "profile_id": "ddc2b43b123677466a9a9f8478f67ffc028a6582266a73e36a3272bc85b30f92",
+      "source_database_sha256": "8efff65a9209b9f54e8eff8f3330e816fec45929c06faa4d13f45ee4dd21ddbd",
+      "splits": {
+        "test": {
+          "ordinal_sha256": "8205e1802fd1c515d0ca65fc287ebdad6bb3dfcb5a10afad0956bfb871ffbc4d",
+          "positions": 578136,
+          "x_sha256": "320e5bf425912eef7043a5c70f5b447f76108f0112a15e14ee9afea6fc39bc48",
+          "y_sha256": "72e9d83e690f2ca1a8af8bc2a25398218714876bc5ff3a466938343e5c66cfc5"
+        },
+        "train": {
+          "ordinal_sha256": "7a50a9a0027e6978702dfde2461416a5c2af7705d8536026c3cd8c717014d6b2",
+          "positions": 4616965,
+          "x_sha256": "5752269aafc58b792ce165c83d6f446523cd48a0ed189584de462023debc2474",
+          "y_sha256": "af88db27e9845fcb318e60b3b5ac243d6c01fb0d91d798ad88f3a7778abf8ab9"
+        },
+        "validation": {
+          "ordinal_sha256": "78765ce3573bd655b5801862f2fca4994c9d5dd81ee63bd78546b9cc0d70b224",
+          "positions": 573685,
+          "x_sha256": "8f7b4ab0414dcc6a73df69d44ca8b28178fc58498f119d6ebb5b7b02943dc132",
+          "y_sha256": "822e41ca025802af21808d5d6343aa5f447647f6a3c8857497f310ca146291d8"
+        }
+      },
+      "target": "0.9 * sigmoid(clip(stm_cp,-2000,2000)/400) + 0.1 * stm_outcome",
+      "y_columns": [
+        "stm_cp",
+        "stm_outcome",
+        "stm_material",
+        "ply",
+        "phase_index",
+        "tactical_heuristic",
+        "year_or_0",
+        "game_index"
+      ]
+    },
+    "v3-bucket16": {
+      "all_fens_canonical_and_ids_verified": true,
+      "feature_version": "halfkp64-10x64-shared-state12-v3",
+      "files": {
+        "game_ids.json": "91fa3edabc96f174ae36bde0b033201b341f16ed2b5929548b07ddc03e9c3215",
+        "test_ordinal.npy": "8205e1802fd1c515d0ca65fc287ebdad6bb3dfcb5a10afad0956bfb871ffbc4d",
+        "test_x.npy": "5e83d94dccaaaf37452c057b1b64e647a4a632c7b3bb4a0942310c346d4f457b",
+        "test_y.npy": "72e9d83e690f2ca1a8af8bc2a25398218714876bc5ff3a466938343e5c66cfc5",
+        "train_ordinal.npy": "7a50a9a0027e6978702dfde2461416a5c2af7705d8536026c3cd8c717014d6b2",
+        "train_x.npy": "6c29345bc06ee09bbd376340c4b09f5078d1ef3694ebfa1c04f2a0ee90b11ce8",
+        "train_y.npy": "af88db27e9845fcb318e60b3b5ac243d6c01fb0d91d798ad88f3a7778abf8ab9",
+        "validation_ordinal.npy": "78765ce3573bd655b5801862f2fca4994c9d5dd81ee63bd78546b9cc0d70b224",
+        "validation_x.npy": "79526b6a5e9738f17c3bfd20480f5a04c57ca023e2da3c2f1d2e66b7fd2b5772",
+        "validation_y.npy": "822e41ca025802af21808d5d6343aa5f447647f6a3c8857497f310ca146291d8"
+      },
+      "fingerprint": "9cb3430e2d0014ca72525a4ad2a5d976c1957ad94820c918a01314d2f27b96af",
+      "format": "v3-bucket16",
+      "grouped_splits_disjoint": true,
+      "independent_fens_checked": 768,
+      "king_buckets": 16,
+      "profile_id": "ddc2b43b123677466a9a9f8478f67ffc028a6582266a73e36a3272bc85b30f92",
+      "source_database_sha256": "8efff65a9209b9f54e8eff8f3330e816fec45929c06faa4d13f45ee4dd21ddbd",
+      "splits": {
+        "test": {
+          "ordinal_sha256": "8205e1802fd1c515d0ca65fc287ebdad6bb3dfcb5a10afad0956bfb871ffbc4d",
+          "positions": 578136,
+          "x_sha256": "5e83d94dccaaaf37452c057b1b64e647a4a632c7b3bb4a0942310c346d4f457b",
+          "y_sha256": "72e9d83e690f2ca1a8af8bc2a25398218714876bc5ff3a466938343e5c66cfc5"
+        },
+        "train": {
+          "ordinal_sha256": "7a50a9a0027e6978702dfde2461416a5c2af7705d8536026c3cd8c717014d6b2",
+          "positions": 4616965,
+          "x_sha256": "6c29345bc06ee09bbd376340c4b09f5078d1ef3694ebfa1c04f2a0ee90b11ce8",
+          "y_sha256": "af88db27e9845fcb318e60b3b5ac243d6c01fb0d91d798ad88f3a7778abf8ab9"
+        },
+        "validation": {
+          "ordinal_sha256": "78765ce3573bd655b5801862f2fca4994c9d5dd81ee63bd78546b9cc0d70b224",
+          "positions": 573685,
+          "x_sha256": "79526b6a5e9738f17c3bfd20480f5a04c57ca023e2da3c2f1d2e66b7fd2b5772",
+          "y_sha256": "822e41ca025802af21808d5d6343aa5f447647f6a3c8857497f310ca146291d8"
+        }
+      },
+      "target": "0.9 * sigmoid(clip(stm_cp,-2000,2000)/400) + 0.1 * stm_outcome",
+      "y_columns": [
+        "stm_cp",
+        "stm_outcome",
+        "stm_material",
+        "ply",
+        "phase_index",
+        "tactical_heuristic",
+        "year_or_0",
+        "game_index"
+      ]
+    },
+    "v3-full": {
+      "all_fens_canonical_and_ids_verified": true,
+      "feature_version": "halfkp64-10x64-shared-state12-v3",
+      "files": {
+        "game_ids.json": "91fa3edabc96f174ae36bde0b033201b341f16ed2b5929548b07ddc03e9c3215",
+        "test_ordinal.npy": "8205e1802fd1c515d0ca65fc287ebdad6bb3dfcb5a10afad0956bfb871ffbc4d",
+        "test_x.npy": "5ea832800f132462a9dc3cc59afb00d11126c007f6937684b66cebbc35ea5424",
+        "test_y.npy": "72e9d83e690f2ca1a8af8bc2a25398218714876bc5ff3a466938343e5c66cfc5",
+        "train_ordinal.npy": "7a50a9a0027e6978702dfde2461416a5c2af7705d8536026c3cd8c717014d6b2",
+        "train_x.npy": "63b451b74e81de9705f9eb3594717488bd1dab524831604d58b026cdd1387aa4",
+        "train_y.npy": "af88db27e9845fcb318e60b3b5ac243d6c01fb0d91d798ad88f3a7778abf8ab9",
+        "validation_ordinal.npy": "78765ce3573bd655b5801862f2fca4994c9d5dd81ee63bd78546b9cc0d70b224",
+        "validation_x.npy": "2f8c9d3c4b96cb39b3907b3e985d9d2bad7eb44ce0415921fe13698112c0fbc8",
+        "validation_y.npy": "822e41ca025802af21808d5d6343aa5f447647f6a3c8857497f310ca146291d8"
+      },
+      "fingerprint": "8ed0f9cf1f915cf77dcbf2f4dc6dcded6a83233405f4fcc2077bb368c463e62a",
+      "format": "v3-full",
+      "grouped_splits_disjoint": true,
+      "independent_fens_checked": 768,
+      "king_buckets": 64,
+      "profile_id": "ddc2b43b123677466a9a9f8478f67ffc028a6582266a73e36a3272bc85b30f92",
+      "source_database_sha256": "8efff65a9209b9f54e8eff8f3330e816fec45929c06faa4d13f45ee4dd21ddbd",
+      "splits": {
+        "test": {
+          "ordinal_sha256": "8205e1802fd1c515d0ca65fc287ebdad6bb3dfcb5a10afad0956bfb871ffbc4d",
+          "positions": 578136,
+          "x_sha256": "5ea832800f132462a9dc3cc59afb00d11126c007f6937684b66cebbc35ea5424",
+          "y_sha256": "72e9d83e690f2ca1a8af8bc2a25398218714876bc5ff3a466938343e5c66cfc5"
+        },
+        "train": {
+          "ordinal_sha256": "7a50a9a0027e6978702dfde2461416a5c2af7705d8536026c3cd8c717014d6b2",
+          "positions": 4616965,
+          "x_sha256": "63b451b74e81de9705f9eb3594717488bd1dab524831604d58b026cdd1387aa4",
+          "y_sha256": "af88db27e9845fcb318e60b3b5ac243d6c01fb0d91d798ad88f3a7778abf8ab9"
+        },
+        "validation": {
+          "ordinal_sha256": "78765ce3573bd655b5801862f2fca4994c9d5dd81ee63bd78546b9cc0d70b224",
+          "positions": 573685,
+          "x_sha256": "2f8c9d3c4b96cb39b3907b3e985d9d2bad7eb44ce0415921fe13698112c0fbc8",
+          "y_sha256": "822e41ca025802af21808d5d6343aa5f447647f6a3c8857497f310ca146291d8"
+        }
+      },
+      "target": "0.9 * sigmoid(clip(stm_cp,-2000,2000)/400) + 0.1 * stm_outcome",
+      "y_columns": [
+        "stm_cp",
+        "stm_outcome",
+        "stm_material",
+        "ply",
+        "phase_index",
+        "tactical_heuristic",
+        "year_or_0",
+        "game_index"
+      ]
+    }
+  },
+  "ready": {
+    "complete": true,
+    "merged": {
+      "database_sha256": "8efff65a9209b9f54e8eff8f3330e816fec45929c06faa4d13f45ee4dd21ddbd",
+      "duplicate_policy": "Same-FEN old rows are retained once; conflicting outcome, split or teacher-cp IDs are excluded from this derived corpus. No original record is modified.",
+      "duplicates": 10486,
+      "excluded_family_positions": {
+        "expanded": 0,
+        "v1": 0,
+        "v2": 0
+      },
+      "excluded_position_ids": 241,
+      "exclusions_by_reason": {
+        "conflicting frozen position splits": 31,
+        "conflicting game outcomes": 210
+      },
+      "grouped_splits_disjoint": true,
+      "groups": {
+        "canonical_families": 441185,
+        "conflicting_split_families": 0,
+        "policy": "Stable game IDs, old complete-mainline aliases and all recorded new-to-old anchors are unioned. Conflicting frozen splits are quarantined; original partitions are never reassigned.",
+        "raw_game_ids": 441503
+      },
+      "inserted_by_origin": {
+        "expanded": 4470665,
+        "v1": 46235,
+        "v2": 1251886
+      },
+      "positions": 5768786,
+      "provenance": "records.origin/original_game/source_ordinal/owner link to the read-only source databases; duplicate_provenance retains both old game identities.",
+      "source_counts": {
+        "expanded": 4470665,
+        "v1": 56721,
+        "v2": 1252127
+      },
+      "splits": {
+        "test": 578136,
+        "train": 4616965,
+        "validation": 573685
+      },
+      "teacher_profile": "ddc2b43b123677466a9a9f8478f67ffc028a6582266a73e36a3272bc85b30f92",
+      "unique_positions": true,
+      "utc": "2026-10-16T16:36:46.558839+00:00"
+    },
+    "prepared": {
+      "v2": {
+        "fingerprint": "99dc8cbe82f7fe529cbe219297891431e4c4fe4f65e601ca4ee504313aca8bdb",
+        "splits": {
+          "test": {
+            "ordinal_sha256": "8205e1802fd1c515d0ca65fc287ebdad6bb3dfcb5a10afad0956bfb871ffbc4d",
+            "positions": 578136,
+            "x_sha256": "320e5bf425912eef7043a5c70f5b447f76108f0112a15e14ee9afea6fc39bc48",
+            "y_sha256": "72e9d83e690f2ca1a8af8bc2a25398218714876bc5ff3a466938343e5c66cfc5"
+          },
+          "train": {
+            "ordinal_sha256": "7a50a9a0027e6978702dfde2461416a5c2af7705d8536026c3cd8c717014d6b2",
+            "positions": 4616965,
+            "x_sha256": "5752269aafc58b792ce165c83d6f446523cd48a0ed189584de462023debc2474",
+            "y_sha256": "af88db27e9845fcb318e60b3b5ac243d6c01fb0d91d798ad88f3a7778abf8ab9"
+          },
+          "validation": {
+            "ordinal_sha256": "78765ce3573bd655b5801862f2fca4994c9d5dd81ee63bd78546b9cc0d70b224",
+            "positions": 573685,
+            "x_sha256": "8f7b4ab0414dcc6a73df69d44ca8b28178fc58498f119d6ebb5b7b02943dc132",
+            "y_sha256": "822e41ca025802af21808d5d6343aa5f447647f6a3c8857497f310ca146291d8"
+          }
+        }
+      },
+      "v3-bucket16": {
+        "fingerprint": "9cb3430e2d0014ca72525a4ad2a5d976c1957ad94820c918a01314d2f27b96af",
+        "splits": {
+          "test": {
+            "ordinal_sha256": "8205e1802fd1c515d0ca65fc287ebdad6bb3dfcb5a10afad0956bfb871ffbc4d",
+            "positions": 578136,
+            "x_sha256": "5e83d94dccaaaf37452c057b1b64e647a4a632c7b3bb4a0942310c346d4f457b",
+            "y_sha256": "72e9d83e690f2ca1a8af8bc2a25398218714876bc5ff3a466938343e5c66cfc5"
+          },
+          "train": {
+            "ordinal_sha256": "7a50a9a0027e6978702dfde2461416a5c2af7705d8536026c3cd8c717014d6b2",
+            "positions": 4616965,
+            "x_sha256": "6c29345bc06ee09bbd376340c4b09f5078d1ef3694ebfa1c04f2a0ee90b11ce8",
+            "y_sha256": "af88db27e9845fcb318e60b3b5ac243d6c01fb0d91d798ad88f3a7778abf8ab9"
+          },
+          "validation": {
+            "ordinal_sha256": "78765ce3573bd655b5801862f2fca4994c9d5dd81ee63bd78546b9cc0d70b224",
+            "positions": 573685,
+            "x_sha256": "79526b6a5e9738f17c3bfd20480f5a04c57ca023e2da3c2f1d2e66b7fd2b5772",
+            "y_sha256": "822e41ca025802af21808d5d6343aa5f447647f6a3c8857497f310ca146291d8"
+          }
+        }
+      },
+      "v3-full": {
+        "fingerprint": "8ed0f9cf1f915cf77dcbf2f4dc6dcded6a83233405f4fcc2077bb368c463e62a",
+        "splits": {
+          "test": {
+            "ordinal_sha256": "8205e1802fd1c515d0ca65fc287ebdad6bb3dfcb5a10afad0956bfb871ffbc4d",
+            "positions": 578136,
+            "x_sha256": "5ea832800f132462a9dc3cc59afb00d11126c007f6937684b66cebbc35ea5424",
+            "y_sha256": "72e9d83e690f2ca1a8af8bc2a25398218714876bc5ff3a466938343e5c66cfc5"
+          },
+          "train": {
+            "ordinal_sha256": "7a50a9a0027e6978702dfde2461416a5c2af7705d8536026c3cd8c717014d6b2",
+            "positions": 4616965,
+            "x_sha256": "63b451b74e81de9705f9eb3594717488bd1dab524831604d58b026cdd1387aa4",
+            "y_sha256": "af88db27e9845fcb318e60b3b5ac243d6c01fb0d91d798ad88f3a7778abf8ab9"
+          },
+          "validation": {
+            "ordinal_sha256": "78765ce3573bd655b5801862f2fca4994c9d5dd81ee63bd78546b9cc0d70b224",
+            "positions": 573685,
+            "x_sha256": "2f8c9d3c4b96cb39b3907b3e985d9d2bad7eb44ce0415921fe13698112c0fbc8",
+            "y_sha256": "822e41ca025802af21808d5d6343aa5f447647f6a3c8857497f310ca146291d8"
+          }
+        }
+      }
+    },
+    "source_files_unchanged": true,
+    "training_started": false,
+    "utc": "2026-10-16T16:45:53.031638+00:00"
+  },
+  "source_audit": {
+    "all_fens_and_labels_checked": true,
+    "checks": {
+      "database_integrity": {
+        "passed": true,
+        "seconds": 112.98399999999674
+      },
+      "family_split_leakage": {
+        "passed": true,
+        "seconds": 42.155999999988126
+      },
+      "foreign_keys": {
+        "passed": true,
+        "seconds": 14.171999999991385
+      },
+      "game_alias_split_leakage": {
+        "passed": true,
+        "seconds": 46.625
+      },
+      "label_ranges_and_metadata": {
+        "passed": true,
+        "seconds": 3.187000000005355
+      },
+      "mixed_profiles": {
+        "passed": true,
+        "seconds": 0.8440000000118744
+      },
+      "quarantined_or_misassigned_families": {
+        "passed": true,
+        "seconds": 21.64100000000326
+      },
+      "result_perspective": {
+        "passed": true,
+        "seconds": 75.5789999999979
+      }
+    },
+    "complete": true,
+    "errors_by_stage": {
+      "game": 22253,
+      "pipeline": 2
+    },
+    "export_files_verified": false,
+    "export_note": "Original JSONL export was not completed; this preparation verifies and reads the authoritative SQLite labels directly. No export is required for training.",
+    "finalization": "Independent indexed read-only SQL and parallel board verification; original labels/checkpoints remain unchanged",
+    "grouped_splits_disjoint": true,
+    "label_ranges": {
+      "attempts": 4470665,
+      "cp_max": 10007,
+      "cp_min": -10123,
+      "depth_max": 245,
+      "depth_min": 5,
+      "mate_labels": 27430,
+      "nodes_max": 16614,
+      "nodes_min": 245
+    },
+    "last_progress": {
+      "attempts": 4470665,
+      "completed": 4470665,
+      "errors": 22255,
+      "eta_seconds": 0.0,
+      "execution": {
+        "execution_workers": 8,
+        "progress": "initial authoritative counts plus committed changes; final SQL reconciliation",
+        "queue": "ordinal keyset with bounded local retry buffer",
+        "runner": "stockbear.labeling_runtime",
+        "saved_signature_sha256": "0401142fccd95c56ca87a4a2c764ee9e726843c797bfb7f1381e9ec7ef666ce0",
+        "saved_workers": 2,
+        "source_lf_sha256": "aa1b1235921ab90f66783dae30275ffcd3e0c239af34f6dcd08ef743c00fd444",
+        "teacher_options_changed": false,
+        "threads_each": 1,
+        "version": 2
+      },
+      "failed": 0,
+      "games": 382092,
+      "pending": 0,
+      "positions": 4470665,
+      "positions_per_second": 161.14261009251925,
+      "queue_calls": 28404,
+      "remaining": 0,
+      "sampling": {
+        "conflicting_outcome_positions_excluded": 82816,
+        "existing_positions_excluded": 51297,
+        "families": 341739,
+        "near_duplicate_policy": "Legacy header identity; complete move hash; normalized same-player/day or 20-ply prefix; >=3 uncommon shared sampled FENs after ply24. Frozen anchors by header/moves or >=2 late sampled matches to one old game. Conflicting anchors quarantine the family. Not a proof against arbitrary semantic similarity.",
+        "observations": 5176241,
+        "quarantined_families": 147,
+        "selected_positions": 4470665,
+        "splits": {
+          "test": 447380,
+          "train": 3578947,
+          "validation": 444338
+        },
+        "unique_sampled_positions": 4614632
+      },
+      "session_elapsed_seconds": 22561.04699999999,
+      "session_new_labels": 3635546,
+      "sources_complete": 1,
+      "sources_total": 1,
+      "stage": "labeling",
+      "state": "complete",
+      "timings": {
+        "commit_seconds": 2846.6367891969057,
+        "final_count_seconds": 1.063911699995515,
+        "initialization_seconds": 1.783644600000116,
+        "progress_seconds": 828.7814085000937,
+        "queue_seconds": 119.08174359946861,
+        "update_seconds": 3376.346893304799,
+        "wait_seconds": 15160.596397693786
+      },
+      "total_labeling_seconds": 30517.828999999987,
+      "utc": "2026-10-16T15:48:57.448632+00:00"
+    },
+    "new_validation": null,
+    "original_corpus_overlap": 0,
+    "pipeline_events": [
+      {
+        "message": "KeyboardInterrupt: ",
+        "utc": "2026-10-16T07:05:47.361591+00:00"
+      },
+      {
+        "message": "KeyboardInterrupt: ",
+        "utc": "2026-10-16T09:27:16.391598+00:00"
+      }
+    ],
+    "profile": {
+      "clear_hash_each_position": true,
+      "counters": "0 1",
+      "executable": "stockfish-windows-x86-64-universal\\stockfish\\stockfish-windows-x86-64-universal.exe",
+      "hash_mb": 64,
+      "mate_cp": 2000,
+      "nodes": 16384,
+      "score_pov": "side_to_move",
+      "sha256": "45bc8e4969147db9c2eb533810637994619bff0eacc81ccfd9854394901bcbd0",
+      "threads": 1,
+      "version": 2
+    },
+    "profile_id": "ddc2b43b123677466a9a9f8478f67ffc028a6582266a73e36a3272bc85b30f92",
+    "quality": {
+      "completed": 4470665,
+      "failed": 0,
+      "pending": 0,
+      "positions": 4470665
+    },
+    "signature_unchanged": true,
+    "skipped_game_reasons": [
+      {
+        "message": "Unsupported variant",
+        "records": 10352
+      },
+      {
+        "message": "No eligible nonterminal sampled positions",
+        "records": 9215
+      },
+      {
+        "message": "Missing or unfinished game result",
+        "records": 2614
+      },
+      {
+        "message": "Terminal board contradicts PGN result",
+        "records": 32
+      },
+      {
+        "message": "Malformed/illegal PGN: illegal san: '0-0' in rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "records": 17
+      },
+      {
+        "message": "Illegal move 0000 at ply 2",
+        "records": 8
+      },
+      {
+        "message": "Malformed/illegal PGN: illegal san: '0-0' in rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 4 3",
+        "records": 1
+      },
+      {
+        "message": "Malformed/illegal PGN: illegal san: '0-0' in rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 24 13",
+        "records": 1
+      },
+      {
+        "message": "Malformed/illegal PGN: illegal san: '0-0' in rnbqkbnr/pppppppp/8/8/8/5N2/PPPPPPPP/RNBQKB1R b KQkq - 1 1",
+        "records": 1
+      },
+      {
+        "message": "Malformed/illegal PGN: illegal san: '0-0' in rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1",
+        "records": 1
+      },
+      {
+        "message": "Malformed/illegal PGN: illegal san: '0-0' in rnbqkbnr/pppppppp/8/8/3P4/8/PPP1PPPP/RNBQKBNR b KQkq - 0 1",
+        "records": 1
+      },
+      {
+        "message": "Malformed/illegal PGN: illegal san: '0-0' in rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
+        "records": 1
+      },
+      {
+        "message": "Malformed/illegal PGN: illegal san: '0-0' in rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
+        "records": 1
+      },
+      {
+        "message": "Malformed/illegal PGN: illegal san: '0-0' in rnbqkb1r/ppp1pppp/8/3n4/8/2N5/PPPP1PPP/R1BQKBNR w KQkq - 0 4",
+        "records": 1
+      },
+      {
+        "message": "Malformed/illegal PGN: illegal san: '0-0' in rnbqk1nr/ppppppbp/6p1/8/3PP3/8/PPP2PPP/RNBQKBNR w KQkq - 1 3",
+        "records": 1
+      },
+      {
+        "message": "Malformed/illegal PGN: illegal san: '0-0' in rn1qkbnr/ppp2ppp/4p3/3p4/6b1/5NP1/PPPPPPBP/RNBQ1RK1 b kq - 1 4",
+        "records": 1
+      },
+      {
+        "message": "Malformed/illegal PGN: illegal san: '0-0' in rn1qkb1r/pbpppppp/1p3n2/8/2P1P3/2N5/PP1P1PPP/R1BQKBNR w KQkq - 1 4",
+        "records": 1
+      },
+      {
+        "message": "Malformed/illegal PGN: illegal san: '0-0' in r3q1k1/pp1br2p/n5pB/2p3N1/2PbPP2/7P/PPQ3B1/R4R1K w - - 0 21",
+        "records": 1
+      },
+      {
+        "message": "Malformed/illegal PGN: illegal san: '0-0' in 8/1K6/8/8/8/4k3/8/8 b - - 0 93",
+        "records": 1
+      },
+      {
+        "message": "Malformed/illegal PGN: illegal san: '0-0' in 3r4/1p3k2/2p3p1/2bbR3/p4Pp1/P5P1/1P5K/4R3 w - - 4 35",
+        "records": 1
+      },
+      {
+        "message": "Malformed/illegal PGN: illegal san: '0-0' in 1q3rk1/n2Rbppp/1p2p3/1p2P3/1P2NP2/P3K1P1/1B5P/2R5 b - - 15 28",
+        "records": 1
+      }
+    ],
+    "source_fens_checked": 4470665,
+    "sources": {
+      "expanded": {
+        "bytes": 9184759808,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\labeling\\cc-events-v1\\pipeline.sqlite",
+        "sha256": "17a72fbe36307690cbe5681c5be12f206cf46d343e8f43f9dc5efb1bf01ace01",
+        "wal_sha256": "7637b48069688e2698a2c4a9bf2f867bacad81b8ff29b852a4171b3e094c5650"
+      },
+      "v1": {
+        "bytes": 20119552,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\processed\\full.sqlite",
+        "sha256": "47c9b7761813b711deb5ff77f7ff06b45f2b270f1bd464b3066b8a63f5cdb320",
+        "wal_sha256": null
+      },
+      "v1_labels": {
+        "bytes": 17993728,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\cache\\teacher.sqlite",
+        "sha256": "bff7bb14a47fc2d6067c8ff3e257c083a51e5f95c6643e7bb7b844be79af54bf",
+        "wal_sha256": null
+      },
+      "v2": {
+        "bytes": 1225027584,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\v2\\pool.sqlite",
+        "sha256": "65c6f174a111eb6fd424baa367a0187bd241f2682dd83e8db1637efffe5401e9",
+        "wal_sha256": null
+      },
+      "v2_labels": {
+        "bytes": 409686016,
+        "path": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\v2\\teacher.sqlite",
+        "sha256": "e7b404277e1275f398a1f5b84b27597a6fdb966452b4e640ddf012511c7af91e",
+        "wal_sha256": null
+      }
+    },
+    "utc": "2026-10-16T16:11:41.047651+00:00"
+  },
+  "source_lf_sha256": {
+    "StockBear_NNUE_training/stockbear/expanded_data.py": "248341a55ff87d7bae99bfc61581dd1a27e207718df6a7cc3a050a960a6813d3",
+    "StockBear_NNUE_training/stockbear/expanded_train.py": "da5c5f5bbc9693aafdced1e699bf58286e89b364cc615f5156f59b2ad3840745"
+  }
+}
