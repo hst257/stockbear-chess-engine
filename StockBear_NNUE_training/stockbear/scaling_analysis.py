@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 import sqlite3
 import struct
@@ -150,6 +151,7 @@ def export_checkpoint(checkpoint: Path, destination: Path) -> dict:
 
 def validation_fens(directory: Path, count=128) -> list[dict]:
     ordinals = np.load(directory / "validation_ordinal.npy", mmap_mode="r")
+    metadata = np.load(directory / "validation_y.npy", mmap_mode="r")
     selection = np.random.default_rng(20261016).choice(len(ordinals), count, replace=False)
     with sqlite3.connect((directory.parents[1] / "merged.sqlite").as_uri() + "?mode=ro", uri=True) as db:
         db.execute("PRAGMA query_only=ON")
@@ -159,7 +161,8 @@ def validation_fens(directory: Path, count=128) -> list[dict]:
             row = db.execute("SELECT fen,split FROM records WHERE ordinal=?", (ordinal,)).fetchone()
             if row is None or row[1] != "validation":
                 raise ValueError("Golden position is outside validation")
-            rows.append({"ordinal": ordinal, "validation_index": int(index), "fen": row[0]})
+            rows.append({"ordinal": ordinal, "validation_index": int(index),
+                         "phase": int(metadata[index, 4]), "fen": row[0]})
     return rows
 
 
@@ -171,6 +174,9 @@ def native(build_only=False) -> dict:
     cfg = json.loads((EXPERIMENT / "baseline.json").read_text(encoding="utf-8"))
     directory, _ = verify_dataset(cfg)
     rows = validation_fens(directory)
+    benchmark_rows = [row for phase in range(3) for row in [r for r in rows if r["phase"] == phase][:4]]
+    if len(benchmark_rows) != 12:
+        raise ValueError("Need four validation benchmark positions from each phase")
     atomic_json(EXPERIMENT / "validation-goldens.json", rows)
     repo = ROOT.parent
     builder_python = repo / ".venv/Scripts/python.exe"
@@ -184,7 +190,9 @@ def native(build_only=False) -> dict:
         binary = destination / "micro.exe"
         command = [str(builder_python), str(repo / "tools/build_engine.py"), "--target", "nnue-bench",
                    "--nnue-model", str(exported), "--output", str(binary), "--optimization", "O2"]
-        build = subprocess.run(command, cwd=repo, text=True, capture_output=True)
+        environment = os.environ.copy()
+        environment.setdefault("ZIG_GLOBAL_CACHE_DIR", str(EXPERIMENT / "artifacts/native/baseline/zig-cache"))
+        build = subprocess.run(command, cwd=repo, text=True, capture_output=True, env=environment)
         (destination / "build.log").write_text(build.stdout + build.stderr, encoding="utf-8")
         if build.returncode:
             raise RuntimeError(f"Isolated build failed; see {destination / 'build.log'}")
@@ -208,12 +216,13 @@ def native(build_only=False) -> dict:
             if error.max() > tolerance:
                 raise AssertionError(f"Native {kernel} parity failed: {error.max()} cp")
             samples = []
-            # Same 12 validation positions, five repeats. Hot per-position loops.
+            # Same 12 phase-balanced validation positions; hot per-position loops.
             for repeat in range(5):
-                for index, row in enumerate(rows[:12]):
+                for index, row in enumerate(benchmark_rows):
                     measurement = json.loads(subprocess.check_output(
                         [str(binary), row["fen"], "20000", kernel], text=True))
-                    samples.append({"repeat": repeat, "position": index, **measurement})
+                    samples.append({"repeat": repeat, "position": index,
+                                    "validation_index": row["validation_index"], "phase": row["phase"], **measurement})
             results["kernels"][kernel] = {"accumulator_verification": verified, "compact_update_verification": compact,
                 "validation_golden_positions": len(rows), "max_cp_error_vs_torch": float(error.max()),
                 "mean_cp_error_vs_torch": float(error.mean()), "samples": samples,
