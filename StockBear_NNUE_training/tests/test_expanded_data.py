@@ -141,3 +141,29 @@ def test_readonly_fen_verification_rejects_corruption_and_terminal_boards():
     fen=canonical_fen(board)
     with pytest.raises(ValueError,match="source position"):
         validate_fen_batch([(hashlib.sha256(fen.encode()).hexdigest(),fen)])
+
+
+def test_resume_recovers_known_checkpoint_only_failure_without_recopying(tmp_path):
+    from stockbear.expanded_data import CHECKPOINT_ONLY_COMPATIBLE
+    from stockbear.labeling.storage import get_meta
+    root,run,out,audit,_=fixture(tmp_path)
+    original=merge(root,run,out,audit)
+    with closing(connect(out/"merged.sqlite")) as db:
+        signature=get_meta(db,"signature")
+        signature["source_lf_sha256"]=next(iter(CHECKPOINT_ONLY_COMPATIBLE))
+        db.execute("UPDATE metadata SET value=? WHERE key='signature'",(json.dumps(signature,sort_keys=True),))
+        db.commit()
+    (out/"merge-report.json").unlink()  # Simulate failure before this file was published.
+    recovered=merge(root,run,out,audit)
+    assert recovered["positions"]==original["positions"]
+    assert recovered["inserted_by_origin"]==original["inserted_by_origin"]
+    receipt=json.loads((out/"preparation-runtime.json").read_text(encoding="utf-8"))
+    assert receipt["checkpoint_only_compatibility"] and receipt["saved_signature_unchanged"]
+    assert source_snapshot(sources(root,run))==audit["sources"]
+    with closing(connect(out/"merged.sqlite")) as db:
+        assert get_meta(db,"signature")==signature
+        signature["profile_id"]="wrong-profile"
+        db.execute("UPDATE metadata SET value=? WHERE key='signature'",(json.dumps(signature),))
+        db.commit()
+    with pytest.raises(ValueError,match="snapshot"):
+        merge(root,run,out,audit)

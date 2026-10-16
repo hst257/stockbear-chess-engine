@@ -33,6 +33,9 @@ family-split, array-shape, target and independent feature checks pass.
 `source-audit.json`, `merge-report.json` and each feature manifest record counts,
 exclusions, provenance and checksums. Incomplete SQL merges are retained and
 require a new output directory; they are never declared ready.
+A completed merge interrupted during checkpoint publication can resume without
+copying records again. The known checkpoint-only compatibility fix preserves
+its saved signature and records both code versions in `preparation-runtime.json`.
 
 ## Prepared formats
 

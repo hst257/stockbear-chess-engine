@@ -30,6 +30,9 @@ SPLITS = ("train", "validation", "test")
 FORMATS = ("v2", "v3-bucket16", "v3-full")
 Y_COLUMNS = ("stm_cp", "stm_outcome", "stm_material", "ply", "phase_index",
              "tactical_heuristic", "year_or_0", "game_index")
+# Known, completed merge version: same records/partition rules, but its final
+# unqualified checkpoint incorrectly included attached read-only databases.
+CHECKPOINT_ONLY_COMPATIBLE = {"745afc28a7b540b409355b566e93790cb96e5ce83e41fa2fb88244d28d2941a5"}
 
 
 def meta(db, key, value):
@@ -223,17 +226,28 @@ def merge(root: Path, run: Path, destination: Path, audit: dict) -> dict:
                "source_lf_sha256":hashlib.sha256(Path(__file__).read_bytes().replace(b"\r\n",b"\n")).hexdigest()}
     if path.exists():
         with closing(connect(path,readonly=True)) as db:
-            if get_meta(db,"signature")!=signature:
-                raise ValueError("Existing merge belongs to another source/code snapshot")
+            saved_signature=get_meta(db,"signature")
             report=get_meta(db,"report")
-            if report:
-                report["database_sha256"]=file_hash(path)
-                saved=destination/"merge-report.json"
-                if saved.exists() and json.loads(saved.read_text(encoding="utf-8"))!=report:
-                    raise ValueError("Completed merged database/report changed")
-                if not saved.exists():atomic_json(saved,report)
-                return report
-        raise ValueError("Incomplete merge retained; select a new empty output directory")
+            same_data = saved_signature and {k:v for k,v in saved_signature.items() if k!="source_lf_sha256"}=={k:v for k,v in signature.items() if k!="source_lf_sha256"}
+            compatible = same_data and report and saved_signature["source_lf_sha256"] in CHECKPOINT_ONLY_COMPATIBLE
+            if saved_signature!=signature and not compatible:
+                raise ValueError("Existing merge belongs to another source/code snapshot")
+            if not report:
+                raise ValueError("Incomplete merge retained; select a new empty output directory")
+        # Open only the derived database. Source attachments must never be checkpointed.
+        with closing(connect(path)) as checkpoint_db:
+            if checkpoint_db.execute("PRAGMA main.wal_checkpoint(TRUNCATE)").fetchone()[0]:
+                raise RuntimeError("Derived database is busy; keep it and retry --resume")
+        report["database_sha256"]=file_hash(path)
+        saved=destination/"merge-report.json"
+        if saved.exists() and json.loads(saved.read_text(encoding="utf-8"))!=report:
+            raise ValueError("Completed merged database/report changed")
+        if not saved.exists():atomic_json(saved,report)
+        atomic_json(destination/"preparation-runtime.json",{
+            "saved_merge_code_sha256":saved_signature["source_lf_sha256"],
+            "execution_code_sha256":signature["source_lf_sha256"],
+            "checkpoint_only_compatibility":bool(compatible),"saved_signature_unchanged":True})
+        return report
     print("Merging compatible labels into a new database; inputs remain read-only",flush=True)
     with closing(connect(path)) as db:
         db.execute("PRAGMA cache_size=-262144")
@@ -307,7 +321,7 @@ def merge(root: Path, run: Path, destination: Path, audit: dict) -> dict:
         with db:
             db.execute("CREATE INDEX record_split ON records(split,ordinal)")
             db.execute("CREATE INDEX record_game ON records(game_id)")
-        if db.execute("PRAGMA integrity_check").fetchone()[0]!="ok":
+        if db.execute("PRAGMA main.integrity_check").fetchone()[0]!="ok":
             raise ValueError("Merged database integrity failed")
         if db.execute("SELECT 1 FROM records GROUP BY game_id HAVING count(DISTINCT split)>1 LIMIT 1").fetchone():
             raise ValueError("Merged family crosses partitions")
@@ -324,7 +338,8 @@ def merge(root: Path, run: Path, destination: Path, audit: dict) -> dict:
                 "duplicate_policy":"Same-FEN old rows are retained once; conflicting outcome, split or teacher-cp IDs are excluded from this derived corpus. No original record is modified.",
                 "provenance":"records.origin/original_game/source_ordinal/owner link to the read-only source databases; duplicate_provenance retains both old game identities."}
         with db:meta(db,"report",report)
-        db.execute("PRAGMA wal_checkpoint(TRUNCATE)")
+        if db.execute("PRAGMA main.wal_checkpoint(TRUNCATE)").fetchone()[0]:
+            raise RuntimeError("Derived database is busy; keep it and retry --resume")
     report["database_sha256"]=file_hash(path)
     atomic_json(destination/"merge-report.json",report)
     return report
