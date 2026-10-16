@@ -1,0 +1,40 @@
+{
+  "validation_origin_phase_counts": [
+    [
+      "expanded",
+      "endgame",
+      124960
+    ],
+    [
+      "expanded",
+      "middlegame",
+      288778
+    ],
+    [
+      "expanded",
+      "opening",
+      30600
+    ],
+    [
+      "v1",
+      null,
+      4569
+    ],
+    [
+      "v2",
+      "endgame",
+      33408
+    ],
+    [
+      "v2",
+      "middlegame",
+      74306
+    ],
+    [
+      "v2",
+      "opening",
+      17064
+    ]
+  ],
+  "note": "Null original phases receive the documented board material/ply heuristic during preparation; no human annotated phase ground truth."
+}

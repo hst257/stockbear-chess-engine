@@ -101,3 +101,55 @@ def test_resume_matches_uninterrupted_and_rejects_config_change(tmp_path, monkey
     cfg["training"]["learning_rate"] *= 2
     with pytest.raises(ValueError, match="identity mismatch"):
         scaling.fit(cfg, resume=True)
+
+
+def test_validation_metrics_match_training_definitions():
+    from stockbear.scaling_analysis import phase_metrics, paired_game_interval
+    from stockbear.train import evaluate
+    torch.manual_seed(2)
+    model = NNUE(32, 16)
+    x = np.full((12, 2, 37), 780, dtype=np.uint16)
+    x[:, :, 0] = np.arange(12)[:, None]
+    y = np.zeros((12, 8), dtype=np.float32)
+    y[:, 0] = [-3000, -2000, -501, -500, -100, -99, 0, 99, 100, 500, 501, 3000]
+    y[:, 1] = [.5, 0, 1] * 4
+    y[:, 7] = np.arange(12) // 3
+    result = evaluate(model, x, y, {"batch_size": 4, "teacher_weight": .9}, "cpu", collect=True)
+    prediction = result.pop("predictions")
+    comparison = phase_metrics(prediction, y)
+    for name, value in comparison.items():
+        assert value == pytest.approx(result[name], abs=1e-8)
+    identical = paired_game_interval(prediction, prediction, y, repetitions=10)
+    assert identical["paired_game_bootstrap_95_percentile_interval"] == [0., 0.]
+    assert identical["games"] == 4
+
+
+@pytest.mark.parametrize("width,hidden", [(32, 16), (64, 32), (128, 32)])
+def test_isolated_export_preserves_checkpoint_and_roundtrips(tmp_path, monkeypatch, width, hidden):
+    from stockbear import scaling_analysis as analysis
+    from stockbear.export import load_export, numpy_predict
+    from stockbear.features import encode
+    import chess
+    from pathlib import Path
+    import sys
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+    from tools.embed_nnue import read_model
+    model = NNUE(width, hidden).eval()
+    checkpoint = tmp_path / "legacy.pt"
+    torch.save({"format": "v2", "model": model.state_dict(), "epoch": 45}, checkpoint)
+    original_hash = file_hash(checkpoint)
+    monkeypatch.setattr(analysis, "EXPERIMENT", tmp_path)
+    export = tmp_path / "artifacts/research.sbnnue"
+    analysis.export_checkpoint(checkpoint, export)
+    header, arrays = load_export(export)
+    assert header["model"] == {"width": width, "hidden": hidden}
+    read_model(export)  # Actual native generator accepts its dimensional contract.
+    for fen in (chess.STARTING_FEN, "r3k2r/8/8/3pP3/8/8/8/R3K2R b KQkq - 0 1"):
+        board = chess.Board(fen)
+        with torch.inference_mode():
+            expected = model(torch.from_numpy(encode(board)[None])).item() * 400
+        assert numpy_predict(board, arrays) == pytest.approx(expected, abs=.01)
+    assert file_hash(checkpoint) == original_hash
+    analysis.export_checkpoint(checkpoint, export)  # Idempotent same-byte export.
+    with pytest.raises(ValueError, match="inside experiment"):
+        analysis.export_checkpoint(checkpoint, tmp_path / "outside.sbnnue")
