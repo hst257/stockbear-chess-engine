@@ -112,3 +112,21 @@ promise. Bucketing or larger transforms remain fallback research options only
 if the primary experiment justifies another bounded candidate. Prefer v2 when
 v3 does not establish a useful equal-time benefit; never change defaults based
 on validation loss alone. Preserve negative results and all previous research.
+
+## Recorded fallback decision after primary A
+
+Full A stopped after 16 epochs (validation plateau; best checkpoint selected without
+test evaluation). Training MSE fell near .007 while validation remained near .0189,
+compared with frozen v2 compact validation .01318. This justifies one additional
+representation candidate, B: 16 king buckets, `(rank // 2)*4 + file // 2`, with
+otherwise identical dimensions, targets and training hyperparameters. Each 2×2
+king region shares conditioning. B has 10,240 piece + 12 state inputs, 329,185
+parameters and a 1,316,740-byte payload. Refresh a perspective when its bucket
+changes; within-bucket king moves still update rights/EP but not piece rows.
+Preserve A weights, checkpoints, reports and exact training-source snapshot. Select
+between A/B on validation only before the single final held-out comparison.
+No larger architecture or independent training-variable search is planned.
+
+Native loaders reject weights above absolute 1e6 as well as nonfinite values,
+preventing float overflow under this fixed clipped architecture. This is a format
+validation bound, not evaluation clipping or a learned-model modification.

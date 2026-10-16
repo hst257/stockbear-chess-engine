@@ -1,0 +1,293 @@
+{
+  "signature": {
+    "dataset_sha256": "702b47678fb4438971f0c606cae07934e48f3641985eab1185e9133df1a344b4",
+    "king_buckets": 16,
+    "seed": 20261016,
+    "training": {
+      "epochs": 3,
+      "batch_size": 2048,
+      "learning_rate": 0.0015,
+      "weight_decay": 0.05,
+      "teacher_weight": 0.9,
+      "patience": 8,
+      "scheduler_patience": 2,
+      "min_delta": 1e-05,
+      "gradient_clip": 1.0
+    },
+    "train_limit": 20000,
+    "torch": "2.7.1+cu128",
+    "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU",
+    "source_sha256": {
+      "export.py": "e10cf9b2b41523813f612ed3247fcd9474b179f675516d070f8fc45567bbca2c",
+      "features.py": "1d930ba94f788da54990ec443d3db202e717faf2d3746998fd075354c1e81fe5",
+      "model.py": "394f059bcdc7b6232d46efa3c13fb08acadf6c0b7e9bb33d70f4fb41596d13e4",
+      "prepare.py": "4b5cbac9b4a8958496956a5420ee690e8e2013258041f15fade5b71a0f774155",
+      "train.py": "6d98a09b3e0a559c6868c78a8c2f8ba57de8815a1b1a9e0355ebbe047b68ffb3",
+      "__init__.py": "be81c9bd5583d96572be31d7c346cb5ff13252a87ba51e46d5a2a69118d63da0"
+    }
+  },
+  "epochs": 3,
+  "best_epoch": 3,
+  "parameters": 329185,
+  "finite_forward_backward": true,
+  "peak_cuda_bytes": 95672320,
+  "examples_per_second": 148148.14814990477,
+  "estimated_full_max_epoch_seconds": 404.7829199952005,
+  "validation": {
+    "positions": 2048,
+    "blended_mse": 0.031911330491455656,
+    "teacher_probability_mse": 0.02789222482113119,
+    "clipped_cp_mae": 220.8416027422063,
+    "clipped_cp_rmse": 374.881000870763,
+    "clipped_cp_pearson": 0.26549928263191014,
+    "sign_accuracy_abs_cp_ge_100": 0.6663101604278074,
+    "material_baseline_teacher_mse": 0.0178933115302341,
+    "prediction_cp_percentiles": [
+      -174.85086059570312,
+      -79.56271133422851,
+      5.40618896484375,
+      70.21178359985349,
+      96.03010559082031
+    ],
+    "by_phase": {
+      "opening": {
+        "positions": 282,
+        "blended_mse": 0.005511638763835958,
+        "teacher_probability_mse": 0.003291476314037139,
+        "clipped_cp_mae": 52.69846966249723,
+        "clipped_cp_rmse": 109.14375335257763,
+        "clipped_cp_pearson": 0.20372796471549373,
+        "sign_accuracy_abs_cp_ge_100": 0.875,
+        "material_baseline_teacher_mse": 0.004362818274733026,
+        "prediction_cp_percentiles": [
+          -81.63734436035156,
+          -38.55689105987549,
+          10.183364391326904,
+          49.44202880859374,
+          75.66889190673828
+        ]
+      },
+      "middlegame": {
+        "positions": 1217,
+        "blended_mse": 0.029708905603532218,
+        "teacher_probability_mse": 0.026184750557170615,
+        "clipped_cp_mae": 213.61978204405102,
+        "clipped_cp_rmse": 354.1424143225992,
+        "clipped_cp_pearson": 0.31859096007815924,
+        "sign_accuracy_abs_cp_ge_100": 0.6840277777777778,
+        "material_baseline_teacher_mse": 0.02052733362532769,
+        "prediction_cp_percentiles": [
+          -174.85086059570312,
+          -91.07297821044922,
+          -5.117863655090332,
+          72.4122787475586,
+          96.03010559082031
+        ]
+      },
+      "endgame": {
+        "positions": 549,
+        "blended_mse": 0.050354070301640706,
+        "teacher_probability_mse": 0.04431373166674237,
+        "clipped_cp_mae": 323.2192335584776,
+        "clipped_cp_rmse": 490.0199898154588,
+        "clipped_cp_pearson": 0.236964397307749,
+        "sign_accuracy_abs_cp_ge_100": 0.6146788990825688,
+        "material_baseline_teacher_mse": 0.01900441209184139,
+        "prediction_cp_percentiles": [
+          -122.7868423461914,
+          -58.22249908447265,
+          20.440990447998047,
+          70.8446258544922,
+          94.21259307861328
+        ]
+      }
+    },
+    "by_category": {
+      "quiet_heuristic": {
+        "positions": 277,
+        "blended_mse": 0.031893941545656716,
+        "teacher_probability_mse": 0.027879498502085077,
+        "clipped_cp_mae": 220.10892156487338,
+        "clipped_cp_rmse": 397.2564671305493,
+        "clipped_cp_pearson": 0.19466588264166712,
+        "sign_accuracy_abs_cp_ge_100": 0.6271186440677966,
+        "material_baseline_teacher_mse": 0.01299605399116941,
+        "prediction_cp_percentiles": [
+          -144.79168701171875,
+          -86.80326385498047,
+          7.005465030670166,
+          62.08101730346678,
+          84.686767578125
+        ]
+      },
+      "tactical_heuristic": {
+        "positions": 1771,
+        "blended_mse": 0.03191405027575058,
+        "teacher_probability_mse": 0.027894215329530837,
+        "clipped_cp_mae": 220.95620053222393,
+        "clipped_cp_rmse": 371.25934312761063,
+        "clipped_cp_pearson": 0.2772894354910804,
+        "sign_accuracy_abs_cp_ge_100": 0.6719706242350061,
+        "material_baseline_teacher_mse": 0.018659285747241957,
+        "prediction_cp_percentiles": [
+          -174.85086059570312,
+          -78.90689086914062,
+          5.041116714477539,
+          70.95767974853516,
+          96.03010559082031
+        ]
+      }
+    },
+    "by_year": {
+      "2020": {
+        "positions": 45,
+        "blended_mse": 0.02440522632820365,
+        "teacher_probability_mse": 0.020126512317311003,
+        "clipped_cp_mae": 166.54964272181192,
+        "clipped_cp_rmse": 261.21092600106977,
+        "clipped_cp_pearson": 0.15733537780588608,
+        "sign_accuracy_abs_cp_ge_100": 0.65,
+        "material_baseline_teacher_mse": 0.010091443388519947,
+        "prediction_cp_percentiles": [
+          -63.52431869506836,
+          -50.3249153137207,
+          18.83087730407715,
+          69.69642028808593,
+          85.42582702636719
+        ]
+      },
+      "2021": {
+        "positions": 293,
+        "blended_mse": 0.03069725063813924,
+        "teacher_probability_mse": 0.02672434600604209,
+        "clipped_cp_mae": 206.99813154533047,
+        "clipped_cp_rmse": 343.94098078725386,
+        "clipped_cp_pearson": 0.1916193595377573,
+        "sign_accuracy_abs_cp_ge_100": 0.6349206349206349,
+        "material_baseline_teacher_mse": 0.019064929455779204,
+        "prediction_cp_percentiles": [
+          -158.5404815673828,
+          -78.3429931640625,
+          3.8144350051879883,
+          74.66314544677732,
+          94.81920623779297
+        ]
+      },
+      "2022": {
+        "positions": 350,
+        "blended_mse": 0.03148293570193864,
+        "teacher_probability_mse": 0.02751980551530339,
+        "clipped_cp_mae": 219.1902192565373,
+        "clipped_cp_rmse": 350.4918025763056,
+        "clipped_cp_pearson": 0.2837685310517003,
+        "sign_accuracy_abs_cp_ge_100": 0.6264367816091954,
+        "material_baseline_teacher_mse": 0.018168284674928644,
+        "prediction_cp_percentiles": [
+          -127.21155548095703,
+          -87.38699989318847,
+          4.336363077163696,
+          70.76162490844727,
+          92.42963409423828
+        ]
+      },
+      "2023": {
+        "positions": 289,
+        "blended_mse": 0.025938610292593936,
+        "teacher_probability_mse": 0.022049246475183776,
+        "clipped_cp_mae": 189.15742339147417,
+        "clipped_cp_rmse": 347.2346100754943,
+        "clipped_cp_pearson": 0.26834507395400864,
+        "sign_accuracy_abs_cp_ge_100": 0.6864406779661016,
+        "material_baseline_teacher_mse": 0.0165096066057245,
+        "prediction_cp_percentiles": [
+          -122.72120666503906,
+          -73.74226684570313,
+          7.833707332611084,
+          69.87667236328123,
+          90.31846618652344
+        ]
+      },
+      "2024": {
+        "positions": 315,
+        "blended_mse": 0.028759286445825042,
+        "teacher_probability_mse": 0.024145661646583147,
+        "clipped_cp_mae": 203.6320045592293,
+        "clipped_cp_rmse": 363.7408951700352,
+        "clipped_cp_pearson": 0.2596374021578254,
+        "sign_accuracy_abs_cp_ge_100": 0.7083333333333334,
+        "material_baseline_teacher_mse": 0.014871032831595096,
+        "prediction_cp_percentiles": [
+          -134.81785583496094,
+          -77.00110855102538,
+          0.7463455200195312,
+          66.2741584777832,
+          88.32698822021484
+        ]
+      },
+      "2025": {
+        "positions": 344,
+        "blended_mse": 0.037757407678299965,
+        "teacher_probability_mse": 0.03370344924596109,
+        "clipped_cp_mae": 253.13374752637952,
+        "clipped_cp_rmse": 417.36923820699064,
+        "clipped_cp_pearson": 0.2574741095050651,
+        "sign_accuracy_abs_cp_ge_100": 0.6407185628742516,
+        "material_baseline_teacher_mse": 0.016408308305690168,
+        "prediction_cp_percentiles": [
+          -144.79168701171875,
+          -71.06689071655273,
+          3.8533270359039307,
+          71.74770317077636,
+          96.03010559082031
+        ]
+      },
+      "2026": {
+        "positions": 412,
+        "blended_mse": 0.035676858938711115,
+        "teacher_probability_mse": 0.031998339511307636,
+        "clipped_cp_mae": 246.4399351107264,
+        "clipped_cp_rmse": 414.08691780166225,
+        "clipped_cp_pearson": 0.32227456504810376,
+        "sign_accuracy_abs_cp_ge_100": 0.7043010752688172,
+        "material_baseline_teacher_mse": 0.022199886860445283,
+        "prediction_cp_percentiles": [
+          -174.85086059570312,
+          -80.38832359313965,
+          9.055787086486816,
+          66.09108009338378,
+          94.21259307861328
+        ]
+      }
+    }
+  },
+  "test_evaluated": false,
+  "history": [
+    {
+      "epoch": 1,
+      "train_mse": 0.03388971563577652,
+      "validation_mse": 0.03429719329623731,
+      "validation_teacher_mse": 0.03009395532303876,
+      "validation_cp_mae": 229.75851223396603,
+      "seconds": 0.3279999999977008,
+      "learning_rate": 0.0015
+    },
+    {
+      "epoch": 2,
+      "train_mse": 0.03241775977015495,
+      "validation_mse": 0.03313069130392966,
+      "validation_teacher_mse": 0.029001662014813426,
+      "validation_cp_mae": 222.99185843823943,
+      "seconds": 0.030999999999039574,
+      "learning_rate": 0.0015
+    },
+    {
+      "epoch": 3,
+      "train_mse": 0.03086532741189003,
+      "validation_mse": 0.031911330491455656,
+      "validation_teacher_mse": 0.02789222482113119,
+      "validation_cp_mae": 220.8416027422063,
+      "seconds": 0.0459999999984575,
+      "learning_rate": 0.0015
+    }
+  ]
+}

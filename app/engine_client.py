@@ -9,6 +9,7 @@ import threading
 
 import chess
 import chess.engine
+from app.nnue_v3_model import DEFAULT_V3_MODEL, validate_model
 
 DEFAULT_ENGINE = (Path(__file__).resolve().parents[1] / "engine" / "build" /
                   ("chesslab-engine.exe" if os.name == "nt" else "chesslab-engine"))
@@ -44,10 +45,11 @@ class EngineSettings:
     check_extensions: bool = True
     mop_up: bool = True
     evaluator: str = "classical"
+    v3_model: str = str(DEFAULT_V3_MODEL)
 
     def __post_init__(self) -> None:
-        if self.evaluator not in ("classical", "nnue"):
-            raise ValueError("Evaluator must be classical or nnue.")
+        if self.evaluator not in ("classical", "nnue", "nnue_v3"):
+            raise ValueError("Evaluator must be classical, nnue or nnue_v3.")
         if not 1 <= self.depth <= 5:
             raise ValueError("GUI search depth must be between 1 and 5 plies.")
         if self.thinking_time_ms not in dict(THINKING_TIMES).values():
@@ -260,6 +262,11 @@ class EngineClient:
                                   "UseSEE": settings.static_exchange, "UseAdaptiveLMR": settings.adaptive_lmr,
                                   "UseReverseFutility": settings.reverse_futility, "UseFutility": settings.futility,
                                   "UseCheckExtensions": settings.check_extensions, "UseMopUp": settings.mop_up})
+                if settings.evaluator == "nnue_v3":
+                    if "NNUEV3File" not in engine.options:
+                        raise chess.engine.EngineError("This engine build does not support NNUE v3")
+                    model_path = validate_model(Path(settings.v3_model))
+                    engine.configure({"NNUEV3File": str(model_path)})
                 engine.configure({"Evaluator": settings.evaluator})
                 if job.canceled.is_set():
                     return
@@ -300,7 +307,7 @@ class EngineClient:
                 rows.append(search_stats(info, move, board, settings, pruning, tuple(iterations), counters))
             if not job.canceled.is_set():
                 self.messages.put(EngineMessage(job.token, revision, kind, tuple(rows)))
-        except (OSError, chess.engine.EngineError, TimeoutError, RuntimeError) as error:
+        except (OSError, chess.engine.EngineError, TimeoutError, RuntimeError, ValueError) as error:
             if not job.canceled.is_set():
                 self.messages.put(EngineMessage(job.token, revision, kind, error=str(error)))
         finally:

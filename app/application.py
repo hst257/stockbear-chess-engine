@@ -290,7 +290,7 @@ class Application:
                 depth = str(last.depth) if last.timed_search else f"{last.depth}/{last.requested_depth}"
                 detail = f"{last.san} · d{depth} · {last.seconds:.2f}s · {last.nodes:,} nodes"
         if detail and self.settings.enabled:
-            detail = ("NNUE" if self.settings.evaluator == "nnue" else "Classical") + " · " + detail
+            detail = engine_panels.EVALUATOR_LABELS[self.settings.evaluator] + " · " + detail
         self.sidebar.draw(surface, self.sidebar_rect, self.game, self.pieces,
                           detail=detail, undo_enabled=self.can_undo,
                           claim_enabled=bool(self.game.draw_claims) and self.human_turn,

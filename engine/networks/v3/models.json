@@ -1,0 +1,14 @@
+{
+  "stockbear-v3-a.sbnnue": {
+    "sha256": "08fb7a2a54c783566ed11dba3608459800d290a0cef2c38375202ef43a5f1803",
+    "bytes": 5248972
+  },
+  "stockbear-v3-b.sbnnue": {
+    "sha256": "610e67ddf3e1e556f9209c4ba9de879d780f3a018924e4d16edf93e997251b78",
+    "bytes": 1316812
+  },
+  "stockbear-v3-selected.sbnnue": {
+    "sha256": "610e67ddf3e1e556f9209c4ba9de879d780f3a018924e4d16edf93e997251b78",
+    "bytes": 1316812
+  }
+}

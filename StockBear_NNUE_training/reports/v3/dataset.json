@@ -1,0 +1,31 @@
+{
+  "feature_version": "halfkp64-10x64-shared-state12-v3",
+  "source": "Z:\\Code\\Chess\\StockBear_NNUE_training\\data\\v2\\prepared\\1250000",
+  "source_manifest_sha256": "821cf5bb8d691eaf79dc45ba866e23978196aea162a9650dadabaaca190efb4d",
+  "splits": {
+    "train": {
+      "positions": 999464,
+      "source_fens_checked": 4096,
+      "x_sha256": "c9913bd99d2f3b331e636457fb42f8bb4a52aa0aa9849ffb96c516ae069e23a7",
+      "y_sha256": "a236771103a48702bda22e541eddfc16b66004e2ad657a36709812b44da71965",
+      "ordinal_sha256": "c6a387d057e1fa946e722d93fae414707fd381e6f49c6ff60c81f6f0e5ad70c5"
+    },
+    "validation": {
+      "positions": 19930,
+      "source_fens_checked": 4096,
+      "x_sha256": "7b7caadad9f17bc8ec8350b39a0ea8c352c2e46b7c08fa3593f9ce2d7108b164",
+      "y_sha256": "adc4536f98322dbbf73589a032e9ed031e6b00c44f853a70101225ed7ae278ea",
+      "ordinal_sha256": "9fe61c9e43d3c9c0f0abac7aa719d1622d4273cd42db7cd032909f45733121ee"
+    },
+    "test": {
+      "positions": 20152,
+      "source_fens_checked": 4096,
+      "x_sha256": "25f7ae65885cfdf604d76575176a13fcd064f3051b874e06a46d2f1b468d1bd4",
+      "y_sha256": "a563551a4d409b97389439b1889b778d52ee819f4946229522e39321f616f41a",
+      "ordinal_sha256": "e604c890af4b22f4988ba9902e49110a55a4711796d912d117f6d59a3e90fb6c"
+    }
+  },
+  "grouped_splits_disjoint": true,
+  "original_targets_and_ordinals_identical": true,
+  "seconds": 6.297000000002299
+}

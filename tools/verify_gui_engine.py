@@ -47,7 +47,7 @@ def timings(frames):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=Path("artifacts/audit"))
-    parser.add_argument("--evaluator", choices=("classical", "nnue"), default="classical")
+    parser.add_argument("--evaluator", choices=("classical", "nnue", "nnue_v3"), default="classical")
     parser.add_argument("--engine", type=Path, default=DEFAULT_ENGINE)
     args = parser.parse_args()
     output = args.output

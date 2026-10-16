@@ -133,7 +133,7 @@ def test_incremental_search_agrees_with_rebuild(engine, fen, selective):
 
 def test_mode_switch_keeps_classical_scores_and_caches_separate(engine):
     assert engine.options["Evaluator"].default == "classical"
-    assert engine.options["Evaluator"].var == ["classical", "nnue"]
+    assert engine.options["Evaluator"].var == ["classical", "nnue", "nnue_v3"]
     engine.configure({"TranspositionTable": True, "UseAdvancedEvaluation": True, "UsePST": True})
     results = []
     for mode in ("classical", "nnue", "classical", "nnue"):
@@ -198,7 +198,7 @@ def test_gui_search_lab_switch_and_inactive_pst(app):
     click(app, app.modal_targets["toggle_evaluator"].center)
     assert app.settings.evaluator == "nnue"
     assert app.last_play_stats is None
-    assert engine_panels.adjust(app.settings, "toggle_evaluator").evaluator == "classical"
+    assert engine_panels.adjust(app.settings, "toggle_evaluator").evaluator == "nnue_v3"
     previous = app.settings.use_pst
     click(app, app.modal_targets["toggle_pst"].center)
     assert app.settings.use_pst == previous

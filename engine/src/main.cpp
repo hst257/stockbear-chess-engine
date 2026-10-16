@@ -1,6 +1,7 @@
 #include "search.hpp"
 #include "strength.hpp"
 #include "nnue.hpp"
+#include "nnue_v3.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -64,6 +65,23 @@ std::string nnue_json(const chess::Board& board) {
             if (i) json << ',';
             json << accumulator.features.active[p][i];
         }
+        json << ']';
+    }
+    return json.str() + "]}";
+}
+
+std::string nnue_v3_json(const chess::Board& board, const chesslab::NnueV3Model& model) {
+    chesslab::NnueV3Frame frame;
+    chesslab::nnue_v3_refresh(model, board, frame);
+    auto features = chesslab::nnue_v3_features(board, model.king_buckets);
+    std::ostringstream json;
+    json << std::setprecision(10) << "{\"evaluator\":\"nnue_v3\",\"payload_sha256\":\"" << model.payload_sha256
+         << "\",\"side_to_move_cp\":" << chesslab::nnue_v3_side_to_move(model, board, frame)
+         << ",\"total\":" << chesslab::nnue_v3_white_score(model, board, frame) << ",\"features\":[";
+    for (int p = 0; p < 2; ++p) {
+        if (p) json << ',';
+        json << '[';
+        for (int i = 0; i < features.count; ++i) { if (i) json << ','; json << features.active[p][i]; }
         json << ']';
     }
     return json.str() + "]}";
@@ -279,7 +297,8 @@ public:
                     output("option name PawnCache type check default true");
                     output("option name FastMovegen type check default true");
                     output("option name UseAdvancedEvaluation type check default true");
-                    output("option name Evaluator type combo default classical var classical var nnue");
+                    output("option name Evaluator type combo default classical var classical var nnue var nnue_v3");
+                    output("option name NNUEV3File type string default engine/networks/v3/stockbear-v3-selected.sbnnue");
                     output("option name NNUEIncremental type check default true");
                     output("option name NNUEKernel type combo default auto var auto var reference var scalar var quant");
                     for (const auto name : chesslab::EVAL_OPTION_NAMES)
@@ -317,7 +336,7 @@ public:
                 else if (command == "stop") stop_search();
                 else if (command == "eval") {
                     stop_search();
-                    output("info string eval " + (use_nnue_ ? nnue_json(board_) : evaluation_json(board_, use_pst_, evaluation_)));
+                    output("info string eval " + (use_nnue_v3_ ? nnue_v3_json(board_, *nnue_v3_model_) : use_nnue_ ? nnue_json(board_) : evaluation_json(board_, use_pst_, evaluation_)));
                 }
                 else if (command == "quit") break;
                 // UCI permits unrecognized commands to be ignored.
@@ -338,6 +357,9 @@ private:
     bool fast_movegen_ = true;
     chesslab::EvaluationOptions evaluation_;
     bool use_nnue_ = false;
+    bool use_nnue_v3_ = false;
+    std::shared_ptr<const chesslab::NnueV3Model> nnue_v3_model_;
+    std::string nnue_v3_file_ = "engine/networks/v3/stockbear-v3-selected.sbnnue";
     bool nnue_incremental_ = true;
     std::string nnue_kernel_ = "auto";
     bool transposition_table_ = true;
@@ -369,12 +391,22 @@ private:
 
     void set_option(const std::vector<std::string>& tokens) {
         stop_search();
+        if (tokens.size() >= 5 && tokens[1] == "name" && tokens[2] == "NNUEV3File" && tokens[3] == "value") {
+            std::string path = tokens[4];
+            for (std::size_t i = 5; i < tokens.size(); ++i) path += " " + tokens[i];
+            auto candidate = chesslab::nnue_v3_load(path);
+            nnue_v3_model_ = std::move(candidate); // Failed loading preserves model and selection.
+            nnue_v3_file_ = path;
+            return;
+        }
         if (tokens.size() != 5 || tokens[1] != "name" || tokens[3] != "value") {
             throw std::invalid_argument("expected setoption name <option> value <value> (see uci for supported options)");
         }
         if (tokens[2] == "Evaluator") {
-            if (tokens[4] != "classical" && tokens[4] != "nnue") throw std::invalid_argument("Evaluator must be classical or nnue");
-            use_nnue_ = tokens[4] == "nnue";
+            if (tokens[4] != "classical" && tokens[4] != "nnue" && tokens[4] != "nnue_v3") throw std::invalid_argument("Evaluator must be classical, nnue or nnue_v3");
+            if (tokens[4] == "nnue_v3" && !nnue_v3_model_) nnue_v3_model_ = chesslab::nnue_v3_load(nnue_v3_file_);
+            use_nnue_ = tokens[4] != "classical";
+            use_nnue_v3_ = tokens[4] == "nnue_v3";
             return;
         }
         if (tokens[2] == "NNUEKernel") {
@@ -501,6 +533,7 @@ private:
         limits.fast_movegen = fast_movegen_;
         limits.evaluation = evaluation_;
         limits.use_nnue = use_nnue_;
+        limits.nnue_v3 = use_nnue_v3_ ? nnue_v3_model_ : nullptr;
         limits.nnue_incremental = nnue_incremental_;
         limits.nnue_kernel = nnue_kernel_;
         limits.transposition_table = transposition_table_;

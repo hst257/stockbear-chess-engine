@@ -6,6 +6,7 @@
 #include "terminal_rules.hpp"
 #include "strength.hpp"
 #include "nnue.hpp"
+#include "nnue_v3.hpp"
 
 #include <algorithm>
 #include <memory>
@@ -74,10 +75,13 @@ public:
         profiling::reset();
         profiling::Scope measured(profiling::SEARCH);
 #ifdef CHESSLAB_DIAGNOSTICS
-        diagnostics::reset(limits_.use_nnue && limits_.nnue_incremental,
+        diagnostics::reset(limits_.use_nnue && !limits_.nnue_v3 && limits_.nnue_incremental,
                            sizeof(NnueAccumulator), sizeof(std::array<NnueAccumulator, MAX_SEARCH_PLY + 1>));
 #endif
-        if (limits_.use_nnue && limits_.nnue_incremental) {
+        if (limits_.nnue_v3 && limits_.nnue_incremental) {
+            nnue_v3_stack_ = std::make_unique<std::array<NnueV3Frame, MAX_SEARCH_PLY + 1>>();
+            nnue_v3_refresh(*limits_.nnue_v3, board, (*nnue_v3_stack_)[0]);
+        } else if (limits_.use_nnue && limits_.nnue_incremental) {
             nnue_stack_ = std::make_unique<std::array<NnueAccumulator, MAX_SEARCH_PLY + 1>>();
             nnue_refresh(board, (*nnue_stack_)[0]);
 #if CHESSLAB_NNUE_UPDATE == 3
@@ -173,6 +177,7 @@ private:
     std::unique_ptr<PawnCache> pawn_cache_;
     OrderingHistory ordering_;
     std::unique_ptr<std::array<NnueAccumulator, MAX_SEARCH_PLY + 1>> nnue_stack_;
+    std::unique_ptr<std::array<NnueV3Frame, MAX_SEARCH_PLY + 1>> nnue_v3_stack_;
 #if CHESSLAB_NNUE_UPDATE == 3
     struct NnuePending { NnueDelta delta; NnueFeatures states; bool ready = false; };
     std::unique_ptr<std::array<NnuePending, MAX_SEARCH_PLY + 1>> nnue_pending_;
@@ -191,6 +196,13 @@ private:
     int static_evaluation(const chess::Board& board, int ply) {
         ++result_.eval_calls;
         profiling::Scope measured(profiling::EVALUATION);
+        if (limits_.nnue_v3) {
+            ++result_.nnue_evaluations;
+            if (nnue_v3_stack_) return nnue_v3_white_score(*limits_.nnue_v3, board, (*nnue_v3_stack_)[ply]);
+            NnueV3Frame fresh;
+            nnue_v3_refresh(*limits_.nnue_v3, board, fresh);
+            return nnue_v3_white_score(*limits_.nnue_v3, board, fresh);
+        }
         if (limits_.use_nnue) {
 #ifdef CHESSLAB_DIAGNOSTICS
             diagnostics::evaluation(ply);
@@ -210,6 +222,10 @@ private:
     }
 
     void descend_nnue(const chess::Board& board, int ply, const NnueDelta& delta = {}) {
+        if (nnue_v3_stack_) {
+            nnue_v3_update(*limits_.nnue_v3, (*nnue_v3_stack_)[ply - 1], board, delta, (*nnue_v3_stack_)[ply]);
+            return;
+        }
         if (!nnue_stack_) return;
 #if CHESSLAB_NNUE_UPDATE == 3
         if (nnue_pending_) {
@@ -340,7 +356,7 @@ private:
             PrincipalVariation child_pv;
             int score;
             {
-                const auto nnue_delta = nnue_stack_ && limits_.nnue_kernel != "reference" ? nnue_move_delta(board, move) : NnueDelta{};
+                const auto nnue_delta = nnue_v3_stack_ || (nnue_stack_ && limits_.nnue_kernel != "reference") ? nnue_move_delta(board, move) : NnueDelta{};
                 ScopedMove played(board, move);
                 descend_nnue(board, ply + 1, nnue_delta);
                 score = quiescence(board, ply + 1, qply + 1, alpha, beta, child_pv, null_subtree);
@@ -488,7 +504,7 @@ private:
                 std::clamp(limits_.lmr_reduction, 1, std::min(3, depth - 2))) : 0;
             int score;
             {
-                const auto nnue_delta = nnue_stack_ && limits_.nnue_kernel != "reference" ? nnue_move_delta(board, move) : NnueDelta{};
+                const auto nnue_delta = nnue_v3_stack_ || (nnue_stack_ && limits_.nnue_kernel != "reference") ? nnue_move_delta(board, move) : NnueDelta{};
                 ScopedMove played(board, move);
                 descend_nnue(board, ply + 1, nnue_delta);
                 const auto child_history = cacheable ? next_history(history, parent_key, board) : 0;

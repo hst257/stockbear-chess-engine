@@ -1,0 +1,10 @@
+{
+  "king_buckets": 16,
+  "run": "full-b",
+  "criterion": "Validation blended MSE only, before test; equal-time matches remain final strength gate",
+  "contenders": {
+    "64": 0.018203328795089124,
+    "16": 0.01555012167957987
+  },
+  "model_sha256": "610e67ddf3e1e556f9209c4ba9de879d780f3a018924e4d16edf93e997251b78"
+}

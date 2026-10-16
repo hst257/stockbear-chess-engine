@@ -28,8 +28,9 @@ def main() -> int:
                         help="Add piece-square bonuses to material evaluation (default: enabled).")
     parser.add_argument("--advanced-evaluation", action=argparse.BooleanOptionalAction, default=True,
                         help="Use phase-aware positional evaluation (default: enabled).")
-    parser.add_argument("--evaluator", choices=("classical", "nnue"), default="classical",
+    parser.add_argument("--evaluator", choices=("classical", "nnue", "nnue_v3"), default="classical",
                         help="Choose classical evaluation or the bundled experimental StockBear NNUE.")
+    parser.add_argument("--v3-model", metavar="PATH", help="Use a separately versioned experimental NNUE v3 model.")
     parser.add_argument("--transposition-table", action=argparse.BooleanOptionalAction, default=True,
                         help="Cache search results by Zobrist key and draw context (default: enabled).")
     parser.add_argument("--quiescence", action=argparse.BooleanOptionalAction, default=True,
@@ -57,6 +58,7 @@ def main() -> int:
     try:
         from app.application import Application
         from app.engine_client import DEFAULT_ENGINE, EngineSettings
+        from app.nnue_v3_model import DEFAULT_V3_MODEL
         from pathlib import Path
         import pygame
     except ImportError as error:
@@ -74,7 +76,7 @@ def main() -> int:
                                   static_exchange=args.see, adaptive_lmr=args.adaptive_lmr,
                                   reverse_futility=args.reverse_futility, futility=args.futility,
                                   check_extensions=args.check_extensions, mop_up=args.mop_up,
-                                  evaluator=args.evaluator)
+                                  evaluator=args.evaluator, v3_model=args.v3_model or str(DEFAULT_V3_MODEL))
         app = Application(settings=settings, engine_path=Path(args.engine) if args.engine else DEFAULT_ENGINE)
         app.run(args.smoke_test, args.screenshot)
         return 0

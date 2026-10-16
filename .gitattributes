@@ -15,3 +15,17 @@ docs/nnue-v2-throughput/*.txt text eol=lf
 docs/nnue-v2-throughput/*.svg text eol=lf
 docs/nnue-v2-throughput/*.png binary
 NNUE_V2_THROUGHPUT_OPTIMIZATION.md text eol=lf
+docs/nnue-v3/*.json text eol=lf
+docs/nnue-v3/*.pgn text eol=lf
+docs/nnue-v3/*.csv text eol=lf
+docs/nnue-v3/*.md text eol=lf
+docs/nnue-v3/*.txt text eol=lf
+docs/nnue-v3/*.svg text eol=lf
+docs/nnue-v3/*.png binary
+engine/networks/v3/*.sbnnue binary
+NNUE_V3_DESIGN.md text eol=lf
+NNUE_V3_KING_RELATIVE_REPORT.md text eol=lf
+StockBear_NNUE_training/stockbear/v3/*.py text eol=lf
+StockBear_NNUE_training/reports/v3/source-*/*.py text eol=lf
+StockBear_NNUE_training/reports/v3/*.json text eol=lf
+StockBear_NNUE_training/reports/v3/*.log text eol=lf

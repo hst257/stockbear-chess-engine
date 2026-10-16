@@ -1,0 +1,30 @@
+{
+  "model_sha256": "610e67ddf3e1e556f9209c4ba9de879d780f3a018924e4d16edf93e997251b78",
+  "positions": 20000,
+  "exact_feature_indices": true,
+  "normalized_color_symmetry": true,
+  "max_abs_cp_error": 0.00042728125004032336,
+  "mean_abs_cp_error": 6.17504954097864e-05,
+  "transitions": {
+    "transitions": 91629,
+    "nulls": 21542,
+    "king_refreshes": 33119,
+    "max_lane_error": 9.536743164e-07,
+    "max_cp_error": 0.000732421875,
+    "frame_bytes": 308
+  },
+  "malformed_rejected": {
+    "magic": "Invalid v3 magic",
+    "size": "Invalid v3 weight size",
+    "version": "Incompatible v3 feature/architecture/precision/scale",
+    "contract": "Incompatible v3 feature contract",
+    "checksum": "V3 checksum mismatch",
+    "nan": "Nonfinite v3 weights",
+    "padding": "Nonzero v3 padding"
+  },
+  "tolerance": {
+    "forward_cp": 0.02,
+    "incremental_cp": 0.02,
+    "incremental_lane": 0.0001
+  }
+}

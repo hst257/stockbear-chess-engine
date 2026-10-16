@@ -4,6 +4,7 @@
 #include <chrono>
 #include <cstdint>
 #include <functional>
+#include <memory>
 #include <vector>
 
 #include "chess.hpp"
@@ -13,6 +14,8 @@
 #include "transposition.hpp"
 
 namespace chesslab {
+
+struct NnueV3Model;
 
 struct SearchLimits {
     int depth = 3;
@@ -43,6 +46,7 @@ struct SearchLimits {
     bool futility = true;
     bool check_extensions = true;
     bool use_nnue = false;
+    std::shared_ptr<const NnueV3Model> nnue_v3; // Immutable snapshot, absent for classical/v2.
     bool nnue_incremental = true;
     std::string nnue_kernel = "auto";
 };

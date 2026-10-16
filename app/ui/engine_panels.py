@@ -8,6 +8,9 @@ import pygame
 from app.engine_client import EngineSettings, SearchStats, THINKING_TIMES
 from app.ui import dialogs, theme
 
+EVALUATOR_LABELS = {"classical": "Classical", "nnue": "NNUE", "nnue_v3": "NNUE v3 (exp.)"}
+EVALUATORS = ("classical", "nnue", "nnue_v3")
+
 
 def setup(surface: pygame.Surface, settings: EngineSettings, available: bool) -> dict[str, pygame.Rect]:
     rect = dialogs.panel(surface, "Set up a game", "Choose settings, then apply or start a new game.", 648)
@@ -29,7 +32,7 @@ def setup(surface: pygame.Surface, settings: EngineSettings, available: bool) ->
                             ("alphabeta", "Alpha-beta", settings.alpha_beta)])
     theme.text(surface, "SEARCH OPTIONS", (rect.x + 25, rect.y + 272), 12, theme.MUTED, True)
     evaluator = pygame.Rect(rect.x + 250, rect.y + 264, 215, 28)
-    theme.button(surface, evaluator, "Eval: " + ("NNUE" if settings.evaluator == "nnue" else "Classical"))
+    theme.button(surface, evaluator, "Eval: " + EVALUATOR_LABELS[settings.evaluator])
     targets["toggle_evaluator"] = evaluator
     options = [
         ("toggle_deepening", "Deepening", settings.iterative_deepening),
@@ -49,7 +52,7 @@ def setup(surface: pygame.Surface, settings: EngineSettings, available: bool) ->
         text = f"{label}: " + (("on" if selected else "off") if active else "inactive")
         if name == "toggle_deepening" and settings.timed_search:
             text = "Deepening: automatic"
-        if name == "toggle_pst" and settings.evaluator == "nnue":
+        if name == "toggle_pst" and settings.evaluator != "classical":
             text = "PST: classical only"
         theme.button(surface, target, text, active, selected and active)
         if active:
@@ -101,7 +104,7 @@ def adjust(settings: EngineSettings, name: str) -> EngineSettings:
         "iterative": {"iterative_deepening": True}, "fixed": {"iterative_deepening": False},
         "ordered": {"move_ordering": True}, "unordered": {"move_ordering": False},
         "pst_on": {"use_pst": True}, "pst_off": {"use_pst": False},
-        "toggle_evaluator": {"evaluator": "nnue" if settings.evaluator == "classical" else "classical"},
+        "toggle_evaluator": {"evaluator": EVALUATORS[(EVALUATORS.index(settings.evaluator) + 1) % len(EVALUATORS)]},
         "tt_on": {"transposition_table": True}, "tt_off": {"transposition_table": False},
         "toggle_deepening": {"iterative_deepening": not settings.iterative_deepening},
         "toggle_ordering": {"move_ordering": not settings.move_ordering},
@@ -125,14 +128,14 @@ def diagnostics(surface: pygame.Surface, rows: tuple[SearchStats, ...],
     # Six compact columns fit inside the minimum-size window's modal panel.
     theme.text(surface, position_label, (rect.x + 25, rect.y + 91), 13, theme.ACCENT)
     evaluator = pygame.Rect(rect.x + 250, rect.y + 80, 215, 28)
-    theme.button(surface, evaluator, "Eval: " + ("NNUE" if settings.evaluator == "nnue" else "Classical"), not busy)
+    theme.button(surface, evaluator, "Eval: " + EVALUATOR_LABELS[settings.evaluator], not busy)
     toggle = pygame.Rect(rect.x + 25, rect.y + 116, 215, 30)
     theme.button(surface, toggle, "Deepening: automatic" if settings.timed_search else
                  "Deepening: " + ("on" if settings.iterative_deepening else "off"), not busy and not settings.timed_search)
     ordering = pygame.Rect(rect.x + 250, rect.y + 116, 215, 30)
     theme.button(surface, ordering, "Ordering: " + ("on" if settings.move_ordering else "off"), not busy)
     pst = pygame.Rect(rect.x + 25, rect.y + 154, 215, 30)
-    theme.button(surface, pst, "PST: classical only" if settings.evaluator == "nnue" else
+    theme.button(surface, pst, "PST: classical only" if settings.evaluator != "classical" else
                  "PST: " + ("on" if settings.use_pst else "off"), not busy and settings.evaluator == "classical")
     table = pygame.Rect(rect.x + 250, rect.y + 154, 215, 30)
     theme.button(surface, table, "Transpositions: " + ("on" if settings.transposition_table else "off"), not busy)
