@@ -81,3 +81,12 @@ generalization gap. The selected export is `exports/stockbear-compact.sbnnue`.
 ## NNUE v2 experiments
 
 The completed v2 plan and results are in `NNUE_V2_RESULTS.md`. Run or resume with `python -m stockbear.v2 run`. Configuration: `configs/v2/plan.json`. The selected model is `exports/v2/stockbear-v2-best.sbnnue`; independently named architecture candidates and golden scores are beside it. v1 artifacts and the native engine remain unchanged.
+
+## Expanded labeled corpus
+
+See [expanded training preparation](../EXPANDED_TRAINING_README.md) for the
+separate merged v1/v2 plus CC events dataset, its preservation and leakage checks,
+and opt-in training configurations. The old experiment commands above continue
+to use their original datasets. `python -m stockbear.expanded_train check --config
+configs/expanded-20261016/v3-bucket16.json` verifies the new prepared dataset
+without starting training.

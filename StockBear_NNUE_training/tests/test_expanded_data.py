@@ -8,7 +8,7 @@ import numpy as np
 import pytest
 
 from stockbear.common import file_hash
-from stockbear.expanded_data import encode_batch, merge, source_snapshot, sources
+from stockbear.expanded_data import encode_batch, merge, prepare_arrays, prepared_complete, source_snapshot, sources
 from stockbear.labeling.storage import connect
 from stockbear.sample import canonical_fen
 from stockbear.v3.features import encode as encode_v3, from_v2
@@ -89,3 +89,43 @@ def test_encoded_targets_and_both_v3_contracts_match_independent_boards():
         assert np.array_equal(from_v2(x,bucket)[0],encode_v3(board,bucket))
     with pytest.raises(ValueError,match="corrupt"):
         encode_batch([(1,"wrong",*row[2:])])
+
+
+def test_all_prepared_formats_publish_and_load_without_training(tmp_path,monkeypatch):
+    import random
+    from stockbear import expanded_train
+    destination=tmp_path/"data/expanded/example";destination.mkdir(parents=True)
+    with closing(connect(destination/"merged.sqlite")) as db:
+        db.execute("CREATE TABLE records(ordinal INTEGER PRIMARY KEY,id TEXT UNIQUE,fen TEXT,cp INTEGER,outcome REAL,"
+                   "ply INTEGER,phase TEXT,category TEXT,year INTEGER,game_index INTEGER,source TEXT,origin TEXT,game_id TEXT,split TEXT)")
+        board=chess.Board();rng=random.Random(94);seen=set();order=0
+        for group,split in enumerate(("train","validation","test")):
+            for i in range(24):
+                while True:
+                    if board.is_game_over():board=chess.Board()
+                    board.push(rng.choice(list(board.legal_moves)))
+                    fen=canonical_fen(board)
+                    if fen not in seen and not board.is_game_over():break
+                seen.add(fen);order+=1
+                db.execute("INSERT INTO records VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                    (order,hashlib.sha256(fen.encode()).hexdigest(),fen,91,.5,i+1,"middlegame",
+                     "quiet_heuristic",2026,group,"source.pgn","v2",str(group),split))
+        db.commit()
+    merged={"database_sha256":file_hash(destination/"merged.sqlite"),"teacher_profile":"teacher",
+            "splits":{"train":24,"validation":24,"test":24}}
+    result=prepare_arrays(destination,merged,workers=1)
+    for fmt in result:
+        assert prepared_complete(destination/"prepared"/fmt)["independent_fens_checked"]==72
+        for split in merged["splits"]:
+            assert result[fmt]["splits"][split]["y_sha256"]==result["v2"]["splits"][split]["y_sha256"]
+            assert result[fmt]["splits"][split]["ordinal_sha256"]==result["v2"]["splits"][split]["ordinal_sha256"]
+    ready={"complete":True,"source_files_unchanged":True,"prepared":result}
+    (destination/"READY.json").write_text(json.dumps(ready),encoding="utf-8")
+    monkeypatch.setattr(expanded_train,"ROOT",tmp_path)
+    for fmt in result:
+        _,manifest=expanded_train.verify_dataset({"dataset":"data/expanded/example/prepared/"+fmt,"format":fmt})
+        assert manifest["splits"]["train"]["positions"]==24
+    with (destination/"prepared/v2/train_x.npy").open("r+b") as stream:
+        stream.seek(-1,2);stream.write(b"!")
+    with pytest.raises(ValueError,match="corrupt"):
+        prepared_complete(destination/"prepared/v2")

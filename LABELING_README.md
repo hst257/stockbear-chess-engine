@@ -168,3 +168,8 @@ local group numbers is unsafe. Existing trainers intentionally retain their
 frozen dataset paths. This step prepares new compatible arrays and does not
 modify those paths, merge datasets or train a model. Empty tiny-test splits are
 allowed and reported; a future training dataset needs adequate holdouts.
+
+The separate [expanded-corpus preparation workflow](EXPANDED_TRAINING_README.md)
+verifies a completed run, merges compatible original and expanded labels with
+joint game IDs, and prepares all three feature formats in a new directory.
+It includes explicit training configurations without replacing frozen experiments.
