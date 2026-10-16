@@ -3,7 +3,7 @@
 User-amended 108-game experiment: 72 games at 500 ms and 36 at 1000 ms.
 The user requested a maximum of one second during the 1-second cohort.
 No 3-second or 5-second games will be played. No extensions.
-The original signed 130-game plan is preserved for record identity;
+The original frozen 130-game plan is preserved for record identity;
 `schedule-amendment.json` records the change. Use the amended entry point below.
 
 All engines use the selected scaling-study checkpoints, float inference,

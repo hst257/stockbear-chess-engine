@@ -1,10 +1,10 @@
 {
   "changed_protected_files": [],
-  "checked_utc": "2026-10-16T19:58:05.995863+00:00",
-  "games": 98,
+  "checked_utc": "2026-10-16T20:24:02.755866+00:00",
+  "games": 108,
   "overruns": [],
   "passed": true,
   "protected_files": 152,
-  "searched_moves": 10350,
+  "searched_moves": 11645,
   "test_dataset_opened": false
 }

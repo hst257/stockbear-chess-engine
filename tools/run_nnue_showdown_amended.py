@@ -60,7 +60,7 @@ def run(root: Path) -> None:
     _, allowed, rows = scope(root)
     remaining = len(allowed) - len(rows)
     if remaining:
-        # Keep the signed core source and game identities intact. Only the
+        # Keep the frozen core source and game identities intact. Only the
         # derived progress publisher and explicit new-game limit are adapted.
         original = core.publish_progress
         core.publish_progress = progress

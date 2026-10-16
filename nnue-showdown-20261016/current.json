@@ -1,7 +1,8 @@
 {
-  "game": "G099",
-  "ms": 1000,
-  "searched_moves": 103,
-  "thinking_seconds": 103.18231760000344,
-  "updated_utc": "2026-10-16T19:58:37.415792+00:00"
+  "complete": true,
+  "completed_games": 108,
+  "last_game": "G108",
+  "planned_games": 108,
+  "remaining_games": 0,
+  "updated_utc": "2026-10-16T20:24:03.569794+00:00"
 }

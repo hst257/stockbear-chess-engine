@@ -84,6 +84,7 @@ def audit(root: Path, plan: dict, rows: list[dict], complete: bool) -> dict:
     for record in rows:
         game = record["game"]
         assert game == expected[game["id"]] and record["plan_sha256"] == sha(root / "plan.json")
+        assert record["complete"] is True
         board = chess.Board()
         for move in plan["openings"][game["opening"]]["moves"]:
             board.push_uci(move)
@@ -96,6 +97,9 @@ def audit(root: Path, plan: dict, rows: list[dict], complete: bool) -> dict:
             moves += 1
         outcome = board.outcome(claim_draw=True)
         assert record["result"] == (outcome.result() if outcome else "*")
+        assert record["termination"] == (outcome.termination.name.lower() if outcome else "safety_cap_unfinished")
+        assert len(record["searches"]) <= plan["max_searched_plies"]
+        assert outcome or len(record["searches"]) == plan["max_searched_plies"]
         assert board.fen() == record["final_fen"]
         with (root / "games" / (game["id"] + ".pgn")).open(encoding="utf-8") as stream:
             pgn = chess.pgn.read_game(stream)
@@ -178,10 +182,14 @@ def report(root: Path, plan: dict, result: dict, rows: list[dict]) -> None:
         f"The equal-weight ranking across the two retained controls selects **{candidate}** as the leading candidate for a future classical match. "
         "The winner remains uncertain: the small fixed opening suite and broad paired-opening intervals do not establish a definitive strength difference. "
         "No Elo estimate pools time controls, and validation MSE is not used to rank chess results.", "",
+        "**128/32 is the recommended candidate for the next classical comparison at 1 second per move.** "
+        "It has the highest observed 1-second score, while 64/32 leads at 500 ms. The largest network's extra "
+        "evaluation cost is promising at 1 second on this suite, but the 500 ms results do not justify a blanket "
+        "claim that larger is stronger. Broad uncertainty means this is a practical candidate choice, not a proven upgrade.", "",
         "## Configuration and fairness", "",
         f"Completed {len(rows)}/108 games: 72 at 500 ms and 36 at 1000 ms. During the 1-second cohort, the user "
         "requested: ‘skip the 3s matchups, i think upto 1s will be enough’. The 18 scheduled 3-second games and four "
-        "5-second final games were omitted before either cohort began. The original signed plan is retained alongside "
+        "5-second final games were omitted before either cohort began. The original frozen plan is retained alongside "
         "`schedule-amendment.json`; this was a user runtime amendment, not a result-driven automatic extension. "
         "Three pairings at each retained control; no extra classical matches, "
         "training, relabeling or test-set access. All matches ran sequentially, with no training or intensive benchmarks alongside them.", "",
@@ -221,7 +229,8 @@ def report(root: Path, plan: dict, result: dict, rows: list[dict]) -> None:
         "including interrupted deeper-iteration work. It is a time-weighted aggregate, not the isolated inference benchmark. "
         "The NPS percentage is second-versus-first. Depth is the deepest completed iteration, not selective depth."]
     for ms, cohort in result["formats"].items():
-        lines += ["", f"### {int(ms)/1000:g} seconds per move" + (" — exploratory" if cohort["exploratory"] else ""), "",
+        unit = "second" if int(ms) == 1000 else "seconds"
+        lines += ["", f"### {int(ms)/1000:g} {unit} per move" + (" — exploratory" if cohort["exploratory"] else ""), "",
                   "| Pair | W / D / L | Points | Score | NPS first / second | NPS Δ second | Mean depth first / second | Paired 95% bound |",
                   "|---|---:|---:|---:|---:|---:|---:|---:|"]
         for pair, item in cohort["pairs"].items():
@@ -231,13 +240,16 @@ def report(root: Path, plan: dict, result: dict, rows: list[dict]) -> None:
                 f"{a['aggregate_nps']:,.0f} / {b['aggregate_nps']:,.0f} | {item['relative_nps_second_vs_first_percent']:+.1f}% | "
                 f"{a['mean_depth']:.2f} / {b['mean_depth']:.2f} | {100*lo:.1f}–{100*hi:.1f}% ({ci['complete_pairs']} pairs) |")
         relevant = [f for f in result["failures"] if f["game"]["ms"] == int(ms)]
-        lines += ["", "Failure events in this format: " + str(dict(Counter(f["kind"] for f in relevant))) +
-                  ". All saved failure events are unscored and listed separately from chess results."]
-        lines += ["", "| Model | Mean / median depth | Mean engine / wall move time (s) | Max wall time (s) | NNUE calls |",
-                  "|---|---:|---:|---:|---:|"]
+        counts = Counter(f["kind"] for f in relevant)
+        lines += ["", f"Failure events: {counts['crash']} crashes, {counts['timeout']} timeouts, "
+                  f"{counts['illegal_move']} illegal moves, {counts['infrastructure']} other infrastructure failures. "
+                  "All saved failure events are unscored and listed separately from chess results."]
+        lines += ["", "| Model | W / D / L; score | Mean / median depth | Mean engine / wall move time (s) | Max wall time (s) | Nodes | NNUE calls |",
+                  "|---|---:|---:|---:|---:|---:|---:|"]
         for label, s in cohort["models"].items():
-            lines.append(f"| {label} | {s['mean_depth']:.2f} / {s['median_depth']:g} | "
-                         f"{s['mean_engine_seconds']:.4f} / {s['mean_wall_seconds']:.4f} | {s['max_wall_seconds']:.4f} | {s['nnue_evaluations']:,} |")
+            lines.append(f"| {label} | {s['wins']} / {s['draws']} / {s['losses']}; {pct(s['score_fraction'])} | "
+                         f"{s['mean_depth']:.2f} / {s['median_depth']:g} | "
+                         f"{s['mean_engine_seconds']:.4f} / {s['mean_wall_seconds']:.4f} | {s['max_wall_seconds']:.4f} | {s['nodes']:,} | {s['nnue_evaluations']:,} |")
     lines += ["", "## Search-speed cost on matched opening roots", "",
         "Whole-game NPS/depth can change with the positions an evaluator chooses. To reduce that confounding, the "
         "following reuses the first searched move of each game: identical opening FEN/history, same budget, fresh engine. "
@@ -256,7 +268,9 @@ def report(root: Path, plan: dict, result: dict, rows: list[dict]) -> None:
         "bounded-pair interval. Descriptive 5,000-resample paired-bootstrap intervals are also saved in `analysis.json`; "
         "they can be degenerate in tiny or unanimous samples. Neither method eliminates selection bias, dependence "
         "between related positions or fixed-suite limitations. The 1-second cohort has only six opening pairs per pairing "
-        "and is exploratory; close scores do not establish definitive Elo differences.", "",
+        "and is exploratory; close scores do not establish definitive Elo differences. The 108-game endpoint was "
+        "adopted after intermediate results existed, rather than preregistered as a separate 108-game study. "
+        "Both retained cohorts were completed in full, and no games were added based on their results.", "",
         "Cross-control trends compare the shared first six round-robin opening pairs. All per-format results stand separately; "
         "there is no pooled Elo estimate or automatic extension based on outcomes.", "",
         "| Pair (score for first model) | Same first 6 pairs: 500 ms | 1000 ms |", "|---|---:|---:|"]
@@ -268,6 +282,32 @@ def report(root: Path, plan: dict, result: dict, rows: list[dict]) -> None:
             f"{ms} ms: " + ", ".join(n for n, s in cohort["models"].items()
                   if s["score_fraction"] == max(v["score_fraction"] for v in cohort["models"].values()))
             for ms, cohort in result["formats"].items()) + ".", "",
+        "## Architecture tradeoff", "",
+        "The following scores compare each larger model directly with the next smaller one at equal thinking time. "
+        "They are observed scores on this suite, with uncertainty as reported above.", "",
+        "| Larger model vs smaller | 500 ms score | 1000 ms score |", "|---|---:|---:|"]
+    for smaller, larger in (("32", "64"), ("64", "128")):
+        lines.append(f"| {larger} vs {smaller} | " + " | ".join(
+            pct(result["formats"][str(ms)]["pairs"][f"{smaller}-{larger}"]["second_stats"]["score_fraction"])
+            for ms in (500, 1000)) + " |")
+    lines += ["", "64/32 scores slightly above 50% against 32/16 at both controls, but those margins are small. "
+        "128/32 loses its 500 ms head-to-head against 64/32 (43.75%) and wins the 1-second head-to-head (66.67%). "
+        "128/32 and 32/16 score exactly 50% against each other at both controls. Thus the largest network's "
+        "1-second lead comes from its matchup against medium, rather than a demonstrated direct gain over compact. "
+        "Medium and large tie on raw combined points at 36.5/72; the equal-format weighting favors large "
+        "52.60% versus 48.96%. This ranking is sensitive to which thinking time matters in deployment.", "",
+        "At 1 second, 128/32 searches 1.03 million nodes/s across its games, versus 1.86 million for 64/32 "
+        "and 2.99 million for 32/16. Its mean completed depth is 8.56, versus 9.00 and 9.31 respectively. "
+        "Matched opening roots show 128/32 at 61.8% of medium's NPS and 41.3% of compact's, with depth "
+        "differences of −0.50 and −0.67 ply. This is a substantial measured search-speed cost and a modest "
+        "completed-depth loss; neither depth nor the extra teacher accuracy alone establishes chess strength.", "",
+        "The earlier scaling experiment found validation MSE 0.0118161 / 0.0111739 / 0.0108725 for "
+        "32/16 / 64/32 / 128/32. The largest model's 7.99% MSE reduction versus compact measures teacher prediction, "
+        "not Elo. Here its search cost is directly visible in NPS and completed-depth loss. "
+        "The per-control leaders and matched-opening trend above show whether that prediction improvement translates "
+        "into equal-time play on this particular suite; they cannot establish the same ordering at untested controls.", "",
+        "These findings apply to the tested scalar float32 builds on this machine. A different inference kernel "
+        "or processor could change the search-cost tradeoff and would require its own equal-time comparison.", "",
         "## Failures, adjudications and preservation", "",
         f"Termination counts: `{result['terminations']}`. Saved failure events: **{len(result['failures'])}**. "
         f"Final replay audit checked **{result['audit']['searched_moves']:,} searched moves**, PGNs, plan identities, legal results "
