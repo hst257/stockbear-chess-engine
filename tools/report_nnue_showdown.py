@@ -15,6 +15,7 @@ import chess.pgn
 
 from tools.nnue_showdown import (REPO, DEFAULT_ROOT, MODELS, load, save, sha, records,
                                  points, stats, standings, select_finalists, utc, validate_identity)
+from tools.run_nnue_showdown_amended import scope
 
 
 def paired_uncertainty(rows: list[dict], label: str) -> dict:
@@ -72,7 +73,8 @@ def matched_roots(rows: list[dict]) -> dict:
 
 def audit(root: Path, plan: dict, rows: list[dict], complete: bool) -> dict:
     validate_identity(root, plan)
-    expected = {g["id"]: g for g in plan["schedule"]}
+    amended = (root / "schedule-amendment.json").exists()
+    expected = {g["id"]: g for g in (scope(root)[1] if amended else plan["schedule"])}
     if (root / "finalists.json").exists():
         final = load(root / "finalists.json")
         assert final["plan_sha256"] == sha(root / "plan.json")
@@ -100,7 +102,8 @@ def audit(root: Path, plan: dict, rows: list[dict], complete: bool) -> dict:
             assert pgn and not pgn.errors and pgn.headers["Result"] == record["result"]
             assert list(pgn.mainline_moves()) == board.move_stack
     if complete:
-        assert len(rows) == len(expected) == 130
+        assert len(rows) == len(expected) == (108 if amended else 130)
+        assert {r["game"]["id"] for r in rows} == set(expected)
     assert not overruns
     preserved = load(root / "preservation-before.json")
     changed = [name for name, checksum in preserved.items() if sha(REPO / name) != checksum]
@@ -115,11 +118,12 @@ def audit(root: Path, plan: dict, rows: list[dict], complete: bool) -> dict:
 
 def analyze(root: Path, require_complete: bool = True) -> dict:
     plan = load(root / "plan.json")
+    scope(root)  # Reject an unrelated plan or any omitted-control records.
     rows = records(root)
     verified = audit(root, plan, rows, require_complete)
     failures = [load(p) for p in sorted((root / "failures").glob("*.json"))]
     formats = {}
-    for ms in (500, 1000, 3000, 5000):
+    for ms in (500, 1000):
         cohort = [r for r in rows if r["game"]["ms"] == ms]
         pairs = {}
         for a, b in itertools.combinations(MODELS, 2):
@@ -130,15 +134,28 @@ def analyze(root: Path, require_complete: bool = True) -> dict:
                     "relative_nps_second_vs_first_percent": 100 * (right["aggregate_nps"] / left["aggregate_nps"] - 1),
                     "uncertainty_first": paired_uncertainty(pair, a)}
         formats[str(ms)] = {"games": len(cohort), "models": {n: stats(cohort, n) for n in MODELS if any(n in r["game"]["pair"] for r in cohort)},
-                            "pairs": pairs, "matched_roots": matched_roots(cohort), "exploratory": ms >= 3000}
+                            "pairs": pairs, "matched_roots": matched_roots(cohort), "exploratory": ms == 1000}
+    ranking = standings(rows)
+    for row in ranking:
+        row["formats"].pop("3000", None)
+        scores = [row["formats"][str(ms)]["score_fraction"] for ms in (500, 1000)]
+        row["equal_format_score"] = statistics.mean(scores) if None not in scores else None
+        tied = [r["model"] for r in ranking if all(
+            r["formats"][str(ms)]["score_fraction"] is not None for ms in (500, 1000))
+            and statistics.mean(r["formats"][str(ms)]["score_fraction"] for ms in (500, 1000)) == row["equal_format_score"]]
+        mini = [stats([g for g in rows if g["game"]["ms"] == ms and all(n in tied for n in g["game"]["pair"])], row["model"])["score_fraction"]
+                for ms in (500, 1000)]
+        row["tied_mini_league_score"] = statistics.mean(mini) if None not in mini else None
+    ranking.sort(key=lambda r: (-(r["equal_format_score"] or 0), -(r["tied_mini_league_score"] or 0), int(r["model"])))
     result = {"generated_utc": utc(), "plan_sha256": sha(root / "plan.json"), "completed_games": len(rows),
-              "formats": formats, "round_robin_standings": standings(rows), "failures": failures,
+              "formats": formats, "round_robin_standings": ranking, "failures": failures,
+              "schedule_amendment": load(root / "schedule-amendment.json"),
               "terminations": dict(Counter(r["termination"] for r in rows)), "audit": verified,
               "finalists": load(root / "finalists.json") if (root / "finalists.json").exists() else None}
-    result["shared_first_three_pairs"] = {
-        str(ms): {f"{a}-{b}": stats([r for r in rows if r["game"]["ms"] == ms and r["game"]["opening"] < 3
+    result["shared_first_six_pairs"] = {
+        str(ms): {f"{a}-{b}": stats([r for r in rows if r["game"]["ms"] == ms and r["game"]["opening"] < 6
                                     and set(r["game"]["pair"]) == {a, b}], a)
-                  for a, b in itertools.combinations(MODELS, 2)} for ms in (500, 1000, 3000)}
+                  for a, b in itertools.combinations(MODELS, 2)} for ms in (500, 1000)}
     if rows:
         first = min(datetime.fromisoformat(r["started_utc"]) for r in rows)
         last = max(datetime.fromisoformat(r["completed_utc"]) for r in rows)
@@ -156,30 +173,31 @@ def pct(value):
 
 def report(root: Path, plan: dict, result: dict, rows: list[dict]) -> None:
     ranking = result["round_robin_standings"]
-    # Reuse the predeclared selection ordering, not a post-hoc Elo fit.
-    candidate = result["finalists"]["finalists"][0]
+    candidate = ranking[0]["model"]
     lines = ["# StockBear NNUE Architecture Showdown", "", "## Result and recommendation", "",
-        f"The predeclared equal-format round-robin ranking selects **{candidate}** as the leading candidate. "
-        "The per-format results and paired-opening uncertainty below determine how much confidence that ranking deserves. "
-        "The four-game 5-second final is exploratory and does not override a larger body of round-robin evidence automatically. "
+        f"The equal-weight ranking across the two retained controls selects **{candidate}** as the leading candidate for a future classical match. "
+        "The winner remains uncertain: the small fixed opening suite and broad paired-opening intervals do not establish a definitive strength difference. "
         "No Elo estimate pools time controls, and validation MSE is not used to rank chess results.", "",
         "## Configuration and fairness", "",
-        f"Completed {len(rows)}/130 scheduled games: 72 at 500 ms, 36 at 1000 ms, 18 at 3000 ms, then four at 5000 ms "
-        "between the selected finalists. Three pairings at every round-robin control; no extra classical matches, "
+        f"Completed {len(rows)}/108 games: 72 at 500 ms and 36 at 1000 ms. During the 1-second cohort, the user "
+        "requested: ‘skip the 3s matchups, i think upto 1s will be enough’. The 18 scheduled 3-second games and four "
+        "5-second final games were omitted before either cohort began. The original signed plan is retained alongside "
+        "`schedule-amendment.json`; this was a user runtime amendment, not a result-driven automatic extension. "
+        "Three pairings at each retained control; no extra classical matches, "
         "training, relabeling or test-set access. All matches ran sequentially, with no training or intensive benchmarks alongside them.", "",
         "The three isolated `-O2` C++17 binaries share unchanged search sources/flags, alpha-beta/PVS, move ordering, "
         "pruning, 16 MiB hash, one search worker, float32 `scalar` NNUE and incremental accumulators. No pondering. "
         "Only embedded architecture/weights differ. The active StockBear installation and classical evaluator remain unchanged.", "",
         "Twelve established opening main lines were shuffled with seed 20261016; no engine selected or filtered them. "
-        "All pairings use the same first 12/6/3 opening pairs at 500/1000/3000 ms, with reversed colors. "
-        "The 5000 ms final uses the first two pairs. Pairing order rotates; first-color order alternates across openings. "
+        "All pairings use the same first 12/6 opening pairs at 500/1000 ms, with reversed colors. "
+        "Pairing order rotates; first-color order alternates across openings. "
         "Long-control samples are nested, not independent samples with which to infer a time trend from unmatched totals.", "",
         "Fresh processes reset game state. Full opening/move history is sent to UCI. Python-chess automatically claims "
         "available threefold/50-move draws and enforces checkmate, stalemate, insufficient material, fivefold and 75-move draws. "
         "No score-based win/draw adjudication or resignation. A 400-searched-ply cap is unfinished/unscored. "
         "The wall deadline is movetime plus 100 ms of protocol/OS allowance; engine and wall thinking times are saved separately.", "",
-        "The finalist rule was frozen before games: equal-weight mean of each model's three per-format round-robin "
-        "score fractions; tied groups use their equal-format head-to-head mini-league, then fewer parameters. "
+        "The original equal-format ranking rule is applied to the two retained controls: the mean of each model's "
+        "500 ms and 1000 ms score fractions; tied groups use their equal-format head-to-head mini-league, then fewer parameters. "
         "The combined point total below is descriptive and weights the larger 500 ms cohort more heavily; it is not the selection score.", "",
         "## Engine and network identities", "", "| Model | Dimensions | Engine SHA-256 | Network SHA-256 |", "|---|---|---|---|"]
     for label in MODELS:
@@ -187,8 +205,9 @@ def report(root: Path, plan: dict, result: dict, rows: list[dict]) -> None:
         lines.append(f"| {e['name']} | {e['width']}/{e['hidden']} | `{e['sha256']}` | `{e['network_sha256']}` |")
     lines += ["", "Sources, flags, network/checkpoint provenance and exact paths are frozen in `plan.json` and the scaling "
         "experiment manifest. Actual UCI network identity/dimensions/kernel were checked before each new game, and binary/network/source "
-        "hashes before every scheduled game and resume. All three passed 38 relevant existing regressions each; five harness "
+        "hashes before every scheduled game and resume. All three passed 38 relevant existing regressions each; six core harness "
         "tests verified pairing, scoring, interruption/resume, missing-PGN recovery and unscored failure handling. "
+        "Two additional amendment tests verified the 108-game boundary, no-op completion, and rejection of changed plans or omitted games. "
         "Preflight timed checks covered 500/1000/3000/5000 ms; special rules, terminal positions, incremental/rebuild equivalence, "
         "repetition, perft and completed-depth snapshots were verified.", "", "## Combined round-robin scoreboard", "",
         "| Model | W / D / L | Points / scored games | Raw score | Equal-format score |", "|---|---:|---:|---:|---:|"]
@@ -236,16 +255,15 @@ def report(root: Path, plan: dict, result: dict, rows: list[dict]) -> None:
         "Each uncertainty unit is an opening pair with colors together. The table uses the conservative 95% Hoeffding "
         "bounded-pair interval. Descriptive 5,000-resample paired-bootstrap intervals are also saved in `analysis.json`; "
         "they can be degenerate in tiny or unanimous samples. Neither method eliminates selection bias, dependence "
-        "between related positions, fixed-suite limitations or the uncertainty of only two final opening pairs. "
-        "The 3-second and 5-second cohorts are exploratory, and close scores do not establish definitive Elo differences.", "",
-        "Cross-control trends must compare the shared first three round-robin opening pairs, not unmatched full cohorts. "
-        "Finalist selection also induces selection effects in the four-game final. All per-format results stand separately; "
+        "between related positions or fixed-suite limitations. The 1-second cohort has only six opening pairs per pairing "
+        "and is exploratory; close scores do not establish definitive Elo differences.", "",
+        "Cross-control trends compare the shared first six round-robin opening pairs. All per-format results stand separately; "
         "there is no pooled Elo estimate or automatic extension based on outcomes.", "",
-        "| Pair (score for first model) | Same first 3 pairs: 500 ms | 1000 ms | 3000 ms |", "|---|---:|---:|---:|"]
+        "| Pair (score for first model) | Same first 6 pairs: 500 ms | 1000 ms |", "|---|---:|---:|"]
     for a, b in itertools.combinations(MODELS, 2):
-        lines.append(f"| {a}-{b} | " + " | ".join(pct(result["shared_first_three_pairs"][str(ms)][f"{a}-{b}"]["score_fraction"])
-                                                     for ms in (500, 1000, 3000)) + " |")
-    lines += ["", "These matched trend cells contain just six games each and remain exploratory. Per-format "
+        lines.append(f"| {a}-{b} | " + " | ".join(pct(result["shared_first_six_pairs"][str(ms)][f"{a}-{b}"]["score_fraction"])
+                                                     for ms in (500, 1000)) + " |")
+    lines += ["", "These matched trend cells contain just twelve games each and remain exploratory. Per-format "
         "round-robin score leaders are: " + "; ".join(
             f"{ms} ms: " + ", ".join(n for n, s in cohort["models"].items()
                   if s["score_fraction"] == max(v["score_fraction"] for v in cohort["models"].values()))
@@ -256,19 +274,24 @@ def report(root: Path, plan: dict, result: dict, rows: list[dict]) -> None:
         f"and deadlines. **{result['audit']['protected_files']} protected files** were unchanged. "
         "Failures, if any, are recorded individually in `failures/` and are unscored; completed chess results are not silently "
         "replaced by infrastructure forfeits. In-progress move checkpoints and all completed games are retained. "
+        "To apply the user amendment, G099 was interrupted after 43 saved searched moves and resumed from its legal full move history. "
+        "Its new processes started with cold transient search caches; that single game's restart is a minor fairness limitation. "
+        "The first resume attempt stalled before engine startup under restricted subprocess access and was stopped without changing moves; "
+        "the successful resume used the same verified binaries and weights. No completed games were replayed. "
         f"Elapsed wall time from first game start to last completion: {result['elapsed_wall_seconds_first_to_last_game']/3600:.2f} hours "
         "(includes pauses between runner invocations).", "",
         "## Artifacts and reproduction", "",
         f"Experiment directory: `{root}`. `plan.json` freezes every opening FEN/identifier, engine/network hash, "
         "search option and game schedule. `games/Gxxx.json` and matching PGNs retain each game and per-move statistics. "
-        "`finalists.json` records the frozen finalist decision; `scoreboard.json`, `analysis.json`, `verification.json` "
+        "`schedule-amendment.json` records the shortened scope; `scoreboard.json`, `analysis.json`, `verification.json` "
         "and `audit.json` retain progress and validation. Binaries/build logs and runner output are under `artifacts/`.", "",
         "```powershell", r"Set-Location Z:\Code\Chess",
-        r".\.venv\Scripts\python.exe -m tools.nnue_showdown progress",
-        r".\.venv\Scripts\python.exe -u -m tools.nnue_showdown run --resume",
+        r".\.venv\Scripts\python.exe -m tools.run_nnue_showdown_amended progress",
+        r".\.venv\Scripts\python.exe -u -m tools.run_nnue_showdown_amended run",
         r".\.venv\Scripts\python.exe -m tools.report_nnue_showdown", "```", "",
         "Resume validates all frozen identities, skips completed games and continues saved in-progress moves. "
-        "A completed schedule starts no additional games. Fresh experiments require a new dedicated output directory. "
+        "The amended entry point starts no additional games after G108. Do not use the original unbounded runner, "
+        "whose retained historical plan still includes the omitted controls. Fresh experiments require a new dedicated output directory. "
         "The sealed dataset, original checkpoints, optimized v2/v3 networks and classical StockBear remain intact.", ""]
     (REPO / "NNUE_SHOWDOWN_REPORT.md").write_text("\n".join(lines), encoding="utf-8", newline="\n")
 

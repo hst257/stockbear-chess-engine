@@ -1,7 +1,7 @@
 {
-  "game": "G001",
-  "ms": 500,
-  "searched_moves": 60,
-  "thinking_seconds": 30.096766300062882,
-  "updated_utc": "2026-10-16T18:05:45.435787+00:00"
+  "game": "G099",
+  "ms": 1000,
+  "searched_moves": 103,
+  "thinking_seconds": 103.18231760000344,
+  "updated_utc": "2026-10-16T19:58:37.415792+00:00"
 }

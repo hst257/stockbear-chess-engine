@@ -124,3 +124,32 @@ def test_uncertainty_clusters_colors_and_root_comparison_matches_openings():
     assert roots["opening_positions"] == 3
     assert roots["geometric_nps_ratio"] == pytest.approx(.8)
     assert roots["mean_depth_difference"] == -1
+
+
+def test_amended_resume_limits_new_games_and_completed_run_starts_none(tmp_path, monkeypatch):
+    from tools import run_nnue_showdown_amended as amended
+    games = showdown.schedule()[:108]
+    rows = [{"game": g} for g in games[:98]]
+    monkeypatch.setattr(amended, "scope", lambda root: ({}, games, rows))
+    monkeypatch.setattr(amended, "progress", lambda *args: {})
+    calls = []
+    monkeypatch.setattr(showdown, "run", lambda root, resume, max_new: calls.append((resume, max_new)))
+    amended.run(tmp_path)
+    assert calls == [(True, 10)]
+    rows.extend({"game": g} for g in games[98:])
+    amended.run(tmp_path)
+    assert calls == [(True, 10)]
+
+
+def test_amended_scope_rejects_omitted_game_and_changed_plan(tmp_path):
+    from tools.run_nnue_showdown_amended import scope
+    showdown.save(tmp_path / "plan.json", {"schedule": showdown.schedule()})
+    checksum = showdown.sha(tmp_path / "plan.json")
+    showdown.save(tmp_path / "schedule-amendment.json", {"original_plan_sha256": checksum, "planned_games": 108})
+    assert len(scope(tmp_path)[1]) == 108
+    showdown.save(tmp_path / "games/G109.partial.json", {"game": showdown.schedule()[108]})
+    with pytest.raises(ValueError, match="outside amended"):
+        scope(tmp_path)
+    showdown.save(tmp_path / "plan.json", {"schedule": []})
+    with pytest.raises(ValueError, match="frozen plan"):
+        scope(tmp_path)

@@ -1,8 +1,10 @@
 # NNUE architecture showdown
 
-Fixed 130-game experiment: 72 games at 500 ms, 36 at 1000 ms, 18 at
-3000 ms, then four games between the two finalists at 5000 ms. No extensions.
-The 3-second and 5-second cohorts are exploratory.
+User-amended 108-game experiment: 72 games at 500 ms and 36 at 1000 ms.
+The user requested a maximum of one second during the 1-second cohort.
+No 3-second or 5-second games will be played. No extensions.
+The original signed 130-game plan is preserved for record identity;
+`schedule-amendment.json` records the change. Use the amended entry point below.
 
 All engines use the selected scaling-study checkpoints, float inference,
 16 MiB hash, identical production search and `-O2` flags. Each has one search
@@ -10,10 +12,10 @@ thread, with pondering disabled. Only one game runs at a time. Fresh processes
 reset game state; complete opening history preserves repetition rules.
 
 Twelve established main lines are shuffled with seed 20261016. Nested prefixes
-of 12/6/3/2 opening pairs are used at increasing time controls. Each pairing
+of 12/6 opening pairs are used at 500/1000 ms. Each pairing
 plays both colors from exactly the same position. No Stockfish or evaluator
-filter chooses openings. Round-robin finalists rank by the equal-weight mean
-of per-format score fractions; tied groups use their head-to-head mini-league,
+filter chooses openings. Candidates rank by the equal-weight mean
+of the two retained per-format score fractions; tied groups use their head-to-head mini-league,
 then smaller parameter count. No combined Elo estimate is calculated.
 
 The deadline is requested movetime plus 100 ms of protocol/OS allowance.
@@ -25,11 +27,10 @@ Failures save logs and halt, without assigning an automatic chess loss.
 From `Z:\Code\Chess` in PowerShell:
 
 ```powershell
-.\.venv\Scripts\python.exe -m tools.nnue_showdown verify
-.\.venv\Scripts\python.exe -u -m tools.nnue_showdown run
 # After interruption, skip completed games and continue saved in-progress moves:
-.\.venv\Scripts\python.exe -u -m tools.nnue_showdown run --resume
-.\.venv\Scripts\python.exe -m tools.nnue_showdown progress
+.\.venv\Scripts\python.exe -u -m tools.run_nnue_showdown_amended run
+.\.venv\Scripts\python.exe -m tools.run_nnue_showdown_amended progress
+.\.venv\Scripts\python.exe -m tools.report_nnue_showdown
 ```
 
 `plan.json` freezes configurations, identities, openings and schedule.
@@ -39,6 +40,9 @@ every searched move. `scoreboard.json` is updated after each game; `current.json
 shows a running game's progress. ETA uses measured game lengths and move
 overhead, so it can change with format. Logs and isolated binaries live beneath
 `artifacts/`. Source, binary, network and plan identities must match on resume.
+The amended runner stops at G108 and starts no engines when already complete.
+Do not invoke the original unbounded `tools.nnue_showdown run`: its retained
+historical schedule includes the omitted controls.
 The runner prevents system sleep only while its computation is active and
 restores normal sleep behavior on exit; it does not change power settings.
 
