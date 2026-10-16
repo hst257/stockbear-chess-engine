@@ -1,0 +1,464 @@
+{
+  "audit": {
+    "changed_protected_files": [],
+    "checked_utc": "2026-10-16T18:08:03.993687+00:00",
+    "games": 2,
+    "overruns": [],
+    "passed": true,
+    "protected_files": 152,
+    "searched_moves": 186,
+    "test_dataset_opened": false
+  },
+  "completed_games": 2,
+  "failures": [],
+  "finalists": null,
+  "formats": {
+    "1000": {
+      "exploratory": false,
+      "games": 0,
+      "matched_roots": {
+        "matched_comparisons": {},
+        "method": "First searched move in each game, grouped by identical opening FEN and time; every model starts from the same board/history with fresh processes. No extra engine searches.",
+        "models": {}
+      },
+      "models": {},
+      "pairs": {}
+    },
+    "3000": {
+      "exploratory": true,
+      "games": 0,
+      "matched_roots": {
+        "matched_comparisons": {},
+        "method": "First searched move in each game, grouped by identical opening FEN and time; every model starts from the same board/history with fresh processes. No extra engine searches.",
+        "models": {}
+      },
+      "models": {},
+      "pairs": {}
+    },
+    "500": {
+      "exploratory": false,
+      "games": 2,
+      "matched_roots": {
+        "matched_comparisons": {
+          "64/32": {
+            "geometric_nps_ratio": 0.6888888888888889,
+            "mean_depth_difference": 0,
+            "opening_positions": 1
+          }
+        },
+        "method": "First searched move in each game, grouped by identical opening FEN and time; every model starts from the same board/history with fresh processes. No extra engine searches.",
+        "models": {
+          "32": {
+            "mean_depth": 8,
+            "median_depth": 8,
+            "nps": 2534400.0,
+            "root_searches": 1
+          },
+          "64": {
+            "mean_depth": 8,
+            "median_depth": 8,
+            "nps": 1745920.0,
+            "root_searches": 1
+          }
+        }
+      },
+      "models": {
+        "32": {
+          "aggregate_nps": 2767230.5372422505,
+          "draws": 0,
+          "engine_seconds": 42.773999999999994,
+          "eval_calls": 97583221,
+          "games": 2,
+          "losses": 1,
+          "max_wall_seconds": 0.503118299995549,
+          "mean_depth": 8.193548387096774,
+          "mean_engine_seconds": 0.45993548387096767,
+          "mean_reported_nps": 2658669.1720430106,
+          "mean_wall_seconds": 0.46160218064527414,
+          "median_depth": 8,
+          "moves": 93,
+          "nnue_evaluations": 97583221,
+          "nodes": 118365519,
+          "points": 1.0,
+          "score_fraction": 0.5,
+          "unfinished": 0,
+          "wins": 1
+        },
+        "64": {
+          "aggregate_nps": 1773793.7523173897,
+          "draws": 0,
+          "engine_seconds": 43.152,
+          "eval_calls": 62823366,
+          "games": 2,
+          "losses": 1,
+          "max_wall_seconds": 0.5027730000001611,
+          "mean_depth": 7.666666666666667,
+          "mean_engine_seconds": 0.464,
+          "mean_reported_nps": 1704647.5161290322,
+          "mean_wall_seconds": 0.4656724225806688,
+          "median_depth": 8,
+          "moves": 93,
+          "nnue_evaluations": 62823366,
+          "nodes": 76542748,
+          "points": 1.0,
+          "score_fraction": 0.5,
+          "unfinished": 0,
+          "wins": 1
+        }
+      },
+      "pairs": {
+        "32-64": {
+          "first": "32",
+          "first_stats": {
+            "aggregate_nps": 2767230.5372422505,
+            "draws": 0,
+            "engine_seconds": 42.773999999999994,
+            "eval_calls": 97583221,
+            "games": 2,
+            "losses": 1,
+            "max_wall_seconds": 0.503118299995549,
+            "mean_depth": 8.193548387096774,
+            "mean_engine_seconds": 0.45993548387096767,
+            "mean_reported_nps": 2658669.1720430106,
+            "mean_wall_seconds": 0.46160218064527414,
+            "median_depth": 8,
+            "moves": 93,
+            "nnue_evaluations": 97583221,
+            "nodes": 118365519,
+            "points": 1.0,
+            "score_fraction": 0.5,
+            "unfinished": 0,
+            "wins": 1
+          },
+          "relative_nps_second_vs_first_percent": -35.900036934215606,
+          "second": "64",
+          "second_stats": {
+            "aggregate_nps": 1773793.7523173897,
+            "draws": 0,
+            "engine_seconds": 43.152,
+            "eval_calls": 62823366,
+            "games": 2,
+            "losses": 1,
+            "max_wall_seconds": 0.5027730000001611,
+            "mean_depth": 7.666666666666667,
+            "mean_engine_seconds": 0.464,
+            "mean_reported_nps": 1704647.5161290322,
+            "mean_wall_seconds": 0.4656724225806688,
+            "median_depth": 8,
+            "moves": 93,
+            "nnue_evaluations": 62823366,
+            "nodes": 76542748,
+            "points": 1.0,
+            "score_fraction": 0.5,
+            "unfinished": 0,
+            "wins": 1
+          },
+          "uncertainty_first": {
+            "bootstrap_95": [
+              0.5,
+              0.5
+            ],
+            "complete_pairs": 1,
+            "hoeffding_95": [
+              0.0,
+              1.0
+            ],
+            "note": "Nominal independent opening pairs, both colors clustered; bootstrap is descriptive and can degenerate. Hoeffding is the conservative primary bound; fixed hand-selected opening suite limits population inference.",
+            "pair_scores": [
+              0.5
+            ],
+            "paired_score": 0.5
+          }
+        }
+      }
+    },
+    "5000": {
+      "exploratory": true,
+      "games": 0,
+      "matched_roots": {
+        "matched_comparisons": {},
+        "method": "First searched move in each game, grouped by identical opening FEN and time; every model starts from the same board/history with fresh processes. No extra engine searches.",
+        "models": {}
+      },
+      "models": {},
+      "pairs": {}
+    }
+  },
+  "generated_utc": "2026-10-16T18:08:04.017686+00:00",
+  "plan_sha256": "493521e17f294c7ee8af772fc39e7df05963f326bd7d92f0da7a75919dfb33e8",
+  "round_robin_standings": [
+    {
+      "equal_format_score": null,
+      "formats": {
+        "1000": {
+          "aggregate_nps": null,
+          "draws": 0,
+          "engine_seconds": 0,
+          "eval_calls": 0,
+          "games": 0,
+          "losses": 0,
+          "max_wall_seconds": null,
+          "mean_depth": null,
+          "mean_engine_seconds": null,
+          "mean_reported_nps": null,
+          "mean_wall_seconds": null,
+          "median_depth": null,
+          "moves": 0,
+          "nnue_evaluations": 0,
+          "nodes": 0,
+          "points": 0,
+          "score_fraction": null,
+          "unfinished": 0,
+          "wins": 0
+        },
+        "3000": {
+          "aggregate_nps": null,
+          "draws": 0,
+          "engine_seconds": 0,
+          "eval_calls": 0,
+          "games": 0,
+          "losses": 0,
+          "max_wall_seconds": null,
+          "mean_depth": null,
+          "mean_engine_seconds": null,
+          "mean_reported_nps": null,
+          "mean_wall_seconds": null,
+          "median_depth": null,
+          "moves": 0,
+          "nnue_evaluations": 0,
+          "nodes": 0,
+          "points": 0,
+          "score_fraction": null,
+          "unfinished": 0,
+          "wins": 0
+        },
+        "500": {
+          "aggregate_nps": 2767230.5372422505,
+          "draws": 0,
+          "engine_seconds": 42.773999999999994,
+          "eval_calls": 97583221,
+          "games": 2,
+          "losses": 1,
+          "max_wall_seconds": 0.503118299995549,
+          "mean_depth": 8.193548387096774,
+          "mean_engine_seconds": 0.45993548387096767,
+          "mean_reported_nps": 2658669.1720430106,
+          "mean_wall_seconds": 0.46160218064527414,
+          "median_depth": 8,
+          "moves": 93,
+          "nnue_evaluations": 97583221,
+          "nodes": 118365519,
+          "points": 1.0,
+          "score_fraction": 0.5,
+          "unfinished": 0,
+          "wins": 1
+        }
+      },
+      "model": "32",
+      "round_robin": {
+        "aggregate_nps": 2767230.5372422505,
+        "draws": 0,
+        "engine_seconds": 42.773999999999994,
+        "eval_calls": 97583221,
+        "games": 2,
+        "losses": 1,
+        "max_wall_seconds": 0.503118299995549,
+        "mean_depth": 8.193548387096774,
+        "mean_engine_seconds": 0.45993548387096767,
+        "mean_reported_nps": 2658669.1720430106,
+        "mean_wall_seconds": 0.46160218064527414,
+        "median_depth": 8,
+        "moves": 93,
+        "nnue_evaluations": 97583221,
+        "nodes": 118365519,
+        "points": 1.0,
+        "score_fraction": 0.5,
+        "unfinished": 0,
+        "wins": 1
+      }
+    },
+    {
+      "equal_format_score": null,
+      "formats": {
+        "1000": {
+          "aggregate_nps": null,
+          "draws": 0,
+          "engine_seconds": 0,
+          "eval_calls": 0,
+          "games": 0,
+          "losses": 0,
+          "max_wall_seconds": null,
+          "mean_depth": null,
+          "mean_engine_seconds": null,
+          "mean_reported_nps": null,
+          "mean_wall_seconds": null,
+          "median_depth": null,
+          "moves": 0,
+          "nnue_evaluations": 0,
+          "nodes": 0,
+          "points": 0,
+          "score_fraction": null,
+          "unfinished": 0,
+          "wins": 0
+        },
+        "3000": {
+          "aggregate_nps": null,
+          "draws": 0,
+          "engine_seconds": 0,
+          "eval_calls": 0,
+          "games": 0,
+          "losses": 0,
+          "max_wall_seconds": null,
+          "mean_depth": null,
+          "mean_engine_seconds": null,
+          "mean_reported_nps": null,
+          "mean_wall_seconds": null,
+          "median_depth": null,
+          "moves": 0,
+          "nnue_evaluations": 0,
+          "nodes": 0,
+          "points": 0,
+          "score_fraction": null,
+          "unfinished": 0,
+          "wins": 0
+        },
+        "500": {
+          "aggregate_nps": 1773793.7523173897,
+          "draws": 0,
+          "engine_seconds": 43.152,
+          "eval_calls": 62823366,
+          "games": 2,
+          "losses": 1,
+          "max_wall_seconds": 0.5027730000001611,
+          "mean_depth": 7.666666666666667,
+          "mean_engine_seconds": 0.464,
+          "mean_reported_nps": 1704647.5161290322,
+          "mean_wall_seconds": 0.4656724225806688,
+          "median_depth": 8,
+          "moves": 93,
+          "nnue_evaluations": 62823366,
+          "nodes": 76542748,
+          "points": 1.0,
+          "score_fraction": 0.5,
+          "unfinished": 0,
+          "wins": 1
+        }
+      },
+      "model": "64",
+      "round_robin": {
+        "aggregate_nps": 1773793.7523173897,
+        "draws": 0,
+        "engine_seconds": 43.152,
+        "eval_calls": 62823366,
+        "games": 2,
+        "losses": 1,
+        "max_wall_seconds": 0.5027730000001611,
+        "mean_depth": 7.666666666666667,
+        "mean_engine_seconds": 0.464,
+        "mean_reported_nps": 1704647.5161290322,
+        "mean_wall_seconds": 0.4656724225806688,
+        "median_depth": 8,
+        "moves": 93,
+        "nnue_evaluations": 62823366,
+        "nodes": 76542748,
+        "points": 1.0,
+        "score_fraction": 0.5,
+        "unfinished": 0,
+        "wins": 1
+      }
+    },
+    {
+      "equal_format_score": null,
+      "formats": {
+        "1000": {
+          "aggregate_nps": null,
+          "draws": 0,
+          "engine_seconds": 0,
+          "eval_calls": 0,
+          "games": 0,
+          "losses": 0,
+          "max_wall_seconds": null,
+          "mean_depth": null,
+          "mean_engine_seconds": null,
+          "mean_reported_nps": null,
+          "mean_wall_seconds": null,
+          "median_depth": null,
+          "moves": 0,
+          "nnue_evaluations": 0,
+          "nodes": 0,
+          "points": 0,
+          "score_fraction": null,
+          "unfinished": 0,
+          "wins": 0
+        },
+        "3000": {
+          "aggregate_nps": null,
+          "draws": 0,
+          "engine_seconds": 0,
+          "eval_calls": 0,
+          "games": 0,
+          "losses": 0,
+          "max_wall_seconds": null,
+          "mean_depth": null,
+          "mean_engine_seconds": null,
+          "mean_reported_nps": null,
+          "mean_wall_seconds": null,
+          "median_depth": null,
+          "moves": 0,
+          "nnue_evaluations": 0,
+          "nodes": 0,
+          "points": 0,
+          "score_fraction": null,
+          "unfinished": 0,
+          "wins": 0
+        },
+        "500": {
+          "aggregate_nps": null,
+          "draws": 0,
+          "engine_seconds": 0,
+          "eval_calls": 0,
+          "games": 0,
+          "losses": 0,
+          "max_wall_seconds": null,
+          "mean_depth": null,
+          "mean_engine_seconds": null,
+          "mean_reported_nps": null,
+          "mean_wall_seconds": null,
+          "median_depth": null,
+          "moves": 0,
+          "nnue_evaluations": 0,
+          "nodes": 0,
+          "points": 0,
+          "score_fraction": null,
+          "unfinished": 0,
+          "wins": 0
+        }
+      },
+      "model": "128",
+      "round_robin": {
+        "aggregate_nps": null,
+        "draws": 0,
+        "engine_seconds": 0,
+        "eval_calls": 0,
+        "games": 0,
+        "losses": 0,
+        "max_wall_seconds": null,
+        "mean_depth": null,
+        "mean_engine_seconds": null,
+        "mean_reported_nps": null,
+        "mean_wall_seconds": null,
+        "median_depth": null,
+        "moves": 0,
+        "nnue_evaluations": 0,
+        "nodes": 0,
+        "points": 0,
+        "score_fraction": null,
+        "unfinished": 0,
+        "wins": 0
+      }
+    }
+  ],
+  "terminations": {
+    "checkmate": 2
+  }
+}
