@@ -104,6 +104,7 @@ def initialize(db: sqlite3.Connection) -> None:
         group_id TEXT,split TEXT,UNIQUE(source_id,number));
       CREATE TABLE IF NOT EXISTS game_keys(game TEXT NOT NULL REFERENCES games(id),key TEXT NOT NULL,
         PRIMARY KEY(game,key));
+      CREATE INDEX IF NOT EXISTS game_family_idx ON games(group_id);
       CREATE INDEX IF NOT EXISTS key_idx ON game_keys(key);
       CREATE TABLE IF NOT EXISTS observations(id TEXT NOT NULL,game TEXT NOT NULL REFERENCES games(id),
         fen TEXT NOT NULL,ply INTEGER NOT NULL,outcome REAL NOT NULL,phase TEXT NOT NULL,
@@ -121,6 +122,7 @@ def initialize(db: sqlite3.Connection) -> None:
         phase TEXT NOT NULL,category TEXT NOT NULL,flags TEXT NOT NULL,priority TEXT NOT NULL,
         ordinal INTEGER NOT NULL UNIQUE,owner TEXT NOT NULL REFERENCES games(id),year INTEGER NOT NULL);
       CREATE INDEX IF NOT EXISTS position_split ON positions(split,ordinal);
+      CREATE INDEX IF NOT EXISTS position_family_idx ON positions(game_id);
       CREATE TABLE IF NOT EXISTS labels(profile TEXT NOT NULL,id TEXT NOT NULL REFERENCES positions(id),
         cp INTEGER,mate INTEGER,depth INTEGER,nodes INTEGER,attempts INTEGER NOT NULL DEFAULT 0,
         error TEXT,failed INTEGER NOT NULL DEFAULT 0,PRIMARY KEY(profile,id));

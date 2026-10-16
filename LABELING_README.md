@@ -42,6 +42,8 @@ each game and reparses compressed input to its saved cursor when resuming.
 
 Live progress shows completed/remaining positions, measured positions/second,
 elapsed time and approximate ETA. ETA starts after successful labels arrive.
+After the last label, source/corpus fingerprint checks and export continue until
+the command exits; large existing databases can make this final step take minutes.
 Keep the computer awake for unattended operation; after sleep/restart, resume.
 
 ## Configuration
@@ -101,6 +103,13 @@ their original partitions; conflicting anchors quarantine the family. Remaining
 families use the existing seeded 80/10/10 hash split. These conservative checks
 cover identifiable duplicates, not arbitrary semantic similarity. Sampling and
 quarantine counts are reported explicitly.
+
+Contradictory header/movetext results are skipped. For later batches, completed
+`pipeline.sqlite` files can also be supplied as existing corpora; their game
+aliases and frozen partitions are retained. `-ExistingCorpus` replaces the
+default corpus list, so include the original `data/processed/full.sqlite` and
+`data/v2/pool.sqlite` alongside any additional corpus. The Python CLI supports
+repeated `--existing-corpus PATH` arguments for this purpose.
 
 ## Export and prepare future training data
 

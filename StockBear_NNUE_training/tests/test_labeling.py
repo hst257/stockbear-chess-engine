@@ -354,3 +354,31 @@ def test_illegal_pgn_is_skipped_and_next_game_survives(tmp_path):
         assert counts(db)["games"]==1
         assert counts(db)["positions"]>0
         assert db.execute("SELECT cursor FROM sources").fetchone()[0]==2
+
+
+def test_header_movetext_result_conflict_is_not_labeled(tmp_path):
+    db,cfg,run,sources,aliases=fixture(tmp_path)
+    with closing(db):
+        source=Path(sources[0]["path"])
+        text=str(game()).rsplit("1-0",1)[0]+"0-1\n\n"
+        source.write_text(text,encoding="utf-8")
+        build(db,cfg,inventory(source.parent),aliases)
+        assert counts(db)["positions"]==0
+        assert "result conflict" in db.execute("SELECT message FROM errors").fetchone()[0]
+
+
+def test_previous_pipeline_output_is_a_readonly_frozen_corpus(tmp_path):
+    first=tmp_path/"first";first.mkdir()
+    db,cfg,run,sources,aliases=fixture(first)
+    with closing(db):
+        build(db,cfg,sources,aliases)
+        prior_split=db.execute("SELECT split FROM positions LIMIT 1").fetchone()[0]
+    second=tmp_path/"second";second.mkdir()
+    alias_game=game();alias_game.headers.update(Event="renamed",White="Alias",Date="2025.01.01")
+    current,cfg,run2,sources,aliases=fixture(second,[alias_game])
+    with closing(current):
+        current.execute("ATTACH DATABASE ? AS previous",((run/"pipeline.sqlite").resolve().as_uri()+"?mode=ro",))
+        build(current,cfg,sources,aliases+["previous"])
+        assert counts(current)["positions"]>0
+        assert set(r[0] for r in current.execute("SELECT split FROM positions"))=={prior_split}
+        assert current.execute("SELECT count(*) FROM positions p JOIN previous.positions o ON p.id=o.id").fetchone()[0]==0

@@ -77,6 +77,12 @@ class MainlineBuilder(chess.pgn.GameBuilder):
     def handle_error(self, error: Exception) -> None:
         self.game.errors.append(error)
 
+    def visit_result(self, result: str) -> None:
+        declared = self.game.headers.get("Result","*")
+        if declared not in ("*",result):
+            self.game.errors.append(ValueError(f"Header/movetext result conflict: {declared} vs {result}"))
+        super().visit_result(result)
+
 
 def normalized(value: str) -> str:
     return "".join(c for c in unicodedata.normalize("NFKD", value).casefold() if c.isalnum())
@@ -202,8 +208,19 @@ def finalize(db: sqlite3.Connection, cfg: dict, aliases: list[str]) -> None:
                        f"FROM {alias}.positions GROUP BY game_id,split")
             tables = {r[0] for r in db.execute(f"SELECT name FROM {alias}.sqlite_master WHERE type='table'")}
             if "games" in tables:
-                db.execute(f"INSERT OR IGNORE INTO prior_keys SELECT 'moves:'||g.moves,p.split,p.gid "
-                           f"FROM {alias}.games g JOIN prior_keys p ON p.key='header:'||g.gid")
+                columns = {r[1] for r in db.execute(f"PRAGMA {alias}.table_info(games)")}
+                if {"gid","moves"} <= columns:
+                    db.execute(f"INSERT OR IGNORE INTO prior_keys SELECT 'moves:'||g.moves,p.split,p.gid "
+                               f"FROM {alias}.games g JOIN prior_keys p ON p.key='header:'||g.gid")
+                elif {"id","legacy_gid","moves_hash","group_id"} <= columns:
+                    # Our completed runs are also valid future deduplication corpora.
+                    for prefix,column in (("header:","legacy_gid"),("moves:","moves_hash")):
+                        db.execute(f"INSERT OR IGNORE INTO prior_keys SELECT DISTINCT ?||g.{column},p.split,p.game_id "
+                                   f"FROM {alias}.games g JOIN {alias}.positions p ON p.game_id=g.group_id",(prefix,))
+                    if "game_keys" in tables:
+                        db.execute(f"INSERT OR IGNORE INTO prior_keys SELECT DISTINCT k.key,p.split,p.game_id "
+                                   f"FROM {alias}.game_keys k JOIN {alias}.games g ON g.id=k.game "
+                                   f"JOIN {alias}.positions p ON p.game_id=g.group_id")
             db.execute(f"INSERT OR IGNORE INTO existing_hits SELECT DISTINCT o.id,p.game_id,p.split "
                        f"FROM (SELECT DISTINCT id FROM observations) o CROSS JOIN {alias}.positions p ON p.id=o.id")
         games = {r["id"]: dict(r) for r in db.execute("SELECT id,legacy_gid FROM games")}
