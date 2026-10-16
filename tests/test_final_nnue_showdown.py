@@ -56,3 +56,19 @@ def test_pgn_marks_classical_network_disabled(tmp_path):
     assert pgn.headers["WhiteNetworkSHA256"] == "disabled"
     assert pgn.headers["WhiteEvaluator"] == "classical"
     assert pgn.headers["BlackNetworkSHA256"] == plan["engines"]["64"]["network_sha256"]
+
+
+def test_final_uncertainty_exchanges_pairs_and_elo_keeps_infinite_bounds():
+    from tools.report_final_nnue_showdown import paired_test, elo
+    rows = []
+    for game in final.schedule()[:24]:
+        rows.append({"game": game, "result": "1-0" if game["white"] == "64" else "0-1"})
+    estimate = paired_test(rows, "64")
+    assert estimate["complete_pairs"] == 12 and estimate["paired_score"] == 1
+    assert estimate["nnue_superiority_p_one_sided"] == 1 / 4096
+    assert estimate["difference_p_two_sided"] == 2 / 4096
+    assert estimate["elo_from_score"] == "+infinity"
+    assert elo(.5) == 0 and elo(0) == "-infinity"
+    for row in rows:
+        row["result"] = "1/2-1/2"
+    assert paired_test(rows, "64")["nnue_superiority_p_one_sided"] == 1
