@@ -3,104 +3,336 @@
   "audit": {
     "changed_protected_files": [],
     "classical_nnue_evaluations": 0,
-    "games": 24,
+    "games": 36,
     "passed": true,
     "protected_files": 491,
-    "searched_moves": 2195,
+    "searched_moves": 3463,
     "test_dataset_opened": false,
-    "utc": "2026-10-16T22:11:37.174243+00:00"
+    "utc": "2026-10-16T22:31:57.686404+00:00"
   },
   "candidate_score_difference_128_minus_64": {
-    "bootstrap_95": null,
-    "difference": null,
-    "matched_opening_pairs": 0
+    "bootstrap_95": [
+      -0.3333333333333333,
+      -0.041666666666666664
+    ],
+    "difference": -0.16666666666666666,
+    "matched_opening_pairs": 6,
+    "note": "Exploratory paired score difference against the same opponent on matched openings; not a direct 128-vs-64 match or additional primary significance test",
+    "pair_differences": [
+      0.0,
+      -0.5,
+      0.0,
+      0.0,
+      -0.25,
+      -0.25
+    ]
   },
-  "elapsed_wall_seconds": 5122.903746,
+  "elapsed_wall_seconds": 6333.193223,
   "failures": [],
-  "games": 24,
+  "games": 36,
   "matches": {
     "128": {
       "classical": {
-        "aggregate_nps": null,
-        "draws": 0,
-        "engine_seconds": 0,
-        "eval_calls": 0,
-        "games": 0,
-        "losses": 0,
-        "max_wall_seconds": null,
-        "mean_depth": null,
-        "mean_engine_seconds": null,
-        "mean_reported_nps": null,
-        "mean_wall_seconds": null,
-        "median_depth": null,
-        "median_reported_nps": null,
-        "median_wall_seconds": null,
-        "moves": 0,
+        "aggregate_nps": 2517490.75901789,
+        "draws": 2,
+        "engine_seconds": 597.2849999999999,
+        "eval_calls": 1213783576,
+        "games": 12,
+        "losses": 2,
+        "max_wall_seconds": 1.003870200001984,
+        "mean_depth": 8.78930817610063,
+        "mean_engine_seconds": 0.9391273584905658,
+        "mean_reported_nps": 2472507.4575471696,
+        "mean_wall_seconds": 0.941159986163211,
+        "median_depth": 9.0,
+        "median_reported_nps": 2408192.0,
+        "median_wall_seconds": 1.0019160999945598,
+        "moves": 636,
         "nnue_evaluations": 0,
-        "nodes": 0,
-        "points": 0,
-        "score_fraction": null,
+        "nodes": 1503659468,
+        "points": 9.0,
+        "score_fraction": 0.75,
         "unfinished": 0,
-        "wins": 0
+        "wins": 8
       },
       "failures": {},
-      "games": 0,
+      "games": 12,
       "matched_roots": {
-        "geometric_nps_ratio": null,
-        "matched_roots": 0,
-        "mean_completed_depth_difference": null,
-        "pairs": []
+        "geometric_nps_ratio": 0.37628322100959355,
+        "matched_roots": 6,
+        "mean_completed_depth_difference": -0.8333333333333334,
+        "pairs": [
+          {
+            "classical": {
+              "depth": 9,
+              "engine": "classical",
+              "engine_seconds": 1.0,
+              "eval_calls": 3110670,
+              "mate_white": null,
+              "move": "e2e3",
+              "nnue_evaluations": 0,
+              "nodes": 3445504,
+              "nps": 3445504,
+              "qnodes": 3089169,
+              "score_cp_white": 20,
+              "seldepth": 26,
+              "wall_seconds": 1.0037370000063675
+            },
+            "depth_difference": -1,
+            "nnue": {
+              "depth": 8,
+              "engine": "128",
+              "engine_seconds": 1.0,
+              "eval_calls": 1046851,
+              "mate_white": null,
+              "move": "e2e3",
+              "nnue_evaluations": 1046851,
+              "nodes": 1137920,
+              "nps": 1137920,
+              "qnodes": 934747,
+              "score_cp_white": 41,
+              "seldepth": 23,
+              "wall_seconds": 1.0028167000127723
+            },
+            "nps_ratio": 0.3302622780295713,
+            "opening": 0
+          },
+          {
+            "classical": {
+              "depth": 9,
+              "engine": "classical",
+              "engine_seconds": 1.0,
+              "eval_calls": 2974247,
+              "mate_white": null,
+              "move": "b1c3",
+              "nnue_evaluations": 0,
+              "nodes": 3279104,
+              "nps": 3279104,
+              "qnodes": 2942050,
+              "score_cp_white": 21,
+              "seldepth": 27,
+              "wall_seconds": 1.002844400005415
+            },
+            "depth_difference": -1,
+            "nnue": {
+              "depth": 8,
+              "engine": "128",
+              "engine_seconds": 1.0,
+              "eval_calls": 1115245,
+              "mate_white": null,
+              "move": "b1c3",
+              "nnue_evaluations": 1115245,
+              "nodes": 1208832,
+              "nps": 1208832,
+              "qnodes": 1021483,
+              "score_cp_white": 71,
+              "seldepth": 25,
+              "wall_seconds": 1.0029678999999305
+            },
+            "nps_ratio": 0.36864704504645174,
+            "opening": 1
+          },
+          {
+            "classical": {
+              "depth": 8,
+              "engine": "classical",
+              "engine_seconds": 1.0,
+              "eval_calls": 2614214,
+              "mate_white": null,
+              "move": "e2b5",
+              "nnue_evaluations": 0,
+              "nodes": 2883328,
+              "nps": 2883328,
+              "qnodes": 2608135,
+              "score_cp_white": 75,
+              "seldepth": 27,
+              "wall_seconds": 1.0032711000094423
+            },
+            "depth_difference": 0,
+            "nnue": {
+              "depth": 8,
+              "engine": "128",
+              "engine_seconds": 1.0,
+              "eval_calls": 1049502,
+              "mate_white": null,
+              "move": "c2c3",
+              "nnue_evaluations": 1049502,
+              "nodes": 1155328,
+              "nps": 1155328,
+              "qnodes": 947196,
+              "score_cp_white": 16,
+              "seldepth": 23,
+              "wall_seconds": 1.003428600000916
+            },
+            "nps_ratio": 0.40069253307289354,
+            "opening": 2
+          },
+          {
+            "classical": {
+              "depth": 8,
+              "engine": "classical",
+              "engine_seconds": 1.0,
+              "eval_calls": 2538486,
+              "mate_white": null,
+              "move": "g1f3",
+              "nnue_evaluations": 0,
+              "nodes": 2813440,
+              "nps": 2813440,
+              "qnodes": 2506905,
+              "score_cp_white": 58,
+              "seldepth": 28,
+              "wall_seconds": 1.002930999995442
+            },
+            "depth_difference": -1,
+            "nnue": {
+              "depth": 7,
+              "engine": "128",
+              "engine_seconds": 1.0,
+              "eval_calls": 988678,
+              "mate_white": null,
+              "move": "g1f3",
+              "nnue_evaluations": 988678,
+              "nodes": 1071616,
+              "nps": 1071616,
+              "qnodes": 903597,
+              "score_cp_white": 30,
+              "seldepth": 22,
+              "wall_seconds": 1.0029132000054233
+            },
+            "nps_ratio": 0.38089171974522296,
+            "opening": 3
+          },
+          {
+            "classical": {
+              "depth": 9,
+              "engine": "classical",
+              "engine_seconds": 1.0,
+              "eval_calls": 2827353,
+              "mate_white": null,
+              "move": "b2b4",
+              "nnue_evaluations": 0,
+              "nodes": 3170816,
+              "nps": 3170816,
+              "qnodes": 2832308,
+              "score_cp_white": -15,
+              "seldepth": 26,
+              "wall_seconds": 1.002628200003528
+            },
+            "depth_difference": -1,
+            "nnue": {
+              "depth": 8,
+              "engine": "128",
+              "engine_seconds": 1.0,
+              "eval_calls": 1093497,
+              "mate_white": null,
+              "move": "f1d3",
+              "nnue_evaluations": 1093497,
+              "nodes": 1200896,
+              "nps": 1200896,
+              "qnodes": 1046726,
+              "score_cp_white": 25,
+              "seldepth": 23,
+              "wall_seconds": 1.002754900007858
+            },
+            "nps_ratio": 0.37873405457774906,
+            "opening": 4
+          },
+          {
+            "classical": {
+              "depth": 9,
+              "engine": "classical",
+              "engine_seconds": 1.0,
+              "eval_calls": 2670662,
+              "mate_white": null,
+              "move": "d4c5",
+              "nnue_evaluations": 0,
+              "nodes": 3049728,
+              "nps": 3049728,
+              "qnodes": 2590343,
+              "score_cp_white": -18,
+              "seldepth": 26,
+              "wall_seconds": 1.0031559999915771
+            },
+            "depth_difference": -1,
+            "nnue": {
+              "depth": 8,
+              "engine": "128",
+              "engine_seconds": 1.0,
+              "eval_calls": 1088238,
+              "mate_white": null,
+              "move": "c2c3",
+              "nnue_evaluations": 1088238,
+              "nodes": 1230080,
+              "nps": 1230080,
+              "qnodes": 1034573,
+              "score_cp_white": 13,
+              "seldepth": 23,
+              "wall_seconds": 1.0027767999999924
+            },
+            "nps_ratio": 0.40334088810543106,
+            "opening": 5
+          }
+        ]
       },
       "nnue": {
-        "aggregate_nps": null,
-        "draws": 0,
-        "engine_seconds": 0,
-        "eval_calls": 0,
-        "games": 0,
-        "losses": 0,
-        "max_wall_seconds": null,
-        "mean_depth": null,
-        "mean_engine_seconds": null,
-        "mean_reported_nps": null,
-        "mean_wall_seconds": null,
-        "median_depth": null,
-        "median_reported_nps": null,
-        "median_wall_seconds": null,
-        "moves": 0,
-        "nnue_evaluations": 0,
-        "nodes": 0,
-        "points": 0,
-        "score_fraction": null,
+        "aggregate_nps": 716062.3431004026,
+        "draws": 2,
+        "engine_seconds": 602.2959999999998,
+        "eval_calls": 358173277,
+        "games": 12,
+        "losses": 8,
+        "max_wall_seconds": 1.0036801000096602,
+        "mean_depth": 7.795886075949367,
+        "mean_engine_seconds": 0.9529999999999997,
+        "mean_reported_nps": 702621.661392405,
+        "mean_wall_seconds": 0.9551364474682947,
+        "median_depth": 8.0,
+        "median_reported_nps": 704000.0,
+        "median_wall_seconds": 1.0020168500050204,
+        "moves": 632,
+        "nnue_evaluations": 358173277,
+        "nodes": 431281485,
+        "points": 3.0,
+        "score_fraction": 0.25,
         "unfinished": 0,
-        "wins": 0
+        "wins": 2
       },
-      "relative_aggregate_nps_percent": null,
+      "relative_aggregate_nps_percent": -71.55650559846546,
       "uncertainty": {
         "bootstrap_95": [
-          0.0,
-          1.0
+          0.08333333333333333,
+          0.4166666666666667
         ],
-        "complete_pairs": 0,
-        "difference_p_two_sided": 1.0,
+        "complete_pairs": 6,
+        "difference_p_two_sided": 0.125,
         "elo_95_conservative": [
           "-infinity",
-          "+infinity"
+          245.68834696210013
         ],
         "elo_95_descriptive_bootstrap": [
-          "-infinity",
-          "+infinity"
+          -416.55707406329,
+          -58.451214271295186
         ],
-        "elo_from_score": null,
+        "elo_from_score": -190.84850188786498,
         "exchangeability_note": "Exact opening-pair sign-flip test conditional on independent, label-exchangeable pair outcomes under equal strength; fixed related openings limit generalization",
         "hoeffding_95": [
           0.0,
-          1.0
+          0.8044426220774891
         ],
-        "holm_adjusted_p_two_candidates": 1.0,
+        "holm_adjusted_p_two_candidates": 0.25,
         "nnue_superiority_p_one_sided": 1.0,
         "nominal_supported_classical_superiority": false,
         "nominal_supported_nnue_superiority": false,
-        "paired_score": null
+        "note": "Nominal independent opening pairs, both colors clustered; bootstrap is descriptive and can degenerate. Hoeffding is the conservative primary bound; fixed hand-selected opening suite limits population inference.",
+        "pair_scores": [
+          0.5,
+          0.25,
+          0.5,
+          0.0,
+          0.0,
+          0.25
+        ],
+        "paired_score": 0.25
       }
     },
     "64": {
@@ -601,7 +833,7 @@
           0.0662831954834906,
           0.850383471183176
         ],
-        "holm_adjusted_p_two_candidates": 1.0,
+        "holm_adjusted_p_two_candidates": 0.828125,
         "nnue_superiority_p_one_sided": 0.7421875,
         "nominal_supported_classical_superiority": false,
         "nominal_supported_nnue_superiority": false,
@@ -646,10 +878,10 @@
   },
   "plan_sha256": "c10906d58c2914663471891bda6d4eab1015099369c9c489278012ee1c2a5f35",
   "previous_games_used_for_inference": 0,
-  "summed_search_wall_seconds": 2070.3875643001666,
+  "summed_search_wall_seconds": 3272.611550299931,
   "terminations": {
-    "checkmate": 18,
-    "threefold_repetition": 6
+    "checkmate": 28,
+    "threefold_repetition": 8
   },
-  "utc": "2026-10-16T22:11:37.222243+00:00"
+  "utc": "2026-10-16T22:31:57.774142+00:00"
 }
