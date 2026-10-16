@@ -1,0 +1,119 @@
+[Event "NNUE versus classical evaluator match"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "1"]
+[White "StockBear NNUE stockbear-v2-compact (scalar)"]
+[Black "StockBear Classical"]
+[Result "1/2-1/2"]
+[ThinkTimeMs "500"]
+[Termination "threefold_repetition"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. c4 a5 6. O-O Bc5 7. Nc3 Qe7 8. d3 h6 9. Kh1 O-O 10. Nd5 Nxd5 11. cxd5 Nd4 12. Be3 Qf6 13. Bxd4 exd4 14. e5 Qe7 15. Bc2 d6 16. e6 fxe6 17. dxe6 Bxe6 18. Qe2 Qf7 19. Nd2 Rae8 20. Ne4 Bb6 21. Ba4 Re7 22. Rae1 d5 23. Nd2 Qg6 24. Qe5 Qxd3 25. Bd7 Rxd7 26. Qxe6+ Rff7 27. Qe8+ Kh7 28. Re2 Qb5 29. Re6 Qxb2 30. Nf3 Bc5 31. Ne5 Rde7 32. Rxe7 Rxe7 33. Qg6+ Kg8 34. Ng4 Kh8 35. Nf6 gxf6 36. Qxh6+ Kg8 37. Qg6+ Kf8 38. Qxf6+ Ke8 39. Qf5 Qxa2 40. Qc8+ Kf7 41. Qf5+ Kg7 42. Qg5+ Kf8 43. Qf5+ Kg8 44. Qg4+ Kh7 45. Qf5+ Kh8 46. Qf8+ Kh7 47. Qf5+ Kg8 48. Qg4+ Kf8 49. Qf5+ 1/2-1/2
+
+[Event "NNUE versus classical evaluator match"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "2"]
+[White "StockBear Classical"]
+[Black "StockBear NNUE stockbear-v2-compact (scalar)"]
+[Result "1-0"]
+[ThinkTimeMs "500"]
+[Termination "checkmate"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. c4 a5 6. O-O Bc5 7. Nc3 O-O 8. Nxe5 Re8 9. Nxc6 dxc6 10. d3 Ng4 11. Bf4 g5 12. Bg3 h5 13. h3 h4 14. Bxh4 gxh4 15. hxg4 Qg5 16. Bc2 Bxg4 17. Qc1 Qf6 18. Bd1 Be6 19. Kh1 h3 20. g3 Rad8 21. Qc2 Bd4 22. f4 Qg6 23. f5 Qxg3 24. fxe6 Rxe6 25. Bh5 Rg6 26. Bxg6 fxg6 27. Rad1 a4 28. Nxa4 Rd7 29. Nc3 Rh7 30. Qh2 Qg4 31. Rde1 Rh6 32. e5 Rh4 33. e6 Bxc3 34. e7 Bg7 35. e8=Q+ Kh7 36. Re7 Qg2+ 37. Qxg2 hxg2+ 38. Kxg2 Kh6 39. Re6 Rg4+ 40. Kf3 Rf4+ 41. Kxf4 Bf6 42. Qf8+ Kh5 43. Rh1+ Bh4 44. Qh8# 1-0
+
+[Event "NNUE versus classical evaluator match"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "3"]
+[White "StockBear NNUE stockbear-v2-compact (scalar)"]
+[Black "StockBear Classical"]
+[Result "1-0"]
+[ThinkTimeMs "500"]
+[Termination "checkmate"]
+
+1. d4 d5 2. c4 e6 3. Nc3 Nf6 4. Bg5 Be7 5. Be3 Qd7 6. Nf3 Nc6 7. Bd2 O-O 8. e3 a6 9. Rc1 Re8 10. a3 Ne4 11. h4 Nxd2 12. Qxd2 Rd8 13. Qc2 h6 14. h5 Bf6 15. cxd5 exd5 16. Qb3 Na5 17. Qa4 Qxa4 18. Nxa4 Nc6 19. Kd2 Bf5 20. Bd3 Bg4 21. Nc5 Rab8 22. b4 Rd6 23. Rc2 Bxf3 24. gxf3 Bxd4 25. exd4 Nxd4 26. Rcc1 Nxf3+ 27. Ke2 Ne5 28. f4 Nc6 29. Kf2 Nd4 30. Ke3 Nc6 31. Kf2 Ne7 32. Rce1 Kf8 33. Re2 Rdd8 34. Rhe1 Nc6 35. f5 Kg8 36. Re3 Kh8 37. Kg2 Kg8 38. Rg3 Kh8 39. Rge3 Kg8 40. Kh3 a5 41. Rg3 axb4 42. f6 g5 43. hxg6 bxa3 44. Rf1 Kf8 45. gxf7 Rd6 46. Ne4 Re6 47. Nc5 Rd6 48. Rg8+ Kxf7 49. Rg7+ Kf8 50. Rh7 Ne5 51. Rh8+ Kf7 52. Rh7+ Kg8 53. f7+ Nxf7 54. Rfxf7 b6 55. Rfg7+ Kf8 56. Nd7+ Rxd7 57. Rxd7 Kg8 58. Rhg7+ Kf8 59. Rdf7+ Ke8 60. Bg6 Rb7 61. Rg8# 1-0
+
+[Event "NNUE versus classical evaluator match"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "4"]
+[White "StockBear Classical"]
+[Black "StockBear NNUE stockbear-v2-compact (scalar)"]
+[Result "1/2-1/2"]
+[ThinkTimeMs "500"]
+[Termination "threefold_repetition"]
+
+1. d4 d5 2. c4 e6 3. Nc3 Nf6 4. Bg5 Be7 5. Be3 Qd7 6. Nf3 Nc6 7. Ne5 Nxe5 8. dxe5 Ng4 9. cxd5 Nxe3 10. fxe3 Bb4 11. e4 Qe7 12. Qd4 Bc5 13. Qc4 Bb6 14. Rd1 O-O 15. d6 cxd6 16. exd6 Qf6 17. Qd3 Bf2+ 18. Kd2 b5 19. Qxb5 Rd8 20. Kc2 Bd7 21. Qd3 Rab8 22. Qf3 Bd4 23. Qxf6 Bxf6 24. e3 Be5 25. a3 Rdc8 26. Rd4 Bxd4 27. exd4 Ba4+ 28. Kc1 Rb6 29. e5 Bc6 30. Rg1 a5 31. Bc4 Rcb8 32. b3 a4 33. b4 Bd7 34. Kd2 Rc8 35. Bd3 Rbb8 36. b5 f6 37. Rb1 fxe5 38. dxe5 Rc5 39. Re1 Rcc8 40. Rb1 Rc5 41. Re1 Rcc8 1/2-1/2
+
+[Event "NNUE versus classical evaluator match"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "5"]
+[White "StockBear NNUE stockbear-v2-compact (scalar)"]
+[Black "StockBear Classical"]
+[Result "1/2-1/2"]
+[ThinkTimeMs "500"]
+[Termination "threefold_repetition"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Bf4 Qd7 7. Bg5 Nc6 8. Qd2 e5 9. Nxc6 Qxc6 10. Bxf6 gxf6 11. Nd5 f5 12. Nf6+ Kd8 13. exf5 Bxf5 14. Bd3 Qxg2 15. O-O-O Bxd3 16. cxd3 Be7 17. Ne4 Rc8+ 18. Kb1 f5 19. Qa5+ Kd7 20. Nc3 Qxf2 21. d4 exd4 22. Rhf1 Qxh2 23. Qxf5+ Kd8 24. Nd5 Rc5 25. b4 Rc4 26. Rfe1 Bh4 27. Re6 Rc6 28. Rf1 h5 29. b5 Rc5 30. a4 axb5 31. a5 Qg3 32. Rf3 Qh2 33. Qe4 b4 34. Nxb4 Qg1+ 35. Ka2 Rxa5+ 36. Kb3 Qd1+ 37. Kb2 Qa1+ 38. Kc2 Rc5+ 39. Kb3 Qd1+ 40. Ka2 Qd2+ 41. Kb3 Qd1+ 42. Ka2 Ra5+ 43. Kb2 Qa1+ 44. Kc2 Rc5+ 45. Kb3 1/2-1/2
+
+[Event "NNUE versus classical evaluator match"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "6"]
+[White "StockBear Classical"]
+[Black "StockBear NNUE stockbear-v2-compact (scalar)"]
+[Result "0-1"]
+[ThinkTimeMs "500"]
+[Termination "checkmate"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Bf4 Qd7 7. Nd5 Nxd5 8. exd5 g6 9. Bc4 Qc7 10. Bb3 Bg7 11. O-O O-O 12. Re1 Re8 13. Bg5 Nd7 14. Rxe7 Rxe7 15. Bxe7 Nc5 16. Bg5 Nxb3 17. axb3 Qc5 18. Ne2 Bg4 19. Qd2 Bxe2 20. Qxe2 Bxb2 21. Rd1 Be5 22. Qd2 b5 23. Qd3 Rc8 24. Rd2 Qa3 25. Qf1 b4 26. Qb1 h5 27. Qd1 Qa5 28. Re2 Rc5 29. Rd2 Rc3 30. Re2 Rc5 31. Rd2 Rc3 32. Be3 Qa2 33. Bb6 h4 34. h3 Kh7 35. Be3 f6 36. Ba7 Kg7 37. Bb6 a5 38. Be3 g5 39. Re2 Kg6 40. Bb6 Kf7 41. Be3 Kg7 42. Rd2 Kf8 43. Re2 Kf7 44. Rd2 Kg6 45. Re2 Kf7 46. Rd2 Kf8 47. Bb6 Kg7 48. Re2 Kf7 49. Be3 Kg8 50. Ba7 Kf8 51. Rd2 Kg7 52. Re2 Kg8 53. Rd2 Kh8 54. Be3 Kg8 55. Bb6 Kh7 56. Qh5+ Kg7 57. Qd1 Kh6 58. Re2 Kg6 59. Ba7 Kh6 60. Bb6 Kg6 61. Ba7 a4 62. bxa4 Qxa4 63. Be3 Qa2 64. Kf1 Qc4 65. Kg1 Ra3 66. Re1 Ra1 67. Qd2 Rxe1+ 68. Qxe1 Qxc2 69. Bc1 Qb1 70. Kf1 b3 71. Ba3 Qxe1+ 72. Kxe1 Kf5 73. Kd2 Ke4 74. Kc1 Kd3 75. Bb2 Ke2 76. f3 Kf2 77. Bxe5 fxe5 78. Kb2 Kxg2 79. Kxb3 Kxf3 80. Kb4 e4 81. Kb5 e3 82. Kc6 e2 83. Kxd6 e1=Q 84. Kc6 Qf1 85. d6 Qc4+ 86. Kb7 Qd5+ 87. Kc7 Qe5 88. Kd7 Qd5 89. Ke7 Qe5+ 90. Kd7 Qf6 91. Kc7 Qf4 92. Kd7 Qe5 93. Kc7 Ke4 94. Kc6 Qc3+ 95. Kb6 Kd5 96. d7 Qc6+ 97. Ka7 Qc7+ 98. Ka6 Kc6 99. d8=N+ Qxd8 100. Ka7 Qb6+ 101. Ka8 Qb7# 0-1
+
+[Event "NNUE versus classical evaluator match"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "7"]
+[White "StockBear NNUE stockbear-v2-compact (scalar)"]
+[Black "StockBear Classical"]
+[Result "1/2-1/2"]
+[ThinkTimeMs "500"]
+[Termination "threefold_repetition"]
+
+1. d4 Nf6 2. c4 g6 3. Nc3 Bg7 4. e4 d6 5. Nf3 Nd5 6. cxd5 O-O 7. h4 Bg4 8. h5 Bxh5 9. Rxh5 gxh5 10. Ng5 h6 11. Nh3 h4 12. Qh5 e5 13. Bxh6 exd4 14. Bxg7 Kxg7 15. Qg4+ Kh8 16. Qh5+ Kg7 17. Qg4+ Kh8 18. Nb5 c6 19. Ng5 cxb5 20. Bd3 Qa5+ 21. Kf1 Qd2 22. Rd1 Qxd1+ 23. Qxd1 Nd7 24. Qh5+ Kg7 25. Qg4 Kh6 26. Qxd7 Kxg5 27. Qf5+ Kh6 28. e5 Rg8 29. Qf6+ Rg6 30. Bxg6 fxg6 31. Qxh4+ Kg7 32. Qe7+ Kh6 33. Qh4+ Kg7 34. Qe7+ Kh6 1/2-1/2
+
+[Event "NNUE versus classical evaluator match"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "8"]
+[White "StockBear Classical"]
+[Black "StockBear NNUE stockbear-v2-compact (scalar)"]
+[Result "1-0"]
+[ThinkTimeMs "500"]
+[Termination "checkmate"]
+
+1. d4 Nf6 2. c4 g6 3. Nc3 Bg7 4. e4 d6 5. Nf3 Nd5 6. cxd5 O-O 7. Be3 c5 8. dxc5 dxc5 9. Bxc5 Bg4 10. Rc1 Nd7 11. Be3 Qa5 12. Qb3 Rac8 13. Nd2 Nc5 14. Qb5 Qc7 15. Nb3 Nxb3 16. Qxb3 Qa5 17. h3 Bd7 18. Bd3 b5 19. a3 a6 20. O-O Qd8 21. Ne2 Re8 22. Rxc8 Bxc8 23. a4 bxa4 24. Qxa4 Bxb2 25. Bxa6 Bxa6 26. Qxa6 Qa8 27. Qd3 Be5 28. Bd4 Qb8 29. Rb1 Qd6 30. Rb6 Qd8 31. Qb5 Bxd4 32. Nxd4 Qa8 33. Rb7 Qa1+ 34. Kh2 Rf8 35. Nc6 Qf6 36. Nxe7+ Kg7 37. Qe2 Qe5+ 38. g3 Re8 39. f4 Qd4 40. e5 h5 41. f5 h4 42. fxg6 hxg3+ 43. Kxg3 Qg1+ 44. Kf3 Qh1+ 45. Qg2 Qd1+ 46. Ke4 Rxe7 47. gxf7+ Kxf7 48. Qf2+ Kg6 49. Qf5+ Kh6 50. Rb6+ Re6 51. Qxe6+ Kg7 52. Rb7+ Kh8 53. Qc8# 1-0
+
+[Event "NNUE versus classical evaluator match"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "9"]
+[White "StockBear NNUE stockbear-v2-compact (scalar)"]
+[Black "StockBear Classical"]
+[Result "0-1"]
+[ThinkTimeMs "500"]
+[Termination "checkmate"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Nf6 4. Bg5 Be7 5. Bh6 Nc6 6. Bxg7 Rg8 7. Bxf6 Bxf6 8. e5 Bg5 9. Nf3 Bh6 10. Qd3 Rg7 11. Be2 Rxg2 12. Qxh7 Bf8 13. O-O-O Rxf2 14. Rdf1 Rxf1+ 15. Rxf1 Qe7 16. Qg8 Bd7 17. Ng5 O-O-O 18. Nxd5 exd5 19. h4 Nxd4 20. Rxf7 Nxe2+ 21. Kd1 Qc5 22. Rxd7 Qg1+ 23. Kxe2 Qg2+ 24. Kd3 Qf1+ 25. Kc3 Qc4+ 26. Kd2 Bb4+ 27. c3 Rxg8 28. Rh7 Rf8 29. Nf7 Qd4+ 30. Kc1 Qe3+ 31. Kc2 Qe4+ 32. Kc1 Qxh7 33. e6 Be7 34. b4 Qxh4 35. a4 Rg8 36. Ng5 Rxg5 37. Kb2 Rg2+ 38. Ka3 Bxb4+ 39. cxb4 Qg3# 0-1
+
+[Event "NNUE versus classical evaluator match"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "10"]
+[White "StockBear Classical"]
+[Black "StockBear NNUE stockbear-v2-compact (scalar)"]
+[Result "1/2-1/2"]
+[ThinkTimeMs "500"]
+[Termination "threefold_repetition"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Nf6 4. Bg5 Be7 5. Bh6 Nc6 6. Bxg7 Rg8 7. Bxf6 Bxf6 8. e5 Be7 9. Nf3 h5 10. Qd3 Rh8 11. O-O-O Bd7 12. Kb1 Nb4 13. Qe3 c5 14. a3 Nxc2 15. Kxc2 Qa5 16. Kb1 O-O-O 17. Rc1 Kb8 18. Qf4 cxd4 19. Nxd4 Qb6 20. Bb5 Bg5 21. Qxg5 Qxd4 22. Bxd7 Rxd7 23. f4 Qd3+ 24. Rc2 Rc7 25. Rd1 Qc4 26. Rdc1 Qb3 27. Ne2 Rxc2 28. Rxc2 Qd3 29. Kc1 Qe3+ 30. Kd1 Qd3+ 31. Kc1 Qe3+ 32. Kb1 Qd3 1/2-1/2
