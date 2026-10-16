@@ -48,6 +48,31 @@ Keep the computer awake for unattended operation; after sleep/restart, resume.
 
 ## Configuration
 
+For a large **already ingested/planned** queue, use the compatible fast runner:
+
+```powershell
+# Check fingerprints and queue readiness only; starts no Stockfish workers.
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\start_labeling.ps1 -Resume -FastResume -ExecutionWorkers 4 -CheckResume -OutputDirectory .\StockBear_NNUE_training\data\labeling\cc-events-v1
+
+# Actually resume the existing queue when ready:
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\start_labeling.ps1 -Resume -FastResume -ExecutionWorkers 4 -OutputDirectory .\StockBear_NNUE_training\data\labeling\cc-events-v1
+```
+
+This leaves the original signed pipeline modules, saved configuration, teacher
+profile, ingestion and queue unchanged. It fetches bounded batches through the
+ordinal index, retries failed work locally, and derives live progress from
+committed results rather than scanning millions of labels every update. A restart
+derives counters from SQL again and skips completed rows. FULL-synchronous,
+per-result commits remain enabled. `fast-runtime.json` identifies the separate
+runner and actual concurrency. `-ExecutionWorkers` is an execution override;
+`-Workers`, nodes, threads, hash and sampling stay part of the frozen configuration.
+The legacy resume path remains available. Fast resume refuses an incomplete
+ingestion or unplanned queue, and never rebuilds either.
+
+See the [measured throughput diagnosis](LABELING_THROUGHPUT_DIAGNOSIS.md) for
+the multi-million-row query bottleneck, preservation proof and bounded worker
+comparison. Its short-batch ETA is an estimate; live progress measures the actual run.
+
 Paths are discovered relative to the script, rather than this machine's username
 or drive letter. Defaults: local Stockfish, **16,384 nodes, 2 workers × 1 thread,
 64 MiB hash per worker**, seed 20261015, 16 sampled positions/game, plies 16–240,

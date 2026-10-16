@@ -275,8 +275,10 @@ def test_completed_export_corruption_is_rejected(tmp_path):
             export(db,result,run/"export")
 
 
-def test_hard_process_kill_reopens_wal_and_retries_only_pending(tmp_path):
+@pytest.mark.parametrize("fast_runtime",[False,True])
+def test_hard_process_kill_reopens_wal_and_retries_only_pending(tmp_path,fast_runtime):
     db,cfg,run,sources,aliases = fixture(tmp_path)
+    cfg.update(threads=1,hash_mb=64)
     build(db,cfg,sources,aliases)
     db.close()
     program = '''
@@ -294,6 +296,9 @@ run=Path(sys.argv[1])
 with writer_lock(run),connect(run/'pipeline.sqlite') as db:
     label(db,json.loads(sys.argv[2]),run,worker_factory=Slow)
 '''
+    if fast_runtime:
+        program=program.replace("from stockbear.labeling.teacher import label",
+                                "from stockbear.labeling_runtime import label_fast as label")
     flags = {"creationflags":subprocess.CREATE_NO_WINDOW} if sys.platform=="win32" else {}
     process = subprocess.Popen([sys.executable,"-c",program,str(run),json.dumps(cfg)],
                                stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,**flags)
@@ -382,3 +387,97 @@ def test_previous_pipeline_output_is_a_readonly_frozen_corpus(tmp_path):
         assert counts(current)["positions"]>0
         assert set(r[0] for r in current.execute("SELECT split FROM positions"))=={prior_split}
         assert current.execute("SELECT count(*) FROM positions p JOIN previous.positions o ON p.id=o.id").fetchone()[0]==0
+
+
+def test_fast_runtime_preserves_signature_and_skips_completed(tmp_path):
+    from stockbear.labeling_runtime import label_fast
+    cfg=dict(config(),threads=1,hash_mb=64)
+    db,cfg,run,sources,aliases=fixture(tmp_path,cfg=cfg)
+    with closing(db):
+        build(db,cfg,sources,aliases)
+        signature=get_meta(db,"signature")
+        with db: set_meta(db,"config",cfg)
+        FakeWorkers.calls=0
+        result=label_fast(db,cfg,run,workers=4,worker_factory=FakeWorkers)
+        assert FakeWorkers.calls==counts(db)["positions"]
+        assert result["execution"]["saved_workers"]==2
+        assert result["execution"]["execution_workers"]==4
+        assert get_meta(db,"config")==cfg and get_meta(db,"signature")==signature
+        label_fast(db,cfg,run,workers=4,worker_factory=FakeWorkers)
+        assert FakeWorkers.calls==counts(db)["positions"]
+
+
+def test_fast_keyset_retries_rows_behind_cursor(tmp_path):
+    from stockbear.labeling_runtime import label_fast
+    class Once(FakeWorkers):
+        def __init__(self,cfg): self.attempts={}
+        def __call__(self,row):
+            attempt=self.attempts.get(row["id"],0)+1
+            self.attempts[row["id"]]=attempt
+            if attempt==1:
+                return dict(cp=None,mate=None,depth=None,nodes=None,error="transient")
+            return super().__call__(row)
+    cfg=dict(config(),threads=1,hash_mb=64,limit=4)
+    db,cfg,run,sources,aliases=fixture(tmp_path,cfg=cfg)
+    with closing(db):
+        build(db,cfg,sources,aliases)
+        result=label_fast(db,cfg,run,worker_factory=Once)
+        assert result["remaining"]==0 and result["attempts"]==8 and result["errors"]==4
+        assert result["queue_calls"]<=3
+
+
+def test_fast_interrupt_and_resume_derive_counters_from_commits(tmp_path,monkeypatch):
+    import stockbear.labeling_runtime as fast
+    cfg=dict(config(),threads=1,hash_mb=64)
+    db,cfg,run,sources,aliases=fixture(tmp_path,cfg=cfg)
+    with closing(db):
+        build(db,cfg,sources,aliases)
+        original_wait=fast.wait
+        def interrupt(*args,**kwargs): raise KeyboardInterrupt
+        monkeypatch.setattr(fast,"wait",interrupt)
+        with pytest.raises(KeyboardInterrupt):
+            fast.label_fast(db,cfg,run,worker_factory=FakeWorkers)
+        assert counts(db)["completed"]==2
+        monkeypatch.setattr(fast,"wait",original_wait)
+        FakeWorkers.calls=0
+        result=fast.label_fast(db,cfg,run,worker_factory=FakeWorkers)
+        assert FakeWorkers.calls==result["positions"]-2
+        assert result["completed"]==result["positions"] and result["attempts"]==result["positions"]
+
+
+def test_fast_sparse_ordinals_failed_rows_and_manual_retry(tmp_path):
+    from stockbear.labeling_runtime import label_fast
+    cfg=dict(config(),threads=1,hash_mb=64)
+    db,cfg,run,sources,aliases=fixture(tmp_path,cfg=cfg)
+    with closing(db):
+        build(db,cfg,sources,aliases)
+        with db:
+            db.execute("UPDATE positions SET ordinal=ordinal*1000")
+            db.execute("INSERT INTO labels(profile,id) SELECT 'test-profile',id FROM positions")
+            db.execute("UPDATE labels SET cp=43,depth=8,nodes=16384,attempts=1 WHERE id IN (SELECT id FROM positions ORDER BY ordinal LIMIT 3)")
+            failed=db.execute("SELECT id FROM positions ORDER BY ordinal LIMIT 1 OFFSET 3").fetchone()[0]
+            db.execute("UPDATE labels SET failed=1,attempts=3,error='failed' WHERE id=?",(failed,))
+        FakeWorkers.calls=0
+        with pytest.raises(RuntimeError,match="incomplete"):
+            label_fast(db,cfg,run,worker_factory=FakeWorkers)
+        assert FakeWorkers.calls==counts(db)["positions"]-4
+        FakeWorkers.calls=0
+        result=label_fast(db,cfg,run,retry_failed=True,worker_factory=FakeWorkers)
+        assert FakeWorkers.calls==1 and result["remaining"]==0
+
+
+def test_fast_progress_never_rescans_labels_per_update(tmp_path,monkeypatch):
+    import stockbear.labeling_runtime as fast
+    cfg=dict(config(),threads=1,hash_mb=64,progress_seconds=.00001)
+    db,cfg,run,sources,aliases=fixture(tmp_path,cfg=cfg)
+    with closing(db):
+        build(db,cfg,sources,aliases)
+        original_counts=fast.counts
+        calls=[]
+        def counted(db):
+            calls.append(1)
+            return original_counts(db)
+        monkeypatch.setattr(fast,"counts",counted)
+        result=fast.label_fast(db,cfg,run,worker_factory=FakeWorkers)
+        assert result["remaining"]==0
+        assert len(calls)==2  # Startup and final reconciliation, despite frequent progress.

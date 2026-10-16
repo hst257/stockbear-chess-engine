@@ -1,0 +1,119 @@
+{
+  "additional_stockfish_analyses": 0,
+  "commit_probe": {
+    "max_commit_seconds": 0.0008873000042513013,
+    "mean_commit_seconds": 9.035664061940452e-05,
+    "mean_update_seconds": 9.270996031318646e-06,
+    "median_commit_seconds": 7.765000191284344e-05,
+    "p95_commit_seconds": 0.00014450000162469223,
+    "p99_commit_seconds": 0.0002424000049359165,
+    "pragmas": {
+      "journal_mode": "wal",
+      "synchronous": 2,
+      "wal_autocheckpoint": 1000
+    },
+    "updates": 1024
+  },
+  "live_database_modified": false,
+  "method": "Measured native service durations replayed as sleeps in disposable 48-row shadow databases. Not additional Stockfish analyses or a sustained live throughput benchmark. Small scratch B-trees do not model every live page-cache/checkpoint cost.",
+  "trials": [
+    {
+      "result": {
+        "attempts": 48,
+        "completed": 48,
+        "errors": 0,
+        "eta_seconds": 0.0,
+        "execution": {
+          "execution_workers": 2,
+          "progress": "initial authoritative counts plus committed changes; final SQL reconciliation",
+          "queue": "ordinal keyset with bounded local retry buffer",
+          "runner": "stockbear.labeling_runtime",
+          "saved_signature_sha256": "0401142fccd95c56ca87a4a2c764ee9e726843c797bfb7f1381e9ec7ef666ce0",
+          "saved_workers": 2,
+          "source_lf_sha256": "1631e0e848a5112b3f9250010aaa66aca51c83392eee67578ff087a776aa68cb",
+          "teacher_options_changed": false,
+          "threads_each": 1,
+          "version": 1
+        },
+        "failed": 0,
+        "games": 48,
+        "pending": 0,
+        "positions": 48,
+        "positions_per_second": 76.8,
+        "queue_calls": 3,
+        "remaining": 0,
+        "sampling": {
+          "diagnostic_shadow_positions": 48,
+          "live_queue_unchanged": true
+        },
+        "session_elapsed_seconds": 0.625,
+        "session_new_labels": 48,
+        "sources_complete": 1,
+        "sources_total": 1,
+        "stage": "labeling",
+        "state": "complete",
+        "timings": {
+          "commit_seconds": 0.016442499996628612,
+          "final_count_seconds": 4.730000364361331e-05,
+          "initialization_seconds": 0.00033849999454105273,
+          "progress_seconds": 0.009762000001501292,
+          "queue_seconds": 0.0002598999999463558,
+          "update_seconds": 0.002760300019872375,
+          "wait_seconds": 0.5895128000120167
+        },
+        "total_labeling_seconds": 0.625,
+        "utc": "2026-10-16T07:27:47.996116+00:00"
+      },
+      "workers": 2
+    },
+    {
+      "result": {
+        "attempts": 48,
+        "completed": 48,
+        "errors": 0,
+        "eta_seconds": 0.0,
+        "execution": {
+          "execution_workers": 4,
+          "progress": "initial authoritative counts plus committed changes; final SQL reconciliation",
+          "queue": "ordinal keyset with bounded local retry buffer",
+          "runner": "stockbear.labeling_runtime",
+          "saved_signature_sha256": "0401142fccd95c56ca87a4a2c764ee9e726843c797bfb7f1381e9ec7ef666ce0",
+          "saved_workers": 2,
+          "source_lf_sha256": "1631e0e848a5112b3f9250010aaa66aca51c83392eee67578ff087a776aa68cb",
+          "teacher_options_changed": false,
+          "threads_each": 1,
+          "version": 1
+        },
+        "failed": 0,
+        "games": 48,
+        "pending": 0,
+        "positions": 48,
+        "positions_per_second": 117.9361179363372,
+        "queue_calls": 2,
+        "remaining": 0,
+        "sampling": {
+          "diagnostic_shadow_positions": 48,
+          "live_queue_unchanged": true
+        },
+        "session_elapsed_seconds": 0.4069999999992433,
+        "session_new_labels": 48,
+        "sources_complete": 1,
+        "sources_total": 1,
+        "stage": "labeling",
+        "state": "complete",
+        "timings": {
+          "commit_seconds": 0.016830099979415536,
+          "final_count_seconds": 8.069999603321776e-05,
+          "initialization_seconds": 0.0001255999959539622,
+          "progress_seconds": 0.010903099995630328,
+          "queue_seconds": 0.000228899996727705,
+          "update_seconds": 0.00284609996015206,
+          "wait_seconds": 0.37588349998986814
+        },
+        "total_labeling_seconds": 0.4069999999992433,
+        "utc": "2026-10-16T07:27:48.560898+00:00"
+      },
+      "workers": 4
+    }
+  ]
+}

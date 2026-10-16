@@ -1,0 +1,18 @@
+{
+  "execution": {
+    "execution_workers": 4,
+    "progress": "initial authoritative counts plus committed changes; final SQL reconciliation",
+    "queue": "ordinal keyset with bounded local retry buffer",
+    "runner": "stockbear.labeling_runtime",
+    "saved_signature_sha256": "0401142fccd95c56ca87a4a2c764ee9e726843c797bfb7f1381e9ec7ef666ce0",
+    "saved_workers": 2,
+    "source_lf_sha256": "1631e0e848a5112b3f9250010aaa66aca51c83392eee67578ff087a776aa68cb",
+    "teacher_options_changed": false,
+    "threads_each": 1,
+    "version": 1
+  },
+  "queue_rebuild": false,
+  "safe_to_resume": true,
+  "signature_unchanged": true,
+  "workers_started": false
+}

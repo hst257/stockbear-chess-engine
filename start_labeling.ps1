@@ -24,6 +24,9 @@ param(
     [ValidateSet('v2', 'v3-full', 'v3-bucket16')]
     [string]$Features = 'v2',
     [switch]$Resume,
+    [switch]$FastResume,
+    [int]$ExecutionWorkers,
+    [switch]$CheckResume,
     [switch]$DryRun,
     [switch]$RetryFailed,
     [switch]$AllowPartial
@@ -38,7 +41,12 @@ if (-not $Python) {
     if (-not $Python) { throw 'Python environment missing. See LABELING_README.md, or provide -Python.' }
 }
 $pythonCommand = (Get-Command $Python -ErrorAction Stop).Source
-$cliArguments = @('-u', '-m', 'stockbear.labeling', $Mode)
+$labelingModule = 'stockbear.labeling'
+if ($FastResume -or $CheckResume -or $PSBoundParameters.ContainsKey('ExecutionWorkers')) {
+    if (-not $Resume -or $Mode -ne 'run') { throw 'Fast execution options require -Resume and -Mode run.' }
+    $labelingModule = 'stockbear.labeling_runtime'
+}
+$cliArguments = @('-u', '-m', $labelingModule, $Mode)
 $mapping = @{
     InputDirectory='--input'; OutputDirectory='--output'; Stockfish='--stockfish';
     Nodes='--nodes'; Threads='--threads'; Workers='--workers'; HashMB='--hash-mb'; Limit='--limit';
@@ -64,6 +72,8 @@ if ($Resume) { $cliArguments += '--resume' }
 if ($DryRun) { $cliArguments += '--dry-run' }
 if ($RetryFailed) { $cliArguments += '--retry-failed' }
 if ($AllowPartial) { $cliArguments += '--allow-partial' }
+if ($PSBoundParameters.ContainsKey('ExecutionWorkers')) { $cliArguments += @('--execution-workers', [string]$ExecutionWorkers) }
+if ($CheckResume) { $cliArguments += '--check-resume' }
 Push-Location -LiteralPath $trainingRoot
 try {
     & $pythonCommand @cliArguments
