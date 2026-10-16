@@ -56,18 +56,23 @@ def source_snapshot(paths: dict[str, Path]) -> dict:
     return result
 
 
-def readonly_audit(root: Path, run: Path, destination: Path) -> dict:
+def validate_fen_batch(rows: list[tuple]) -> int:
+    for pid,fen in rows:
+        board=chess.Board(fen)
+        if not board.is_valid() or board.chess960 or board.is_game_over() or canonical_fen(board)!=fen or hashlib.sha256(fen.encode()).hexdigest()!=pid:
+            raise ValueError(f"Invalid/noncanonical source position: {pid}")
+    return len(rows)
+
+
+def readonly_audit(root: Path, run: Path, destination: Path, workers: int = 4) -> dict:
     validation_path=run/"validation.json"
-    if not validation_path.exists():
-        raise ValueError("The labeling process has not published final validation yet; let it finish")
-    validation=json.loads(validation_path.read_text(encoding="utf-8"))
-    if not validation.get("complete") or not validation.get("all_fens_and_labels_checked"):
-        raise ValueError("The new corpus lacks a complete exhaustive validation")
+    validation=json.loads(validation_path.read_text(encoding="utf-8")) if validation_path.exists() else None
     with closing(connect(run/"pipeline.sqlite",readonly=True)) as db:
+        db.execute("PRAGMA cache_size=-262144")
         cfg,signature=get_meta(db,"config"),get_meta(db,"signature")
         labeling.check_signature(signature,cfg)
-        if get_meta(db,"stage")!="complete":
-            raise ValueError("Let the labeling process finish final export before merging")
+        if not get_meta(db,"planned") or db.execute("SELECT 1 FROM sources WHERE complete=0 LIMIT 1").fetchone():
+            raise ValueError("Source ingestion/planning is incomplete")
         quality=dict(db.execute("SELECT 'positions',count(*) FROM positions UNION ALL "
             "SELECT 'completed',count(*) FROM labels WHERE cp IS NOT NULL UNION ALL "
             "SELECT 'pending',count(*) FROM labels WHERE cp IS NULL UNION ALL "
@@ -86,18 +91,65 @@ def readonly_audit(root: Path, run: Path, destination: Path) -> dict:
             raise ValueError("Inspect teacher/source errors before preparing training data")
         if any(not r["message"].startswith("KeyboardInterrupt") for r in report["pipeline_events"]):
             raise ValueError("Inspect unexpected pipeline failures before merging")
-    export_manifest=json.loads((run/"export/manifest.json").read_text(encoding="utf-8"))
-    if export_manifest["validation"]["fingerprint"]!=validation["fingerprint"]:
-        raise ValueError("New export/validation identity mismatch")
-    for name,expected in export_manifest["files"].items():
-        print(f"Checking completed export: {name}",flush=True)
-        if file_hash(run/"export"/name)!=expected:
-            raise ValueError(f"Corrupt completed export: {name}")
-    report["export_files_verified"]=True
+        checks={
+          "database_integrity":"PRAGMA integrity_check",
+          "foreign_keys":"PRAGMA foreign_key_check",
+          "mixed_profiles":"SELECT 1 FROM labels WHERE profile!=? LIMIT 1",
+          "family_split_leakage":"SELECT 1 FROM positions GROUP BY game_id HAVING count(DISTINCT split)>1 LIMIT 1",
+          "quarantined_or_misassigned_families":"SELECT 1 FROM positions p JOIN groups g ON p.game_id=g.id WHERE g.quarantine IS NOT NULL OR p.split!=g.split LIMIT 1",
+          "game_alias_split_leakage":"SELECT 1 FROM game_keys k JOIN games g ON k.game=g.id JOIN groups f ON g.group_id=f.id WHERE f.quarantine IS NULL GROUP BY k.key HAVING count(DISTINCT g.split)>1 LIMIT 1",
+          "label_ranges_and_metadata":"SELECT 1 FROM labels WHERE typeof(cp)!='integer' OR abs(cp)>32000 OR typeof(depth)!='integer' OR depth<1 OR typeof(nodes)!='integer' OR nodes<1 OR error IS NOT NULL OR failed!=0 OR (mate IS NOT NULL AND (typeof(mate)!='integer' OR cp!=CASE WHEN mate>0 THEN 2000 ELSE -2000 END)) LIMIT 1",
+          "result_perspective":"SELECT 1 FROM positions p CROSS JOIN games g ON g.id=p.owner WHERE json_extract(g.headers,'$.Result') IS NULL OR json_extract(g.headers,'$.Result') NOT IN ('1-0','0-1','1/2-1/2') OR p.outcome!=CASE WHEN substr(p.fen,instr(p.fen,' ')+1,1)='w' THEN CASE json_extract(g.headers,'$.Result') WHEN '1-0' THEN 1.0 WHEN '0-1' THEN 0.0 ELSE 0.5 END ELSE CASE json_extract(g.headers,'$.Result') WHEN '1-0' THEN 0.0 WHEN '0-1' THEN 1.0 ELSE 0.5 END END LIMIT 1"}
+        report["checks"]={}
+        for key,query in checks.items():
+            print(f"Verifying complete source: {key}",flush=True)
+            started=time.monotonic()
+            rows=db.execute(query,(report["profile_id"],) if key=="mixed_profiles" else ()).fetchall()
+            if (key=="database_integrity" and [tuple(r) for r in rows]!=[("ok",)]) or (key!="database_integrity" and rows):
+                raise ValueError(f"Source validation failed: {key}")
+            report["checks"][key]={"passed":True,"seconds":time.monotonic()-started}
+        for alias,path in (("old_v1",root/"data/processed/full.sqlite"),("old_v2",root/"data/v2/pool.sqlite")):
+            attach(db,alias,path)
+            db.execute(f"PRAGMA {alias}.cache_size=-65536")
+            print(f"Checking expanded-position disjointness against {alias}",flush=True)
+            if db.execute(f"SELECT 1 FROM positions p CROSS JOIN {alias}.positions o ON o.id=p.id LIMIT 1").fetchone():
+                raise ValueError("New corpus overlaps a frozen original position")
+        cursor=db.execute("SELECT id,fen FROM positions ORDER BY ordinal")
+        pending=deque();done=0;exhausted=False;started=last_tick=time.monotonic()
+        with ProcessPoolExecutor(max_workers=workers) as pool:
+            while pending or not exhausted:
+                while not exhausted and len(pending)<workers*2:
+                    batch=[tuple(r) for r in cursor.fetchmany(4096)]
+                    if batch:pending.append(pool.submit(validate_fen_batch,batch))
+                    else:exhausted=True
+                if not pending:break
+                done+=pending.popleft().result()
+                if time.monotonic()-last_tick>=10:
+                    rate=done/(time.monotonic()-started)
+                    progress={"stage":"source-fen-verification","completed":done,"positions":quality["positions"],
+                              "positions_per_second":rate,"eta_seconds":(quality["positions"]-done)/rate}
+                    atomic_json(destination/"preparation-progress.json",progress)
+                    print(f"Verified source FENs: {done:,}/{quality['positions']:,}; {rate:.0f}/s; ETA {(quality['positions']-done)/rate/60:.1f}m",flush=True)
+                    last_tick=time.monotonic()
+        if done!=quality["positions"]:raise ValueError("Source FEN validation count mismatch")
+        report.update(all_fens_and_labels_checked=True,source_fens_checked=done,complete=True,
+                      grouped_splits_disjoint=True,original_corpus_overlap=0,
+                      finalization="Independent indexed read-only SQL and parallel board verification; original labels/checkpoints remain unchanged")
+    export_path=run/"export/manifest.json"
+    if export_path.exists():
+        export_manifest=json.loads(export_path.read_text(encoding="utf-8"))
+        if validation and export_manifest["validation"]["fingerprint"]!=validation["fingerprint"]:
+            raise ValueError("New export/validation identity mismatch")
+        for name,expected in export_manifest["files"].items():
+            print(f"Checking completed export: {name}",flush=True)
+            if file_hash(run/"export"/name)!=expected:raise ValueError(f"Corrupt completed export: {name}")
+        report["export_files_verified"]=True
+    else:
+        report["export_files_verified"]=False
+        report["export_note"]="Original JSONL export was not completed; this preparation verifies and reads the authoritative SQLite labels directly. No export is required for training."
     report["sources"]=source_snapshot(sources(root,run))
     for key,path in sources(root,run).items():
-        if key=="expanded":
-            continue  # Exhaustive integrity and FK checks are recorded by final validation.
+        if key=="expanded":continue  # Verified exhaustively above in this read-only audit.
         print(f"Checking original database integrity: {key}",flush=True)
         with closing(connect(path,readonly=True)) as db:
             db.execute("PRAGMA cache_size=-65536")
@@ -455,7 +507,7 @@ def main() -> None:
             audit=json.loads(audit_path.read_text(encoding="utf-8"))
             if source_snapshot(sources(ROOT,run))!=audit["sources"]:
                 raise ValueError("Preserved inputs changed after the saved audit")
-        else:audit=readonly_audit(ROOT,run,destination)
+        else:audit=readonly_audit(ROOT,run,destination,args.workers)
         merged=merge(ROOT,run,destination,audit)
         prepared=prepare_arrays(destination,merged,args.workers)
         after=source_snapshot(sources(ROOT,run))

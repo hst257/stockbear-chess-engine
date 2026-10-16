@@ -8,7 +8,7 @@ import numpy as np
 import pytest
 
 from stockbear.common import file_hash
-from stockbear.expanded_data import encode_batch, merge, prepare_arrays, prepared_complete, source_snapshot, sources
+from stockbear.expanded_data import encode_batch, merge, prepare_arrays, prepared_complete, source_snapshot, sources, validate_fen_batch
 from stockbear.labeling.storage import connect
 from stockbear.sample import canonical_fen
 from stockbear.v3.features import encode as encode_v3, from_v2
@@ -129,3 +129,15 @@ def test_all_prepared_formats_publish_and_load_without_training(tmp_path,monkeyp
         stream.seek(-1,2);stream.write(b"!")
     with pytest.raises(ValueError,match="corrupt"):
         prepared_complete(destination/"prepared/v2")
+
+
+def test_readonly_fen_verification_rejects_corruption_and_terminal_boards():
+    board=chess.Board();fen=canonical_fen(board)
+    pid=hashlib.sha256(fen.encode()).hexdigest()
+    assert validate_fen_batch([(pid,fen)])==1
+    with pytest.raises(ValueError,match="source position"):
+        validate_fen_batch([("wrong",fen)])
+    for san in ("f3","e5","g4","Qh4#"):board.push_san(san)
+    fen=canonical_fen(board)
+    with pytest.raises(ValueError,match="source position"):
+        validate_fen_batch([(hashlib.sha256(fen.encode()).hexdigest(),fen)])

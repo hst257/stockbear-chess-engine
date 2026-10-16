@@ -8,9 +8,12 @@ Preparation does not start Stockfish or train a network.
 
 ## Verification and merge
 
-Preparation requires the labeling run's final exhaustive validation **and export**
-to finish, not just a labeling ETA of zero. It verifies export checksums, original
-source signatures and database integrity. Compatible labels use the same teacher
+Preparation requires a stopped run with all positions successfully labeled. It
+checks original source signatures, database integrity/foreign keys, all label and
+result metadata, family partitions and frozen-corpus disjointness, then verifies
+every new FEN in parallel. Existing completed JSONL exports are checksummed when
+available; the authoritative SQLite labels can be used directly when automatic
+post-processing has not finished. Compatible labels retain the same teacher
 profile, side-to-move centipawns, mate handling and outcome perspective.
 
 Whole-game aliases and frozen anchors share a global game index. Conflicting
