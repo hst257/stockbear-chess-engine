@@ -152,6 +152,8 @@ def analyze(root: Path, complete: bool = True) -> dict:
     result = {"utc": core.utc(), "plan_sha256": core.sha(root / "plan.json"), "games": len(rows), "matches": matches,
               "audit": checked, "terminations": dict(Counter(r["termination"] for r in rows)),
               "failures": failures, "elapsed_wall_seconds": elapsed,
+              "summed_search_wall_seconds": sum(r["seconds"] for r in rows),
+              "pause_history": core.load(root / "pause-history.json") if (root / "pause-history.json").exists() else None,
               "previous_games_used_for_inference": 0,
               "candidate_score_difference_128_minus_64": candidate_difference(rows),
               "analysis_method": "Paired opening units; 95% Hoeffding bounded-mean intervals, descriptive 5000-resample bootstrap; exact two-sided sign-flip difference tests with Holm adjustment for the two candidates, direction inferred from paired score; one-sided NNUE p also reported; no automatic promotion"}
@@ -300,7 +302,13 @@ def report(root: Path, plan: dict, rows: list[dict], data: dict) -> None:
               f"PGNs, evaluator counters, deadlines and frozen identities. **{data['audit']['protected_files']} protected "
               f"files** were unchanged. Classical NNUE evaluations across the tournament: **{data['audit']['classical_nnue_evaluations']}**. "
               f"Termination counts: `{data['terminations']}`. Saved failure events: **{len(data['failures'])}**. "
-              f"Elapsed first-start to last-finish time: {data['elapsed_wall_seconds']/3600:.2f} hours.", "",
+              f"Elapsed first-start to last-finish time: {data['elapsed_wall_seconds']/3600:.2f} hours, including the "
+              f"user-requested pause. Recorded search wall time totals {data['summed_search_wall_seconds']/3600:.2f} hours.", "",
+              "The user paused after exactly 15 completed games and resumed through a one-time thread automation "
+              "at 03:30 IST on October 17. Completed games were skipped. To impose the initial 15-game boundary, "
+              "G014 had been interrupted after 22 saved searched moves and resumed with fresh processes and full "
+              "legal history. Its cold transient caches are a minor fairness limitation; the later scheduled pause "
+              "fell between games. `pause-history.json` retains the timestamps. No completed result was replayed.", "",
               "Original classical evaluation, the active executable, previous checkpoints, optimized v2/v3 models, "
               "and previous showdown artifacts are preserved. The sealed test dataset was not opened or hashed. "
               "No networks were trained, no labels generated and no search heuristics changed.", "",

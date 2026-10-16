@@ -1,6 +1,7 @@
 {
   "audit_passed": true,
   "automation_id": "resume-final-stockbear-showdown-once",
+  "completed_at_resumption": 15,
   "completed_games": 15,
   "interruption_to_apply_limit": {
     "game": "G014",
@@ -13,5 +14,7 @@
   "remaining_games": 33,
   "requested_pause_at_completed_games": 15,
   "requested_utc": "2026-10-16T21:07:00.532278+00:00",
-  "resume_at_ist": "2026-10-17T03:30:00+05:30"
+  "resume_at_ist": "2026-10-17T03:30:00+05:30",
+  "resume_source": "one-time thread automation at 03:30 IST",
+  "resumed_utc": "2026-10-16T22:00:50.691741+00:00"
 }
