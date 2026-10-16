@@ -1,0 +1,17 @@
+{
+  "audit_passed": true,
+  "automation_id": "resume-final-stockbear-showdown-once",
+  "completed_games": 15,
+  "interruption_to_apply_limit": {
+    "game": "G014",
+    "note": "User requested a 15-game pause; bounded resume restarts engine processes and preserves full legal history, with cold transient caches",
+    "saved_searched_moves": 22
+  },
+  "one_time_resume_ist": "2026-10-17T03:30:00+05:30",
+  "paused_utc": "2026-10-16T21:10:32.887376+00:00",
+  "remaining_after_pause": 33,
+  "remaining_games": 33,
+  "requested_pause_at_completed_games": 15,
+  "requested_utc": "2026-10-16T21:07:00.532278+00:00",
+  "resume_at_ist": "2026-10-17T03:30:00+05:30"
+}
