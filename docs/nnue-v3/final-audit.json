@@ -1,0 +1,25 @@
+{
+  "manifest_files_verified": 76,
+  "tool_sources_verified": 8,
+  "exact_training_snapshot_files_verified": 12,
+  "local_report_links_verified": 28,
+  "svg_parsed": true,
+  "benchmark_unique_searches": 1512,
+  "protected_sources_unchanged": true,
+  "no_tracked_deletions": true,
+  "exactly_20_games_10_pairs_500ms": true,
+  "conditional_classical_gate_failed_no_extra_games": true,
+  "replay": {
+    "record": "docs\\nnue-v3\\match-v3-v2.json",
+    "games": 20,
+    "legal_plies": 2290,
+    "paired_openings_colors_and_results": true,
+    "summary_recomputed": true,
+    "binary_hashes_checked": true,
+    "declared_hashes": {
+      "candidate": "c7b204ac751f71d98d49470b556d9af519de0508ca5d2a6fb6006db27fbd3a51",
+      "original": "765419454f3453873cc6e36cf0cab0434fb9e0f16aace4a83560f9b0aaff0595"
+    }
+  },
+  "final_focused_regression": "21 passed, 2 skipped (optional diagnostic-build checks) in 1.49s; full release suite 1159 passed, training package 40 passed"
+}

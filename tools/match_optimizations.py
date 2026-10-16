@@ -19,6 +19,7 @@ import chess.engine
 import chess.pgn
 
 from app.engine_client import DEFAULT_ENGINE
+from app.nnue_v3_model import validate_model
 from tools.benchmark_optimizations import configure_stage
 
 OPENINGS = ((), ("e2e4", "e7e5", "g1f3", "b8c6", "f1c4", "g8f6"),
@@ -83,10 +84,14 @@ def version_match(args):
         candidate = stack.enter_context(chess.engine.SimpleEngine.popen_uci(str(args.engine), timeout=10, **flags))
         original = stack.enter_context(chess.engine.SimpleEngine.popen_uci(str(args.opponent), timeout=10, **flags))
         overrides = {}
+        external_models = {}
         for label, player, path in (("candidate", candidate, args.candidate_options),
                                     ("original", original, args.opponent_options)):
             config = json.loads(path.read_text(encoding="utf-8")) if path else {}
             config = config.get("uci_options", config)
+            if config.get("Evaluator") == "nnue_v3":
+                model_path = validate_model(Path(config["NNUEV3File"]))
+                external_models[label] = {"path": str(model_path), "sha256": hashlib.sha256(model_path.read_bytes()).hexdigest()}
             player.configure(config)
             overrides[label] = config
         if args.resume:
@@ -95,6 +100,7 @@ def version_match(args):
             assert data["movetime_ms"] == args.movetime and data["max_plies"] == args.max_plies
             assert data.get("overrides", {"candidate": {}, "original": {}}) == overrides
             assert data.get("opening_book_sha256") == book_hash
+            assert data.get("external_models", {}) == external_models
         else:
             if progress.exists():
                 raise ValueError("Progress exists; use --resume or choose another output")
@@ -140,7 +146,7 @@ def version_match(args):
                     "source_revision": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
                     "options": {"candidate": {n: o.default for n, o in candidate.options.items()},
                                 "original": {n: o.default for n, o in original.options.items()}},
-                    "overrides": overrides,
+                    "overrides": overrides, "external_models": external_models,
                     "builds": {label: json.loads(path.with_suffix(".build.json").read_text())
                                if path.with_suffix(".build.json").exists() else None
                                for label, path in (("candidate", args.engine), ("original", args.opponent))},
@@ -196,11 +202,13 @@ def version_match(args):
                 print("Pilot/checkpoint complete; resume the unchanged scheduled cohort with --resume", flush=True)
                 return
     data["summary_neutral_book"] = bool(book_path)
+    for model in external_models.values():
+        assert hashlib.sha256(Path(model["path"]).read_bytes()).hexdigest() == model["sha256"]
     data["summary"] = strength_summary(data["games"], neutral_book=bool(book_path))
     write_record(args.output, json.dumps(data, indent=2) + "\n")
     games = []
     evaluator_match = any("Evaluator" in options for options in overrides.values())
-    labels = {label: {"nnue": "StockBear NNUE", "classical": "StockBear Classical"}.get(
+    labels = {label: {"nnue": "StockBear NNUE", "nnue_v3": "StockBear NNUE v3 (experimental)", "classical": "StockBear Classical"}.get(
               options.get("Evaluator"), "Optimized" if label == "candidate" else "Original")
               for label, options in overrides.items()}
     for label, options in overrides.items():
@@ -208,6 +216,7 @@ def version_match(args):
         if options.get("Evaluator") == "nnue" and build.get("nnue"):
             labels[label] += " " + Path(build["nnue"]["model"]).stem + " (" + options.get("NNUEKernel", "auto") + ")"
     same_nnue = all(options.get("Evaluator") == "nnue" for options in overrides.values())
+    both_neural = all(options.get("Evaluator") in ("nnue", "nnue_v3") for options in overrides.values())
     if same_nnue:
         labels = {label: ("Optimized " if label == "candidate" else "Baseline ") + name for label, name in labels.items()}
     for record in data["games"]:
@@ -215,7 +224,7 @@ def version_match(args):
         for uci in record["opening"] + [s["move"] for s in record["searches"]]:
             board.push_uci(uci)
         game = chess.pgn.Game.from_board(board)
-        game.headers.update({"Event": "NNUE implementation throughput validation" if same_nnue else "NNUE versus classical evaluator match" if evaluator_match else "Original versus optimized audit match", "Round": str(record["game"]),
+        game.headers.update({"Event": "NNUE implementation throughput validation" if same_nnue else "NNUE evaluator comparison" if both_neural else "NNUE versus classical evaluator match" if evaluator_match else "Original versus optimized audit match", "Round": str(record["game"]),
                              "White": labels["candidate"] if record["candidate_color"] == "white" else labels["original"],
                              "Black": labels["original"] if record["candidate_color"] == "white" else labels["candidate"],
                              "Result": record["result"], "ThinkTimeMs": str(args.movetime),

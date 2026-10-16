@@ -1,0 +1,7 @@
+{
+  "NNUEV3File": "Z:\\Code\\Chess\\engine\\networks\\v3\\stockbear-v3-selected.sbnnue",
+  "Hash": 16,
+  "NNUEKernel": "scalar",
+  "NNUEIncremental": true,
+  "Evaluator": "nnue_v3"
+}

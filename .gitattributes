@@ -22,6 +22,8 @@ docs/nnue-v3/*.md text eol=lf
 docs/nnue-v3/*.txt text eol=lf
 docs/nnue-v3/*.svg text eol=lf
 docs/nnue-v3/*.png binary
+docs/nnue-v3/**/*.json text eol=lf
+docs/nnue-v3/**/*.png binary
 engine/networks/v3/*.sbnnue binary
 NNUE_V3_DESIGN.md text eol=lf
 NNUE_V3_KING_RELATIVE_REPORT.md text eol=lf

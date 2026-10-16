@@ -74,6 +74,12 @@ def main() -> None:
     packed = np.stack([encode(b, buckets) for b in boards]).astype(np.int64)
     with torch.inference_mode():
         expected = model(torch.from_numpy(packed)).numpy() * 400
+    training_device_error = None
+    if args.heldout:
+        selection = json.loads((ROOT / "StockBear_NNUE_training/reports/v3/selection.json").read_text())
+        stored = np.load(ROOT / "StockBear_NNUE_training/runs/v3" / selection["run"] / "test_predictions.npy")[:len(expected)]
+        training_device_error = float(np.max(np.abs(stored - expected)))
+        assert training_device_error < .02
     proc = subprocess.run([str(args.probe.resolve()), str(args.model.resolve())],
         input="\n".join(b.fen(en_passant="fen") for b in boards) + "\n",
         capture_output=True, text=True, check=True, timeout=120)
@@ -127,6 +133,7 @@ def main() -> None:
         "max_abs_cp_error": max(errors), "mean_abs_cp_error": float(np.mean(errors)),
         "transitions": transitions, "malformed_rejected": malformed,
         "activation_boundary_and_extreme_head_cases": 16, "max_extreme_head_cp_error": head_error,
+        "max_training_gpu_vs_cpu_cp_error": training_device_error,
         "tolerance": {"forward_cp": .02, "incremental_cp": .02, "incremental_lane": 1e-4}}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2) + "\n")

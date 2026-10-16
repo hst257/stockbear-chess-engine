@@ -1,0 +1,359 @@
+{
+  "categories": {
+    "defense": {
+      "classical": {
+        "positions": 2,
+        "move_disagreements": [],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      },
+      "v2": {
+        "positions": 2,
+        "move_disagreements": [
+          "defend_complex"
+        ],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      },
+      "v3": {
+        "positions": 2,
+        "move_disagreements": [
+          "defend_complex"
+        ],
+        "reference_cpl_ge150_heuristic": [
+          "defend_complex"
+        ],
+        "reference_winning_mate_not_confirmed_after_move": []
+      }
+    },
+    "king_attack": {
+      "classical": {
+        "positions": 2,
+        "move_disagreements": [],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      },
+      "v2": {
+        "positions": 2,
+        "move_disagreements": [],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      },
+      "v3": {
+        "positions": 2,
+        "move_disagreements": [],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      }
+    },
+    "long_term_planning": {
+      "classical": {
+        "positions": 2,
+        "move_disagreements": [
+          "carlsbad"
+        ],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      },
+      "v2": {
+        "positions": 2,
+        "move_disagreements": [
+          "carlsbad"
+        ],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      },
+      "v3": {
+        "positions": 2,
+        "move_disagreements": [
+          "carlsbad"
+        ],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      }
+    },
+    "material_imbalance": {
+      "classical": {
+        "positions": 2,
+        "move_disagreements": [],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      },
+      "v2": {
+        "positions": 2,
+        "move_disagreements": [
+          "queen_rooks"
+        ],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      },
+      "v3": {
+        "positions": 2,
+        "move_disagreements": [],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      }
+    },
+    "opening": {
+      "classical": {
+        "positions": 2,
+        "move_disagreements": [
+          "start",
+          "queen_gambit"
+        ],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      },
+      "v2": {
+        "positions": 2,
+        "move_disagreements": [],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      },
+      "v3": {
+        "positions": 2,
+        "move_disagreements": [
+          "start",
+          "queen_gambit"
+        ],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      }
+    },
+    "passed_pawns": {
+      "classical": {
+        "positions": 2,
+        "move_disagreements": [],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      },
+      "v2": {
+        "positions": 2,
+        "move_disagreements": [],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      },
+      "v3": {
+        "positions": 2,
+        "move_disagreements": [],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      }
+    },
+    "pawn_endgame": {
+      "classical": {
+        "positions": 2,
+        "move_disagreements": [
+          "opposed_pawns"
+        ],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      },
+      "v2": {
+        "positions": 2,
+        "move_disagreements": [],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      },
+      "v3": {
+        "positions": 2,
+        "move_disagreements": [
+          "opposed_pawns"
+        ],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      }
+    },
+    "piece_endgame": {
+      "classical": {
+        "positions": 2,
+        "move_disagreements": [
+          "rooks"
+        ],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      },
+      "v2": {
+        "positions": 2,
+        "move_disagreements": [
+          "rook_bishop"
+        ],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      },
+      "v3": {
+        "positions": 2,
+        "move_disagreements": [
+          "rooks",
+          "rook_bishop"
+        ],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      }
+    },
+    "promotion": {
+      "classical": {
+        "positions": 2,
+        "move_disagreements": [],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      },
+      "v2": {
+        "positions": 2,
+        "move_disagreements": [],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      },
+      "v3": {
+        "positions": 2,
+        "move_disagreements": [],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      }
+    },
+    "quiet_middlegame": {
+      "classical": {
+        "positions": 2,
+        "move_disagreements": [
+          "italian_structure"
+        ],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      },
+      "v2": {
+        "positions": 2,
+        "move_disagreements": [
+          "old_middle"
+        ],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      },
+      "v3": {
+        "positions": 2,
+        "move_disagreements": [
+          "old_middle",
+          "italian_structure"
+        ],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      }
+    },
+    "random_legal_walk": {
+      "classical": {
+        "positions": 24,
+        "move_disagreements": [
+          "fresh_00",
+          "fresh_01",
+          "fresh_03",
+          "fresh_04",
+          "fresh_06",
+          "fresh_08",
+          "fresh_09",
+          "fresh_10",
+          "fresh_14",
+          "fresh_16",
+          "fresh_18",
+          "fresh_22"
+        ],
+        "reference_cpl_ge150_heuristic": [
+          "fresh_16"
+        ],
+        "reference_winning_mate_not_confirmed_after_move": [
+          "fresh_19"
+        ]
+      },
+      "v2": {
+        "positions": 24,
+        "move_disagreements": [
+          "fresh_01",
+          "fresh_03",
+          "fresh_04",
+          "fresh_08",
+          "fresh_09",
+          "fresh_10",
+          "fresh_16",
+          "fresh_17",
+          "fresh_18"
+        ],
+        "reference_cpl_ge150_heuristic": [
+          "fresh_03",
+          "fresh_09",
+          "fresh_16"
+        ],
+        "reference_winning_mate_not_confirmed_after_move": [
+          "fresh_19"
+        ]
+      },
+      "v3": {
+        "positions": 24,
+        "move_disagreements": [
+          "fresh_00",
+          "fresh_01",
+          "fresh_03",
+          "fresh_08",
+          "fresh_09",
+          "fresh_10",
+          "fresh_14",
+          "fresh_16",
+          "fresh_21"
+        ],
+        "reference_cpl_ge150_heuristic": [
+          "fresh_01",
+          "fresh_14",
+          "fresh_16"
+        ],
+        "reference_winning_mate_not_confirmed_after_move": [
+          "fresh_19"
+        ]
+      }
+    },
+    "tactical": {
+      "classical": {
+        "positions": 2,
+        "move_disagreements": [],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      },
+      "v2": {
+        "positions": 2,
+        "move_disagreements": [
+          "kiwipete"
+        ],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      },
+      "v3": {
+        "positions": 2,
+        "move_disagreements": [
+          "kiwipete"
+        ],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      }
+    },
+    "zugzwang": {
+      "classical": {
+        "positions": 2,
+        "move_disagreements": [
+          "white_blocked",
+          "black_blocked"
+        ],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      },
+      "v2": {
+        "positions": 2,
+        "move_disagreements": [],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      },
+      "v3": {
+        "positions": 2,
+        "move_disagreements": [],
+        "reference_cpl_ge150_heuristic": [],
+        "reference_winning_mate_not_confirmed_after_move": []
+      }
+    }
+  },
+  "caution": "Finite-budget root/child searches differ by one ply; absence of a confirmed mate is a diagnostic flag, not proof a forced mate was lost."
+}

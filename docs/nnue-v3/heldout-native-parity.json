@@ -1,0 +1,35 @@
+{
+  "model_sha256": "610e67ddf3e1e556f9209c4ba9de879d780f3a018924e4d16edf93e997251b78",
+  "positions": 20152,
+  "grouped_heldout_fens": true,
+  "exact_feature_indices": true,
+  "normalized_color_symmetry": true,
+  "max_abs_cp_error": 0.00036632812498282874,
+  "mean_abs_cp_error": 4.756058231188944e-05,
+  "transitions": {
+    "transitions": 91629,
+    "nulls": 21542,
+    "king_refreshes": 33119,
+    "max_lane_error": 9.536743164e-07,
+    "max_cp_error": 0.000732421875,
+    "frame_bytes": 308
+  },
+  "malformed_rejected": {
+    "magic": "Invalid v3 magic",
+    "size": "Invalid v3 weight size",
+    "version": "Incompatible v3 feature/architecture/precision/scale",
+    "contract": "Incompatible v3 feature contract",
+    "checksum": "V3 checksum mismatch",
+    "nan": "Nonfinite or unsafe-magnitude v3 weights",
+    "overflow": "Nonfinite or unsafe-magnitude v3 weights",
+    "padding": "Nonzero v3 padding"
+  },
+  "activation_boundary_and_extreme_head_cases": 16,
+  "max_extreme_head_cp_error": 0.00012584516599645212,
+  "max_training_gpu_vs_cpu_cp_error": 0.00018310546875,
+  "tolerance": {
+    "forward_cp": 0.02,
+    "incremental_cp": 0.02,
+    "incremental_lane": 0.0001
+  }
+}

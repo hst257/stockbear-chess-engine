@@ -130,3 +130,12 @@ No larger architecture or independent training-variable search is planned.
 Native loaders reject weights above absolute 1e6 as well as nonfinite values,
 preventing float overflow under this fixed clipped architecture. This is a format
 validation bound, not evaluation clipping or a learned-model modification.
+
+## User amendment before matches
+
+The user reduced the bounded matches to **20 games (10 opening pairs) at 500ms**
+before tournament play began. The conditional classical comparison is also
+limited to 20 games. The smoke pair is included. Use the first 10 neutral pairs;
+only the corresponding 20-game subset of the earlier 40-game v2/classical cohort
+is matched for any reused-opening trend. Preserve the original plan above as
+context and record this amendment; do not launch or resume a 40-game cohort.

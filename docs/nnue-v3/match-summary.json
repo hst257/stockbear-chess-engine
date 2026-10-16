@@ -1,0 +1,66 @@
+{
+  "v2": {
+    "games": 20,
+    "wins": 3,
+    "draws": 8,
+    "losses": 9,
+    "unfinished": 0,
+    "score": 0.35,
+    "relative_elo": -107.53812491703198,
+    "complete_pairs": 10,
+    "paired_score": 0.35,
+    "paired_bootstrap_95": [
+      0.25,
+      0.45
+    ],
+    "paired_elo_bootstrap_95": [
+      -190.84850188786498,
+      -34.86007028756008
+    ],
+    "paired_hoeffding_95": [
+      0,
+      0.7794694083467375
+    ],
+    "unfinished_worst_best_score": [
+      0.35,
+      0.35
+    ],
+    "paired_censoring_bootstrap_95_envelope": [
+      0.25,
+      0.45
+    ],
+    "termination_counts": {
+      "checkmate": 12,
+      "threefold_repetition": 8
+    },
+    "game_wall_seconds": 1005.0355655000058,
+    "v3": {
+      "moves": 1041,
+      "mean_completed_depth": 8.192122958693563,
+      "median_completed_depth": 8,
+      "mean_nodes": 1024432.7550432277,
+      "mean_reported_nps": 2099473.5504322764,
+      "aggregate_nps": 2133325.5276629203,
+      "aggregate_wall_nps": 2125753.1970298495,
+      "mean_engine_seconds": 0.4802046109510086,
+      "mean_wall_seconds": 0.48191518962530006,
+      "total_nodes": 1066434498,
+      "total_engine_seconds": 499.8929999999999,
+      "total_wall_seconds": 501.67371239993736
+    },
+    "opponent": {
+      "moves": 1045,
+      "mean_completed_depth": 8.225837320574163,
+      "median_completed_depth": 8,
+      "mean_nodes": 1334023.6038277512,
+      "mean_reported_nps": 2731665.7827751194,
+      "aggregate_nps": 2782366.527487267,
+      "aggregate_wall_nps": 2772562.8468154194,
+      "mean_engine_seconds": 0.4794564593301434,
+      "mean_wall_seconds": 0.48115179980862033,
+      "total_nodes": 1394054666,
+      "total_engine_seconds": 501.03199999999987,
+      "total_wall_seconds": 502.80363080000825
+    }
+  }
+}

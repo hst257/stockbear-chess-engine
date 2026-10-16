@@ -1,0 +1,98 @@
+{
+  "all": {
+    "classical": {
+      "positions": 48,
+      "best_move_agreement": 28,
+      "finite_cp_cases": 41,
+      "mean_cpl": 25.926829268292682,
+      "median_cpl": 9,
+      "negative_raw_deltas": 15,
+      "reference_cpl_ge_150_heuristic": 1,
+      "mate_cases_separate": 7
+    },
+    "v2": {
+      "positions": 48,
+      "best_move_agreement": 33,
+      "finite_cp_cases": 41,
+      "mean_cpl": 31.29268292682927,
+      "median_cpl": 10,
+      "negative_raw_deltas": 14,
+      "reference_cpl_ge_150_heuristic": 3,
+      "mate_cases_separate": 7
+    },
+    "v3": {
+      "positions": 48,
+      "best_move_agreement": 29,
+      "finite_cp_cases": 41,
+      "mean_cpl": 34.073170731707314,
+      "median_cpl": 12,
+      "negative_raw_deltas": 11,
+      "reference_cpl_ge_150_heuristic": 4,
+      "mate_cases_separate": 7
+    }
+  },
+  "frozen": {
+    "classical": {
+      "positions": 24,
+      "best_move_agreement": 16,
+      "finite_cp_cases": 22,
+      "mean_cpl": 15.181818181818182,
+      "median_cpl": 6.0,
+      "negative_raw_deltas": 8,
+      "reference_cpl_ge_150_heuristic": 0,
+      "mate_cases_separate": 2
+    },
+    "v2": {
+      "positions": 24,
+      "best_move_agreement": 18,
+      "finite_cp_cases": 22,
+      "mean_cpl": 11.181818181818182,
+      "median_cpl": 7.5,
+      "negative_raw_deltas": 6,
+      "reference_cpl_ge_150_heuristic": 0,
+      "mate_cases_separate": 2
+    },
+    "v3": {
+      "positions": 24,
+      "best_move_agreement": 14,
+      "finite_cp_cases": 22,
+      "mean_cpl": 20.318181818181817,
+      "median_cpl": 10.0,
+      "negative_raw_deltas": 5,
+      "reference_cpl_ge_150_heuristic": 1,
+      "mate_cases_separate": 2
+    }
+  },
+  "fresh": {
+    "classical": {
+      "positions": 24,
+      "best_move_agreement": 12,
+      "finite_cp_cases": 19,
+      "mean_cpl": 38.36842105263158,
+      "median_cpl": 23,
+      "negative_raw_deltas": 7,
+      "reference_cpl_ge_150_heuristic": 1,
+      "mate_cases_separate": 5
+    },
+    "v2": {
+      "positions": 24,
+      "best_move_agreement": 15,
+      "finite_cp_cases": 19,
+      "mean_cpl": 54.578947368421055,
+      "median_cpl": 10,
+      "negative_raw_deltas": 8,
+      "reference_cpl_ge_150_heuristic": 3,
+      "mate_cases_separate": 5
+    },
+    "v3": {
+      "positions": 24,
+      "best_move_agreement": 15,
+      "finite_cp_cases": 19,
+      "mean_cpl": 50,
+      "median_cpl": 16,
+      "negative_raw_deltas": 6,
+      "reference_cpl_ge_150_heuristic": 3,
+      "mate_cases_separate": 5
+    }
+  }
+}

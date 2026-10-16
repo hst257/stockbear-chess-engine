@@ -51,6 +51,8 @@ def verify_record(path: Path, check_binaries=False):
     if check_binaries:
         for label, binary in data["paths"].items():
             assert hashlib.sha256(Path(binary).read_bytes()).hexdigest() == data["hashes"][label]
+        for model in data.get("external_models", {}).values():
+            assert hashlib.sha256(Path(model["path"]).read_bytes()).hexdigest() == model["sha256"]
     return {"record": str(path), "games": len(data["games"]), "legal_plies": plies,
             "paired_openings_colors_and_results": True, "summary_recomputed": True,
             "binary_hashes_checked": check_binaries, "declared_hashes": data["hashes"]}

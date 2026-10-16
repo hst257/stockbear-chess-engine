@@ -1,0 +1,11 @@
+{
+  "games_v3_v2": 20,
+  "ms_per_move": 500,
+  "pairs": 10,
+  "max_searched_plies": 240,
+  "model_sha256": "610e67ddf3e1e556f9209c4ba9de879d780f3a018924e4d16edf93e997251b78",
+  "opening_book_sha256": "6ae0319c30bf2226ff9ce1b0909feac8bdc1bef0e7bebc27b27c34474593a2b3",
+  "classical_gate": "A separately bounded 20-game classical cohort is run only if v3 completed-game score versus v2 is at least 50%, with all correctness gates passed. No automatic expansion. Smoke pair included. Caps unknown.",
+  "reused_pairs": "First 10 neutral opening pairs, nested within the prior 20-pair v2-classical cohort; compare only the matching subset for any cross-cohort trend, not independent confirmation.",
+  "user_amendment": "make it 20 games, no need for 40"
+}

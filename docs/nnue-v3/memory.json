@@ -1,0 +1,59 @@
+{
+  "method": "GetProcessMemoryInfo every 10ms during one 500ms search; working/private bytes include the entire engine and Hash=16MB; peak working set is OS lifetime peak",
+  "configurations": {
+    "classical": {
+      "metadata": {
+        "utc": "2026-10-16T03:18:54.520916+00:00",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+        "logical_cpus": 12,
+        "python": "3.11.8",
+        "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v3\\classical\\engine.exe",
+        "sha256": "f2258efc377dfef5738b5a78dd61eb291b9fc23fdc38a6be4fbbbd87fe256f97",
+        "git": "2a14b191397c2fb8a5cf72c09205defcd13db6d7"
+      },
+      "samples": 32,
+      "max": {
+        "working_set_bytes": 18509824,
+        "private_bytes": 14934016,
+        "peak_working_set_bytes": 18509824
+      }
+    },
+    "v2": {
+      "metadata": {
+        "utc": "2026-10-16T03:18:55.145707+00:00",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+        "logical_cpus": 12,
+        "python": "3.11.8",
+        "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v3\\v2\\engine.exe",
+        "sha256": "765419454f3453873cc6e36cf0cab0434fb9e0f16aace4a83560f9b0aaff0595",
+        "git": "2a14b191397c2fb8a5cf72c09205defcd13db6d7"
+      },
+      "samples": 33,
+      "max": {
+        "working_set_bytes": 18567168,
+        "private_bytes": 14888960,
+        "peak_working_set_bytes": 18567168
+      }
+    },
+    "v3": {
+      "metadata": {
+        "utc": "2026-10-16T03:18:55.728679+00:00",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+        "logical_cpus": 12,
+        "python": "3.11.8",
+        "executable": "Z:\\Code\\Chess\\artifacts\\nnue-v3\\release\\engine.exe",
+        "sha256": "c7b204ac751f71d98d49470b556d9af519de0508ca5d2a6fb6006db27fbd3a51",
+        "git": "2a14b191397c2fb8a5cf72c09205defcd13db6d7"
+      },
+      "samples": 33,
+      "max": {
+        "working_set_bytes": 19800064,
+        "private_bytes": 16175104,
+        "peak_working_set_bytes": 19800064
+      }
+    }
+  }
+}

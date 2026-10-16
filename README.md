@@ -250,6 +250,10 @@ Running that tool without `--offline` checks the source licenses online and down
    Search-only accumulator bookkeeping, exact parity gates, repeated release
    measurements and bounded 500ms validation are documented in the
    [NNUE v2 throughput optimization report](NNUE_V2_THROUGHPUT_OPTIMIZATION.md).
+   Experimental king-relative v3 training, native verification and the 20-game
+   v3-versus-v2 match are documented in the
+   [NNUE v3 research report](NNUE_V3_KING_RELATIVE_REPORT.md). V3 remains optional;
+   the measured candidate trails optimized v2, and classical remains the default.
 7. **Implemented:** matched performance benchmarks and color-balanced engine smoke games; broader strength testing remains future work.
 
 Later phases require an explicit request. The engine performs its own search and evaluation without delegating them to another engine.
