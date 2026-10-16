@@ -7,6 +7,7 @@ from datetime import datetime
 import itertools
 import math
 from pathlib import Path
+import random
 import statistics
 
 import chess
@@ -64,6 +65,26 @@ def roots(rows: list[dict], candidate: str) -> dict:
     return {"pairs": pairs, "matched_roots": len(pairs),
             "geometric_nps_ratio": math.exp(statistics.mean(math.log(p["nps_ratio"]) for p in pairs)) if pairs else None,
             "mean_completed_depth_difference": statistics.mean(p["depth_difference"] for p in pairs) if pairs else None}
+
+
+def candidate_difference(rows: list[dict]) -> dict:
+    differences = []
+    for opening in range(12):
+        scores = {}
+        for candidate in ("64", "128"):
+            group = [r for r in rows if r["game"]["opening"] == opening and candidate in r["game"]["pair"]]
+            points = [core.points(r, candidate) for r in group]
+            if len(group) == 2 and None not in points:
+                scores[candidate] = statistics.mean(points)
+        if len(scores) == 2:
+            differences.append(scores["128"] - scores["64"])
+    if not differences:
+        return {"matched_opening_pairs": 0, "difference": None, "bootstrap_95": None}
+    rng = random.Random(20261017)
+    boot = sorted(statistics.mean(rng.choices(differences, k=len(differences))) for _ in range(5000))
+    return {"matched_opening_pairs": len(differences), "difference": statistics.mean(differences),
+            "pair_differences": differences, "bootstrap_95": [boot[124], boot[4874]],
+            "note": "Exploratory paired score difference against the same opponent on matched openings; not a direct 128-vs-64 match or additional primary significance test"}
 
 
 def audit(root: Path, complete: bool) -> tuple[dict, list[dict], dict]:
@@ -132,6 +153,7 @@ def analyze(root: Path, complete: bool = True) -> dict:
               "audit": checked, "terminations": dict(Counter(r["termination"] for r in rows)),
               "failures": failures, "elapsed_wall_seconds": elapsed,
               "previous_games_used_for_inference": 0,
+              "candidate_score_difference_128_minus_64": candidate_difference(rows),
               "analysis_method": "Paired opening units; 95% Hoeffding bounded-mean intervals, descriptive 5000-resample bootstrap; exact two-sided sign-flip difference tests with Holm adjustment for the two candidates, direction inferred from paired score; one-sided NNUE p also reported; no automatic promotion"}
     core.save(root / "analysis.json", result)
     if complete:
@@ -167,7 +189,7 @@ def report(root: Path, plan: dict, rows: list[dict], data: dict) -> None:
              "Prior 38-test regression receipts per distinct NNUE binary were reused after matching their exact hashes. "
              "Fresh preflight checks verified intended evaluation, legal moves, castling, en passant, promotion, mate, "
              "stalemate and 1-second deadlines for all three copies. Another **29 targeted engine regressions** and "
-             "**12 preflight harness checks** passed; a later statistics regression checked paired tests and infinite Elo limits. "
+             "**12 preflight harness checks** passed; two later analysis checks covered paired tests, infinite Elo limits and shared-opening comparisons. "
              "No training or intensive benchmarks ran during games.", "",
              "| Engine | Evaluation | Binary SHA-256 | Active network SHA-256 |", "|---|---|---|---|"]
     for label, entry in plan["engines"].items():
@@ -234,6 +256,13 @@ def report(root: Path, plan: dict, rows: list[dict], data: dict) -> None:
     for c, m in data["matches"].items():
         r = m["matched_roots"]
         lines.append(f"| {c}/32 | {r['matched_roots']} | {r['geometric_nps_ratio']:.3f}× ({100*(r['geometric_nps_ratio']-1):+.1f}%) | {r['mean_completed_depth_difference']:+.2f} |")
+    difference = data["candidate_score_difference_128_minus_64"]
+    lo, hi = difference["bootstrap_95"]
+    lines += ["", "The selected 128/32 model has lower validation blended MSE (0.0108725) than 64/32 (0.0111739). "
+              f"Its observed score against classical differs by {100*difference['difference']:+.2f} percentage points "
+              f"on the same {difference['matched_opening_pairs']} opening pairs, with descriptive paired-bootstrap bounds "
+              f"[{100*lo:+.2f}, {100*hi:+.2f}] percentage points. This exploratory comparison is against a common "
+              "opponent, not a direct 128-versus-64 match or proof that teacher prediction causes chess strength."]
     lines += ["", "Arithmetic mean and median NPS above use per-move UCI-reported values. Aggregate NPS divides "
               "total nodes by total engine seconds, weighting longer searches more heavily. Completed depth is the last "
               "fully finished iteration; counters include work in interrupted deeper iterations. Speed and depth alone "

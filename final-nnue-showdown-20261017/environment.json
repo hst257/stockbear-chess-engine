@@ -1,0 +1,11 @@
+{
+  "inference": "scalar float32",
+  "logical_processors": 12,
+  "machine": "AMD64",
+  "one_game_at_a_time": true,
+  "platform": "Windows-10-10.0.26200-SP0",
+  "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+  "python": "3.11.8 (tags/v3.11.8:db85d51, Feb  6 2024, 22:03:32) [MSC v.1937 64 bit (AMD64)]",
+  "python_chess": "1.11.2",
+  "recorded_utc": "2026-10-16T20:51:15.641516+00:00"
+}

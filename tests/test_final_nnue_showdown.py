@@ -72,3 +72,14 @@ def test_final_uncertainty_exchanges_pairs_and_elo_keeps_infinite_bounds():
     for row in rows:
         row["result"] = "1/2-1/2"
     assert paired_test(rows, "64")["nnue_superiority_p_one_sided"] == 1
+
+
+def test_candidate_comparison_uses_only_shared_complete_opening_pairs():
+    from tools.report_final_nnue_showdown import candidate_difference
+    rows = []
+    for game in final.schedule():
+        score = 1. if "128" in game["pair"] else .5
+        result = "1/2-1/2" if score == .5 else "1-0" if game["white"] == "128" else "0-1"
+        rows.append({"game": game, "result": result})
+    assert candidate_difference(rows)["difference"] == .5
+    assert candidate_difference(rows[:-1])["matched_opening_pairs"] == 11
