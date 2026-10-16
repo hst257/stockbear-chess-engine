@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 from collections import Counter, defaultdict
+from datetime import datetime
 import itertools
 import math
 from pathlib import Path
@@ -134,6 +135,15 @@ def analyze(root: Path, require_complete: bool = True) -> dict:
               "formats": formats, "round_robin_standings": standings(rows), "failures": failures,
               "terminations": dict(Counter(r["termination"] for r in rows)), "audit": verified,
               "finalists": load(root / "finalists.json") if (root / "finalists.json").exists() else None}
+    result["shared_first_three_pairs"] = {
+        str(ms): {f"{a}-{b}": stats([r for r in rows if r["game"]["ms"] == ms and r["game"]["opening"] < 3
+                                    and set(r["game"]["pair"]) == {a, b}], a)
+                  for a, b in itertools.combinations(MODELS, 2)} for ms in (500, 1000, 3000)}
+    if rows:
+        first = min(datetime.fromisoformat(r["started_utc"]) for r in rows)
+        last = max(datetime.fromisoformat(r["completed_utc"]) for r in rows)
+        result["elapsed_wall_seconds_first_to_last_game"] = (last - first).total_seconds()
+    result["failures_by_kind"] = dict(Counter(f["kind"] for f in failures))
     save(root / "analysis.json", result)
     if require_complete:
         report(root, plan, result, rows)
@@ -201,6 +211,9 @@ def report(root: Path, plan: dict, result: dict, rows: list[dict]) -> None:
             lines.append(f"| {pair} | {a['wins']} / {a['draws']} / {a['losses']} | {a['points']:g} | {pct(a['score_fraction'])} | "
                 f"{a['aggregate_nps']:,.0f} / {b['aggregate_nps']:,.0f} | {item['relative_nps_second_vs_first_percent']:+.1f}% | "
                 f"{a['mean_depth']:.2f} / {b['mean_depth']:.2f} | {100*lo:.1f}–{100*hi:.1f}% ({ci['complete_pairs']} pairs) |")
+        relevant = [f for f in result["failures"] if f["game"]["ms"] == int(ms)]
+        lines += ["", "Failure events in this format: " + str(dict(Counter(f["kind"] for f in relevant))) +
+                  ". All saved failure events are unscored and listed separately from chess results."]
         lines += ["", "| Model | Mean / median depth | Mean engine / wall move time (s) | Max wall time (s) | NNUE calls |",
                   "|---|---:|---:|---:|---:|"]
         for label, s in cohort["models"].items():
@@ -227,12 +240,24 @@ def report(root: Path, plan: dict, result: dict, rows: list[dict]) -> None:
         "The 3-second and 5-second cohorts are exploratory, and close scores do not establish definitive Elo differences.", "",
         "Cross-control trends must compare the shared first three round-robin opening pairs, not unmatched full cohorts. "
         "Finalist selection also induces selection effects in the four-game final. All per-format results stand separately; "
-        "there is no pooled Elo estimate or automatic extension based on outcomes.", "", "## Failures, adjudications and preservation", "",
+        "there is no pooled Elo estimate or automatic extension based on outcomes.", "",
+        "| Pair (score for first model) | Same first 3 pairs: 500 ms | 1000 ms | 3000 ms |", "|---|---:|---:|---:|"]
+    for a, b in itertools.combinations(MODELS, 2):
+        lines.append(f"| {a}-{b} | " + " | ".join(pct(result["shared_first_three_pairs"][str(ms)][f"{a}-{b}"]["score_fraction"])
+                                                     for ms in (500, 1000, 3000)) + " |")
+    lines += ["", "These matched trend cells contain just six games each and remain exploratory. Per-format "
+        "round-robin score leaders are: " + "; ".join(
+            f"{ms} ms: " + ", ".join(n for n, s in cohort["models"].items()
+                  if s["score_fraction"] == max(v["score_fraction"] for v in cohort["models"].values()))
+            for ms, cohort in result["formats"].items()) + ".", "",
+        "## Failures, adjudications and preservation", "",
         f"Termination counts: `{result['terminations']}`. Saved failure events: **{len(result['failures'])}**. "
         f"Final replay audit checked **{result['audit']['searched_moves']:,} searched moves**, PGNs, plan identities, legal results "
         f"and deadlines. **{result['audit']['protected_files']} protected files** were unchanged. "
         "Failures, if any, are recorded individually in `failures/` and are unscored; completed chess results are not silently "
-        "replaced by infrastructure forfeits. In-progress move checkpoints and all completed games are retained.", "",
+        "replaced by infrastructure forfeits. In-progress move checkpoints and all completed games are retained. "
+        f"Elapsed wall time from first game start to last completion: {result['elapsed_wall_seconds_first_to_last_game']/3600:.2f} hours "
+        "(includes pauses between runner invocations).", "",
         "## Artifacts and reproduction", "",
         f"Experiment directory: `{root}`. `plan.json` freezes every opening FEN/identifier, engine/network hash, "
         "search option and game schedule. `games/Gxxx.json` and matching PGNs retain each game and per-move statistics. "

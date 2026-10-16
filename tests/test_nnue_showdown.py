@@ -106,3 +106,21 @@ def test_illegal_move_stops_unscored_and_keeps_failure_log(tmp_path, monkeypatch
     failures = list((tmp_path / "failures").glob("*.json"))
     assert len(failures) == 1 and showdown.load(failures[0])["unscored"]
     assert not (tmp_path / "games/G001.json").exists()
+
+
+def test_uncertainty_clusters_colors_and_root_comparison_matches_openings():
+    from tools.report_nnue_showdown import paired_uncertainty, matched_roots
+    rows = []
+    for opening in range(3):
+        for reverse in range(2):
+            white, black = ("32", "64") if reverse == 0 else ("64", "32")
+            rows.append({"game": {"opening": opening, "white": white, "black": black, "pair": ["32", "64"]},
+                         "result": "1-0", "searches": [{"engine": white, "nodes": 100 if white == "32" else 80,
+                             "engine_seconds": 1., "depth": 10 if white == "32" else 9}]})
+    uncertainty = paired_uncertainty(rows, "32")
+    assert uncertainty["complete_pairs"] == 3 and uncertainty["paired_score"] == .5
+    assert uncertainty["pair_scores"] == [.5] * 3
+    roots = matched_roots(rows)["matched_comparisons"]["64/32"]
+    assert roots["opening_positions"] == 3
+    assert roots["geometric_nps_ratio"] == pytest.approx(.8)
+    assert roots["mean_depth_difference"] == -1
