@@ -1,10 +1,10 @@
 {
   "changed_protected_files": [],
   "classical_nnue_evaluations": 0,
-  "games": 36,
+  "games": 48,
   "passed": true,
   "protected_files": 491,
-  "searched_moves": 3463,
+  "searched_moves": 4501,
   "test_dataset_opened": false,
-  "utc": "2026-10-16T22:31:57.686404+00:00"
+  "utc": "2026-10-16T22:49:45.781789+00:00"
 }

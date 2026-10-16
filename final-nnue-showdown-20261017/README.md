@@ -1,5 +1,9 @@
 # Final classical versus NNUE showdown
 
+Completed **48/48 games**. Classical scored 13–11 against 64/32 and 17.5–6.5
+against 128/32. Keep classical as default; see `FINAL_NNUE_SHOWDOWN_REPORT.md`
+at the repository root for uncertainty, performance, and the recommendation.
+
 Exactly 48 games at 1000 ms per move: classical versus 64/32 (24 games),
 then classical versus 128/32 (24). Both matches use the same 12 new opening
 pairs with reversed colors, frozen before games and without evaluator filtering.

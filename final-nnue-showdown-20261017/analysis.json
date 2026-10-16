@@ -3,20 +3,20 @@
   "audit": {
     "changed_protected_files": [],
     "classical_nnue_evaluations": 0,
-    "games": 36,
+    "games": 48,
     "passed": true,
     "protected_files": 491,
-    "searched_moves": 3463,
+    "searched_moves": 4501,
     "test_dataset_opened": false,
-    "utc": "2026-10-16T22:31:57.686404+00:00"
+    "utc": "2026-10-16T22:49:45.781789+00:00"
   },
   "candidate_score_difference_128_minus_64": {
     "bootstrap_95": [
-      -0.3333333333333333,
-      -0.041666666666666664
+      -0.3541666666666667,
+      0.0
     ],
-    "difference": -0.16666666666666666,
-    "matched_opening_pairs": 6,
+    "difference": -0.1875,
+    "matched_opening_pairs": 12,
     "note": "Exploratory paired score difference against the same opponent on matched openings; not a direct 128-vs-64 match or additional primary significance test",
     "pair_differences": [
       0.0,
@@ -24,43 +24,49 @@
       0.0,
       0.0,
       -0.25,
+      -0.25,
+      0.0,
+      -0.25,
+      -0.5,
+      0.5,
+      -0.75,
       -0.25
     ]
   },
-  "elapsed_wall_seconds": 6333.193223,
+  "elapsed_wall_seconds": 7302.43842,
   "failures": [],
-  "games": 36,
+  "games": 48,
   "matches": {
     "128": {
       "classical": {
-        "aggregate_nps": 2517490.75901789,
-        "draws": 2,
-        "engine_seconds": 597.2849999999999,
-        "eval_calls": 1213783576,
-        "games": 12,
-        "losses": 2,
-        "max_wall_seconds": 1.003870200001984,
-        "mean_depth": 8.78930817610063,
-        "mean_engine_seconds": 0.9391273584905658,
-        "mean_reported_nps": 2472507.4575471696,
-        "mean_wall_seconds": 0.941159986163211,
+        "aggregate_nps": 2488581.29773158,
+        "draws": 3,
+        "engine_seconds": 1075.1529999999993,
+        "eval_calls": 2169163665,
+        "games": 24,
+        "losses": 5,
+        "max_wall_seconds": 1.0040769000042928,
+        "mean_depth": 8.715397923875432,
+        "mean_engine_seconds": 0.9300631487889267,
+        "mean_reported_nps": 2432400.582179931,
+        "mean_wall_seconds": 0.932088910120838,
         "median_depth": 9.0,
-        "median_reported_nps": 2408192.0,
-        "median_wall_seconds": 1.0019160999945598,
-        "moves": 636,
+        "median_reported_nps": 2351616.0,
+        "median_wall_seconds": 1.0019107999978587,
+        "moves": 1156,
         "nnue_evaluations": 0,
-        "nodes": 1503659468,
-        "points": 9.0,
-        "score_fraction": 0.75,
+        "nodes": 2675605648,
+        "points": 17.5,
+        "score_fraction": 0.7291666666666666,
         "unfinished": 0,
-        "wins": 8
+        "wins": 16
       },
       "failures": {},
-      "games": 12,
+      "games": 24,
       "matched_roots": {
-        "geometric_nps_ratio": 0.37628322100959355,
-        "matched_roots": 6,
-        "mean_completed_depth_difference": -0.8333333333333334,
+        "geometric_nps_ratio": 0.38381204172954453,
+        "matched_roots": 12,
+        "mean_completed_depth_difference": -0.75,
         "pairs": [
           {
             "classical": {
@@ -271,57 +277,267 @@
             },
             "nps_ratio": 0.40334088810543106,
             "opening": 5
+          },
+          {
+            "classical": {
+              "depth": 9,
+              "engine": "classical",
+              "engine_seconds": 1.0,
+              "eval_calls": 2709956,
+              "mate_white": null,
+              "move": "d2d3",
+              "nnue_evaluations": 0,
+              "nodes": 2990080,
+              "nps": 2990080,
+              "qnodes": 2609762,
+              "score_cp_white": -77,
+              "seldepth": 27,
+              "wall_seconds": 1.003314399989904
+            },
+            "depth_difference": 0,
+            "nnue": {
+              "depth": 9,
+              "engine": "128",
+              "engine_seconds": 1.0,
+              "eval_calls": 1205231,
+              "mate_white": null,
+              "move": "d2d4",
+              "nnue_evaluations": 1205231,
+              "nodes": 1316608,
+              "nps": 1316608,
+              "qnodes": 1127605,
+              "score_cp_white": 14,
+              "seldepth": 21,
+              "wall_seconds": 1.0036297000042396
+            },
+            "nps_ratio": 0.44032534246575344,
+            "opening": 6
+          },
+          {
+            "classical": {
+              "depth": 9,
+              "engine": "classical",
+              "engine_seconds": 1.0,
+              "eval_calls": 2487096,
+              "mate_white": null,
+              "move": "e1g1",
+              "nnue_evaluations": 0,
+              "nodes": 2787584,
+              "nps": 2787584,
+              "qnodes": 2432587,
+              "score_cp_white": 107,
+              "seldepth": 27,
+              "wall_seconds": 1.0026840000064112
+            },
+            "depth_difference": -1,
+            "nnue": {
+              "depth": 8,
+              "engine": "128",
+              "engine_seconds": 1.0,
+              "eval_calls": 920267,
+              "mate_white": null,
+              "move": "f3e5",
+              "nnue_evaluations": 920267,
+              "nodes": 1069056,
+              "nps": 1069056,
+              "qnodes": 866320,
+              "score_cp_white": 56,
+              "seldepth": 25,
+              "wall_seconds": 1.0028170000005048
+            },
+            "nps_ratio": 0.38350629075213516,
+            "opening": 7
+          },
+          {
+            "classical": {
+              "depth": 9,
+              "engine": "classical",
+              "engine_seconds": 1.0,
+              "eval_calls": 2810501,
+              "mate_white": null,
+              "move": "e4e5",
+              "nnue_evaluations": 0,
+              "nodes": 3096832,
+              "nps": 3096832,
+              "qnodes": 2789583,
+              "score_cp_white": 86,
+              "seldepth": 26,
+              "wall_seconds": 1.002689900007681
+            },
+            "depth_difference": -1,
+            "nnue": {
+              "depth": 8,
+              "engine": "128",
+              "engine_seconds": 1.0,
+              "eval_calls": 1084630,
+              "mate_white": null,
+              "move": "a2a3",
+              "nnue_evaluations": 1084630,
+              "nodes": 1208064,
+              "nps": 1208064,
+              "qnodes": 1016750,
+              "score_cp_white": 47,
+              "seldepth": 23,
+              "wall_seconds": 1.0030149000085657
+            },
+            "nps_ratio": 0.3900967181945937,
+            "opening": 8
+          },
+          {
+            "classical": {
+              "depth": 9,
+              "engine": "classical",
+              "engine_seconds": 1.0,
+              "eval_calls": 2396826,
+              "mate_white": null,
+              "move": "b1c3",
+              "nnue_evaluations": 0,
+              "nodes": 2683136,
+              "nps": 2683136,
+              "qnodes": 2303481,
+              "score_cp_white": 73,
+              "seldepth": 28,
+              "wall_seconds": 1.0040769000042928
+            },
+            "depth_difference": -1,
+            "nnue": {
+              "depth": 8,
+              "engine": "128",
+              "engine_seconds": 1.0,
+              "eval_calls": 969181,
+              "mate_white": null,
+              "move": "c4b3",
+              "nnue_evaluations": 969181,
+              "nodes": 1096704,
+              "nps": 1096704,
+              "qnodes": 877091,
+              "score_cp_white": 40,
+              "seldepth": 22,
+              "wall_seconds": 1.0028281999984756
+            },
+            "nps_ratio": 0.4087396240816716,
+            "opening": 9
+          },
+          {
+            "classical": {
+              "depth": 8,
+              "engine": "classical",
+              "engine_seconds": 1.0,
+              "eval_calls": 2449860,
+              "mate_white": null,
+              "move": "b1d2",
+              "nnue_evaluations": 0,
+              "nodes": 2740736,
+              "nps": 2740736,
+              "qnodes": 2411996,
+              "score_cp_white": 17,
+              "seldepth": 27,
+              "wall_seconds": 1.0028125999961048
+            },
+            "depth_difference": 0,
+            "nnue": {
+              "depth": 8,
+              "engine": "128",
+              "engine_seconds": 1.0,
+              "eval_calls": 1001156,
+              "mate_white": null,
+              "move": "b1c3",
+              "nnue_evaluations": 1001156,
+              "nodes": 1121280,
+              "nps": 1121280,
+              "qnodes": 921786,
+              "score_cp_white": 59,
+              "seldepth": 22,
+              "wall_seconds": 1.0035881999938283
+            },
+            "nps_ratio": 0.40911638333644684,
+            "opening": 10
+          },
+          {
+            "classical": {
+              "depth": 9,
+              "engine": "classical",
+              "engine_seconds": 1.0,
+              "eval_calls": 2927687,
+              "mate_white": null,
+              "move": "f1c4",
+              "nnue_evaluations": 0,
+              "nodes": 3280384,
+              "nps": 3280384,
+              "qnodes": 2921139,
+              "score_cp_white": 37,
+              "seldepth": 27,
+              "wall_seconds": 1.0030656000017188
+            },
+            "depth_difference": -1,
+            "nnue": {
+              "depth": 8,
+              "engine": "128",
+              "engine_seconds": 1.0,
+              "eval_calls": 977252,
+              "mate_white": null,
+              "move": "f1c4",
+              "nnue_evaluations": 977252,
+              "nodes": 1072128,
+              "nps": 1072128,
+              "qnodes": 859741,
+              "score_cp_white": 11,
+              "seldepth": 20,
+              "wall_seconds": 1.0034214000042994
+            },
+            "nps_ratio": 0.32683002965506475,
+            "opening": 11
           }
         ]
       },
       "nnue": {
-        "aggregate_nps": 716062.3431004026,
-        "draws": 2,
-        "engine_seconds": 602.2959999999998,
-        "eval_calls": 358173277,
-        "games": 12,
-        "losses": 8,
-        "max_wall_seconds": 1.0036801000096602,
-        "mean_depth": 7.795886075949367,
-        "mean_engine_seconds": 0.9529999999999997,
-        "mean_reported_nps": 702621.661392405,
-        "mean_wall_seconds": 0.9551364474682947,
+        "aggregate_nps": 715613.206485753,
+        "draws": 3,
+        "engine_seconds": 1084.3459999999995,
+        "eval_calls": 646532964,
+        "games": 24,
+        "losses": 16,
+        "max_wall_seconds": 1.0037100999907125,
+        "mean_depth": 7.711304347826087,
+        "mean_engine_seconds": 0.9429095652173909,
+        "mean_reported_nps": 699195.3817391305,
+        "mean_wall_seconds": 0.9450478816522366,
         "median_depth": 8.0,
-        "median_reported_nps": 704000.0,
-        "median_wall_seconds": 1.0020168500050204,
-        "moves": 632,
-        "nnue_evaluations": 358173277,
-        "nodes": 431281485,
-        "points": 3.0,
-        "score_fraction": 0.25,
+        "median_reported_nps": 700032.0,
+        "median_wall_seconds": 1.0020396999971126,
+        "moves": 1150,
+        "nnue_evaluations": 646532964,
+        "nodes": 775972318,
+        "points": 6.5,
+        "score_fraction": 0.2708333333333333,
         "unfinished": 0,
-        "wins": 2
+        "wins": 5
       },
-      "relative_aggregate_nps_percent": -71.55650559846546,
+      "relative_aggregate_nps_percent": -71.24412985269733,
       "uncertainty": {
         "bootstrap_95": [
-          0.08333333333333333,
-          0.4166666666666667
+          0.14583333333333334,
+          0.3958333333333333
         ],
-        "complete_pairs": 6,
-        "difference_p_two_sided": 0.125,
+        "complete_pairs": 12,
+        "difference_p_two_sided": 0.015625,
         "elo_95_conservative": [
           "-infinity",
-          245.68834696210013
+          117.46285745850147
         ],
         "elo_95_descriptive_bootstrap": [
-          -416.55707406329,
-          -58.451214271295186
+          -307.07432668219144,
+          -73.45775877845088
         ],
-        "elo_from_score": -190.84850188786498,
+        "elo_from_score": -172.04987681737555,
         "exchangeability_note": "Exact opening-pair sign-flip test conditional on independent, label-exchangeable pair outcomes under equal strength; fixed related openings limit generalization",
         "hoeffding_95": [
           0.0,
-          0.8044426220774891
+          0.662883471183176
         ],
-        "holm_adjusted_p_two_candidates": 0.25,
+        "holm_adjusted_p_two_candidates": 0.03125,
         "nnue_superiority_p_one_sided": 1.0,
-        "nominal_supported_classical_superiority": false,
+        "nominal_supported_classical_superiority": true,
         "nominal_supported_nnue_superiority": false,
         "note": "Nominal independent opening pairs, both colors clustered; bootstrap is descriptive and can degenerate. Hoeffding is the conservative primary bound; fixed hand-selected opening suite limits population inference.",
         "pair_scores": [
@@ -330,9 +546,15 @@
           0.5,
           0.0,
           0.0,
-          0.25
+          0.25,
+          0.0,
+          0.5,
+          0.0,
+          0.5,
+          0.25,
+          0.5
         ],
-        "paired_score": 0.25
+        "paired_score": 0.2708333333333333
       }
     },
     "64": {
@@ -878,10 +1100,10 @@
   },
   "plan_sha256": "c10906d58c2914663471891bda6d4eab1015099369c9c489278012ee1c2a5f35",
   "previous_games_used_for_inference": 0,
-  "summed_search_wall_seconds": 3272.611550299931,
+  "summed_search_wall_seconds": 4234.6874082999275,
   "terminations": {
-    "checkmate": 28,
-    "threefold_repetition": 8
+    "checkmate": 39,
+    "threefold_repetition": 9
   },
-  "utc": "2026-10-16T22:31:57.774142+00:00"
+  "utc": "2026-10-16T22:49:45.877005+00:00"
 }

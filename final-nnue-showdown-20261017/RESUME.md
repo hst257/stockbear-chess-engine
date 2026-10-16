@@ -1,5 +1,13 @@
 # Resume the final showdown
 
+## Completed
+
+The one-time scheduled continuation finished all **48/48 games** on October 17,
+2026. No games remain. The completed resume check skipped all 48 records and
+started no new searches. `FINAL_NNUE_SHOWDOWN_REPORT.md` is complete; classical
+remains the active default. `completion.json` records final output hashes.
+The instructions below are the historical pause handoff, not unfinished work.
+
 The user requested a pause after **15 completed games**, then a **single**
 continuation in this existing chat at **2026-10-17 03:30 IST** (2026-10-16 22:00 UTC).
 Do not continue engine games before that time after reaching 15.

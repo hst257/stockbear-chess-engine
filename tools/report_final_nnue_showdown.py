@@ -168,9 +168,12 @@ def number(value) -> str:
 
 
 def report(root: Path, plan: dict, rows: list[dict], data: dict) -> None:
-    lead = max(data["matches"], key=lambda c: data["matches"][c]["nnue"]["score_fraction"])
+    lead = max(data["matches"], key=lambda c: (data["matches"][c]["nnue"]["score_fraction"], -int(c)))
     supported = [c for c, m in data["matches"].items() if m["uncertainty"]["nominal_supported_nnue_superiority"]]
     lines = ["# StockBear Final Classical vs NNUE Showdown", "", "## Executive summary", "",
+             "**No: the newly trained NNUE has not earned replacement of StockBear's classical evaluator. "
+             "Keep classical as the default.** Classical led both matches. The 64/32 result is inconclusive; "
+             "128/32 performed substantially worse in this equal-time suite despite its lower teacher-prediction error.", "",
              "Completed **48 games at 1 second per move**: 24 classical versus 64/32, then 24 classical versus 128/32. "
              "Each match used the same 12 fresh opening pairs with reversed colors. No longer controls or extra games were played.", "",
              f"The NNUE candidate with the highest observed score against classical is **{lead}/32**. "
@@ -199,8 +202,8 @@ def report(root: Path, plan: dict, rows: list[dict], data: dict) -> None:
                      + (f"`{entry['network_sha256']}`" if label != "classical" else "Disabled; no active network") + " |")
     lines += ["", "## Tournament configuration", "",
               "The opening suite was frozen before games with seed 20261017. It comprises 12 manually chosen established "
-              "lines with starting FENs distinct from the previous showdown; no candidate or Stockfish selected/filtering "
-              "scores were used. Some opening families overlap normal chess practice, so this is a fresh fixed suite, "
+              "lines with starting FENs distinct from the previous showdown. No evaluator or Stockfish analysis "
+              "was used to select or filter them. Some opening families overlap normal chess practice, so this is a fresh fixed suite, "
               "not a statistically independent random sample of all chess. Pair starts alternate which evaluator has White. "
               "Match A precedes Match B as requested, so timing/thermal drift across matches remains possible; each match "
               "contains its own classical control and its own matched-root comparison.", "",
@@ -242,7 +245,9 @@ def report(root: Path, plan: dict, rows: list[dict], data: dict) -> None:
         br = u["elo_95_descriptive_bootstrap"]
         lines += ["", f"NNUE scores **{b['points']:g}/{b['games']-b['unfinished']} ({100*b['score_fraction']:.2f}%)**. "
                   f"Aggregate NPS change versus classical: **{match['relative_aggregate_nps_percent']:+.1f}%**. "
-                  f"Saved failure events by kind: `{match['failures']}`.", "",
+                  f"Failure events: {match['failures'].get('crash', 0)} crashes, "
+                  f"{match['failures'].get('timeout', 0)} timeouts, {match['failures'].get('illegal_move', 0)} illegal moves, "
+                  f"{match['failures'].get('infrastructure', 0)} other infrastructure failures.", "",
                   f"Paired opening units: {u['complete_pairs']}. Conservative 95% score bounds: **{100*lo:.1f}–{100*hi:.1f}%**; "
                   f"descriptive paired-bootstrap 95%: {100*bl:.1f}–{100*bh:.1f}%. "
                   f"Score-equivalent Elo estimate: **{number(u['elo_from_score'])}**, with conservative transformed bounds "
@@ -283,7 +288,7 @@ def report(root: Path, plan: dict, rows: list[dict], data: dict) -> None:
               "limit generalization. No prior NNUE-versus-NNUE game contributes to these scores, tests or Elo estimates.", "",
               "## Instructive games", "",
               "Examples below are selected by outcome and length to show the recorded range, without a new teacher "
-              "analysis. They illustrate results rather than proving the cause of a win."]
+              "analysis. They illustrate results rather than proving the cause of a win.", ""]
     for c in ("64", "128"):
         group = [r for r in rows if c in r["game"]["pair"]]
         selected = []
@@ -297,7 +302,37 @@ def report(root: Path, plan: dict, rows: list[dict], data: dict) -> None:
                          f"{plan['engines'][g['white']]['name']}–{plan['engines'][g['black']]['name']}, "
                          f"{plan['openings'][g['opening']]['family']}, {r['result']}, {r['termination']}, "
                          f"{len(r['searches'])} searched plies.")
-    lines += ["", "## Preservation and completion", "",
+    lines += ["", "## Conclusions and default-evaluator recommendation", "",
+              "**Observed leader:** classical scored 13/24 against 64/32 and 17.5/24 against 128/32. "
+              "NNUE 64/32 is the stronger observed NNUE candidate against this common opponent: 11/24 (45.83%), "
+              "versus 128/32's 6.5/24 (27.08%). These are separate head-to-head results, not a pooled Elo estimate.", "",
+              "**Statistical evidence:** 64/32 does not demonstrate superiority over classical; its two-sided "
+              "Holm-adjusted paired p-value is 0.828125, so its small observed deficit is also inconclusive. "
+              "Classical's advantage over 128/32 has conditional paired-test support (adjusted p=0.03125); "
+              "128/32 won no opening pair on aggregate, losing seven and splitting five. Its descriptive paired "
+              "bootstrap score interval is 14.58–39.58%. The much more conservative distribution-free interval "
+              "still includes parity (0–66.29%): the sharper test and bootstrap rely on additional exchangeability/"
+              "sampling assumptions. This is evidence on one small fixed suite, not a precise universal Elo claim.", "",
+              "**Teacher prediction versus play:** 128/32's lower selected validation MSE did not translate into "
+              "a better score against classical here. Its 18.75-percentage-point observed deficit versus 64/32 "
+              "has descriptive matched-opening bootstrap bounds −35.42 to 0.00 points; that comparison remains "
+              "exploratory. Better teacher prediction alone neither establishes better equal-time chess nor explains "
+              "the cause of the loss. The earlier NNUE-only showdown favored 128/32 at 1 second, but different "
+              "opponents/openings and small samples can change the ranking; none of those earlier games is pooled here.", "",
+              "**Engineering recommendation:** retain classical as StockBear's default and keep both NNUE models "
+              "for isolated experiments. The larger model's additional cost is not justified by these results. "
+              "On identical opening roots, 64/32 loses about 40% of classical's NPS and 0.50 completed ply; "
+              "128/32 loses about 62% and 0.75 ply. Across whole games, NPS is lower by 47.86% and 71.24%, "
+              "with mean completed-depth deficits of 0.73 and 1.00 ply. Different search trees also affect these "
+              "measurements, so they do not prove inference cost alone caused the score difference. No evaluator "
+              "was automatically promoted or installed.", "",
+              "**Smallest useful next strength experiment:** if continuing the inconclusive 64/32 question, "
+              "predeclare one further 24-game classical-versus-64/32 match at 1 second, using 12 fresh holdout "
+              "opening pairs with reversed colors and the same frozen binaries/options. This is a useful independent "
+              "replication, not a promise of enough power to resolve a small Elo gap. Freeze the analysis and count "
+              "before play; do not select openings or extend the schedule based on interim outcomes. No such extra "
+              "games were run in this investigation.", "",
+              "## Preservation and completion", "",
               f"Final audit replayed **{data['audit']['searched_moves']:,} searched moves** in **48 games**, verified "
               f"PGNs, evaluator counters, deadlines and frozen identities. **{data['audit']['protected_files']} protected "
               f"files** were unchanged. Classical NNUE evaluations across the tournament: **{data['audit']['classical_nnue_evaluations']}**. "
