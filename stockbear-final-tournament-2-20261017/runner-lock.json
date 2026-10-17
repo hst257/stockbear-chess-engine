@@ -1,0 +1,10 @@
+{
+  "StockBear_NNUE_training/stockbear/labeling/storage.py": "b172eedf98d262023bda76c698f83b654c2f4df29ea2168ca1167e852fbbdc97",
+  "nnue-optimization-stage3-20261017/load_meter.py": "01316dd8259d7786a04f96762517c9e3261328a143f3a1688dd20cdcf23642f9",
+  "nnue-validation-stage3-1-20261017/validate.py": "b4934d7824af8bf3a827d6c6e0bb46d207129af7fa2653f0f0ad2774fcc3bc76",
+  "stockbear-final-tournament-2-20261017/analyze.py": "55bc135338f2c9ba0dd277724f4610d7f3aa5167640945e4d963f3550855d0fe",
+  "stockbear-final-tournament-2-20261017/launch.py": "e3b348bc6b25788cbf1ba527ccdae96b46c52258c2b6e731df4f6efb9fe127a0",
+  "stockbear-final-tournament-2-20261017/tournament.py": "e4d82568ea14e3d76f28a5b88220607b8d681f14ff82c40ea76d58ba36773996",
+  "tools/match_optimizations.py": "3adc664d19c5863cff317197ae818b8250db15af3ecb470475e5e84daac7b48b",
+  "tools/nnue_showdown.py": "478a821231432f2d227800798af335cfd23fb13c6b1e9cfd4d54d6715de2605d"
+}

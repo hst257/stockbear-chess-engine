@@ -1,0 +1,82 @@
+# session 2026-10-17T17:08:16.048532+00:00
+2026-10-17T17:08:16.056057+00:00 > uci
+2026-10-17T17:08:16.087130+00:00 < id name ChessLab 0.13
+2026-10-17T17:08:16.088128+00:00 < id author ChessLab contributors
+2026-10-17T17:08:16.088128+00:00 < option name AlphaBeta type check default true
+2026-10-17T17:08:16.088128+00:00 < option name IterativeDeepening type check default true
+2026-10-17T17:08:16.088128+00:00 < option name MoveOrdering type check default true
+2026-10-17T17:08:16.088128+00:00 < option name UsePST type check default true
+2026-10-17T17:08:16.088128+00:00 < option name PawnCache type check default true
+2026-10-17T17:08:16.088128+00:00 < option name FastMovegen type check default true
+2026-10-17T17:08:16.088128+00:00 < option name UseAdvancedEvaluation type check default true
+2026-10-17T17:08:16.088128+00:00 < option name Evaluator type combo default classical var classical var nnue var nnue_v3
+2026-10-17T17:08:16.088128+00:00 < option name NNUEV3File type string default engine/networks/v3/stockbear-v3-selected.sbnnue
+2026-10-17T17:08:16.088128+00:00 < option name NNUEIncremental type check default true
+2026-10-17T17:08:16.088128+00:00 < option name NNUEKernel type combo default auto var auto var reference var scalar var quant
+2026-10-17T17:08:16.088128+00:00 < option name EvalPawns type check default true
+2026-10-17T17:08:16.088128+00:00 < option name EvalPassers type check default true
+2026-10-17T17:08:16.089129+00:00 < option name EvalBishopPair type check default true
+2026-10-17T17:08:16.089129+00:00 < option name EvalRooks type check default true
+2026-10-17T17:08:16.089129+00:00 < option name EvalMobility type check default true
+2026-10-17T17:08:16.089129+00:00 < option name EvalOutposts type check default true
+2026-10-17T17:08:16.089129+00:00 < option name EvalKingSafety type check default true
+2026-10-17T17:08:16.089129+00:00 < option name EvalSpace type check default true
+2026-10-17T17:08:16.089129+00:00 < option name EvalEndgame type check default true
+2026-10-17T17:08:16.089129+00:00 < option name TranspositionTable type check default true
+2026-10-17T17:08:16.089129+00:00 < option name Quiescence type check default true
+2026-10-17T17:08:16.089129+00:00 < option name PVS type check default true
+2026-10-17T17:08:16.089129+00:00 < option name UseAspirationWindows type check default true
+2026-10-17T17:08:16.089129+00:00 < option name AspirationDelta type spin default 25 min 1 max 500
+2026-10-17T17:08:16.089129+00:00 < option name UseNullMovePruning type check default true
+2026-10-17T17:08:16.089129+00:00 < option name UseLMR type check default true
+2026-10-17T17:08:16.089129+00:00 < option name LMRReduction type spin default 1 min 1 max 3
+2026-10-17T17:08:16.089129+00:00 < option name Hash type spin default 16 min 1 max 256
+2026-10-17T17:08:16.090637+00:00 < option name Depth type spin default 3 min 1 max 8
+2026-10-17T17:08:16.090637+00:00 < option name UseHistory type check default true
+2026-10-17T17:08:16.090637+00:00 < option name UseKillers type check default true
+2026-10-17T17:08:16.090637+00:00 < option name UseSEE type check default true
+2026-10-17T17:08:16.090637+00:00 < option name UseAdaptiveLMR type check default true
+2026-10-17T17:08:16.090637+00:00 < option name UseReverseFutility type check default true
+2026-10-17T17:08:16.090637+00:00 < option name UseFutility type check default true
+2026-10-17T17:08:16.090637+00:00 < option name UseCheckExtensions type check default true
+2026-10-17T17:08:16.090637+00:00 < option name UseMopUp type check default true
+2026-10-17T17:08:16.090637+00:00 < option name WeightPawnsMG type spin default 100 min 0 max 200
+2026-10-17T17:08:16.090637+00:00 < option name WeightPawnsEG type spin default 100 min 0 max 200
+2026-10-17T17:08:16.090637+00:00 < option name WeightPassersMG type spin default 100 min 0 max 200
+2026-10-17T17:08:16.090637+00:00 < option name WeightPassersEG type spin default 100 min 0 max 200
+2026-10-17T17:08:16.090637+00:00 < option name WeightBishopPairMG type spin default 100 min 0 max 200
+2026-10-17T17:08:16.090637+00:00 < option name WeightBishopPairEG type spin default 100 min 0 max 200
+2026-10-17T17:08:16.090637+00:00 < option name WeightRooksMG type spin default 100 min 0 max 200
+2026-10-17T17:08:16.090637+00:00 < option name WeightRooksEG type spin default 100 min 0 max 200
+2026-10-17T17:08:16.090637+00:00 < option name WeightMobilityMG type spin default 100 min 0 max 200
+2026-10-17T17:08:16.090637+00:00 < option name WeightMobilityEG type spin default 100 min 0 max 200
+2026-10-17T17:08:16.090637+00:00 < option name WeightOutpostsMG type spin default 100 min 0 max 200
+2026-10-17T17:08:16.091646+00:00 < option name WeightOutpostsEG type spin default 100 min 0 max 200
+2026-10-17T17:08:16.091646+00:00 < option name WeightKingSafetyMG type spin default 100 min 0 max 200
+2026-10-17T17:08:16.091646+00:00 < option name WeightKingSafetyEG type spin default 100 min 0 max 200
+2026-10-17T17:08:16.091646+00:00 < option name WeightSpaceMG type spin default 100 min 0 max 200
+2026-10-17T17:08:16.091646+00:00 < option name WeightSpaceEG type spin default 100 min 0 max 200
+2026-10-17T17:08:16.091646+00:00 < option name WeightEndgameMG type spin default 100 min 0 max 200
+2026-10-17T17:08:16.091646+00:00 < option name WeightEndgameEG type spin default 100 min 0 max 200
+2026-10-17T17:08:16.091646+00:00 < uciok
+2026-10-17T17:08:16.091646+00:00 > setoption name NNUEKernel value scalar
+2026-10-17T17:08:16.092649+00:00 > isready
+2026-10-17T17:08:16.092649+00:00 < readyok
+2026-10-17T17:08:16.092649+00:00 > position startpos
+2026-10-17T17:08:16.092649+00:00 > eval
+2026-10-17T17:08:16.092649+00:00 > isready
+2026-10-17T17:08:16.092649+00:00 < info string eval {"use_pst":true,"material":0,"pst":{"pawn":0,"knight":0,"bishop":0,"rook":0,"queen":0,"king":0},"positional":0,"total":0,"phase":24,"advanced":true,"components":{"material":{"mg":0,"eg":0,"cp":0},"pst":{"mg":0,"eg":0,"cp":0},"pawn_structure":{"mg":0,"eg":0,"cp":0},"passed_pawns":{"mg":0,"eg":0,"cp":0},"bishop_pair":{"mg":0,"eg":0,"cp":0},"rook_activity":{"mg":0,"eg":0,"cp":0},"mobility":{"mg":0,"eg":0,"cp":0},"outposts":{"mg":0,"eg":0,"cp":0},"king_safety":{"mg":0,"eg":0,"cp":0},"space":{"mg":0,"eg":0,"cp":0},"endgame":{"mg":0,"eg":0,"cp":0}},"mg":0,"eg":0,"rounding":0,"scale":256,"scaling":0}
+2026-10-17T17:08:16.092649+00:00 < readyok
+2026-10-17T17:08:16.093647+00:00 > ucinewgame
+2026-10-17T17:08:16.093647+00:00 > isready
+2026-10-17T17:08:16.093647+00:00 < readyok
+2026-10-17T17:08:16.093647+00:00 > position fen 7k/5Q2/6K1/8/8/8/8/8 w - - 0 1
+2026-10-17T17:08:16.093647+00:00 > go movetime 500
+2026-10-17T17:08:16.096648+00:00 < info string tt probes 1 hits 0 cutoffs 0
+2026-10-17T17:08:16.097648+00:00 < info string search qnodes 33 scouts 25 researches 5 qcaps 0 plylimit 0
+2026-10-17T17:08:16.097648+00:00 < info string optim aspiration_attempts 0 aspiration_searches 0 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 0 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 1 reverse_futility_cutoffs 0 futility_prunes 0 check_extensions 0
+2026-10-17T17:08:16.097648+00:00 < info string metrics eval_calls 15 beta_cutoffs 8 pawn_probes 15 pawn_hits 14 nnue_evaluations 0
+2026-10-17T17:08:16.097648+00:00 < info depth 1 seldepth 2 nodes 34 time 1 nps 34000 hashfull 0 score mate 1 pv f7g7
+2026-10-17T17:08:16.097648+00:00 < info seldepth 2 nodes 34 time 2 nps 17000 hashfull 0
+2026-10-17T17:08:16.097648+00:00 < info string incomplete alpha-beta iterative ordered material+pst cached qsearch pvs tt probes 1 hits 0 cutoffs 0 search qnodes 33 scouts 25 researches 5 qcaps 0 plylimit 0 eval_calls 15 beta_cutoffs 8 pawn_probes 15 pawn_hits 14 nnue_evaluations 0 optim aspiration_attempts 0 aspiration_searches 0 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 0 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 1 reverse_futility_cutoffs 0 futility_prunes 0 check_extensions 0
+2026-10-17T17:08:16.097648+00:00 < bestmove f7g7

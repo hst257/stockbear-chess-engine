@@ -1,0 +1,962 @@
+[
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G001",
+    "ms": 500,
+    "opening": 0,
+    "opening_id": "O01",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G002",
+    "ms": 500,
+    "opening": 0,
+    "opening_id": "O01",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G003",
+    "ms": 500,
+    "opening": 1,
+    "opening_id": "O02",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G004",
+    "ms": 500,
+    "opening": 1,
+    "opening_id": "O02",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G005",
+    "ms": 500,
+    "opening": 2,
+    "opening_id": "O03",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G006",
+    "ms": 500,
+    "opening": 2,
+    "opening_id": "O03",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G007",
+    "ms": 500,
+    "opening": 3,
+    "opening_id": "O04",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G008",
+    "ms": 500,
+    "opening": 3,
+    "opening_id": "O04",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G009",
+    "ms": 500,
+    "opening": 4,
+    "opening_id": "O05",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G010",
+    "ms": 500,
+    "opening": 4,
+    "opening_id": "O05",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G011",
+    "ms": 500,
+    "opening": 5,
+    "opening_id": "O06",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G012",
+    "ms": 500,
+    "opening": 5,
+    "opening_id": "O06",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G013",
+    "ms": 500,
+    "opening": 6,
+    "opening_id": "O07",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G014",
+    "ms": 500,
+    "opening": 6,
+    "opening_id": "O07",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G015",
+    "ms": 500,
+    "opening": 7,
+    "opening_id": "O08",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G016",
+    "ms": 500,
+    "opening": 7,
+    "opening_id": "O08",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G017",
+    "ms": 500,
+    "opening": 8,
+    "opening_id": "O09",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G018",
+    "ms": 500,
+    "opening": 8,
+    "opening_id": "O09",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G019",
+    "ms": 500,
+    "opening": 9,
+    "opening_id": "O10",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G020",
+    "ms": 500,
+    "opening": 9,
+    "opening_id": "O10",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G021",
+    "ms": 500,
+    "opening": 10,
+    "opening_id": "O11",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G022",
+    "ms": 500,
+    "opening": 10,
+    "opening_id": "O11",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G023",
+    "ms": 500,
+    "opening": 11,
+    "opening_id": "O12",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G024",
+    "ms": 500,
+    "opening": 11,
+    "opening_id": "O12",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G025",
+    "ms": 500,
+    "opening": 12,
+    "opening_id": "O13",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G026",
+    "ms": 500,
+    "opening": 12,
+    "opening_id": "O13",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G027",
+    "ms": 500,
+    "opening": 13,
+    "opening_id": "O14",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G028",
+    "ms": 500,
+    "opening": 13,
+    "opening_id": "O14",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G029",
+    "ms": 500,
+    "opening": 14,
+    "opening_id": "O15",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G030",
+    "ms": 500,
+    "opening": 14,
+    "opening_id": "O15",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G031",
+    "ms": 500,
+    "opening": 15,
+    "opening_id": "O16",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G032",
+    "ms": 500,
+    "opening": 15,
+    "opening_id": "O16",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G033",
+    "ms": 500,
+    "opening": 16,
+    "opening_id": "O17",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G034",
+    "ms": 500,
+    "opening": 16,
+    "opening_id": "O17",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G035",
+    "ms": 500,
+    "opening": 17,
+    "opening_id": "O18",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G036",
+    "ms": 500,
+    "opening": 17,
+    "opening_id": "O18",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G037",
+    "ms": 500,
+    "opening": 18,
+    "opening_id": "O19",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G038",
+    "ms": 500,
+    "opening": 18,
+    "opening_id": "O19",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G039",
+    "ms": 500,
+    "opening": 19,
+    "opening_id": "O20",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G040",
+    "ms": 500,
+    "opening": 19,
+    "opening_id": "O20",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G041",
+    "ms": 500,
+    "opening": 20,
+    "opening_id": "O21",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G042",
+    "ms": 500,
+    "opening": 20,
+    "opening_id": "O21",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G043",
+    "ms": 500,
+    "opening": 21,
+    "opening_id": "O22",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G044",
+    "ms": 500,
+    "opening": 21,
+    "opening_id": "O22",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G045",
+    "ms": 500,
+    "opening": 22,
+    "opening_id": "O23",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G046",
+    "ms": 500,
+    "opening": 22,
+    "opening_id": "O23",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G047",
+    "ms": 500,
+    "opening": 23,
+    "opening_id": "O24",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G048",
+    "ms": 500,
+    "opening": 23,
+    "opening_id": "O24",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G049",
+    "ms": 500,
+    "opening": 24,
+    "opening_id": "O25",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G050",
+    "ms": 500,
+    "opening": 24,
+    "opening_id": "O25",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G051",
+    "ms": 500,
+    "opening": 25,
+    "opening_id": "O26",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G052",
+    "ms": 500,
+    "opening": 25,
+    "opening_id": "O26",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G053",
+    "ms": 500,
+    "opening": 26,
+    "opening_id": "O27",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G054",
+    "ms": 500,
+    "opening": 26,
+    "opening_id": "O27",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G055",
+    "ms": 500,
+    "opening": 27,
+    "opening_id": "O28",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G056",
+    "ms": 500,
+    "opening": 27,
+    "opening_id": "O28",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G057",
+    "ms": 500,
+    "opening": 28,
+    "opening_id": "O29",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G058",
+    "ms": 500,
+    "opening": 28,
+    "opening_id": "O29",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G059",
+    "ms": 500,
+    "opening": 29,
+    "opening_id": "O30",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G060",
+    "ms": 500,
+    "opening": 29,
+    "opening_id": "O30",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G061",
+    "ms": 500,
+    "opening": 30,
+    "opening_id": "O31",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G062",
+    "ms": 500,
+    "opening": 30,
+    "opening_id": "O31",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G063",
+    "ms": 500,
+    "opening": 31,
+    "opening_id": "O32",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G064",
+    "ms": 500,
+    "opening": 31,
+    "opening_id": "O32",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G065",
+    "ms": 500,
+    "opening": 32,
+    "opening_id": "O33",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G066",
+    "ms": 500,
+    "opening": 32,
+    "opening_id": "O33",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G067",
+    "ms": 500,
+    "opening": 33,
+    "opening_id": "O34",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G068",
+    "ms": 500,
+    "opening": 33,
+    "opening_id": "O34",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G069",
+    "ms": 500,
+    "opening": 34,
+    "opening_id": "O35",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G070",
+    "ms": 500,
+    "opening": 34,
+    "opening_id": "O35",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G071",
+    "ms": 500,
+    "opening": 35,
+    "opening_id": "O36",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G072",
+    "ms": 500,
+    "opening": 35,
+    "opening_id": "O36",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G073",
+    "ms": 500,
+    "opening": 36,
+    "opening_id": "O37",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G074",
+    "ms": 500,
+    "opening": 36,
+    "opening_id": "O37",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G075",
+    "ms": 500,
+    "opening": 37,
+    "opening_id": "O38",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G076",
+    "ms": 500,
+    "opening": 37,
+    "opening_id": "O38",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G077",
+    "ms": 500,
+    "opening": 38,
+    "opening_id": "O39",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G078",
+    "ms": 500,
+    "opening": 38,
+    "opening_id": "O39",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "CLASSICAL",
+    "id": "G079",
+    "ms": 500,
+    "opening": 39,
+    "opening_id": "O40",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "NNUE_HIDDENCLIP"
+  },
+  {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G080",
+    "ms": 500,
+    "opening": 39,
+    "opening_id": "O40",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  }
+]

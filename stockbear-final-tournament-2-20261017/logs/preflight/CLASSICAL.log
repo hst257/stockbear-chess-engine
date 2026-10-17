@@ -1,0 +1,122 @@
+# session 2026-10-17T17:08:14.932158+00:00
+2026-10-17T17:08:14.946804+00:00 > uci
+2026-10-17T17:08:14.974967+00:00 < id name ChessLab 0.13
+2026-10-17T17:08:14.974967+00:00 < id author ChessLab contributors
+2026-10-17T17:08:14.975966+00:00 < option name AlphaBeta type check default true
+2026-10-17T17:08:14.975966+00:00 < option name IterativeDeepening type check default true
+2026-10-17T17:08:14.975966+00:00 < option name MoveOrdering type check default true
+2026-10-17T17:08:14.975966+00:00 < option name UsePST type check default true
+2026-10-17T17:08:14.975966+00:00 < option name PawnCache type check default true
+2026-10-17T17:08:14.975966+00:00 < option name FastMovegen type check default true
+2026-10-17T17:08:14.975966+00:00 < option name UseAdvancedEvaluation type check default true
+2026-10-17T17:08:14.975966+00:00 < option name Evaluator type combo default classical var classical var nnue var nnue_v3
+2026-10-17T17:08:14.975966+00:00 < option name NNUEV3File type string default engine/networks/v3/stockbear-v3-selected.sbnnue
+2026-10-17T17:08:14.975966+00:00 < option name NNUEIncremental type check default true
+2026-10-17T17:08:14.975966+00:00 < option name NNUEKernel type combo default auto var auto var reference var scalar var quant
+2026-10-17T17:08:14.976969+00:00 < option name EvalPawns type check default true
+2026-10-17T17:08:14.976969+00:00 < option name EvalPassers type check default true
+2026-10-17T17:08:14.976969+00:00 < option name EvalBishopPair type check default true
+2026-10-17T17:08:14.976969+00:00 < option name EvalRooks type check default true
+2026-10-17T17:08:14.976969+00:00 < option name EvalMobility type check default true
+2026-10-17T17:08:14.976969+00:00 < option name EvalOutposts type check default true
+2026-10-17T17:08:14.976969+00:00 < option name EvalKingSafety type check default true
+2026-10-17T17:08:14.976969+00:00 < option name EvalSpace type check default true
+2026-10-17T17:08:14.976969+00:00 < option name EvalEndgame type check default true
+2026-10-17T17:08:14.976969+00:00 < option name TranspositionTable type check default true
+2026-10-17T17:08:14.976969+00:00 < option name Quiescence type check default true
+2026-10-17T17:08:14.976969+00:00 < option name PVS type check default true
+2026-10-17T17:08:14.976969+00:00 < option name UseAspirationWindows type check default true
+2026-10-17T17:08:14.976969+00:00 < option name AspirationDelta type spin default 25 min 1 max 500
+2026-10-17T17:08:14.976969+00:00 < option name UseNullMovePruning type check default true
+2026-10-17T17:08:14.976969+00:00 < option name UseLMR type check default true
+2026-10-17T17:08:14.976969+00:00 < option name LMRReduction type spin default 1 min 1 max 3
+2026-10-17T17:08:14.976969+00:00 < option name Hash type spin default 16 min 1 max 256
+2026-10-17T17:08:14.976969+00:00 < option name Depth type spin default 3 min 1 max 8
+2026-10-17T17:08:14.976969+00:00 < option name UseHistory type check default true
+2026-10-17T17:08:14.976969+00:00 < option name UseKillers type check default true
+2026-10-17T17:08:14.976969+00:00 < option name UseSEE type check default true
+2026-10-17T17:08:14.977966+00:00 < option name UseAdaptiveLMR type check default true
+2026-10-17T17:08:14.977966+00:00 < option name UseReverseFutility type check default true
+2026-10-17T17:08:14.977966+00:00 < option name UseFutility type check default true
+2026-10-17T17:08:14.977966+00:00 < option name UseCheckExtensions type check default true
+2026-10-17T17:08:14.977966+00:00 < option name UseMopUp type check default true
+2026-10-17T17:08:14.977966+00:00 < option name WeightPawnsMG type spin default 100 min 0 max 200
+2026-10-17T17:08:14.977966+00:00 < option name WeightPawnsEG type spin default 100 min 0 max 200
+2026-10-17T17:08:14.977966+00:00 < option name WeightPassersMG type spin default 100 min 0 max 200
+2026-10-17T17:08:14.977966+00:00 < option name WeightPassersEG type spin default 100 min 0 max 200
+2026-10-17T17:08:14.977966+00:00 < option name WeightBishopPairMG type spin default 100 min 0 max 200
+2026-10-17T17:08:14.977966+00:00 < option name WeightBishopPairEG type spin default 100 min 0 max 200
+2026-10-17T17:08:14.977966+00:00 < option name WeightRooksMG type spin default 100 min 0 max 200
+2026-10-17T17:08:14.977966+00:00 < option name WeightRooksEG type spin default 100 min 0 max 200
+2026-10-17T17:08:14.977966+00:00 < option name WeightMobilityMG type spin default 100 min 0 max 200
+2026-10-17T17:08:14.977966+00:00 < option name WeightMobilityEG type spin default 100 min 0 max 200
+2026-10-17T17:08:14.977966+00:00 < option name WeightOutpostsMG type spin default 100 min 0 max 200
+2026-10-17T17:08:14.977966+00:00 < option name WeightOutpostsEG type spin default 100 min 0 max 200
+2026-10-17T17:08:14.977966+00:00 < option name WeightKingSafetyMG type spin default 100 min 0 max 200
+2026-10-17T17:08:14.977966+00:00 < option name WeightKingSafetyEG type spin default 100 min 0 max 200
+2026-10-17T17:08:14.977966+00:00 < option name WeightSpaceMG type spin default 100 min 0 max 200
+2026-10-17T17:08:14.977966+00:00 < option name WeightSpaceEG type spin default 100 min 0 max 200
+2026-10-17T17:08:14.977966+00:00 < option name WeightEndgameMG type spin default 100 min 0 max 200
+2026-10-17T17:08:14.978966+00:00 < option name WeightEndgameEG type spin default 100 min 0 max 200
+2026-10-17T17:08:14.978966+00:00 < uciok
+2026-10-17T17:08:14.978966+00:00 > setoption name NNUEKernel value scalar
+2026-10-17T17:08:14.978966+00:00 > isready
+2026-10-17T17:08:14.978966+00:00 < readyok
+2026-10-17T17:08:14.979967+00:00 > position startpos
+2026-10-17T17:08:14.979967+00:00 > eval
+2026-10-17T17:08:14.979967+00:00 > isready
+2026-10-17T17:08:14.979967+00:00 < info string eval {"use_pst":true,"material":0,"pst":{"pawn":0,"knight":0,"bishop":0,"rook":0,"queen":0,"king":0},"positional":0,"total":0,"phase":24,"advanced":true,"components":{"material":{"mg":0,"eg":0,"cp":0},"pst":{"mg":0,"eg":0,"cp":0},"pawn_structure":{"mg":0,"eg":0,"cp":0},"passed_pawns":{"mg":0,"eg":0,"cp":0},"bishop_pair":{"mg":0,"eg":0,"cp":0},"rook_activity":{"mg":0,"eg":0,"cp":0},"mobility":{"mg":0,"eg":0,"cp":0},"outposts":{"mg":0,"eg":0,"cp":0},"king_safety":{"mg":0,"eg":0,"cp":0},"space":{"mg":0,"eg":0,"cp":0},"endgame":{"mg":0,"eg":0,"cp":0}},"mg":0,"eg":0,"rounding":0,"scale":256,"scaling":0}
+2026-10-17T17:08:14.979967+00:00 < readyok
+2026-10-17T17:08:15.023560+00:00 > position startpos
+2026-10-17T17:08:15.023560+00:00 > eval
+2026-10-17T17:08:15.023560+00:00 > isready
+2026-10-17T17:08:15.024559+00:00 < info string eval {"use_pst":true,"material":0,"pst":{"pawn":0,"knight":0,"bishop":0,"rook":0,"queen":0,"king":0},"positional":0,"total":0,"phase":24,"advanced":true,"components":{"material":{"mg":0,"eg":0,"cp":0},"pst":{"mg":0,"eg":0,"cp":0},"pawn_structure":{"mg":0,"eg":0,"cp":0},"passed_pawns":{"mg":0,"eg":0,"cp":0},"bishop_pair":{"mg":0,"eg":0,"cp":0},"rook_activity":{"mg":0,"eg":0,"cp":0},"mobility":{"mg":0,"eg":0,"cp":0},"outposts":{"mg":0,"eg":0,"cp":0},"king_safety":{"mg":0,"eg":0,"cp":0},"space":{"mg":0,"eg":0,"cp":0},"endgame":{"mg":0,"eg":0,"cp":0}},"mg":0,"eg":0,"rounding":0,"scale":256,"scaling":0}
+2026-10-17T17:08:15.024559+00:00 < readyok
+2026-10-17T17:08:15.024559+00:00 > ucinewgame
+2026-10-17T17:08:15.024559+00:00 > isready
+2026-10-17T17:08:15.024559+00:00 < readyok
+2026-10-17T17:08:15.024559+00:00 > position startpos moves e2e4 e7e5 f2f4 e5f4 g1f3 g7g5 h2h4 g5g4 f3e5 g8f6
+2026-10-17T17:08:15.024559+00:00 > go movetime 500
+2026-10-17T17:08:15.028559+00:00 < info string tt probes 1 hits 0 cutoffs 0
+2026-10-17T17:08:15.029558+00:00 < info string search qnodes 141 scouts 32 researches 4 qcaps 0 plylimit 0
+2026-10-17T17:08:15.029558+00:00 < info string optim aspiration_attempts 0 aspiration_searches 0 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 0 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 178 reverse_futility_cutoffs 0 futility_prunes 0 check_extensions 0
+2026-10-17T17:08:15.029558+00:00 < info string metrics eval_calls 125 beta_cutoffs 92 pawn_probes 125 pawn_hits 76 nnue_evaluations 0
+2026-10-17T17:08:15.029558+00:00 < info depth 1 seldepth 8 nodes 142 time 1 nps 142000 hashfull 0 score cp -35 pv b1c3
+2026-10-17T17:08:15.031068+00:00 < info string tt probes 60 hits 26 cutoffs 22
+2026-10-17T17:08:15.031068+00:00 < info string search qnodes 1611 scouts 167 researches 8 qcaps 0 plylimit 0
+2026-10-17T17:08:15.031068+00:00 < info string optim aspiration_attempts 1 aspiration_searches 2 aspiration_fail_high 1 aspiration_fail_low 0 aspiration_retries 1 aspiration_successes 1 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 6 killer_cutoffs 4 see_calls 2331 reverse_futility_cutoffs 0 futility_prunes 0 check_extensions 0
+2026-10-17T17:08:15.031068+00:00 < info string metrics eval_calls 1441 beta_cutoffs 1037 pawn_probes 1441 pawn_hits 1015 nnue_evaluations 0
+2026-10-17T17:08:15.031068+00:00 < info depth 2 seldepth 11 nodes 1671 time 3 nps 557000 hashfull 0 score cp -5 pv f1c4 d7d5 e4d5
+2026-10-17T17:08:15.032082+00:00 < info string tt probes 157 hits 60 cutoffs 22
+2026-10-17T17:08:15.032082+00:00 < info string search qnodes 3228 scouts 262 researches 8 qcaps 0 plylimit 0
+2026-10-17T17:08:15.033081+00:00 < info string optim aspiration_attempts 2 aspiration_searches 3 aspiration_fail_high 1 aspiration_fail_low 0 aspiration_retries 1 aspiration_successes 2 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 12 killer_cutoffs 10 see_calls 4223 reverse_futility_cutoffs 3 futility_prunes 638 check_extensions 1
+2026-10-17T17:08:15.033081+00:00 < info string metrics eval_calls 2943 beta_cutoffs 2249 pawn_probes 2943 pawn_hits 2251 nnue_evaluations 0
+2026-10-17T17:08:15.033081+00:00 < info depth 3 seldepth 17 nodes 3385 time 5 nps 677000 hashfull 1 score cp -5 pv f1c4 d7d5 e4d5
+2026-10-17T17:08:15.035075+00:00 < info string tt probes 1011 hits 397 cutoffs 221
+2026-10-17T17:08:15.035075+00:00 < info string search qnodes 8061 scouts 510 researches 16 qcaps 0 plylimit 0
+2026-10-17T17:08:15.036078+00:00 < info string optim aspiration_attempts 3 aspiration_searches 5 aspiration_fail_high 1 aspiration_fail_low 1 aspiration_retries 2 aspiration_successes 3 null_attempts 55 null_cutoffs 36 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 66 killer_cutoffs 44 see_calls 10321 reverse_futility_cutoffs 228 futility_prunes 996 check_extensions 21
+2026-10-17T17:08:15.036078+00:00 < info string metrics eval_calls 8145 beta_cutoffs 6087 pawn_probes 8145 pawn_hits 6375 nnue_evaluations 0
+2026-10-17T17:08:15.036078+00:00 < info depth 4 seldepth 17 nodes 9072 time 8 nps 1134000 hashfull 5 score cp -35 pv f1c4 d7d5 e4d5 f8c5
+2026-10-17T17:08:15.041583+00:00 < info string tt probes 3102 hits 1019 cutoffs 625
+2026-10-17T17:08:15.041583+00:00 < info string search qnodes 18965 scouts 795 researches 18 qcaps 0 plylimit 0
+2026-10-17T17:08:15.041583+00:00 < info string optim aspiration_attempts 4 aspiration_searches 7 aspiration_fail_high 2 aspiration_fail_low 1 aspiration_retries 3 aspiration_successes 4 null_attempts 86 null_cutoffs 56 lmr_attempts 356 lmr_searches 356 lmr_researches 0 lmr_verifications 0 history_updates 136 killer_cutoffs 90 see_calls 26154 reverse_futility_cutoffs 600 futility_prunes 3399 check_extensions 57
+2026-10-17T17:08:15.041583+00:00 < info string metrics eval_calls 19572 beta_cutoffs 15019 pawn_probes 19572 pawn_hits 15409 nnue_evaluations 0
+2026-10-17T17:08:15.041583+00:00 < info depth 5 seldepth 19 nodes 22097 time 14 nps 1578357 hashfull 22 score cp -5 pv f1c4 d7d5 e4d5 f6d5 e5g4
+2026-10-17T17:08:15.073860+00:00 < info string tt probes 15585 hits 4681 cutoffs 3013
+2026-10-17T17:08:15.073860+00:00 < info string search qnodes 79858 scouts 1257 researches 25 qcaps 14 plylimit 0
+2026-10-17T17:08:15.073860+00:00 < info string optim aspiration_attempts 5 aspiration_searches 10 aspiration_fail_high 2 aspiration_fail_low 3 aspiration_retries 5 aspiration_successes 5 null_attempts 514 null_cutoffs 269 lmr_attempts 3390 lmr_searches 3390 lmr_researches 3 lmr_verifications 3 history_updates 654 killer_cutoffs 388 see_calls 124371 reverse_futility_cutoffs 7186 futility_prunes 15112 check_extensions 386
+2026-10-17T17:08:15.073860+00:00 < info string metrics eval_calls 83970 beta_cutoffs 61120 pawn_probes 83970 pawn_hits 62811 nnue_evaluations 0
+2026-10-17T17:08:15.074865+00:00 < info depth 6 seldepth 22 nodes 96660 time 46 nps 2101304 hashfull 53 score cp -57 pv f1c4 d7d5 e4d5 f6d5 b1c3 d8e7
+2026-10-17T17:08:15.110905+00:00 < info string tt probes 30507 hits 7391 cutoffs 4355
+2026-10-17T17:08:15.110905+00:00 < info string search qnodes 143639 scouts 1790 researches 32 qcaps 26 plylimit 0
+2026-10-17T17:08:15.110905+00:00 < info string optim aspiration_attempts 6 aspiration_searches 11 aspiration_fail_high 2 aspiration_fail_low 3 aspiration_retries 5 aspiration_successes 6 null_attempts 919 null_cutoffs 480 lmr_attempts 8947 lmr_searches 8947 lmr_researches 3 lmr_verifications 3 history_updates 1175 killer_cutoffs 722 see_calls 222864 reverse_futility_cutoffs 16020 futility_prunes 36561 check_extensions 863
+2026-10-17T17:08:15.111919+00:00 < info string metrics eval_calls 153640 beta_cutoffs 113032 pawn_probes 153640 pawn_hits 117069 nnue_evaluations 0
+2026-10-17T17:08:15.111919+00:00 < info depth 7 seldepth 24 nodes 176820 time 83 nps 2130361 hashfull 97 score cp -37 pv f1c4 d8e7 c4f7 e8d8 d2d4 d7d6 f7b3 d6e5 d4e5 b8d7 e5f6 e7e4 e1f1
+2026-10-17T17:08:15.226394+00:00 < info string tt probes 58302 hits 11820 cutoffs 6104
+2026-10-17T17:08:15.227397+00:00 < info string search qnodes 380970 scouts 2621 researches 46 qcaps 147 plylimit 0
+2026-10-17T17:08:15.227397+00:00 < info string optim aspiration_attempts 7 aspiration_searches 12 aspiration_fail_high 2 aspiration_fail_low 3 aspiration_retries 5 aspiration_successes 7 null_attempts 1893 null_cutoffs 1127 lmr_attempts 20535 lmr_searches 20535 lmr_researches 9 lmr_verifications 9 history_updates 2543 killer_cutoffs 1681 see_calls 572692 reverse_futility_cutoffs 32433 futility_prunes 69111 check_extensions 1717
+2026-10-17T17:08:15.227397+00:00 < info string metrics eval_calls 391575 beta_cutoffs 305445 pawn_probes 391575 pawn_hits 299429 nnue_evaluations 0
+2026-10-17T17:08:15.227397+00:00 < info depth 8 seldepth 25 nodes 458650 time 199 nps 2304773 hashfull 181 score cp -33 pv f1c4 d7d5 e4d5 f6d5 e5g4 c8e6 c4b5 b8c6 b1c3
+2026-10-17T17:08:15.527436+00:00 < info seldepth 27 nodes 1360640 time 500 nps 2721280 hashfull 286
+2026-10-17T17:08:15.527436+00:00 < info string incomplete alpha-beta iterative ordered material+pst cached qsearch pvs tt probes 100492 hits 18880 cutoffs 9082 search qnodes 1189740 scouts 4328 researches 89 qcaps 245 plylimit 0 eval_calls 1177529 beta_cutoffs 1029795 pawn_probes 1177529 pawn_hits 937248 nnue_evaluations 0 optim aspiration_attempts 8 aspiration_searches 13 aspiration_fail_high 2 aspiration_fail_low 3 aspiration_retries 5 aspiration_successes 7 null_attempts 3835 null_cutoffs 2581 lmr_attempts 39814 lmr_searches 39814 lmr_researches 20 lmr_verifications 20 history_updates 4843 killer_cutoffs 3237 see_calls 1261236 reverse_futility_cutoffs 56856 futility_prunes 116514 check_extensions 3215
+2026-10-17T17:08:15.528442+00:00 < bestmove f1c4

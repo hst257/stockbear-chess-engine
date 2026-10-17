@@ -1,0 +1,35 @@
+{
+  "complete": false,
+  "config_sha256": "752cea817d21f54c9767f8f8426fe383985b4a28974894161b816685baad4173",
+  "elapsed_seconds": 0.125,
+  "environment_sessions": [
+    {
+      "before": {
+        "ac_online": true,
+        "ac_raw": 1,
+        "affinity_mask": 1,
+        "frequency": "Reliable effective search-core frequency unavailable; nominal clocks not substituted",
+        "nitrosense": "Quiet / Eco last user-confirmed; current setting not independently exposed",
+        "power_plan": "Power Scheme GUID: f9309321-c95b-4680-9e08-173c4ed318f2  (Acer)",
+        "thermal": "Reliable temperature/throttling unavailable",
+        "timestamp": "2026-10-17T18:03:05.969079+00:00"
+      }
+    }
+  ],
+  "game": {
+    "black": "NNUE_HIDDENCLIP",
+    "id": "G068",
+    "ms": 500,
+    "opening": 33,
+    "opening_id": "O34",
+    "pair": [
+      "CLASSICAL",
+      "NNUE_HIDDENCLIP"
+    ],
+    "white": "CLASSICAL"
+  },
+  "resumptions": 0,
+  "searches": [],
+  "seconds": 0,
+  "started_utc": "2026-10-17T18:03:05.924916+00:00"
+}

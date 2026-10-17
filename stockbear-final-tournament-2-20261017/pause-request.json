@@ -1,0 +1,9 @@
+{
+  "automatic_resume": false,
+  "completed_when_requested": 65,
+  "reason": "User requested pause because usage limit is near",
+  "requested_additional_games": 2,
+  "requested_utc": "2026-10-17T18:01:38.382164+00:00",
+  "target_completed_games": 67,
+  "watcher_pid": 46308
+}
