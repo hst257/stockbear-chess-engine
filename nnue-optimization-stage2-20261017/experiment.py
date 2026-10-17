@@ -151,6 +151,7 @@ def build(label, only=None):
         cmd = args + list(map(str, sources)) + ['-o', str(out / (target + '.exe'))]
         command(cmd, f'build-{label}-{target}')
         save(f'build-{label}-{target}.json', {'command': cmd, 'sha256': common.sha(out / (target + '.exe')),
+             'target_source_sha256': {str(s.relative_to(REPO)):common.sha(s) for s in sources},
              'sources': {p.name: common.sha(p) for p in source.glob('*') if p.is_file()}})
         print('Built', label, target, flush=True)
     command(args + ['-S', str(source / 'nnue.cpp'), '-o', str(out / 'nnue.s')], 'assembly-' + label)

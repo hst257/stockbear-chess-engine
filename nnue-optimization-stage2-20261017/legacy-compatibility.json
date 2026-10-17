@@ -1,0 +1,7 @@
+{
+  "binary": "Z:\\Code\\Chess\\nnue-optimization-stage1-20261017\\artifacts\\legacy-engine.exe",
+  "binary_sha256": "5d61284b26ff654d85dc9a457d47b4bef5f7d12d96e5d804b41127f44d05a0b4",
+  "passed": true,
+  "purpose": "Existing 32/16 golden compatibility only; not new candidate/model scores.",
+  "summary": "........................................................................ [ 48%]\n........................................................................ [ 97%]\n...                                                                      [100%]\n147 passed, 13 deselected in 3.77s"
+}

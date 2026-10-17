@@ -1,0 +1,10 @@
+{
+  "baseline_strategy": 2,
+  "candidate": "small",
+  "independent_of": [
+    "sort",
+    "fused"
+  ],
+  "reason": "Row fusion is slower in updater microbenchmarks and all five full-search point estimates; long controls have intervals wholly below no-gain. Final bounded trial specializes only the frequently returned/copied search state from 152 to 24 bytes. Full frame/search/head stay unchanged.",
+  "update_strategy": 5
+}

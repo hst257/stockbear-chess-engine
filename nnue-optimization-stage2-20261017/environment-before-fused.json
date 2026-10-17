@@ -1,0 +1,83 @@
+{
+  "timestamp": "2026-10-17T12:18:04.3527535+05:30",
+  "power": "Power Scheme GUID: f9309321-c95b-4680-9e08-173c4ed318f2  (Acer)\r\n",
+  "battery": {
+    "PowerOnline": true,
+    "Charging": true,
+    "Discharging": false
+  },
+  "cpu": {
+    "Name": "13th Gen Intel(R) Core(TM) i5-13420H",
+    "NumberOfCores": 8,
+    "NumberOfLogicalProcessors": 12
+  },
+  "frequency_snapshot": {
+    "ProcessorFrequency": 1830,
+    "PercentofMaximumFrequency": 46,
+    "PercentProcessorTime": 0
+  },
+  "thermal": "No usable ACPI temperature telemetry in preceding profile; no temperature or throttling claim",
+  "nitrosense": "Quiet / Eco, last user-confirmed setting; not exposed through Windows power scheme",
+  "top_process_cpu_3sec": [
+    {
+      "name": "NitroSense",
+      "pid": 25672,
+      "cpu_percent": 0.78
+    },
+    {
+      "name": "ChatGPT",
+      "pid": 12716,
+      "cpu_percent": 0.39
+    },
+    {
+      "name": "NitroSense",
+      "pid": 26164,
+      "cpu_percent": 0.35
+    },
+    {
+      "name": "pwsh",
+      "pid": 39336,
+      "cpu_percent": 0.13
+    },
+    {
+      "name": "WhatsApp.Root",
+      "pid": 20932,
+      "cpu_percent": 0.13
+    },
+    {
+      "name": "kilo",
+      "pid": 48608,
+      "cpu_percent": 0.09
+    },
+    {
+      "name": "nvsphelper64",
+      "pid": 8392,
+      "cpu_percent": 0.09
+    },
+    {
+      "name": "chrome",
+      "pid": 50796,
+      "cpu_percent": 0.04
+    },
+    {
+      "name": "ipf_helper",
+      "pid": 2244,
+      "cpu_percent": 0.04
+    },
+    {
+      "name": "LockApp",
+      "pid": 21772,
+      "cpu_percent": 0.04
+    },
+    {
+      "name": "msedgewebview2",
+      "pid": 32396,
+      "cpu_percent": 0.04
+    },
+    {
+      "name": "NitroSense",
+      "pid": 26592,
+      "cpu_percent": 0.04
+    }
+  ]
+}

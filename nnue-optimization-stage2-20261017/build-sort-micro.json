@@ -22,7 +22,7 @@
     "-o",
     "Z:\\Code\\Chess\\nnue-optimization-stage2-20261017\\artifacts\\sort\\micro.exe"
   ],
-  "sha256": "28eac34291ce98cb7a59a0b67f0d5953399dd27bb5b03e84f90eba81d63cfda2",
+  "sha256": "c0361102876085d5c07624fa3aacf071fac2e4d135a0707fc7058b3b12eef43a",
   "sources": {
     "diagnostics.hpp": "65e4c0754331d9f19f643d4f6212c22bfbf1e088471ea5a523614e329671b35c",
     "evaluation.cpp": "87ed00f717a19d593969b3b84d4e48586a8dc576d54ac1260350648a967639f7",
@@ -46,5 +46,9 @@
     "strength.hpp": "133f330350dbf68f1f6e31bf67e8b310e1d639577918b626a5e4bb5b6cab7d68",
     "terminal_rules.hpp": "08880e1a158016cb43e4d05c818baa0d85f48a0d673837c3e43842251caf6f59",
     "transposition.hpp": "e41ab9b9e1bbf3f313d61e812e40e4dfebbc0debc6964ee85a83f68668b9d6a0"
+  },
+  "target_source_sha256": {
+    "nnue-optimization-stage2-20261017\\artifacts\\sort-source\\nnue.cpp": "79123fe088bb262ceaed49b3bb386547cb1c5cf982b0dfce889f4c072eca18d7",
+    "nnue-optimization-stage2-20261017\\update_harness.cpp": "b41a72b0c3e5efc90328ffd808e5eabc94f68e41b439fc2574a5dba44b8354fc"
   }
 }

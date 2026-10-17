@@ -1,0 +1,36 @@
+{
+  "active_engine_unchanged": true,
+  "fixed_node_pairs_exact": 240,
+  "independent_trials": {
+    "fused": {
+      "records": 840,
+      "repeats": 7,
+      "status": "REJECTED"
+    },
+    "small": {
+      "records": 840,
+      "repeats": 7,
+      "status": "REJECTED"
+    },
+    "sort": {
+      "records": 1200,
+      "repeats": 10,
+      "status": "INCONCLUSIVE"
+    }
+  },
+  "initial_fixed_work_comparisons": 36,
+  "internal_restoration_observer_passed": true,
+  "legacy_pytest_deselected": 13,
+  "legacy_pytest_passed": 147,
+  "micro_records": 14,
+  "note": "No new GUI/full pytest suite; isolated native correctness and search gates above.",
+  "passed": true,
+  "primary_records": 1200,
+  "protected_files": 800,
+  "report_mirror_lf_exact": true,
+  "retained_baseline": "Stage 1",
+  "secondary_classical_records": 108,
+  "status": "INCONCLUSIVE",
+  "total_primary_search_records": 2880,
+  "unique_primary_keys": 1200
+}

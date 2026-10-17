@@ -13,11 +13,16 @@ import experiment as p
 from load_meter import Meter
 
 label = sys.argv[1]
-assert p.common.load(p.ROOT / ('analysis-'+label+'.json'))['status']=='ACCEPTED'
+assert p.common.load(p.ROOT / ('correctness-'+label+'.json'))['passed']
+trial_status = p.common.load(p.ROOT / ('analysis-'+label+'.json'))['status']
 p.pin()
 labels = ['classical','baseline',label]
 data = {'records': [], 'environment_segments': [], 'repeats': 3,
-        'purpose': __doc__, 'summary': {}}
+        'purpose': __doc__, 'candidate': label, 'candidate_status': trial_status, 'summary': {}}
+if (p.ROOT/'classical-gap.json').exists():
+    data = p.common.load(p.ROOT/'classical-gap.json')
+    assert data['candidate']==label and data['repeats']==3
+done = {(r['position'],r['build'],r['repeat']) for r in data['records']}
 with ExitStack() as stack:
     players = {b:stack.enter_context(p.player('baseline' if b=='classical' else b,
                'classical' if b=='classical' else 'nnue')) for b in labels}
@@ -27,9 +32,13 @@ with ExitStack() as stack:
         p.capture(e,p.common.load(p.ROOT/'positions.json')[0],'nodes',20000)
     for repeat in range(3):
         for i,row in enumerate(p.common.load(p.ROOT/'positions.json')):
+            if all((row['id'],b,repeat) in done for b in labels):
+                continue
             start = (i+repeat)%3
             order = labels[start:]+labels[:start]
             for b in order:
+                if (row['id'],b,repeat) in done:
+                    continue
                 r = p.capture(players[b],row,'time',1000)
                 data['records'].append(dict(r,build=b,repeat=repeat))
             data['environment_segments'].append(dict(meter.read(),repeat=repeat,position=row['id']))

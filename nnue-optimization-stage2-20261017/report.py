@@ -15,6 +15,14 @@ preserve = p.common.load(p.ROOT/'preservation-after.json')
 mixed = next(r for r in a['micro'] if r['kind']=='mixed')
 head = c['head']
 build = p.common.load(p.ROOT / ('build-'+label+'-engine.json'))
+trials = {b:p.common.load(p.ROOT/('analysis-'+b+'.json')) for b in ['sort','fused','small']
+          if (p.ROOT/('analysis-'+b+'.json')).exists()}
+descriptions = {
+    'sort': 'tiny-list sort specialization',
+    'fused': 'ordered parent-copy/row fusion',
+    'small': 'small search-state temporary specialization',
+}
+mode = next(v.split('=')[1] for v in build['command'] if v.startswith('-DCHESSLAB_NNUE_UPDATE='))
 
 
 def speed(v):
@@ -29,11 +37,14 @@ text = f'''# StockBear — Stage 2 accumulator optimization report
 
 ## Decision and scope
 
-**{a['status']} — tiny-list sort specialization, isolated experimental candidate.**
-All numerical and fixed-work correctness gates pass. The comparison below is
+**{a['status']} overall — retain Stage 1 as the experimental baseline.**
+{'Retain the accepted candidate in isolation; do not promote it.' if a['status']=='ACCEPTED' else 'No Stage 2 candidate is accepted; retain Stage 1 as the winner.'}
+Three independent trials completed **{sum(v['search_records'] for v in trials.values()):,} primary searches**.
+All numerical and fixed-work correctness gates pass. The detailed comparison below is
 against the accepted **Stage 1 `NNUEKernel=clip`**, never the old scalar head.
-The candidate changes only state/changed-row sorting; it does not change the
-model, accumulator representation, floating arithmetic or search policy.
+The independent trials change maintenance only; they do not change the model,
+persisted accumulator-frame layout, floating arithmetic or search policy. The detailed
+per-fixture table uses the selected primary trial; all trials are summarized below.
 
 Branch: `codex/nnue-stage2-accumulator`, based on Stage 1
 `{plan['baseline_commit']}`. The active engine and classical default are
@@ -49,12 +60,13 @@ lazy updates, quantization or Stage 3 work took place.
 * Target: existing NNUE 64/32, 54,209 parameters; selected `medium/best.pt`
   and `medium.sbnnue` remain hashed and unchanged. Export SHA-256
   `{plan['network_sha256']}`. No fresh export or weights were generated.
+  Checkpoint SHA-256: `7d9ca27194e664f5f1d42fe8e4a5d4bac2f600a989405df9d91512555abb8264`.
 * Same Zig 0.13 / Clang 18 toolchain, C++17, `-O2 -pthread -Wall -Wextra
-  -ffp-contract=off`, update strategy **2** on both sides; no fast-math or LTO
+  -ffp-contract=off`, baseline update strategy **2**, primary candidate **{mode}**; no fast-math or LTO
   flag was added. Full commands and all source/header hashes are saved.
 * One search thread, 16 MiB TT, CPU-0 affinity, `NNUEKernel=clip`, identical
   options, 12 frozen positions including full opening history, fresh TT per go.
-  Seven paired, rotated passes; {a['search_records']} primary searches. Per-position
+  {p.repeats(label)} paired, rotated passes; {a['search_records']} primary searches. Per-position
   records retain wall time, reported NPS, depth, seldepth, moves, scores, PVs,
   all search counters, evaluation calls and quiescence counts.
 
@@ -96,12 +108,12 @@ Logical bytes are not measured cache traffic.
 
 ### Maintenance costs and observer limits
 
-| Isolated timer category | Calls (36 searches) | Total ms | ns/update | ns/node |
-|---|---:|---:|---:|---:|
+| Isolated timer category | Calls (36 searches) | Total ms | ns/update | ns/node | % timer sum |
+|---|---:|---:|---:|---:|---:|
 '''
 for name in ['nnue_copy','nnue_rows','nnue_sort','nnue_metadata','nnue_delta','nnue_state','nnue_ep','nnue_update','nnue_refresh']:
     r = prof['categories'][name]
-    text += f"| {name} | {r['calls']:,} | {r['ns']/1e6:.2f} | {r['ns_per_update']:.3f} | {r['ns_per_node']:.3f} |\n"
+    text += f"| {name} | {r['calls']:,} | {r['ns']/1e6:.2f} | {r['ns_per_update']:.3f} | {r['ns_per_node']:.3f} | {r['percent']:.3f} |\n"
 text += f'''
 `nnue_update` is exclusive residual bookkeeping, not inclusive update latency.
 Sorting covers two tiny state lists and both changed-row lists; `nnue_state`
@@ -129,23 +141,34 @@ be unsupported. Full refresh and rare EP legality checks are poor first targets.
 
 ## Candidate and exact changes
 
-`sort.patch` adds `small_sort.hpp` and replaces only the compact updater's state
+The sort trial's `sort.patch` adds the include for `small_sort.hpp` and replaces only the compact updater's state
 and signed-row `std::sort` calls with insertion sorting for tiny lists. States
 have at most five keys; changed rows have at most sixteen storage slots. Legal
 orthodox deltas have unique absolute feature keys, so the resulting row sequence
 is identical. A separate 17,000-case ordering check covers lengths 0–16.
+The row-fusion trial selects the already existing strategy **4**, independently
+from baseline source. For 2/3/4 changed rows, each lane starts from the parent,
+applies every sorted row separately in original order, then stores once.
+Other row counts use the original copy/row loops. The small-state trial
+selects existing strategy **5**: only the temporary returned and
+copied by state extraction shrinks, from 152 to 24 bytes. It does not shrink the
+full frame or mix in either other candidate. These preexisting prototypes need
+no source-body patch; their exact compile-option changes are in build JSON.
+
 Generic/reference/integer paths retain their original implementation; baseline
 fallback is a separate executable. Stage 1's head header is byte-identical.
 
-Existing inactive prototypes were audited: strategy 5 shrinks a temporary from
-152 to 24 bytes, **not** the frame; strategy 4 fuses copy/ordered row arithmetic
-for 2–4 rows. Neither was enabled or combined with this candidate. The existing
-deferred strategy 3 is outside scope. This first narrow candidate is evaluated
-independently; no unmeasured combination is retained.
+The existing deferred strategy 3 is outside scope. Each trial starts from Stage
+1 source, is independently tested and is never combined with another trial.
 
-Assembly: baseline updater has 529 static instructions / 632 stack bytes;
-candidate has 583 / 664, and removes three general sorting call sites.
-Both head dispatch bodies have 669 static instructions and identical instruction
+Assembly: baseline updater has {sum(assembly['baseline']['updater']['instructions'].values())} static instructions /
+{assembly['baseline']['updater']['stack_bytes'][0]} stack bytes; primary candidate has
+{sum(assembly[label]['updater']['instructions'].values())} /
+{assembly[label]['updater']['stack_bytes'][0]}. Sorting removes three generic sorting
+call sites; row fusion instead grows the updater to 1,068 static instructions
+and 1,016 stack bytes, versus 529/632 in the baseline.
+These are pre-link compiler assembly counts for `nnue.cpp`, not disassembly
+of the final linked EXE. Both head dispatch bodies have 669 static instructions and identical instruction
 counts. Neither inspected updater/head body has FMA instructions. Larger inline
 code and stack are recorded tradeoffs, not assumed improvements. Full assembly
 and extracted updater/head listings are preserved; static counts are not dynamic
@@ -174,6 +197,14 @@ execution counts or cycle measurements.
   draws/checkmate/stalemate, disabled-SIMD scalar fallback and 12 classical
   200k-node comparisons pass. Production/UI code was untouched; no desktop
   launch or claim of a new full GUI regression run is made.
+* A separate correctness-only sort observer asserts the **internal board/history
+  and root accumulator bits** are restored after search returns, including stop
+  and node-limit interruption. Its cancellation, rerun, classical and terminal
+  regressions pass. This observer was not used for performance measurements.
+* Existing legacy compatibility suite: **147 passed, 13 deselected**. It uses
+  the preserved 32/16 compatibility binary for original golden scores, feature
+  contract, incremental/rebuild agreement and terminal precedence. This does
+  not substitute old-model expected scores for the new 64/32 parity tests.
 
 Bitwise claims concern incremental accumulators relative to the original ordered
 updater. A fresh full feature rebuild adds rows in a different order and is not
@@ -200,6 +231,15 @@ Mixed-case update median: **{mixed['update_ns']['baseline']['median']:.2f} →
 null-heavy (~44%) versus ~0.3% in search; this average is not a production-weighted
 gain. Per-move categories and whole search are the authority for applicability.
 
+Final micro measurements use explicit per-iteration object memory operands to
+prevent compiler dead-store removal, plus an identical 1,872-byte Edge layout
+with a fixed 152-byte state slot for all builds. This avoids crediting strategy
+5 for shrinking the stored test corpus. The active returned state remains 24
+bytes in that variant. Initial/checksum-only and intermediate pre-padding
+micro results are retained as superseded exploratory records, never pooled with
+final measurements. These bounded measurement corrections rebuilt only harnesses
+and did not repeat or alter any full-search engine/results.
+
 Mixed prepared updater (states already extracted):
 {mixed['prepared_update_ns']['baseline']['median']:.2f} /
 {mixed['prepared_update_ns'][label]['median']:.2f} ns; divided by its
@@ -216,12 +256,16 @@ Full per-category component results and paired IQRs are in `analysis-{label}.jso
 
 ## Whole-search results against Stage 1 clip
 
-Primary statistic: geometric mean of **per-position median paired wall-NPS
-ratios**, giving each fixture equal weight. For fixed nodes this is the paired
+Primary statistic: `exp(mean(median(log(paired wall-NPS ratio))))` across
+positions, giving each fixture equal weight. Medians are taken in log space;
+the display table uses conventional arithmetic middle-pair medians, a negligible
+difference for the ten-pass trial here. For fixed nodes this is the paired
 inverse wall-time ratio. Hierarchical 95% bootstrap: resample positions, then
 paired repetitions inside positions, 10,000 draws, seed 20261017. Repeats are not
 independent chess positions. These intervals describe this fixture suite, not
 universal workloads, exact CPU cycles or Elo.
+The bootstrap does not remove systematic background-load, frequency or order
+effects, or explicitly model temporal autocorrelation between measurements.
 
 | Control | Paired factor (gain) | Grouped 95% interval | Position median range |
 |---|---:|---:|---:|
@@ -245,6 +289,13 @@ fixed-work decisions remain exact.
 '''
 if slower:
     text += '\nBelow-unity medians: '+', '.join(f"{r['position']} {title(r['mode'],r['budget'])}: {r['paired_speedup']['median']:.4f}x" for r in slower)+'.\n'
+for other, trial in trials.items():
+    if other==label:
+        continue
+    text += '\n### Per-position results: '+descriptions[other]+'\n\n| Fixture | 200k nodes | 1M nodes | 100 ms | 500 ms | 1000 ms |\n|---|---:|---:|---:|---:|---:|\n'
+    for row in p.common.load(p.ROOT/'positions.json'):
+        values = [next(v['paired_speedup']['median'] for v in trial['per_position'] if v['position']==row['id'] and v['mode']==m and v['budget']==b) for m,b in plan['budgets']]
+        text += '| '+row['id']+' | '+' | '.join(f'{v:.4f}x' for v in values)+' |\n'
 
 if (p.ROOT/'classical-gap.json').exists():
     gap = p.common.load(p.ROOT/'classical-gap.json')['summary']
@@ -265,6 +316,16 @@ This is descriptive with only three triples/fixture, and can be noisy; it is
 not the average of individual shortfall recoveries. Different evaluators visit
 different trees, so it is not equal-work evaluator cost or a strength estimate.
 Raw triples, grouped intervals and load samples are in `classical-gap.json`.
+The joint position/triple bootstrap gives a shortfall-recovery interval of
+**{100*gap['shortfall_recovery_joint_grouped95_conditional_on_baseline_below_classical'][0]:.1f}% to
+{100*gap['shortfall_recovery_joint_grouped95_conditional_on_baseline_below_classical'][1]:.1f}%**,
+conditional on a positive baseline shortfall; 11 of 10,000 draws had no positive
+shortfall and were omitted/count recorded. Direct secondary candidate/Stage 1
+speedup is {gap['secondary_direct_candidate_baseline_speedup']:.4f}x, interval
+{gap['secondary_direct_speedup_joint_grouped95'][0]:.4f}–{gap['secondary_direct_speedup_joint_grouped95'][1]:.4f}x.
+**No reliable gap recovery is established, and this secondary comparison does
+not overturn the inconclusive primary sort decision.** No historical projection
+or Elo improvement is claimed.
 '''
 else:
     text += '''
@@ -294,10 +355,11 @@ text += f'''
 ## Final answers and stopping decision
 
 1. **Largest maintenance bottleneck:** repeated bookkeeping is the largest
-   recognizable envelope; tiny-list sorting is the verified reducible part.
+   recognizable envelope; tiny-list sorting and temporary-state handling are
+   addressable parts, with their measured tradeoffs disclosed separately.
    Current observers cannot defensibly give an exact production suboperation ranking.
-2. **Implemented:** one independent state/changed-row small-sort specialization;
-   full Stage 1 updater remains available as the control binary.
+2. **Implemented:** independent tiny-sort, existing row-fusion and
+   small-state trials; full Stage 1 updater remains available as the control.
 3. **Updates:** mixed micro paired factor {mixed['update_ns']['paired_speedup']['median']:.3f}x,
    with the nonrepresentative null-heavy mix and per-class figures disclosed above.
 4. **Whole engine:** the five Stage 1-relative factors and grouped intervals above
@@ -305,20 +367,24 @@ text += f'''
 5. **Bitwise accumulators:** yes, all relevant float lanes and head/CP gates pass.
 6. **Fixed decisions:** yes, all fixed-work scores, moves, PVs and counters match.
 7. **Regressions:** {len(slower)} slightly negative fixture/control medians;
-   {len(a['material_regressions'])} material regressions under the predeclared threshold.
+   {len(a['material_regressions'])} material regression under the predeclared threshold.
 8. **Classical gap:** distinguish the fresh secondary comparison above from any
    historical extrapolation; no Elo recovery or engine promotion is implied.
-9. **Next:** independently test the audited small-state temporary (152→24 bytes)
-   if further Stage 2 work is requested; keep the generic frame contract intact.
-   The head remains a large named cost. Any full-frame specialization or deferred
-   updates needs a separate design/parity study. No such implementation began.
+9. **Next:** investigate the promotion regression's generated code and try a
+   smaller sorting fast path in a separately approved follow-up. That addresses
+   the strongest positive signal without assuming the broader sort is safe.
+   The unchanged head remains a large named cost. Full-frame specialization or
+   deferred updates need a separate design/parity study. No such work began.
 
-The first candidate meets the bounded investigation's decision gates; stop rather
-than combine it with unmeasured prototypes. Shrinking the actual frame, unlike
+The bounded trials are complete; use the acceptance status above rather than
+combining independently unverified changes. Shrinking the actual frame, unlike
 the small-state temporary, requires a larger ownership/API redesign and is
-deferred. Strategy 5 and fused-row4 are **audited, not benchmarked or rejected**.
-No additional candidates, games or automatic repetition extension were added.
-Acceptance is restricted to this isolated implementation and measured suite.
+deferred. Trials and their statuses are listed above. There were no combinations,
+games, more than three candidates, or repetitions beyond the ten-pass ceiling.
+The three-candidate budget is exhausted. Rejected implementations remain archived
+as research evidence, not selected optimizations. Stage 1 remains the winner;
+the active engine and classical default are unchanged. No further tests or
+Stage 3 work are scheduled.
 
 ## Preservation and artifacts
 
@@ -332,6 +398,34 @@ normalized text/artifact manifests support reproduction. See workspace README
 for exact commands and prerequisite local artifacts. The report is mirrored in
 the workspace and compared after LF normalization.
 '''
+summary = '## Independent trial summary\n\n| Trial | Passes | 200k | 1M | 100 ms | 500 ms | 1000 ms | Status |\n|---|---:|---:|---:|---:|---:|---:|---|\n'
+for name,trial in trials.items():
+    summary += '| '+descriptions[name]+' | '+str(p.repeats(name))+' | '+' | '.join(
+        f"{v['geomean_paired_speedup']:.4f}x [{v['grouped_bootstrap95'][0]:.4f}, {v['grouped_bootstrap95'][1]:.4f}]" for v in trial['search'])+' | '+trial['status']+' |\n'
+summary += ('\nBrackets are grouped 95% intervals. Every trial has its own paired Stage 1 controls; '
+    'do not compare absolute NPS between sequential trials as a matched experiment. '
+    'All complete per-position results are in `per-position-sort.csv`, '
+    '`per-position-fused.csv` and `per-position-small.csv`.\n\n')
+for name,trial in trials.items():
+    summary += f"* **{name}**: {trial['search_records']} measured searches; {len(trial['material_regressions'])} material fixture/control medians.\n"
+summary += '\n| Trial | Quiet update speedup | Capture | Promotion | Mixed (null-heavy) |\n|---|---:|---:|---:|---:|\n'
+for name,trial in trials.items():
+    summary += '| '+name+' | '+' | '.join(f"{next(v for v in trial['micro'] if v['kind']==k)['update_ns']['paired_speedup']['median']:.3f}x" for k in ['quiet','capture','promotion','mixed'])+' |\n'
+summary += '\n| Correctness trial | Legal / null oracle | Head bit checks | Exact fixed-work fixtures/controls | Cancellation cases |\n|---|---:|---:|---:|---:|\n'
+for name in trials:
+    gate = p.common.load(p.ROOT/('correctness-'+name+'.json'))
+    checks = p.common.load(p.ROOT/('regressions-'+name+'.json'))
+    summary += f"| {name} | {gate['oracle']['transitions']:,} / {gate['oracle']['nulls']:,} | {gate['head']['head_bit_comparisons']:,} | {len(gate['fixed_work'])} | {len(checks['interrupted'])} |\n"
+summary += ('\nThe sort trial reached the predeclared ten-pass ceiling because its seven-pass '
+    'intervals crossed no gain. All five intervals then became positive, but promotion '
+    'at 1M nodes remained 3.11% slower in elapsed time, leaving it inconclusive. '
+    'The interrupted resume runner had skipped searches but redundantly written '
+    'checkpoints for already completed rows; that bug was fixed. Original raw load '
+    'segments are retained; duplicate empty resume segments are excluded from analysis. '
+    'No measured searches were replayed. `plan.baseline_commit` is the authoritative '
+    'Stage 1 revision; the inherited `source_revision` in this frozen initial plan '
+    'refers to the older Stage 1 setup commit, not the measured baseline binary.\n\n')
+text = text.replace('## Baseline and reproducibility',summary+'## Baseline and reproducibility',1)
 (p.REPO/'NNUE_STAGE2_OPTIMIZATION_REPORT.md').write_text(text,encoding='utf-8')
 (p.ROOT/'NNUE_STAGE2_OPTIMIZATION_REPORT.md').write_text(text,encoding='utf-8')
 print('Wrote report',len(text.split()),'words',flush=True)

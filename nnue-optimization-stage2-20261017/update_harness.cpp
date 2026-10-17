@@ -17,7 +17,12 @@ struct Edge {
     chess::Move move;
     NnueAccumulator parent;
     NnueDelta delta;
-    NnueSearchFeatures states;
+    union {
+        NnueSearchFeatures states;
+        // Equal corpus stride/cache footprint for strategy 2/4/5. Only the
+        // active states member is used; compact return/copy costs remain real.
+        std::array<std::uint8_t, sizeof(NnueFeatures)> state_storage;
+    };
     std::string kind;
     bool null_edge;
     int rows;
@@ -119,6 +124,11 @@ void prepare() {
     }
 }
 using Clock = std::chrono::steady_clock;
+template<class T> inline void consume(const T& value) {
+    // Require every iteration's actual object writes, including isolated copy
+    // and metadata loops. A final checksum alone could allow dead-store removal.
+    __asm__ volatile("" : : "m"(value) : "memory");
+}
 template<class F> double timed(const std::vector<const Edge*>& group, int n, F fn) {
     for (int i = 0; i < 1000; ++i) fn(*group[i % group.size()]);
     const auto start = Clock::now();
@@ -144,19 +154,20 @@ int main(int argc, char** argv) {
     for (const auto& e : edges) { groups[e.kind].push_back(&e); groups["mixed"].push_back(&e);
         if (e.parent.features.count >= 28) groups["high_features"].push_back(&e); }
     NnueAccumulator output; NnueDelta delta; NnueSearchFeatures states;
-    std::cout << "{\"digest\":\"" << digest << "\",\"cases\":["; bool first = true;
+    std::cout << "{\"digest\":\"" << digest << "\",\"edge_bytes\":" << sizeof(Edge)
+              << ",\"state_slot_bytes\":" << sizeof(NnueFeatures) << ",\"cases\":["; bool first = true;
     for (const auto& [kind,group] : groups) {
         double rows = 0; for (auto e : group) rows += e->rows * 2; rows /= group.size();
-        double total = timed(group,n,[&](const Edge& e) { auto d = e.null_edge ? NnueDelta{} : nnue_move_delta(e.before,e.move); nnue_update_search(e.parent,e.after,d,output); });
+        double total = timed(group,n,[&](const Edge& e) { auto d = e.null_edge ? NnueDelta{} : nnue_move_delta(e.before,e.move); nnue_update_search(e.parent,e.after,d,output); consume(output.values); });
         sink += static_cast<unsigned>(output.values[0][0]*1000000+100000000);
-        double update = timed(group,n,[&](const Edge& e) { nnue_update_search(e.parent,e.after,e.delta,output); });
+        double update = timed(group,n,[&](const Edge& e) { nnue_update_search(e.parent,e.after,e.delta,output); consume(output.values); });
         sink += static_cast<unsigned>(output.values[1][1]*1000000+100000000);
-        double prepared = timed(group,n,[&](const Edge& e) { nnue_update_search_states(e.parent,e.states,e.delta,output); });
+        double prepared = timed(group,n,[&](const Edge& e) { nnue_update_search_states(e.parent,e.states,e.delta,output); consume(output.values); });
         sink += static_cast<unsigned>(output.values[0][2]*1000000+100000000);
-        double state = timed(group,n,[&](const Edge& e) { states=nnue_search_states(e.after); }); sink += states.count;
-        double indexing = timed(group,n,[&](const Edge& e) { if (!e.null_edge) delta=nnue_move_delta(e.before,e.move); }); sink += delta.added_count;
-        double copy = timed(group,n,[&](const Edge& e) { output.values=e.parent.values; }); sink += static_cast<unsigned>(output.values[0][0]*1000000+100000000);
-        double metadata = timed(group,n,[&](const Edge& e) { for (int p=0;p<2;++p) std::copy_n(e.states.active[p].begin(), e.states.count, output.features.active[p].begin()); output.features.count=e.states.count; }); sink += output.features.count;
+        double state = timed(group,n,[&](const Edge& e) { states=nnue_search_states(e.after); consume(states); }); sink += states.count;
+        double indexing = timed(group,n,[&](const Edge& e) { if (!e.null_edge) delta=nnue_move_delta(e.before,e.move); consume(delta); }); sink += delta.added_count;
+        double copy = timed(group,n,[&](const Edge& e) { output.values=e.parent.values; consume(output.values); }); sink += static_cast<unsigned>(output.values[0][0]*1000000+100000000);
+        double metadata = timed(group,n,[&](const Edge& e) { for (int p=0;p<2;++p) std::copy_n(e.states.active[p].begin(), e.states.count, output.features.active[p].begin()); output.features.count=e.states.count; consume(output.features); }); sink += output.features.count;
         if (!first) std::cout << ','; first=false;
         std::cout << "{\"kind\":\"" << kind << "\",\"edges\":" << group.size() << ",\"rows_both_perspectives\":" << rows
                   << ",\"total_ns\":" << total << ",\"update_ns\":" << update << ",\"prepared_update_ns\":" << prepared

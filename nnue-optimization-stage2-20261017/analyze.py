@@ -25,8 +25,9 @@ def interval(groups, iterations=10000):
 
 
 def analyze(label):
-    out = {'candidate': label, 'method': 'Geometric mean of per-position median paired '
-           'wall-NPS ratios; 10,000 hierarchical bootstrap draws, resample positions then '
+    out = {'candidate': label, 'method': 'exp(mean(per-position median(log(paired wall-NPS ratio)))); '
+           'per-position display medians use the conventional arithmetic middle-pair average. '
+           '10,000 hierarchical bootstrap draws, resample positions then '
            'paired repetitions within positions, seed 20261017. Repeats are not independent '
            'chess fixtures; intervals describe this frozen suite, not Elo.',
            'search': [], 'per_position': [], 'micro': []}

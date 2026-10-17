@@ -1,0 +1,10 @@
+{
+  "edge_bytes": 1872,
+  "explicit_per_iteration_memory_operands": true,
+  "fixed_state_slot_bytes": 152,
+  "full_searches_repeated": 0,
+  "harness_sha256": "b41a72b0c3e5efc90328ffd808e5eabc94f68e41b439fc2574a5dba44b8354fc",
+  "initial_measurements_retained": true,
+  "passed": true,
+  "records": 42
+}

@@ -1,0 +1,8 @@
+{
+  "corpus_correction": "Use a fixed 152-byte union slot for states in Edge. Strategy 5 must not gain from a smaller stored benchmark corpus. Active return type remains 24 bytes.",
+  "final_harness_sha256": "b41a72b0c3e5efc90328ffd808e5eabc94f68e41b439fc2574a5dba44b8354fc",
+  "final_paired_repetitions": 7,
+  "full_search_binaries_unchanged": true,
+  "previous_harness_sha256": "d66974363769e75deb777adf429749be02333c200aabd6002a994d399fd2acb7",
+  "reason": "Strengthen per-iteration object consumption for copy/metadata/state component loops; initial final-checksum-plus-signal-fence data might allow dead-store elimination in components. Archive initial data and use seven fresh paired repetitions with explicit memory operands. Engine binaries and full-search measurements unchanged."
+}

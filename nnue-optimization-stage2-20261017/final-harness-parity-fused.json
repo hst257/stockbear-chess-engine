@@ -1,0 +1,17 @@
+{
+  "digest": "6930010358689641942",
+  "edges": 8264,
+  "frame_bytes": 1176,
+  "kinds": {
+    "capture": 239,
+    "castling": 18,
+    "ep": 8,
+    "king": 1700,
+    "null": 3640,
+    "promotion": 98,
+    "quiet": 2393,
+    "rights": 168
+  },
+  "passed": true,
+  "state_temporary_bytes": 152
+}
