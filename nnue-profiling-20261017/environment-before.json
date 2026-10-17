@@ -1,0 +1,89 @@
+{
+  "timestamp": "2026-10-17T10:47:13.6302708+05:30",
+  "cpu": {
+    "Name": "13th Gen Intel(R) Core(TM) i5-13420H",
+    "NumberOfCores": 8,
+    "NumberOfLogicalProcessors": 12,
+    "MaxClockSpeed": 2100
+  },
+  "machine": {
+    "Manufacturer": "Acer",
+    "Model": "Nitro ANV15-51",
+    "TotalPhysicalMemory": 34049220608
+  },
+  "power": "Power Scheme GUID: f9309321-c95b-4680-9e08-173c4ed318f2  (Acer)\r\n",
+  "battery": {
+    "PowerOnline": true,
+    "Charging": true,
+    "Discharging": false
+  },
+  "frequency_snapshot": {
+    "ProcessorFrequency": 1992,
+    "PercentofMaximumFrequency": 93,
+    "PercentProcessorTime": 16
+  },
+  "thermal": null,
+  "antivirus": [
+    {
+      "displayName": "Windows Defender",
+      "productState": 393472
+    },
+    {
+      "displayName": "Bitdefender Antivirus",
+      "productState": 266240
+    }
+  ],
+  "nitrosense_user_report": "Quiet / Eco",
+  "top_process_cpu_3sec": [
+    {
+      "name": "engine",
+      "pid": 35788,
+      "cpu_percent": 5.9
+    },
+    {
+      "name": "engine",
+      "pid": 47512,
+      "cpu_percent": 1.74
+    },
+    {
+      "name": "python",
+      "pid": 27612,
+      "cpu_percent": 0.65
+    },
+    {
+      "name": "NitroSense",
+      "pid": 26164,
+      "cpu_percent": 0.26
+    },
+    {
+      "name": "ChatGPT",
+      "pid": 25796,
+      "cpu_percent": 0.13
+    },
+    {
+      "name": "pwsh",
+      "pid": 19184,
+      "cpu_percent": 0.09
+    },
+    {
+      "name": "ACCStd",
+      "pid": 12792,
+      "cpu_percent": 0.04
+    },
+    {
+      "name": "ipf_helper",
+      "pid": 2244,
+      "cpu_percent": 0.04
+    },
+    {
+      "name": "nvcontainer",
+      "pid": 14016,
+      "cpu_percent": 0.04
+    },
+    {
+      "name": "pwsh",
+      "pid": 45072,
+      "cpu_percent": 0.04
+    }
+  ]
+}

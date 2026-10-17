@@ -1,0 +1,14 @@
+{
+  "cold_searches": 24,
+  "executed_split_head_parity_checks": 16884,
+  "instrumented_searches": 108,
+  "move_transitions": 31876,
+  "native_context_failures": 0,
+  "native_samples": 4074,
+  "notes": "Fixed-work repeat determinism and cross-build decision/counter equivalence checked. No GUI/full application suite; no production source changes.",
+  "null_transitions": 26908,
+  "passed": true,
+  "protected_files": 653,
+  "symbol_parity_pairs": 12,
+  "warm_searches": 360
+}

@@ -1,0 +1,82 @@
+{
+  "method": "Same production head; fixed seed legal walks, frames built before timing. Different sizes also change data footprint, so this does not isolate branch prediction from cache effects.",
+  "records": [
+    {
+      "checksum": 56673000.0,
+      "frame_storage_bytes": 602112,
+      "frames": 512,
+      "head_128_positions_ns": 379.182,
+      "head_1_positions_ns": 115.039,
+      "head_32_positions_ns": 128.231,
+      "head_512_positions_ns": 529.831,
+      "repeat": 0,
+      "seed": 20261017
+    },
+    {
+      "checksum": 56673000.0,
+      "frame_storage_bytes": 602112,
+      "frames": 512,
+      "head_128_positions_ns": 329.525,
+      "head_1_positions_ns": 116.276,
+      "head_32_positions_ns": 122.754,
+      "head_512_positions_ns": 512.452,
+      "repeat": 1,
+      "seed": 20261017
+    },
+    {
+      "checksum": 56673000.0,
+      "frame_storage_bytes": 602112,
+      "frames": 512,
+      "head_128_positions_ns": 370.903,
+      "head_1_positions_ns": 132.634,
+      "head_32_positions_ns": 146.946,
+      "head_512_positions_ns": 495.853,
+      "repeat": 2,
+      "seed": 20261017
+    },
+    {
+      "checksum": 56673000.0,
+      "frame_storage_bytes": 602112,
+      "frames": 512,
+      "head_128_positions_ns": 349.659,
+      "head_1_positions_ns": 119.749,
+      "head_32_positions_ns": 131.522,
+      "head_512_positions_ns": 458.449,
+      "repeat": 3,
+      "seed": 20261017
+    },
+    {
+      "checksum": 56673000.0,
+      "frame_storage_bytes": 602112,
+      "frames": 512,
+      "head_128_positions_ns": 346.426,
+      "head_1_positions_ns": 120.573,
+      "head_32_positions_ns": 137.35,
+      "head_512_positions_ns": 482.724,
+      "repeat": 4,
+      "seed": 20261017
+    },
+    {
+      "checksum": 56673000.0,
+      "frame_storage_bytes": 602112,
+      "frames": 512,
+      "head_128_positions_ns": 350.808,
+      "head_1_positions_ns": 126.056,
+      "head_32_positions_ns": 131.199,
+      "head_512_positions_ns": 505.834,
+      "repeat": 5,
+      "seed": 20261017
+    },
+    {
+      "checksum": 56673000.0,
+      "frame_storage_bytes": 602112,
+      "frames": 512,
+      "head_128_positions_ns": 356.011,
+      "head_1_positions_ns": 125.138,
+      "head_32_positions_ns": 133.531,
+      "head_512_positions_ns": 490.249,
+      "repeat": 6,
+      "seed": 20261017
+    }
+  ]
+}
