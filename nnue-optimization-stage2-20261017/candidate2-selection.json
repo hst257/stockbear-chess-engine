@@ -1,0 +1,7 @@
+{
+  "baseline_strategy": 2,
+  "candidate": "fused",
+  "independent_of": "sort",
+  "reason": "Tiny sorts have positive suite intervals at ten passes but an unexplained 3.114% promotion fixture elapsed regression. Test only the audited ordered row/copy fusion next, with no sorting specialization or smaller state combined.",
+  "update_strategy": 4
+}

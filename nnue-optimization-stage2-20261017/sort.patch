@@ -1,0 +1,26 @@
+--- a/engine/src/nnue.cpp
++++ b/engine/src/nnue.cpp
+@@ -1,4 +1,5 @@
+ #include "nnue.hpp"
++#include "small_sort.hpp"
+ #include "nnue_weights.hpp"
+ #include "transposition.hpp"
+ #include "profiling.hpp"
+@@ -247,7 +248,7 @@
+                                const NnueDelta& delta, NnueAccumulator& output) {
+     profiling::Scope measured(profiling::NNUE_UPDATE);
+     auto states = supplied_states;
+-    for (auto& active : states.active) std::sort(active.begin(), active.begin() + states.count);
++    for (auto& active : states.active) stage2::small_sort(active.data(), states.count, [](auto f) { return f; });
+     for (int p = 0; p < 2; ++p) {
+         int changes[16], size = 0;
+         auto change = [&](int f, bool remove) { changes[size++] = (f + 1) * (remove ? -1 : 1); };
+@@ -260,7 +261,7 @@
+         for (int i = 0; i < states.count; ++i) {
+             if (!std::binary_search(previous.begin(), previous.begin() + parent.features.count, states.active[p][i])) change(states.active[p][i], false);
+         }
+-        std::sort(changes, changes + size, [](int a, int b) { return std::abs(a) < std::abs(b); });
++        stage2::small_sort(changes, size, [](int f) { return std::abs(f); });
+         {
+ #ifdef CHESSLAB_DIAGNOSTICS
+             profiling::Scope metadata_measured(profiling::NNUE_METADATA);

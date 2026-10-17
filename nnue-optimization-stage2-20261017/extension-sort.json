@@ -1,0 +1,4 @@
+{
+  "reason": "Seven-pass estimate is 1.7-3.4%, with three grouped intervals crossing no gain, order effects and three material fixture medians. Use the predeclared maximum ten passes to resolve uncertainty; do not extend again.",
+  "total_repeats": 10
+}

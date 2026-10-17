@@ -1,0 +1,58 @@
+--- a/engine/src/nnue.cpp
++++ b/engine/src/nnue.cpp
+@@ -84,6 +84,7 @@
+         }
+     }
+     if (board.enpassantSq() != chess::Square::NO_SQ) {
++        profiling::Scope ep_measured(profiling::NNUE_EP);
+         chess::Movelist captures;
+         chess::movegen::legalmoves<chess::movegen::MoveGenType::CAPTURE>(captures, board, chess::PieceGenType::PAWN);
+         for (auto move : captures) if (move.typeOf() == chess::Move::ENPASSANT) {
+@@ -247,7 +248,8 @@
+                                const NnueDelta& delta, NnueAccumulator& output) {
+     profiling::Scope measured(profiling::NNUE_UPDATE);
+     auto states = supplied_states;
+-    for (auto& active : states.active) std::sort(active.begin(), active.begin() + states.count);
++    { profiling::Scope sort_measured(profiling::NNUE_SORT);
++    for (auto& active : states.active) std::sort(active.begin(), active.begin() + states.count); }
+     for (int p = 0; p < 2; ++p) {
+         int changes[16], size = 0;
+         auto change = [&](int f, bool remove) { changes[size++] = (f + 1) * (remove ? -1 : 1); };
+@@ -260,7 +262,8 @@
+         for (int i = 0; i < states.count; ++i) {
+             if (!std::binary_search(previous.begin(), previous.begin() + parent.features.count, states.active[p][i])) change(states.active[p][i], false);
+         }
+-        std::sort(changes, changes + size, [](int a, int b) { return std::abs(a) < std::abs(b); });
++        { profiling::Scope sort_measured(profiling::NNUE_SORT);
++        std::sort(changes, changes + size, [](int a, int b) { return std::abs(a) < std::abs(b); }); }
+         {
+ #ifdef CHESSLAB_DIAGNOSTICS
+             profiling::Scope metadata_measured(profiling::NNUE_METADATA);
+@@ -352,6 +355,7 @@
+     }
+     if (board.enpassantSq() != chess::Square::NO_SQ) {
+         // Legal EP only: a pseudo-legal capture exposing the king is excluded.
++        profiling::Scope ep_measured(profiling::NNUE_EP);
+         chess::Movelist captures;
+         chess::movegen::legalmoves<chess::movegen::MoveGenType::CAPTURE>(captures, board, chess::PieceGenType::PAWN);
+         for (const auto move : captures) {
+--- a/engine/src/profiling.hpp
++++ b/engine/src/profiling.hpp
+@@ -10,7 +10,7 @@
+                 NNUE_FEATURES, NNUE_REFRESH, NNUE_UPDATE, NNUE_HEAD,
+ #ifdef CHESSLAB_DIAGNOSTICS
+                 NNUE_COPY,
+-                NNUE_DELTA, NNUE_STATE, NNUE_METADATA, NNUE_ROWS,
++                NNUE_DELTA, NNUE_STATE, NNUE_METADATA, NNUE_ROWS, NNUE_SORT, NNUE_EP,
+ #endif
+                 COUNT };
+ inline constexpr std::array<const char*, COUNT> NAMES = {
+@@ -19,7 +19,7 @@
+     "nnue_features", "nnue_refresh", "nnue_update", "nnue_head"
+ #ifdef CHESSLAB_DIAGNOSTICS
+     , "nnue_copy"
+-    , "nnue_delta", "nnue_state", "nnue_metadata", "nnue_rows"
++    , "nnue_delta", "nnue_state", "nnue_metadata", "nnue_rows", "nnue_sort", "nnue_ep"
+ #endif
+ };
+ struct Report {

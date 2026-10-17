@@ -1,0 +1,258 @@
+{
+  "allocation_bytes": 3268856,
+  "allocations": 4059,
+  "categories": {
+    "attack_maps": {
+      "calls": 0,
+      "ns": 0,
+      "ns_per_call": 0.0,
+      "ns_per_node": 0.0,
+      "ns_per_update": 0.0,
+      "percent": 0.0
+    },
+    "draws": {
+      "calls": 7198308,
+      "ns": 218482800,
+      "ns_per_call": 30.35196604535399,
+      "ns_per_node": 30.344833333333334,
+      "ns_per_update": 30.377070999932013,
+      "percent": 1.9109226696818415
+    },
+    "endgame": {
+      "calls": 0,
+      "ns": 0,
+      "ns_per_call": 0.0,
+      "ns_per_node": 0.0,
+      "ns_per_update": 0.0,
+      "percent": 0.0
+    },
+    "evaluation_other": {
+      "calls": 6089058,
+      "ns": 414372000,
+      "ns_per_call": 68.05190556568849,
+      "ns_per_node": 57.55166666666667,
+      "ns_per_update": 57.612808259431986,
+      "percent": 3.6242342577145843
+    },
+    "king_safety": {
+      "calls": 0,
+      "ns": 0,
+      "ns_per_call": 0.0,
+      "ns_per_node": 0.0,
+      "ns_per_update": 0.0,
+      "percent": 0.0
+    },
+    "make": {
+      "calls": 7192359,
+      "ns": 297891100,
+      "ns_per_call": 41.417718442586086,
+      "ns_per_node": 41.37376388888889,
+      "ns_per_update": 41.417718442586086,
+      "percent": 2.605453866787044
+    },
+    "material_pst": {
+      "calls": 0,
+      "ns": 0,
+      "ns_per_call": 0.0,
+      "ns_per_node": 0.0,
+      "ns_per_update": 0.0,
+      "percent": 0.0
+    },
+    "movegen": {
+      "calls": 8215497,
+      "ns": 562087800,
+      "ns_per_call": 68.41799102354976,
+      "ns_per_node": 78.06775,
+      "ns_per_update": 78.15068741702132,
+      "percent": 4.916205391781838
+    },
+    "nnue_copy": {
+      "calls": 14384718,
+      "ns": 436276500,
+      "ns_per_call": 30.329165994077883,
+      "ns_per_node": 60.59395833333333,
+      "ns_per_update": 60.658331988155766,
+      "percent": 3.8158182433557695
+    },
+    "nnue_delta": {
+      "calls": 7169589,
+      "ns": 215310200,
+      "ns_per_call": 30.031038041371687,
+      "ns_per_node": 29.904194444444446,
+      "ns_per_update": 29.935963986224827,
+      "percent": 1.88317406310122
+    },
+    "nnue_ep": {
+      "calls": 17364,
+      "ns": 1791600,
+      "ns_per_call": 103.17899101589495,
+      "ns_per_node": 0.24883333333333332,
+      "ns_per_update": 0.24909768825499395,
+      "percent": 0.015669924840774594
+    },
+    "nnue_features": {
+      "calls": 36,
+      "ns": 38900,
+      "ns_per_call": 1080.5555555555557,
+      "ns_per_node": 0.005402777777777778,
+      "ns_per_update": 0.005408517567045805,
+      "percent": 0.0003402322372773675
+    },
+    "nnue_head": {
+      "calls": 6089058,
+      "ns": 1075858000,
+      "ns_per_call": 176.68710004076164,
+      "ns_per_node": 149.42472222222221,
+      "ns_per_update": 149.58346767729475,
+      "percent": 9.409809108811158
+    },
+    "nnue_metadata": {
+      "calls": 14384718,
+      "ns": 425347400,
+      "ns_per_call": 29.569394408705126,
+      "ns_per_node": 59.076027777777774,
+      "ns_per_update": 59.13878881741025,
+      "percent": 3.7202287280748423
+    },
+    "nnue_refresh": {
+      "calls": 36,
+      "ns": 105000,
+      "ns_per_call": 2916.6666666666665,
+      "ns_per_node": 0.014583333333333334,
+      "ns_per_update": 0.014598826337784306,
+      "percent": 0.0009183646507486784
+    },
+    "nnue_rows": {
+      "calls": 14384718,
+      "ns": 578959300,
+      "ns_per_call": 40.248220368310314,
+      "ns_per_node": 80.41101388888889,
+      "ns_per_update": 80.49644073662063,
+      "percent": 5.063769098497136
+    },
+    "nnue_sort": {
+      "calls": 21577077,
+      "ns": 681256100,
+      "ns_per_call": 31.57314125541657,
+      "ns_per_node": 94.61890277777778,
+      "ns_per_update": 94.7194237662497,
+      "percent": 5.958490669970541
+    },
+    "nnue_state": {
+      "calls": 7192359,
+      "ns": 222682000,
+      "ns_per_call": 30.960912824290332,
+      "ns_per_node": 30.928055555555556,
+      "ns_per_update": 30.960912824290332,
+      "percent": 1.9476502586477829
+    },
+    "nnue_update": {
+      "calls": 7192359,
+      "ns": 2165799000,
+      "ns_per_call": 301.12498555758964,
+      "ns_per_node": 300.80541666666664,
+      "ns_per_update": 301.12498555758964,
+      "percent": 18.942792783112733
+    },
+    "ordering": {
+      "calls": 3149046,
+      "ns": 769856100,
+      "ns_per_call": 244.47280223915433,
+      "ns_per_node": 106.92445833333333,
+      "ns_per_update": 107.03805246651342,
+      "percent": 6.733415508602282
+    },
+    "pawn_evaluation": {
+      "calls": 0,
+      "ns": 0,
+      "ns_per_call": 0.0,
+      "ns_per_node": 0.0,
+      "ns_per_update": 0.0,
+      "percent": 0.0
+    },
+    "search_other": {
+      "calls": 36,
+      "ns": 2638787900,
+      "ns_per_call": 73299663.8888889,
+      "ns_per_node": 366.49831944444446,
+      "ns_per_update": 366.8876789937766,
+      "percent": 23.07970979222227
+    },
+    "search_policy": {
+      "calls": 6411771,
+      "ns": 186712600,
+      "ns_per_call": 29.120285175499873,
+      "ns_per_node": 25.932305555555555,
+      "ns_per_update": 25.959855452154155,
+      "percent": 1.6330500160893113
+    },
+    "table": {
+      "calls": 2406201,
+      "ns": 289251400,
+      "ns_per_call": 120.2108219554393,
+      "ns_per_node": 40.17380555555555,
+      "ns_per_update": 40.2164853005808,
+      "percent": 2.5298881994244407
+    },
+    "unmake": {
+      "calls": 7192359,
+      "ns": 252501200,
+      "ns_per_call": 35.106868275068024,
+      "ns_per_node": 35.06961111111111,
+      "ns_per_update": 35.106868275068024,
+      "percent": 2.208458822396402
+    }
+  },
+  "counts": {
+    "copies": 7192359,
+    "copy_payload_bytes": 3730334808,
+    "delta_rows": 16726263,
+    "evaluated_frames": 6067500,
+    "evaluated_null_visits": 1636896,
+    "evaluated_qvisits": 4932129,
+    "evaluated_visits": 6072114,
+    "evaluation_calls": 6089058,
+    "normal_updates": 1822002,
+    "null_updates": 22770,
+    "null_visits": 1925280,
+    "pending_edges": 14939685,
+    "pending_rows": 32603502,
+    "q_updates": 5370321,
+    "qvisits": 5371194,
+    "refreshes": 36,
+    "row_value_read_write_bytes": 17127693312,
+    "row_weight_bytes": 8563846656,
+    "unused_leaf_rows": 435222,
+    "unused_leaf_updates": 190755,
+    "unused_null_updates": 10254,
+    "unused_q_updates": 438870,
+    "unused_updates": 1124859,
+    "unvisited_updates": 36,
+    "updates": 7192359,
+    "visits": 7200000,
+    "zero_delta_updates": 22644
+  },
+  "frame_bytes": 1176,
+  "nodes": 7200000,
+  "observer_overhead": {
+    "counters": {
+      "max": 1.1057749350494235,
+      "median_elapsed_ratio": 1.0547909672123237,
+      "min": 0.9758672174610237
+    },
+    "timers": {
+      "max": 3.9848349051201972,
+      "median_elapsed_ratio": 3.200886845794706,
+      "min": 2.490573131906532
+    }
+  },
+  "ratios": {
+    "logical_bytes_per_copy": 518.6524766074664,
+    "null_fraction": 0.003165859768679511,
+    "rows_per_perspective": 2.3255600839724493,
+    "updates_per_node": 0.99893875
+  },
+  "stack_bytes": 76440,
+  "updates": 7192359,
+  "warning": "Exclusive clock times are perturbed by per-scope steady_clock calls; do not interpret them as exact production latency or add them to native shares."
+}
