@@ -1,0 +1,63 @@
+{
+  "affinity_mask": 1,
+  "budgets": [
+    [
+      "nodes",
+      200000
+    ],
+    [
+      "nodes",
+      1000000
+    ],
+    [
+      "time",
+      100
+    ],
+    [
+      "time",
+      500
+    ],
+    [
+      "time",
+      1000
+    ]
+  ],
+  "golden_fens": 256,
+  "maximum_repeats": 10,
+  "network": "Z:\\Code\\Chess\\StockBear_NNUE_training\\scaling-experiment-20261016\\artifacts\\native\\medium\\medium.sbnnue",
+  "network_sha256": "a08ce2c60280c8c6dffbbe2f653b6c481e8d5282be7bed203db8b72492b0a2d3",
+  "options": {
+    "AlphaBeta": true,
+    "AspirationDelta": 25,
+    "Evaluator": "nnue",
+    "FastMovegen": true,
+    "Hash": 16,
+    "IterativeDeepening": true,
+    "LMRReduction": 1,
+    "MoveOrdering": true,
+    "NNUEIncremental": true,
+    "NNUEKernel": "clip",
+    "PVS": true,
+    "PawnCache": true,
+    "Quiescence": true,
+    "TranspositionTable": true,
+    "UseAdaptiveLMR": true,
+    "UseAdvancedEvaluation": true,
+    "UseAspirationWindows": true,
+    "UseCheckExtensions": true,
+    "UseFutility": true,
+    "UseHistory": true,
+    "UseKillers": true,
+    "UseLMR": true,
+    "UseMopUp": true,
+    "UseNullMovePruning": true,
+    "UsePST": true,
+    "UseReverseFutility": true,
+    "UseSEE": true
+  },
+  "profile": "Quiet / Eco, last confirmed by user; no power changes",
+  "repeats": 7,
+  "seed": 20261017,
+  "source_revision": "3838f14f6e2a8737b845ac90dfc09e02c165aaa2",
+  "variant": "SIMD branchless input preclip; original dense/output order"
+}

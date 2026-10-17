@@ -1,0 +1,2136 @@
+{
+  "created_utc": "2026-10-17T06:13:42.505564+00:00",
+  "files": [
+    {
+      "bytes": 145,
+      "path": ".gitattributes",
+      "sha256": "d88e2db7096b891a8c12a4fa44233ca615cd90b6b37f741d47e40cca1020acf2"
+    },
+    {
+      "bytes": 237058,
+      "lf_normalized_sha256": "fc7cf5ca2633ce7d9fd7ff1e26ab3c1f8c20704369ab8479bbf50cc132cb4aea",
+      "path": "analysis.json",
+      "sha256": "fc7cf5ca2633ce7d9fd7ff1e26ab3c1f8c20704369ab8479bbf50cc132cb4aea"
+    },
+    {
+      "bytes": 9347,
+      "lf_normalized_sha256": "bd7777be1150304fcc4c6b13210df5ab0a19ee9e8a81c3b4e9ac78d6abcc6029",
+      "path": "analysis.log",
+      "sha256": "8cf64fe4f71063d490eae92eee028f78006873d2bdc874ee14000ac8881cf55b"
+    },
+    {
+      "bytes": 8883,
+      "lf_normalized_sha256": "48164c504ae6a61263125781f9d74ba0629acd131e9544f68513cf505c78b9ec",
+      "path": "analyze.py",
+      "sha256": "48164c504ae6a61263125781f9d74ba0629acd131e9544f68513cf505c78b9ec"
+    },
+    {
+      "bytes": 1137152,
+      "path": "artifacts/baseline/engine.exe",
+      "sha256": "b89f83f47f3adeb220c048b7bedfe88cca599975a8ff7590cd4bda51b1f9c8da"
+    },
+    {
+      "bytes": 5459968,
+      "path": "artifacts/baseline/engine.pdb",
+      "sha256": "a78132757c0405503946c34fffe454b617553c2d776fb66b2d88e6228d5e09b3"
+    },
+    {
+      "bytes": 966656,
+      "path": "artifacts/baseline/micro.exe",
+      "sha256": "d7f7ab1819560005caef36178d746ed19719b8c4bdd23cf4f47c86c91d3ccc1d"
+    },
+    {
+      "bytes": 4149248,
+      "path": "artifacts/baseline/micro.pdb",
+      "sha256": "c50501232e342a70bfc03c850f66c810e09b910869872d1712ba1f320d436406"
+    },
+    {
+      "bytes": 968704,
+      "path": "artifacts/baseline/oracle.exe",
+      "sha256": "f2b5236d787776125ef59399b9dc33aba52a292ff664ca501d82a578db84f87f"
+    },
+    {
+      "bytes": 4096000,
+      "path": "artifacts/baseline/oracle.pdb",
+      "sha256": "e326b8cfca5c6950d0c90dd393cb46d5b3aeeb679ad4c82aa0156a0a8833a051"
+    },
+    {
+      "bytes": 0,
+      "lf_normalized_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path": "artifacts/baseline-assembly.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 16403,
+      "lf_normalized_sha256": "a3eaff1d2d05bdced73d888ab0ac5bbe7ced7f8acc2a5710e3f17d0efc0ec5e3",
+      "path": "artifacts/baseline-engine-build.log",
+      "sha256": "fa5acf9f7a18dc27c6ae2e3e5ecf1a7ca37cf2aa8a2c7d7eaf651816b038f8b9"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "59a32b3388d6ba558813eacde04c386653cb499f17888fb8df00a8ecbdfba078",
+      "path": "artifacts/baseline-fen-0-attack_complex.log",
+      "sha256": "e3c765d9558d09804b4eb0a4b0ddc214e71ee832e1dac6012bb7233bb95ed61b"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "a1e761f2205d135069e6229273172ef1fefc38a25b5ffec3a28e0f477b4e1292",
+      "path": "artifacts/baseline-fen-0-castling_rights.log",
+      "sha256": "5aee6ccc2a342596ad4dfe92f10bdc0678db37c5b672dc485b38f2811cc9c41e"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "16747dc3ca76a86425b2e0299a6d18d9564d4eb27195a2476179c8c08cf668c9",
+      "path": "artifacts/baseline-fen-0-en_passant.log",
+      "sha256": "ab76275a98d9f7316144584fef66186671b9017e63405a8e3bac7d3fb9c80393"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "e556a5773d9f67e711563f89d1a2ea15dd518680db7d8e5cefccc12931a75f38",
+      "path": "artifacts/baseline-fen-0-imbalance.log",
+      "sha256": "b8e7efc145b7a710917210529574eab148a2c257dd0145b8934fd0353dcbb0ca"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "351e87a3251a10c0f76d14b1860e8cb308b89cea26889f7a715ff437bdbbeace",
+      "path": "artifacts/baseline-fen-0-opening.log",
+      "sha256": "f3317846d091924a68d5cc4514be13cbf204bad341b7186c237780291bc449fd"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "76703fcd8143e209841cf2b9abbf96df03a545bc8959a863350a77f2c9fb12c4",
+      "path": "artifacts/baseline-fen-0-opening_history.log",
+      "sha256": "83cc5c659035f4f3c8b89787b6de5a5b44078bb85e0180b2496dcc7d05dbace0"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "10ebbabe8b0275699cc0cc07b7b208ec9f5d789cf070d412fc9f75b150c8ab17",
+      "path": "artifacts/baseline-fen-0-pawn_endgame.log",
+      "sha256": "3b92434035b3629f80d71dc9293da68c118560b55d19454e2e4e5c80128d64d7"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "9ceefb19d0dbd0112f3607d3eb5e5346d1d74b52d3e72cd78507628498697078",
+      "path": "artifacts/baseline-fen-0-piece_endgame.log",
+      "sha256": "9dead57f4d58e5d3445062be9fff5d3b1c9c6bb4232fcc6ba204787296db4626"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "90cc85050ec51a31f024823ce596bec09ac2e82329c65e1fed50e109ffca4313",
+      "path": "artifacts/baseline-fen-0-pins.log",
+      "sha256": "ad479b210ebc539c103d842c5a62abe59152e0af67366165a6e2ae1141013390"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "5c183bfb20775665ba0a7ba7ef59a15944e8947bc73b5f1afdeaa38d83b3d0ed",
+      "path": "artifacts/baseline-fen-0-promotion.log",
+      "sha256": "69e16f428af7080359face45963100cac31cbb93388aa3210b1c7a037e6e2632"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "e8e45f84f24a9adc5e78ae42210ed22290848228ead634bcd009e20c221fc2f4",
+      "path": "artifacts/baseline-fen-0-quiet_middlegame.log",
+      "sha256": "68720a91108c5c1978747ed105ce9c38a3d4c6d7c60ffeb51220122c4ce10ec7"
+    },
+    {
+      "bytes": 88,
+      "lf_normalized_sha256": "6895c03942130773c288f686146f5fbb8ee6e1c9702d1602aad9d509d90d9905",
+      "path": "artifacts/baseline-fen-0-tactical.log",
+      "sha256": "e79d4f373e6cf3632a5db77431146e75977030f640fed08e292de772e8d8bd24"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "9058d51c7cae3a8e0bdbee1c75808cfd521760db1db1dab2d7e053a7db78db18",
+      "path": "artifacts/baseline-fen-1-attack_complex.log",
+      "sha256": "3e278c5985cc6bb3f129c0132292d8ccfb9f707d5d4590bc32e03a9250b41020"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "d3fbdd82afaea93628c8ff04b2cbe242c58f7bde5ab408b5b0c216dadc5219dc",
+      "path": "artifacts/baseline-fen-1-castling_rights.log",
+      "sha256": "d331ee6016dbea7735ff4a14863039310fbdfa62d55c52ae8da584bd317053c6"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "39b231dbc41272664421aa57e6022c8068fb10f14fa904d90d320d549e015798",
+      "path": "artifacts/baseline-fen-1-en_passant.log",
+      "sha256": "2bf5c4fbf5b4c3b536edbb6145eaaa8f05518da997b5285e037ac485b342c82a"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "2769addbe6445dc6b472361495dff1fe81319d558442e0b8587af9ab5f1967aa",
+      "path": "artifacts/baseline-fen-1-imbalance.log",
+      "sha256": "cf80fa4402928a12b5b583845a1894134dc9de95db297fb33556125f6612da17"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "48016d14e73e0cd0b292c30cf46764e8bfdeb109b595533c519332066dfa646b",
+      "path": "artifacts/baseline-fen-1-opening.log",
+      "sha256": "67f38e792ced97f575eb94688161c91693f4ee20e3e07df2e5b811755705980c"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "497ba0ab1dce05cefaa27b4b64738a56418ac9a93c795bc78c688cb67249d24d",
+      "path": "artifacts/baseline-fen-1-opening_history.log",
+      "sha256": "8f3a832d1efdbfa0bad675342b25c08d392a06fc7230fa0ed90aa7fd115f2be9"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "ed763ffa9b44d3bf9c514035c8247da1e4add0d41e5eaa2cf470a30d83dc9412",
+      "path": "artifacts/baseline-fen-1-pawn_endgame.log",
+      "sha256": "3f394b799693332f6820d828f72a30de8886693b91691a9971d178c617cbc5c0"
+    },
+    {
+      "bytes": 88,
+      "lf_normalized_sha256": "e720a2bec647490252aaa885144e4379378cd43142c4afabfe981dc221fced15",
+      "path": "artifacts/baseline-fen-1-piece_endgame.log",
+      "sha256": "7cd6bf0b319aba159cfdd59be045fa005683c4c893e346c5252be5100bfd4578"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "4af0d878ceadfa56087f2cd108a13dcb8a5214ab60a8179acd38b0b04a60956c",
+      "path": "artifacts/baseline-fen-1-pins.log",
+      "sha256": "820413cd07e537616d3e499da282cfd5b3146b8fb4cd86b1475f8178d6f9ab6c"
+    },
+    {
+      "bytes": 88,
+      "lf_normalized_sha256": "cd8106dc7d857a46306d960d4a27dde13cb6a0b8228d763cd5bceca5adb2b23d",
+      "path": "artifacts/baseline-fen-1-promotion.log",
+      "sha256": "7b3ac816345d2534490ab3f706f6ef7a71ea26123acd53c3083cb7ef42f90e12"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "946790b2fc16344b05a5709bae2b649db9345a830a90470decb294636887f246",
+      "path": "artifacts/baseline-fen-1-quiet_middlegame.log",
+      "sha256": "25e7b20faf32b12f75a7b850dc0695fcdb8023341c001db347b4777d90dcbfff"
+    },
+    {
+      "bytes": 88,
+      "lf_normalized_sha256": "606e35795f5be9834b0cbc89dd2c70a69a642766f99b450450f08237c2f3cbc9",
+      "path": "artifacts/baseline-fen-1-tactical.log",
+      "sha256": "74c06191227351023ad6b7a37eafac458b679820d03b0d9d388865c86f5531b2"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "e0cbb62694e85c48f4134de8c3ebffcf6661963e87f6881d167f394188b24e07",
+      "path": "artifacts/baseline-fen-2-attack_complex.log",
+      "sha256": "1dc8f26564701bda9e88c63a3abc9911dca0678ae813eb65c52a242e4429ab59"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "b356aa42d0d0343e769438d56b0e2d936f9870e38656058f42161cfce6c7a6ba",
+      "path": "artifacts/baseline-fen-2-castling_rights.log",
+      "sha256": "5ce9cafe658fc84a1138758599dfff5f19e1b3f47cf487e45120fe6e00bb111e"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "baebe9659454f52c1523ca6dfda16a7cc1374e3ab19e7b0c89282048e32ee08a",
+      "path": "artifacts/baseline-fen-2-en_passant.log",
+      "sha256": "470ada39b37d5d57595ac6f27c2945aff315fcab8a4e735a8a57779601ac33f6"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "69feeb87101d3d8086e96af561fabb5d48ed9004bc774bda604b8c18a3b5a07e",
+      "path": "artifacts/baseline-fen-2-imbalance.log",
+      "sha256": "f332f5c6ae9f8f8d7654948138ccb01786df3d304685b4033d1a20e30b196855"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "81bc98871e26065a74c2e97085910aa1b95862622facb92da2beb4c84d108baa",
+      "path": "artifacts/baseline-fen-2-opening.log",
+      "sha256": "2fb9936aecebd1035fd6fcda7920a578d81b1ce1708da2fed2bd76c12920e9c2"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "066bab88eac2e726d153f11fd00291727efed130fabaa52beeccd35291cdf16b",
+      "path": "artifacts/baseline-fen-2-opening_history.log",
+      "sha256": "cda164f49ed9ee7aa52d284dbcb7a081634829a87b4baf841c90bd7e8a8e7e8c"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "f5129eaec0c2b8b339a0083226d8f1d81385a5ad9374d48fd17106e1d4f3b13c",
+      "path": "artifacts/baseline-fen-2-pawn_endgame.log",
+      "sha256": "b7a6468860eb6c67923636ec56d5b2e204bd5107f7cff976d89359df75c55bc1"
+    },
+    {
+      "bytes": 88,
+      "lf_normalized_sha256": "958f15d76fdf00c31253508478f30217a0fd3beb0f1feb551281a1a1147b83e8",
+      "path": "artifacts/baseline-fen-2-piece_endgame.log",
+      "sha256": "5097d463b432041e78fcf7924378c5cf09628782eec8f47b9217831f3d7a34e0"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "a702a2f7c5b8e5aa078640a36490d67c3c61c7bbec15fd2b7b0b26ac423f9149",
+      "path": "artifacts/baseline-fen-2-pins.log",
+      "sha256": "0ea70442dce98a8fc26f53b32e826730b5eb6c1fb1b9c01f3882dbe6995f7089"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "af887e3172f76e44025a4d1ca60c49b88ed3974f4a1ee5a0fdb57919c632bc52",
+      "path": "artifacts/baseline-fen-2-promotion.log",
+      "sha256": "f04d719d70b9b0cc5b3a90c822af907fd8d79421207b1d0a9127d9dd88a3aeb6"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "4a1f31b7ea88a69fa39ecd51a2816855c7bf3f2308455e351840a3aef62aad70",
+      "path": "artifacts/baseline-fen-2-quiet_middlegame.log",
+      "sha256": "e489ce38ad410919e15be93d2e3d7a5aedad8eed4a46e86916d5253c8c173a9b"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "34933803a7f2d5b03d9d345018aef926dc67d81bfaa08807876bf1267b068061",
+      "path": "artifacts/baseline-fen-2-tactical.log",
+      "sha256": "d739dd09794f5e2076fc73c7b9e8ef5e6d488aed714b8ee0af924a653204287b"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "d44251ba5bcb18b0506e77e625b58ba036c126fbf53997abfca7ba52aa7e32f4",
+      "path": "artifacts/baseline-fen-3-attack_complex.log",
+      "sha256": "9d94e99b6104ce20f0262301436a2dda52410dc8041107add0276911459887c9"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "2d16ea0c9ecdbf4a33af5d45ab605046a4857fa1f05a6eb23c56f4e6fea4f144",
+      "path": "artifacts/baseline-fen-3-castling_rights.log",
+      "sha256": "9ceaa16a83038903608b0eef882f8c09c49e1c05052900b410378e99c06747d9"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "462ace2a3cc2d550021f8acb43825619663b11db6a1fd613f48c21ccc6b875f2",
+      "path": "artifacts/baseline-fen-3-en_passant.log",
+      "sha256": "5917c8bf19d4e1c27aa2ee90a2513c3c401e7216d3eb80d6bb2133e19aace72a"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "2e469c3d07c2bb9748b7f0cf1b8a2282557af97a6b7a5ba18fa928180fae2686",
+      "path": "artifacts/baseline-fen-3-imbalance.log",
+      "sha256": "e93ca8189922a0650cc23ec03a63d2a44e477d8904da0ee205251c2c95833bf0"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "78f2cb9b546d0bc8442a345f303db577d24102e0cb9065d3821a9dba754f54e1",
+      "path": "artifacts/baseline-fen-3-opening.log",
+      "sha256": "33bcb685c942b5f967729179da5acca4eb35af2862c9edae055f3447ded74733"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "65b8e14137dff8b86538e07150a5ed66c9e9639c1064ff4750ebb306c2e00303",
+      "path": "artifacts/baseline-fen-3-opening_history.log",
+      "sha256": "06ea184cae9b65423d1ffff991a4eb7cbba62f5985789cbcfa92e94be0925559"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "9d60681e0fb3f1b607850165ad363ef8492e6af033dd4172a5d5ae8f00bf5c12",
+      "path": "artifacts/baseline-fen-3-pawn_endgame.log",
+      "sha256": "3be96c654d5b064349fa4bd5c0566c6aa4c68a2aa1e59a4b793879653069fdeb"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "0b279bfa71965fdfe49dced79ec741c032c4ec59d1ffe2e37eee3a0d18c61bb3",
+      "path": "artifacts/baseline-fen-3-piece_endgame.log",
+      "sha256": "a220099303f86a90c4ac22ff7cf08977f7373c7f6bc96ae2d27fabc1f71ba578"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "8dc6b8f6d93a6f2822ab37ab24f1252aedee7f26b37c074cd0a06f4bdf9ca52c",
+      "path": "artifacts/baseline-fen-3-pins.log",
+      "sha256": "74c7522428748a9d1bc782fb7f397c6b2e012dd8926d0221c67458a17a73cc78"
+    },
+    {
+      "bytes": 88,
+      "lf_normalized_sha256": "6e9eeaa6e06f25801fb0976a9f614e024a2a7a337d7a28c68722d848599b75c2",
+      "path": "artifacts/baseline-fen-3-promotion.log",
+      "sha256": "4eddbef458ea2f895974dbb156e64e0be605576172a1ce1435ab527e09a733f4"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "fa8373b90143171981bf8abd6641b276a6bf8853e39b782ebac65cd20b073691",
+      "path": "artifacts/baseline-fen-3-quiet_middlegame.log",
+      "sha256": "94a4ef67c99bc393f9a2ca4749b64dab6f9a0a6cc5997c2ff0645ec8ea659389"
+    },
+    {
+      "bytes": 88,
+      "lf_normalized_sha256": "f5053c23007031a619ece2dbdb9796a553dc6fd664f010c6460c75daac218430",
+      "path": "artifacts/baseline-fen-3-tactical.log",
+      "sha256": "5c1b2cca209d3f3606061f444bee84a2b89798b7b2d7a5588959ba7eda60c02f"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "aaaea7aa7161f83b813a20d30c14ae5f5ddc89265c3fb0ba956689c68c04db2e",
+      "path": "artifacts/baseline-fen-4-attack_complex.log",
+      "sha256": "268dd5ef306bb12e9e8e9abf22ca596ef4be6c06926ac4e61a365ba06223728e"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "b91656c4d6d8fbe4449992672a3d3de9f30fcc88f27fdda79681b8f9d7ecde9c",
+      "path": "artifacts/baseline-fen-4-castling_rights.log",
+      "sha256": "0c6975f7d0c0a1a21a4c7f58a74b5302c9b7d22257538ada9aeba5fdf8bb7d74"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "f52d6f4d138f03022a5e835efd2630b7f75dbe479ed37385bc65ad897823a8f1",
+      "path": "artifacts/baseline-fen-4-en_passant.log",
+      "sha256": "5bd6349d4db3098f710c6c9ad86896a0ba33a39d206e827e1b19d9487063a5e6"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "9d509ccca8e058b4ee694c1a2284eb650aa241d65f7ae0476ed45f7c1bb3c1be",
+      "path": "artifacts/baseline-fen-4-imbalance.log",
+      "sha256": "2a3e3a08a2bf2794f2e39f7edd8a17926c042da2975d2d1e908eef05677b42d4"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "b4cd0d97385b6807fa4329ef79d714f092b2e8e909e546085f6110c8387cec99",
+      "path": "artifacts/baseline-fen-4-opening.log",
+      "sha256": "e16b8f38f1204b467372932aaa3ca2818390d2dde0c0c4947f1ce820044291cd"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "84e3707c7a1ab1de702621e70841593f874b05378368517e3769ec5b39f4fb4c",
+      "path": "artifacts/baseline-fen-4-opening_history.log",
+      "sha256": "200f3b2a268e411000fa83f7a8cbd80fa4c2ea3ef72ffdfae8f66aaf6e872573"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "659701410d03f0a89c9361ca184be80c81da9d9d214e0b00b76a0fdde43effd3",
+      "path": "artifacts/baseline-fen-4-pawn_endgame.log",
+      "sha256": "eff86f4a30fcf66b921cebc13d2437de231c18fe90aa23a1ba026a34b6fb99f1"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "d59dca257b4e80b66d2b126f5c85f4d921ecb0d36f6c4acef19147923f78e30d",
+      "path": "artifacts/baseline-fen-4-piece_endgame.log",
+      "sha256": "a087a2f49b9f5287a0fcc9d9649c84b5b4a712a24d7552da773fda5ec9735aec"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "2821f2f8dbe971321de99a12cc538fcb0d693d5ac051e9d1b361638d96741e13",
+      "path": "artifacts/baseline-fen-4-pins.log",
+      "sha256": "14399cf9167d127c070b9bfe77feac5d463b743f3f34bf137550f0e200d66e63"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "293bd923e47d5dead3ff30b5f7a98ab50371385eb1e17e1d546576c9611a8975",
+      "path": "artifacts/baseline-fen-4-promotion.log",
+      "sha256": "5c561cb1ed75c1549e6734006e5500659f33922454423db874c63c701eac8dac"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "9f07940b5ad18b3681fca552bf1a031614ab4bde08b5dfcd55cdad3921e4605d",
+      "path": "artifacts/baseline-fen-4-quiet_middlegame.log",
+      "sha256": "4e7fb1bc3d11630b8aff5d6284737865880598fdffc6976aeeb666aec0db05bf"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "4045e6f87eabb7701ceabdb91acb420a17325ee9f95127e42b65efc17f61444f",
+      "path": "artifacts/baseline-fen-4-tactical.log",
+      "sha256": "7312c60927f0d0b69035054babfab9d7c8d9664834dd555a53e48f5624b31b21"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "1014852cd69e844f297a0b15da008a151b16de7e0d313d11518ccac7fd0a81e2",
+      "path": "artifacts/baseline-fen-5-attack_complex.log",
+      "sha256": "0d9c750b8fc4e2390b5a958b6f21c3749cfe32f473f1c11988dc5d186711da53"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "99e12d8dbb65f50cb5ff950da0d19ab289a2dbc4023fe896e9bbda7f3c2b9483",
+      "path": "artifacts/baseline-fen-5-castling_rights.log",
+      "sha256": "b80618aa4298f656464a8811c9f9c0739f621d6c4ae32b5864df2968c0eec19b"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "2013abc31ec2e2a69018a5576c011831fc7b670deebaccc01a798cd8e16ba0f7",
+      "path": "artifacts/baseline-fen-5-en_passant.log",
+      "sha256": "de9dcdf53d24ec0caf0af7728e5b7408aa2fd95bc2c374ff470993a5c1ff49b5"
+    },
+    {
+      "bytes": 83,
+      "lf_normalized_sha256": "acc0f6d46c2102e509f99126c268430b67080db00a064ae7c1814acf8abd7bc3",
+      "path": "artifacts/baseline-fen-5-imbalance.log",
+      "sha256": "31ac694b50e83366a4de8f01d2f7d6c0bcff69b7f039808e3adea45dcfd59328"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "4a878683a46ea270fed49fdb0c78921a778ce84ef9afa97912b13fb2458a548a",
+      "path": "artifacts/baseline-fen-5-opening.log",
+      "sha256": "9b739edfa86edc6d29f36eff0e2e87b631e382c7c66c7f19d93c558a68574ff1"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "549fa16fab1697742b7a648ae5865a86863f34bc38fb42eb3fd22039a79bad22",
+      "path": "artifacts/baseline-fen-5-opening_history.log",
+      "sha256": "f23b22332da906419c3bdbf4d84335a4497e93d12866d612d0e44095ef69cb7f"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "168a7ee2dd0854b2e80bc93eb94bf9c273bced333588e1b478fd116812ea4ae9",
+      "path": "artifacts/baseline-fen-5-pawn_endgame.log",
+      "sha256": "1ab3f4d727e50e510ef32ef9ee2c102b9eef2e8d261ffe073a23629f6ad036af"
+    },
+    {
+      "bytes": 88,
+      "lf_normalized_sha256": "6517ca0fbd1ad02cbb77b5eeed268836dc3226011555d9273c0b06bfe3f32ef1",
+      "path": "artifacts/baseline-fen-5-piece_endgame.log",
+      "sha256": "3d9aad9a4815103e08bf9741924cd643fa94dceacb21a3e372bae90ce22b6a8f"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "b27f62dfea5cac369aaaca98090c1eee9939376fb11a75cdfd3d8974e130cad0",
+      "path": "artifacts/baseline-fen-5-pins.log",
+      "sha256": "2ff1da1913938bddb81de5825a1edb12171a5e426eb5efc43258d8b91a9a139e"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "cab885315ac5800b4c98c5a38ee810bfb6005136bec5a7b6c0ff5971ea2c071f",
+      "path": "artifacts/baseline-fen-5-promotion.log",
+      "sha256": "1cc25187e1bc947d02a9bcf36e7cbcf4588595bff8a5efccdd3cc4e80f5c78bf"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "7ef4c35f2b36023f486c925b25daabde2fc12bcfe7bf46e57f2e6ee26a7d1ef5",
+      "path": "artifacts/baseline-fen-5-quiet_middlegame.log",
+      "sha256": "97bef7496f6c25c9afbf36a831bcb559ab231b15b61401ebf809198a3a43f6b1"
+    },
+    {
+      "bytes": 88,
+      "lf_normalized_sha256": "b07ede96ea1e1d11717ef7dc3a081ce5f56ec76d62f73e30123c1a59f7331f3c",
+      "path": "artifacts/baseline-fen-5-tactical.log",
+      "sha256": "239f5e2eeab37a364204353fd09489d4acea63b61471cd321603ba5c58d60ac3"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "d3602a60644bf9ba1fbfb9b29db5ac4d4e0b2519f82fd44982b380e49b887c1e",
+      "path": "artifacts/baseline-fen-6-attack_complex.log",
+      "sha256": "57fa1b94ef32de1106a4dd072d422f4f5a8bd08e208fc30c67f37447392565a1"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "2b60904fd7d974fe1c6540ad7d03732ce0e2a8c8e476c8376b611dccc0697fdc",
+      "path": "artifacts/baseline-fen-6-castling_rights.log",
+      "sha256": "39376c552d15a3fa30a6f0f0d5a1ac16d84320a2d9e9fd3da8f1443a080d7f85"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "152196fa145912cd24c0d87a2cf6fcdd94d901b6272a6337017981f1d580789a",
+      "path": "artifacts/baseline-fen-6-en_passant.log",
+      "sha256": "7743b801adc18dde858e8679f9c14894d0d6a7f1b89b2ef8c4df5492cf0e1e9a"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "e14ae1ca7bb39afafe9fccd9e5414414cf00a0ee911c344790c8c63427e581e8",
+      "path": "artifacts/baseline-fen-6-imbalance.log",
+      "sha256": "01c29c909483eb6295a849b2f5aacdde749df2cec5953c1deda0feaafdbdadc1"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "4ca9d7c83068d32ffba74a3c45ed0c937ffb42b6e82bafd7ce1b34c20c2ac4b8",
+      "path": "artifacts/baseline-fen-6-opening.log",
+      "sha256": "10c9f331490e6ddfb0895b7b6c4146b8d3da48d56a5769ae8f6fef8539cf7888"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "be46de11c7af61497db84ae78f2f2e154fa72b79a4bde9504c3ecec6c5b2426d",
+      "path": "artifacts/baseline-fen-6-opening_history.log",
+      "sha256": "343c08806e215347153d7aa316ed2dc41d0a1827f8445dbccf8834ca6d4e1752"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "4c24acd9e477b35e96198227ed5e66f33fe9e7e0d67b706c7d508d21b971056f",
+      "path": "artifacts/baseline-fen-6-pawn_endgame.log",
+      "sha256": "7de53fda2e7b84e6da1a5c5b0bbe75d561de932c88db9884e5556ab233a191f5"
+    },
+    {
+      "bytes": 88,
+      "lf_normalized_sha256": "5d05eacb5e702bb798d784810ffe4ed45e018797379f5f1f3b3a0717724a3857",
+      "path": "artifacts/baseline-fen-6-piece_endgame.log",
+      "sha256": "484c2ee8509db54e0657b1095311b1a4cb0b4ff7d578680031cf6b6da5a31e54"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "eefa9579cf2d8799f39f9419cb74c2f3704826e70a7cd42afbbb86e1f09d32e3",
+      "path": "artifacts/baseline-fen-6-pins.log",
+      "sha256": "66374d90bff75e17869172d6661694a508304e771afdfbad0950738964f2ca7f"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "e01baf365e98bb6e79555364259b06b0abb983bdba05f131acb57b8fea802cab",
+      "path": "artifacts/baseline-fen-6-promotion.log",
+      "sha256": "e3b56b3eb25ea70aa21a15f4b0981d5a7ad894124f12dc46b659bd83d9f578eb"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "40aa46e6a8a1907c45187f5d6a2fbbf830a414e70b91e08099092ed739afa570",
+      "path": "artifacts/baseline-fen-6-quiet_middlegame.log",
+      "sha256": "943861c7ff7d1d701a18da4b04ce3d8957db2bb29ae1f9af4dd8e0bbe9326dc0"
+    },
+    {
+      "bytes": 88,
+      "lf_normalized_sha256": "b5555e1c330f394bfc73057a4655d23c879c8fdd5a098590fe02bc68e2486cc8",
+      "path": "artifacts/baseline-fen-6-tactical.log",
+      "sha256": "b0d107cb263b00e2bc9261961c4c84cc9d6cc9b74f952419fa45330acfe34087"
+    },
+    {
+      "bytes": 88,
+      "lf_normalized_sha256": "3ae96e602a36e8c4c580401c56d19fbafa9910ce30c64424187c8bcae439925e",
+      "path": "artifacts/baseline-micro-0-1.log",
+      "sha256": "362d4ba7ac3ca838fd3cc16a2675f1a27a84a6639e886865283f8be3396ac851"
+    },
+    {
+      "bytes": 89,
+      "lf_normalized_sha256": "9e996eac260cd3f4e27228dd2e7047534f661e9f448a6c14f3fddaefe7ab174b",
+      "path": "artifacts/baseline-micro-0-128.log",
+      "sha256": "db519e8529f06c5148fab08bdf620166e26a2a88330a53472bb36cb465d885b2"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "126547dbab52e9a6201803349fc4b0c046924eb0b6ea4b8d2790301b25bd2150",
+      "path": "artifacts/baseline-micro-0-32.log",
+      "sha256": "a53ffeda496f8688c51f8aa192e1c506b402c022d4f17d4497bdc9f5fc798af2"
+    },
+    {
+      "bytes": 88,
+      "lf_normalized_sha256": "23e3b030483ab6e01431ade5969c405292e6b4ef2d89c9644d0a78f86ab1986e",
+      "path": "artifacts/baseline-micro-0-512.log",
+      "sha256": "1932592ee088f623b16561a7700a3cb8997139b31ba75a57b11e61a24e7d23e8"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "5a448d71e3e1517c0c4d5e4ba7ff638f3b19597aa777d270ac24e0ce649f89d0",
+      "path": "artifacts/baseline-micro-1-1.log",
+      "sha256": "b0c08f2d58240457d552fd0bbe682ffcbcd328a1a03d08bd6bc9245ad4ef660a"
+    },
+    {
+      "bytes": 89,
+      "lf_normalized_sha256": "0442122efecb59c4fcb505645d66ca0fcb08aa1cce029c7563e01c9d9e7157bf",
+      "path": "artifacts/baseline-micro-1-128.log",
+      "sha256": "8072e8e38d36a98959bc5f20f67b609d07f1dcbbdd66d59c3cabb3d54422f8e7"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "e109bef4dee125845f0442daa32666e40aca194ea5545f44ebbeb275ebfc87a1",
+      "path": "artifacts/baseline-micro-1-32.log",
+      "sha256": "25e8dfbc7fc79a0fcfa47e18e182cdf3d5ca08b48b62010aef4865657c7cac7b"
+    },
+    {
+      "bytes": 88,
+      "lf_normalized_sha256": "b48cc2442c8170635d9c17572d53347221c5c43f0f3360d61d3af217bd35f0dc",
+      "path": "artifacts/baseline-micro-1-512.log",
+      "sha256": "1910753dd4f05955784f4fd0282eb5325e20badb44360106b4b0043eb00c5afc"
+    },
+    {
+      "bytes": 88,
+      "lf_normalized_sha256": "c7f17aa835314c79f2bdcf5f1ba52df4c43dee913836d8c749909c8483f5e4a1",
+      "path": "artifacts/baseline-micro-2-1.log",
+      "sha256": "07fff037c4da2c505257cae2542e83e1b15bfb1ea185700169bb53a0a079bebf"
+    },
+    {
+      "bytes": 88,
+      "lf_normalized_sha256": "7a582d43790d4f9ffc1c5bd50afc3392e8d7f97dddb7688ab40f65fbc44e5f2d",
+      "path": "artifacts/baseline-micro-2-128.log",
+      "sha256": "f8a390b5639d943d298ae89834e241fd311069d07d5d371a283808f142da9396"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "59e1ec566a54ff914ae2f6332329c146f31657e907640af57deb1bff45bfaf93",
+      "path": "artifacts/baseline-micro-2-32.log",
+      "sha256": "d72de66179eebe8b36c0381f0daa322f3ad2b7dab663a3cb0e93eddf330e9c12"
+    },
+    {
+      "bytes": 89,
+      "lf_normalized_sha256": "acaba1b1577d8cee923cb4896cbf9603912d80671a5a65c74a96761089b0363e",
+      "path": "artifacts/baseline-micro-2-512.log",
+      "sha256": "ac5118bce36d020598bf657bdb30eb4c45ad5c60d663cffc2d54986786a51627"
+    },
+    {
+      "bytes": 88,
+      "lf_normalized_sha256": "337e378cac547d28ee24568ef32f1c925803e37f4d1ccd7f52d1b578cba6113f",
+      "path": "artifacts/baseline-micro-3-1.log",
+      "sha256": "201c2a8ca3b0e8e66ba58a53e1971283fd63939eeec07332c16638143ba2fa2d"
+    },
+    {
+      "bytes": 89,
+      "lf_normalized_sha256": "b3ea92527671059621892f2f699ca144fa63be2761548c41ca31d4e38bad7fd0",
+      "path": "artifacts/baseline-micro-3-128.log",
+      "sha256": "aef8646aab860a5775b9014e444027a69fd5aa5285431922800a2f42541018a5"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "e3c876cbfb68e98d7dae44692d55db0a1713c41dda9d65ddd3cbf4e05666f79a",
+      "path": "artifacts/baseline-micro-3-32.log",
+      "sha256": "93081f69bea5d6f0dc8bc0d85d7d19e5a558b01810a9af19ec5a52663144f2c3"
+    },
+    {
+      "bytes": 88,
+      "lf_normalized_sha256": "b3ffe75ac4c2ec719d4a2ebdf3b887075de6192c89cfb7064524cfddfae06db1",
+      "path": "artifacts/baseline-micro-3-512.log",
+      "sha256": "5b724f1f6fe5ee8bbfdf98295f528c0e125c698cf9933a6d9c8b83e6dcc7f5f5"
+    },
+    {
+      "bytes": 88,
+      "lf_normalized_sha256": "d4fd048b243f5968b9b66b948c84560d5d08b0f790cbae53cc8d95c905722295",
+      "path": "artifacts/baseline-micro-4-1.log",
+      "sha256": "b94e93ba8228b0d9660ba66627988da7b5969b26ac0a6484b2d157bd9b48b66e"
+    },
+    {
+      "bytes": 89,
+      "lf_normalized_sha256": "d37b55ec845f32653b02e9756dc43386ebe2ee0152b5ff5a4b41cc47e34dfdc3",
+      "path": "artifacts/baseline-micro-4-128.log",
+      "sha256": "3d0fdf29ff6e1449ffb7c17138db19c1683d7ac306564055988d7e1cd39d7a3f"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "81016e54095dd1a4c4dd54b7af32ea3eb4746c7157e4c292bb0f01cedd69c47f",
+      "path": "artifacts/baseline-micro-4-32.log",
+      "sha256": "0c64fc8273f6055974963d0a2d069d746e3f231f2d73109307880c3885c6c794"
+    },
+    {
+      "bytes": 88,
+      "lf_normalized_sha256": "19c137ada78c9aeebe40af6d0b3cd1bf5f7e2eb466e9808d5db91920654d0695",
+      "path": "artifacts/baseline-micro-4-512.log",
+      "sha256": "c50d6a078829a867bf583f3a5c7e5555c6dedcf2a0f54e9caa6a45fcaa10e777"
+    },
+    {
+      "bytes": 88,
+      "lf_normalized_sha256": "b7e05d13d8576e20b636abb20cb878f234c3b54373c5fbd781131f60f430ded5",
+      "path": "artifacts/baseline-micro-5-1.log",
+      "sha256": "405205578baca0ecb903c9e8087c0919c5ad888bcc79aa97dc7459a891e97685"
+    },
+    {
+      "bytes": 89,
+      "lf_normalized_sha256": "56f64f10eeb035383dd7912f19e2e3408cd753e94fb459963a47a5eff0a0d60e",
+      "path": "artifacts/baseline-micro-5-128.log",
+      "sha256": "f27563fd4dcdb08e8ed1e283c4812ff360e0f681dbc2d4293c5404318c00dae4"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "2a6d6c8d36dc23d86db7e000ade0e5bf7bac8b8a5d88d537104eeed7f6a1db71",
+      "path": "artifacts/baseline-micro-5-32.log",
+      "sha256": "263ca2117efb5f74f1861401c69946fb14f59835d27a249220615d1be4a6c1d4"
+    },
+    {
+      "bytes": 89,
+      "lf_normalized_sha256": "58807955e5c50b6d2f39549d2c71e6f2ba2ae6076633288bca07c4b368d536a7",
+      "path": "artifacts/baseline-micro-5-512.log",
+      "sha256": "31912131748e58a9739c01825a76ed0d16da70aa40c1cb92841218519765d6ce"
+    },
+    {
+      "bytes": 88,
+      "lf_normalized_sha256": "38df791f89a3ca72af05ddccc6e44334508ef96b6b1757da49d6ed33691cca19",
+      "path": "artifacts/baseline-micro-6-1.log",
+      "sha256": "1c6d76fe9f6d9af36098f8609a53f2040c1656a33610596181346d8345bde745"
+    },
+    {
+      "bytes": 89,
+      "lf_normalized_sha256": "96c230338e1324b9c8314011abc4b88ba4b48ba2dd37f8d7d4e9d00901eecd6a",
+      "path": "artifacts/baseline-micro-6-128.log",
+      "sha256": "4f3eb1796a42d7f1c82cfc679ca422e6a69a4d44f849935e22fe6eb5a6115a75"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "429bdb67885a27becf237eebb17c89ba1f7c4c680fdafbc2d5c1f98ca4a666c6",
+      "path": "artifacts/baseline-micro-6-32.log",
+      "sha256": "fe12c68a507fd44b4c6018e7223e7caa09995ba650faa003fffe65cecb233c5f"
+    },
+    {
+      "bytes": 89,
+      "lf_normalized_sha256": "681962cfd67abd58b45425b99620d86d1f7ca0259142863f4a4bc055296c7e20",
+      "path": "artifacts/baseline-micro-6-512.log",
+      "sha256": "b1b31e1f55f0e55e64a50cda233c98eb44533c3e8b8d7de1a29f54ddc53f00bc"
+    },
+    {
+      "bytes": 3428,
+      "lf_normalized_sha256": "596fd86388e39c1485d127ee081838c6e2863ac6d647516f8460aaa52b89dbf5",
+      "path": "artifacts/baseline-micro-build.log",
+      "sha256": "cff9ddde169446a69d8eb1508cc18ceb72114587ff539c1fc18d3477af081b83"
+    },
+    {
+      "bytes": 0,
+      "lf_normalized_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path": "artifacts/baseline-oracle-build.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 6980,
+      "lf_normalized_sha256": "65e4c0754331d9f19f643d4f6212c22bfbf1e088471ea5a523614e329671b35c",
+      "path": "artifacts/baseline-source/diagnostics.hpp",
+      "sha256": "65e4c0754331d9f19f643d4f6212c22bfbf1e088471ea5a523614e329671b35c"
+    },
+    {
+      "bytes": 23298,
+      "lf_normalized_sha256": "7ab1e16a8f0c178ecc4d08cbb59239ad0168c1d178baab8fc9670048cf0945d7",
+      "path": "artifacts/baseline-source/evaluation.cpp",
+      "sha256": "87ed00f717a19d593969b3b84d4e48586a8dc576d54ac1260350648a967639f7"
+    },
+    {
+      "bytes": 2827,
+      "lf_normalized_sha256": "01f5eac3194175f4f6615629146ce95700de2a0c351cae49b8346ac635b05c91",
+      "path": "artifacts/baseline-source/evaluation.hpp",
+      "sha256": "01f5eac3194175f4f6615629146ce95700de2a0c351cae49b8346ac635b05c91"
+    },
+    {
+      "bytes": 1027,
+      "lf_normalized_sha256": "2d1af8a6465e59bb0fce0878b694736207dcbd065c9419a3e7d5ba858196b92b",
+      "path": "artifacts/baseline-source/evaluation_masks.hpp",
+      "sha256": "2d1af8a6465e59bb0fce0878b694736207dcbd065c9419a3e7d5ba858196b92b"
+    },
+    {
+      "bytes": 36279,
+      "lf_normalized_sha256": "33e85f073519a10d68e2a50006e291479bd6e4964e4aad34e16d642f4b59ebd0",
+      "path": "artifacts/baseline-source/main.cpp",
+      "sha256": "cc9b0a8e417e69ebbe65bff616ddfe81fe9a4de508506c7bdf5b92b71da04131"
+    },
+    {
+      "bytes": 25161,
+      "lf_normalized_sha256": "14c13e2ba65744ff445ade32c2a35408b969014f3936fefcdc6c9c10bfab2440",
+      "path": "artifacts/baseline-source/nnue.cpp",
+      "sha256": "8916fa27783fb88cfd7219a88e411f1f3df431e076f6d19424f051da8909bfbd"
+    },
+    {
+      "bytes": 2969,
+      "lf_normalized_sha256": "276ec5bca364106193e10bf550f355ecfbe86be86e6084c5b3d60f4e030ecf79",
+      "path": "artifacts/baseline-source/nnue.hpp",
+      "sha256": "276ec5bca364106193e10bf550f355ecfbe86be86e6084c5b3d60f4e030ecf79"
+    },
+    {
+      "bytes": 12054,
+      "lf_normalized_sha256": "01373c0025bb10fd7ff0294d4964e3b971e226496ee6dece88beb8ded8a6940e",
+      "path": "artifacts/baseline-source/nnue_v3.cpp",
+      "sha256": "01373c0025bb10fd7ff0294d4964e3b971e226496ee6dece88beb8ded8a6940e"
+    },
+    {
+      "bytes": 1716,
+      "lf_normalized_sha256": "b00f39759c1e48d5dc787dbed2dee32498f9422e01aa92ab58100b0285be9a20",
+      "path": "artifacts/baseline-source/nnue_v3.hpp",
+      "sha256": "b00f39759c1e48d5dc787dbed2dee32498f9422e01aa92ab58100b0285be9a20"
+    },
+    {
+      "bytes": 699,
+      "lf_normalized_sha256": "f4240a187937c41f1b70ea2a901b1efd3b0b9c9309db8a0e4643a776bf6fc6ca",
+      "path": "artifacts/baseline-source/pawn_cache.hpp",
+      "sha256": "f4240a187937c41f1b70ea2a901b1efd3b0b9c9309db8a0e4643a776bf6fc6ca"
+    },
+    {
+      "bytes": 1245,
+      "lf_normalized_sha256": "5a7b342185a4abbeca3638eaca0de2d9c3caa02a7f00710f631b9f87d4c5614c",
+      "path": "artifacts/baseline-source/principal_variation.hpp",
+      "sha256": "5a7b342185a4abbeca3638eaca0de2d9c3caa02a7f00710f631b9f87d4c5614c"
+    },
+    {
+      "bytes": 2394,
+      "lf_normalized_sha256": "845501b14addab91c5839f89b747344b28e9b99846bafb8fddc50e0090d0a1e6",
+      "path": "artifacts/baseline-source/profiling.hpp",
+      "sha256": "845501b14addab91c5839f89b747344b28e9b99846bafb8fddc50e0090d0a1e6"
+    },
+    {
+      "bytes": 3210,
+      "lf_normalized_sha256": "a7f007ab55fd4bb3a6d4fae93b97b25e371faefc633351c0a70cd4eb40be111b",
+      "path": "artifacts/baseline-source/pst.hpp",
+      "sha256": "a7f007ab55fd4bb3a6d4fae93b97b25e371faefc633351c0a70cd4eb40be111b"
+    },
+    {
+      "bytes": 1257,
+      "lf_normalized_sha256": "3e815c8e3f825105cf0f43a61750aa452c6f46a9c04a456b14a43dc09e07ea72",
+      "path": "artifacts/baseline-source/scoped_move.hpp",
+      "sha256": "3e815c8e3f825105cf0f43a61750aa452c6f46a9c04a456b14a43dc09e07ea72"
+    },
+    {
+      "bytes": 30435,
+      "lf_normalized_sha256": "425b00c0dbebab3475135ccf6d67efc6f890c3326a8074a5c19b3f34b7ff096a",
+      "path": "artifacts/baseline-source/search.cpp",
+      "sha256": "d769cb77fd417b70af0b746688624fcacda176f518a869869d62b4eca78cee2c"
+    },
+    {
+      "bytes": 3680,
+      "lf_normalized_sha256": "d7a6bdfa6305f76bda3121cb674b038ff75f5b5fd9384b761d4eacd224270634",
+      "path": "artifacts/baseline-source/search.hpp",
+      "sha256": "d7a6bdfa6305f76bda3121cb674b038ff75f5b5fd9384b761d4eacd224270634"
+    },
+    {
+      "bytes": 1824,
+      "lf_normalized_sha256": "059079dae8af260882b8af136acb53561a9a866f9525b38dd6eccaab2bf2d5a0",
+      "path": "artifacts/baseline-source/search_policy.hpp",
+      "sha256": "06cd21e30dc793570a2d717c9cd6976320342a2c21cac6f392fd64b548e54324"
+    },
+    {
+      "bytes": 5971,
+      "lf_normalized_sha256": "133f330350dbf68f1f6e31bf67e8b310e1d639577918b626a5e4bb5b6cab7d68",
+      "path": "artifacts/baseline-source/strength.hpp",
+      "sha256": "133f330350dbf68f1f6e31bf67e8b310e1d639577918b626a5e4bb5b6cab7d68"
+    },
+    {
+      "bytes": 793,
+      "lf_normalized_sha256": "08880e1a158016cb43e4d05c818baa0d85f48a0d673837c3e43842251caf6f59",
+      "path": "artifacts/baseline-source/terminal_rules.hpp",
+      "sha256": "08880e1a158016cb43e4d05c818baa0d85f48a0d673837c3e43842251caf6f59"
+    },
+    {
+      "bytes": 4904,
+      "lf_normalized_sha256": "e41ab9b9e1bbf3f313d61e812e40e4dfebbc0debc6964ee85a83f68668b9d6a0",
+      "path": "artifacts/baseline-source/transposition.hpp",
+      "sha256": "e41ab9b9e1bbf3f313d61e812e40e4dfebbc0debc6964ee85a83f68668b9d6a0"
+    },
+    {
+      "bytes": 58,
+      "lf_normalized_sha256": "9171f52235270baa731f548fccd72cf8121989cc7eeb8b76f0ecd15c7c060e6e",
+      "path": "artifacts/baseline-transitions.log",
+      "sha256": "f387a70ca9fb4d1ddaf61fe546fc84db8d4ad16a993946b11c742dd48d6f76d9"
+    },
+    {
+      "bytes": 12910879,
+      "lf_normalized_sha256": "3a3abc4e0e5058613de9829c606bb8c49f81b61ad6f03f91fc6b85e56011f682",
+      "path": "artifacts/baseline.s",
+      "sha256": "3a3abc4e0e5058613de9829c606bb8c49f81b61ad6f03f91fc6b85e56011f682"
+    },
+    {
+      "bytes": 0,
+      "lf_normalized_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path": "artifacts/compiler-target-features.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 5464064,
+      "path": "artifacts/engine.pdb",
+      "sha256": "4de6a9d6002a4c6a66109a4a433e7e0c446111ae8e6bd02281ddd287f7630235"
+    },
+    {
+      "bytes": 120,
+      "lf_normalized_sha256": "57c697fae110fa881c591845d1a9aeb48cf677216d82bfdad7e0856b0de7d585",
+      "path": "artifacts/generated/nnue_dimensions.hpp",
+      "sha256": "fd1cd6a1d8b711f2fbf140f436fc625a83882c75c24a6c3fdf428dfabdaec113"
+    },
+    {
+      "bytes": 1710632,
+      "lf_normalized_sha256": "29ec4123e0c4274ae1a1dd6ec8faddf8fa6e121d97d4b65012e4e6e525da4212",
+      "path": "artifacts/generated/nnue_weights.hpp",
+      "sha256": "a538454ca8c7e0adeaff56d0b243b3863ee09994eb18f7d9dab1829be9cefabb"
+    },
+    {
+      "bytes": 252,
+      "lf_normalized_sha256": "f85ad0720711af93359a4f406f4276da4ac61ff4e03b9fb89e94d96d730a99ea",
+      "path": "artifacts/head-parity.log",
+      "sha256": "6a733d6f872264cdcc38f9d7a18ec49a55810d7b3b8cd23a3026ed9ad728a0b0"
+    },
+    {
+      "bytes": 957440,
+      "path": "artifacts/legacy-engine.exe",
+      "sha256": "5d61284b26ff654d85dc9a457d47b4bef5f7d12d96e5d804b41127f44d05a0b4"
+    },
+    {
+      "bytes": 5459968,
+      "path": "artifacts/legacy-engine.pdb",
+      "sha256": "6cfaf5d0256a482ad954973360cc4299aec4fa6d2d37a0752f4b2202d47cb2f3"
+    },
+    {
+      "bytes": 120,
+      "lf_normalized_sha256": "e8c2656ee94f9e23d42c0f7000e45ebf7f3f40fca581d63b0199893c746cf5e3",
+      "path": "artifacts/legacy-generated/nnue_dimensions.hpp",
+      "sha256": "2e64365c16be4077f3c871532f4650cf6b13d5e62231877ecb7154c8dfd3adaa"
+    },
+    {
+      "bytes": 798645,
+      "lf_normalized_sha256": "de0b8dd74329deebbbee0177c2f24bf1878a34be416e921d45ba9d5eaa65f59e",
+      "path": "artifacts/legacy-generated/nnue_weights.hpp",
+      "sha256": "5a8ef0a486c235ee3b9bcc6346d24ccfd450a0b663a31ba34cbe381f22179eaf"
+    },
+    {
+      "bytes": 0,
+      "lf_normalized_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path": "artifacts/legacy-golden-build.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1138176,
+      "path": "artifacts/mapped.exe",
+      "sha256": "e64146bf7ccf219d3254d258615408e4b782c4aa7b430c9140beb73228055d4d"
+    },
+    {
+      "bytes": 5464064,
+      "path": "artifacts/mapped.pdb",
+      "sha256": "4de6a9d6002a4c6a66109a4a433e7e0c446111ae8e6bd02281ddd287f7630235"
+    },
+    {
+      "bytes": 39,
+      "path": "artifacts/pytest-cache/.gitignore",
+      "sha256": "e7c6bb30148cf667606dcd63e7ca77acaa3cfb0c8303bf09e6419e1e1669dc6d"
+    },
+    {
+      "bytes": 191,
+      "path": "artifacts/pytest-cache/CACHEDIR.TAG",
+      "sha256": "37dc88ef9a0abeddbe81053a6dd8fdfb13afb613045ea1eb4a5c815a74a3bde4"
+    },
+    {
+      "bytes": 310,
+      "lf_normalized_sha256": "73fd6fccdd802c419a6b2d983d6c3173b7da97558ac4b589edec2dfe443db9ad",
+      "path": "artifacts/pytest-cache/README.md",
+      "sha256": "420e808d79a6c25d3cda0af33bc4782314a14949866682c68ce8149e89b66b70"
+    },
+    {
+      "bytes": 17434,
+      "path": "artifacts/pytest-cache/v/cache/nodeids",
+      "sha256": "88cad384c45d96754edfb76a82e6984842721b3de05f86200f587400a50a8b4d"
+    },
+    {
+      "bytes": 1138176,
+      "path": "artifacts/variant/engine.exe",
+      "sha256": "e64146bf7ccf219d3254d258615408e4b782c4aa7b430c9140beb73228055d4d"
+    },
+    {
+      "bytes": 5464064,
+      "path": "artifacts/variant/engine.pdb",
+      "sha256": "4de6a9d6002a4c6a66109a4a433e7e0c446111ae8e6bd02281ddd287f7630235"
+    },
+    {
+      "bytes": 967168,
+      "path": "artifacts/variant/micro.exe",
+      "sha256": "4fcd845eba20ea54d671686bd2ff782d25ecef3e95ee4864e949611f2180c1bf"
+    },
+    {
+      "bytes": 4153344,
+      "path": "artifacts/variant/micro.pdb",
+      "sha256": "0842487cea2f73cfd67674b403b6e563f56f86799942fb2fd1b18a68ba88a23f"
+    },
+    {
+      "bytes": 970240,
+      "path": "artifacts/variant/oracle.exe",
+      "sha256": "99cca84f5663fe5ea95400ac4ad8178522405fad2a926405d381d322f5822f9c"
+    },
+    {
+      "bytes": 4100096,
+      "path": "artifacts/variant/oracle.pdb",
+      "sha256": "a3c769b2c8e0fcdeac76281ec751dcf3ef84dffeca2bde7c9345d8b069f2042c"
+    },
+    {
+      "bytes": 0,
+      "lf_normalized_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path": "artifacts/variant-assembly.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "lf_normalized_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path": "artifacts/variant-engine-build.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "e109d12ff3455234a2c09a34ebbeb695798fb09d68107ffd4785847723a3471b",
+      "path": "artifacts/variant-fen-0-attack_complex.log",
+      "sha256": "a323047864674722cba45efbec9bed9700b0dfbd5808743eca549e57f759c251"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "5a4c4d5c61cdc5dd6e95328dcf030947ab07e67f1df0f4861f699f2dea73af3b",
+      "path": "artifacts/variant-fen-0-castling_rights.log",
+      "sha256": "d562228fae55412b8d2c2ab70be3fd7f9fea141cb83ec75537eeee01b27c66eb"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "3e85cb863951f3409ac9f1a5f177eb03c32df742db7e7e7a2d91516fe177ab64",
+      "path": "artifacts/variant-fen-0-en_passant.log",
+      "sha256": "141e313d701bdd28d5dfe4a43c30d2001c510586368c79bcdd810d3236ac4cfa"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "d07a5d3228f0b741c4b6a3bda74d231caf09ff29fd086f988587b2e7148439da",
+      "path": "artifacts/variant-fen-0-imbalance.log",
+      "sha256": "134071e8bb8ecd578a3e976f3d4df342fb0e7fab44f20a9777aa32d59f68c233"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "afd4941e9a6d3089b523e7827c81720f9c4f9cfacbbb903d72a57dfafd698c22",
+      "path": "artifacts/variant-fen-0-opening.log",
+      "sha256": "470e480514e5c5bf58252584b3762157673ed37ea3e055ff9329f537a7d97617"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "3dbf4b16b5235981a3136341481bc5fac4c602b1e705acf8de7240bdb6017a21",
+      "path": "artifacts/variant-fen-0-opening_history.log",
+      "sha256": "d39a5aac6a5508190f712839116691fb1d1f9378cbd3c26453f18f97962e89d2"
+    },
+    {
+      "bytes": 82,
+      "lf_normalized_sha256": "ee39c530c51c473b9c5ae8d688a72cc974bae3211b17b52222e0cf538a53d00d",
+      "path": "artifacts/variant-fen-0-pawn_endgame.log",
+      "sha256": "558ee04e5dd1ecf2d3e67489fd2d4eacd992e69a99058e9aefd195190f3f3182"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "4e20d4d4f3a87bc21b806fe2498164aa0d6d7b5d978512c327d9b7f9945096c9",
+      "path": "artifacts/variant-fen-0-piece_endgame.log",
+      "sha256": "737f25b5e064b1f542da751512e8c4c76fbc6b615ae84196ab1af4b2f9b6468d"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "931723ec2bc42ac4dad243dba73f885fd019647b205201f255e8595284005045",
+      "path": "artifacts/variant-fen-0-pins.log",
+      "sha256": "b5aa4c92fae54d76f3b2d527254d663f6dce2b5dedd5826e12fe14fb94b29f3d"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "b790ab38de6c8d6b967f7cfd394024bb4fe582e0cee2cfc2d4fea74be30babb6",
+      "path": "artifacts/variant-fen-0-promotion.log",
+      "sha256": "4825267d965f65a5d9c84d8948153e8397d77587ec543c86fb4f96fe23eeed06"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "0578902a7fd38b665f48baa6babee4630360b4b483a34f2e2902145b618aba1c",
+      "path": "artifacts/variant-fen-0-quiet_middlegame.log",
+      "sha256": "e5b777a426068c75e37de574b01fa8f20691290925488d76a20200f2597e4e54"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "489577cdf59a51927f118aea64e1cc3538340f47dda8f8c2c398779275a0cc83",
+      "path": "artifacts/variant-fen-0-tactical.log",
+      "sha256": "d342e4bf22f4da788f64a6a7579f6b200d889776d340bdac91933cfc2f44b031"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "b61a0d801256d3fab11a9192b1a4b3f81f82f46c27e175c119a9469fcffe5d43",
+      "path": "artifacts/variant-fen-1-attack_complex.log",
+      "sha256": "8ab8455f58780c0e743d1ebc81d342be7396669eeba1cf2b99dd9bc29b5bf887"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "8df5b2c2a47d3fd2ffcf34e0a8716fe2520b38b44d69028b20aac56834a451ff",
+      "path": "artifacts/variant-fen-1-castling_rights.log",
+      "sha256": "deec02f19546f8f92b30b5dd259a728d67d46ead60df2334e7a828306bfe9fff"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "213dc2c21af5e55384507c589c2abb9af781d30c7587dcd0f72a9bb6cc24a029",
+      "path": "artifacts/variant-fen-1-en_passant.log",
+      "sha256": "ee32aa39d40787b295d393f09714765d61fa1fe6af1e53adeff9bcc68ec295e8"
+    },
+    {
+      "bytes": 83,
+      "lf_normalized_sha256": "03b3ecf5c6af6f1fb343107d9c575feb88c12013e18e90998f77db095832829c",
+      "path": "artifacts/variant-fen-1-imbalance.log",
+      "sha256": "9e22d0c9e2a181b63385d98531f1b7d658daa577efc1ad34a6a0eaeb164b13c6"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "9f326b6175bbf5b083bb006348b61457c53e3a06f20739a2ebaad71f5e31c20c",
+      "path": "artifacts/variant-fen-1-opening.log",
+      "sha256": "65b6f564f351506cec38aadc830b6d018b0e4060552802451a63deaffeb2fa96"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "e943c0d3bfa6f24bfdeaf351c333cb1aa436b8e1064d0bab1a0f48a29f52d915",
+      "path": "artifacts/variant-fen-1-opening_history.log",
+      "sha256": "25fab97ff0922c594ce024654ba7406b1b85702ecb4e5efd6720941d7e323359"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "97da3046c40dd2c42ed79907022d27767bedab0b1a539d702ecaac98f39ae7aa",
+      "path": "artifacts/variant-fen-1-pawn_endgame.log",
+      "sha256": "7b7aa1f403f8d5d5292d5a06f541edae98b9bea4daab4f92979cba87e24ee8d3"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "c1a9784dd94661ff75cef955f0559371b23250df0cc2d16053fc636e65ad64d5",
+      "path": "artifacts/variant-fen-1-piece_endgame.log",
+      "sha256": "e8dbaed8ab35583b0657da81fb6e25d7821793ff1b7387ed002774eef7c45c87"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "c321515dbd23554b4a8f37a86285196da10e9cddbafbcd33b787879f19c9bc8e",
+      "path": "artifacts/variant-fen-1-pins.log",
+      "sha256": "e05d4c10e426d86d4e01c04e624eca26ef572f260888ccb02eb920726d7892a4"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "7494f2c2ccf137a62734fbbc8ef3b863bd614cdeca6154c96dfe1dfdd4d3a953",
+      "path": "artifacts/variant-fen-1-promotion.log",
+      "sha256": "58b46737993fdd0a594f5b59ccf2f38a2674b4831b6aa177f15958dd5b9b386d"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "eb09d650b5fea3f63e0b37e2ed1c36aa582c59f8c37dd27879238d4428c7b597",
+      "path": "artifacts/variant-fen-1-quiet_middlegame.log",
+      "sha256": "8ce9d2e986622b1ef00ae80650787f4ca3a70634a72be633a8b0ab2c9d98c1f9"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "65cba0b60af373493131dbb6ca55a3f3d0000a3a3bf9d7bbd1aedbb9232f8c50",
+      "path": "artifacts/variant-fen-1-tactical.log",
+      "sha256": "3bbd188ee57c950e1f3cb22719e1c7d530608e90351afb506c3c750237020a4e"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "0bc924496bf68b7790859e973dfb0c94531dd424d50d6e090b3bcd9e97299a3b",
+      "path": "artifacts/variant-fen-2-attack_complex.log",
+      "sha256": "1b70132b8fb87d180d97651499ac9d32eb9481a63fcf74986787598600109368"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "45759bab37b7dcc4d6f16fc3e1742cacda474abcebda6382f7f6205515f9cce5",
+      "path": "artifacts/variant-fen-2-castling_rights.log",
+      "sha256": "f2d04d25357f2a26d328f3a4545e77610b5eeffaae7f55a20053237823b54ee2"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "2a97073384f5652647707d9e6723b1775c1952ade6646f806b9008171631cd19",
+      "path": "artifacts/variant-fen-2-en_passant.log",
+      "sha256": "2cc770ed0d8048d5da160ae0a57cc23b3d3303edeeac95103c27af534891af68"
+    },
+    {
+      "bytes": 82,
+      "lf_normalized_sha256": "573eb1ee688fe5c1fe7501761ae74cb7f4bde9945cca396db411e80f81722b94",
+      "path": "artifacts/variant-fen-2-imbalance.log",
+      "sha256": "9a841aceb0d877d3687f0cd7ccadc8791c84b37134d945531be48b4d9defb78b"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "f9c5188be17b48ef311a8fcc0e2e082426a11102b698e44ca213a8e057c02421",
+      "path": "artifacts/variant-fen-2-opening.log",
+      "sha256": "5d9a640da41b9131b637fc01768884996f52d04d538290ecc5deb62647fcee4e"
+    },
+    {
+      "bytes": 83,
+      "lf_normalized_sha256": "0b10934099e6b5110f9e48e066282288406b2b80f487d5b92e332fda4335ba7a",
+      "path": "artifacts/variant-fen-2-opening_history.log",
+      "sha256": "7e396479c67d9084052f1310312a5a6c8366c0fc86512d5dcc28d328e17ca102"
+    },
+    {
+      "bytes": 83,
+      "lf_normalized_sha256": "42f9d8a17472b8a31e35c8c36443e89a3e8cfe47c36102a67baef90c6480509f",
+      "path": "artifacts/variant-fen-2-pawn_endgame.log",
+      "sha256": "6595008a5fe3e0a1cbba38a53c977633018b1fa4de62f9a82f785b34e48116e1"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "284c01342a6d4394f80fe82111a667be9d6cee235b242f16eb2e6e393b8e0eeb",
+      "path": "artifacts/variant-fen-2-piece_endgame.log",
+      "sha256": "6759ac4f0d826350b9566c4d7c391c4d8b1b40b39feb6a91334646b4b0d8c62d"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "78c4955815f8af1e5c084a3a604fa37dee709b15b84891259bf896c5231c498f",
+      "path": "artifacts/variant-fen-2-pins.log",
+      "sha256": "41b7efeaf131199bda0d18509a6ae35a0430d70478b3bede39d3201498b2cae8"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "fe27283264c5574ebd0b7bcd40bc93d4424cd047d3aadee5bd0c33614a9366c5",
+      "path": "artifacts/variant-fen-2-promotion.log",
+      "sha256": "f4d2b79505b0cc1d65fd152f059e4e8d09ae8ccb876b4c585e994ca70e2c940a"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "29e589c3f2fdc19857cd12231a500f5c9581c757e9a8ed7406050f96f72cd6af",
+      "path": "artifacts/variant-fen-2-quiet_middlegame.log",
+      "sha256": "0b94494c33cce073189f3f0ebc2887803c834cbec5717459f58f622df6e8af4b"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "3e56f866af599efff25e9e5780d7b7bc66ae28634db8192b18377bed9586bb93",
+      "path": "artifacts/variant-fen-2-tactical.log",
+      "sha256": "f174effd451eb31970a1ca89a9f12e0779b2b80522c652fe7dcfb033d28d360e"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "9b8fb36fb81135114c75b80b5c1bef55c8385de201657c029d79a911acd33ec2",
+      "path": "artifacts/variant-fen-3-attack_complex.log",
+      "sha256": "ed3fa1279fecfdc95cd044586e39d6c8eb6774a0b5854f3d4904c0fde700bec0"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "a94a59f6c720a8775e9d66ac5f5a4bad6030a2c87a72b0764bcdda2fc7381c84",
+      "path": "artifacts/variant-fen-3-castling_rights.log",
+      "sha256": "cebd23bc17ed1301dd1feb98a41e42ef0d50edfa13579b9c0f12c4ff4aa4cac3"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "ba30e2de3cb4b4747eb4bc36507202f8ce18f724c155ec589a7a319172a0679e",
+      "path": "artifacts/variant-fen-3-en_passant.log",
+      "sha256": "8e2f6ac817d65c3f2207e3adc43d72bbc4f71d8dedb8b502d8ad02b7d2bf5190"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "10fae7c61985042c17cd733c344bca13c72a954fa18a98198063f43f564da22e",
+      "path": "artifacts/variant-fen-3-imbalance.log",
+      "sha256": "0039cd0b86848cc94d384240a959b880ce86fcf0f6abaff7b7c0819805f93cd3"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "65a353d0fffe536c664766f2fe91f834b3ec4732fc3c0b6a4aeb796dc3e757b2",
+      "path": "artifacts/variant-fen-3-opening.log",
+      "sha256": "4c1eb23bc6adaa8a61e608d2c7a49fc51a1590c91f16021efd7dad88441ad95a"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "13b3add71adc7b4634bae5b679b37c23b63241ac15dfd033ee7e43b5b904100a",
+      "path": "artifacts/variant-fen-3-opening_history.log",
+      "sha256": "d9f6bb166f7d30976648f67417472cca7a8e668684344492cb766553bf076104"
+    },
+    {
+      "bytes": 83,
+      "lf_normalized_sha256": "1bac70d39353f87f55cb5dd48d1c919d2af14a22098b3fc167cf2a67330ce78d",
+      "path": "artifacts/variant-fen-3-pawn_endgame.log",
+      "sha256": "5782e3ce986d3c5220ac493ec9503db501baf115384e4389a82c80386dec6770"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "39bc657b0495b76832eaa4d16fbf938c6a97259b76334b6bb74d2295b5badb5a",
+      "path": "artifacts/variant-fen-3-piece_endgame.log",
+      "sha256": "1c4a1066d88c193724dc40ac55c879a99975aa4d4f59c3bd670aa2217039e218"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "575e6537adfc1a778653cd521699ddf0d1f35c0d8428feb83b9539dc30f39976",
+      "path": "artifacts/variant-fen-3-pins.log",
+      "sha256": "c543776ccfab240b50775fd4899434b9bbab4fd0482cdd5a6c21918ca5b748da"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "75a67a5004f174b65dfe80b7a0d26e8fe56b623d4d84a94ae839c2e3c50389ee",
+      "path": "artifacts/variant-fen-3-promotion.log",
+      "sha256": "15e12188a529dba9e03c48a5232ad16ffd172c568f507131ffc181f409564d5d"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "921b8b75c609c9fab005252173a271331a3efa5126b64850ad39281ab8de1b0f",
+      "path": "artifacts/variant-fen-3-quiet_middlegame.log",
+      "sha256": "97dc863bab19eec738e2c883278c3f78135339f8be4269488b24a10d29f06b54"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "15f3814d09c3f33b0a0ae230a981988ed7028977f7b6954a3b90e3910097b451",
+      "path": "artifacts/variant-fen-3-tactical.log",
+      "sha256": "70ba0c0ef30c339ab01268f09540f846747270a9b0b1de2efe0b17836cbb177f"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "926316efd26b5127221a7379ed5e5bfc69e4e91967d72cb65001fa724cf3d397",
+      "path": "artifacts/variant-fen-4-attack_complex.log",
+      "sha256": "bf14d156a87b7b4c6cafdfbfa4897629143ab7521219b7eb5f1d13287e65b2be"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "9f3c94d2735514c822b1a378fc4e7dfd7e3905ff89544c8bd72f4a5bbfcf2310",
+      "path": "artifacts/variant-fen-4-castling_rights.log",
+      "sha256": "de4aaf7faf6d2fd724d93d6f507a2535b14ea323ac2ef0d4394de2029407e304"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "006283d47c6b61039154b3ac3be22bb37b24099ed83aef0868bbdaf09414e660",
+      "path": "artifacts/variant-fen-4-en_passant.log",
+      "sha256": "4111fd674e4323c1e04b6984e94bea128b1791c0ba96999606467e5145b8ee27"
+    },
+    {
+      "bytes": 83,
+      "lf_normalized_sha256": "4cd7d6803ecb5cf7f4020dcec9187c2557ea116dee3d6032270fbe1d3b0f5d14",
+      "path": "artifacts/variant-fen-4-imbalance.log",
+      "sha256": "da87c15cf1405fce9d458cf69f180b43b7bd5423d8ea280398e63cfc8a990fb4"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "f0a59976d4fb268a8d302f104686a98fac0bd46ab0624eb99756deedd4879578",
+      "path": "artifacts/variant-fen-4-opening.log",
+      "sha256": "23aa556cfa9716f25e9c99e775c46e4af2305332e5a7e88f00b68382c3a8aba9"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "e1e14c472fd3840bf3013f17b40febd4509e945dd43e2289ddcfafe1d6cbc3db",
+      "path": "artifacts/variant-fen-4-opening_history.log",
+      "sha256": "3fa2d4c84b1ad23414b3b86dba94e1a0d4970a36aa37ef54632417a1e32164a8"
+    },
+    {
+      "bytes": 83,
+      "lf_normalized_sha256": "2fc7cc9dec8a8d28c4726df790e9049ef2de374a56c2faca7a0fb7d2fed5451b",
+      "path": "artifacts/variant-fen-4-pawn_endgame.log",
+      "sha256": "9984e645af263f6772a193f6c2b9ee2d7479415fc1ee025aa7de72704561df47"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "45a343e49d3c6ade88d34fcc7d798c528fcc254160b366674f37ad6927d63bb9",
+      "path": "artifacts/variant-fen-4-piece_endgame.log",
+      "sha256": "2469c382193756cf2d7712ff17932befa82f8326378378c8eb38be221498181f"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "47f7f115a49e41e6396b0f8dc11b13d365bc777229022c11c575f9b6fd22fc37",
+      "path": "artifacts/variant-fen-4-pins.log",
+      "sha256": "305e5dec334c039037bcb611b0887cba3cd7e6a7c6d5222ffa017d9167d4d662"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "994d37f8abca32ff29fdb518776910a453274abe281ee0e45d45e525462545a7",
+      "path": "artifacts/variant-fen-4-promotion.log",
+      "sha256": "bd57569016eaf75bd8e3f11483c503f45a9e2e75e16c8649a4682f69cbd1f9dd"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "3bb67f4de338d7a17bd5d6168676879386d0edf2521074b95cbeb5026cb9240a",
+      "path": "artifacts/variant-fen-4-quiet_middlegame.log",
+      "sha256": "7c2da820d1e2412f136691a4297470ff94e9c6845c7102b30417fa968a9e90cc"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "f2495eb35dc260f391c3e0106d8ace2f1d0c2b848f3f4f037cec0e634d1c8918",
+      "path": "artifacts/variant-fen-4-tactical.log",
+      "sha256": "ee56bed3a3d6fbdf3e2a070d60526a2257e870cb62c2aade48ecbaa3d02b5388"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "d40f244a32f57285866fd51673c5372598aa02d2052aa8a371d7012636ad0d75",
+      "path": "artifacts/variant-fen-5-attack_complex.log",
+      "sha256": "0e54e0b51736c16a9e7e740968546fa482714bc37c929d2cac1ee30c9ed6cc47"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "919562c8e50ec5a6b27cbfe478749076543e2a7ee62e144ed6adc194a65f7492",
+      "path": "artifacts/variant-fen-5-castling_rights.log",
+      "sha256": "33df5eab2ece2dd13bb7875a9c9d7bab0ff19a79eed8b4852bbf1a12a5cb8e26"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "0545ed4c85630e5d8d8b4ae55871da5d6cf940b40670d1b2de26e8d9ce0c00ef",
+      "path": "artifacts/variant-fen-5-en_passant.log",
+      "sha256": "730b006bac23323cf1a42af5c12bad10bbab77df63dfa90e7344bbfbe93c8006"
+    },
+    {
+      "bytes": 83,
+      "lf_normalized_sha256": "013142184f1a3ebd3214c1d8efff73b5f39ef495d2c8f8f8325ecec2417fa546",
+      "path": "artifacts/variant-fen-5-imbalance.log",
+      "sha256": "48679cf547594d73d6bf484a7f39cb8964f10f3e59a7bd60011d439bf3e25bc6"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "fe3a11de78fac462b7731d44b2d40bb09fea578e60f3e3f173ae05ec166c1a80",
+      "path": "artifacts/variant-fen-5-opening.log",
+      "sha256": "95cbb2374673d6a731b240001270a8245ea5c713db88a37ce00812c454a33c42"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "92e0af9df22c7c18726a31ac76643e50a2e246a40db7246e1286b342ebce6fe1",
+      "path": "artifacts/variant-fen-5-opening_history.log",
+      "sha256": "5d20e33924912d8e155ce71ef4cd619879c2ba8f5e508f60481185c5481293c0"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "50d4c24baebae1d0e94885540cf3a93476052c0b9991a4ec1d39d76612bd6031",
+      "path": "artifacts/variant-fen-5-pawn_endgame.log",
+      "sha256": "df7b64dd4fb3c0260ac8a14ff41cc9b3ab296b7130f5baf9fbe04ba872cc760f"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "784147d4a0884a30ccd2698a27c71d31b63d350209803af1290553c9c8f7af94",
+      "path": "artifacts/variant-fen-5-piece_endgame.log",
+      "sha256": "561880614ad7efd0a9745bb15376f69a34cde799152c463104f182981713e82d"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "a5cd7a9457b64b8b5f06f516156c3d2f7430de0cc630b15169a519143a8ed45f",
+      "path": "artifacts/variant-fen-5-pins.log",
+      "sha256": "a0a40431fc6f7ac55ce047d111bf4a47c741e3713f8a79dc94eea23eeaa70c65"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "8d156d442344415b08fea95d6853aa9649ef406772a21c3a10d38ddd3701341b",
+      "path": "artifacts/variant-fen-5-promotion.log",
+      "sha256": "16f119a0f8e122e20872107065764a5c9e7773c8a09dbe05f4c98f56bd2f73bc"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "39fdd7900cb3a420d8868763f6751bb029a44d7f17e076518e4ca0391b5faf0d",
+      "path": "artifacts/variant-fen-5-quiet_middlegame.log",
+      "sha256": "8d310dec4eb7346b0223a6cfc18d5a8669494f6e92c46674e4c92f6627db7384"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "9b6b3f7892248e66b03613ee5e3b707f0357ceeee0caa4146280cb5a3ac4f5d2",
+      "path": "artifacts/variant-fen-5-tactical.log",
+      "sha256": "fd9726d067af474e65c3cf121e9bc7262e229430922be41bea7d50a4c666d270"
+    },
+    {
+      "bytes": 83,
+      "lf_normalized_sha256": "ddeada7de74ce020044e5bd5b7abf35412928b2bf2a58592cf7f3fa253663a2f",
+      "path": "artifacts/variant-fen-6-attack_complex.log",
+      "sha256": "36f4a92a412bc850f14a1b8f8b74d4df255398a037b03facc13fd87c57c9c8b8"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "f2394bee8c12a151238633dabf7c090dc2d970fec55738a663f1078d4e5820c5",
+      "path": "artifacts/variant-fen-6-castling_rights.log",
+      "sha256": "0031439a997608dfa2e830e26eb86a87a4c4cbf16e64fecd359d89e314023a94"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "36e50d1b7788718e5922a093b4f214e2ef099e5ed2008f01a3f1518c9729ffe9",
+      "path": "artifacts/variant-fen-6-en_passant.log",
+      "sha256": "39b49665485887337ae3fc0ecbdf9e4e82999267d32ce2d8b9700c94c4dac7fa"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "1360b3c5258196ee79a9a3726782fab20d567189444283448c3839bd33b7d729",
+      "path": "artifacts/variant-fen-6-imbalance.log",
+      "sha256": "1905319e0a263abfab6dd4c5e05a1e0411b6ec0fdbb569118ffe96e3a8fe9770"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "55c5de2043fe5db6072120779435faee7e443b921b7775914250f1097cb796f1",
+      "path": "artifacts/variant-fen-6-opening.log",
+      "sha256": "ef9cff3da5624da5da07ada9026e4d93873213b4411d40c8d4bbeb59f74c6c4f"
+    },
+    {
+      "bytes": 83,
+      "lf_normalized_sha256": "86e24fbabfa3f886931c8c7f8fbc5a5c8a33007ebdf3c80578d0a258837ce4a4",
+      "path": "artifacts/variant-fen-6-opening_history.log",
+      "sha256": "a4b8b724b6ca7036486ed2d33b799820bdfe9edcceedaa705df5e62dd8705631"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "b09ff9aae882af86f313ded239d0cff2555fd848c144593c3c151644720cf900",
+      "path": "artifacts/variant-fen-6-pawn_endgame.log",
+      "sha256": "2c11b43bc892a9375da291c859c7a714481e916726404a7c47391fca8a462873"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "4dff6e8c74ebba1318104c2e0b6a22a29734d7d9d07c2a70f16b53e576210323",
+      "path": "artifacts/variant-fen-6-piece_endgame.log",
+      "sha256": "37b663602118524dd84f14d7d7b84b844a748e63eca44a088314ceab7e868d28"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "9d9c593edc469d416f97c5baaf872f7b9b837baf1cfb198eb685324a95ae371c",
+      "path": "artifacts/variant-fen-6-pins.log",
+      "sha256": "403d36bef9408bbc615305c3cbcc40445b37d2c3c82fe9194a428f160321098a"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "370a72c8d3b7fab8e76aacafd45ef6b7aa249732acbf05c42132c0ec15b61d90",
+      "path": "artifacts/variant-fen-6-promotion.log",
+      "sha256": "12a2d913d8f2a2c67e6ad73a13945cee66eb0bf42ae842258f899fe2ae44f695"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "b70eb9aa0d08c321aa09aff4884bb6e6777d36470ca53fe30eb9072462e516fd",
+      "path": "artifacts/variant-fen-6-quiet_middlegame.log",
+      "sha256": "ec084db4e35795146dc12fb48f6e136a4e2b9a6598b8011331038b6e3bc7aa3e"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "0cb7437346461f627e542a68f311b015009fe4770b07db1889b48559c7d4107e",
+      "path": "artifacts/variant-fen-6-tactical.log",
+      "sha256": "548dd68bac4a2d0ad01b06bc9b516c4308c55296d85064321139ca19cc282852"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "454d12180d54a5b5228fe1eba0bc59a45534aef730f11777def294334ea29478",
+      "path": "artifacts/variant-micro-0-1.log",
+      "sha256": "caf1db056fe0faf38f76a3db53ee1d7a12233d13d4b13a9b3812d0b771b42abe"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "c2099a5800cdb6df40dd9eabf113cf1374e6d4bc53814ad8ed5b792ebe329473",
+      "path": "artifacts/variant-micro-0-128.log",
+      "sha256": "0f12b2b50254398871cd2755e1686d3d5bc1a0b4ebed6cd479562d1801d25fe0"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "dfc0855706874ac4a80d4f29909f3fbdcfec77b079078ab1ada02565da18abea",
+      "path": "artifacts/variant-micro-0-32.log",
+      "sha256": "1e0f6fd09d40c374c4d49f622959be0c9f4d30f0e960d0e3e8fc9ecfafe1d65a"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "c345dafa6428128d61c72eca180842147513556e138e330f58ddf770f6558d61",
+      "path": "artifacts/variant-micro-0-512.log",
+      "sha256": "02185c1e6ebc272a67e7638abd8abbb2fb30332d0521331c818bf7bca17a2f3a"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "11121e87707f47e3c332cc4383447620522f2af5b72d3f8b84502d995944312d",
+      "path": "artifacts/variant-micro-1-1.log",
+      "sha256": "f8c4897c5a8132546144d30c8427e59af1470d91aa76cde052181cd5a0dd645f"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "eddd42c53c9a5b2982d81d42f2a6773dc3e069387cdd1e4064d6596a5b29ab59",
+      "path": "artifacts/variant-micro-1-128.log",
+      "sha256": "476d6ee39506181e539ff1a35e6da297adeda7d2b49261e3532eeb139ff8fbcb"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "e00971ed60279578e34f450c9405fc3cdbc960a8ab09adb55f331d62965b7118",
+      "path": "artifacts/variant-micro-1-32.log",
+      "sha256": "9b54bfda7b0f7e8dcd11bd040738b5ee25d0d268c78baba052669a74ce79c4c3"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "ea8c01fcc049e9d3a58ea3e6cd8433be12a94ba552c283a2a7b30d2103ad091b",
+      "path": "artifacts/variant-micro-1-512.log",
+      "sha256": "e8c9f9f02c6e5eb906ede8e6ba86695d6006f79dce67df8736c3b9121bee6adb"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "d37b4bc6b3750e71f809114232cb35b8388ad181d9a84db5f57c0cfe7158e42d",
+      "path": "artifacts/variant-micro-2-1.log",
+      "sha256": "4fd974857b49105bd375bc9f57b48219d80f25f395fb71d3fff19f78eada8d45"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "8c5e49cf1120e8efa39827f9b4c070c5a45525439b16eac98dd2d04af887bbbd",
+      "path": "artifacts/variant-micro-2-128.log",
+      "sha256": "7d7ebe0595b8f890109bfd9d38deef5b601171da5b9847f4d18e914159180c5e"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "34d1ff0b8a658f55a6bf14716dbd038f5f568bbed3912ef74889ddc7f0e7caa7",
+      "path": "artifacts/variant-micro-2-32.log",
+      "sha256": "4e7eef51e8d97943efb6ce74f688c845b3ca5082100635fef6cc4c1712dfd869"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "1569118f0b3a6796a6594b638292141e3d40928b49df6f555937e6b2c11ad29a",
+      "path": "artifacts/variant-micro-2-512.log",
+      "sha256": "fd4d40a40971154400a4676501cfb4ed26d2913a7118c1cb0c4732ab332cadc3"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "145f235db5f942ffe8a9e00ff77bfe903724377058e9c4aa3eb6271560682f01",
+      "path": "artifacts/variant-micro-3-1.log",
+      "sha256": "06ddd4b8220dfa2c6b8e6cddb0c4adb062f615befae5fcd9f0d0cf146e3eab6b"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "44bd2171e3ea79c0c522d5f407b09e386b47aac1342ceddf28bd5d6d73f7cd22",
+      "path": "artifacts/variant-micro-3-128.log",
+      "sha256": "989a7c62b84838dba7ba25515077b7f6c2027d5aa14227a66863fea698c1f10f"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "28e0d169d5ae9dc2953b21f2e005ec7ac9e650b6e24062b3cca6aec5ca06ce63",
+      "path": "artifacts/variant-micro-3-32.log",
+      "sha256": "91b5f1ca71fe6f40b554b553de0efcefd26abc696e1fc09cea3019053b0ed071"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "3ad5de96cf1d6c66aee69d64b13f240be7723865076dedb9e6c5a1ea54ee7d71",
+      "path": "artifacts/variant-micro-3-512.log",
+      "sha256": "56d9f1fb8c5a439208d137b84e1c65097c6fcb6c3c17c4dd6e8c1a740e965ad1"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "b02baf032960d03711b768183fd586da19a6acf935dc4738fecbc706e2bf5a79",
+      "path": "artifacts/variant-micro-4-1.log",
+      "sha256": "a1b3506b4df0d1b6a74289654e9fcdcc30817b733616c7997fd4a962c4ccc9a6"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "181be2d4c999a1dce7349aa508c542af7d1b574a90c099142386123fee96786e",
+      "path": "artifacts/variant-micro-4-128.log",
+      "sha256": "aeafc6ae1c41186772738cb0f249b9deaeb4a30dcf4a99193192d7ab4955c0e0"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "684df5a6f01158d581234d96c3c25f4f17269d427a7fe75888fceb3a0d0053f2",
+      "path": "artifacts/variant-micro-4-32.log",
+      "sha256": "0ab417d0f53d4c589a46e434923f97677c58f6ff836b8304d8724844c2592df5"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "78bc103a90a5e535e962090da59f1cc9b744dcb813c1dc741d00e52122fece79",
+      "path": "artifacts/variant-micro-4-512.log",
+      "sha256": "2226106f60f5571466c50976ceeb33ff71618e028ab9d1daa81576f55b3f7267"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "cf3fbd4d7049418dcbc2b7a2bb8646ff874fad2b90791368150c5b8d35f08374",
+      "path": "artifacts/variant-micro-5-1.log",
+      "sha256": "5debbed9478c472a75550a913c0ad282ec937d5d3b6e891d80b81dfc4e862f7a"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "22a14ca56e523e821266b8c32200605518a7b95277a7d4b38e4a0e4f4a9724c9",
+      "path": "artifacts/variant-micro-5-128.log",
+      "sha256": "04ae0600f8a3e98f1afd56475a11edb76829dab8c8947dc39b6a0e5a7e4b67c4"
+    },
+    {
+      "bytes": 84,
+      "lf_normalized_sha256": "ba3b9e9377724ef0d244a89b791dcc90393011684061df07619f344c1fefa0eb",
+      "path": "artifacts/variant-micro-5-32.log",
+      "sha256": "efc3dfad1ffb9d92818e800ab620fc2362b8d898e3b58a3f3b9d7ad3889ef5bf"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "da4c1dc9ca109a0d166356e02947631d73ddb80f04fde905c38ec4e56c3a8c1d",
+      "path": "artifacts/variant-micro-5-512.log",
+      "sha256": "b93a3db81b0cb613abbf59219b272970750b84950bd2831202531f0ef3f78452"
+    },
+    {
+      "bytes": 85,
+      "lf_normalized_sha256": "ca9cf29c9d59db0e8fbde0dbc7b6754909885f1704b70a991089b674b0f86744",
+      "path": "artifacts/variant-micro-6-1.log",
+      "sha256": "43e0741c21dd57832a9e2501a2d3f27e9a1c3dbf976d23033915d43bdfce2112"
+    },
+    {
+      "bytes": 87,
+      "lf_normalized_sha256": "2812562e7f17bf0e7ce0a444d03a76322858091eb616e471657a454af90cb407",
+      "path": "artifacts/variant-micro-6-128.log",
+      "sha256": "8fc18a2d253b1bfaa0e148eec1b729750dea8c80cacdba7771f8a1d308871b0d"
+    },
+    {
+      "bytes": 83,
+      "lf_normalized_sha256": "511677325474eece74c70795af897c5ba54e13c581450cc87d2cc97356f43f65",
+      "path": "artifacts/variant-micro-6-32.log",
+      "sha256": "6c92dd58ff22686f0a78f1bc05b8b9822cf25519465a6e1a6fdb45f1c12687f9"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "ae6e120c6313f0d8f399ee5b77d6a61ee58fc03d2d5c08ee6531355806440cd8",
+      "path": "artifacts/variant-micro-6-512.log",
+      "sha256": "4c3683f61210ebf26c4677d8b426d95c64375133c30f0ea24db345ddadaefde6"
+    },
+    {
+      "bytes": 3427,
+      "lf_normalized_sha256": "5dbbfdb7d63064e3be60da7c42ab8d63aac1a4153a011b263ad184d77dd48c06",
+      "path": "artifacts/variant-micro-build.log",
+      "sha256": "f0bd415bbfa0c956b306810e598e0f4cfd7797bcf47e09314b091406d3a81fab"
+    },
+    {
+      "bytes": 0,
+      "lf_normalized_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path": "artifacts/variant-oracle-build.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 6980,
+      "lf_normalized_sha256": "65e4c0754331d9f19f643d4f6212c22bfbf1e088471ea5a523614e329671b35c",
+      "path": "artifacts/variant-source/diagnostics.hpp",
+      "sha256": "65e4c0754331d9f19f643d4f6212c22bfbf1e088471ea5a523614e329671b35c"
+    },
+    {
+      "bytes": 23298,
+      "lf_normalized_sha256": "7ab1e16a8f0c178ecc4d08cbb59239ad0168c1d178baab8fc9670048cf0945d7",
+      "path": "artifacts/variant-source/evaluation.cpp",
+      "sha256": "87ed00f717a19d593969b3b84d4e48586a8dc576d54ac1260350648a967639f7"
+    },
+    {
+      "bytes": 2827,
+      "lf_normalized_sha256": "01f5eac3194175f4f6615629146ce95700de2a0c351cae49b8346ac635b05c91",
+      "path": "artifacts/variant-source/evaluation.hpp",
+      "sha256": "01f5eac3194175f4f6615629146ce95700de2a0c351cae49b8346ac635b05c91"
+    },
+    {
+      "bytes": 1027,
+      "lf_normalized_sha256": "2d1af8a6465e59bb0fce0878b694736207dcbd065c9419a3e7d5ba858196b92b",
+      "path": "artifacts/variant-source/evaluation_masks.hpp",
+      "sha256": "2d1af8a6465e59bb0fce0878b694736207dcbd065c9419a3e7d5ba858196b92b"
+    },
+    {
+      "bytes": 36288,
+      "lf_normalized_sha256": "528cdb3c03b342cb847770c1efdd999868af4cb03aa00c58528e9e7ad831c055",
+      "path": "artifacts/variant-source/main.cpp",
+      "sha256": "362490731ab3ce6697d6eeb34019e528c72c846dba9de2da93e532b909b66fc4"
+    },
+    {
+      "bytes": 25506,
+      "lf_normalized_sha256": "fbfd3435b388e5f8e1f6f2c88293383cc7d304319634f76dffce27312409f084",
+      "path": "artifacts/variant-source/nnue.cpp",
+      "sha256": "d67607fac275e63c8274a81ea14f002266320c3afd1260ea66d1cd3534976953"
+    },
+    {
+      "bytes": 2969,
+      "lf_normalized_sha256": "276ec5bca364106193e10bf550f355ecfbe86be86e6084c5b3d60f4e030ecf79",
+      "path": "artifacts/variant-source/nnue.hpp",
+      "sha256": "276ec5bca364106193e10bf550f355ecfbe86be86e6084c5b3d60f4e030ecf79"
+    },
+    {
+      "bytes": 12054,
+      "lf_normalized_sha256": "01373c0025bb10fd7ff0294d4964e3b971e226496ee6dece88beb8ded8a6940e",
+      "path": "artifacts/variant-source/nnue_v3.cpp",
+      "sha256": "01373c0025bb10fd7ff0294d4964e3b971e226496ee6dece88beb8ded8a6940e"
+    },
+    {
+      "bytes": 1716,
+      "lf_normalized_sha256": "b00f39759c1e48d5dc787dbed2dee32498f9422e01aa92ab58100b0285be9a20",
+      "path": "artifacts/variant-source/nnue_v3.hpp",
+      "sha256": "b00f39759c1e48d5dc787dbed2dee32498f9422e01aa92ab58100b0285be9a20"
+    },
+    {
+      "bytes": 699,
+      "lf_normalized_sha256": "f4240a187937c41f1b70ea2a901b1efd3b0b9c9309db8a0e4643a776bf6fc6ca",
+      "path": "artifacts/variant-source/pawn_cache.hpp",
+      "sha256": "f4240a187937c41f1b70ea2a901b1efd3b0b9c9309db8a0e4643a776bf6fc6ca"
+    },
+    {
+      "bytes": 1245,
+      "lf_normalized_sha256": "5a7b342185a4abbeca3638eaca0de2d9c3caa02a7f00710f631b9f87d4c5614c",
+      "path": "artifacts/variant-source/principal_variation.hpp",
+      "sha256": "5a7b342185a4abbeca3638eaca0de2d9c3caa02a7f00710f631b9f87d4c5614c"
+    },
+    {
+      "bytes": 2394,
+      "lf_normalized_sha256": "845501b14addab91c5839f89b747344b28e9b99846bafb8fddc50e0090d0a1e6",
+      "path": "artifacts/variant-source/profiling.hpp",
+      "sha256": "845501b14addab91c5839f89b747344b28e9b99846bafb8fddc50e0090d0a1e6"
+    },
+    {
+      "bytes": 3210,
+      "lf_normalized_sha256": "a7f007ab55fd4bb3a6d4fae93b97b25e371faefc633351c0a70cd4eb40be111b",
+      "path": "artifacts/variant-source/pst.hpp",
+      "sha256": "a7f007ab55fd4bb3a6d4fae93b97b25e371faefc633351c0a70cd4eb40be111b"
+    },
+    {
+      "bytes": 1257,
+      "lf_normalized_sha256": "3e815c8e3f825105cf0f43a61750aa452c6f46a9c04a456b14a43dc09e07ea72",
+      "path": "artifacts/variant-source/scoped_move.hpp",
+      "sha256": "3e815c8e3f825105cf0f43a61750aa452c6f46a9c04a456b14a43dc09e07ea72"
+    },
+    {
+      "bytes": 30435,
+      "lf_normalized_sha256": "425b00c0dbebab3475135ccf6d67efc6f890c3326a8074a5c19b3f34b7ff096a",
+      "path": "artifacts/variant-source/search.cpp",
+      "sha256": "d769cb77fd417b70af0b746688624fcacda176f518a869869d62b4eca78cee2c"
+    },
+    {
+      "bytes": 3680,
+      "lf_normalized_sha256": "d7a6bdfa6305f76bda3121cb674b038ff75f5b5fd9384b761d4eacd224270634",
+      "path": "artifacts/variant-source/search.hpp",
+      "sha256": "d7a6bdfa6305f76bda3121cb674b038ff75f5b5fd9384b761d4eacd224270634"
+    },
+    {
+      "bytes": 1824,
+      "lf_normalized_sha256": "059079dae8af260882b8af136acb53561a9a866f9525b38dd6eccaab2bf2d5a0",
+      "path": "artifacts/variant-source/search_policy.hpp",
+      "sha256": "06cd21e30dc793570a2d717c9cd6976320342a2c21cac6f392fd64b548e54324"
+    },
+    {
+      "bytes": 2045,
+      "lf_normalized_sha256": "967e262cc393b231aa59dbe20b3b4cfc6fef528a2a0794e767a2852f3d56ce09",
+      "path": "artifacts/variant-source/stage1_head.hpp",
+      "sha256": "967e262cc393b231aa59dbe20b3b4cfc6fef528a2a0794e767a2852f3d56ce09"
+    },
+    {
+      "bytes": 5971,
+      "lf_normalized_sha256": "133f330350dbf68f1f6e31bf67e8b310e1d639577918b626a5e4bb5b6cab7d68",
+      "path": "artifacts/variant-source/strength.hpp",
+      "sha256": "133f330350dbf68f1f6e31bf67e8b310e1d639577918b626a5e4bb5b6cab7d68"
+    },
+    {
+      "bytes": 793,
+      "lf_normalized_sha256": "08880e1a158016cb43e4d05c818baa0d85f48a0d673837c3e43842251caf6f59",
+      "path": "artifacts/variant-source/terminal_rules.hpp",
+      "sha256": "08880e1a158016cb43e4d05c818baa0d85f48a0d673837c3e43842251caf6f59"
+    },
+    {
+      "bytes": 4904,
+      "lf_normalized_sha256": "e41ab9b9e1bbf3f313d61e812e40e4dfebbc0debc6964ee85a83f68668b9d6a0",
+      "path": "artifacts/variant-source/transposition.hpp",
+      "sha256": "e41ab9b9e1bbf3f313d61e812e40e4dfebbc0debc6964ee85a83f68668b9d6a0"
+    },
+    {
+      "bytes": 58,
+      "lf_normalized_sha256": "9171f52235270baa731f548fccd72cf8121989cc7eeb8b76f0ecd15c7c060e6e",
+      "path": "artifacts/variant-transitions.log",
+      "sha256": "f387a70ca9fb4d1ddaf61fe546fc84db8d4ad16a993946b11c742dd48d6f76d9"
+    },
+    {
+      "bytes": 12985291,
+      "lf_normalized_sha256": "5ce61a9e38b98341e4cc7f754966a36250dd9d511bd5e70efb2171a4afec6bb7",
+      "path": "artifacts/variant.s",
+      "sha256": "5ce61a9e38b98341e4cc7f754966a36250dd9d511bd5e70efb2171a4afec6bb7"
+    },
+    {
+      "bytes": 4039,
+      "lf_normalized_sha256": "bd181a2fc2fdaf01458098e4d31887f0c3a1bfd8d587423490a56bd0be5fa45a",
+      "path": "assembly-audit.json",
+      "sha256": "bd181a2fc2fdaf01458098e4d31887f0c3a1bfd8d587423490a56bd0be5fa45a"
+    },
+    {
+      "bytes": 4224,
+      "lf_normalized_sha256": "cbf69450fb424f8564442d908fb2d8d481b3a86eac27fe0d4be6ae375c8de393",
+      "path": "assembly-audit.log",
+      "sha256": "c6214186e86207ded1f843653b8a631a3ecdf0b471ca802a42c0da153198103c"
+    },
+    {
+      "bytes": 4499,
+      "lf_normalized_sha256": "362aaa98c30da5a2d02176d492dba98bc32e3934651a3f6755c02d29fd378e14",
+      "path": "assembly_audit.py",
+      "sha256": "362aaa98c30da5a2d02176d492dba98bc32e3934651a3f6755c02d29fd378e14"
+    },
+    {
+      "bytes": 15963,
+      "lf_normalized_sha256": "7932a3f0fc340a6dad86bfe411f233a1d2f682ce8fb6e1785c6ac0ddddaf25a5",
+      "path": "baseline-head-assembly.txt",
+      "sha256": "7542076e9fc460d585a8ffb3219b3bef0ee6a609f3e4020f490d78d315005513"
+    },
+    {
+      "bytes": 1640,
+      "lf_normalized_sha256": "c24f334ee59b4fd03cfcfbf75a24c86b3436c1d6fb9a18f11eb92888ae70ed67",
+      "path": "build-baseline-engine.json",
+      "sha256": "c24f334ee59b4fd03cfcfbf75a24c86b3436c1d6fb9a18f11eb92888ae70ed67"
+    },
+    {
+      "bytes": 1065,
+      "lf_normalized_sha256": "bde10fe18d6d8f342979d652769ad7db433ca1c03fae817d994a6788830e94c7",
+      "path": "build-baseline-micro.json",
+      "sha256": "bde10fe18d6d8f342979d652769ad7db433ca1c03fae817d994a6788830e94c7"
+    },
+    {
+      "bytes": 1612,
+      "lf_normalized_sha256": "0a0cf5a8eb9c85b531610ee1dd0d392cf71fe508d1e22d8cb8903bbe080ce450",
+      "path": "build-baseline-oracle.json",
+      "sha256": "0a0cf5a8eb9c85b531610ee1dd0d392cf71fe508d1e22d8cb8903bbe080ce450"
+    },
+    {
+      "bytes": 1231,
+      "lf_normalized_sha256": "3d34001b46e275ddc9073aea22058883127cad3a8c3ffe811ecf8c25bb51bca2",
+      "path": "build-legacy-golden.json",
+      "sha256": "3d34001b46e275ddc9073aea22058883127cad3a8c3ffe811ecf8c25bb51bca2"
+    },
+    {
+      "bytes": 1695,
+      "lf_normalized_sha256": "302177d7e7f46949dcf48c2de7541956b77283980e7c68b44a3789ad17c70acc",
+      "path": "build-variant-engine.json",
+      "sha256": "302177d7e7f46949dcf48c2de7541956b77283980e7c68b44a3789ad17c70acc"
+    },
+    {
+      "bytes": 1124,
+      "lf_normalized_sha256": "8dd469162a081141c2ecae966a3fcc6a00a24f40747c68b50328c98719054c85",
+      "path": "build-variant-micro.json",
+      "sha256": "8dd469162a081141c2ecae966a3fcc6a00a24f40747c68b50328c98719054c85"
+    },
+    {
+      "bytes": 1668,
+      "lf_normalized_sha256": "458385ba116d46a070dd348b3f9cd9cf7801d3eafaca1acd74da2ffa837b06c5",
+      "path": "build-variant-oracle.json",
+      "sha256": "458385ba116d46a070dd348b3f9cd9cf7801d3eafaca1acd74da2ffa837b06c5"
+    },
+    {
+      "bytes": 133,
+      "lf_normalized_sha256": "952251ded8da329168b7b03299f31f2c106d07fa7e18e7913947f5c223e0404c",
+      "path": "build.log",
+      "sha256": "625dc73789473af3f94a51c205773bed6601067ca18f274e38392377f328e9aa"
+    },
+    {
+      "bytes": 1463,
+      "lf_normalized_sha256": "8a3831653f96acae93229dae69192abb2543a92ac790ef7d32ab403fd887a0cd",
+      "path": "config.json",
+      "sha256": "8a3831653f96acae93229dae69192abb2543a92ac790ef7d32ab403fd887a0cd"
+    },
+    {
+      "bytes": 1073108,
+      "lf_normalized_sha256": "d72b9a1b6d32621ea7181ae3099b43eee20be8386f3f9090a8c39a882575d547",
+      "path": "correctness.json",
+      "sha256": "d72b9a1b6d32621ea7181ae3099b43eee20be8386f3f9090a8c39a882575d547"
+    },
+    {
+      "bytes": 396,
+      "lf_normalized_sha256": "f14169248af25645b8f4fcc8433fa352645576911e1c86d9b12ae4aeff790870",
+      "path": "correctness.log",
+      "sha256": "4bc48082cef65ccce889c2d4665dd0e76d9db7207bad0e3d5b0e73743b45760d"
+    },
+    {
+      "bytes": 1831,
+      "lf_normalized_sha256": "887d1fbc1005a11993755fe2d1a494c885f1afa6877d0a62359e753060270d15",
+      "path": "environment-after.json",
+      "sha256": "a256e2655687632c412b964e1be1185b959ed4a7434b0cd5030fb02442449f4f"
+    },
+    {
+      "bytes": 1765,
+      "lf_normalized_sha256": "20fbbd6a1a3263c568c3f947e3c2b512086516abfd31ef298eaa9ccf9c01e022",
+      "path": "environment-before.json",
+      "sha256": "f5f9c03add8d6dff6d0ddb10e1afaff9c373f7832a6a43439957ad1cbb9e792c"
+    },
+    {
+      "bytes": 13359,
+      "lf_normalized_sha256": "4b3a620aa5ce5f4f7df9d0ac1ab97f0f0163f8dee214bf2317816208bab69fdf",
+      "path": "experiment.py",
+      "sha256": "4b3a620aa5ce5f4f7df9d0ac1ab97f0f0163f8dee214bf2317816208bab69fdf"
+    },
+    {
+      "bytes": 14787,
+      "lf_normalized_sha256": "8875dc659fcabe6e6afdfa32c0fb2f2e2f580c3cd5ddf30421d6afb665063afb",
+      "path": "golden-fens.txt",
+      "sha256": "2012454ae6b54b362a3bc793b1788c3e49375615ced60d3564d52e14c75f777b"
+    },
+    {
+      "bytes": 9222,
+      "lf_normalized_sha256": "2bfa3de1c4d21789b5246dab06291ac1a89eeb407f7fa07490c4db0bc8f5734d",
+      "path": "head_harness.cpp",
+      "sha256": "2bfa3de1c4d21789b5246dab06291ac1a89eeb407f7fa07490c4db0bc8f5734d"
+    },
+    {
+      "bytes": 1999,
+      "lf_normalized_sha256": "01316dd8259d7786a04f96762517c9e3261328a143f3a1688dd20cdcf23642f9",
+      "path": "load_meter.py",
+      "sha256": "01316dd8259d7786a04f96762517c9e3261328a143f3a1688dd20cdcf23642f9"
+    },
+    {
+      "bytes": 45384,
+      "lf_normalized_sha256": "bd77fa0278b0d98581141ec73e2ec70d251063fc35f871c7462389a3d6c9c642",
+      "path": "micro.json",
+      "sha256": "bd77fa0278b0d98581141ec73e2ec70d251063fc35f871c7462389a3d6c9c642"
+    },
+    {
+      "bytes": 147,
+      "lf_normalized_sha256": "a2811aa3f8024fc86752c99855c7bc2a5e08665a99f7618de0f8683b182a83e4",
+      "path": "micro.log",
+      "sha256": "ff8387178e706ac15835a7bb0fa563e5a4d20bde6995ccd17f39bbde67a90995"
+    },
+    {
+      "bytes": 360,
+      "lf_normalized_sha256": "82462115c0b3893896b7bdada238c1dccdd9e33cb017075c27d57ea69ff5931f",
+      "path": "native-profile.log",
+      "sha256": "1ada72decc7b77022b67cdaf8c3a92a804554abdd08c3a6998b577be0636768e"
+    },
+    {
+      "bytes": 469711,
+      "lf_normalized_sha256": "c805c045c9399bc67a68af37cf291e3405398b435d2e070595ce5fc71eabb53e",
+      "path": "native-samples.json",
+      "sha256": "c805c045c9399bc67a68af37cf291e3405398b435d2e070595ce5fc71eabb53e"
+    },
+    {
+      "bytes": 363,
+      "lf_normalized_sha256": "29e99b91262a149260f0f19d92312895790ec4b96773cdfe9b87ba8bb7a9cf3b",
+      "path": "native-sampling-identity.json",
+      "sha256": "29e99b91262a149260f0f19d92312895790ec4b96773cdfe9b87ba8bb7a9cf3b"
+    },
+    {
+      "bytes": 88651,
+      "lf_normalized_sha256": "b31feded18eebd9902383cf1ce09479e6e76ad7418b8d61c98d17f136dd4c31e",
+      "path": "native-symbols-initial-unresolved.json",
+      "sha256": "b31feded18eebd9902383cf1ce09479e6e76ad7418b8d61c98d17f136dd4c31e"
+    },
+    {
+      "bytes": 313123,
+      "lf_normalized_sha256": "60defbdecd5b4343db7c9e7c635dd1a2667b9354a376e58e6c80e9eb3afc1cfb",
+      "path": "native-symbols.json",
+      "sha256": "60defbdecd5b4343db7c9e7c635dd1a2667b9354a376e58e6c80e9eb3afc1cfb"
+    },
+    {
+      "bytes": 18805,
+      "lf_normalized_sha256": "bff5dd05675977a6aaf68f0b3ac12ee3fb87ec33370b1f192b355def8978630c",
+      "path": "NNUE_STAGE1_OPTIMIZATION_REPORT.md",
+      "sha256": "96c67b32b4dca7ca9dadf83a29c1b9a7f12b5f666462d259735ed9b3603e7e39"
+    },
+    {
+      "bytes": 1529,
+      "lf_normalized_sha256": "2ff991cd03962f7164a8b3fa7628b060b9ee19519699ccaa0fa887b22212d820",
+      "path": "observe.ps1",
+      "sha256": "2ff991cd03962f7164a8b3fa7628b060b9ee19519699ccaa0fa887b22212d820"
+    },
+    {
+      "bytes": 1465,
+      "lf_normalized_sha256": "3197c017b93c7325273f99a023bfb31778da60dd4a1ffc2021cdac47ea895d0c",
+      "path": "plan.json",
+      "sha256": "3197c017b93c7325273f99a023bfb31778da60dd4a1ffc2021cdac47ea895d0c"
+    },
+    {
+      "bytes": 1933,
+      "lf_normalized_sha256": "5af929a593b39679df8872b6b56adc1765b2a7eef25b3b6fc24264a5c4ef5a29",
+      "path": "positions.json",
+      "sha256": "5af929a593b39679df8872b6b56adc1765b2a7eef25b3b6fc24264a5c4ef5a29"
+    },
+    {
+      "bytes": 62,
+      "lf_normalized_sha256": "4c931b5ade927921e04f989221ccb87878c7f4d2a084aab816c429685fdfddda",
+      "path": "preservation-after.json",
+      "sha256": "4c931b5ade927921e04f989221ccb87878c7f4d2a084aab816c429685fdfddda"
+    },
+    {
+      "bytes": 89107,
+      "lf_normalized_sha256": "4f9139d1582876dc738b0272a0ebb9da882802e4623b95051e39406a0391312b",
+      "path": "preservation-before.json",
+      "sha256": "4f9139d1582876dc738b0272a0ebb9da882802e4623b95051e39406a0391312b"
+    },
+    {
+      "bytes": 1754,
+      "lf_normalized_sha256": "7dbf0ee8f0a1ca5d05d88a88c976a7cdcc508376debd14c861352db177008b7f",
+      "path": "profile_remaining.py",
+      "sha256": "7dbf0ee8f0a1ca5d05d88a88c976a7cdcc508376debd14c861352db177008b7f"
+    },
+    {
+      "bytes": 279,
+      "lf_normalized_sha256": "e41ae19cfee51da0fa82091b0aaac98b9e45905dadb4ef5566554c839de9d429",
+      "path": "pytest.log",
+      "sha256": "2e41a4142fc671408ee3cda77c567ac4312fd921e29d1915459dd6af4a30ed28"
+    },
+    {
+      "bytes": 6569,
+      "lf_normalized_sha256": "441fe508aa849e7bda31750e9e8697387f8ca5e6451815cfb5ec488e3a556181",
+      "path": "README.md",
+      "sha256": "441fe508aa849e7bda31750e9e8697387f8ca5e6451815cfb5ec488e3a556181"
+    },
+    {
+      "bytes": 643273,
+      "lf_normalized_sha256": "00dc7d133c6b2d497df97906b8bf331d8152dc0404d745e2d28991a817b447b3",
+      "path": "regressions.json",
+      "sha256": "00dc7d133c6b2d497df97906b8bf331d8152dc0404d745e2d28991a817b447b3"
+    },
+    {
+      "bytes": 86,
+      "lf_normalized_sha256": "87f03c9a65b6821dfb041a6d9b52a8ea619efbe7bcbaec979f2baea53af558ec",
+      "path": "regressions.log",
+      "sha256": "a1b0025d6de915ab8e9ab0abddcbb11a333745cb0948211f1716abc8996ec780"
+    },
+    {
+      "bytes": 3530,
+      "lf_normalized_sha256": "fd668d4f4c201e36fa6d69e18b8c4b4dd34a6334c212c46d91207f5d5bb210ca",
+      "path": "regressions.py",
+      "sha256": "fd668d4f4c201e36fa6d69e18b8c4b4dd34a6334c212c46d91207f5d5bb210ca"
+    },
+    {
+      "bytes": 21144,
+      "lf_normalized_sha256": "ca29887e3f1b5ada8f7f6562d922ff2a391059d100556d2cfcd8777857a26015",
+      "path": "report.py",
+      "sha256": "ca29887e3f1b5ada8f7f6562d922ff2a391059d100556d2cfcd8777857a26015"
+    },
+    {
+      "bytes": 12532,
+      "lf_normalized_sha256": "76046b7fbd288d883c298282e441132f01559cccbe11d9e50a12713f80fe6c85",
+      "path": "search-per-position.csv",
+      "sha256": "43730354b452c34b6b366f88cb6c28c9753dc6af4df84d137e5c911598215430"
+    },
+    {
+      "bytes": 10798999,
+      "lf_normalized_sha256": "3f607cdf635dc7be6eb7b18a12fb4388dde269435d857dcb4a6c3151a935dcdc",
+      "path": "search.json",
+      "sha256": "3f607cdf635dc7be6eb7b18a12fb4388dde269435d857dcb4a6c3151a935dcdc"
+    },
+    {
+      "bytes": 2856,
+      "lf_normalized_sha256": "a3eca6277f4fe198d528ed30e76c45ecb0caa7275beff9116d4bea2abaee752d",
+      "path": "search.log",
+      "sha256": "9e3021d152a8a2c37b2c51afa5220639e5501a43f884fb7738f8a74f58b08ea2"
+    },
+    {
+      "bytes": 2045,
+      "lf_normalized_sha256": "967e262cc393b231aa59dbe20b3b4cfc6fef528a2a0794e767a2852f3d56ce09",
+      "path": "stage1_head.hpp",
+      "sha256": "967e262cc393b231aa59dbe20b3b4cfc6fef528a2a0794e767a2852f3d56ce09"
+    },
+    {
+      "bytes": 5090,
+      "lf_normalized_sha256": "6b6afa26b1d8cd2147a9fa2b75e965fdb95e9455b47381989d7f93910228926e",
+      "path": "validate.py",
+      "sha256": "6b6afa26b1d8cd2147a9fa2b75e965fdb95e9455b47381989d7f93910228926e"
+    },
+    {
+      "bytes": 485,
+      "lf_normalized_sha256": "997da8488687d9854e65bd7e8714c365c462df3066cd26d0f08bc10d81ccc351",
+      "path": "validation.json",
+      "sha256": "997da8488687d9854e65bd7e8714c365c462df3066cd26d0f08bc10d81ccc351"
+    },
+    {
+      "bytes": 20597,
+      "lf_normalized_sha256": "81f4819110915dbc91da0d5a207247f0e60b461c384c994ccb431261e2a88019",
+      "path": "variant-head-assembly.txt",
+      "sha256": "4dc673233cf7b9a2cfc175ad0f370a9e642eadfffdeda993c92f5927a08b122a"
+    },
+    {
+      "bytes": 3197,
+      "lf_normalized_sha256": "50af00dfc1570eeef02d9a5e249a2759a9bb469239d58e6e2db1dff36dc2d1b4",
+      "path": "variant.patch",
+      "sha256": "5b7e3a4dda0a9ca207d2091c95a8b8a9fcf236b48646d89db85a004344680ac7"
+    }
+  ],
+  "network_sha256": "a08ce2c60280c8c6dffbbe2f653b6c481e8d5282be7bed203db8b72492b0a2d3",
+  "note": "Local profiling/optimization artifacts only. Compiler cache, bytecode, pytest temp and compiler objects/libraries excluded. Raw hashes describe local bytes; LF hashes allow Git text normalization. No dataset inventory.",
+  "report_lf_normalized_sha256": "bff5dd05675977a6aaf68f0b3ac12ee3fb87ec33370b1f192b355def8978630c",
+  "report_sha256": "96c67b32b4dca7ca9dadf83a29c1b9a7f12b5f666462d259735ed9b3603e7e39"
+}

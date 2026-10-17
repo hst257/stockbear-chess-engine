@@ -1,0 +1,20 @@
+{
+  "active_engine_promoted": false,
+  "experimental_source_changes": [
+    "main.cpp",
+    "nnue.cpp",
+    "stage1_head.hpp"
+  ],
+  "fixed_node_benchmark_pairs": 168,
+  "fixed_work_preflight_groups": 24,
+  "full_search_records": 840,
+  "head_bit_comparisons": 161420,
+  "micro_fen_records": 168,
+  "micro_working_set_records": 56,
+  "passed": true,
+  "production_sources_changed": [],
+  "protected_files": 713,
+  "sealed_test_access": false,
+  "tournaments": 0,
+  "training": false
+}

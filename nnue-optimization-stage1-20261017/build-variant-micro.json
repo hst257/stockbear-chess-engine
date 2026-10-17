@@ -1,0 +1,31 @@
+{
+  "command": [
+    "Z:\\Code\\Chess\\.venv\\Scripts\\python.exe",
+    "-m",
+    "ziglang",
+    "c++",
+    "-DCHESSLAB_NNUE_UPDATE=2",
+    "-std=c++17",
+    "-O2",
+    "-pthread",
+    "-Wall",
+    "-Wextra",
+    "-ffp-contract=off",
+    "-I",
+    "Z:\\Code\\Chess\\nnue-optimization-stage1-20261017\\artifacts\\generated",
+    "-I",
+    "Z:\\Code\\Chess\\engine\\vendor\\chess-library",
+    "-I",
+    "Z:\\Code\\Chess\\nnue-optimization-stage1-20261017\\artifacts\\variant-source",
+    "Z:\\Code\\Chess\\nnue-optimization-stage1-20261017\\head_harness.cpp",
+    "Z:\\Code\\Chess\\nnue-optimization-stage1-20261017\\artifacts\\variant-source\\nnue.cpp",
+    "-o",
+    "Z:\\Code\\Chess\\nnue-optimization-stage1-20261017\\artifacts\\variant\\micro.exe"
+  ],
+  "head_sha256": "967e262cc393b231aa59dbe20b3b4cfc6fef528a2a0794e767a2852f3d56ce09",
+  "sha256": "4fcd845eba20ea54d671686bd2ff782d25ecef3e95ee4864e949611f2180c1bf",
+  "source_sha256": {
+    "head_harness.cpp": "2bfa3de1c4d21789b5246dab06291ac1a89eeb407f7fa07490c4db0bc8f5734d",
+    "nnue.cpp": "d67607fac275e63c8274a81ea14f002266320c3afd1260ea66d1cd3534976953"
+  }
+}

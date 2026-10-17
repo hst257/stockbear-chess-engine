@@ -1,0 +1,37 @@
+{
+  "command": [
+    "Z:\\Code\\Chess\\.venv\\Scripts\\python.exe",
+    "-m",
+    "ziglang",
+    "c++",
+    "-DCHESSLAB_NNUE_UPDATE=2",
+    "-std=c++17",
+    "-O2",
+    "-pthread",
+    "-Wall",
+    "-Wextra",
+    "-ffp-contract=off",
+    "-I",
+    "Z:\\Code\\Chess\\nnue-optimization-stage1-20261017\\artifacts\\generated",
+    "-I",
+    "Z:\\Code\\Chess\\engine\\vendor\\chess-library",
+    "-I",
+    "Z:\\Code\\Chess\\nnue-optimization-stage1-20261017\\artifacts\\baseline-source",
+    "Z:\\Code\\Chess\\engine\\tests\\benchmark_nnue.cpp",
+    "Z:\\Code\\Chess\\nnue-optimization-stage1-20261017\\artifacts\\baseline-source\\search.cpp",
+    "Z:\\Code\\Chess\\nnue-optimization-stage1-20261017\\artifacts\\baseline-source\\evaluation.cpp",
+    "Z:\\Code\\Chess\\nnue-optimization-stage1-20261017\\artifacts\\baseline-source\\nnue.cpp",
+    "Z:\\Code\\Chess\\nnue-optimization-stage1-20261017\\artifacts\\baseline-source\\nnue_v3.cpp",
+    "-o",
+    "Z:\\Code\\Chess\\nnue-optimization-stage1-20261017\\artifacts\\baseline\\oracle.exe"
+  ],
+  "head_sha256": null,
+  "sha256": "f2b5236d787776125ef59399b9dc33aba52a292ff664ca501d82a578db84f87f",
+  "source_sha256": {
+    "benchmark_nnue.cpp": "2ea28f22af9575a49044ce2d52310996a5c55d38d27ea4031b7195b79264c5d6",
+    "evaluation.cpp": "87ed00f717a19d593969b3b84d4e48586a8dc576d54ac1260350648a967639f7",
+    "nnue.cpp": "8916fa27783fb88cfd7219a88e411f1f3df431e076f6d19424f051da8909bfbd",
+    "nnue_v3.cpp": "01373c0025bb10fd7ff0294d4964e3b971e226496ee6dece88beb8ded8a6940e",
+    "search.cpp": "d769cb77fd417b70af0b746688624fcacda176f518a869869d62b4eca78cee2c"
+  }
+}
