@@ -1,0 +1,2287 @@
+{
+  "config_sha256": "6a2fee32cc8b833c729d334c06165ee1ca0c5af57b7a59175b81cd971e4eeb92",
+  "files": {
+    ".gitattributes": {
+      "bytes": 216,
+      "lf_sha256": "301fcdb2ecc8505860a50b7c86b24c0ccaf940add128d514cf9a722075fc93f8",
+      "sha256": "301fcdb2ecc8505860a50b7c86b24c0ccaf940add128d514cf9a722075fc93f8"
+    },
+    "README.md": {
+      "bytes": 2841,
+      "lf_sha256": "3e6013a9acec06c5feef248fc753aa565941b205abf1f0f74eba753e5c2e5eff",
+      "sha256": "3e6013a9acec06c5feef248fc753aa565941b205abf1f0f74eba753e5c2e5eff"
+    },
+    "RESUME.md": {
+      "bytes": 2505,
+      "lf_sha256": "2e13c53622182b4f392e62ba1f2110a075523cb36f3d9e7cd691dbc7df334a86",
+      "sha256": "2e13c53622182b4f392e62ba1f2110a075523cb36f3d9e7cd691dbc7df334a86"
+    },
+    "STOCKBEAR_TOURNAMENT_1_REPORT.md": {
+      "bytes": 11931,
+      "lf_sha256": "01be008576c2f91049514d5c36d514df1ae8f7cd6a3048f0970f2a42e913640e",
+      "sha256": "93daba1506242d4fb811e3583c2b62e943762e5f8f1094318f3df4e75494621f"
+    },
+    "TOURNAMENT_1_FINALIST.json": {
+      "bytes": 9295,
+      "lf_sha256": "7435b3f4a0131d7b0b9dfe69d5af0ade2cccc7352e655adb9592e96a5393a256",
+      "sha256": "7435b3f4a0131d7b0b9dfe69d5af0ade2cccc7352e655adb9592e96a5393a256"
+    },
+    "analysis.json": {
+      "bytes": 11563,
+      "lf_sha256": "02bb8e0bf0b2f47bfc0a84a4fc810feda0c3b170db3682b7b9ac8bc2fda64401",
+      "sha256": "02bb8e0bf0b2f47bfc0a84a4fc810feda0c3b170db3682b7b9ac8bc2fda64401"
+    },
+    "analyze.py": {
+      "bytes": 23180,
+      "lf_sha256": "88eec69d81fd1750cfd37b05f8dfca0c3953b5dddd4466586d123d456cb94a47",
+      "sha256": "88eec69d81fd1750cfd37b05f8dfca0c3953b5dddd4466586d123d456cb94a47"
+    },
+    "binary-identities.json": {
+      "bytes": 1872,
+      "lf_sha256": "5a9482b86ea6a9ba65b0a4202742523a41f3b4d304083faee5578efc4bf021b4",
+      "sha256": "5a9482b86ea6a9ba65b0a4202742523a41f3b4d304083faee5578efc4bf021b4"
+    },
+    "environment.json": {
+      "bytes": 452,
+      "lf_sha256": "d9dce73ab992df6a8a8af31c20b760aadade7da3d3de702bfc75bf35dad7e01e",
+      "sha256": "d9dce73ab992df6a8a8af31c20b760aadade7da3d3de702bfc75bf35dad7e01e"
+    },
+    "events.jsonl": {
+      "bytes": 106,
+      "lf_sha256": "50a10a120e6a55d28c38a54f7e00be5444996038101f43cd5bad008ed0038a04",
+      "sha256": "50a10a120e6a55d28c38a54f7e00be5444996038101f43cd5bad008ed0038a04"
+    },
+    "final-audit.json": {
+      "bytes": 343,
+      "lf_sha256": "2aa643de8efade187e71d26a1cd302efe5f84700e8c8b865a264cca7329e1536",
+      "sha256": "2aa643de8efade187e71d26a1cd302efe5f84700e8c8b865a264cca7329e1536"
+    },
+    "final_audit.py": {
+      "bytes": 4409,
+      "lf_sha256": "b8134b5e9c1fc717bd48eb9be8e5d9f7f689de113ac8ec038f468db958586f1c",
+      "sha256": "b8134b5e9c1fc717bd48eb9be8e5d9f7f689de113ac8ec038f468db958586f1c"
+    },
+    "games.csv": {
+      "bytes": 8097,
+      "lf_sha256": "add6a96b9f524a214d6a5bd20048d607555e304c151ff1cef8d59ad67f98ef1d",
+      "sha256": "3748573bc065c7d0478c91df73889bb90705a5d06ec51ff42b8eaa4939c8bead"
+    },
+    "games.pgn": {
+      "bytes": 116421,
+      "lf_sha256": "d35a8e4dabf0ad2d5f4f4d1a9b8aee2a6a4eaa17577ce392c95c787c857d220e",
+      "sha256": "d35a8e4dabf0ad2d5f4f4d1a9b8aee2a6a4eaa17577ce392c95c787c857d220e"
+    },
+    "games/G001.json": {
+      "bytes": 166542,
+      "lf_sha256": "1ccc192ea3b3ea3c815a3cffdf0cace6f7ecd3c1d0a84e6812939a3641c0b78d",
+      "sha256": "1ccc192ea3b3ea3c815a3cffdf0cace6f7ecd3c1d0a84e6812939a3641c0b78d"
+    },
+    "games/G001.partial.json": {
+      "bytes": 165840,
+      "lf_sha256": "a8fdf308be7327aba19d884a737fd80439820b58dcdd315b24efa5179e266761",
+      "sha256": "a8fdf308be7327aba19d884a737fd80439820b58dcdd315b24efa5179e266761"
+    },
+    "games/G001.pgn": {
+      "bytes": 1311,
+      "lf_sha256": "065781196be6e9d1585e024cd406aa6de5495eb190d65d254944570b9d4392da",
+      "sha256": "065781196be6e9d1585e024cd406aa6de5495eb190d65d254944570b9d4392da"
+    },
+    "games/G002.json": {
+      "bytes": 204655,
+      "lf_sha256": "2315d8ed995d3b345ebce90ef246ba3641120e598156c6b5e08270bde65f489b",
+      "sha256": "2315d8ed995d3b345ebce90ef246ba3641120e598156c6b5e08270bde65f489b"
+    },
+    "games/G002.partial.json": {
+      "bytes": 203967,
+      "lf_sha256": "5becc936a49364ac23124c07ad5fe23504e12a9d05e5d9a8c6ca01d94e2fcfa5",
+      "sha256": "5becc936a49364ac23124c07ad5fe23504e12a9d05e5d9a8c6ca01d94e2fcfa5"
+    },
+    "games/G002.pgn": {
+      "bytes": 1429,
+      "lf_sha256": "c6d68a14183100a07a87ee4b20b87915007ebe485a79051a8aace46b3fd5bb6d",
+      "sha256": "c6d68a14183100a07a87ee4b20b87915007ebe485a79051a8aace46b3fd5bb6d"
+    },
+    "games/G003.json": {
+      "bytes": 258948,
+      "lf_sha256": "36e5119f4be260df2743fd942d5c90c2864cd8717e127e1f26add66b75c488df",
+      "sha256": "36e5119f4be260df2743fd942d5c90c2864cd8717e127e1f26add66b75c488df"
+    },
+    "games/G003.partial.json": {
+      "bytes": 258255,
+      "lf_sha256": "a8099a813fe88f1d07ed9a6018a5247c852a1c1c90498c79203ff9ea78436530",
+      "sha256": "a8099a813fe88f1d07ed9a6018a5247c852a1c1c90498c79203ff9ea78436530"
+    },
+    "games/G003.pgn": {
+      "bytes": 1615,
+      "lf_sha256": "d095c2fc0009d12629a39657e44f11849c669134267d0e1d7033c219d8acd2f0",
+      "sha256": "d095c2fc0009d12629a39657e44f11849c669134267d0e1d7033c219d8acd2f0"
+    },
+    "games/G004.json": {
+      "bytes": 209650,
+      "lf_sha256": "c94b3aba1f7134dec93aa1531cff1e8fbb59fed281e65405586426fd57b4dafb",
+      "sha256": "c94b3aba1f7134dec93aa1531cff1e8fbb59fed281e65405586426fd57b4dafb"
+    },
+    "games/G004.partial.json": {
+      "bytes": 208956,
+      "lf_sha256": "766e63f39250ae541101233b8bef38f3f119dcb835ae8081b98b09f41eeab2f1",
+      "sha256": "766e63f39250ae541101233b8bef38f3f119dcb835ae8081b98b09f41eeab2f1"
+    },
+    "games/G004.pgn": {
+      "bytes": 1439,
+      "lf_sha256": "32ab9a6713cf7f17b4b19d2638b46cf3769022f0b33665aacd4fa15ce070ca12",
+      "sha256": "32ab9a6713cf7f17b4b19d2638b46cf3769022f0b33665aacd4fa15ce070ca12"
+    },
+    "games/G005.json": {
+      "bytes": 323234,
+      "lf_sha256": "8a5c6b350d6104335bafb0d49f1853ae926df1f648686d1b5581eaaf83c2a393",
+      "sha256": "8a5c6b350d6104335bafb0d49f1853ae926df1f648686d1b5581eaaf83c2a393"
+    },
+    "games/G005.partial.json": {
+      "bytes": 322542,
+      "lf_sha256": "c9ab193b6a87adee5fd8b6a53070d086885db03937ca9f150013dbd1d6fc54d7",
+      "sha256": "c9ab193b6a87adee5fd8b6a53070d086885db03937ca9f150013dbd1d6fc54d7"
+    },
+    "games/G005.pgn": {
+      "bytes": 1846,
+      "lf_sha256": "debd5932863f3ccace36b2ef7b0b83df1be9e79273ead3d00918c51b7ce351d2",
+      "sha256": "debd5932863f3ccace36b2ef7b0b83df1be9e79273ead3d00918c51b7ce351d2"
+    },
+    "games/G006.json": {
+      "bytes": 180288,
+      "lf_sha256": "57a4a235e1c62892e15c6f5e59611fae2390cebbc62d9249fe2a7a1218064673",
+      "sha256": "57a4a235e1c62892e15c6f5e59611fae2390cebbc62d9249fe2a7a1218064673"
+    },
+    "games/G006.partial.json": {
+      "bytes": 179569,
+      "lf_sha256": "0006d7a89a6dd5248b1c4aa0ca62a28d81b94e1f92a4613aa66cc8993d08f22f",
+      "sha256": "0006d7a89a6dd5248b1c4aa0ca62a28d81b94e1f92a4613aa66cc8993d08f22f"
+    },
+    "games/G006.pgn": {
+      "bytes": 1375,
+      "lf_sha256": "1861d3471edd7cc7bc848dc3091a4a5946de41dfef7cbc0a1c3e4447bbad5272",
+      "sha256": "1861d3471edd7cc7bc848dc3091a4a5946de41dfef7cbc0a1c3e4447bbad5272"
+    },
+    "games/G007.json": {
+      "bytes": 115594,
+      "lf_sha256": "cf3930f7813b8a4498f41c8c02948c8210bee8432338b73d7648e87c25cf7065",
+      "sha256": "cf3930f7813b8a4498f41c8c02948c8210bee8432338b73d7648e87c25cf7065"
+    },
+    "games/G007.partial.json": {
+      "bytes": 114883,
+      "lf_sha256": "2478f13083ca074116b663a569731ab8a317c489350897845599fa1eaa31da20",
+      "sha256": "2478f13083ca074116b663a569731ab8a317c489350897845599fa1eaa31da20"
+    },
+    "games/G007.pgn": {
+      "bytes": 1146,
+      "lf_sha256": "9328334c0d31f918db5b483fafa7f75fcc537faa682eeb1b68da7ffba58cec89",
+      "sha256": "9328334c0d31f918db5b483fafa7f75fcc537faa682eeb1b68da7ffba58cec89"
+    },
+    "games/G008.json": {
+      "bytes": 115671,
+      "lf_sha256": "77d336e09123e3461e360d9cfc5aae7bfa1eb3da73e9705cecad34188cbd53cf",
+      "sha256": "77d336e09123e3461e360d9cfc5aae7bfa1eb3da73e9705cecad34188cbd53cf"
+    },
+    "games/G008.partial.json": {
+      "bytes": 114960,
+      "lf_sha256": "f5ba256c64ca8831ce6f1e603738bf59ae51d9b97bdaac5cced4c1c96455addd",
+      "sha256": "f5ba256c64ca8831ce6f1e603738bf59ae51d9b97bdaac5cced4c1c96455addd"
+    },
+    "games/G008.pgn": {
+      "bytes": 1146,
+      "lf_sha256": "409093501fd590f954c413a00aa71af4e318039123c0925a5c635667fae89455",
+      "sha256": "409093501fd590f954c413a00aa71af4e318039123c0925a5c635667fae89455"
+    },
+    "games/G009.json": {
+      "bytes": 218945,
+      "lf_sha256": "729cbeacdb60522629a366d6bb3476c060a7a4ba732f484d3c482e2f39c94525",
+      "sha256": "729cbeacdb60522629a366d6bb3476c060a7a4ba732f484d3c482e2f39c94525"
+    },
+    "games/G009.partial.json": {
+      "bytes": 218248,
+      "lf_sha256": "bf7d674086aa733e82db8e069379685f5dc459903a7b161b3120db28be1602d3",
+      "sha256": "bf7d674086aa733e82db8e069379685f5dc459903a7b161b3120db28be1602d3"
+    },
+    "games/G009.pgn": {
+      "bytes": 1481,
+      "lf_sha256": "eb9e4146ee6ad8ae071882ff313ed33547f8821a7d51db4b38a037fb2f1d0844",
+      "sha256": "eb9e4146ee6ad8ae071882ff313ed33547f8821a7d51db4b38a037fb2f1d0844"
+    },
+    "games/G010.json": {
+      "bytes": 228213,
+      "lf_sha256": "9129df7e6762d8f8efcf38212393296777ca3066ffc8b83d7e20e50e128c5a52",
+      "sha256": "9129df7e6762d8f8efcf38212393296777ca3066ffc8b83d7e20e50e128c5a52"
+    },
+    "games/G010.partial.json": {
+      "bytes": 227518,
+      "lf_sha256": "0dc2dd06d6ad1801346b6da03c2a2c2fc50e76f29d620b992db39bb20a77080b",
+      "sha256": "0dc2dd06d6ad1801346b6da03c2a2c2fc50e76f29d620b992db39bb20a77080b"
+    },
+    "games/G010.pgn": {
+      "bytes": 1514,
+      "lf_sha256": "5d7c4f4c955293f562664d6dfe4c70a2078e81318beb5d496a37bf112481a917",
+      "sha256": "5d7c4f4c955293f562664d6dfe4c70a2078e81318beb5d496a37bf112481a917"
+    },
+    "games/G011.json": {
+      "bytes": 145399,
+      "lf_sha256": "95ad7cc768b4c5dd1d05857389ff26de86a60cc80b708c4fed663189fca3fbdd",
+      "sha256": "95ad7cc768b4c5dd1d05857389ff26de86a60cc80b708c4fed663189fca3fbdd"
+    },
+    "games/G011.partial.json": {
+      "bytes": 144692,
+      "lf_sha256": "7ee37fb46aa7bd5562b743baef7ec131d7907feb6068b15bebb3e4f5e7c72c10",
+      "sha256": "7ee37fb46aa7bd5562b743baef7ec131d7907feb6068b15bebb3e4f5e7c72c10"
+    },
+    "games/G011.pgn": {
+      "bytes": 1230,
+      "lf_sha256": "66c268153e2c7d90fc8e94b2c827474112c3bec160521524e318dec11d56cf68",
+      "sha256": "66c268153e2c7d90fc8e94b2c827474112c3bec160521524e318dec11d56cf68"
+    },
+    "games/G012.json": {
+      "bytes": 145224,
+      "lf_sha256": "338478b3446e219f296fbfec310e6511b41af30d1b8899633c90e5e600169bc6",
+      "sha256": "338478b3446e219f296fbfec310e6511b41af30d1b8899633c90e5e600169bc6"
+    },
+    "games/G012.partial.json": {
+      "bytes": 144530,
+      "lf_sha256": "18f3b7830ece21a303eae40c5f4dae720c5c9ee8ee96205d45de86ccf4407af3",
+      "sha256": "18f3b7830ece21a303eae40c5f4dae720c5c9ee8ee96205d45de86ccf4407af3"
+    },
+    "games/G012.pgn": {
+      "bytes": 1230,
+      "lf_sha256": "d5d638a9165fdd2cb943ff564956746c2ff78edd5922064a4a68f9ea9bafc404",
+      "sha256": "d5d638a9165fdd2cb943ff564956746c2ff78edd5922064a4a68f9ea9bafc404"
+    },
+    "games/G013.json": {
+      "bytes": 199816,
+      "lf_sha256": "1c1ba0042f99c88763a29054cacf41966359b080586d7dbfbafc11f9b241af18",
+      "sha256": "1c1ba0042f99c88763a29054cacf41966359b080586d7dbfbafc11f9b241af18"
+    },
+    "games/G013.partial.json": {
+      "bytes": 199121,
+      "lf_sha256": "bf8c8949e234abe25ae96ccbb1f29a075ae9d4af8748422877b1deaccaf502a5",
+      "sha256": "bf8c8949e234abe25ae96ccbb1f29a075ae9d4af8748422877b1deaccaf502a5"
+    },
+    "games/G013.pgn": {
+      "bytes": 1405,
+      "lf_sha256": "239e44480300a2b7d711a75452e5b2fa0733285246dd34b91775465da44b1d27",
+      "sha256": "239e44480300a2b7d711a75452e5b2fa0733285246dd34b91775465da44b1d27"
+    },
+    "games/G014.json": {
+      "bytes": 240035,
+      "lf_sha256": "594e939fe5358e86953719fdb895cefe005787052dfb7b600a3cf2914d27b1f3",
+      "sha256": "594e939fe5358e86953719fdb895cefe005787052dfb7b600a3cf2914d27b1f3"
+    },
+    "games/G014.partial.json": {
+      "bytes": 239339,
+      "lf_sha256": "571c88c2991712d77b47c66713c07cf4e9c951aaf60be6a267f0acf0e75e8be9",
+      "sha256": "571c88c2991712d77b47c66713c07cf4e9c951aaf60be6a267f0acf0e75e8be9"
+    },
+    "games/G014.pgn": {
+      "bytes": 1543,
+      "lf_sha256": "7994c4f7b0f82cc76ffab97249b3a17f00c1cf71f5d7af41ff090c14e4f3be20",
+      "sha256": "7994c4f7b0f82cc76ffab97249b3a17f00c1cf71f5d7af41ff090c14e4f3be20"
+    },
+    "games/G015.json": {
+      "bytes": 265681,
+      "lf_sha256": "31e9a89182a8988546dee83994d664d99e2cbad2bf801016bf681883b74197b9",
+      "sha256": "31e9a89182a8988546dee83994d664d99e2cbad2bf801016bf681883b74197b9"
+    },
+    "games/G015.partial.json": {
+      "bytes": 264987,
+      "lf_sha256": "2cfa6be1dbcde85fe90b041e3cf3416154a45848c376903f8e57f956f92d5a45",
+      "sha256": "2cfa6be1dbcde85fe90b041e3cf3416154a45848c376903f8e57f956f92d5a45"
+    },
+    "games/G015.pgn": {
+      "bytes": 1627,
+      "lf_sha256": "f8c0dd21b183e786157ba78a15d3ae1da31254e9be9b4e1d874dab0b1db3e526",
+      "sha256": "f8c0dd21b183e786157ba78a15d3ae1da31254e9be9b4e1d874dab0b1db3e526"
+    },
+    "games/G016.json": {
+      "bytes": 116119,
+      "lf_sha256": "9bc82c42410348296d98a5364562ccefeb61644731b402ae867e718c7ab2e576",
+      "sha256": "9bc82c42410348296d98a5364562ccefeb61644731b402ae867e718c7ab2e576"
+    },
+    "games/G016.partial.json": {
+      "bytes": 115393,
+      "lf_sha256": "81649207b7a0d5c67fc70e13dc584fce83f0b14d35441761f31f5195d828741d",
+      "sha256": "81649207b7a0d5c67fc70e13dc584fce83f0b14d35441761f31f5195d828741d"
+    },
+    "games/G016.pgn": {
+      "bytes": 1147,
+      "lf_sha256": "528b79f5e8f92502bb1c352c2d95a250bfcae9676e42022728e4f0b09402f4a3",
+      "sha256": "528b79f5e8f92502bb1c352c2d95a250bfcae9676e42022728e4f0b09402f4a3"
+    },
+    "games/G017.json": {
+      "bytes": 146121,
+      "lf_sha256": "5cd77b0eec3828c7764342302605c7c04944dccf85adb43baa6a3066887c38c1",
+      "sha256": "5cd77b0eec3828c7764342302605c7c04944dccf85adb43baa6a3066887c38c1"
+    },
+    "games/G017.partial.json": {
+      "bytes": 145432,
+      "lf_sha256": "0f34817daf7c883d7d44a96a2d20d00dbc1d74c99d2c9a1110eb1211842095e1",
+      "sha256": "0f34817daf7c883d7d44a96a2d20d00dbc1d74c99d2c9a1110eb1211842095e1"
+    },
+    "games/G017.pgn": {
+      "bytes": 1261,
+      "lf_sha256": "1f37afdc075bebde27fecaafd9804d68633b747cb7c841ef906b7318b30b41f1",
+      "sha256": "1f37afdc075bebde27fecaafd9804d68633b747cb7c841ef906b7318b30b41f1"
+    },
+    "games/G018.json": {
+      "bytes": 279220,
+      "lf_sha256": "5dd613692d0a5e4857132f3e63047b969d0a263d5d3fb9f0d6510e004f331153",
+      "sha256": "5dd613692d0a5e4857132f3e63047b969d0a263d5d3fb9f0d6510e004f331153"
+    },
+    "games/G018.partial.json": {
+      "bytes": 278524,
+      "lf_sha256": "c5678180607b682fe0b876cf88e1cf0a73eaf51318b91063224b01889e80bbce",
+      "sha256": "c5678180607b682fe0b876cf88e1cf0a73eaf51318b91063224b01889e80bbce"
+    },
+    "games/G018.pgn": {
+      "bytes": 1701,
+      "lf_sha256": "71ee32cfc4fac787d2abdd584c2fa0ae57e6c380c02877be98fa367ee90289f3",
+      "sha256": "71ee32cfc4fac787d2abdd584c2fa0ae57e6c380c02877be98fa367ee90289f3"
+    },
+    "games/G019.json": {
+      "bytes": 154910,
+      "lf_sha256": "dd12d2721be759911012a0e04a0414b23073361ea7d35d1441c0ec1807e78e2f",
+      "sha256": "dd12d2721be759911012a0e04a0414b23073361ea7d35d1441c0ec1807e78e2f"
+    },
+    "games/G019.partial.json": {
+      "bytes": 154191,
+      "lf_sha256": "3d87399af0d7b69748a9643a29ef04e0c959fe524e3e5eac1bae499c9b919daf",
+      "sha256": "3d87399af0d7b69748a9643a29ef04e0c959fe524e3e5eac1bae499c9b919daf"
+    },
+    "games/G019.pgn": {
+      "bytes": 1284,
+      "lf_sha256": "5ef9a4c7a8827c911ae502815e336b9c5fcd46683534ed1852522cc9601c0a44",
+      "sha256": "5ef9a4c7a8827c911ae502815e336b9c5fcd46683534ed1852522cc9601c0a44"
+    },
+    "games/G020.json": {
+      "bytes": 264967,
+      "lf_sha256": "16761547a3417ccca84577588d035d997c05da9d2b2fd4fe8778e1e6e92368fa",
+      "sha256": "16761547a3417ccca84577588d035d997c05da9d2b2fd4fe8778e1e6e92368fa"
+    },
+    "games/G020.partial.json": {
+      "bytes": 264271,
+      "lf_sha256": "ad35fb710934a6501ce44256d1472af52b84fd51fbc40e01ab5127a62f560d56",
+      "sha256": "ad35fb710934a6501ce44256d1472af52b84fd51fbc40e01ab5127a62f560d56"
+    },
+    "games/G020.pgn": {
+      "bytes": 1621,
+      "lf_sha256": "e73fb6a5eeb99df406da97f99b389b35e33f755d00b94c157bc61438fa343964",
+      "sha256": "e73fb6a5eeb99df406da97f99b389b35e33f755d00b94c157bc61438fa343964"
+    },
+    "games/G021.json": {
+      "bytes": 130163,
+      "lf_sha256": "823141d10e11080014be6cb50063de16e41a1813d836b546f9c29f04a7a45dbf",
+      "sha256": "823141d10e11080014be6cb50063de16e41a1813d836b546f9c29f04a7a45dbf"
+    },
+    "games/G021.partial.json": {
+      "bytes": 129439,
+      "lf_sha256": "e50704d046b4a5f82bdce37e7d69407cd3136521cde4e2531ea1b86bd7783c7f",
+      "sha256": "e50704d046b4a5f82bdce37e7d69407cd3136521cde4e2531ea1b86bd7783c7f"
+    },
+    "games/G021.pgn": {
+      "bytes": 1208,
+      "lf_sha256": "64968c9ee47591812bd5c665bb2007b6dc2554c4ae909dcab033c6b36f9a0f67",
+      "sha256": "64968c9ee47591812bd5c665bb2007b6dc2554c4ae909dcab033c6b36f9a0f67"
+    },
+    "games/G022.json": {
+      "bytes": 193528,
+      "lf_sha256": "5acaec985ad84a78f0f138e830b72eefe8a6f7b1d4b927fb21ec8daef02642e2",
+      "sha256": "5acaec985ad84a78f0f138e830b72eefe8a6f7b1d4b927fb21ec8daef02642e2"
+    },
+    "games/G022.partial.json": {
+      "bytes": 192811,
+      "lf_sha256": "58ced412289f9432ea29ec6ca068b179c931205705d86ab339a3a956e211810d",
+      "sha256": "58ced412289f9432ea29ec6ca068b179c931205705d86ab339a3a956e211810d"
+    },
+    "games/G022.pgn": {
+      "bytes": 1427,
+      "lf_sha256": "c9c95f3bb738c5d6f20f657530ee9744e3ec301418a23aa32abdc99f22903293",
+      "sha256": "c9c95f3bb738c5d6f20f657530ee9744e3ec301418a23aa32abdc99f22903293"
+    },
+    "games/G023.json": {
+      "bytes": 263848,
+      "lf_sha256": "d0d4e572b06e36b975c8f8de6ce361f73272bbdc5e1e03e0d9fa40efb392a665",
+      "sha256": "d0d4e572b06e36b975c8f8de6ce361f73272bbdc5e1e03e0d9fa40efb392a665"
+    },
+    "games/G023.partial.json": {
+      "bytes": 263156,
+      "lf_sha256": "d52960ae289849b95707813f4f274e3b4136079763e7bebd51944f76ac8cbe3f",
+      "sha256": "d52960ae289849b95707813f4f274e3b4136079763e7bebd51944f76ac8cbe3f"
+    },
+    "games/G023.pgn": {
+      "bytes": 1631,
+      "lf_sha256": "ec5ab1cf3c5fb09fdff04c42d2b8a23c3962742ce9542510c4bfa6c7f5511683",
+      "sha256": "ec5ab1cf3c5fb09fdff04c42d2b8a23c3962742ce9542510c4bfa6c7f5511683"
+    },
+    "games/G024.json": {
+      "bytes": 187985,
+      "lf_sha256": "17171358c79eade46d0a455a6b02ad5e3d941eb41cef538d524c7d124f6d3427",
+      "sha256": "17171358c79eade46d0a455a6b02ad5e3d941eb41cef538d524c7d124f6d3427"
+    },
+    "games/G024.partial.json": {
+      "bytes": 187284,
+      "lf_sha256": "f2dc48972f131d8782f74ea4b0b20198057519f44e2af8c680a1099656ea3448",
+      "sha256": "f2dc48972f131d8782f74ea4b0b20198057519f44e2af8c680a1099656ea3448"
+    },
+    "games/G024.pgn": {
+      "bytes": 1375,
+      "lf_sha256": "914d78f538b06a0871d6d55312399d670094d2241852cb3d7023e9c80f645ccc",
+      "sha256": "914d78f538b06a0871d6d55312399d670094d2241852cb3d7023e9c80f645ccc"
+    },
+    "games/G025.json": {
+      "bytes": 210094,
+      "lf_sha256": "7c0d1caacc3aefe5aea300c84581d180f444c5ca7f8f5c2dd89c22c3a9d33f61",
+      "sha256": "7c0d1caacc3aefe5aea300c84581d180f444c5ca7f8f5c2dd89c22c3a9d33f61"
+    },
+    "games/G025.partial.json": {
+      "bytes": 209398,
+      "lf_sha256": "efe864e7094520be2fade6b93a2d40c96534d00802a270e9e722acddacb40de5",
+      "sha256": "efe864e7094520be2fade6b93a2d40c96534d00802a270e9e722acddacb40de5"
+    },
+    "games/G025.pgn": {
+      "bytes": 1433,
+      "lf_sha256": "e428fc93d2aa873b9f37da618d21372d226021ba1024dd4f1396f7b055202123",
+      "sha256": "e428fc93d2aa873b9f37da618d21372d226021ba1024dd4f1396f7b055202123"
+    },
+    "games/G026.json": {
+      "bytes": 242572,
+      "lf_sha256": "55407597c8a2fbafd4d796681470ed4b01e85eafa83edd4332d84cc914a0a1d5",
+      "sha256": "55407597c8a2fbafd4d796681470ed4b01e85eafa83edd4332d84cc914a0a1d5"
+    },
+    "games/G026.partial.json": {
+      "bytes": 241891,
+      "lf_sha256": "a7f175296cbcfaad32af586ba8fd03cef5cf706cabfd32398ea5360c6f92efe4",
+      "sha256": "a7f175296cbcfaad32af586ba8fd03cef5cf706cabfd32398ea5360c6f92efe4"
+    },
+    "games/G026.pgn": {
+      "bytes": 1517,
+      "lf_sha256": "687065721d925644ec02c787c21317ffe470be520e34c4551cbcd1a3190c40fc",
+      "sha256": "687065721d925644ec02c787c21317ffe470be520e34c4551cbcd1a3190c40fc"
+    },
+    "games/G027.json": {
+      "bytes": 86579,
+      "lf_sha256": "f2f2dd88d6758d4eedea53ed3841b4265f2873a422f1016ff0754303f24028c6",
+      "sha256": "f2f2dd88d6758d4eedea53ed3841b4265f2873a422f1016ff0754303f24028c6"
+    },
+    "games/G027.partial.json": {
+      "bytes": 85857,
+      "lf_sha256": "4be94519b44b62019b93ff62f786901f04ad2eb56fecb52284820fcd11cc7813",
+      "sha256": "4be94519b44b62019b93ff62f786901f04ad2eb56fecb52284820fcd11cc7813"
+    },
+    "games/G027.pgn": {
+      "bytes": 1054,
+      "lf_sha256": "d94f1e8e83686955b35089abd824bf31806715bafeff6e17d2e5755fd3e7819c",
+      "sha256": "d94f1e8e83686955b35089abd824bf31806715bafeff6e17d2e5755fd3e7819c"
+    },
+    "games/G028.json": {
+      "bytes": 425112,
+      "lf_sha256": "27006a78a0fdee88ccc66a254a29dd4727cd01c1026c6c134c62d623a66f3734",
+      "sha256": "27006a78a0fdee88ccc66a254a29dd4727cd01c1026c6c134c62d623a66f3734"
+    },
+    "games/G028.partial.json": {
+      "bytes": 424415,
+      "lf_sha256": "4b0bedaa987874ce35740a4d26cf0eb67d5630ddf85ca9abb2ee8affc514f431",
+      "sha256": "4b0bedaa987874ce35740a4d26cf0eb67d5630ddf85ca9abb2ee8affc514f431"
+    },
+    "games/G028.pgn": {
+      "bytes": 2190,
+      "lf_sha256": "fe43b37f58acc57f72341051962fce0c4451861092bb6f94ceb58545dc1e488c",
+      "sha256": "fe43b37f58acc57f72341051962fce0c4451861092bb6f94ceb58545dc1e488c"
+    },
+    "games/G029.json": {
+      "bytes": 142273,
+      "lf_sha256": "b3ce4fbcdb4a5d6e3041e13f42a5d910c10759b876a26cb1c14261661338e9b9",
+      "sha256": "b3ce4fbcdb4a5d6e3041e13f42a5d910c10759b876a26cb1c14261661338e9b9"
+    },
+    "games/G029.partial.json": {
+      "bytes": 141571,
+      "lf_sha256": "8c364f03d4bb68a1d5232fc7d02774b1f6665bcd1558e2bc5c9e5a3341ef673c",
+      "sha256": "8c364f03d4bb68a1d5232fc7d02774b1f6665bcd1558e2bc5c9e5a3341ef673c"
+    },
+    "games/G029.pgn": {
+      "bytes": 1223,
+      "lf_sha256": "9f36281cc0e0a9b834850e1cd2aabd1dcecc90827c2f10c897d67ad82a0f02cd",
+      "sha256": "9f36281cc0e0a9b834850e1cd2aabd1dcecc90827c2f10c897d67ad82a0f02cd"
+    },
+    "games/G030.json": {
+      "bytes": 142203,
+      "lf_sha256": "5262b8b64ff02b289fb76529eb2860c0055e42b2ca579427fc3b48ab0e2b2dd2",
+      "sha256": "5262b8b64ff02b289fb76529eb2860c0055e42b2ca579427fc3b48ab0e2b2dd2"
+    },
+    "games/G030.partial.json": {
+      "bytes": 141500,
+      "lf_sha256": "efec2d82b372719eb4e474d829b388b46203a2a8c6dc5682c42376f433ad0f3e",
+      "sha256": "efec2d82b372719eb4e474d829b388b46203a2a8c6dc5682c42376f433ad0f3e"
+    },
+    "games/G030.pgn": {
+      "bytes": 1223,
+      "lf_sha256": "beeada50d4c7ca0c6ce0ae946bd1bec79db64aeb6ab3841d5058267a8cb0577a",
+      "sha256": "beeada50d4c7ca0c6ce0ae946bd1bec79db64aeb6ab3841d5058267a8cb0577a"
+    },
+    "games/G031.json": {
+      "bytes": 155333,
+      "lf_sha256": "8bf958cf67520bdd3225ccbbf400fd99f1ba46ccfc18bde85ef7677724049bfb",
+      "sha256": "8bf958cf67520bdd3225ccbbf400fd99f1ba46ccfc18bde85ef7677724049bfb"
+    },
+    "games/G031.partial.json": {
+      "bytes": 154637,
+      "lf_sha256": "d1c805446d10dd4aa576837ca44232370dd30cd03c8f744ce1a014ea3855e302",
+      "sha256": "d1c805446d10dd4aa576837ca44232370dd30cd03c8f744ce1a014ea3855e302"
+    },
+    "games/G031.pgn": {
+      "bytes": 1271,
+      "lf_sha256": "f6ce568077a989fbf709bed4e36f067cd1d18501d87081c536de8448b3497a6d",
+      "sha256": "f6ce568077a989fbf709bed4e36f067cd1d18501d87081c536de8448b3497a6d"
+    },
+    "games/G032.json": {
+      "bytes": 229177,
+      "lf_sha256": "8bbd12854d2b1f3a526897303fc8939f2153b9ad42e450f8653a147a1cb1af68",
+      "sha256": "8bbd12854d2b1f3a526897303fc8939f2153b9ad42e450f8653a147a1cb1af68"
+    },
+    "games/G032.partial.json": {
+      "bytes": 228494,
+      "lf_sha256": "7dde2cb0ddc7bf99826c2df33e79da0fdefda70e3c36ece43e07b976362a588e",
+      "sha256": "7dde2cb0ddc7bf99826c2df33e79da0fdefda70e3c36ece43e07b976362a588e"
+    },
+    "games/G032.pgn": {
+      "bytes": 1520,
+      "lf_sha256": "59e9a2f4d679bd0074ed7e4e7096c9c35eab9e9f25aa8c1e8a14494dc926ad57",
+      "sha256": "59e9a2f4d679bd0074ed7e4e7096c9c35eab9e9f25aa8c1e8a14494dc926ad57"
+    },
+    "games/G033.json": {
+      "bytes": 187586,
+      "lf_sha256": "1a9fdedd1363c5b23f51016d1d5a4d507278eea5f94311532d89ea6bd410e23f",
+      "sha256": "1a9fdedd1363c5b23f51016d1d5a4d507278eea5f94311532d89ea6bd410e23f"
+    },
+    "games/G033.partial.json": {
+      "bytes": 186887,
+      "lf_sha256": "01953f676e15ff3e82f9bcaec70b65fc9e978eeb4cdba505e0a395e1f093ac82",
+      "sha256": "01953f676e15ff3e82f9bcaec70b65fc9e978eeb4cdba505e0a395e1f093ac82"
+    },
+    "games/G033.pgn": {
+      "bytes": 1346,
+      "lf_sha256": "baa3a0ff6e9979becd754525846a6ef8fb7bbf4531f7dc87927fabddd5105b85",
+      "sha256": "baa3a0ff6e9979becd754525846a6ef8fb7bbf4531f7dc87927fabddd5105b85"
+    },
+    "games/G034.json": {
+      "bytes": 187749,
+      "lf_sha256": "9ed0923d3313dd6cf39064ab77ac3ca1057d568a501ac3eb5729a498906d29eb",
+      "sha256": "9ed0923d3313dd6cf39064ab77ac3ca1057d568a501ac3eb5729a498906d29eb"
+    },
+    "games/G034.partial.json": {
+      "bytes": 187050,
+      "lf_sha256": "1ab89760f9c3a33e908cd922883670fd88ec695231e0e8a4fcd4475837dd3911",
+      "sha256": "1ab89760f9c3a33e908cd922883670fd88ec695231e0e8a4fcd4475837dd3911"
+    },
+    "games/G034.pgn": {
+      "bytes": 1346,
+      "lf_sha256": "7b4f17934eb3c3acb2f7e60b1ba6b3e9de599891a14bf10b6302855807fc8a65",
+      "sha256": "7b4f17934eb3c3acb2f7e60b1ba6b3e9de599891a14bf10b6302855807fc8a65"
+    },
+    "games/G035.json": {
+      "bytes": 331088,
+      "lf_sha256": "1c9d9dd03be6c637822fc7cb9e19485702a02bdf9449576beeca29f81686d033",
+      "sha256": "1c9d9dd03be6c637822fc7cb9e19485702a02bdf9449576beeca29f81686d033"
+    },
+    "games/G035.partial.json": {
+      "bytes": 330381,
+      "lf_sha256": "2b816481f4e2786919b4bddeb400e72357f26984d07fd91b66779b42097bd174",
+      "sha256": "2b816481f4e2786919b4bddeb400e72357f26984d07fd91b66779b42097bd174"
+    },
+    "games/G035.pgn": {
+      "bytes": 1859,
+      "lf_sha256": "5fd42623fc067dfe5fd378f824c8984cae219ec6fbef5ee77f7ca265196479ea",
+      "sha256": "5fd42623fc067dfe5fd378f824c8984cae219ec6fbef5ee77f7ca265196479ea"
+    },
+    "games/G036.json": {
+      "bytes": 321086,
+      "lf_sha256": "606773d87805bab2062e2b3ee08c68c21ed537c0a62a072ee6f29606d40e54bd",
+      "sha256": "606773d87805bab2062e2b3ee08c68c21ed537c0a62a072ee6f29606d40e54bd"
+    },
+    "games/G036.partial.json": {
+      "bytes": 320396,
+      "lf_sha256": "15d063f059911bee69dd77ed605cd93fa433c474dba5d94f05732fcbb9d0be77",
+      "sha256": "15d063f059911bee69dd77ed605cd93fa433c474dba5d94f05732fcbb9d0be77"
+    },
+    "games/G036.pgn": {
+      "bytes": 1817,
+      "lf_sha256": "c5f86221b3b2b9102f0fb35cde7bbaeabba80a4109d556850e35cddfb65fcd02",
+      "sha256": "c5f86221b3b2b9102f0fb35cde7bbaeabba80a4109d556850e35cddfb65fcd02"
+    },
+    "games/G037.json": {
+      "bytes": 226824,
+      "lf_sha256": "c82826e9fade2c14f9bb8e0672a085dd3cfcedc2c02129a9246593a508b91511",
+      "sha256": "c82826e9fade2c14f9bb8e0672a085dd3cfcedc2c02129a9246593a508b91511"
+    },
+    "games/G037.partial.json": {
+      "bytes": 226143,
+      "lf_sha256": "13a02e10fd1c2fc2da70823593a2fdc262bbdd99cc6bcec4fc253d64b5d9764e",
+      "sha256": "13a02e10fd1c2fc2da70823593a2fdc262bbdd99cc6bcec4fc253d64b5d9764e"
+    },
+    "games/G037.pgn": {
+      "bytes": 1492,
+      "lf_sha256": "c700cd8baba829bd9b9213806d4562eef404d2852ddd335bb99b36c88bae40d3",
+      "sha256": "c700cd8baba829bd9b9213806d4562eef404d2852ddd335bb99b36c88bae40d3"
+    },
+    "games/G038.json": {
+      "bytes": 147756,
+      "lf_sha256": "7d4c964df9dc007529ae376aa22d1c4981e31b03a704aca8a08b3096842f5f1f",
+      "sha256": "7d4c964df9dc007529ae376aa22d1c4981e31b03a704aca8a08b3096842f5f1f"
+    },
+    "games/G038.partial.json": {
+      "bytes": 147040,
+      "lf_sha256": "1156b4f0307847343a299f4b3b10e7e4ab74d207124bc2957e93c77173ea9855",
+      "sha256": "1156b4f0307847343a299f4b3b10e7e4ab74d207124bc2957e93c77173ea9855"
+    },
+    "games/G038.pgn": {
+      "bytes": 1234,
+      "lf_sha256": "0aa62d18ea1bc2792850ccde55b4095717ecc7e41778798f32bffe56eefda5a1",
+      "sha256": "0aa62d18ea1bc2792850ccde55b4095717ecc7e41778798f32bffe56eefda5a1"
+    },
+    "games/G039.json": {
+      "bytes": 158875,
+      "lf_sha256": "4919055963376f03848185bf169865eb2e7c1805b0c21aebd8f0d0e68e63d81b",
+      "sha256": "4919055963376f03848185bf169865eb2e7c1805b0c21aebd8f0d0e68e63d81b"
+    },
+    "games/G039.partial.json": {
+      "bytes": 158182,
+      "lf_sha256": "941ee9de6f0edd418db7958512ee7e3fc391e881d06cd8eb49c12245422b20a8",
+      "sha256": "941ee9de6f0edd418db7958512ee7e3fc391e881d06cd8eb49c12245422b20a8"
+    },
+    "games/G039.pgn": {
+      "bytes": 1253,
+      "lf_sha256": "92f846f6e389cbf337fb75272c9f0f98605d474b351d5cecf69ece87a637caaf",
+      "sha256": "92f846f6e389cbf337fb75272c9f0f98605d474b351d5cecf69ece87a637caaf"
+    },
+    "games/G040.json": {
+      "bytes": 224203,
+      "lf_sha256": "7a849b372c228bc214f5ef8d3bbde672a7624fd35103966e23930fc3947ce0d4",
+      "sha256": "7a849b372c228bc214f5ef8d3bbde672a7624fd35103966e23930fc3947ce0d4"
+    },
+    "games/G040.partial.json": {
+      "bytes": 223507,
+      "lf_sha256": "510d3c8f9cc5912e0cbc393a4a1b6dc7f14df9f07a3d4fcc00e8668521c19b09",
+      "sha256": "510d3c8f9cc5912e0cbc393a4a1b6dc7f14df9f07a3d4fcc00e8668521c19b09"
+    },
+    "games/G040.pgn": {
+      "bytes": 1470,
+      "lf_sha256": "c7f73131dc4116a89e28eaf583d710343ba2d57406f86ad652bc017ddcb196a4",
+      "sha256": "c7f73131dc4116a89e28eaf583d710343ba2d57406f86ad652bc017ddcb196a4"
+    },
+    "games/G041.json": {
+      "bytes": 180585,
+      "lf_sha256": "406e0f1e3404e59b8035019b19a084e571af2ce02fa3fa73a3f5112d0d2b358b",
+      "sha256": "406e0f1e3404e59b8035019b19a084e571af2ce02fa3fa73a3f5112d0d2b358b"
+    },
+    "games/G041.partial.json": {
+      "bytes": 179889,
+      "lf_sha256": "641256e8ce849a7267a80b3e12367c302018bc0f9a76e46c779fdda2b506dfdf",
+      "sha256": "641256e8ce849a7267a80b3e12367c302018bc0f9a76e46c779fdda2b506dfdf"
+    },
+    "games/G041.pgn": {
+      "bytes": 1364,
+      "lf_sha256": "944a19ee548ecb261520c22c144153695dab372f362a680efe00cbb5ddd8b338",
+      "sha256": "944a19ee548ecb261520c22c144153695dab372f362a680efe00cbb5ddd8b338"
+    },
+    "games/G042.json": {
+      "bytes": 115664,
+      "lf_sha256": "7c2432a5a552f0d03fcbfb1c1f3a145f31a1b3e91947550105521f2ec03a42af",
+      "sha256": "7c2432a5a552f0d03fcbfb1c1f3a145f31a1b3e91947550105521f2ec03a42af"
+    },
+    "games/G042.partial.json": {
+      "bytes": 114958,
+      "lf_sha256": "4e9865cca8dd1e6aaea06bcb696cea7f3023541812beaf8943e1c5887c664fa3",
+      "sha256": "4e9865cca8dd1e6aaea06bcb696cea7f3023541812beaf8943e1c5887c664fa3"
+    },
+    "games/G042.pgn": {
+      "bytes": 1150,
+      "lf_sha256": "1ff004ba35048f2485f362a7510abfdf526b18bedb01bf573a71abda915acda3",
+      "sha256": "1ff004ba35048f2485f362a7510abfdf526b18bedb01bf573a71abda915acda3"
+    },
+    "games/G043.json": {
+      "bytes": 230175,
+      "lf_sha256": "ded739c76bddc57ecad844c51043f1b081bb31d380a8522fa055faba9096a0aa",
+      "sha256": "ded739c76bddc57ecad844c51043f1b081bb31d380a8522fa055faba9096a0aa"
+    },
+    "games/G043.partial.json": {
+      "bytes": 229481,
+      "lf_sha256": "44140eab8c802ba566be16d502ca45603f54389eee54dba7bdbb9ba209a6ccb3",
+      "sha256": "44140eab8c802ba566be16d502ca45603f54389eee54dba7bdbb9ba209a6ccb3"
+    },
+    "games/G043.pgn": {
+      "bytes": 1497,
+      "lf_sha256": "d168824780175be86b5fb4564a7ef12c83df0b49e370abb3ed36de4b3141294c",
+      "sha256": "d168824780175be86b5fb4564a7ef12c83df0b49e370abb3ed36de4b3141294c"
+    },
+    "games/G044.json": {
+      "bytes": 339780,
+      "lf_sha256": "82445cddb02d964c8bc8e331d267f55527e231d69f5e83eda76c6905eb486e00",
+      "sha256": "82445cddb02d964c8bc8e331d267f55527e231d69f5e83eda76c6905eb486e00"
+    },
+    "games/G044.partial.json": {
+      "bytes": 339071,
+      "lf_sha256": "71899b58fcd0dd608e4598385c20b65fd68439e3a1b9f49f9e0b1901365a4fae",
+      "sha256": "71899b58fcd0dd608e4598385c20b65fd68439e3a1b9f49f9e0b1901365a4fae"
+    },
+    "games/G044.pgn": {
+      "bytes": 1893,
+      "lf_sha256": "b176c705552f8dc8160d9d499a2c0e84981affacd0689395d5edfd29a076eed8",
+      "sha256": "b176c705552f8dc8160d9d499a2c0e84981affacd0689395d5edfd29a076eed8"
+    },
+    "games/G045.json": {
+      "bytes": 129441,
+      "lf_sha256": "6cd09b34c81700ebb6ad1d6e47807e2d986780897ab4228db6d2861826cdab59",
+      "sha256": "6cd09b34c81700ebb6ad1d6e47807e2d986780897ab4228db6d2861826cdab59"
+    },
+    "games/G045.partial.json": {
+      "bytes": 128723,
+      "lf_sha256": "938d23c3a9971ebe353c0e7cc513377de2560c89c37c9c6bc1035b9848904b0f",
+      "sha256": "938d23c3a9971ebe353c0e7cc513377de2560c89c37c9c6bc1035b9848904b0f"
+    },
+    "games/G045.pgn": {
+      "bytes": 1178,
+      "lf_sha256": "0aea7cd521ef25681d3368ed3f454d905cfdea4b228785891da83b516b897b88",
+      "sha256": "0aea7cd521ef25681d3368ed3f454d905cfdea4b228785891da83b516b897b88"
+    },
+    "games/G046.json": {
+      "bytes": 173270,
+      "lf_sha256": "897339c21bf6af15284b7a5d095d2e5f35dac49a9275b0e588f405b200f81f1f",
+      "sha256": "897339c21bf6af15284b7a5d095d2e5f35dac49a9275b0e588f405b200f81f1f"
+    },
+    "games/G046.partial.json": {
+      "bytes": 172581,
+      "lf_sha256": "5ae995d5b1b24dbb567cc3e401e5b1fa8142c2353eebb6f42dbd27bdb31a098f",
+      "sha256": "5ae995d5b1b24dbb567cc3e401e5b1fa8142c2353eebb6f42dbd27bdb31a098f"
+    },
+    "games/G046.pgn": {
+      "bytes": 1308,
+      "lf_sha256": "c5e37551e0d7b4bf9e836fbb21c1f735c35b13cdc1fbc94253f17cc9c1c7fcdc",
+      "sha256": "c5e37551e0d7b4bf9e836fbb21c1f735c35b13cdc1fbc94253f17cc9c1c7fcdc"
+    },
+    "games/G047.json": {
+      "bytes": 188350,
+      "lf_sha256": "f3c6ec11d461bd9778f60b92589132e24dcdcbd9b3ef468b27252bf73e531930",
+      "sha256": "f3c6ec11d461bd9778f60b92589132e24dcdcbd9b3ef468b27252bf73e531930"
+    },
+    "games/G047.partial.json": {
+      "bytes": 187633,
+      "lf_sha256": "fa869504256d1cc20bdd05ece2ad136ac2a7950166a7c7df3c3ca42df7144696",
+      "sha256": "fa869504256d1cc20bdd05ece2ad136ac2a7950166a7c7df3c3ca42df7144696"
+    },
+    "games/G047.pgn": {
+      "bytes": 1390,
+      "lf_sha256": "0f512b2e529b76f480d21a70712d29a06fba891cdc45718740391ab33cf34cb0",
+      "sha256": "0f512b2e529b76f480d21a70712d29a06fba891cdc45718740391ab33cf34cb0"
+    },
+    "games/G048.json": {
+      "bytes": 211043,
+      "lf_sha256": "1e1cfc2b9803d60cf7a1f1d8a3e3c2465a09869c570b910d2ceb14c61079312f",
+      "sha256": "1e1cfc2b9803d60cf7a1f1d8a3e3c2465a09869c570b910d2ceb14c61079312f"
+    },
+    "games/G048.partial.json": {
+      "bytes": 210342,
+      "lf_sha256": "8b1b593793605756c53e8e031beed3ff57c7e493c7eb3b86f4966a117026423d",
+      "sha256": "8b1b593793605756c53e8e031beed3ff57c7e493c7eb3b86f4966a117026423d"
+    },
+    "games/G048.pgn": {
+      "bytes": 1446,
+      "lf_sha256": "6ec51935618709483253105ed16c198416948b0615028fbe507186357cea7a2f",
+      "sha256": "6ec51935618709483253105ed16c198416948b0615028fbe507186357cea7a2f"
+    },
+    "games/G049.json": {
+      "bytes": 171547,
+      "lf_sha256": "bda9a03e9534298fa6200e6644ae11521b70a6fb7a35c0c0bb62c87ff668136b",
+      "sha256": "bda9a03e9534298fa6200e6644ae11521b70a6fb7a35c0c0bb62c87ff668136b"
+    },
+    "games/G049.partial.json": {
+      "bytes": 170837,
+      "lf_sha256": "125be3c9de1b45860a38d3a2a1d0803505c057ab2246af451474c2283968ef03",
+      "sha256": "125be3c9de1b45860a38d3a2a1d0803505c057ab2246af451474c2283968ef03"
+    },
+    "games/G049.pgn": {
+      "bytes": 1312,
+      "lf_sha256": "ab0c650145cbe93773561fcc7b6ba371fd0dc88726df36d76106451abec22253",
+      "sha256": "ab0c650145cbe93773561fcc7b6ba371fd0dc88726df36d76106451abec22253"
+    },
+    "games/G050.json": {
+      "bytes": 226992,
+      "lf_sha256": "20f4dacaa97077ab5f2e0e631cb80eb49fbf6743051c67c9e28a996b684eb322",
+      "sha256": "20f4dacaa97077ab5f2e0e631cb80eb49fbf6743051c67c9e28a996b684eb322"
+    },
+    "games/G050.partial.json": {
+      "bytes": 226291,
+      "lf_sha256": "36ece78ba4074222c8da5ca22266112b6469e63d7ee3b4e52f023d3934359597",
+      "sha256": "36ece78ba4074222c8da5ca22266112b6469e63d7ee3b4e52f023d3934359597"
+    },
+    "games/G050.pgn": {
+      "bytes": 1491,
+      "lf_sha256": "e1338e928e6ec02432c9ed062448b922234b31c3c16fa78a1d381899d8ca24cb",
+      "sha256": "e1338e928e6ec02432c9ed062448b922234b31c3c16fa78a1d381899d8ca24cb"
+    },
+    "games/G051.json": {
+      "bytes": 205106,
+      "lf_sha256": "e5d714873a773062b5f11e491511d4c01e8936ce0803bb34e286eecf143265cd",
+      "sha256": "e5d714873a773062b5f11e491511d4c01e8936ce0803bb34e286eecf143265cd"
+    },
+    "games/G051.partial.json": {
+      "bytes": 204412,
+      "lf_sha256": "d5aea8cf434d54796ff137859cf387a0df00965b24fb673dfe88d176dc93d9ad",
+      "sha256": "d5aea8cf434d54796ff137859cf387a0df00965b24fb673dfe88d176dc93d9ad"
+    },
+    "games/G051.pgn": {
+      "bytes": 1409,
+      "lf_sha256": "2fb7c76e49bdcf6f81251a55bd6098c31758273d80d95d07a817c3ccf1133f29",
+      "sha256": "2fb7c76e49bdcf6f81251a55bd6098c31758273d80d95d07a817c3ccf1133f29"
+    },
+    "games/G052.json": {
+      "bytes": 205361,
+      "lf_sha256": "2c71fd4bd9a8e64d0ae31c8ab5d9232ac3de7f6e3aedebf750ac1719c2136475",
+      "sha256": "2c71fd4bd9a8e64d0ae31c8ab5d9232ac3de7f6e3aedebf750ac1719c2136475"
+    },
+    "games/G052.partial.json": {
+      "bytes": 204666,
+      "lf_sha256": "a0f3eb0fabf62f41483218d99807a558a5c5cf8ca9db2d22cf8ede3377af006b",
+      "sha256": "a0f3eb0fabf62f41483218d99807a558a5c5cf8ca9db2d22cf8ede3377af006b"
+    },
+    "games/G052.pgn": {
+      "bytes": 1409,
+      "lf_sha256": "bca97984390c4584a641054b5d67eca12e88506464b0eb8d31d2a63c6ae380f6",
+      "sha256": "bca97984390c4584a641054b5d67eca12e88506464b0eb8d31d2a63c6ae380f6"
+    },
+    "games/G053.json": {
+      "bytes": 146367,
+      "lf_sha256": "501af9c818cf10bca097c144f2613cbbe4c471fecab9d58ddb157ea02d45cdc8",
+      "sha256": "501af9c818cf10bca097c144f2613cbbe4c471fecab9d58ddb157ea02d45cdc8"
+    },
+    "games/G053.partial.json": {
+      "bytes": 145658,
+      "lf_sha256": "a71fcf61ca02e4cb5a7a6e1e3aa6c1e838b981abfe0561228260ab41122e985a",
+      "sha256": "a71fcf61ca02e4cb5a7a6e1e3aa6c1e838b981abfe0561228260ab41122e985a"
+    },
+    "games/G053.pgn": {
+      "bytes": 1230,
+      "lf_sha256": "9d1da51732d5e60b513e71e8bf7f158543a64444fdb1eb01b0f084fed6472fc6",
+      "sha256": "9d1da51732d5e60b513e71e8bf7f158543a64444fdb1eb01b0f084fed6472fc6"
+    },
+    "games/G054.json": {
+      "bytes": 273784,
+      "lf_sha256": "6a8363f1ea55db1613a1fbe64a0ead0eeedb7ad3aea8bf9f052ed2893ac035c2",
+      "sha256": "6a8363f1ea55db1613a1fbe64a0ead0eeedb7ad3aea8bf9f052ed2893ac035c2"
+    },
+    "games/G054.partial.json": {
+      "bytes": 273067,
+      "lf_sha256": "bc3157325301747cffade25d23a6430963ff59cf1fcf6a2350d38a7eb6ca3329",
+      "sha256": "bc3157325301747cffade25d23a6430963ff59cf1fcf6a2350d38a7eb6ca3329"
+    },
+    "games/G054.pgn": {
+      "bytes": 1686,
+      "lf_sha256": "b13d387c1d2bacbd3d0205c31ab8035248d9814773a57ad8f1ddedb2c8e2ddea",
+      "sha256": "b13d387c1d2bacbd3d0205c31ab8035248d9814773a57ad8f1ddedb2c8e2ddea"
+    },
+    "games/G055.json": {
+      "bytes": 176699,
+      "lf_sha256": "c3a51d38c204f30d51afceb5bc021c0432b856b6d7bb9a341c116faf2062f3e3",
+      "sha256": "c3a51d38c204f30d51afceb5bc021c0432b856b6d7bb9a341c116faf2062f3e3"
+    },
+    "games/G055.partial.json": {
+      "bytes": 176004,
+      "lf_sha256": "2fd91b633c80d7380deb7bacdeada8fed67e919d00f29ef3e03995cf16f14779",
+      "sha256": "2fd91b633c80d7380deb7bacdeada8fed67e919d00f29ef3e03995cf16f14779"
+    },
+    "games/G055.pgn": {
+      "bytes": 1332,
+      "lf_sha256": "6210b6a84da194647155e4948c9744e6ef18fbd27408644488cc4ab22291b2f0",
+      "sha256": "6210b6a84da194647155e4948c9744e6ef18fbd27408644488cc4ab22291b2f0"
+    },
+    "games/G056.json": {
+      "bytes": 115166,
+      "lf_sha256": "468f49de565f67ed1ff0b13c50d28fed4342bc53a4169105ad7bba193cc9405b",
+      "sha256": "468f49de565f67ed1ff0b13c50d28fed4342bc53a4169105ad7bba193cc9405b"
+    },
+    "games/G056.partial.json": {
+      "bytes": 114460,
+      "lf_sha256": "94d902d269a649ae4a5f81c843bbcc0107d1836c2304e69ae415c0625670a093",
+      "sha256": "94d902d269a649ae4a5f81c843bbcc0107d1836c2304e69ae415c0625670a093"
+    },
+    "games/G056.pgn": {
+      "bytes": 1129,
+      "lf_sha256": "926c7c3a21cef579cbe710f9d5b1ff28115b9ff7b126927a612e458f4b0924a2",
+      "sha256": "926c7c3a21cef579cbe710f9d5b1ff28115b9ff7b126927a612e458f4b0924a2"
+    },
+    "games/G057.json": {
+      "bytes": 282334,
+      "lf_sha256": "3b29fc70bffe2e45711dfd444b1dd56395aa1ec454d5e7f390239bf4121317ba",
+      "sha256": "3b29fc70bffe2e45711dfd444b1dd56395aa1ec454d5e7f390239bf4121317ba"
+    },
+    "games/G057.partial.json": {
+      "bytes": 281642,
+      "lf_sha256": "361a0328d1703139c9daede51ca43d483e5f96178e772ea7482e7446f5d7b3e5",
+      "sha256": "361a0328d1703139c9daede51ca43d483e5f96178e772ea7482e7446f5d7b3e5"
+    },
+    "games/G057.pgn": {
+      "bytes": 1675,
+      "lf_sha256": "b6afdee0ada1abeb37b653bc5ec6df1757f2ffdf47066b60baf79309b6f98457",
+      "sha256": "b6afdee0ada1abeb37b653bc5ec6df1757f2ffdf47066b60baf79309b6f98457"
+    },
+    "games/G058.json": {
+      "bytes": 368535,
+      "lf_sha256": "58d2955512564f8373a8cdbecc221156f3c99b4f5a78d59524fac0bde47f78ff",
+      "sha256": "58d2955512564f8373a8cdbecc221156f3c99b4f5a78d59524fac0bde47f78ff"
+    },
+    "games/G058.partial.json": {
+      "bytes": 367842,
+      "lf_sha256": "713047527bece3ebca2c136f46359edc430caf1ef19753eb04dd4acca9872254",
+      "sha256": "713047527bece3ebca2c136f46359edc430caf1ef19753eb04dd4acca9872254"
+    },
+    "games/G058.pgn": {
+      "bytes": 1983,
+      "lf_sha256": "e21d7c08837afd4d89fc23ae743610890b39a55db9067bed8bfa344bc615d4ae",
+      "sha256": "e21d7c08837afd4d89fc23ae743610890b39a55db9067bed8bfa344bc615d4ae"
+    },
+    "games/G059.json": {
+      "bytes": 215035,
+      "lf_sha256": "3b66f7803c4d1ba820379be90ec7aff9c9d2ca4289e1413a2483dbacb4fe7c63",
+      "sha256": "3b66f7803c4d1ba820379be90ec7aff9c9d2ca4289e1413a2483dbacb4fe7c63"
+    },
+    "games/G059.partial.json": {
+      "bytes": 214342,
+      "lf_sha256": "68428992b3cc8c3765f7f388ff469cfc58209bd04d8f91460358081c08bbe5b3",
+      "sha256": "68428992b3cc8c3765f7f388ff469cfc58209bd04d8f91460358081c08bbe5b3"
+    },
+    "games/G059.pgn": {
+      "bytes": 1463,
+      "lf_sha256": "8877e10222a7defbda97ee075d53fc0a455b47468b9dd1338def6fbc87a779e1",
+      "sha256": "8877e10222a7defbda97ee075d53fc0a455b47468b9dd1338def6fbc87a779e1"
+    },
+    "games/G060.json": {
+      "bytes": 247985,
+      "lf_sha256": "e946b6acb325e912d2f6ea09e12c7dffec89500e5808c1032af3948fade44052",
+      "sha256": "e946b6acb325e912d2f6ea09e12c7dffec89500e5808c1032af3948fade44052"
+    },
+    "games/G060.partial.json": {
+      "bytes": 247291,
+      "lf_sha256": "a26a027a39c90a54ce0c4bc095b0f54956f1aaa0704c42fb1472b5038196c1a9",
+      "sha256": "a26a027a39c90a54ce0c4bc095b0f54956f1aaa0704c42fb1472b5038196c1a9"
+    },
+    "games/G060.pgn": {
+      "bytes": 1565,
+      "lf_sha256": "9f5c5b5b129476c7b7f61dc105d086eda1daa906d10841358cf4620f088a28a9",
+      "sha256": "9f5c5b5b129476c7b7f61dc105d086eda1daa906d10841358cf4620f088a28a9"
+    },
+    "games/G061.json": {
+      "bytes": 248346,
+      "lf_sha256": "3df2550a32dbc115b0ed1c2ed47aced49e5b15a9f775b41247e92d1f7ebb88da",
+      "sha256": "3df2550a32dbc115b0ed1c2ed47aced49e5b15a9f775b41247e92d1f7ebb88da"
+    },
+    "games/G061.partial.json": {
+      "bytes": 247637,
+      "lf_sha256": "9a65afaaa80ce338bec3b0f779a66724c61e0dd6b451502e934565f619a2ecf6",
+      "sha256": "9a65afaaa80ce338bec3b0f779a66724c61e0dd6b451502e934565f619a2ecf6"
+    },
+    "games/G061.pgn": {
+      "bytes": 1579,
+      "lf_sha256": "8a0349d0b674732740500a24c4e1f53f8bd9e1985388583453196707fe081f6d",
+      "sha256": "8a0349d0b674732740500a24c4e1f53f8bd9e1985388583453196707fe081f6d"
+    },
+    "games/G062.json": {
+      "bytes": 103893,
+      "lf_sha256": "8dce7530dcb726e7185c27dfed18390310f66d585b7c66288d6de00aee5447aa",
+      "sha256": "8dce7530dcb726e7185c27dfed18390310f66d585b7c66288d6de00aee5447aa"
+    },
+    "games/G062.partial.json": {
+      "bytes": 103165,
+      "lf_sha256": "68d11c3ad6523e6a3457bfa31048dd30ec49e2b1f8c2c36aac1d71e3c1a0fb80",
+      "sha256": "68d11c3ad6523e6a3457bfa31048dd30ec49e2b1f8c2c36aac1d71e3c1a0fb80"
+    },
+    "games/G062.pgn": {
+      "bytes": 1099,
+      "lf_sha256": "91b80c7a9590b11dfda0b4e8b0870a29b7ada11081ee874c1167334c916205c3",
+      "sha256": "91b80c7a9590b11dfda0b4e8b0870a29b7ada11081ee874c1167334c916205c3"
+    },
+    "games/G063.json": {
+      "bytes": 222907,
+      "lf_sha256": "28e8bc2d06671be6f4384e963c4ee2f2a3427539936d147314db7bc2ce25399d",
+      "sha256": "28e8bc2d06671be6f4384e963c4ee2f2a3427539936d147314db7bc2ce25399d"
+    },
+    "games/G063.partial.json": {
+      "bytes": 222212,
+      "lf_sha256": "c199b4e7cecac229a02226b6f5f4f9106c57bed1907ef93c1f9b6e24e8c3bb1b",
+      "sha256": "c199b4e7cecac229a02226b6f5f4f9106c57bed1907ef93c1f9b6e24e8c3bb1b"
+    },
+    "games/G063.pgn": {
+      "bytes": 1483,
+      "lf_sha256": "ac9c5779b1dc9097b135474fcb3362b41aa1659d5e2017f4d0aefcea818ba79f",
+      "sha256": "ac9c5779b1dc9097b135474fcb3362b41aa1659d5e2017f4d0aefcea818ba79f"
+    },
+    "games/G064.json": {
+      "bytes": 226746,
+      "lf_sha256": "95239ff3badbe7a44f39c47f76c8e4b467db38be3be87c9f8b9cb84b52dfe22d",
+      "sha256": "95239ff3badbe7a44f39c47f76c8e4b467db38be3be87c9f8b9cb84b52dfe22d"
+    },
+    "games/G064.partial.json": {
+      "bytes": 226052,
+      "lf_sha256": "85d5bbe0967da12bc2e7a6a8b6d931591da81774fbc38d63a329bd079d5a24ad",
+      "sha256": "85d5bbe0967da12bc2e7a6a8b6d931591da81774fbc38d63a329bd079d5a24ad"
+    },
+    "games/G064.pgn": {
+      "bytes": 1497,
+      "lf_sha256": "055c54fea4ee18cab909b26ff864ba65fc552a2f94932093ca41150a5094033c",
+      "sha256": "055c54fea4ee18cab909b26ff864ba65fc552a2f94932093ca41150a5094033c"
+    },
+    "games/G065.json": {
+      "bytes": 254193,
+      "lf_sha256": "5086202706bf49d239515f3e580cb3257236ce1a8d38181c5d1fd0c7a6cb510b",
+      "sha256": "5086202706bf49d239515f3e580cb3257236ce1a8d38181c5d1fd0c7a6cb510b"
+    },
+    "games/G065.partial.json": {
+      "bytes": 253500,
+      "lf_sha256": "0cb221af60820782d2a15f41617ab134059a0d8f3512f3556e41372f41bfa08a",
+      "sha256": "0cb221af60820782d2a15f41617ab134059a0d8f3512f3556e41372f41bfa08a"
+    },
+    "games/G065.pgn": {
+      "bytes": 1588,
+      "lf_sha256": "d9dde82abdee0f3a9d9a5732d93508bd8f47481bca23544ebfaaeede529d6f89",
+      "sha256": "d9dde82abdee0f3a9d9a5732d93508bd8f47481bca23544ebfaaeede529d6f89"
+    },
+    "games/G066.json": {
+      "bytes": 423971,
+      "lf_sha256": "fae8e5c0a53b93f489795e67d85400983d7dc2387f34183ae10e3bc875e79433",
+      "sha256": "fae8e5c0a53b93f489795e67d85400983d7dc2387f34183ae10e3bc875e79433"
+    },
+    "games/G066.partial.json": {
+      "bytes": 423274,
+      "lf_sha256": "be5794f2010edd071e05437613ef7ca233afb7088639be7d4ed4207646a2fc32",
+      "sha256": "be5794f2010edd071e05437613ef7ca233afb7088639be7d4ed4207646a2fc32"
+    },
+    "games/G066.pgn": {
+      "bytes": 2193,
+      "lf_sha256": "9ad38a6952d2c426035461103ec538338ecda095ccc884227077d1e7afdaaefd",
+      "sha256": "9ad38a6952d2c426035461103ec538338ecda095ccc884227077d1e7afdaaefd"
+    },
+    "games/G067.json": {
+      "bytes": 246480,
+      "lf_sha256": "b2dc7447f47bc54c1248d3f72ac1a2d2b898ccb24c760dfcf8b4f72632bbd074",
+      "sha256": "b2dc7447f47bc54c1248d3f72ac1a2d2b898ccb24c760dfcf8b4f72632bbd074"
+    },
+    "games/G067.partial.json": {
+      "bytes": 245785,
+      "lf_sha256": "53e25be2cde38f0bdea3a0b2bdf9e4a865c6688cd18026bd161b50425eb09624",
+      "sha256": "53e25be2cde38f0bdea3a0b2bdf9e4a865c6688cd18026bd161b50425eb09624"
+    },
+    "games/G067.pgn": {
+      "bytes": 1587,
+      "lf_sha256": "3b17c2b4be30cc65c02e730a7f3057b7692846e7deb038bdf40782e571050318",
+      "sha256": "3b17c2b4be30cc65c02e730a7f3057b7692846e7deb038bdf40782e571050318"
+    },
+    "games/G068.json": {
+      "bytes": 207903,
+      "lf_sha256": "1046412359aca4e0131c9a47ae1fc4b7b3854583aa2e983d22a51c3f17c356e6",
+      "sha256": "1046412359aca4e0131c9a47ae1fc4b7b3854583aa2e983d22a51c3f17c356e6"
+    },
+    "games/G068.partial.json": {
+      "bytes": 207218,
+      "lf_sha256": "3e1dacf1e4c66098e98eff990b8839e4060447256cf511efff23ea2f4bda4821",
+      "sha256": "3e1dacf1e4c66098e98eff990b8839e4060447256cf511efff23ea2f4bda4821"
+    },
+    "games/G068.pgn": {
+      "bytes": 1428,
+      "lf_sha256": "ce290652ead0be7ef29cd490360ddccb29931d67c9a1183c629b293c1757ec7d",
+      "sha256": "ce290652ead0be7ef29cd490360ddccb29931d67c9a1183c629b293c1757ec7d"
+    },
+    "games/G069.json": {
+      "bytes": 258927,
+      "lf_sha256": "d35ec2a7d4bbf98fb6ee06f8b8a9c1ffbddceaec5dd2c6eadf398c0b58f59022",
+      "sha256": "d35ec2a7d4bbf98fb6ee06f8b8a9c1ffbddceaec5dd2c6eadf398c0b58f59022"
+    },
+    "games/G069.partial.json": {
+      "bytes": 258212,
+      "lf_sha256": "494e47d91af559b2752d8c9199fcceb5c8a8b3adbad9f70b9ee423f0117b7422",
+      "sha256": "494e47d91af559b2752d8c9199fcceb5c8a8b3adbad9f70b9ee423f0117b7422"
+    },
+    "games/G069.pgn": {
+      "bytes": 1624,
+      "lf_sha256": "a92b174846d7e26b1d0867a5fda17cb99cc7ff4d251e034360cd3ecf8b3d12ea",
+      "sha256": "a92b174846d7e26b1d0867a5fda17cb99cc7ff4d251e034360cd3ecf8b3d12ea"
+    },
+    "games/G070.json": {
+      "bytes": 182267,
+      "lf_sha256": "f9457768cf7f4a0a9ef8f1ebadc5b17081605e6c0b72fbf78a6b8afcaf920e8a",
+      "sha256": "f9457768cf7f4a0a9ef8f1ebadc5b17081605e6c0b72fbf78a6b8afcaf920e8a"
+    },
+    "games/G070.partial.json": {
+      "bytes": 181572,
+      "lf_sha256": "0b84ec8ec2c33841c38b8bebddb7f4110e45640325ecf9706d3f9938f2245048",
+      "sha256": "0b84ec8ec2c33841c38b8bebddb7f4110e45640325ecf9706d3f9938f2245048"
+    },
+    "games/G070.pgn": {
+      "bytes": 1367,
+      "lf_sha256": "2d9e86878d0b20ec016e79c706bb67d4fbf4a47b5daacc897b2fee94ec83a1de",
+      "sha256": "2d9e86878d0b20ec016e79c706bb67d4fbf4a47b5daacc897b2fee94ec83a1de"
+    },
+    "games/G071.json": {
+      "bytes": 237734,
+      "lf_sha256": "7ab98c2deeef00a07ff6144c7853dc458d4cbdcd9b1a5aee24eb47539430d9f6",
+      "sha256": "7ab98c2deeef00a07ff6144c7853dc458d4cbdcd9b1a5aee24eb47539430d9f6"
+    },
+    "games/G071.partial.json": {
+      "bytes": 237039,
+      "lf_sha256": "7c31042d3856b5540b938f4c4a8a7e3599abddb53b25fa7771e6f958c1ac90e7",
+      "sha256": "7c31042d3856b5540b938f4c4a8a7e3599abddb53b25fa7771e6f958c1ac90e7"
+    },
+    "games/G071.pgn": {
+      "bytes": 1520,
+      "lf_sha256": "b3fe44ee2ba1c68a389191cb0167a2a77992c5feb304554d3ec9fd7d72eca640",
+      "sha256": "b3fe44ee2ba1c68a389191cb0167a2a77992c5feb304554d3ec9fd7d72eca640"
+    },
+    "games/G072.json": {
+      "bytes": 196499,
+      "lf_sha256": "301fca60116c757c868ff494224eeedb77b54d795af20577cbd361a6e5b1d889",
+      "sha256": "301fca60116c757c868ff494224eeedb77b54d795af20577cbd361a6e5b1d889"
+    },
+    "games/G072.partial.json": {
+      "bytes": 195786,
+      "lf_sha256": "50bfcede9a145a4e99c1ca72b2282121256704155f526c9fbe683e6ebb48579c",
+      "sha256": "50bfcede9a145a4e99c1ca72b2282121256704155f526c9fbe683e6ebb48579c"
+    },
+    "games/G072.pgn": {
+      "bytes": 1400,
+      "lf_sha256": "020724e770ac70ea92f9fcebf60e50c86c91feb0745d1d2b9814b794d28beaa8",
+      "sha256": "020724e770ac70ea92f9fcebf60e50c86c91feb0745d1d2b9814b794d28beaa8"
+    },
+    "games/G073.json": {
+      "bytes": 331546,
+      "lf_sha256": "fcbebb68da6fe0a2d84476917e7b1b43c5c7717e271abe07a1c275e92e05d87e",
+      "sha256": "fcbebb68da6fe0a2d84476917e7b1b43c5c7717e271abe07a1c275e92e05d87e"
+    },
+    "games/G073.partial.json": {
+      "bytes": 330853,
+      "lf_sha256": "03180cd851d92cae7285fce02e7954f5254fafc3ba612ff8309ea93dcf991fc2",
+      "sha256": "03180cd851d92cae7285fce02e7954f5254fafc3ba612ff8309ea93dcf991fc2"
+    },
+    "games/G073.pgn": {
+      "bytes": 1857,
+      "lf_sha256": "cfaf970ce589c4bf1cd02db5dad11959b0ac8bf032a4cbac6e5327f2ec9f1900",
+      "sha256": "cfaf970ce589c4bf1cd02db5dad11959b0ac8bf032a4cbac6e5327f2ec9f1900"
+    },
+    "games/G074.json": {
+      "bytes": 246875,
+      "lf_sha256": "1487a181381775f51e41a2e5dc0c794148681353d2c66a1476f1805bc3ecc044",
+      "sha256": "1487a181381775f51e41a2e5dc0c794148681353d2c66a1476f1805bc3ecc044"
+    },
+    "games/G074.partial.json": {
+      "bytes": 246179,
+      "lf_sha256": "55fa927f8acf4fb3c2eb53504c434146b18f30bea7d01dfc75c82d5d92b89398",
+      "sha256": "55fa927f8acf4fb3c2eb53504c434146b18f30bea7d01dfc75c82d5d92b89398"
+    },
+    "games/G074.pgn": {
+      "bytes": 1569,
+      "lf_sha256": "4ede76b6647ed67bf48188eabd73c0b5790dc6fe8d134403856f16a2723c83bc",
+      "sha256": "4ede76b6647ed67bf48188eabd73c0b5790dc6fe8d134403856f16a2723c83bc"
+    },
+    "games/G075.json": {
+      "bytes": 304031,
+      "lf_sha256": "9f4a6c818298a76488a7f9f70b3eb22bdd1dca490b177c55dd80395d827358b7",
+      "sha256": "9f4a6c818298a76488a7f9f70b3eb22bdd1dca490b177c55dd80395d827358b7"
+    },
+    "games/G075.partial.json": {
+      "bytes": 303345,
+      "lf_sha256": "648f35558a02df4ca4859d3a39078a8a36d1fd38a028c3e9a4d51ffc05093f9d",
+      "sha256": "648f35558a02df4ca4859d3a39078a8a36d1fd38a028c3e9a4d51ffc05093f9d"
+    },
+    "games/G075.pgn": {
+      "bytes": 1782,
+      "lf_sha256": "a420a170d3350c6d444fadc7421105193e006d245c113b3df8d25834738185bc",
+      "sha256": "a420a170d3350c6d444fadc7421105193e006d245c113b3df8d25834738185bc"
+    },
+    "games/G076.json": {
+      "bytes": 70294,
+      "lf_sha256": "4438c2106747a93b9f2733df03582b6de3bd55c8e6e79bd2072bd5819a0d6a46",
+      "sha256": "4438c2106747a93b9f2733df03582b6de3bd55c8e6e79bd2072bd5819a0d6a46"
+    },
+    "games/G076.partial.json": {
+      "bytes": 69580,
+      "lf_sha256": "9972b490e45bede02744810c6f13580dee244a770be4b32dd04d3cdd3771f845",
+      "sha256": "9972b490e45bede02744810c6f13580dee244a770be4b32dd04d3cdd3771f845"
+    },
+    "games/G076.pgn": {
+      "bytes": 990,
+      "lf_sha256": "c3694490979d73f7c418dd751ab46c2dbfc6895ade06a0e8aac995975a8ec113",
+      "sha256": "c3694490979d73f7c418dd751ab46c2dbfc6895ade06a0e8aac995975a8ec113"
+    },
+    "games/G077.json": {
+      "bytes": 255694,
+      "lf_sha256": "9cf37a19df42c29001ce1bb3facce6fa43de5f132741e5cf35eddea4deca7f15",
+      "sha256": "9cf37a19df42c29001ce1bb3facce6fa43de5f132741e5cf35eddea4deca7f15"
+    },
+    "games/G077.partial.json": {
+      "bytes": 254988,
+      "lf_sha256": "e042bd03954db98be83eb5665bf294eb7c9f15db2b525cf760763d3cb0cf0812",
+      "sha256": "e042bd03954db98be83eb5665bf294eb7c9f15db2b525cf760763d3cb0cf0812"
+    },
+    "games/G077.pgn": {
+      "bytes": 1610,
+      "lf_sha256": "e0027d00692c79d326db6f98945c7c9874eb2e0dab706cf6879b6651f873b70d",
+      "sha256": "e0027d00692c79d326db6f98945c7c9874eb2e0dab706cf6879b6651f873b70d"
+    },
+    "games/G078.json": {
+      "bytes": 130616,
+      "lf_sha256": "39aeee0c7c4d2e8447c46ffb2acdcf5391a8ca81fef47f034e72aa82205f465d",
+      "sha256": "39aeee0c7c4d2e8447c46ffb2acdcf5391a8ca81fef47f034e72aa82205f465d"
+    },
+    "games/G078.partial.json": {
+      "bytes": 129900,
+      "lf_sha256": "29ef05d4b2106b4d51eb26e45f7691bc7cfb7d9747f7a1b9f175a7fd738725cc",
+      "sha256": "29ef05d4b2106b4d51eb26e45f7691bc7cfb7d9747f7a1b9f175a7fd738725cc"
+    },
+    "games/G078.pgn": {
+      "bytes": 1186,
+      "lf_sha256": "03cb76725635953c39495be9d18d73be923609458bf50aabd644b0c0946b9dca",
+      "sha256": "03cb76725635953c39495be9d18d73be923609458bf50aabd644b0c0946b9dca"
+    },
+    "games/G079.json": {
+      "bytes": 139030,
+      "lf_sha256": "1fe37933f358af73fa054c5211bde34e3d79ff8c99ae1c61f56f229583b512fd",
+      "sha256": "1fe37933f358af73fa054c5211bde34e3d79ff8c99ae1c61f56f229583b512fd"
+    },
+    "games/G079.partial.json": {
+      "bytes": 138307,
+      "lf_sha256": "3c94baee9d5c3b8094238e799af31657e0bcb7fbb22e31a4daa7a392d3a32909",
+      "sha256": "3c94baee9d5c3b8094238e799af31657e0bcb7fbb22e31a4daa7a392d3a32909"
+    },
+    "games/G079.pgn": {
+      "bytes": 1221,
+      "lf_sha256": "9c7fd3d6f7315c12075795180248a074ee3a74fb7fa475bc0fa75c98eacf74c8",
+      "sha256": "9c7fd3d6f7315c12075795180248a074ee3a74fb7fa475bc0fa75c98eacf74c8"
+    },
+    "games/G080.json": {
+      "bytes": 264810,
+      "lf_sha256": "c32099dc0dbe1489a7f5bf4ab8934be7a84f9d0ce4cdf063e28689970d9248f0",
+      "sha256": "c32099dc0dbe1489a7f5bf4ab8934be7a84f9d0ce4cdf063e28689970d9248f0"
+    },
+    "games/G080.partial.json": {
+      "bytes": 264115,
+      "lf_sha256": "760641c19564cd2b0b1c0a848b5777e371205aed6b90c26f2cb79cf20ac6e71a",
+      "sha256": "760641c19564cd2b0b1c0a848b5777e371205aed6b90c26f2cb79cf20ac6e71a"
+    },
+    "games/G080.pgn": {
+      "bytes": 1612,
+      "lf_sha256": "d862a2f8b922a344ac255235db957deac34cf962e141c90ff634c9afd61a2431",
+      "sha256": "d862a2f8b922a344ac255235db957deac34cf962e141c90ff634c9afd61a2431"
+    },
+    "harness-recovery.json": {
+      "bytes": 696,
+      "lf_sha256": "587e05eb0fabacb854201dff014f145db3e9195a0e6c007a3c05a0455f566305",
+      "sha256": "fbb5eb7c97ed4429cc0f6ec5c49aaa696489c3f7b4608f6f379dc53fc6295fd5"
+    },
+    "harness_checks.py": {
+      "bytes": 2767,
+      "lf_sha256": "8b478d921e58e33b9b4833b0b3d2243b7adab37bc0046c4fe6bbcdbf1d5d6c80",
+      "sha256": "8b478d921e58e33b9b4833b0b3d2243b7adab37bc0046c4fe6bbcdbf1d5d6c80"
+    },
+    "launch.py": {
+      "bytes": 3722,
+      "lf_sha256": "e3b348bc6b25788cbf1ba527ccdae96b46c52258c2b6e731df4f6efb9fe127a0",
+      "sha256": "e3b348bc6b25788cbf1ba527ccdae96b46c52258c2b6e731df4f6efb9fe127a0"
+    },
+    "logs/G001/NNUE_HIDDENCLIP.log": {
+      "bytes": 373478,
+      "lf_sha256": "ae3699c1bd38bbfb88d58957877733a432c0ac585a90933621340215406999e2",
+      "sha256": "f7e472c81f3015a590ebb73c17aaec21949394e4492a2b036a5915acce57c05d"
+    },
+    "logs/G001/NNUE_STAGE1.log": {
+      "bytes": 379738,
+      "lf_sha256": "79b6e156cdc2e4197eed17b528c14923e1d66c2aaa909872d817511d2de20619",
+      "sha256": "1e5d9e417ceb48d97c702ecbd87375830c9b0f0949c3c518fb97c66446063a7c"
+    },
+    "logs/G002/NNUE_HIDDENCLIP.log": {
+      "bytes": 504281,
+      "lf_sha256": "402320d8112af4bad1b92cfeee5dc3adbea870c15f257775933aac326c10c311",
+      "sha256": "c54f43f820a9177806cf6c0ecf4cd95c37fe91cd73a870582c0e9d01ebd3faa6"
+    },
+    "logs/G002/NNUE_STAGE1.log": {
+      "bytes": 493950,
+      "lf_sha256": "74b50bf55e22cbc1ccd35cabaa5df389b36257dc45ccf032e53a628244ecff04",
+      "sha256": "461c98455a94d8256cee5d07c2f4852c7dd08f030701a3378bf29650dc94f898"
+    },
+    "logs/G003/NNUE_HIDDENCLIP.log": {
+      "bytes": 633667,
+      "lf_sha256": "5733ac7e5ae60ac30236464c919fd57568ac3b7e21f950a9a48a1a79ec90acad",
+      "sha256": "511f07a9bb39a2b3ce2d9d86ac885cc27c98170a16ab68b93467d0b68b922fdb"
+    },
+    "logs/G003/NNUE_STAGE1.log": {
+      "bytes": 617400,
+      "lf_sha256": "d7446ed805efcf38cae93f5660d4351b3ede3c9a09345f90a791ae7dc8402f72",
+      "sha256": "c949c95b0c12cb7c512af3ab720f4c430cad1b1afe1a39f6d4f75d68de009c22"
+    },
+    "logs/G004/NNUE_HIDDENCLIP.log": {
+      "bytes": 496807,
+      "lf_sha256": "e0fe0541819b82c53bc83ad8e8ef927a9999b8a6c002160d91065e3baa03e28e",
+      "sha256": "58c55820a947b9d84a6d5225a0f5b51b59ec268b7a7187eabdf335dddf968a31"
+    },
+    "logs/G004/NNUE_STAGE1.log": {
+      "bytes": 504892,
+      "lf_sha256": "9be2151d19d664fca9687febf3c5b2cd875fcceb73a3d6a3fe1e92ef7ab86323",
+      "sha256": "5bcd4b9b4fc1482df25855a48cfb3ad3d9e27c91f8acc8945bd98a2e6ff932bc"
+    },
+    "logs/G005/NNUE_HIDDENCLIP.log": {
+      "bytes": 801747,
+      "lf_sha256": "5511d66a947359d448979905f4fee2b521c57d455547ac2d11f8596bcb1cd0e6",
+      "sha256": "55e06bb3b273bd4cfd3f4aea729c785d37056079374c2383cded81b9b0567e5d"
+    },
+    "logs/G005/NNUE_STAGE1.log": {
+      "bytes": 808639,
+      "lf_sha256": "10f047941257f4582d6aeda319eb85809c9fa30cd4d8997c40ca848bfea8763a",
+      "sha256": "fafa4ecf359a597fca0e4509e66fd22ef7435dc95fb32eadc68da61d0f5ac7bb"
+    },
+    "logs/G006/NNUE_HIDDENCLIP.log": {
+      "bytes": 447823,
+      "lf_sha256": "039eb42a695d5688b64c34ea5fe5460e36b2ec78b2d3682d1a1c595fb8ae5d3a",
+      "sha256": "5b405bbf36f865c8c141e3ea21c85b4e2fe284d3f49182631d8483b3be07d62c"
+    },
+    "logs/G006/NNUE_STAGE1.log": {
+      "bytes": 439005,
+      "lf_sha256": "fd8809d4d1bccb30ef92c4f1c802007606907420ccc73f0a0166ae0e7640371f",
+      "sha256": "8a07ef1dc26a57181afb669b7b3704983964706c683dca9afec8603774ec4756"
+    },
+    "logs/G007/NNUE_HIDDENCLIP.log": {
+      "bytes": 259098,
+      "lf_sha256": "b7624c58f058545773bd0deca99e77b73e1612c45a9cc109a643b933123d1968",
+      "sha256": "8ca4ba6c6c7ee9c36c715fa0b5574628d12f8756fddc529ce7116351dd40fd76"
+    },
+    "logs/G007/NNUE_STAGE1.log": {
+      "bytes": 257755,
+      "lf_sha256": "335d9869b3af2710ba6a94b57e16403bfacdfaf4fe5fb48b9faee9f1d0aefc22",
+      "sha256": "c902a18e7c63bdf5f8078b6bde7711bf0a2ae20349223f25c15a36b1751ff66d"
+    },
+    "logs/G008/NNUE_HIDDENCLIP.log": {
+      "bytes": 259843,
+      "lf_sha256": "690c657da9f2699d37c2bf15a17a84f2634855ee495933428e9decc6336533b1",
+      "sha256": "9251e7564f61dc55b2fa3f4a02b8cf87daabf50e1992b964936eeca02769beff"
+    },
+    "logs/G008/NNUE_STAGE1.log": {
+      "bytes": 258217,
+      "lf_sha256": "e813a0f33e3bbdc25ff23add8e451dc03053de4a0c32cdfce0aa5e0a86d7512d",
+      "sha256": "4e4d28e674f1f35b9febb960a3c4341a7f292932db6bde90d520e316932f5aff"
+    },
+    "logs/G009/NNUE_HIDDENCLIP.log": {
+      "bytes": 517700,
+      "lf_sha256": "7bcb92207c8405282887fc71afb0caf1915bc4e8a7b07f63fe147373dda6fabf",
+      "sha256": "1606950703bed45597fddfa3f21ccc659bb8dd7ddf94e47d278938ea6beb114e"
+    },
+    "logs/G009/NNUE_STAGE1.log": {
+      "bytes": 513811,
+      "lf_sha256": "a28a1b52cdbd4edb34128e1d62a17184eb9d53fe80a634c08e74b731b553a65f",
+      "sha256": "aa4f3c24f490481c84a22c308b37d11a1cf31be96a3eb11b207dd530fc754a51"
+    },
+    "logs/G010/NNUE_HIDDENCLIP.log": {
+      "bytes": 548873,
+      "lf_sha256": "93d823169d80026af801e4d7b460fd9bbdf8cbc0ac255178fa5d6a89018cd4ce",
+      "sha256": "5ec93b6bc52f2eda45e36b32a0d78e76a664060da8162308942a135b1c3fe02c"
+    },
+    "logs/G010/NNUE_STAGE1.log": {
+      "bytes": 529919,
+      "lf_sha256": "e6257022108d70b4c483719514299f5be354212db5e91e6b69d0b32db83cc49a",
+      "sha256": "8e7b4c3d771bb2a4132f6b967117f7b4571849c1ac3246a3334a8642f1bf784f"
+    },
+    "logs/G011/NNUE_HIDDENCLIP.log": {
+      "bytes": 330179,
+      "lf_sha256": "1ffb5a6a6f9ab4e90cc77a291c0ed2cdd1fe4de560fe5dc0aabbc3cdda1ec8b1",
+      "sha256": "942ee466d40883db13984bca26759fff2e021948691d15426556578381c22c2c"
+    },
+    "logs/G011/NNUE_STAGE1.log": {
+      "bytes": 329301,
+      "lf_sha256": "196bd60fcac61fc893e7625e38da67538c229610f22649faf5d06b631ad7b6ef",
+      "sha256": "92e762d2411a4922712040a947ab2595b10344a9821ad455ea74340301b7fbc1"
+    },
+    "logs/G012/NNUE_HIDDENCLIP.log": {
+      "bytes": 331232,
+      "lf_sha256": "8f8499d88aa22e086baca27994b0edb5c459a58ca07760e12bd137760c6c638f",
+      "sha256": "e904889038d69b3acfc6d81e96aa7e0c08233f1ba11968fc3dd2950a5ed15a38"
+    },
+    "logs/G012/NNUE_STAGE1.log": {
+      "bytes": 329137,
+      "lf_sha256": "932081ac7eed92d9ddef69af06b21d9a19d31e4b56c7ec9db912d347d26584ed",
+      "sha256": "0948b80a3b0f226f4f4f8963e63fc3c3188c03265c0ac149b7e1c8828f408209"
+    },
+    "logs/G013/NNUE_HIDDENCLIP.log": {
+      "bytes": 472537,
+      "lf_sha256": "7ad4c82efaee48494b5261ef2e05df09b56be3bdb9dd9732162a9d59228cacf5",
+      "sha256": "0cfa6bac075eeb280ac47006dbd93510737837dba29a7ee55be4b7a05e094c4c"
+    },
+    "logs/G013/NNUE_STAGE1.log": {
+      "bytes": 465430,
+      "lf_sha256": "85f56cfac00833eb526717937659124564b548da01e7d4c125ca203ed250c948",
+      "sha256": "4eabbcb496a3c0a838a188d1dd4fa4a4836f6075642efaa3b6fbb3d254974e04"
+    },
+    "logs/G014/NNUE_HIDDENCLIP.log": {
+      "bytes": 589464,
+      "lf_sha256": "ae264b0f82493728b98f2319ab037b8eb31a15835f77cd56108fa13102d4ded0",
+      "sha256": "042dd4d8e212277f0625f628682720b1c438463ac5e9b981dc548c0d572eb6ba"
+    },
+    "logs/G014/NNUE_STAGE1.log": {
+      "bytes": 559894,
+      "lf_sha256": "6b775eeb1e666d6e3c92a62ee2ae02311f14e66f3b7d347bbcd6b3d5989396c7",
+      "sha256": "6173b6adba862ef48e78963371785a168aaa4abcd5e0f1bea5f11094dc3a2c61"
+    },
+    "logs/G015/NNUE_HIDDENCLIP.log": {
+      "bytes": 690758,
+      "lf_sha256": "0406919492b70ec98edd617d080d7649cdb206f0726ab35e17b259ea6c907c8c",
+      "sha256": "ae0763db2cdc7bc5b55267cdd1cbdcd14d2420bf4be28641727e6610c81c6f57"
+    },
+    "logs/G015/NNUE_STAGE1.log": {
+      "bytes": 705426,
+      "lf_sha256": "bacc1845602e6fc81e6a39b69fc20096c3cb67620502ef057b195c863c112e8c",
+      "sha256": "89b799a679f672150776c70c5f015faf3c0290088b79877dd32dd484f6be4d04"
+    },
+    "logs/G016/NNUE_HIDDENCLIP.log": {
+      "bytes": 278858,
+      "lf_sha256": "089a26c3e2061490669fcd27e271cf7cc53d29d00e3844ef7d62457d520a0395",
+      "sha256": "2dc8c3768fed88b3f283d09c45de68766426421f469af48f88ff4760e64b6bf5"
+    },
+    "logs/G016/NNUE_STAGE1.log": {
+      "bytes": 279009,
+      "lf_sha256": "a1c652717a238d351a28375fc0beb0ec4c89c8356393c5cd5ca3423726933fa7",
+      "sha256": "fb669c9d8a14b821dfa215f7c3ba8befb9a67aaf08e57b12dc2ca51a0b160a8c"
+    },
+    "logs/G017/NNUE_HIDDENCLIP.log": {
+      "bytes": 335298,
+      "lf_sha256": "01d9f0ca8f981a3b4caf5da23782ea974df7cfb4dc75a5e39b07c7cd0d4ec75c",
+      "sha256": "59233e1cefb477b23326fb0548d40684b30801924831295c17a43d60fa883588"
+    },
+    "logs/G017/NNUE_STAGE1.log": {
+      "bytes": 323376,
+      "lf_sha256": "b3aa50256cc9f58eb20821838b4f73feda01d5506c9e1372aece31ea1d6ec9d7",
+      "sha256": "252ad3b5ae3bf4b8ca67fb3ed462c3ef5195035405cb872fd019a544b015a8da"
+    },
+    "logs/G018/NNUE_HIDDENCLIP.log": {
+      "bytes": 659408,
+      "lf_sha256": "1455621b54878a29f602113e7f0ddfd9aa0690abec327c2f54b237516523de3c",
+      "sha256": "b7969e39fbdf1c543777c3b4a2c74ec3abfeef1fb737e78c9f3125831d32604e"
+    },
+    "logs/G018/NNUE_STAGE1.log": {
+      "bytes": 664039,
+      "lf_sha256": "7bc4b275c7c81a7e5f8c24edf4b2fd0e1b0f6256f03763457d9968b0f1a21ef0",
+      "sha256": "49c633411f01cea419b6d74477260e16334ef3ac6ae1359b902cb8fe25847908"
+    },
+    "logs/G019/NNUE_HIDDENCLIP.log": {
+      "bytes": 407427,
+      "lf_sha256": "accbdef38890d90b3ca71980470b9cb6b1604e29370dca4fe812bdb03f53530b",
+      "sha256": "479d5ed065d96dbb88182c40699d201142e12cf35b275180adba727481b542df"
+    },
+    "logs/G019/NNUE_STAGE1.log": {
+      "bytes": 396356,
+      "lf_sha256": "0f487a8ba6841432e7fabe037bfc84a4b0f6063b4e9f289b0b991bc303f4cda1",
+      "sha256": "8c5ba725d0f8fffd2a50e3006ade957dfc59e362b084d1819a3e9c8a182c9dd3"
+    },
+    "logs/G020/NNUE_HIDDENCLIP.log": {
+      "bytes": 611884,
+      "lf_sha256": "e848a420fb45cf43a6040cd76e57314f4f9b19d81cb33cfc6c4027b60a63fd10",
+      "sha256": "e11f06ee46298a71518ff5c9b0f60cf782f22b0117fd5eab10e402ff6d070c72"
+    },
+    "logs/G020/NNUE_STAGE1.log": {
+      "bytes": 633671,
+      "lf_sha256": "926b23df0bafbbd79630cf6dde1346f89be4fd78d3e71b938df580ed2a9fa7e9",
+      "sha256": "cdb93e753ba20a96e80e9367f15f22f3ebb4e84efb799bfddb27d62de2cdabfc"
+    },
+    "logs/G021/NNUE_HIDDENCLIP.log": {
+      "bytes": 333300,
+      "lf_sha256": "746a7f12c4d27d6daa82f1c227b0bfbab05dfa95f544c315bb17fb2fd876efa5",
+      "sha256": "14cf8ca695414a48ed2569e981e9308998ecdd7272ea4a6a5f4cd016d7683043"
+    },
+    "logs/G021/NNUE_STAGE1.log": {
+      "bytes": 321697,
+      "lf_sha256": "725e45103d284e55ccae9a67fe73a1f957d99a012fd176a900c8a08f76320227",
+      "sha256": "8b7442fc90aab77f852d699d203c28b044488422de3a9a0480f4f9fb865f42bf"
+    },
+    "logs/G022/NNUE_HIDDENCLIP.log": {
+      "bytes": 505593,
+      "lf_sha256": "f46ebfa688e55272778d884e655b600a18c69945ae2c8f27ab7468d3cf5cd60f",
+      "sha256": "043112770a394334f29dec04cc144e3e5d9a270e8510976be610448b443be4d6"
+    },
+    "logs/G022/NNUE_STAGE1.log": {
+      "bytes": 492467,
+      "lf_sha256": "cb074ce1e03775a4c6a3697a53692ddca3ad40b7a8b2f7448ad49377992bd4f9",
+      "sha256": "08501c33fcf88d708a9c01d2daaeccf3536fdfef0785768a3947afde9f22d068"
+    },
+    "logs/G023/NNUE_HIDDENCLIP.log": {
+      "bytes": 619098,
+      "lf_sha256": "57b1d2801f2bfaf4286231cf792387d1c0e6a3d93ed747fbed712299a3fe9881",
+      "sha256": "20d4c2b40c2fddb419c35a80bcd701cd3abbdacbe7238b12f190e569a9afa69d"
+    },
+    "logs/G023/NNUE_STAGE1.log": {
+      "bytes": 630468,
+      "lf_sha256": "264ec5c6f03f8cc9a0f6ad863763291bfb659f6c728a1badcc284ec06310710d",
+      "sha256": "044be5173e46a6a8bd32424cbcdf2e93a64f1ea5096b29acdf4dcd9d88e01553"
+    },
+    "logs/G024/NNUE_HIDDENCLIP.log": {
+      "bytes": 430326,
+      "lf_sha256": "7f7a74dc0030cf43aa3d3e64efc405c592fbf2ff23ec70194eaaffb6ec0c5e08",
+      "sha256": "1bce96fed01fbe2a7237ed6377a09d4e90bc06a37c95abbe41723663e60a8c9a"
+    },
+    "logs/G024/NNUE_STAGE1.log": {
+      "bytes": 429803,
+      "lf_sha256": "5eeab27a0be0f0fa194e62d4eabed9a1927a478e83ca5563015139bc1187e2cd",
+      "sha256": "7163532d91e1a9337a66e7ba8d79514705606f34124fe7dd577dda8b6099e689"
+    },
+    "logs/G025/NNUE_HIDDENCLIP.log": {
+      "bytes": 477565,
+      "lf_sha256": "8d240ead38d0b20556f5ee14e8c17b85b4a12e5e5719c0b057b692bf72047305",
+      "sha256": "1d1ca428a80cd3c822cf478c5338a898f544f87b6f4621dd77896069dbb1d4bf"
+    },
+    "logs/G025/NNUE_STAGE1.log": {
+      "bytes": 463161,
+      "lf_sha256": "88ce46074208fc8122e83416a7925cca3e905ea5b39c42c32290f83202cef25f",
+      "sha256": "e913f3b2d25d0c3b19a5cdba164a93222f48a7e608fb2fc37b92d8499517800e"
+    },
+    "logs/G026/NNUE_HIDDENCLIP.log": {
+      "bytes": 714210,
+      "lf_sha256": "473773bc8fbdc1d121d1de309cfe623335e120ed9828d0bd3d6d86adab65f82d",
+      "sha256": "e7c91856dff5e846afe6cb06ce1e25c8b5d923308f3856817d366d931b6f5176"
+    },
+    "logs/G026/NNUE_STAGE1.log": {
+      "bytes": 692139,
+      "lf_sha256": "00f98316d3b74e728c32746dc4026d45725828d73271c4939950352a5701b9a4",
+      "sha256": "bc122106dd59df8f159c26a92d4ddafc30f9de7333ae61f48720afa0378508a3"
+    },
+    "logs/G027/NNUE_HIDDENCLIP.log": {
+      "bytes": 206085,
+      "lf_sha256": "c1e3a8d07b93a4ee4752dfe382d4c1423163b4436ca422655805e5259e8bad66",
+      "sha256": "3e9dda5c380fce22bebe3bfd480db3840b959b36f73505b34763b448e435228d"
+    },
+    "logs/G027/NNUE_STAGE1.log": {
+      "bytes": 196498,
+      "lf_sha256": "39c6bed57cdc8070c379dae1114a12d283c2e9aaf93a10455d8f98d722d66fc4",
+      "sha256": "7e41120bb48caf0e16113d38ab3e3441004a47c630473697e3ab98bdf6cb12eb"
+    },
+    "logs/G028/NNUE_HIDDENCLIP.log": {
+      "bytes": 1038923,
+      "lf_sha256": "5c3d5cbb6529d09bbf4f5576a95f968595a14e8e4eb10c8a1d8ccd35b3e5546f",
+      "sha256": "9c33c792b22726f7ac1017af0080667ab3bc3d0a8b6ff94b62078838c7559512"
+    },
+    "logs/G028/NNUE_STAGE1.log": {
+      "bytes": 1069399,
+      "lf_sha256": "a8aa5bfc69d6927f32712cf2142f855854c416fe8d1cfdd94d3dcb0384c05e05",
+      "sha256": "768b9a949fba00890550368d0b9b77b3a7d00b505ae5556a85a62afc7d336672"
+    },
+    "logs/G029/NNUE_HIDDENCLIP.log": {
+      "bytes": 324184,
+      "lf_sha256": "f35938f5711907037d46f5bdd95e59427649d880039d341a1a606aa3fdfeafcf",
+      "sha256": "bfb65c27f9fdd6b38fed5756ca822bb7ad4c21216d947f55ebe73f84e1eb38bc"
+    },
+    "logs/G029/NNUE_STAGE1.log": {
+      "bytes": 321002,
+      "lf_sha256": "f6b3273ea658219646784f659d00f000e8794169f76f930d88c61f77e0076a2e",
+      "sha256": "730e5f3c54ee914ea01e5461986957ca30cbdeb53ad2e592bb4d11f20b7d4a55"
+    },
+    "logs/G030/NNUE_HIDDENCLIP.log": {
+      "bytes": 320041,
+      "lf_sha256": "dec7f79d0b795b78dfa5bb0a702aa5ea9a816a992ef8e1be6f1634faf3f06a99",
+      "sha256": "ac7a037455ad2d1762252ecd02946eab81af2e9ea99495966f84ac9aac55b1b1"
+    },
+    "logs/G030/NNUE_STAGE1.log": {
+      "bytes": 323145,
+      "lf_sha256": "a75e0ef001d72db530710129630af236faeb7329cc61695e8c4e1cce5f8819fa",
+      "sha256": "a35472fdbad432912efd86b407d75f6f7d388ca912c85e52ced61e86b0770263"
+    },
+    "logs/G031/NNUE_HIDDENCLIP.log": {
+      "bytes": 366308,
+      "lf_sha256": "3c530af711a57cc9ca1c497a7ae43a31bf39fef806416b17042d49449e6d84aa",
+      "sha256": "57f6d4658c8c5c34bd6d88bcd05c43fb1461c45513d833682a95db8ac8f61f23"
+    },
+    "logs/G031/NNUE_STAGE1.log": {
+      "bytes": 350016,
+      "lf_sha256": "6149b372b08aab17dc73893a83b24808c652b1b0d3419c175d2648e0051afec6",
+      "sha256": "dd9223b7bb2181fa2a86727ee2bd72ebbe704eacd116be7201712b86ebe5cde8"
+    },
+    "logs/G032/NNUE_HIDDENCLIP.log": {
+      "bytes": 561976,
+      "lf_sha256": "96e0f886195916fffe265ba70ec72b0bfefff4c8635cc2febf9b94c8984c5f27",
+      "sha256": "a9dd69300543b7c940334c4eb3acd0f0fb5149c494305d27b0d195780e473683"
+    },
+    "logs/G032/NNUE_STAGE1.log": {
+      "bytes": 576195,
+      "lf_sha256": "d1f30a7439573f246950525f438d8a39fd09532abb1a6a29ca04d357957a5681",
+      "sha256": "0eb4e0c949f89a8ddeef80386068dd3dbfa6a5aff8a555b5c494b7aa5f85758b"
+    },
+    "logs/G033/NNUE_HIDDENCLIP.log": {
+      "bytes": 440452,
+      "lf_sha256": "658d7c77369c3a4aac4cf6225fc35d314aafa5463baeb7cb090261241d2ad6c2",
+      "sha256": "1146e1ecdc6722fd2f0f43b86aeed3c0c2cacd5c2b5207ac375aea6820a3ce86"
+    },
+    "logs/G033/NNUE_STAGE1.log": {
+      "bytes": 446817,
+      "lf_sha256": "59d8464dc6b82957282ccf516d629c6279d3e9188d1d57ddd94c53edb0720804",
+      "sha256": "a4a06b543e1fc55c634a5521ba0a5fe6545d01ab9e8bf683eefa47bfc7b5f469"
+    },
+    "logs/G034/NNUE_HIDDENCLIP.log": {
+      "bytes": 449752,
+      "lf_sha256": "6648684d2f08ad1bb8929a45ed982dcb74f7cdc22203d5afe8b6468e22a022a7",
+      "sha256": "b4378ce17d7e08d35e2242045d4756bd3f834b15ebf08d598ea3d99f096220fa"
+    },
+    "logs/G034/NNUE_STAGE1.log": {
+      "bytes": 439461,
+      "lf_sha256": "3e99cceace8fcb164b7bb769aae500f57decfcc711f0f122e41ac5de921e197f",
+      "sha256": "e385a270211eba708aa81a14a1c74b52d638dfcd51912ace7d3076cc1ce7c72c"
+    },
+    "logs/G035/NNUE_HIDDENCLIP.log": {
+      "bytes": 833504,
+      "lf_sha256": "4257b5c058f5e25b885fe0705ff82bbf03a4da0528111129ca5d9c3869019152",
+      "sha256": "aca97540d200191106a000f66e67283475ecb9766d2f9d2e25234174d2c4ddb5"
+    },
+    "logs/G035/NNUE_STAGE1.log": {
+      "bytes": 848833,
+      "lf_sha256": "1019f543cb2357fffb55540f7719bb078fbfd1efd1782515d009246918475bac",
+      "sha256": "d02eb1e74c86ef825de71f015dca353404ba4aa74aa7ab94076f7a5894ab8c17"
+    },
+    "logs/G036/NNUE_HIDDENCLIP.log": {
+      "bytes": 808696,
+      "lf_sha256": "d4311e57cc3226ebd431250f91185ee4e7b07be4b531a2788b0cdddd9b5f9cee",
+      "sha256": "9232c3d712dd70dec24c608632d0ea5f6b326504058dc9471d6e9d58e7ed72ae"
+    },
+    "logs/G036/NNUE_STAGE1.log": {
+      "bytes": 795235,
+      "lf_sha256": "09b5a983c6a3c6e722a1b91216414859bead2ab473fb07c37cc1e0da44e8d954",
+      "sha256": "96d7eb6ea21f224de48e65909806c42218856518680d9959d6727766f7ca123a"
+    },
+    "logs/G037/NNUE_HIDDENCLIP.log": {
+      "bytes": 567208,
+      "lf_sha256": "e8dfc9533e68050b340d812b8b6ba649570754ab80251b701db02f2b6cbdb7d1",
+      "sha256": "e653db2cb09af8f11dc4ba60e45d8651239e2352cb73ed3a8e9aa181d8459549"
+    },
+    "logs/G037/NNUE_STAGE1.log": {
+      "bytes": 579292,
+      "lf_sha256": "0ac3f13d5ec4d65600d012e363099f564b32cd2c41568df69aece236b3bd55c0",
+      "sha256": "0f39e2a783406e1a0ad1e7c786467d7b856d4d339c92b63bba93e87c25f55fed"
+    },
+    "logs/G038/NNUE_HIDDENCLIP.log": {
+      "bytes": 356173,
+      "lf_sha256": "1e360c408dfc42abd3e2804d8fc9902f213797d22b998a666e55de24473a7a78",
+      "sha256": "5df4bd3ec8352ce5ccb6761b58f73a14e6cc1d9467997ad0caaebacc9ba83fa2"
+    },
+    "logs/G038/NNUE_STAGE1.log": {
+      "bytes": 344079,
+      "lf_sha256": "864c27a25bbf265442995715cf9c3414a997ddcab4438f276e7c2d7d65b26f86",
+      "sha256": "a65bbf745448a77b4a8ddc53bbc9d561f895f17f14af64931935cf0c9b2dc1cd"
+    },
+    "logs/G039/NNUE_HIDDENCLIP.log": {
+      "bytes": 356216,
+      "lf_sha256": "7015df3a86c01ab237b4b717765dca53816e55e6c17f0614b5f17271d309b2bb",
+      "sha256": "e19e2186fdbd801d454437c7281ad828e554aa3478a430be79aad7862652c02f"
+    },
+    "logs/G039/NNUE_STAGE1.log": {
+      "bytes": 361275,
+      "lf_sha256": "ab84fa1c9569491b1421bae7f14968f08e6235744d3d9649284d94acf9709d99",
+      "sha256": "267ae6bb51a8d4ed95de419ec5e642a778a0dd944477353f4d599fc3c0f136a9"
+    },
+    "logs/G040/NNUE_HIDDENCLIP.log": {
+      "bytes": 566384,
+      "lf_sha256": "3306c41069fd4c9e5dbaa8b688d15f26c340e5c3a65b43a441a5c583a747e585",
+      "sha256": "454b582719bb698b36e48e026c94ece26925e1231678f2c8d9fb1a2e7aba38eb"
+    },
+    "logs/G040/NNUE_STAGE1.log": {
+      "bytes": 549879,
+      "lf_sha256": "5f580aa7cf913b88c06965e8fbec3296cfc56772029470fc0434957349155fcf",
+      "sha256": "9d57a9302fccda1c3dbde0ffdae3f250239dc6b966f811698e7c0241e97807b5"
+    },
+    "logs/G041/NNUE_HIDDENCLIP.log": {
+      "bytes": 414874,
+      "lf_sha256": "0cd2bf4864b90b056a3fc03d19245eee71fb83fd04217d40ab8a3fd577acd850",
+      "sha256": "1027f6ab5a6e031ee1a2d1a2e25cf2cb12ab61c308e1c65f801a163626c02d0c"
+    },
+    "logs/G041/NNUE_STAGE1.log": {
+      "bytes": 402197,
+      "lf_sha256": "364ac34a1c0a3d05bc6271dae9628fa718eabf51502c4c63e65e06932e9974e2",
+      "sha256": "82971817039f3333c268c9b12f684b6c762243d687e2fccdd672b5f867d7b5bb"
+    },
+    "logs/G042/NNUE_HIDDENCLIP.log": {
+      "bytes": 253521,
+      "lf_sha256": "7e27822d9d752d75ea4201c0838b15fad4380eed26eaffe55c632e824cdd27dd",
+      "sha256": "7502f1fa5d3f7c19b987a988c476fab116c149149854769b57ffc423160079fe"
+    },
+    "logs/G042/NNUE_STAGE1.log": {
+      "bytes": 246938,
+      "lf_sha256": "d89b3e4668cf72fdd402a3957e995d3a04553c5008aba90b08ec7442399c95a8",
+      "sha256": "23d0c0fa618cb6eb7fe6ea96782559119d7b8d9186fa2025b6097907aa6d1455"
+    },
+    "logs/G043/NNUE_HIDDENCLIP.log": {
+      "bytes": 589501,
+      "lf_sha256": "a4686856c21ae80f85f5a2c57a71f08aa143b86c5403aad98043b41ad6ea9aba",
+      "sha256": "e7a127c0682f6959a8c31d850ea8495daf17e2985ffd0dee4c2350052487bb6c"
+    },
+    "logs/G043/NNUE_STAGE1.log": {
+      "bytes": 584206,
+      "lf_sha256": "cbea01910397613bb06f9e1653680058f05ee0dac932bd2b472f7f7c61db635c",
+      "sha256": "ff329f3f93dcb84b87b0703a64a98534cc2c9ca841ff9040a7669f8cb5b726b8"
+    },
+    "logs/G044/NNUE_HIDDENCLIP.log": {
+      "bytes": 865976,
+      "lf_sha256": "713f80e89236c9be24c8a16ffa53bfd4aedf5900659fa441e2030b644b84f815",
+      "sha256": "41757bedfaceb670ce5f741dacbc85fc786aa9312894a7cbbd7881c29a4ce50b"
+    },
+    "logs/G044/NNUE_STAGE1.log": {
+      "bytes": 881215,
+      "lf_sha256": "78005d24d683055649b62b6532032b8751ee20097e35464807e7cf2bd23aec34",
+      "sha256": "4749dc753f8b42ef82670c3780e65c5883f63d4f11e70d779f16fd51205bd3a2"
+    },
+    "logs/G045/NNUE_HIDDENCLIP.log": {
+      "bytes": 312381,
+      "lf_sha256": "6dc9b7a0988e236a75cb545ba352a12428e570470231bdcc299edc9fecb28f4f",
+      "sha256": "36b89aa627e63bc3a750cb3eb37e2e20eae2f27f93843f54b48e19c112a37e10"
+    },
+    "logs/G045/NNUE_STAGE1.log": {
+      "bytes": 302420,
+      "lf_sha256": "12056926480f89ed051ebab9a6c43b859b8968033855bb9280e983efadb2da4f",
+      "sha256": "08946f5c557c09126b617acce4c8650bb5a9ee906041ce1781ba33d62789d298"
+    },
+    "logs/G046/NNUE_HIDDENCLIP.log": {
+      "bytes": 409061,
+      "lf_sha256": "97a76d6c4f92a5e471b49051a212950d11ef21b2435031f8f10ca93021a4c36e",
+      "sha256": "7095d6f29dd4a40a0fcfbc6eacf40f96eef9d8af86f0879643d1323f57a7b895"
+    },
+    "logs/G046/NNUE_STAGE1.log": {
+      "bytes": 394366,
+      "lf_sha256": "0cb0a09fe72e3a19cfa30488f0910fac8eefa8150989fe560f5c5d68eb21bb8e",
+      "sha256": "b982abb4a10b79d0924540f2bce05b9b532b6178fcc05ba685dbe836778dfd84"
+    },
+    "logs/G047/NNUE_HIDDENCLIP.log": {
+      "bytes": 475354,
+      "lf_sha256": "5b892fa2893567e376263082398212ce7722d23f6b57274518bb606191a28724",
+      "sha256": "a0024c1e646a2bb96ee783ce9c3e05fe1e8ead520735834cdaa61c67efe36624"
+    },
+    "logs/G047/NNUE_STAGE1.log": {
+      "bytes": 457690,
+      "lf_sha256": "7fe62afa1033739920ac8df8be57aa134387844bb302fcb640f411a3e1fed72f",
+      "sha256": "9f1a6d8bb141d17697558e5cef4b804bdf41a4c2598c4cb94aba29a82ad57dbd"
+    },
+    "logs/G048/NNUE_HIDDENCLIP.log": {
+      "bytes": 511491,
+      "lf_sha256": "95632b9d787c8255d63daa8e316246465622b75bf9ad8bddcde218592d8d10e3",
+      "sha256": "46c40e11d80044166bf09ac68d1ce5c4a1d99051e5f7a9769be9e1af68e710d8"
+    },
+    "logs/G048/NNUE_STAGE1.log": {
+      "bytes": 518839,
+      "lf_sha256": "2c74961794b3fe6f9fe0032995d0ce8deae5ad47bf47cd701d2a681fbf846eac",
+      "sha256": "001ed4f3abc94e5f7358e8b560f8d2a702d394bf8ccece458c79d67cb3d81da6"
+    },
+    "logs/G049/NNUE_HIDDENCLIP.log": {
+      "bytes": 388166,
+      "lf_sha256": "f3dbf49c0c8bd46e281badb375b8250c47083096b5305e0627b9ecf9d169af71",
+      "sha256": "df645c9ca83d812a97bc0d6940d6beb849aa17e30f2106640c77515167719bf5"
+    },
+    "logs/G049/NNUE_STAGE1.log": {
+      "bytes": 381218,
+      "lf_sha256": "8ef452b5fe625bf4888f0e2dee49a67479c500a1a9bd615ad3452f986bd218a1",
+      "sha256": "c3b543b29faa8113dac421382d16de7f798fbcfbde43ba59b50bfafbddc18c03"
+    },
+    "logs/G050/NNUE_HIDDENCLIP.log": {
+      "bytes": 537262,
+      "lf_sha256": "f6fe1f2505fef53eddd3b65351a807d18ea8522c59184b6974ec85f815451189",
+      "sha256": "0a5283c86782d7e0ccd802f9aee429d97d46ecb83ba6b2dcffe6390eb5b7190b"
+    },
+    "logs/G050/NNUE_STAGE1.log": {
+      "bytes": 537106,
+      "lf_sha256": "2e30d8cf91f6df90e11c6e0545f1f87032fa991c49476646bf2e112b02b1f471",
+      "sha256": "2053af61803dd758a599cfa5c284ec9ceab096158bfdd7768908f88076278600"
+    },
+    "logs/G051/NNUE_HIDDENCLIP.log": {
+      "bytes": 478742,
+      "lf_sha256": "1ebea0b9ad77ba0f53d4f0e018d481f0afbd51a57d5d66d7e4c09a0f9a57b099",
+      "sha256": "097d603c69abe32c31709e532b4ce24a2215bb299063ed1c3176b6e861a82538"
+    },
+    "logs/G051/NNUE_STAGE1.log": {
+      "bytes": 502230,
+      "lf_sha256": "35d05ee14056004a58b461480121308f702a072f51663e88fa2126222e94de3a",
+      "sha256": "3044059ed7709a8bc2cafa90838692a6b81926a46347cbb55b45ff5754d91b50"
+    },
+    "logs/G052/NNUE_HIDDENCLIP.log": {
+      "bytes": 503251,
+      "lf_sha256": "6426718743c759e14b8f73bb33bb33fa21ce1cbee3968517ec7cb253fd925238",
+      "sha256": "5381e67b70bde5a465539f40691a0321869047de70d175d3b1b3a414019062a8"
+    },
+    "logs/G052/NNUE_STAGE1.log": {
+      "bytes": 477748,
+      "lf_sha256": "8c46a96b43c139aaff9b4e7cfc6fb9ef3164d1d2178e83b7d225e33f0530a7e5",
+      "sha256": "7ca05b4c95deeddb2880dc68cc3078f2c4a654a3e3be438772c42355265a3c34"
+    },
+    "logs/G053/NNUE_HIDDENCLIP.log": {
+      "bytes": 325841,
+      "lf_sha256": "78903d60b4c4e0de65545174112fd4c35ee6232df05f9d4a33534f96a576c63a",
+      "sha256": "0dbc6aefbed2349a8212dc75288dfb5f8a871b8eb285409f13bc3c0af168edf8"
+    },
+    "logs/G053/NNUE_STAGE1.log": {
+      "bytes": 323248,
+      "lf_sha256": "ed4fe066152ac5af44b4768a835d9799f93a5a9c026fca45a7bdb7226fa5b0f1",
+      "sha256": "88a8c6fd348c1741f32d453780ec56b48a3018cdbcdc647922d31fc0e9ec45db"
+    },
+    "logs/G054/NNUE_HIDDENCLIP.log": {
+      "bytes": 667391,
+      "lf_sha256": "a3c608da158e248d048eaf3fd85aa849627da51517cd8f48bda5cd8ef9ae4fbe",
+      "sha256": "bb34e9921264687093823282f6e32f71f7d4610ce07788c6b8bf330dec8a86f4"
+    },
+    "logs/G054/NNUE_STAGE1.log": {
+      "bytes": 639700,
+      "lf_sha256": "f2ed1db44b5115a9a6bcaeb4eb8434cbd27f372e14ed5c90d558042edd0e2e5d",
+      "sha256": "b97ff38ca83c902fa0f65e7bbda15fe3e8cc942df55b9528b75745e59bd17e57"
+    },
+    "logs/G055/NNUE_HIDDENCLIP.log": {
+      "bytes": 378519,
+      "lf_sha256": "6395de4c43fb1733ca187e1c599e63147f43030c3d6782f706f324e268847667",
+      "sha256": "c570aaa5d0eb9a8ed7fc6cbdaa6efc0b63a090595e7455717c18172a2b19eb77"
+    },
+    "logs/G055/NNUE_STAGE1.log": {
+      "bytes": 383698,
+      "lf_sha256": "2621fb31a94dbd0a7c0c252564a3920f241c427b65e64b6d3819014598c3965d",
+      "sha256": "895e6d6fc1dff33d4d59f119f2fdb673666de99de5ab814aa72092cfd0bcafcf"
+    },
+    "logs/G056/NNUE_HIDDENCLIP.log": {
+      "bytes": 245333,
+      "lf_sha256": "aaef36859e7f7ac6aeb6219e53fd32996b83f781d0e3199e2c1eed6ec9445b51",
+      "sha256": "ecd13f6f365142927242c0b680597500c14785e635d68d582e063f55a9470b34"
+    },
+    "logs/G056/NNUE_STAGE1.log": {
+      "bytes": 245249,
+      "lf_sha256": "ce803bf914f48883b64887bde251013deed1a769c38874a4aa0641a0bedd4945",
+      "sha256": "974cb7f9e646f46ac55b6db5bd92b98b50d8838cf2150a6707c14147a2f3e370"
+    },
+    "logs/G057/NNUE_HIDDENCLIP.log": {
+      "bytes": 681011,
+      "lf_sha256": "b9187dcce34ca78f3abfc746f0fcd2faf22474f806af8fca8736b3134e134bc4",
+      "sha256": "467da88bdcd22d799456d1c67cca337df0349d7882e9c730b257a7d51f7194a2"
+    },
+    "logs/G057/NNUE_STAGE1.log": {
+      "bytes": 698520,
+      "lf_sha256": "cbb8a91fbac2d60529b2efabd04fb0ced9bc93d60873b27f953e3b2ee772948b",
+      "sha256": "e5dd19e395844b51b4972d899f43dae08d6f09bbdf09968f66787fb7723e3400"
+    },
+    "logs/G058/NNUE_HIDDENCLIP.log": {
+      "bytes": 899563,
+      "lf_sha256": "83565bf03637ee03411830046c0cc55ef197a2edf509f2bbae91111a84d704a4",
+      "sha256": "cea46d81732b6c12c57b5c68294e8a12744625b416843330e31ddcc17e0ac852"
+    },
+    "logs/G058/NNUE_STAGE1.log": {
+      "bytes": 865824,
+      "lf_sha256": "4b626ce58525e58787f318fbe596626075eb8c2ba732e24491e1afbfd7ed6908",
+      "sha256": "812ab9c21de7e45c732516811a535a12c716a520c382ed7e32850fba9105f54e"
+    },
+    "logs/G059/NNUE_HIDDENCLIP.log": {
+      "bytes": 535251,
+      "lf_sha256": "96f0536c5f9080255617f1dfab31418b3d60fc22438326062344f6c167828be0",
+      "sha256": "7b2387372080c604da1edf45547a628351e124c8d622585e500586854424c773"
+    },
+    "logs/G059/NNUE_STAGE1.log": {
+      "bytes": 517447,
+      "lf_sha256": "5201aaea5845791fc93754da2d8bcb9e9c82c9ea3f1b225e851e078c783f1c16",
+      "sha256": "d1f6327297949dd33b4c5553fb3f23ea2dc03f0d8311bf618e909adbc996777f"
+    },
+    "logs/G060/NNUE_HIDDENCLIP.log": {
+      "bytes": 601061,
+      "lf_sha256": "4bc3a85f5c61df703b28f043dd17b9070d64b3634f29846ed0b62958820887c3",
+      "sha256": "65a1f1021f48879df3605f1fa4c01d1afa63abc7c319673eb268672f998cad3d"
+    },
+    "logs/G060/NNUE_STAGE1.log": {
+      "bytes": 616147,
+      "lf_sha256": "b781c297c7d488725c1968c0305121f319847130f5c9e0d69ba4359bb967211c",
+      "sha256": "afa07712600471a92d5f945d04107d29510927c363e2fdbbe17259af90e27fcf"
+    },
+    "logs/G061/NNUE_HIDDENCLIP.log": {
+      "bytes": 666893,
+      "lf_sha256": "9d6765cf83f4a0ba50b628a2cd799760170014c8d7ba177c553a2375dc5eed48",
+      "sha256": "2adfd71558f479ec545adb9c47c4b86394d53a494194ab59141a716336e3fb77"
+    },
+    "logs/G061/NNUE_STAGE1.log": {
+      "bytes": 661677,
+      "lf_sha256": "aa9b4cff87f4a7483ebc6e4e3c1590c92dd32dde2eb1d3103cb06b18f9261f2b",
+      "sha256": "6f15b6e17f1e058c9d9b43443cf65b4ada644fba694403b55998d24def6c7e87"
+    },
+    "logs/G062/NNUE_HIDDENCLIP.log": {
+      "bytes": 255687,
+      "lf_sha256": "1cbc1b704eca3eaedbd900b2b35676bfe5f9780a418cf94b73d870826515131a",
+      "sha256": "9fc87f83b7b9b3fc1378b1f0701e904fd5dceac52e1c30edaa51d023b19a7c8e"
+    },
+    "logs/G062/NNUE_STAGE1.log": {
+      "bytes": 253114,
+      "lf_sha256": "7e5b71eb19ca2683da0987e67973874ffce7a63c2671dffd37c86a8f36cfdf3b",
+      "sha256": "9b9ee1ee292cbc0f10bd141a86856067d051e979455aed9736e170b6b2586327"
+    },
+    "logs/G063/NNUE_HIDDENCLIP.log": {
+      "bytes": 565421,
+      "lf_sha256": "5485a5ec7a3027fd50ac5b006d488e7af14b3c4c509b59cd5fec58d2ccfe3f42",
+      "sha256": "79533ff4d53139dcfbe8c60a0ae5514f3cdc257a3bb5740d15301ee95a2e0cb1"
+    },
+    "logs/G063/NNUE_STAGE1.log": {
+      "bytes": 555981,
+      "lf_sha256": "c58e58aca5ae1f7d8bda163ebe8d29cba9b51df2494c06c930135e0763b40bdd",
+      "sha256": "f494a0015e1328d43d2a8a3dee60090a312c49fc9cd939195c7f518639b6c855"
+    },
+    "logs/G064/NNUE_HIDDENCLIP.log": {
+      "bytes": 569861,
+      "lf_sha256": "b819ddf0ff1e2871ad4b177dfacf34b250111edf9d2fd40825c9acd2055b5c45",
+      "sha256": "4ddebcc87315d0013e966086686064dade717ae18cc86103abf733db402401ec"
+    },
+    "logs/G064/NNUE_STAGE1.log": {
+      "bytes": 572247,
+      "lf_sha256": "81d0b2222ec7da60e3b1fa5c491bfce9c6a464f1bd53aaec93bff38963139ed6",
+      "sha256": "3231a79d430596ef049f9dff816b82201f6674b6015179deaf68efd5a40b01cd"
+    },
+    "logs/G065/NNUE_HIDDENCLIP.log": {
+      "bytes": 624417,
+      "lf_sha256": "62605fef0ae76e480ee2d43931a4c9f34d0d61fdefafe057cd56cedac47ea65d",
+      "sha256": "101c03c74b6ef7d11fa30b8f0817efba2f21fd9c90533bd8f43e9dee4382e7be"
+    },
+    "logs/G065/NNUE_STAGE1.log": {
+      "bytes": 640502,
+      "lf_sha256": "6214fc5b80b1443b94d0f5012401364d810d4553d0e9ecc57f0f456dc151b7ec",
+      "sha256": "fbb2d2790ddfc649e6f30e8bc5a89a9b5b5160ac2449803375e4ec3a96a42867"
+    },
+    "logs/G066/NNUE_HIDDENCLIP.log": {
+      "bytes": 1127679,
+      "lf_sha256": "cd1f248eb01f6940564188a8657de426cb7afb914b19f44e567597eb6f06f275",
+      "sha256": "42f3b422ea7049afecb4afec8f35531b59d40d43599987a935c8c24dec6dc22b"
+    },
+    "logs/G066/NNUE_STAGE1.log": {
+      "bytes": 1096414,
+      "lf_sha256": "6149850b13d9b0db1a821c4b2c76fd67f7219ee87211dcb366ff5210a7be015b",
+      "sha256": "6f5030ccd938e8b425bf9b6ccfffb40f8d14424fc468e104be041876acd6fe7b"
+    },
+    "logs/G067/NNUE_HIDDENCLIP.log": {
+      "bytes": 608515,
+      "lf_sha256": "72875e6ba07779c635cef28872a011d949ab58429838d341727be3f1bab18cb9",
+      "sha256": "48aab696178990c4b51c1ecd1411a7e1410cb03ec82ffbc8b73eef8b5b4aae74"
+    },
+    "logs/G067/NNUE_STAGE1.log": {
+      "bytes": 609936,
+      "lf_sha256": "808fb65d5c0f79f04974bd860573c1f8ee2e1e4193155a277e856f094fb0f1f4",
+      "sha256": "3468f021a035f9645c9d1359228d680dd84f0ff16e3c40d8c83cdfa9e81d91d0"
+    },
+    "logs/G068/NNUE_HIDDENCLIP.log": {
+      "bytes": 538046,
+      "lf_sha256": "ba463ee7a005c58a31f88633016819ad4e4cf3c1ac4164cfe20cbbe1837c3295",
+      "sha256": "36864ddd9ee14726c27883e0e92241e91ee07963c38c89fa1a3e4ec41bd695bd"
+    },
+    "logs/G068/NNUE_STAGE1.log": {
+      "bytes": 549590,
+      "lf_sha256": "aa504461fe3da49f3386812cc91d28e79a7c3dfaa7182330cb37ee7f503b132f",
+      "sha256": "cc49e83e2725c46b6148e9343bf60553f3f1abe110af0319b5a7ab8357fb1f9a"
+    },
+    "logs/G069/NNUE_HIDDENCLIP.log": {
+      "bytes": 703788,
+      "lf_sha256": "7b3e8dbac3ff3979145e91abae2bd1230ad0202b414d9e5367e1df4159ffda23",
+      "sha256": "8cf5a58f0c3ddb7ee451fb189a8001dcbfd38303ee265a622bb3c73dec9157ab"
+    },
+    "logs/G069/NNUE_STAGE1.log": {
+      "bytes": 681819,
+      "lf_sha256": "2c2f1c78f16d7d8e50e688b6c626cd8da270905595a85c5e7a640947296a62de",
+      "sha256": "b7d6081c3b9546a1793cb05632238ca647b229ff01e232bf92649d9eea161139"
+    },
+    "logs/G070/NNUE_HIDDENCLIP.log": {
+      "bytes": 436785,
+      "lf_sha256": "7779e0096ad67eb85a5b4e34ec7d51efc14774185411662ec311cfa9e308cc07",
+      "sha256": "2a1e7ddc0b3b63f0d6e2ab115505c0a85b2c3c14ffbe72800e545212e3d4dacb"
+    },
+    "logs/G070/NNUE_STAGE1.log": {
+      "bytes": 440503,
+      "lf_sha256": "4ea9c149e1e5fd52e7c0795cafee7ae39e8a0c4858ed42427a66cf804ff0ee13",
+      "sha256": "17880fe673de6c78ad786961d082eea41d20e9f35e91b90af28fc2e4827710ff"
+    },
+    "logs/G071/NNUE_HIDDENCLIP.log": {
+      "bytes": 598396,
+      "lf_sha256": "2edd0b11f48163f58411883417d322a9251a9378ed6f50161cee79a494a4a28a",
+      "sha256": "6b006db1d83ded3dc4b8af8abc7583992e1e9619df4c3a48fe1add8504c877ad"
+    },
+    "logs/G071/NNUE_STAGE1.log": {
+      "bytes": 590114,
+      "lf_sha256": "9ce06356b818c04eb3ff145f18848c8ae94fbf7dc76f43e77bcec0779d1c0565",
+      "sha256": "bd204647124fcab9e01f293e6128f19e608da3f220e6aecc7a3ad1893eb79403"
+    },
+    "logs/G072/NNUE_HIDDENCLIP.log": {
+      "bytes": 499816,
+      "lf_sha256": "d6c8c902cf0a3b3de8dee1d1f44aabb7a2828b7656cae7b4d03de353db1066da",
+      "sha256": "349cde492ed3f4fa8571be6d267297650bb66cf330d1a178a1864690676f1713"
+    },
+    "logs/G072/NNUE_STAGE1.log": {
+      "bytes": 500092,
+      "lf_sha256": "551c67ae499f90774e6cb752363c9744df6d32f479b615c9e9da322e85441986",
+      "sha256": "0f8fabae8f2d9c0ec60ece55bf1ac3cfd1af73941b86f89aceccda43933c918d"
+    },
+    "logs/G073/NNUE_HIDDENCLIP.log": {
+      "bytes": 823742,
+      "lf_sha256": "ffcd044b49eb0876bfff0ebe2159461fff714baeaee12015e0c140bcdc03c103",
+      "sha256": "e63006ae5eff8c981c1f85e7ddc0d929b6c49cfd434ddc59ae73bfa5e36c879b"
+    },
+    "logs/G073/NNUE_STAGE1.log": {
+      "bytes": 835342,
+      "lf_sha256": "88fd48fd3282dafd0af88bd32a271d5d5804258882aa6054df6d4e5725b30f8d",
+      "sha256": "c354581666a482e18c3f3ec51cb98c6577416dc564a3c38e4bc48839d87b6e41"
+    },
+    "logs/G074/NNUE_HIDDENCLIP.log": {
+      "bytes": 605048,
+      "lf_sha256": "b79106905299b28a464a5d4fcd48a75795be1e2d4e51c888c8816dd62aec75f0",
+      "sha256": "ba7caeb072a5927c35d00a0c81440c0c877a2a9c3227b32d4b419623d276a4a8"
+    },
+    "logs/G074/NNUE_STAGE1.log": {
+      "bytes": 589968,
+      "lf_sha256": "f25c40cc0bd4ebb74c08fb28ef0387c100499f52b1a008703ed2fd21d603ad7d",
+      "sha256": "bce8917c1cd95f83107bd2a575eb001d1290f8c26ce8b658586e43059cfe8877"
+    },
+    "logs/G075/NNUE_HIDDENCLIP.log": {
+      "bytes": 767436,
+      "lf_sha256": "6d7c3cff0f22e65753b16f2dfe396e441283cf47bdb991af5a631d7aa66c9c57",
+      "sha256": "84b860c1ebfc3d76e48547ac432b47c29a558173d66fb4969d95990ebba4da5f"
+    },
+    "logs/G075/NNUE_STAGE1.log": {
+      "bytes": 724503,
+      "lf_sha256": "30d11fc09102a27ef67951a80aad5508ccc554a0557e9d1d766ee7a0399378b3",
+      "sha256": "c83498041685151af924b8e7bb06529f9a3712d532ff0f6201af3df0db6db8a0"
+    },
+    "logs/G076/NNUE_HIDDENCLIP.log": {
+      "bytes": 148137,
+      "lf_sha256": "8122ff407662debce3029e791f1a2364f8b1cb270e09c649932dba789367e7cc",
+      "sha256": "23abdf2eaa3a8304dcdbf8fc2a71c63e36cfcb10c03ea099c07a139fcef8219b"
+    },
+    "logs/G076/NNUE_STAGE1.log": {
+      "bytes": 149887,
+      "lf_sha256": "33bbabe8f6851f1e11253be354b28b7110464d259552c1530929e82d4645ac06",
+      "sha256": "badeb7d7011cb82f21ae19f20a5dcce4f4725b9a58f4b1240d081bfcbb915955"
+    },
+    "logs/G077/NNUE_HIDDENCLIP.log": {
+      "bytes": 648557,
+      "lf_sha256": "91bd332fb854750cb597009cc948672493bb7d019316ee4ec431aa654033e21f",
+      "sha256": "de1f0ff3461e25bcd20a838a852409e934f7611b1ca8a805c8f78fae12d4b86b"
+    },
+    "logs/G077/NNUE_STAGE1.log": {
+      "bytes": 639969,
+      "lf_sha256": "b3e988b743f4c699bb0068caf1c19d8e533cd3280a3659ced7141dfc3ef7650a",
+      "sha256": "248948fe760d2279013a6c02093270022a6b16153311f5c0fea69d2a5007c812"
+    },
+    "logs/G078/NNUE_HIDDENCLIP.log": {
+      "bytes": 312746,
+      "lf_sha256": "892ded20498a6950e718c143ac7b9c311c85107818b50666c7b25dad184a88ae",
+      "sha256": "f416c76f60446a3e5eec783480b2e4aa3634cd9932f1cf55cd65048ff5cd82b2"
+    },
+    "logs/G078/NNUE_STAGE1.log": {
+      "bytes": 319099,
+      "lf_sha256": "6236cfaecdfc858bc2854de041f4c4668de4d85c905ceb473e1b0cfae023f136",
+      "sha256": "7064e82c897e21af45db76142ca48bcf6406ce054e29a40d4c676bd3ec4ddea4"
+    },
+    "logs/G079/NNUE_HIDDENCLIP.log": {
+      "bytes": 334510,
+      "lf_sha256": "82d447538698ae72d3ba477c30b0d174128a0ceca0b83d3536badd2426dce8b5",
+      "sha256": "376110c18f681e14717f8b2ae58b4060295455713f061480168c466c8254183b"
+    },
+    "logs/G079/NNUE_STAGE1.log": {
+      "bytes": 317838,
+      "lf_sha256": "5e5bac10e9512e31a312c7954ac93827cd1af250048276999fb68025f522d943",
+      "sha256": "738420a8406eb106c8b9c9b0d3b771a54a4009f7d3aba519dbe4ec87430d9d7c"
+    },
+    "logs/G080/NNUE_HIDDENCLIP.log": {
+      "bytes": 641548,
+      "lf_sha256": "8609bf498d1a70925a8e918f0a8eb3452ac0bc6c475890f4d38903befb29d58b",
+      "sha256": "e7b4403c06620ca585da657f4f1d2791a4c7e0473df9bcc4bf370dddb04d4444"
+    },
+    "logs/G080/NNUE_STAGE1.log": {
+      "bytes": 645717,
+      "lf_sha256": "3ba6bae5ced5d6d856d03b864fdcb5ca7a4192a0dad84991e67738212a957875",
+      "sha256": "d15e5740829a07667fe505979a8bb92affd2979dd6e92de67ed97bbcf6cf6685"
+    },
+    "logs/preflight/NNUE_HIDDENCLIP.log": {
+      "bytes": 30125,
+      "lf_sha256": "9b792a1e6d3d1b4a2f479cd53e0d6588cef8a8153e78d3e4ec50a1c8a8dcad6d",
+      "sha256": "d6e650383d7e1a60be3ffa09d8c495e30ea800f90ad329bd3aaefc5d5aec5c8d"
+    },
+    "logs/preflight/NNUE_STAGE1.log": {
+      "bytes": 30125,
+      "lf_sha256": "935f43c2e725a35e98fa3538c1b8adc4b941cda1878c9f63925d40a8584af1b3",
+      "sha256": "1a392f923846ef94033ac1b19ba4c80b64a96cb4a91a03ff9de3ca4e1d8f0a43"
+    },
+    "logs/smoke-NNUE_HIDDENCLIP/NNUE_HIDDENCLIP.log": {
+      "bytes": 8286,
+      "lf_sha256": "cfe95afd3d93109703fe5f742a51b336b5d9ecec59ecfb7c136d2c5767a73b46",
+      "sha256": "5776c81877932783014110c4ff9a0b0019397b63ded9a22afa4deeef0807520b"
+    },
+    "logs/smoke-NNUE_STAGE1/NNUE_STAGE1.log": {
+      "bytes": 8286,
+      "lf_sha256": "e65001e69236c9efb3b1d63a90d866edc06389c8e55dee12f9ded04b156ec7c5",
+      "sha256": "8922a50a0e45ed0e8d25d6259630773ee65ef23c9a9f120b311434924a4173a8"
+    },
+    "moves.csv": {
+      "bytes": 10339438,
+      "lf_sha256": "bfd8140cc1c38fc5d0370fcdf03080bc9e25be3ac00ff0bc2b3f0b6e5a085103",
+      "sha256": "e28f693fdbc10e001761865b70daadf310cfd7d230e4b3da344fb57c8832c5ae"
+    },
+    "opening-suite.json": {
+      "bytes": 23325,
+      "lf_sha256": "ac396f24d9e6f7f7c01a6afdb1dc96f5a28500ba77ac3b873abb972a55fa1903",
+      "sha256": "ac396f24d9e6f7f7c01a6afdb1dc96f5a28500ba77ac3b873abb972a55fa1903"
+    },
+    "openings.py": {
+      "bytes": 2320,
+      "lf_sha256": "bdab85fc2fe23ea6350bb6d41cffff1711429daf9ae667b2a687df80d19f3701",
+      "sha256": "bdab85fc2fe23ea6350bb6d41cffff1711429daf9ae667b2a687df80d19f3701"
+    },
+    "preflight.json": {
+      "bytes": 29077,
+      "lf_sha256": "dce72238e62192644cca0225766a9f1bf874783101ea314de30a1ae6e4d065b5",
+      "sha256": "dce72238e62192644cca0225766a9f1bf874783101ea314de30a1ae6e4d065b5"
+    },
+    "preservation-before.json": {
+      "bytes": 160456,
+      "lf_sha256": "2eb1835aaa215542949f16f79a97ef8c2898e7250ddf6fc00150ea4a7e489189",
+      "sha256": "2eb1835aaa215542949f16f79a97ef8c2898e7250ddf6fc00150ea4a7e489189"
+    },
+    "progress.json": {
+      "bytes": 1498,
+      "lf_sha256": "caf1cfd55e6a98f4538c02c419bfe48a826f281a2bd930070c263022e6a183aa",
+      "sha256": "caf1cfd55e6a98f4538c02c419bfe48a826f281a2bd930070c263022e6a183aa"
+    },
+    "provenance.json": {
+      "bytes": 13247,
+      "lf_sha256": "ba906f765031c38edcf40e63fdcf6677dce6266aa2bc6a6bc750050cecc0510b",
+      "sha256": "ba906f765031c38edcf40e63fdcf6677dce6266aa2bc6a6bc750050cecc0510b"
+    },
+    "provenance/executed-tournament.py": {
+      "bytes": 23277,
+      "lf_sha256": "e3e65d7f6af2ff466687c0c5c4d46ce64403c779fa27d2c9353f4e8e027ee7b8",
+      "sha256": "e3e65d7f6af2ff466687c0c5c4d46ce64403c779fa27d2c9353f4e8e027ee7b8"
+    },
+    "request.md": {
+      "bytes": 15373,
+      "lf_sha256": "49d61e0ac2ae3c3e5cfa44327ac1cc3269c31fa106efd3b76b80fbe5e9c535da",
+      "sha256": "3cc6accbc4688de373b699f8014ba2bb7bbd16cfb4abb1cc3dfc27b6e430d9fa"
+    },
+    "run-logs/errors-20261017-210003-528.log": {
+      "bytes": 405,
+      "lf_sha256": "26a737fd74c51a4ece3adbf8a03593fde487c044b5a568a6723ee9d52fdd5c38",
+      "sha256": "ce5b83743a749b1e3b0d2b2cec82d6cadf736bed86c10a780a085e5688b424a4"
+    },
+    "run-logs/runner-20261017-210003-528.log": {
+      "bytes": 6372,
+      "lf_sha256": "a0583cfb0c70409d3c27fb03007035d2c69175a0d7ca6de8f3489189a797d02f",
+      "sha256": "481dc76cd10521f624463b773c974f8b05e67d6540f0970cd523e78a87ee20c9"
+    },
+    "runner-lock.json": {
+      "bytes": 816,
+      "lf_sha256": "8e857757e9ad64f8b8b9ff4ccb8b7c083fb501bf001ee2b57d9b99829e7a1a8d",
+      "sha256": "8e857757e9ad64f8b8b9ff4ccb8b7c083fb501bf001ee2b57d9b99829e7a1a8d"
+    },
+    "runner-pid.json": {
+      "bytes": 298,
+      "lf_sha256": "188de6d92f569528534914b87f046ec695da492556cfd00cd7755610246ed23a",
+      "sha256": "48c7344a9bf71779a910107d9feb164b074ba765c25c6e005819e3caed35903c"
+    },
+    "schedule.json": {
+      "bytes": 16863,
+      "lf_sha256": "ce7d65c17ecde1055461e31c4a9b40d4809148381f286aa7a3ffd62e22406b6a",
+      "sha256": "ce7d65c17ecde1055461e31c4a9b40d4809148381f286aa7a3ffd62e22406b6a"
+    },
+    "smoke/NNUE_HIDDENCLIP.pgn": {
+      "bytes": 200,
+      "lf_sha256": "7ed2145e45d1ce118c0f42c088f885d557b714f38e2a99e7bf6bf316e678fd56",
+      "sha256": "7ed2145e45d1ce118c0f42c088f885d557b714f38e2a99e7bf6bf316e678fd56"
+    },
+    "smoke/NNUE_STAGE1.pgn": {
+      "bytes": 200,
+      "lf_sha256": "8eaeafbb143d2e5d702b1ee8f7c10ffbaaf48bca5f7fca2d111b687f55a0031a",
+      "sha256": "8eaeafbb143d2e5d702b1ee8f7c10ffbaaf48bca5f7fca2d111b687f55a0031a"
+    },
+    "smoke/checkpoint-roundtrip.json": {
+      "bytes": 326,
+      "lf_sha256": "447383c58ed119e8d826e9f063b9819bb038e4cd489dfc593c009d3367f97ab1",
+      "sha256": "447383c58ed119e8d826e9f063b9819bb038e4cd489dfc593c009d3367f97ab1"
+    },
+    "smoke/harness-verification.json": {
+      "bytes": 333,
+      "lf_sha256": "c7961261b20319e16a09deec61be50b918098ede4de2f59ba3c2348bb4816ab8",
+      "sha256": "c7961261b20319e16a09deec61be50b918098ede4de2f59ba3c2348bb4816ab8"
+    },
+    "smoke/launcher-audit.json": {
+      "bytes": 831,
+      "lf_sha256": "92e28885f223e6dccb15055c565372712440df51e037e33931d03f20ce246978",
+      "sha256": "92e28885f223e6dccb15055c565372712440df51e037e33931d03f20ce246978"
+    },
+    "smoke/launcher-lifetime.json": {
+      "bytes": 95,
+      "lf_sha256": "fa087dc051e81045fe000c280c012064de6decb7aae77d237441a35256cb666b",
+      "sha256": "fa087dc051e81045fe000c280c012064de6decb7aae77d237441a35256cb666b"
+    },
+    "smoke/process-guard.json": {
+      "bytes": 140,
+      "lf_sha256": "bbae37daf90e700a6a57e2e7db8e1e5c2dd3854f41884dc4518b9736a7f590c2",
+      "sha256": "bbae37daf90e700a6a57e2e7db8e1e5c2dd3854f41884dc4518b9736a7f590c2"
+    },
+    "smoke/resume-harness/environment.json": {
+      "bytes": 452,
+      "lf_sha256": "d9dce73ab992df6a8a8af31c20b760aadade7da3d3de702bfc75bf35dad7e01e",
+      "sha256": "d9dce73ab992df6a8a8af31c20b760aadade7da3d3de702bfc75bf35dad7e01e"
+    },
+    "smoke/resume-harness/events.jsonl": {
+      "bytes": 307,
+      "lf_sha256": "4d59291f9e4bb65ab27736948746cb27511ac52c46be48abbed0fb5aac9f8b37",
+      "sha256": "4d59291f9e4bb65ab27736948746cb27511ac52c46be48abbed0fb5aac9f8b37"
+    },
+    "smoke/resume-harness/games/G001.json": {
+      "bytes": 9670,
+      "lf_sha256": "a1e8d0186119850ca87abeb1bf3e335746cd09686833174cac61f22d1c5bbe5e",
+      "sha256": "a1e8d0186119850ca87abeb1bf3e335746cd09686833174cac61f22d1c5bbe5e"
+    },
+    "smoke/resume-harness/games/G001.partial.json": {
+      "bytes": 8942,
+      "lf_sha256": "bb27d05068548f9c509073379da32957e898739e48532460965d333af4b026b1",
+      "sha256": "bb27d05068548f9c509073379da32957e898739e48532460965d333af4b026b1"
+    },
+    "smoke/resume-harness/games/G001.pgn": {
+      "bytes": 795,
+      "lf_sha256": "586e565308cbf2750dd2be989221bc1302b2d1a53385993edb7a6fcb50e15cbe",
+      "sha256": "586e565308cbf2750dd2be989221bc1302b2d1a53385993edb7a6fcb50e15cbe"
+    },
+    "smoke/resume-harness/logs/G001/NNUE_HIDDENCLIP.log": {
+      "bytes": 31295,
+      "lf_sha256": "2cfbfa670ba7163dbfc09c845b47a6f6cb3a668129fe40b3f1df0f3360f6da8f",
+      "sha256": "25ee8e1e1cabc33a16689f355ad30967fc03fca0d1ea3323b8f9e8947f82544a"
+    },
+    "smoke/resume-harness/logs/G001/NNUE_STAGE1.log": {
+      "bytes": 30402,
+      "lf_sha256": "69814a19902428cc59e9a9f7a9490d76950d07642ce8cdc482789a63b2d3911a",
+      "sha256": "2c2186f13f5394afb165cdcbc710d21636010c4cb54a2f05b34c666ff0744bad"
+    },
+    "smoke/resume-harness/opening-suite.json": {
+      "bytes": 620,
+      "lf_sha256": "68098aed4d136bf66000c02dce16b4ce65324c3254abbd31a52d9024fd716f35",
+      "sha256": "68098aed4d136bf66000c02dce16b4ce65324c3254abbd31a52d9024fd716f35"
+    },
+    "smoke/resume-harness/schedule.json": {
+      "bytes": 213,
+      "lf_sha256": "bded7580089d79eb6fff5bd436a18c594132baaf0e3c64da6862e882e75a3270",
+      "sha256": "bded7580089d79eb6fff5bd436a18c594132baaf0e3c64da6862e882e75a3270"
+    },
+    "smoke/resume-harness/tournament-config.json": {
+      "bytes": 3792,
+      "lf_sha256": "46ffd8155918759ebaf133d170dbcc35b5ec2cf6cc166e077acf33b773cf2028",
+      "sha256": "46ffd8155918759ebaf133d170dbcc35b5ec2cf6cc166e077acf33b773cf2028"
+    },
+    "start_tournament.ps1": {
+      "bytes": 468,
+      "lf_sha256": "2f30f41fdd64755cfc181c6d235153741f073b2945d708e9572a0536be5b4b20",
+      "sha256": "2f30f41fdd64755cfc181c6d235153741f073b2945d708e9572a0536be5b4b20"
+    },
+    "tournament-config.json": {
+      "bytes": 3794,
+      "lf_sha256": "6a2fee32cc8b833c729d334c06165ee1ca0c5af57b7a59175b81cd971e4eeb92",
+      "sha256": "6a2fee32cc8b833c729d334c06165ee1ca0c5af57b7a59175b81cd971e4eeb92"
+    },
+    "tournament.py": {
+      "bytes": 23574,
+      "lf_sha256": "0844ee7811ac62939d5be185e891376c7bfb3cb16dacc164baaa0285090d9412",
+      "sha256": "0844ee7811ac62939d5be185e891376c7bfb3cb16dacc164baaa0285090d9412"
+    },
+    "validation.json": {
+      "bytes": 263,
+      "lf_sha256": "66d32abef17de42e246a2e0a4dd837e64a9bd2e754ce8acaf4c621854e12c118",
+      "sha256": "66d32abef17de42e246a2e0a4dd837e64a9bd2e754ce8acaf4c621854e12c118"
+    }
+  },
+  "final_audit_utc": "2026-10-17T16:50:59.200512+00:00",
+  "utc": "2026-10-17T16:50:54.867475+00:00"
+}

@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "Z:\Code\Chess\stockbear-final-tournament-1-20261017\tournament.py", line 432, in <module>
+    run(args.resume)
+  File "Z:\Code\Chess\stockbear-final-tournament-1-20261017\tournament.py", line 357, in run
+    from analyze import finalize
+ImportError: cannot import name 'finalize' from 'analyze' (Z:\Code\Chess\nnue-optimization-stage3-20261017\analyze.py)

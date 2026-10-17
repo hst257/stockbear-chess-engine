@@ -1,0 +1,8 @@
+{
+  "initial_method": "PowerShell Start-Process with WindowStyle Hidden and per-launch stdout/stderr",
+  "host_process_verification": "PID22692 remained active and advanced from G001 to G002 after its initiating exec returned",
+  "sandbox_visibility": "A sandboxed Get-Process query could not see the host process. This was initially misinterpreted as a launcher lifetime failure, then corrected using a host-level query.",
+  "duplicate_prevention": "The attempted alternate launch stopped at its existing-PID guard. It started no second tournament runner and interrupted no game.",
+  "alternate_method": "CREATE_NO_WINDOW | CREATE_NEW_PROCESS_GROUP; fifteen-second idle probe wrote launcher-lifetime.json after the launching tool exited, with zero engine searches",
+  "official_replays_or_interruptions_from_launcher_checks": 0
+}
