@@ -1,0 +1,9 @@
+{
+  "baseline_sha256": "967e262cc393b231aa59dbe20b3b4cfc6fef528a2a0794e767a2852f3d56ce09",
+  "candidates": {
+    "hiddenclip": "aafb75443e0254caac6919c4590f02ba4674bd0640c9ee8fad0ceba6da8bb170",
+    "unroll4": "922ab3454b34f96b10b84d2512c6dfb8d3d7b2bde16ddb2577dd899d5304bde9"
+  },
+  "profile_sha256": "148995420f129fe2e7668fee7e579b70cdb0b2afbadfd73bb0102ffb3228e8d4",
+  "selection_sha256": "89cceb6741d16ae05ba77b38cb3b4193fe2ae908e317a20dd0ed4e96a41a8c3c"
+}

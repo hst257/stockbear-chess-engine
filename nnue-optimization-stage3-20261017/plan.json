@@ -1,0 +1,71 @@
+{
+  "acceptance": "All exact gates; representative micro gain; positive grouped search support across controls/orders; no unexplained material fixture/common inference regression; no promotion.",
+  "affinity_mask": 1,
+  "baseline_binary_sha256": "e64146bf7ccf219d3254d258615408e4b782c4aa7b430c9140beb73228055d4d",
+  "baseline_commit": "f397a5af002900bbc15a7261dc6027c48daaeff4",
+  "budgets": [
+    [
+      "nodes",
+      200000
+    ],
+    [
+      "nodes",
+      1000000
+    ],
+    [
+      "time",
+      100
+    ],
+    [
+      "time",
+      500
+    ],
+    [
+      "time",
+      1000
+    ]
+  ],
+  "extension_rule": "Only if positive micro/fixed-work signals have uncertain grouped bounds without material fixture/order failure; document before extending, maximum ten. No automatic extension.",
+  "golden_fens": 256,
+  "initial_repeats": 3,
+  "material_elapsed_regression": 0.03,
+  "maximum_repeats": 10,
+  "maximum_variants": 2,
+  "network": "Z:\\Code\\Chess\\StockBear_NNUE_training\\scaling-experiment-20261016\\artifacts\\native\\medium\\medium.sbnnue",
+  "network_sha256": "a08ce2c60280c8c6dffbbe2f653b6c481e8d5282be7bed203db8b72492b0a2d3",
+  "options": {
+    "AlphaBeta": true,
+    "AspirationDelta": 25,
+    "Evaluator": "nnue",
+    "FastMovegen": true,
+    "Hash": 16,
+    "IterativeDeepening": true,
+    "LMRReduction": 1,
+    "MoveOrdering": true,
+    "NNUEIncremental": true,
+    "NNUEKernel": "clip",
+    "PVS": true,
+    "PawnCache": true,
+    "Quiescence": true,
+    "TranspositionTable": true,
+    "UseAdaptiveLMR": true,
+    "UseAdvancedEvaluation": true,
+    "UseAspirationWindows": true,
+    "UseCheckExtensions": true,
+    "UseFutility": true,
+    "UseHistory": true,
+    "UseKillers": true,
+    "UseLMR": true,
+    "UseMopUp": true,
+    "UseNullMovePruning": true,
+    "UsePST": true,
+    "UseReverseFutility": true,
+    "UseSEE": true
+  },
+  "primary_runtime_budget_seconds": 2700,
+  "profile": "Quiet / Eco, last confirmed by user; no power changes",
+  "repeats": 7,
+  "seed": 20261017,
+  "source_revision": "f397a5af002900bbc15a7261dc6027c48daaeff4",
+  "variant": "At most two independent profile-directed dense-head variants"
+}

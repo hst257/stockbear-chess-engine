@@ -1,0 +1,161 @@
+{
+  "counts": {
+    "dense_loop": 859,
+    "head_other": 31,
+    "hidden_clip_and_output": 325,
+    "input_clip_and_bias": 42,
+    "outside_head": 2669
+  },
+  "dense_loop_instructions": [
+    {
+      "bytes": "c4e27d18648c40",
+      "mnemonic": "vbroadcastss",
+      "operands": "ymm4, dword ptr [rsp + rcx*4 + 0x40]",
+      "rva": 329312
+    },
+    {
+      "bytes": "c5dc5968a0",
+      "mnemonic": "vmulps",
+      "operands": "ymm5, ymm4, ymmword ptr [rax - 0x60]",
+      "rva": 329319
+    },
+    {
+      "bytes": "c5e458dd",
+      "mnemonic": "vaddps",
+      "operands": "ymm3, ymm3, ymm5",
+      "rva": 329324
+    },
+    {
+      "bytes": "c5dc5968c0",
+      "mnemonic": "vmulps",
+      "operands": "ymm5, ymm4, ymmword ptr [rax - 0x40]",
+      "rva": 329328
+    },
+    {
+      "bytes": "c5dc5970e0",
+      "mnemonic": "vmulps",
+      "operands": "ymm6, ymm4, ymmword ptr [rax - 0x20]",
+      "rva": 329333
+    },
+    {
+      "bytes": "c5ec58d5",
+      "mnemonic": "vaddps",
+      "operands": "ymm2, ymm2, ymm5",
+      "rva": 329338
+    },
+    {
+      "bytes": "c5f458ce",
+      "mnemonic": "vaddps",
+      "operands": "ymm1, ymm1, ymm6",
+      "rva": 329342
+    },
+    {
+      "bytes": "c5dc5920",
+      "mnemonic": "vmulps",
+      "operands": "ymm4, ymm4, ymmword ptr [rax]",
+      "rva": 329346
+    },
+    {
+      "bytes": "c5fc58c4",
+      "mnemonic": "vaddps",
+      "operands": "ymm0, ymm0, ymm4",
+      "rva": 329350
+    },
+    {
+      "bytes": "4883c101",
+      "mnemonic": "add",
+      "operands": "rcx, 1",
+      "rva": 329354
+    },
+    {
+      "bytes": "4883e880",
+      "mnemonic": "sub",
+      "operands": "rax, -0x80",
+      "rva": 329358
+    },
+    {
+      "bytes": "4881f980000000",
+      "mnemonic": "cmp",
+      "operands": "rcx, 0x80",
+      "rva": 329362
+    },
+    {
+      "bytes": "75c5",
+      "mnemonic": "jne",
+      "operands": "0x50660",
+      "rva": 329369
+    }
+  ],
+  "failed_samples": 2,
+  "head_sample_mnemonics": {
+    "add": 113,
+    "and": 1,
+    "cmp": 126,
+    "ja": 11,
+    "jmp": 11,
+    "lea": 1,
+    "mov": 8,
+    "pop": 2,
+    "push": 5,
+    "ret": 1,
+    "setne": 3,
+    "sub": 33,
+    "test": 3,
+    "vaddps": 230,
+    "vaddss": 56,
+    "vbroadcastss": 10,
+    "vmaxps": 14,
+    "vminps": 9,
+    "vmovaps": 64,
+    "vmovdqa": 1,
+    "vmovss": 21,
+    "vmulps": 372,
+    "vmulss": 94,
+    "vucomiss": 41,
+    "vxorps": 27
+  },
+  "note": "Exact baseline engine. Coarse exclusive instruction pointers, four selected positions; suspension/inlining bias, no hardware events. Region boundaries come from the actual CLIP branch and back-edge, not whole-dispatch counts. Output includes clipping, reduction and stores, not isolated branch cycles.",
+  "per_position": {
+    "opening": {
+      "dense_loop": 222,
+      "head_other": 8,
+      "hidden_clip_and_output": 71,
+      "input_clip_and_bias": 9,
+      "outside_head": 683
+    },
+    "piece_endgame": {
+      "dense_loop": 242,
+      "head_other": 5,
+      "hidden_clip_and_output": 83,
+      "input_clip_and_bias": 16,
+      "outside_head": 632
+    },
+    "quiet_middlegame": {
+      "dense_loop": 230,
+      "head_other": 10,
+      "hidden_clip_and_output": 84,
+      "input_clip_and_bias": 11,
+      "outside_head": 641
+    },
+    "tactical": {
+      "dense_loop": 165,
+      "head_other": 8,
+      "hidden_clip_and_output": 87,
+      "input_clip_and_bias": 6,
+      "outside_head": 713
+    }
+  },
+  "regions": {
+    "clip": 328934,
+    "dense": 329312,
+    "dense_end": 329371,
+    "output_end": 329541
+  },
+  "sampling_speed_ratio": {
+    "maximum": 1.028799280180606,
+    "median": 0.9959914805429493,
+    "minimum": 0.9283837223677197
+  },
+  "suspension_ns_median": 40550.0,
+  "valid_samples": 3926
+}

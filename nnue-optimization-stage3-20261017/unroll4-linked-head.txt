@@ -1,0 +1,692 @@
+4fb90 55                       push rbp
+4fb91 56                       push rsi
+4fb92 57                       push rdi
+4fb93 4881ec60040000           sub rsp, 0x460
+4fb9a 488dac2480000000         lea rbp, [rsp + 0x80]
+4fba2 c5797fbdd0030000         vmovdqa xmmword ptr [rbp + 0x3d0], xmm15
+4fbaa c5797fb5c0030000         vmovdqa xmmword ptr [rbp + 0x3c0], xmm14
+4fbb2 c5797fadb0030000         vmovdqa xmmword ptr [rbp + 0x3b0], xmm13
+4fbba c5797fa5a0030000         vmovdqa xmmword ptr [rbp + 0x3a0], xmm12
+4fbc2 c5797f9d90030000         vmovdqa xmmword ptr [rbp + 0x390], xmm11
+4fbca c5797f9580030000         vmovdqa xmmword ptr [rbp + 0x380], xmm10
+4fbd2 c5797f8d70030000         vmovdqa xmmword ptr [rbp + 0x370], xmm9
+4fbda c5797f8560030000         vmovdqa xmmword ptr [rbp + 0x360], xmm8
+4fbe2 c5f829bd50030000         vmovaps xmmword ptr [rbp + 0x350], xmm7
+4fbea c5f97fb540030000         vmovdqa xmmword ptr [rbp + 0x340], xmm6
+4fbf2 4883e4c0                 and rsp, 0xffffffffffffffc0
+4fbf6 4889d6                   mov rsi, rdx
+4fbf9 4889cf                   mov rdi, rcx
+4fbfc 8b051e011a00             mov eax, dword ptr [rip + 0x1a011e]
+4fc02 65488b0c2558000000       mov rcx, qword ptr gs:[0x58]
+4fc0b 488b04c1                 mov rax, qword ptr [rcx + rax*8]
+4fc0f 8b8008000000             mov eax, dword ptr [rax + 8]
+4fc15 83f804                   cmp eax, 4
+4fc18 0f8494080000             je 0x504b2
+4fc1e 83f803                   cmp eax, 3
+4fc21 0f84dd030000             je 0x50004
+4fc27 83f801                   cmp eax, 1
+4fc2a 0f85c50b0000             jne 0x507f5
+4fc30 31c0                     xor eax, eax
+4fc32 31c9                     xor ecx, ecx
+4fc34 80bfae00000000           cmp byte ptr [rdi + 0xae], 0
+4fc3b 0f94c0                   sete al
+4fc3e 0f95c1                   setne cl
+4fc41 c1e108                   shl ecx, 8
+4fc44 c5fc10140e               vmovups ymm2, ymmword ptr [rsi + rcx]
+4fc49 c5f057c9                 vxorps xmm1, xmm1, xmm1
+4fc4d c4e27d1805aa2c0500       vbroadcastss ymm0, dword ptr [rip + 0x52caa]
+4fc56 c5ecc2d905               vcmpnltps ymm3, ymm2, ymm1
+4fc5b c5fcc2e201               vcmpltps ymm4, ymm0, ymm2
+4fc60 c5fcc2ea05               vcmpnltps ymm5, ymm0, ymm2
+4fc65 c5e454ed                 vandps ymm5, ymm3, ymm5
+4fc69 c5e454dc                 vandps ymm3, ymm3, ymm4
+4fc6d c5e454d8                 vandps ymm3, ymm3, ymm0
+4fc71 c4e3654ad250             vblendvps ymm2, ymm3, ymm2, ymm5
+4fc77 c5fc11542440             vmovups ymmword ptr [rsp + 0x40], ymm2
+4fc7d c5fc10540e20             vmovups ymm2, ymmword ptr [rsi + rcx + 0x20]
+4fc83 c5ecc2d905               vcmpnltps ymm3, ymm2, ymm1
+4fc88 c5fcc2e201               vcmpltps ymm4, ymm0, ymm2
+4fc8d c5fcc2ea05               vcmpnltps ymm5, ymm0, ymm2
+4fc92 c5e454ed                 vandps ymm5, ymm3, ymm5
+4fc96 c5e454dc                 vandps ymm3, ymm3, ymm4
+4fc9a c5e454d8                 vandps ymm3, ymm3, ymm0
+4fc9e c4e3654ad250             vblendvps ymm2, ymm3, ymm2, ymm5
+4fca4 c5fc11542460             vmovups ymmword ptr [rsp + 0x60], ymm2
+4fcaa c5fc10540e40             vmovups ymm2, ymmword ptr [rsi + rcx + 0x40]
+4fcb0 c5ecc2d905               vcmpnltps ymm3, ymm2, ymm1
+4fcb5 c5fcc2e201               vcmpltps ymm4, ymm0, ymm2
+4fcba c5fcc2ea05               vcmpnltps ymm5, ymm0, ymm2
+4fcbf c5e454ed                 vandps ymm5, ymm3, ymm5
+4fcc3 c5e454dc                 vandps ymm3, ymm3, ymm4
+4fcc7 c5e454d8                 vandps ymm3, ymm3, ymm0
+4fccb c4e3654ad250             vblendvps ymm2, ymm3, ymm2, ymm5
+4fcd1 c5fc11942480000000       vmovups ymmword ptr [rsp + 0x80], ymm2
+4fcda c5fc10540e60             vmovups ymm2, ymmword ptr [rsi + rcx + 0x60]
+4fce0 c5ecc2d905               vcmpnltps ymm3, ymm2, ymm1
+4fce5 c5fcc2e201               vcmpltps ymm4, ymm0, ymm2
+4fcea c5fcc2ea05               vcmpnltps ymm5, ymm0, ymm2
+4fcef c5e454ed                 vandps ymm5, ymm3, ymm5
+4fcf3 c5e454dc                 vandps ymm3, ymm3, ymm4
+4fcf7 c5e454d8                 vandps ymm3, ymm3, ymm0
+4fcfb c4e3654ad250             vblendvps ymm2, ymm3, ymm2, ymm5
+4fd01 c5fc119424a0000000       vmovups ymmword ptr [rsp + 0xa0], ymm2
+4fd0a c5fc10940e80000000       vmovups ymm2, ymmword ptr [rsi + rcx + 0x80]
+4fd13 c5ecc2d905               vcmpnltps ymm3, ymm2, ymm1
+4fd18 c5fcc2e201               vcmpltps ymm4, ymm0, ymm2
+4fd1d c5fcc2ea05               vcmpnltps ymm5, ymm0, ymm2
+4fd22 c5e454ed                 vandps ymm5, ymm3, ymm5
+4fd26 c5e454dc                 vandps ymm3, ymm3, ymm4
+4fd2a c5e454d8                 vandps ymm3, ymm3, ymm0
+4fd2e c4e3654ad250             vblendvps ymm2, ymm3, ymm2, ymm5
+4fd34 c5fc119424c0000000       vmovups ymmword ptr [rsp + 0xc0], ymm2
+4fd3d c5fc10940ea0000000       vmovups ymm2, ymmword ptr [rsi + rcx + 0xa0]
+4fd46 c5ecc2d905               vcmpnltps ymm3, ymm2, ymm1
+4fd4b c5fcc2e201               vcmpltps ymm4, ymm0, ymm2
+4fd50 c5fcc2ea05               vcmpnltps ymm5, ymm0, ymm2
+4fd55 c5e454ed                 vandps ymm5, ymm3, ymm5
+4fd59 c5e454dc                 vandps ymm3, ymm3, ymm4
+4fd5d c5e454d8                 vandps ymm3, ymm3, ymm0
+4fd61 c4e3654ad250             vblendvps ymm2, ymm3, ymm2, ymm5
+4fd67 c5fc119424e0000000       vmovups ymmword ptr [rsp + 0xe0], ymm2
+4fd70 c5fc10940ec0000000       vmovups ymm2, ymmword ptr [rsi + rcx + 0xc0]
+4fd79 c5ecc2d905               vcmpnltps ymm3, ymm2, ymm1
+4fd7e c5fcc2e201               vcmpltps ymm4, ymm0, ymm2
+4fd83 c5fcc2ea05               vcmpnltps ymm5, ymm0, ymm2
+4fd88 c5e454ed                 vandps ymm5, ymm3, ymm5
+4fd8c c5e454dc                 vandps ymm3, ymm3, ymm4
+4fd90 c5e454d8                 vandps ymm3, ymm3, ymm0
+4fd94 c4e3654ad250             vblendvps ymm2, ymm3, ymm2, ymm5
+4fd9a c5fc11942400010000       vmovups ymmword ptr [rsp + 0x100], ymm2
+4fda3 c5fc10940ee0000000       vmovups ymm2, ymmword ptr [rsi + rcx + 0xe0]
+4fdac c5ecc2d905               vcmpnltps ymm3, ymm2, ymm1
+4fdb1 c5fcc2e201               vcmpltps ymm4, ymm0, ymm2
+4fdb6 c5fcc2ea05               vcmpnltps ymm5, ymm0, ymm2
+4fdbb c5e454ed                 vandps ymm5, ymm3, ymm5
+4fdbf c5e454dc                 vandps ymm3, ymm3, ymm4
+4fdc3 c5e454d8                 vandps ymm3, ymm3, ymm0
+4fdc7 c4e3654ad250             vblendvps ymm2, ymm3, ymm2, ymm5
+4fdcd c5fc11942420010000       vmovups ymmword ptr [rsp + 0x120], ymm2
+4fdd6 c1e008                   shl eax, 8
+4fdd9 c5fc101406               vmovups ymm2, ymmword ptr [rsi + rax]
+4fdde c5ecc2d905               vcmpnltps ymm3, ymm2, ymm1
+4fde3 c5fcc2e201               vcmpltps ymm4, ymm0, ymm2
+4fde8 c5fcc2ea05               vcmpnltps ymm5, ymm0, ymm2
+4fded c5e454ed                 vandps ymm5, ymm3, ymm5
+4fdf1 c5e454dc                 vandps ymm3, ymm3, ymm4
+4fdf5 c5e454d8                 vandps ymm3, ymm3, ymm0
+4fdf9 c4e3654ad250             vblendvps ymm2, ymm3, ymm2, ymm5
+4fdff c5fc11942440010000       vmovups ymmword ptr [rsp + 0x140], ymm2
+4fe08 c5fc10540620             vmovups ymm2, ymmword ptr [rsi + rax + 0x20]
+4fe0e c5ecc2d905               vcmpnltps ymm3, ymm2, ymm1
+4fe13 c5fcc2e201               vcmpltps ymm4, ymm0, ymm2
+4fe18 c5fcc2ea05               vcmpnltps ymm5, ymm0, ymm2
+4fe1d c5e454ed                 vandps ymm5, ymm3, ymm5
+4fe21 c5e454dc                 vandps ymm3, ymm3, ymm4
+4fe25 c5e454d8                 vandps ymm3, ymm3, ymm0
+4fe29 c4e3654ad250             vblendvps ymm2, ymm3, ymm2, ymm5
+4fe2f c5fc11942460010000       vmovups ymmword ptr [rsp + 0x160], ymm2
+4fe38 c5fc10540640             vmovups ymm2, ymmword ptr [rsi + rax + 0x40]
+4fe3e c5ecc2d905               vcmpnltps ymm3, ymm2, ymm1
+4fe43 c5fcc2e201               vcmpltps ymm4, ymm0, ymm2
+4fe48 c5fcc2ea05               vcmpnltps ymm5, ymm0, ymm2
+4fe4d c5e454ed                 vandps ymm5, ymm3, ymm5
+4fe51 c5e454dc                 vandps ymm3, ymm3, ymm4
+4fe55 c5e454d8                 vandps ymm3, ymm3, ymm0
+4fe59 c4e3654ad250             vblendvps ymm2, ymm3, ymm2, ymm5
+4fe5f c5fc11942480010000       vmovups ymmword ptr [rsp + 0x180], ymm2
+4fe68 c5fc10540660             vmovups ymm2, ymmword ptr [rsi + rax + 0x60]
+4fe6e c5ecc2d905               vcmpnltps ymm3, ymm2, ymm1
+4fe73 c5fcc2e201               vcmpltps ymm4, ymm0, ymm2
+4fe78 c5fcc2ea05               vcmpnltps ymm5, ymm0, ymm2
+4fe7d c5e454ed                 vandps ymm5, ymm3, ymm5
+4fe81 c5e454dc                 vandps ymm3, ymm3, ymm4
+4fe85 c5e454d8                 vandps ymm3, ymm3, ymm0
+4fe89 c4e3654ad250             vblendvps ymm2, ymm3, ymm2, ymm5
+4fe8f c5fc119424a0010000       vmovups ymmword ptr [rsp + 0x1a0], ymm2
+4fe98 c5fc10940680000000       vmovups ymm2, ymmword ptr [rsi + rax + 0x80]
+4fea1 c5ecc2d905               vcmpnltps ymm3, ymm2, ymm1
+4fea6 c5fcc2e201               vcmpltps ymm4, ymm0, ymm2
+4feab c5fcc2ea05               vcmpnltps ymm5, ymm0, ymm2
+4feb0 c5e454ed                 vandps ymm5, ymm3, ymm5
+4feb4 c5e454dc                 vandps ymm3, ymm3, ymm4
+4feb8 c5e454d8                 vandps ymm3, ymm3, ymm0
+4febc c4e3654ad250             vblendvps ymm2, ymm3, ymm2, ymm5
+4fec2 c5fc119424c0010000       vmovups ymmword ptr [rsp + 0x1c0], ymm2
+4fecb c5fc109406a0000000       vmovups ymm2, ymmword ptr [rsi + rax + 0xa0]
+4fed4 c5ecc2d905               vcmpnltps ymm3, ymm2, ymm1
+4fed9 c5fcc2e201               vcmpltps ymm4, ymm0, ymm2
+4fede c5fcc2ea05               vcmpnltps ymm5, ymm0, ymm2
+4fee3 c5e454ed                 vandps ymm5, ymm3, ymm5
+4fee7 c5e454dc                 vandps ymm3, ymm3, ymm4
+4feeb c5e454d8                 vandps ymm3, ymm3, ymm0
+4feef c4e3654ad250             vblendvps ymm2, ymm3, ymm2, ymm5
+4fef5 c5fc119424e0010000       vmovups ymmword ptr [rsp + 0x1e0], ymm2
+4fefe c5fc109406c0000000       vmovups ymm2, ymmword ptr [rsi + rax + 0xc0]
+4ff07 c5ecc2d905               vcmpnltps ymm3, ymm2, ymm1
+4ff0c c5fcc2e201               vcmpltps ymm4, ymm0, ymm2
+4ff11 c5fcc2ea05               vcmpnltps ymm5, ymm0, ymm2
+4ff16 c5e454ed                 vandps ymm5, ymm3, ymm5
+4ff1a c5e454dc                 vandps ymm3, ymm3, ymm4
+4ff1e c5e454d8                 vandps ymm3, ymm3, ymm0
+4ff22 c4e3654ad250             vblendvps ymm2, ymm3, ymm2, ymm5
+4ff28 c5fc11942400020000       vmovups ymmword ptr [rsp + 0x200], ymm2
+4ff31 c5fc109406e0000000       vmovups ymm2, ymmword ptr [rsi + rax + 0xe0]
+4ff3a c5ecc2c905               vcmpnltps ymm1, ymm2, ymm1
+4ff3f c5fcc2da01               vcmpltps ymm3, ymm0, ymm2
+4ff44 c5fcc2e205               vcmpnltps ymm4, ymm0, ymm2
+4ff49 c5f454e4                 vandps ymm4, ymm1, ymm4
+4ff4d c5f454cb                 vandps ymm1, ymm1, ymm3
+4ff51 c5f454c0                 vandps ymm0, ymm1, ymm0
+4ff55 c4e37d4ac240             vblendvps ymm0, ymm0, ymm2, ymm4
+4ff5b c5fc11842420020000       vmovups ymmword ptr [rsp + 0x220], ymm0
+4ff64 c5fa1005342a0500         vmovss xmm0, dword ptr [rip + 0x52a34]
+4ff6c 488d050d6d0500           lea rax, [rip + 0x56d0d]
+4ff73 31c9                     xor ecx, ecx
+4ff75 488d15846c0500           lea rdx, [rip + 0x56c84]
+4ff7c 4c8d05fdac0500           lea r8, [rip + 0x5acfd]
+4ff83 c5fa100d75290500         vmovss xmm1, dword ptr [rip + 0x52975]
+4ff8b c5e857d2                 vxorps xmm2, xmm2, xmm2
+4ff8f 90                       nop
+4ff90 c5fa101c8a               vmovss xmm3, dword ptr [rdx + rcx*4]
+4ff95 41b901000000             mov r9d, 1
+4ff9b 0f1f440000               nop dword ptr [rax + rax]
+4ffa0 c4a17a106488fc           vmovss xmm4, dword ptr [rax + r9*4 - 4]
+4ffa7 c4a17a102c88             vmovss xmm5, dword ptr [rax + r9*4]
+4ffad c4a15a59648c3c           vmulss xmm4, xmm4, dword ptr [rsp + r9*4 + 0x3c]
+4ffb4 c4a152596c8c40           vmulss xmm5, xmm5, dword ptr [rsp + r9*4 + 0x40]
+4ffbb c5e258dc                 vaddss xmm3, xmm3, xmm4
+4ffbf c5e258dd                 vaddss xmm3, xmm3, xmm5
+4ffc3 4983c102                 add r9, 2
+4ffc7 4981f981000000           cmp r9, 0x81
+4ffce 75d0                     jne 0x4ffa0
+4ffd0 c5f25de3                 vminss xmm4, xmm1, xmm3
+4ffd4 c5e2c2da01               vcmpltss xmm3, xmm3, xmm2
+4ffd9 c5e055dc                 vandnps xmm3, xmm3, xmm4
+4ffdd c4c162591c88             vmulss xmm3, xmm3, dword ptr [r8 + rcx*4]
+4ffe3 c5fa58c3                 vaddss xmm0, xmm0, xmm3
+4ffe7 4883c101                 add rcx, 1
+4ffeb 480500020000             add rax, 0x200
+4fff1 4883f920                 cmp rcx, 0x20
+4fff5 7599                     jne 0x4ff90
+4fff7 c5fa5905a5290500         vmulss xmm0, xmm0, dword ptr [rip + 0x529a5]
+4ffff e950040000               jmp 0x50454
+50004 0fb68fae000000           movzx ecx, byte ptr [rdi + 0xae]
+5000b 31c0                     xor eax, eax
+5000d 84c9                     test cl, cl
+5000f 0f95c0                   setne al
+50012 c1e008                   shl eax, 8
+50015 488d1406                 lea rdx, [rsi + rax]
+50019 4881c200020000           add rdx, 0x200
+50020 4881c600020000           add rsi, 0x200
+50027 4531c0                   xor r8d, r8d
+5002a 488d05fb800a00           lea rax, [rip + 0xa80fb]
+50031 eb3e                     jmp 0x50071
+50033 662e0f1f840000000000     nop word ptr cs:[rax + rax]
+5003d 0f1f00                   nop dword ptr [rax]
+50040 41c1e10c                 shl r9d, 0xc
+50044 458d9100080000           lea r10d, [r9 + 0x800]
+5004b 4181c1ff170000           add r9d, 0x17ff
+50052 4585d2                   test r10d, r10d
+50055 450f49ca                 cmovns r9d, r10d
+50059 41c1e90c                 shr r9d, 0xc
+5005d 6646894c4440             mov word ptr [rsp + r8*2 + 0x40], r9w
+50063 4983c001                 add r8, 1
+50067 4883c204                 add rdx, 4
+5006b 4983f840                 cmp r8, 0x40
+5006f 7421                     je 0x50092
+50071 448b12                   mov r10d, dword ptr [rdx]
+50074 41b900000000             mov r9d, 0
+5007a 4585d2                   test r10d, r10d
+5007d 78c1                     js 0x50040
+5007f 4181fa01100000           cmp r10d, 0x1001
+50086 4989d1                   mov r9, rdx
+50089 4c0f43c8                 cmovae r9, rax
+5008d 458b09                   mov r9d, dword ptr [r9]
+50090 ebae                     jmp 0x50040
+50092 31d2                     xor edx, edx
+50094 84c9                     test cl, cl
+50096 0f94c2                   sete dl
+50099 c1e208                   shl edx, 8
+5009c 4801d6                   add rsi, rdx
+5009f b940000000               mov ecx, 0x40
+500a4 eb49                     jmp 0x500ef
+500a6 662e0f1f840000000000     nop word ptr cs:[rax + rax]
+500b0 81fa01100000             cmp edx, 0x1001
+500b6 4889f2                   mov rdx, rsi
+500b9 480f43d0                 cmovae rdx, rax
+500bd 8b12                     mov edx, dword ptr [rdx]
+500bf c1e20c                   shl edx, 0xc
+500c2 448d8200080000           lea r8d, [rdx + 0x800]
+500c9 81c2ff170000             add edx, 0x17ff
+500cf 4585c0                   test r8d, r8d
+500d2 410f49d0                 cmovns edx, r8d
+500d6 c1ea0c                   shr edx, 0xc
+500d9 6689544c40               mov word ptr [rsp + rcx*2 + 0x40], dx
+500de 4883c101                 add rcx, 1
+500e2 4883c604                 add rsi, 4
+500e6 4881f980000000           cmp rcx, 0x80
+500ed 740a                     je 0x500f9
+500ef 8b16                     mov edx, dword ptr [rsi]
+500f1 85d2                     test edx, edx
+500f3 79bb                     jns 0x500b0
+500f5 31d2                     xor edx, edx
+500f7 ebc6                     jmp 0x500bf
+500f9 c4e27d23442440           vpmovsxwd ymm0, xmmword ptr [rsp + 0x40]
+50100 c5fd7f8424a0030000       vmovdqa ymmword ptr [rsp + 0x3a0], ymm0
+50109 c4e27d23442450           vpmovsxwd ymm0, xmmword ptr [rsp + 0x50]
+50110 c5fd7f842480030000       vmovdqa ymmword ptr [rsp + 0x380], ymm0
+50119 c4e27d23442460           vpmovsxwd ymm0, xmmword ptr [rsp + 0x60]
+50120 c5fd7f842460030000       vmovdqa ymmword ptr [rsp + 0x360], ymm0
+50129 c4e27d23442470           vpmovsxwd ymm0, xmmword ptr [rsp + 0x70]
+50130 c5fd7f842440030000       vmovdqa ymmword ptr [rsp + 0x340], ymm0
+50139 c4e27d23842480000000     vpmovsxwd ymm0, xmmword ptr [rsp + 0x80]
+50143 c5fd7f842420030000       vmovdqa ymmword ptr [rsp + 0x320], ymm0
+5014c c4e27d23842490000000     vpmovsxwd ymm0, xmmword ptr [rsp + 0x90]
+50156 c5fd7f842400030000       vmovdqa ymmword ptr [rsp + 0x300], ymm0
+5015f c4e27d238424a0000000     vpmovsxwd ymm0, xmmword ptr [rsp + 0xa0]
+50169 c5fd7f8424e0020000       vmovdqa ymmword ptr [rsp + 0x2e0], ymm0
+50172 c4e27d23bc24b0000000     vpmovsxwd ymm7, xmmword ptr [rsp + 0xb0]
+5017c c4627d238424c0000000     vpmovsxwd ymm8, xmmword ptr [rsp + 0xc0]
+50186 c4627d238c24d0000000     vpmovsxwd ymm9, xmmword ptr [rsp + 0xd0]
+50190 c4627d239424e0000000     vpmovsxwd ymm10, xmmword ptr [rsp + 0xe0]
+5019a c4627d239c24f0000000     vpmovsxwd ymm11, xmmword ptr [rsp + 0xf0]
+501a4 c4627d23a42400010000     vpmovsxwd ymm12, xmmword ptr [rsp + 0x100]
+501ae c4627d23ac2410010000     vpmovsxwd ymm13, xmmword ptr [rsp + 0x110]
+501b8 c4627d23b42420010000     vpmovsxwd ymm14, xmmword ptr [rsp + 0x120]
+501c2 c4627d23bc2430010000     vpmovsxwd ymm15, xmmword ptr [rsp + 0x130]
+501cc 488d842440020000         lea rax, [rsp + 0x240]
+501d4 488d0dd5800a00           lea rcx, [rip + 0xa80d5]
+501db 31d2                     xor edx, edx
+501dd 4c8d055c7f0a00           lea r8, [rip + 0xa7f5c]
+501e4 eb41                     jmp 0x50227
+501e6 662e0f1f840000000000     nop word ptr cs:[rax + rax]
+501f0 4589ca                   mov r10d, r9d
+501f3 41c1fa1f                 sar r10d, 0x1f
+501f7 c44228f2c9               andn r9d, r10d, r9d
+501fc 4181c100080000           add r9d, 0x800
+50203 41c1e90c                 shr r9d, 0xc
+50207 66448908                 mov word ptr [rax], r9w
+5020b 4883c204                 add rdx, 4
+5020f 4883c002                 add rax, 2
+50213 4881c100010000           add rcx, 0x100
+5021a 4881fa80000000           cmp rdx, 0x80
+50221 0f84b2010000             je 0x503d9
+50227 c5fd6f8c24a0030000       vmovdqa ymm1, ymmword ptr [rsp + 0x3a0]
+50230 c4e37d39c801             vextracti128 xmm0, ymm1, 1
+50236 c5f16bc0                 vpackssdw xmm0, xmm1, xmm0
+5023a c5f9f58110ffffff         vpmaddwd xmm0, xmm0, xmmword ptr [rcx - 0xf0]
+50242 c5fd6f942480030000       vmovdqa ymm2, ymmword ptr [rsp + 0x380]
+5024b c4e37d39d101             vextracti128 xmm1, ymm2, 1
+50251 c5e96bc9                 vpackssdw xmm1, xmm2, xmm1
+50255 c5f1f58920ffffff         vpmaddwd xmm1, xmm1, xmmword ptr [rcx - 0xe0]
+5025d c5fd6f9c2460030000       vmovdqa ymm3, ymmword ptr [rsp + 0x360]
+50266 c4e37d39da01             vextracti128 xmm2, ymm3, 1
+5026c c5e16bd2                 vpackssdw xmm2, xmm3, xmm2
+50270 c5e9f59930ffffff         vpmaddwd xmm3, xmm2, xmmword ptr [rcx - 0xd0]
+50278 c5fd6fa42440030000       vmovdqa ymm4, ymmword ptr [rsp + 0x340]
+50281 c4e37d39e201             vextracti128 xmm2, ymm4, 1
+50287 c5d96bd2                 vpackssdw xmm2, xmm4, xmm2
+5028b c5e9f5a140ffffff         vpmaddwd xmm4, xmm2, xmmword ptr [rcx - 0xc0]
+50293 c5fd6fac2420030000       vmovdqa ymm5, ymmword ptr [rsp + 0x320]
+5029c c4e37d39ea01             vextracti128 xmm2, ymm5, 1
+502a2 c5d16bd2                 vpackssdw xmm2, xmm5, xmm2
+502a6 c5e9f59150ffffff         vpmaddwd xmm2, xmm2, xmmword ptr [rcx - 0xb0]
+502ae c5e9fed0                 vpaddd xmm2, xmm2, xmm0
+502b2 c5fd6fac2400030000       vmovdqa ymm5, ymmword ptr [rsp + 0x300]
+502bb c4e37d39e801             vextracti128 xmm0, ymm5, 1
+502c1 c5d16bc0                 vpackssdw xmm0, xmm5, xmm0
+502c5 c5f9f58160ffffff         vpmaddwd xmm0, xmm0, xmmword ptr [rcx - 0xa0]
+502cd c5f9fec9                 vpaddd xmm1, xmm0, xmm1
+502d1 c5fd6fac24e0020000       vmovdqa ymm5, ymmword ptr [rsp + 0x2e0]
+502da c4e37d39e801             vextracti128 xmm0, ymm5, 1
+502e0 c5d16bc0                 vpackssdw xmm0, xmm5, xmm0
+502e4 c5f9f58170ffffff         vpmaddwd xmm0, xmm0, xmmword ptr [rcx - 0x90]
+502ec c5f9fec3                 vpaddd xmm0, xmm0, xmm3
+502f0 c4e37d39fb01             vextracti128 xmm3, ymm7, 1
+502f6 c5c16bdb                 vpackssdw xmm3, xmm7, xmm3
+502fa c5e1f55980               vpmaddwd xmm3, xmm3, xmmword ptr [rcx - 0x80]
+502ff c4637d39c501             vextracti128 xmm5, ymm8, 1
+50305 c5b96bed                 vpackssdw xmm5, xmm8, xmm5
+50309 c5d1f56990               vpmaddwd xmm5, xmm5, xmmword ptr [rcx - 0x70]
+5030e c4637d39e601             vextracti128 xmm6, ymm12, 1
+50314 c5996bf6                 vpackssdw xmm6, xmm12, xmm6
+50318 c5c9f571d0               vpmaddwd xmm6, xmm6, xmmword ptr [rcx - 0x30]
+5031d c5e1fedc                 vpaddd xmm3, xmm3, xmm4
+50321 c5c9fee5                 vpaddd xmm4, xmm6, xmm5
+50325 c4637d39cd01             vextracti128 xmm5, ymm9, 1
+5032b c5b16bed                 vpackssdw xmm5, xmm9, xmm5
+5032f c5d1f569a0               vpmaddwd xmm5, xmm5, xmmword ptr [rcx - 0x60]
+50334 c5d9fed2                 vpaddd xmm2, xmm4, xmm2
+50338 c4637d39ec01             vextracti128 xmm4, ymm13, 1
+5033e c5916be4                 vpackssdw xmm4, xmm13, xmm4
+50342 c5d9f561e0               vpmaddwd xmm4, xmm4, xmmword ptr [rcx - 0x20]
+50347 c5d9fee5                 vpaddd xmm4, xmm4, xmm5
+5034b c4637d39d501             vextracti128 xmm5, ymm10, 1
+50351 c5a96bed                 vpackssdw xmm5, xmm10, xmm5
+50355 c5d1f569b0               vpmaddwd xmm5, xmm5, xmmword ptr [rcx - 0x50]
+5035a c5d9fec9                 vpaddd xmm1, xmm4, xmm1
+5035e c5f1feca                 vpaddd xmm1, xmm1, xmm2
+50362 c4637d39f201             vextracti128 xmm2, ymm14, 1
+50368 c5896bd2                 vpackssdw xmm2, xmm14, xmm2
+5036c c5e9f551f0               vpmaddwd xmm2, xmm2, xmmword ptr [rcx - 0x10]
+50371 c5e9fed5                 vpaddd xmm2, xmm2, xmm5
+50375 c4637d39dc01             vextracti128 xmm4, ymm11, 1
+5037b c5a16be4                 vpackssdw xmm4, xmm11, xmm4
+5037f c5d9f561c0               vpmaddwd xmm4, xmm4, xmmword ptr [rcx - 0x40]
+50384 c5e9fec0                 vpaddd xmm0, xmm2, xmm0
+50388 c4637d39fa01             vextracti128 xmm2, ymm15, 1
+5038e c5816bd2                 vpackssdw xmm2, xmm15, xmm2
+50392 c5e9f511                 vpmaddwd xmm2, xmm2, xmmword ptr [rcx]
+50396 c5f9fec1                 vpaddd xmm0, xmm0, xmm1
+5039a c5e9fecc                 vpaddd xmm1, xmm2, xmm4
+5039e c5f1fecb                 vpaddd xmm1, xmm1, xmm3
+503a2 c5f1fec0                 vpaddd xmm0, xmm1, xmm0
+503a6 c5f970c8ee               vpshufd xmm1, xmm0, 0xee
+503ab c5f9fec1                 vpaddd xmm0, xmm0, xmm1
+503af c5f970c855               vpshufd xmm1, xmm0, 0x55
+503b4 c5f9fec1                 vpaddd xmm0, xmm0, xmm1
+503b8 c4c1797ec1               vmovd r9d, xmm0
+503bd 46030c02                 add r9d, dword ptr [rdx + r8]
+503c1 4181f900000001           cmp r9d, 0x1000000
+503c8 0f8c22feffff             jl 0x501f0
+503ce 41b900000001             mov r9d, 0x1000000
+503d4 e917feffff               jmp 0x501f0
+503d9 c5f96f842440020000       vmovdqa xmm0, xmmword ptr [rsp + 0x240]
+503e2 c5f96f8c2450020000       vmovdqa xmm1, xmmword ptr [rsp + 0x250]
+503eb c5f96f942460020000       vmovdqa xmm2, xmmword ptr [rsp + 0x260]
+503f4 c5f96f9c2470020000       vmovdqa xmm3, xmmword ptr [rsp + 0x270]
+503fd c5f9f505ab250500         vpmaddwd xmm0, xmm0, xmmword ptr [rip + 0x525ab]
+50405 c5f1f50db3250500         vpmaddwd xmm1, xmm1, xmmword ptr [rip + 0x525b3]
+5040d c5e9f515bb250500         vpmaddwd xmm2, xmm2, xmmword ptr [rip + 0x525bb]
+50415 c5e1f51dc3250500         vpmaddwd xmm3, xmm3, xmmword ptr [rip + 0x525c3]
+5041d c5f1fec0                 vpaddd xmm0, xmm1, xmm0
+50421 c5e1feca                 vpaddd xmm1, xmm3, xmm2
+50425 c5f1fec0                 vpaddd xmm0, xmm1, xmm0
+50429 c5f970c8ee               vpshufd xmm1, xmm0, 0xee
+5042e c5f9fec1                 vpaddd xmm0, xmm0, xmm1
+50432 c5f970c855               vpshufd xmm1, xmm0, 0x55
+50437 c5f9fec1                 vpaddd xmm0, xmm0, xmm1
+5043b c5f97ec0                 vmovd eax, xmm0
+5043f 05222cf0ff               add eax, 0xfff02c22
+50444 c5c057ff                 vxorps xmm7, xmm7, xmm7
+50448 c5c22ac0                 vcvtsi2ss xmm0, xmm7, eax
+5044c c5fa59059c250500         vmulss xmm0, xmm0, dword ptr [rip + 0x5259c]
+50454 c5f828b540030000         vmovaps xmm6, xmmword ptr [rbp + 0x340]
+5045c c5f828bd50030000         vmovaps xmm7, xmmword ptr [rbp + 0x350]
+50464 c578288560030000         vmovaps xmm8, xmmword ptr [rbp + 0x360]
+5046c c578288d70030000         vmovaps xmm9, xmmword ptr [rbp + 0x370]
+50474 c578289580030000         vmovaps xmm10, xmmword ptr [rbp + 0x380]
+5047c c578289d90030000         vmovaps xmm11, xmmword ptr [rbp + 0x390]
+50484 c57828a5a0030000         vmovaps xmm12, xmmword ptr [rbp + 0x3a0]
+5048c c57828adb0030000         vmovaps xmm13, xmmword ptr [rbp + 0x3b0]
+50494 c57828b5c0030000         vmovaps xmm14, xmmword ptr [rbp + 0x3c0]
+5049c c57828bdd0030000         vmovaps xmm15, xmmword ptr [rbp + 0x3d0]
+504a4 488da5e0030000           lea rsp, [rbp + 0x3e0]
+504ab 5f                       pop rdi
+504ac 5e                       pop rsi
+504ad 5d                       pop rbp
+504ae c5f877                   vzeroupper
+504b1 c3                       ret
+504b2 0fb6055f2c0c00           movzx eax, byte ptr [rip + 0xc2c5f]
+504b9 84c0                     test al, al
+504bb 0f84fe040000             je 0x509bf
+504c1 803d50ed190000           cmp byte ptr [rip + 0x19ed50], 0
+504c8 0f8427030000             je 0x507f5
+504ce 31c0                     xor eax, eax
+504d0 31c9                     xor ecx, ecx
+504d2 80bfae00000000           cmp byte ptr [rdi + 0xae], 0
+504d9 0f94c0                   sete al
+504dc 0f95c1                   setne cl
+504df c1e108                   shl ecx, 8
+504e2 c5f857c0                 vxorps xmm0, xmm0, xmm0
+504e6 c5fc5f140e               vmaxps ymm2, ymm0, ymmword ptr [rsi + rcx]
+504eb c4e27d180d0c240500       vbroadcastss ymm1, dword ptr [rip + 0x5240c]
+504f4 c5f45dd2                 vminps ymm2, ymm1, ymm2
+504f8 c5fc29542440             vmovaps ymmword ptr [rsp + 0x40], ymm2
+504fe c5fc5f540e20             vmaxps ymm2, ymm0, ymmword ptr [rsi + rcx + 0x20]
+50504 c5f45dd2                 vminps ymm2, ymm1, ymm2
+50508 c5fc29542460             vmovaps ymmword ptr [rsp + 0x60], ymm2
+5050e c5fc5f540e40             vmaxps ymm2, ymm0, ymmword ptr [rsi + rcx + 0x40]
+50514 c5f45dd2                 vminps ymm2, ymm1, ymm2
+50518 c5fc29942480000000       vmovaps ymmword ptr [rsp + 0x80], ymm2
+50521 c5fc5f540e60             vmaxps ymm2, ymm0, ymmword ptr [rsi + rcx + 0x60]
+50527 c5f45dd2                 vminps ymm2, ymm1, ymm2
+5052b c5fc299424a0000000       vmovaps ymmword ptr [rsp + 0xa0], ymm2
+50534 c5fc5f940e80000000       vmaxps ymm2, ymm0, ymmword ptr [rsi + rcx + 0x80]
+5053d c5f45dd2                 vminps ymm2, ymm1, ymm2
+50541 c5fc299424c0000000       vmovaps ymmword ptr [rsp + 0xc0], ymm2
+5054a c5fc5f940ea0000000       vmaxps ymm2, ymm0, ymmword ptr [rsi + rcx + 0xa0]
+50553 c5f45dd2                 vminps ymm2, ymm1, ymm2
+50557 c5fc299424e0000000       vmovaps ymmword ptr [rsp + 0xe0], ymm2
+50560 c5fc5f940ec0000000       vmaxps ymm2, ymm0, ymmword ptr [rsi + rcx + 0xc0]
+50569 c5f45dd2                 vminps ymm2, ymm1, ymm2
+5056d c5fc29942400010000       vmovaps ymmword ptr [rsp + 0x100], ymm2
+50576 c5fc5f940ee0000000       vmaxps ymm2, ymm0, ymmword ptr [rsi + rcx + 0xe0]
+5057f c5f45dd2                 vminps ymm2, ymm1, ymm2
+50583 c5fc29942420010000       vmovaps ymmword ptr [rsp + 0x120], ymm2
+5058c c1e008                   shl eax, 8
+5058f c5fc5f1406               vmaxps ymm2, ymm0, ymmword ptr [rsi + rax]
+50594 c5f45dd2                 vminps ymm2, ymm1, ymm2
+50598 c5fc29942440010000       vmovaps ymmword ptr [rsp + 0x140], ymm2
+505a1 c5fc5f540620             vmaxps ymm2, ymm0, ymmword ptr [rsi + rax + 0x20]
+505a7 c5f45dd2                 vminps ymm2, ymm1, ymm2
+505ab c5fc29942460010000       vmovaps ymmword ptr [rsp + 0x160], ymm2
+505b4 c5fc5f540640             vmaxps ymm2, ymm0, ymmword ptr [rsi + rax + 0x40]
+505ba c5f45dd2                 vminps ymm2, ymm1, ymm2
+505be c5fc29942480010000       vmovaps ymmword ptr [rsp + 0x180], ymm2
+505c7 c5fc5f540660             vmaxps ymm2, ymm0, ymmword ptr [rsi + rax + 0x60]
+505cd c5f45dd2                 vminps ymm2, ymm1, ymm2
+505d1 c5fc299424a0010000       vmovaps ymmword ptr [rsp + 0x1a0], ymm2
+505da c5fc5f940680000000       vmaxps ymm2, ymm0, ymmword ptr [rsi + rax + 0x80]
+505e3 c5f45dd2                 vminps ymm2, ymm1, ymm2
+505e7 c5fc299424c0010000       vmovaps ymmword ptr [rsp + 0x1c0], ymm2
+505f0 c5fc5f9406a0000000       vmaxps ymm2, ymm0, ymmword ptr [rsi + rax + 0xa0]
+505f9 c5f45dd2                 vminps ymm2, ymm1, ymm2
+505fd c5fc299424e0010000       vmovaps ymmword ptr [rsp + 0x1e0], ymm2
+50606 c5fc5f9406c0000000       vmaxps ymm2, ymm0, ymmword ptr [rsi + rax + 0xc0]
+5060f c5f45dd2                 vminps ymm2, ymm1, ymm2
+50613 c5fc29942400020000       vmovaps ymmword ptr [rsp + 0x200], ymm2
+5061c c5fc5f8406e0000000       vmaxps ymm0, ymm0, ymmword ptr [rsi + rax + 0xe0]
+50625 c5f45dc0                 vminps ymm0, ymm1, ymm0
+50629 c5fc29842420020000       vmovaps ymmword ptr [rsp + 0x220], ymm0
+50632 c5fc280de6220500         vmovaps ymm1, ymmword ptr [rip + 0x522e6]
+5063a c5fc281dfe220500         vmovaps ymm3, ymmword ptr [rip + 0x522fe]
+50642 c5fc281516230500         vmovaps ymm2, ymmword ptr [rip + 0x52316]
+5064a c5fc28052e230500         vmovaps ymm0, ymmword ptr [rip + 0x5232e]
+50652 b803000000               mov eax, 3
+50657 488d0d82a80500           lea rcx, [rip + 0x5a882]
+5065e 6690                     nop
+50660 c4e27d18648434           vbroadcastss ymm4, dword ptr [rsp + rax*4 + 0x34]
+50667 c5dc59a920feffff         vmulps ymm5, ymm4, ymmword ptr [rcx - 0x1e0]
+5066f c5f458cd                 vaddps ymm1, ymm1, ymm5
+50673 c5dc59a940feffff         vmulps ymm5, ymm4, ymmword ptr [rcx - 0x1c0]
+5067b c5e458dd                 vaddps ymm3, ymm3, ymm5
+5067f c5dc59a960feffff         vmulps ymm5, ymm4, ymmword ptr [rcx - 0x1a0]
+50687 c5ec58d5                 vaddps ymm2, ymm2, ymm5
+5068b c5dc59a180feffff         vmulps ymm4, ymm4, ymmword ptr [rcx - 0x180]
+50693 c4e27d186c8438           vbroadcastss ymm5, dword ptr [rsp + rax*4 + 0x38]
+5069a c5fc58c4                 vaddps ymm0, ymm0, ymm4
+5069e c5d459a1a0feffff         vmulps ymm4, ymm5, ymmword ptr [rcx - 0x160]
+506a6 c5f458cc                 vaddps ymm1, ymm1, ymm4
+506aa c5d459a1c0feffff         vmulps ymm4, ymm5, ymmword ptr [rcx - 0x140]
+506b2 c5d459b1e0feffff         vmulps ymm6, ymm5, ymmword ptr [rcx - 0x120]
+506ba c5e458dc                 vaddps ymm3, ymm3, ymm4
+506be c5ec58d6                 vaddps ymm2, ymm2, ymm6
+506c2 c5d459a100ffffff         vmulps ymm4, ymm5, ymmword ptr [rcx - 0x100]
+506ca c4e27d186c843c           vbroadcastss ymm5, dword ptr [rsp + rax*4 + 0x3c]
+506d1 c5d459b120ffffff         vmulps ymm6, ymm5, ymmword ptr [rcx - 0xe0]
+506d9 c5fc58c4                 vaddps ymm0, ymm0, ymm4
+506dd c5f458ce                 vaddps ymm1, ymm1, ymm6
+506e1 c5d459a140ffffff         vmulps ymm4, ymm5, ymmword ptr [rcx - 0xc0]
+506e9 c5e458dc                 vaddps ymm3, ymm3, ymm4
+506ed c5d459a160ffffff         vmulps ymm4, ymm5, ymmword ptr [rcx - 0xa0]
+506f5 c5ec58d4                 vaddps ymm2, ymm2, ymm4
+506f9 c5d4596180               vmulps ymm4, ymm5, ymmword ptr [rcx - 0x80]
+506fe c4e27d186c8440           vbroadcastss ymm5, dword ptr [rsp + rax*4 + 0x40]
+50705 c5fc58c4                 vaddps ymm0, ymm0, ymm4
+50709 c5d45961a0               vmulps ymm4, ymm5, ymmword ptr [rcx - 0x60]
+5070e c5f458cc                 vaddps ymm1, ymm1, ymm4
+50712 c5d45961c0               vmulps ymm4, ymm5, ymmword ptr [rcx - 0x40]
+50717 c5d45971e0               vmulps ymm6, ymm5, ymmword ptr [rcx - 0x20]
+5071c c5e458dc                 vaddps ymm3, ymm3, ymm4
+50720 c5ec58d6                 vaddps ymm2, ymm2, ymm6
+50724 c5d45921                 vmulps ymm4, ymm5, ymmword ptr [rcx]
+50728 c5fc58c4                 vaddps ymm0, ymm0, ymm4
+5072c 4883c004                 add rax, 4
+50730 4881c100020000           add rcx, 0x200
+50737 483d83000000             cmp rax, 0x83
+5073d 0f851dffffff             jne 0x50660
+50743 c5fc298c2440020000       vmovaps ymmword ptr [rsp + 0x240], ymm1
+5074c c5fc299c2460020000       vmovaps ymmword ptr [rsp + 0x260], ymm3
+50755 c5fc29942480020000       vmovaps ymmword ptr [rsp + 0x280], ymm2
+5075e c5fc298424a0020000       vmovaps ymmword ptr [rsp + 0x2a0], ymm0
+50767 c5fa100531220500         vmovss xmm0, dword ptr [rip + 0x52231]
+5076f b801000000               mov eax, 1
+50774 488d0d05a50500           lea rcx, [rip + 0x5a505]
+5077b c5fa100d7d210500         vmovss xmm1, dword ptr [rip + 0x5217d]
+50783 eb2c                     jmp 0x507b1
+50785 662e0f1f840000000000     nop word ptr cs:[rax + rax]
+5078f 90                       nop
+50790 c5e2595c81fc             vmulss xmm3, xmm3, dword ptr [rcx + rax*4 - 4]
+50796 c5ea591481               vmulss xmm2, xmm2, dword ptr [rcx + rax*4]
+5079b c5fa58c3                 vaddss xmm0, xmm0, xmm3
+5079f c5fa58c2                 vaddss xmm0, xmm0, xmm2
+507a3 4883c002                 add rax, 2
+507a7 4883f821                 cmp rax, 0x21
+507ab 0f8446f8ffff             je 0x4fff7
+507b1 c5fa10a4843c020000       vmovss xmm4, dword ptr [rsp + rax*4 + 0x23c]
+507ba c5e857d2                 vxorps xmm2, xmm2, xmm2
+507be c5f82ed4                 vucomiss xmm2, xmm4
+507c2 c5e057db                 vxorps xmm3, xmm3, xmm3
+507c6 770e                     ja 0x507d6
+507c8 c5f82ee1                 vucomiss xmm4, xmm1
+507cc c5f828d9                 vmovaps xmm3, xmm1
+507d0 7704                     ja 0x507d6
+507d2 c5f828dc                 vmovaps xmm3, xmm4
+507d6 c5fa10a48440020000       vmovss xmm4, dword ptr [rsp + rax*4 + 0x240]
+507df c5f82ed4                 vucomiss xmm2, xmm4
+507e3 77ab                     ja 0x50790
+507e5 c5f82ee1                 vucomiss xmm4, xmm1
+507e9 c5f828d1                 vmovaps xmm2, xmm1
+507ed 77a1                     ja 0x50790
+507ef c5f828d4                 vmovaps xmm2, xmm4
+507f3 eb9b                     jmp 0x50790
+507f5 0fb687ae000000           movzx eax, byte ptr [rdi + 0xae]
+507fc 31c9                     xor ecx, ecx
+507fe 84c0                     test al, al
+50800 0f95c1                   setne cl
+50803 c1e108                   shl ecx, 8
+50806 4801f1                   add rcx, rsi
+50809 c5fc281d0f210500         vmovaps ymm3, ymmword ptr [rip + 0x5210f]
+50811 c5fc281527210500         vmovaps ymm2, ymmword ptr [rip + 0x52127]
+50819 c5fc280d3f210500         vmovaps ymm1, ymmword ptr [rip + 0x5213f]
+50821 c5fc280557210500         vmovaps ymm0, ymmword ptr [rip + 0x52157]
+50829 488d1530a50500           lea rdx, [rip + 0x5a530]
+50830 4531c0                   xor r8d, r8d
+50833 c5fa1025c5200500         vmovss xmm4, dword ptr [rip + 0x520c5]
+5083b eb39                     jmp 0x50876
+5083d 0f1f00                   nop dword ptr [rax]
+50840 c4e27d18ee               vbroadcastss ymm5, xmm6
+50845 c5d45972a0               vmulps ymm6, ymm5, ymmword ptr [rdx - 0x60]
+5084a c5e458de                 vaddps ymm3, ymm3, ymm6
+5084e c5d45972c0               vmulps ymm6, ymm5, ymmword ptr [rdx - 0x40]
+50853 c5d4597ae0               vmulps ymm7, ymm5, ymmword ptr [rdx - 0x20]
+50858 c5ec58d6                 vaddps ymm2, ymm2, ymm6
+5085c c5f458cf                 vaddps ymm1, ymm1, ymm7
+50860 c5d4592a                 vmulps ymm5, ymm5, ymmword ptr [rdx]
+50864 c5fc58c5                 vaddps ymm0, ymm0, ymm5
+50868 4983c001                 add r8, 1
+5086c 4883ea80                 sub rdx, -0x80
+50870 4983f840                 cmp r8, 0x40
+50874 7420                     je 0x50896
+50876 c4a17a102c81             vmovss xmm5, dword ptr [rcx + r8*4]
+5087c c5c9eff6                 vpxor xmm6, xmm6, xmm6
+50880 c5f82ef5                 vucomiss xmm6, xmm5
+50884 77ba                     ja 0x50840
+50886 c5f82eec                 vucomiss xmm5, xmm4
+5088a c5f828f4                 vmovaps xmm6, xmm4
+5088e 77b0                     ja 0x50840
+50890 c5f828f5                 vmovaps xmm6, xmm5
+50894 ebaa                     jmp 0x50840
+50896 31c9                     xor ecx, ecx
+50898 84c0                     test al, al
+5089a 0f94c1                   sete cl
+5089d c1e108                   shl ecx, 8
+508a0 4801ce                   add rsi, rcx
+508a3 488d05b6c40500           lea rax, [rip + 0x5c4b6]
+508aa 31c9                     xor ecx, ecx
+508ac c5fa10254c200500         vmovss xmm4, dword ptr [rip + 0x5204c]
+508b4 eb40                     jmp 0x508f6
+508b6 662e0f1f840000000000     nop word ptr cs:[rax + rax]
+508c0 c4e27d18ee               vbroadcastss ymm5, xmm6
+508c5 c5d45970a0               vmulps ymm6, ymm5, ymmword ptr [rax - 0x60]
+508ca c5e458de                 vaddps ymm3, ymm3, ymm6
+508ce c5d45970c0               vmulps ymm6, ymm5, ymmword ptr [rax - 0x40]
+508d3 c5d45978e0               vmulps ymm7, ymm5, ymmword ptr [rax - 0x20]
+508d8 c5ec58d6                 vaddps ymm2, ymm2, ymm6
+508dc c5f458cf                 vaddps ymm1, ymm1, ymm7
+508e0 c5d45928                 vmulps ymm5, ymm5, ymmword ptr [rax]
+508e4 c5fc58c5                 vaddps ymm0, ymm0, ymm5
+508e8 4883c101                 add rcx, 1
+508ec 4883e880                 sub rax, -0x80
+508f0 4883f940                 cmp rcx, 0x40
+508f4 741f                     je 0x50915
+508f6 c5fa102c8e               vmovss xmm5, dword ptr [rsi + rcx*4]
+508fb c5c9eff6                 vpxor xmm6, xmm6, xmm6
+508ff c5f82ef5                 vucomiss xmm6, xmm5
+50903 77bb                     ja 0x508c0
+50905 c5f82eec                 vucomiss xmm5, xmm4
+50909 c5f828f4                 vmovaps xmm6, xmm4
+5090d 77b1                     ja 0x508c0
+5090f c5f828f5                 vmovaps xmm6, xmm5
+50913 ebab                     jmp 0x508c0
+50915 c5fc295c2440             vmovaps ymmword ptr [rsp + 0x40], ymm3
+5091b c5fc29542460             vmovaps ymmword ptr [rsp + 0x60], ymm2
+50921 c5fc298c2480000000       vmovaps ymmword ptr [rsp + 0x80], ymm1
+5092a c5fc298424a0000000       vmovaps ymmword ptr [rsp + 0xa0], ymm0
+50933 c5fa100565200500         vmovss xmm0, dword ptr [rip + 0x52065]
+5093b b801000000               mov eax, 1
+50940 488d0d39a30500           lea rcx, [rip + 0x5a339]
+50947 c5fa100db11f0500         vmovss xmm1, dword ptr [rip + 0x51fb1]
+5094f eb30                     jmp 0x50981
+50951 662e0f1f840000000000     nop word ptr cs:[rax + rax]
+5095b 0f1f440000               nop dword ptr [rax + rax]
+50960 c5e2595c81fc             vmulss xmm3, xmm3, dword ptr [rcx + rax*4 - 4]
+50966 c5ea591481               vmulss xmm2, xmm2, dword ptr [rcx + rax*4]
+5096b c5fa58c3                 vaddss xmm0, xmm0, xmm3
+5096f c5fa58c2                 vaddss xmm0, xmm0, xmm2
+50973 4883c002                 add rax, 2
+50977 4883f821                 cmp rax, 0x21
+5097b 0f8476f6ffff             je 0x4fff7
+50981 c5fa1064843c             vmovss xmm4, dword ptr [rsp + rax*4 + 0x3c]
+50987 c5e857d2                 vxorps xmm2, xmm2, xmm2
+5098b c5f82ed4                 vucomiss xmm2, xmm4
+5098f c5e057db                 vxorps xmm3, xmm3, xmm3
+50993 770e                     ja 0x509a3
+50995 c5f82ee1                 vucomiss xmm4, xmm1
+50999 c5f828d9                 vmovaps xmm3, xmm1
+5099d 7704                     ja 0x509a3
+5099f c5f828dc                 vmovaps xmm3, xmm4
+509a3 c5fa10648440             vmovss xmm4, dword ptr [rsp + rax*4 + 0x40]
+509a9 c5f82ed4                 vucomiss xmm2, xmm4
+509ad 77b1                     ja 0x50960
+509af c5f82ee1                 vucomiss xmm4, xmm1
+509b3 c5f828d1                 vmovaps xmm2, xmm1
+509b7 77a7                     ja 0x50960
+509b9 c5f828d4                 vmovaps xmm2, xmm4
+509bd eba1                     jmp 0x50960
+509bf 488d0d52270c00           lea rcx, [rip + 0xc2752]
+509c6 e818530000               call 0x55ce3
+509cb 85c0                     test eax, eax
+509cd 0f84eefaffff             je 0x504c1
+509d3 e8a8bdffff               call 0x4c780
+509d8 88053ae81900             mov byte ptr [rip + 0x19e83a], al
+509de 488d0d33270c00           lea rcx, [rip + 0xc2733]
+509e5 e8b5530000               call 0x55d9f
+509ea e9d2faffff               jmp 0x504c1
+509ef 4889c6                   mov rsi, rax
+509f2 488d0d1f270c00           lea rcx, [rip + 0xc271f]
+509f9 e8f7530000               call 0x55df5
+509fe 4889f1                   mov rcx, rsi
+50a01 e81ac3fcff               call 0x1cd20
+50a06 cc                       int3

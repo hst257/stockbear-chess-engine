@@ -1,0 +1,83 @@
+{
+  "timestamp": "2026-10-17T16:35:56.0384115+05:30",
+  "power": "Power Scheme GUID: f9309321-c95b-4680-9e08-173c4ed318f2  (Acer)\r\n",
+  "battery": {
+    "PowerOnline": true,
+    "Charging": true,
+    "Discharging": false
+  },
+  "cpu": {
+    "Name": "13th Gen Intel(R) Core(TM) i5-13420H",
+    "NumberOfCores": 8,
+    "NumberOfLogicalProcessors": 12
+  },
+  "frequency_snapshot": {
+    "ProcessorFrequency": 1992,
+    "PercentofMaximumFrequency": 94,
+    "PercentProcessorTime": 5
+  },
+  "thermal": "No usable ACPI temperature telemetry in preceding profile; no temperature or throttling claim",
+  "nitrosense": "Quiet / Eco, last user-confirmed setting; not exposed through Windows power scheme",
+  "top_process_cpu_3sec": [
+    {
+      "name": "svchost",
+      "pid": 27240,
+      "cpu_percent": 5.64
+    },
+    {
+      "name": "WhatsApp.Root",
+      "pid": 20932,
+      "cpu_percent": 3.52
+    },
+    {
+      "name": "chrome",
+      "pid": 51076,
+      "cpu_percent": 3.04
+    },
+    {
+      "name": "pwsh",
+      "pid": 50004,
+      "cpu_percent": 2.0
+    },
+    {
+      "name": "chrome",
+      "pid": 45956,
+      "cpu_percent": 1.17
+    },
+    {
+      "name": "ChatGPT",
+      "pid": 25796,
+      "cpu_percent": 0.69
+    },
+    {
+      "name": "audiodg",
+      "pid": 50880,
+      "cpu_percent": 0.39
+    },
+    {
+      "name": "OneDrive.Sync.Service",
+      "pid": 39964,
+      "cpu_percent": 0.17
+    },
+    {
+      "name": "chrome",
+      "pid": 45684,
+      "cpu_percent": 0.13
+    },
+    {
+      "name": "taskhostw",
+      "pid": 16816,
+      "cpu_percent": 0.13
+    },
+    {
+      "name": "ipf_helper",
+      "pid": 2244,
+      "cpu_percent": 0.09
+    },
+    {
+      "name": "NitroSense",
+      "pid": 26164,
+      "cpu_percent": 0.09
+    }
+  ]
+}

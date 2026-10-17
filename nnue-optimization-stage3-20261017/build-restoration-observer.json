@@ -1,0 +1,31 @@
+{
+  "command": [
+    "Z:\\Code\\Chess\\.venv\\Scripts\\python.exe",
+    "-m",
+    "ziglang",
+    "c++",
+    "-DCHESSLAB_NNUE_UPDATE=2",
+    "-std=c++17",
+    "-O2",
+    "-pthread",
+    "-Wall",
+    "-Wextra",
+    "-ffp-contract=off",
+    "-I",
+    "Z:\\Code\\Chess\\nnue-optimization-stage3-20261017\\artifacts\\generated",
+    "-I",
+    "Z:\\Code\\Chess\\engine\\vendor\\chess-library",
+    "-I",
+    "Z:\\Code\\Chess\\nnue-optimization-stage3-20261017\\artifacts\\restore-unroll4-source",
+    "Z:\\Code\\Chess\\nnue-optimization-stage3-20261017\\artifacts\\restore-unroll4-source\\main.cpp",
+    "Z:\\Code\\Chess\\nnue-optimization-stage3-20261017\\artifacts\\restore-unroll4-source\\search.cpp",
+    "Z:\\Code\\Chess\\nnue-optimization-stage3-20261017\\artifacts\\restore-unroll4-source\\evaluation.cpp",
+    "Z:\\Code\\Chess\\nnue-optimization-stage3-20261017\\artifacts\\restore-unroll4-source\\nnue.cpp",
+    "Z:\\Code\\Chess\\nnue-optimization-stage3-20261017\\artifacts\\restore-unroll4-source\\nnue_v3.cpp",
+    "-o",
+    "Z:\\Code\\Chess\\nnue-optimization-stage3-20261017\\artifacts\\restore-unroll4\\engine.exe"
+  ],
+  "purpose": "Correctness-only internal restoration assertions; never benchmark this binary.",
+  "search_source_sha256": "8cd92e02f107751402b8c532371a778a720cae969c8b1df2d91f2ee2ca3f6971",
+  "sha256": "3800339c7163b5484f965249e7ebb5f88c123d12b5bb5d6ea591c17f837e61cc"
+}

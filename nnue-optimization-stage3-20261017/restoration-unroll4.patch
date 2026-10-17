@@ -1,0 +1,17 @@
+--- a/engine/src/search.cpp
++++ b/observer-only/search.cpp
+@@ -12,0 +13,2 @@
++#include <stdexcept>
++#include <cstring>
+@@ -93,0 +96,3 @@
++        const auto stage2_saved_board = board;
++        NnueAccumulator stage2_saved_root;
++        if (nnue_stack_) stage2_saved_root = (*nnue_stack_)[0];
+@@ -163,0 +169,7 @@
++        if (!board.fullyEquals(stage2_saved_board))
++            throw std::logic_error("Stage 2 interrupted board restoration failed");
++        if (nnue_stack_ && (std::memcmp(&(*nnue_stack_)[0].values,
++            &stage2_saved_root.values, sizeof(stage2_saved_root.values)) ||
++            (*nnue_stack_)[0].features.active != stage2_saved_root.features.active ||
++            (*nnue_stack_)[0].features.count != stage2_saved_root.features.count))
++            throw std::logic_error("Stage 2 interrupted root accumulator changed");

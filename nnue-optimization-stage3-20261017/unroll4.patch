@@ -1,0 +1,8 @@
+--- a/stage1_head.hpp
++++ b/stage1_head.hpp
+@@ -34,4 +34,5 @@
+     std::copy_n(w::fc1_bias, w::HIDDEN, hidden);
+     // Flattening the two perspective loops retains their exact input order.
++    #pragma clang loop unroll_count(4)
+     for (int j = 0; j < 2 * w::WIDTH; ++j) {
+         const auto* weights = w::fc1_transposed + j * w::HIDDEN;

@@ -1,0 +1,22 @@
+{
+  "baseline_commit": "f397a5af002900bbc15a7261dc6027c48daaeff4",
+  "selected_after": "profile-analysis.json and head-inspection-baseline.json",
+  "variants": ["unroll4", "hiddenclip"],
+  "maximum_variants": 2,
+  "observations": {
+    "valid_native_samples": 3926,
+    "dense_loop": 859,
+    "hidden_clipping_output": 325,
+    "input_clipping_bias": 42,
+    "other_head": 31,
+    "outside_head": 2669,
+    "dense_loop_shape": "128 trips, four independent YMM chains covering 32 neurons, four mulps/addps pairs, one input broadcast and four loop-control instructions per trip; no FMA",
+    "hidden_output_shape": "scalar clamp comparisons/conditional branches then original linear 32-term output reduction",
+    "limitation": "RIP samples are coarse, suspension/inlining biased and not hardware cache, branch or cycle counters. No precise stall cause is inferred."
+  },
+  "unroll4": "One loop unroll_count(4) pragma on the existing 128-input dense loop. Interleave independent neuron work but retain each neuron's j=0..127 addition order. Test code-size/register tradeoffs rather than assuming fewer branch instructions mean faster search.",
+  "hiddenclip": "Apply existing Stage 1 operand-ordered AVX clip_inputs to the 32 hidden outputs in place, then retain the original sequential output multiply/add reduction. Input clipping and the dense loop stay unchanged. Validate against frozen production Stage 1 mixed NaN-payload outputs as well as the original suite.",
+  "not_combined": true,
+  "no_more_variants_or_threshold_tuning": true,
+  "scope": "Private copies of stage1_head.hpp only; no weights, architecture, search, accumulator, fallback or production changes."
+}

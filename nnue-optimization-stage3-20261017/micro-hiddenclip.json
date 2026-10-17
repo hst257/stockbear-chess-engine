@@ -1,0 +1,510 @@
+{
+  "iterations": 200000,
+  "records": [
+    {
+      "build": "hiddenclip",
+      "checksum": -6206850.87204,
+      "frame_storage_bytes": 1176,
+      "frames": 1,
+      "kernel": "clip",
+      "ns": 102.634,
+      "repeat": 0
+    },
+    {
+      "build": "baseline",
+      "checksum": -6206850.87204,
+      "frame_storage_bytes": 1176,
+      "frames": 1,
+      "kernel": "clip",
+      "ns": 111.948,
+      "repeat": 0
+    },
+    {
+      "build": "hiddenclip",
+      "checksum": 10402665.579,
+      "frame_storage_bytes": 37632,
+      "frames": 32,
+      "kernel": "clip",
+      "ns": 110.8935,
+      "repeat": 0
+    },
+    {
+      "build": "baseline",
+      "checksum": 10402665.579,
+      "frame_storage_bytes": 37632,
+      "frames": 32,
+      "kernel": "clip",
+      "ns": 121.832,
+      "repeat": 0
+    },
+    {
+      "build": "hiddenclip",
+      "checksum": 36079209.1406,
+      "frame_storage_bytes": 150528,
+      "frames": 128,
+      "kernel": "clip",
+      "ns": 113.9245,
+      "repeat": 0
+    },
+    {
+      "build": "baseline",
+      "checksum": 36079209.1406,
+      "frame_storage_bytes": 150528,
+      "frames": 128,
+      "kernel": "clip",
+      "ns": 140.734,
+      "repeat": 0
+    },
+    {
+      "build": "hiddenclip",
+      "checksum": 22937195.3501,
+      "frame_storage_bytes": 602112,
+      "frames": 512,
+      "kernel": "clip",
+      "ns": 116.993,
+      "repeat": 0
+    },
+    {
+      "build": "baseline",
+      "checksum": 22937195.3501,
+      "frame_storage_bytes": 602112,
+      "frames": 512,
+      "kernel": "clip",
+      "ns": 137.25,
+      "repeat": 0
+    },
+    {
+      "build": "baseline",
+      "checksum": -6206850.87204,
+      "frame_storage_bytes": 1176,
+      "frames": 1,
+      "kernel": "clip",
+      "ns": 118.272,
+      "repeat": 1
+    },
+    {
+      "build": "hiddenclip",
+      "checksum": -6206850.87204,
+      "frame_storage_bytes": 1176,
+      "frames": 1,
+      "kernel": "clip",
+      "ns": 108.508,
+      "repeat": 1
+    },
+    {
+      "build": "baseline",
+      "checksum": 10402665.579,
+      "frame_storage_bytes": 37632,
+      "frames": 32,
+      "kernel": "clip",
+      "ns": 123.8125,
+      "repeat": 1
+    },
+    {
+      "build": "hiddenclip",
+      "checksum": 10402665.579,
+      "frame_storage_bytes": 37632,
+      "frames": 32,
+      "kernel": "clip",
+      "ns": 114.772,
+      "repeat": 1
+    },
+    {
+      "build": "baseline",
+      "checksum": 36079209.1406,
+      "frame_storage_bytes": 150528,
+      "frames": 128,
+      "kernel": "clip",
+      "ns": 139.347,
+      "repeat": 1
+    },
+    {
+      "build": "hiddenclip",
+      "checksum": 36079209.1406,
+      "frame_storage_bytes": 150528,
+      "frames": 128,
+      "kernel": "clip",
+      "ns": 124.3115,
+      "repeat": 1
+    },
+    {
+      "build": "baseline",
+      "checksum": 22937195.3501,
+      "frame_storage_bytes": 602112,
+      "frames": 512,
+      "kernel": "clip",
+      "ns": 136.8385,
+      "repeat": 1
+    },
+    {
+      "build": "hiddenclip",
+      "checksum": 22937195.3501,
+      "frame_storage_bytes": 602112,
+      "frames": 512,
+      "kernel": "clip",
+      "ns": 117.155,
+      "repeat": 1
+    },
+    {
+      "build": "hiddenclip",
+      "checksum": -6206850.87204,
+      "frame_storage_bytes": 1176,
+      "frames": 1,
+      "kernel": "clip",
+      "ns": 106.913,
+      "repeat": 2
+    },
+    {
+      "build": "baseline",
+      "checksum": -6206850.87204,
+      "frame_storage_bytes": 1176,
+      "frames": 1,
+      "kernel": "clip",
+      "ns": 133.39,
+      "repeat": 2
+    },
+    {
+      "build": "hiddenclip",
+      "checksum": 10402665.579,
+      "frame_storage_bytes": 37632,
+      "frames": 32,
+      "kernel": "clip",
+      "ns": 123.038,
+      "repeat": 2
+    },
+    {
+      "build": "baseline",
+      "checksum": 10402665.579,
+      "frame_storage_bytes": 37632,
+      "frames": 32,
+      "kernel": "clip",
+      "ns": 131.3005,
+      "repeat": 2
+    },
+    {
+      "build": "hiddenclip",
+      "checksum": 36079209.1406,
+      "frame_storage_bytes": 150528,
+      "frames": 128,
+      "kernel": "clip",
+      "ns": 113.27,
+      "repeat": 2
+    },
+    {
+      "build": "baseline",
+      "checksum": 36079209.1406,
+      "frame_storage_bytes": 150528,
+      "frames": 128,
+      "kernel": "clip",
+      "ns": 135.574,
+      "repeat": 2
+    },
+    {
+      "build": "hiddenclip",
+      "checksum": 22937195.3501,
+      "frame_storage_bytes": 602112,
+      "frames": 512,
+      "kernel": "clip",
+      "ns": 121.874,
+      "repeat": 2
+    },
+    {
+      "build": "baseline",
+      "checksum": 22937195.3501,
+      "frame_storage_bytes": 602112,
+      "frames": 512,
+      "kernel": "clip",
+      "ns": 144.0475,
+      "repeat": 2
+    },
+    {
+      "build": "baseline",
+      "checksum": -6206850.87204,
+      "frame_storage_bytes": 1176,
+      "frames": 1,
+      "kernel": "clip",
+      "ns": 131.11,
+      "repeat": 3
+    },
+    {
+      "build": "hiddenclip",
+      "checksum": -6206850.87204,
+      "frame_storage_bytes": 1176,
+      "frames": 1,
+      "kernel": "clip",
+      "ns": 129.968,
+      "repeat": 3
+    },
+    {
+      "build": "baseline",
+      "checksum": 10402665.579,
+      "frame_storage_bytes": 37632,
+      "frames": 32,
+      "kernel": "clip",
+      "ns": 143.273,
+      "repeat": 3
+    },
+    {
+      "build": "hiddenclip",
+      "checksum": 10402665.579,
+      "frame_storage_bytes": 37632,
+      "frames": 32,
+      "kernel": "clip",
+      "ns": 145.462,
+      "repeat": 3
+    },
+    {
+      "build": "baseline",
+      "checksum": 36079209.1406,
+      "frame_storage_bytes": 150528,
+      "frames": 128,
+      "kernel": "clip",
+      "ns": 139.2765,
+      "repeat": 3
+    },
+    {
+      "build": "hiddenclip",
+      "checksum": 36079209.1406,
+      "frame_storage_bytes": 150528,
+      "frames": 128,
+      "kernel": "clip",
+      "ns": 140.976,
+      "repeat": 3
+    },
+    {
+      "build": "baseline",
+      "checksum": 22937195.3501,
+      "frame_storage_bytes": 602112,
+      "frames": 512,
+      "kernel": "clip",
+      "ns": 153.336,
+      "repeat": 3
+    },
+    {
+      "build": "hiddenclip",
+      "checksum": 22937195.3501,
+      "frame_storage_bytes": 602112,
+      "frames": 512,
+      "kernel": "clip",
+      "ns": 115.73,
+      "repeat": 3
+    },
+    {
+      "build": "hiddenclip",
+      "checksum": -6206850.87204,
+      "frame_storage_bytes": 1176,
+      "frames": 1,
+      "kernel": "clip",
+      "ns": 116.1685,
+      "repeat": 4
+    },
+    {
+      "build": "baseline",
+      "checksum": -6206850.87204,
+      "frame_storage_bytes": 1176,
+      "frames": 1,
+      "kernel": "clip",
+      "ns": 115.4485,
+      "repeat": 4
+    },
+    {
+      "build": "hiddenclip",
+      "checksum": 10402665.579,
+      "frame_storage_bytes": 37632,
+      "frames": 32,
+      "kernel": "clip",
+      "ns": 116.081,
+      "repeat": 4
+    },
+    {
+      "build": "baseline",
+      "checksum": 10402665.579,
+      "frame_storage_bytes": 37632,
+      "frames": 32,
+      "kernel": "clip",
+      "ns": 139.1875,
+      "repeat": 4
+    },
+    {
+      "build": "hiddenclip",
+      "checksum": 36079209.1406,
+      "frame_storage_bytes": 150528,
+      "frames": 128,
+      "kernel": "clip",
+      "ns": 140.974,
+      "repeat": 4
+    },
+    {
+      "build": "baseline",
+      "checksum": 36079209.1406,
+      "frame_storage_bytes": 150528,
+      "frames": 128,
+      "kernel": "clip",
+      "ns": 157.1365,
+      "repeat": 4
+    },
+    {
+      "build": "hiddenclip",
+      "checksum": 22937195.3501,
+      "frame_storage_bytes": 602112,
+      "frames": 512,
+      "kernel": "clip",
+      "ns": 118.8905,
+      "repeat": 4
+    },
+    {
+      "build": "baseline",
+      "checksum": 22937195.3501,
+      "frame_storage_bytes": 602112,
+      "frames": 512,
+      "kernel": "clip",
+      "ns": 166.1255,
+      "repeat": 4
+    },
+    {
+      "build": "baseline",
+      "checksum": -6206850.87204,
+      "frame_storage_bytes": 1176,
+      "frames": 1,
+      "kernel": "clip",
+      "ns": 121.8095,
+      "repeat": 5
+    },
+    {
+      "build": "hiddenclip",
+      "checksum": -6206850.87204,
+      "frame_storage_bytes": 1176,
+      "frames": 1,
+      "kernel": "clip",
+      "ns": 108.0415,
+      "repeat": 5
+    },
+    {
+      "build": "baseline",
+      "checksum": 10402665.579,
+      "frame_storage_bytes": 37632,
+      "frames": 32,
+      "kernel": "clip",
+      "ns": 148.8815,
+      "repeat": 5
+    },
+    {
+      "build": "hiddenclip",
+      "checksum": 10402665.579,
+      "frame_storage_bytes": 37632,
+      "frames": 32,
+      "kernel": "clip",
+      "ns": 114.157,
+      "repeat": 5
+    },
+    {
+      "build": "baseline",
+      "checksum": 36079209.1406,
+      "frame_storage_bytes": 150528,
+      "frames": 128,
+      "kernel": "clip",
+      "ns": 129.7025,
+      "repeat": 5
+    },
+    {
+      "build": "hiddenclip",
+      "checksum": 36079209.1406,
+      "frame_storage_bytes": 150528,
+      "frames": 128,
+      "kernel": "clip",
+      "ns": 116.733,
+      "repeat": 5
+    },
+    {
+      "build": "baseline",
+      "checksum": 22937195.3501,
+      "frame_storage_bytes": 602112,
+      "frames": 512,
+      "kernel": "clip",
+      "ns": 140.4305,
+      "repeat": 5
+    },
+    {
+      "build": "hiddenclip",
+      "checksum": 22937195.3501,
+      "frame_storage_bytes": 602112,
+      "frames": 512,
+      "kernel": "clip",
+      "ns": 121.005,
+      "repeat": 5
+    },
+    {
+      "build": "hiddenclip",
+      "checksum": -6206850.87204,
+      "frame_storage_bytes": 1176,
+      "frames": 1,
+      "kernel": "clip",
+      "ns": 127.8815,
+      "repeat": 6
+    },
+    {
+      "build": "baseline",
+      "checksum": -6206850.87204,
+      "frame_storage_bytes": 1176,
+      "frames": 1,
+      "kernel": "clip",
+      "ns": 116.8875,
+      "repeat": 6
+    },
+    {
+      "build": "hiddenclip",
+      "checksum": 10402665.579,
+      "frame_storage_bytes": 37632,
+      "frames": 32,
+      "kernel": "clip",
+      "ns": 113.5115,
+      "repeat": 6
+    },
+    {
+      "build": "baseline",
+      "checksum": 10402665.579,
+      "frame_storage_bytes": 37632,
+      "frames": 32,
+      "kernel": "clip",
+      "ns": 128.188,
+      "repeat": 6
+    },
+    {
+      "build": "hiddenclip",
+      "checksum": 36079209.1406,
+      "frame_storage_bytes": 150528,
+      "frames": 128,
+      "kernel": "clip",
+      "ns": 123.726,
+      "repeat": 6
+    },
+    {
+      "build": "baseline",
+      "checksum": 36079209.1406,
+      "frame_storage_bytes": 150528,
+      "frames": 128,
+      "kernel": "clip",
+      "ns": 132.1745,
+      "repeat": 6
+    },
+    {
+      "build": "hiddenclip",
+      "checksum": 22937195.3501,
+      "frame_storage_bytes": 602112,
+      "frames": 512,
+      "kernel": "clip",
+      "ns": 116.7525,
+      "repeat": 6
+    },
+    {
+      "build": "baseline",
+      "checksum": 22937195.3501,
+      "frame_storage_bytes": 602112,
+      "frames": 512,
+      "kernel": "clip",
+      "ns": 147.5495,
+      "repeat": 6
+    }
+  ],
+  "warmup": 10000
+}
