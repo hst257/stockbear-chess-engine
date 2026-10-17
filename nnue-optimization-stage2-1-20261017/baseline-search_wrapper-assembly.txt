@@ -1,0 +1,35 @@
+_ZN8chesslab18nnue_update_searchERKNS_15NnueAccumulatorERKN5chess5BoardERKNS_9NnueDeltaERS0_: # @_ZN8chesslab18nnue_update_searchERKNS_15NnueAccumulatorERKN5chess5BoardERKNS_9NnueDeltaERS0_
+	pushq	%r14
+	pushq	%rsi
+	pushq	%rdi
+	pushq	%rbx
+	subq	$184, %rsp
+	.seh_stackalloc 184
+	movl	_tls_index(%rip), %eax
+	movq	%gs:88, %r10
+	movq	(%r10,%rax,8), %rax
+	cmpl	$3, _ZN8chesslab12_GLOBAL__N_115selected_kernelE@SECREL32(%rax)
+	jne	.LBB10_1
+	addq	$184, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	jmp	_ZN8chesslab16nnue_update_moveERKNS_15NnueAccumulatorERKN5chess5BoardERKNS_9NnueDeltaERS0_
+.LBB10_1:
+	leaq	32(%rsp), %rsi
+	movq	%rcx, %rdi
+	movq	%rsi, %rcx
+	movq	%r9, %rbx
+	movq	%r8, %r14
+	callq	_ZN8chesslab12_GLOBAL__N_119state_features_implINS_12NnueFeaturesEEET_RKN5chess5BoardE
+	movq	%rdi, %rcx
+	movq	%rsi, %rdx
+	movq	%r14, %r8
+	movq	%rbx, %r9
+	callq	_ZN8chesslab25nnue_update_search_statesERKNS_15NnueAccumulatorERKNS_12NnueFeaturesERKNS_9NnueDeltaERS0_
+	addq	$184, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14

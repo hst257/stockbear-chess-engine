@@ -1,0 +1,10 @@
+*.json text eol=lf
+*.jsonl text eol=lf
+*.csv text eol=lf
+*.py text eol=lf
+*.cpp text eol=lf
+*.hpp text eol=lf
+*.patch text eol=lf
+*.md text eol=lf
+*.ps1 text eol=lf
+*.log -text -diff

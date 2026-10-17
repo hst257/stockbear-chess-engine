@@ -1,0 +1,638 @@
+_ZN8chesslab25nnue_update_search_statesERKNS_15NnueAccumulatorERKNS_12NnueFeaturesERKNS_9NnueDeltaERS0_: # @_ZN8chesslab25nnue_update_search_statesERKNS_15NnueAccumulatorERKNS_12NnueFeaturesERKNS_9NnueDeltaERS0_
+	pushq	%r15
+	pushq	%r14
+	pushq	%r13
+	pushq	%r12
+	pushq	%rsi
+	pushq	%rdi
+	pushq	%rbp
+	pushq	%rbx
+	subq	$664, %rsp
+	.seh_stackalloc 664
+	vmovaps	%xmm15, 640(%rsp)
+	vmovaps	%xmm14, 624(%rsp)
+	vmovaps	%xmm13, 608(%rsp)
+	vmovaps	%xmm12, 592(%rsp)
+	vmovaps	%xmm11, 576(%rsp)
+	vmovdqa	%xmm10, 560(%rsp)
+	vmovaps	%xmm9, 544(%rsp)
+	vmovaps	%xmm8, 528(%rsp)
+	vmovaps	%xmm7, 512(%rsp)
+	vmovaps	%xmm6, 496(%rsp)
+	movq	%r9, 32(%rsp)
+	movq	%r8, %r11
+	movq	%rcx, %rdi
+	vmovups	120(%rdx), %ymm0
+	vmovups	%ymm0, 328(%rsp)
+	vmovdqu	(%rdx), %ymm0
+	vmovups	32(%rdx), %ymm1
+	vmovups	64(%rdx), %ymm2
+	vmovups	96(%rdx), %ymm3
+	vmovups	%ymm3, 304(%rsp)
+	vmovups	%ymm2, 272(%rsp)
+	vmovups	%ymm1, 240(%rsp)
+	vmovdqu	%ymm0, 208(%rsp)
+	movl	356(%rsp), %r14d
+	cmpl	$2, %r14d
+	jl	.LBB11_15
+	movl	$1, %eax
+	jmp	.LBB11_4
+.LBB11_2:                               #   in Loop: Header=BB11_4 Depth=1
+	xorl	%edx, %edx
+.LBB11_3:                               #   in Loop: Header=BB11_4 Depth=1
+	movslq	%edx, %rdx
+	movw	%cx, 208(%rsp,%rdx,2)
+	addq	$1, %rax
+	cmpq	%r14, %rax
+	je	.LBB11_7
+.LBB11_4:                               # =>This Loop Header: Depth=1
+	movzwl	208(%rsp,%rax,2), %ecx
+	movl	%eax, %edx
+.LBB11_5:                               #   Parent Loop BB11_4 Depth=1
+	movl	%edx, %r8d
+	movzwl	206(%rsp,%r8,2), %r9d
+	cmpw	%cx, %r9w
+	jbe	.LBB11_3
+	movw	%r9w, 208(%rsp,%r8,2)
+	leal	-1(%rdx), %r8d
+	cmpl	$1, %edx
+	movl	%r8d, %edx
+	jg	.LBB11_5
+	jmp	.LBB11_2
+.LBB11_7:
+	cmpl	$2, %r14d
+	jl	.LBB11_14
+	movl	$1, %eax
+	jmp	.LBB11_11
+.LBB11_9:                               #   in Loop: Header=BB11_11 Depth=1
+	xorl	%edx, %edx
+.LBB11_10:                              #   in Loop: Header=BB11_11 Depth=1
+	movslq	%edx, %rdx
+	movw	%cx, 282(%rsp,%rdx,2)
+	addq	$1, %rax
+	cmpq	%r14, %rax
+	je	.LBB11_14
+.LBB11_11:                              # =>This Loop Header: Depth=1
+	movzwl	282(%rsp,%rax,2), %ecx
+	movl	%eax, %edx
+.LBB11_12:                              #   Parent Loop BB11_11 Depth=1
+	movl	%edx, %r8d
+	movzwl	280(%rsp,%r8,2), %r9d
+	cmpw	%cx, %r9w
+	jbe	.LBB11_10
+	movw	%r9w, 282(%rsp,%r8,2)
+	leal	-1(%rdx), %r8d
+	cmpl	$1, %edx
+	movl	%r8d, %edx
+	jg	.LBB11_12
+	jmp	.LBB11_9
+.LBB11_14:
+	movl	356(%rsp), %r14d
+.LBB11_15:
+	leaq	1024(%rdi), %rax
+	movq	%rax, 112(%rsp)
+	movslq	%r14d, %rcx
+	leaq	(%rcx,%rcx), %rax
+	movq	%rax, 104(%rsp)
+	movq	32(%rsp), %rax
+	leaq	1024(%rax), %rdx
+	movq	%rdx, 96(%rsp)
+	movq	%rcx, 64(%rsp)
+	movl	%ecx, %ecx
+	movq	%rcx, 136(%rsp)
+	leaq	256(%rax), %rcx
+	movq	%rcx, 88(%rsp)
+	leaq	8(%r11), %rcx
+	movq	%rcx, 72(%rsp)
+	addq	$12, %rax
+	movq	%rax, 80(%rsp)
+	movb	$1, %sil
+	xorl	%r12d, %r12d
+	vpbroadcastw	.LCPI11_8(%rip), %xmm6
+	vpbroadcastw	.LCPI11_9(%rip), %xmm7
+	vpbroadcastb	.LCPI11_10(%rip), %xmm8
+	vpbroadcastd	.LCPI11_3(%rip), %ymm12
+	vpbroadcastw	.LCPI11_11(%rip), %xmm9
+	vpbroadcastd	.LCPI11_5(%rip), %ymm13
+	vpbroadcastd	.LCPI11_6(%rip), %ymm14
+	vbroadcastss	.LCPI11_7(%rip), %ymm15
+	vpcmpeqd	%ymm10, %ymm10, %ymm10
+	leaq	_ZN8chesslab12nnue_weights16transform_weightE(%rip), %r13
+	movq	%r11, 128(%rsp)
+	movq	%rdi, 120(%rsp)
+	movq	%r14, 40(%rsp)
+	vmovdqu	%ymm12, 464(%rsp)
+	vmovdqu	%ymm13, 432(%rsp)
+	vmovdqu	%ymm14, 400(%rsp)
+	vmovups	%ymm15, 368(%rsp)
+	jmp	.LBB11_17
+.LBB11_16:                              #   in Loop: Header=BB11_17 Depth=1
+	movl	$1, %r12d
+	testb	$1, %bpl
+	movl	$0, %esi
+	movq	128(%rsp), %r11
+	je	.LBB11_85
+.LBB11_17:                              # =>This Loop Header: Depth=1
+	movl	16(%r11), %eax
+	movl	$0, %ebx
+	testl	%eax, %eax
+	jle	.LBB11_24
+	cmpl	$8, %eax
+	jae	.LBB11_20
+	xorl	%ecx, %ecx
+	jmp	.LBB11_29
+.LBB11_20:                              #   in Loop: Header=BB11_17 Depth=1
+	movl	%eax, %ecx
+	andl	$2147483640, %ecx
+	movl	%esi, %edx
+	xorb	$1, %dl
+	vmovd	%edx, %xmm0
+	vpbroadcastb	%xmm0, %xmm0
+	leal	(%rax,%rax), %edx
+	andl	$-16, %edx
+	xorl	%r8d, %r8d
+.LBB11_21:                              #   Parent Loop BB11_17 Depth=1
+	vmovdqu	(%r11,%r8), %xmm1
+	vpmovzxwd	%xmm1, %ymm2
+	vpminuw	%xmm8, %xmm1, %xmm3
+	vpcmpeqw	%xmm3, %xmm1, %xmm3
+	vpmovsxwd	%xmm3, %ymm3
+	vpxor	%ymm2, %ymm12, %ymm4
+	vblendvps	%ymm3, %ymm4, %ymm2, %ymm3
+	vpminuw	%xmm9, %xmm1, %xmm4
+	vpcmpeqw	%xmm4, %xmm1, %xmm4
+	vpmovsxwd	%xmm4, %ymm4
+	vpaddd	%ymm2, %ymm14, %ymm5
+	vblendvps	%ymm4, %ymm2, %ymm5, %ymm5
+	vpand	%ymm4, %ymm13, %ymm4
+	vxorps	%ymm5, %ymm15, %ymm5
+	vpaddd	%ymm4, %ymm5, %ymm4
+	vpminuw	%xmm6, %xmm1, %xmm5
+	vpcmpeqw	%xmm5, %xmm1, %xmm5
+	vpand	%xmm5, %xmm0, %xmm5
+	vpmovzxwd	%xmm5, %ymm5
+	vpslld	$31, %ymm5, %ymm5
+	vblendvps	%ymm5, %ymm4, %ymm2, %ymm2
+	vpmaxuw	%xmm7, %xmm1, %xmm4
+	vpcmpeqw	%xmm4, %xmm1, %xmm1
+	vpand	%xmm1, %xmm0, %xmm1
+	vpmovzxwd	%xmm1, %ymm1
+	vpslld	$31, %ymm1, %ymm1
+	vblendvps	%ymm1, %ymm3, %ymm2, %ymm1
+	vxorps	%ymm1, %ymm10, %ymm1
+	vmovups	%ymm1, 144(%rsp,%r8,2)
+	addq	$16, %r8
+	cmpq	%r8, %rdx
+	jne	.LBB11_21
+	cmpq	%rax, %rcx
+	jne	.LBB11_29
+.LBB11_23:                              #   in Loop: Header=BB11_17 Depth=1
+	movl	%eax, %ebx
+.LBB11_24:                              #   in Loop: Header=BB11_17 Depth=1
+	movl	20(%r11), %eax
+	testl	%eax, %eax
+	jle	.LBB11_42
+	movl	%ebx, %r8d
+	cmpl	$8, %eax
+	jae	.LBB11_32
+	movq	%r8, %rbx
+	xorl	%ecx, %ecx
+	jmp	.LBB11_35
+.LBB11_27:                              #   in Loop: Header=BB11_29 Depth=2
+	movl	%edx, %r8d
+	xorl	$2, %r8d
+	cmpl	$772, %edx
+	cmovael	%edx, %r8d
+	movl	%r8d, %edx
+.LBB11_28:                              #   in Loop: Header=BB11_29 Depth=2
+	notl	%edx
+	movl	%edx, 144(%rsp,%rcx,4)
+	addq	$1, %rcx
+	cmpq	%rcx, %rax
+	je	.LBB11_23
+.LBB11_29:                              #   Parent Loop BB11_17 Depth=1
+	movzwl	(%r11,%rcx,2), %edx
+	testb	$1, %sil
+	jne	.LBB11_28
+	cmpl	$767, %edx
+	ja	.LBB11_27
+	leal	-384(%rdx), %r8d
+	cmpl	$384, %edx
+	cmovbl	%edx, %r8d
+	xorl	$56, %r8d
+	cmpl	$384, %edx
+	leal	384(%r8), %edx
+	cmovael	%r8d, %edx
+	jmp	.LBB11_28
+.LBB11_32:                              #   in Loop: Header=BB11_17 Depth=1
+	movl	%eax, %ecx
+	andl	$2147483640, %ecx
+	leaq	(%rcx,%r8), %rbx
+	movl	%esi, %edx
+	xorb	$1, %dl
+	vmovd	%edx, %xmm0
+	vpbroadcastb	%xmm0, %xmm0
+	leal	(%rax,%rax), %edx
+	andl	$-16, %edx
+	leaq	(%rsp,%r8,4), %r8
+	addq	$144, %r8
+	xorl	%r9d, %r9d
+.LBB11_33:                              #   Parent Loop BB11_17 Depth=1
+	vmovdqu	8(%r11,%r9), %xmm1
+	vpmovzxwd	%xmm1, %ymm2
+	vpminuw	%xmm8, %xmm1, %xmm3
+	vpcmpeqw	%xmm3, %xmm1, %xmm3
+	vpmovsxwd	%xmm3, %ymm3
+	vpxor	%ymm2, %ymm12, %ymm4
+	vblendvps	%ymm3, %ymm4, %ymm2, %ymm3
+	vpminuw	%xmm9, %xmm1, %xmm4
+	vpcmpeqw	%xmm4, %xmm1, %xmm4
+	vpmovsxwd	%xmm4, %ymm4
+	vpaddd	%ymm2, %ymm14, %ymm5
+	vblendvps	%ymm4, %ymm2, %ymm5, %ymm5
+	vpand	%ymm4, %ymm13, %ymm4
+	vxorps	%ymm5, %ymm15, %ymm5
+	vpaddd	%ymm4, %ymm5, %ymm4
+	vpminuw	%xmm6, %xmm1, %xmm5
+	vpcmpeqw	%xmm5, %xmm1, %xmm5
+	vpand	%xmm5, %xmm0, %xmm5
+	vpmovzxwd	%xmm5, %ymm5
+	vpslld	$31, %ymm5, %ymm5
+	vblendvps	%ymm5, %ymm4, %ymm2, %ymm2
+	vpmaxuw	%xmm7, %xmm1, %xmm4
+	vpcmpeqw	%xmm4, %xmm1, %xmm1
+	vpand	%xmm1, %xmm0, %xmm1
+	vpmovzxwd	%xmm1, %ymm1
+	vpslld	$31, %ymm1, %ymm1
+	vblendvps	%ymm1, %ymm3, %ymm2, %ymm1
+	vpsubd	%ymm10, %ymm1, %ymm1
+	vmovdqu	%ymm1, (%r8,%r9,2)
+	addq	$16, %r9
+	cmpq	%r9, %rdx
+	jne	.LBB11_33
+	cmpq	%rax, %rcx
+	je	.LBB11_42
+.LBB11_35:                              #   in Loop: Header=BB11_17 Depth=1
+	leaq	(%rsp,%rbx,4), %rdx
+	addq	$144, %rdx
+	movq	72(%rsp), %r8
+	leaq	(%r8,%rcx,2), %r8
+	subq	%rcx, %rax
+	xorl	%ecx, %ecx
+	jmp	.LBB11_38
+.LBB11_36:                              #   in Loop: Header=BB11_38 Depth=2
+	movl	%r9d, %r10d
+	xorl	$2, %r10d
+	cmpl	$772, %r9d
+	cmovael	%r9d, %r10d
+	movl	%r10d, %r9d
+.LBB11_37:                              #   in Loop: Header=BB11_38 Depth=2
+	addl	$1, %r9d
+	movl	%r9d, (%rdx,%rcx,4)
+	addq	$1, %rcx
+	cmpq	%rcx, %rax
+	je	.LBB11_41
+.LBB11_38:                              #   Parent Loop BB11_17 Depth=1
+	movzwl	(%r8,%rcx,2), %r9d
+	testb	$1, %sil
+	jne	.LBB11_37
+	cmpl	$767, %r9d
+	ja	.LBB11_36
+	leal	-384(%r9), %r10d
+	cmpl	$384, %r9d
+	cmovbl	%r9d, %r10d
+	xorl	$56, %r10d
+	cmpl	$384, %r9d
+	leal	384(%r10), %r9d
+	cmovael	%r10d, %r9d
+	jmp	.LBB11_37
+.LBB11_41:                              #   in Loop: Header=BB11_17 Depth=1
+	addq	%rcx, %rbx
+.LBB11_42:                              #   in Loop: Header=BB11_17 Depth=1
+	movl	%esi, 52(%rsp)
+	imulq	$74, %r12, %r9
+	movq	112(%rsp), %rax
+	leaq	(%rax,%r9), %rcx
+	movslq	1172(%rdi), %rdx
+	movl	%edx, %r8d
+	testq	%rdx, %rdx
+	movq	%r9, 56(%rsp)
+	jle	.LBB11_52
+	leaq	(%rsp,%r9), %r15
+	addq	$208, %r15
+	movq	64(%rsp), %rax
+	leaq	(%r15,%rax,2), %r10
+	movq	%r8, %r11
+	jmp	.LBB11_46
+.LBB11_44:                              #   in Loop: Header=BB11_46 Depth=2
+	notl	%esi
+	movslq	%ebx, %rax
+	addl	$1, %ebx
+	movl	%esi, 144(%rsp,%rax,4)
+.LBB11_45:                              #   in Loop: Header=BB11_46 Depth=2
+	leaq	-1(%r11), %rax
+	cmpq	$1, %r11
+	movq	%rax, %r11
+	jle	.LBB11_52
+.LBB11_46:                              #   Parent Loop BB11_17 Depth=1
+	movzwl	-2(%rcx,%r11,2), %esi
+	cmpl	$767, %esi
+	jbe	.LBB11_52
+	cmpl	$0, 40(%rsp)
+	je	.LBB11_44
+	movq	%r15, %r9
+	movq	64(%rsp), %rax
+.LBB11_49:                              #   Parent Loop BB11_17 Depth=1
+	movq	%r9, %rbp
+	movq	%rax, %r14
+	shrq	%r14
+	movq	%r14, %rdi
+	notq	%rdi
+	addq	%rax, %rdi
+	andq	$-2, %rax
+	cmpw	%si, (%r9,%rax)
+	leaq	2(%r9,%rax), %r9
+	cmovaeq	%r14, %rdi
+	cmovaeq	%rbp, %r9
+	movq	%rdi, %rax
+	testq	%rdi, %rdi
+	jne	.LBB11_49
+	cmpq	%r10, %r9
+	je	.LBB11_44
+	cmpw	(%r9), %si
+	jb	.LBB11_44
+	jmp	.LBB11_45
+.LBB11_52:                              #   in Loop: Header=BB11_17 Depth=1
+	cmpl	$0, 40(%rsp)
+	jle	.LBB11_61
+	leaq	(%rcx,%rdx,2), %r9
+	movq	56(%rsp), %rax
+	leaq	(%rsp,%rax), %r10
+	addq	$208, %r10
+	xorl	%r11d, %r11d
+	jmp	.LBB11_56
+.LBB11_54:                              #   in Loop: Header=BB11_56 Depth=2
+	addl	$1, %esi
+	movslq	%ebx, %rax
+	addl	$1, %ebx
+	movl	%esi, 144(%rsp,%rax,4)
+.LBB11_55:                              #   in Loop: Header=BB11_56 Depth=2
+	addq	$1, %r11
+	cmpq	136(%rsp), %r11
+	je	.LBB11_61
+.LBB11_56:                              #   Parent Loop BB11_17 Depth=1
+	movzwl	(%r10,%r11,2), %esi
+	testl	%r8d, %r8d
+	je	.LBB11_54
+	movq	%rcx, %r15
+	movq	%rdx, %rax
+.LBB11_58:                              #   Parent Loop BB11_17 Depth=1
+	movq	%r15, %rdi
+	movq	%rax, %r14
+	shrq	%r14
+	movq	%r14, %rbp
+	notq	%rbp
+	addq	%rax, %rbp
+	andq	$-2, %rax
+	cmpw	%si, (%r15,%rax)
+	leaq	2(%r15,%rax), %r15
+	cmovaeq	%r14, %rbp
+	cmovaeq	%rdi, %r15
+	movq	%rbp, %rax
+	testq	%rbp, %rbp
+	jne	.LBB11_58
+	cmpq	%r9, %r15
+	je	.LBB11_54
+	cmpw	(%r15), %si
+	jb	.LBB11_54
+	jmp	.LBB11_55
+.LBB11_61:                              #   in Loop: Header=BB11_17 Depth=1
+	movl	%ebx, %esi
+	cmpl	$2, %ebx
+	movq	120(%rsp), %rdi
+	movq	40(%rsp), %r14
+	movl	52(%rsp), %ebp
+	jl	.LBB11_68
+	movl	$1, %ecx
+	jmp	.LBB11_65
+.LBB11_63:                              #   in Loop: Header=BB11_65 Depth=2
+	xorl	%r8d, %r8d
+.LBB11_64:                              #   in Loop: Header=BB11_65 Depth=2
+	movslq	%r8d, %rax
+	movl	%edx, 144(%rsp,%rax,4)
+	addq	$1, %rcx
+	cmpq	%rsi, %rcx
+	je	.LBB11_68
+.LBB11_65:                              #   Parent Loop BB11_17 Depth=1
+	movl	144(%rsp,%rcx,4), %edx
+	movl	%edx, %r9d
+	negl	%r9d
+	cmovsl	%edx, %r9d
+	movl	%ecx, %r8d
+.LBB11_66:                              #   Parent Loop BB11_17 Depth=1
+	movl	%r8d, %eax
+	movl	140(%rsp,%rax,4), %r10d
+	movl	%r10d, %r11d
+	negl	%r11d
+	cmovsl	%r10d, %r11d
+	cmpl	%r9d, %r11d
+	jbe	.LBB11_64
+	movl	%r10d, 144(%rsp,%rax,4)
+	leal	-1(%r8), %eax
+	cmpl	$1, %r8d
+	movl	%eax, %r8d
+	jg	.LBB11_66
+	jmp	.LBB11_63
+.LBB11_68:                              #   in Loop: Header=BB11_17 Depth=1
+	testl	%r14d, %r14d
+	je	.LBB11_70
+	movq	96(%rsp), %rax
+	movq	56(%rsp), %rdx
+	leaq	(%rax,%rdx), %rcx
+	addq	%rsp, %rdx
+	addq	$208, %rdx
+	movq	104(%rsp), %r8
+	callq	memcpy
+	vmovups	368(%rsp), %ymm15
+	vmovdqu	400(%rsp), %ymm14
+	vmovdqu	432(%rsp), %ymm13
+	vmovdqu	464(%rsp), %ymm12
+.LBB11_70:                              #   in Loop: Header=BB11_17 Depth=1
+	movq	32(%rsp), %rax
+	movl	%r14d, 1172(%rax)
+	shlq	$8, %r12
+	vmovups	(%rdi,%r12), %ymm0
+	vmovups	32(%rdi,%r12), %ymm1
+	vmovups	64(%rdi,%r12), %ymm2
+	vmovups	96(%rdi,%r12), %ymm3
+	vmovdqu	128(%rdi,%r12), %ymm4
+	vmovups	160(%rdi,%r12), %ymm5
+	vmovdqu	192(%rdi,%r12), %ymm10
+	vmovups	224(%rdi,%r12), %ymm11
+	vmovups	%ymm11, 224(%rax,%r12)
+	vmovdqu	%ymm10, 192(%rax,%r12)
+	vmovups	%ymm5, 160(%rax,%r12)
+	vmovdqu	%ymm4, 128(%rax,%r12)
+	vmovups	%ymm3, 96(%rax,%r12)
+	vmovups	%ymm2, 64(%rax,%r12)
+	vmovups	%ymm1, 32(%rax,%r12)
+	vmovups	%ymm0, (%rax,%r12)
+	testl	%ebx, %ebx
+	vpcmpeqd	%ymm10, %ymm10, %ymm10
+	jle	.LBB11_16
+	movq	32(%rsp), %rax
+	addq	%r12, %rax
+	movq	88(%rsp), %rcx
+	addq	%r12, %rcx
+	addq	80(%rsp), %r12
+	xorl	%edx, %edx
+	jmp	.LBB11_75
+.LBB11_72:                              #   in Loop: Header=BB11_75 Depth=2
+	vmovaps	(%r13,%r8,4), %ymm0
+	vmovaps	32(%r13,%r8,4), %ymm1
+	vmovaps	64(%r13,%r8,4), %ymm2
+	vaddps	(%rax), %ymm0, %ymm0
+	vmovaps	96(%r13,%r8,4), %ymm3
+	vmovups	%ymm0, (%rax)
+	vaddps	32(%rax), %ymm1, %ymm0
+	vmovups	%ymm0, 32(%rax)
+	vaddps	64(%rax), %ymm2, %ymm0
+	vmovups	%ymm0, 64(%rax)
+	vaddps	96(%rax), %ymm3, %ymm0
+	vmovups	%ymm0, 96(%rax)
+	vmovaps	128(%r13,%r8,4), %ymm0
+	vaddps	128(%rax), %ymm0, %ymm0
+	vmovups	%ymm0, 128(%rax)
+	vmovaps	160(%r13,%r8,4), %ymm0
+	vaddps	160(%rax), %ymm0, %ymm0
+	vmovups	%ymm0, 160(%rax)
+	vmovaps	192(%r13,%r8,4), %ymm0
+	vaddps	192(%rax), %ymm0, %ymm0
+	vmovups	%ymm0, 192(%rax)
+	vmovaps	224(%r13,%r8,4), %ymm0
+	vaddps	224(%rax), %ymm0, %ymm0
+.LBB11_73:                              #   in Loop: Header=BB11_75 Depth=2
+	vmovups	%ymm0, 224(%rax)
+.LBB11_74:                              #   in Loop: Header=BB11_75 Depth=2
+	addq	$1, %rdx
+	cmpq	%rsi, %rdx
+	je	.LBB11_16
+.LBB11_75:                              #   Parent Loop BB11_17 Depth=1
+	movl	144(%rsp,%rdx,4), %r10d
+	movl	%r10d, %r9d
+	negl	%r9d
+	movl	%r10d, %r8d
+	cmovnsl	%r9d, %r8d
+	shll	$6, %r8d
+	addl	$-64, %r8d
+	movslq	%r8d, %r8
+	leaq	(,%r8,4), %r11
+	addq	%r13, %r11
+	leaq	256(,%r8,4), %rbx
+	addq	%r13, %rbx
+	testl	%r10d, %r10d
+	js	.LBB11_80
+	cmpq	%rbx, %rax
+	jae	.LBB11_72
+	cmpq	%rcx, %r11
+	jae	.LBB11_72
+	cmpl	%r9d, %r10d
+	cmovgl	%r10d, %r9d
+	shll	$6, %r9d
+	addl	$-64, %r9d
+	movslq	%r9d, %r8
+	leaq	12(,%r8,4), %r8
+	addq	%r13, %r8
+	xorl	%r9d, %r9d
+.LBB11_79:                              #   Parent Loop BB11_17 Depth=1
+	vmovss	-12(%r8,%r9,4), %xmm0
+	vaddss	-12(%r12,%r9,4), %xmm0, %xmm0
+	vmovss	-8(%r8,%r9,4), %xmm1
+	vmovss	%xmm0, -12(%r12,%r9,4)
+	vaddss	-8(%r12,%r9,4), %xmm1, %xmm0
+	vmovss	%xmm0, -8(%r12,%r9,4)
+	vmovss	-4(%r8,%r9,4), %xmm0
+	vaddss	-4(%r12,%r9,4), %xmm0, %xmm0
+	vmovss	%xmm0, -4(%r12,%r9,4)
+	vmovss	(%r8,%r9,4), %xmm0
+	vaddss	(%r12,%r9,4), %xmm0, %xmm0
+	vmovss	%xmm0, (%r12,%r9,4)
+	addq	$4, %r9
+	cmpq	$64, %r9
+	jne	.LBB11_79
+	jmp	.LBB11_74
+.LBB11_80:                              #   in Loop: Header=BB11_75 Depth=2
+	cmpq	%rbx, %rax
+	jae	.LBB11_84
+	cmpq	%rcx, %r11
+	jae	.LBB11_84
+	cmpl	%r9d, %r10d
+	cmovgl	%r10d, %r9d
+	shll	$6, %r9d
+	addl	$-64, %r9d
+	movslq	%r9d, %r8
+	leaq	12(,%r8,4), %r8
+	addq	%r13, %r8
+	xorl	%r9d, %r9d
+.LBB11_83:                              #   Parent Loop BB11_17 Depth=1
+	vmovss	-12(%r12,%r9,4), %xmm0
+	vsubss	-12(%r8,%r9,4), %xmm0, %xmm0
+	vmovss	-8(%r12,%r9,4), %xmm1
+	vmovss	%xmm0, -12(%r12,%r9,4)
+	vsubss	-8(%r8,%r9,4), %xmm1, %xmm0
+	vmovss	%xmm0, -8(%r12,%r9,4)
+	vmovss	-4(%r12,%r9,4), %xmm0
+	vsubss	-4(%r8,%r9,4), %xmm0, %xmm0
+	vmovss	%xmm0, -4(%r12,%r9,4)
+	vmovss	(%r12,%r9,4), %xmm0
+	vsubss	(%r8,%r9,4), %xmm0, %xmm0
+	vmovss	%xmm0, (%r12,%r9,4)
+	addq	$4, %r9
+	cmpq	$64, %r9
+	jne	.LBB11_83
+	jmp	.LBB11_74
+.LBB11_84:                              #   in Loop: Header=BB11_75 Depth=2
+	vmovups	(%rax), %ymm0
+	vmovups	32(%rax), %ymm1
+	vmovups	64(%rax), %ymm2
+	vsubps	(%r13,%r8,4), %ymm0, %ymm0
+	vmovups	96(%rax), %ymm3
+	vmovups	%ymm0, (%rax)
+	vsubps	32(%r13,%r8,4), %ymm1, %ymm0
+	vmovups	%ymm0, 32(%rax)
+	vsubps	64(%r13,%r8,4), %ymm2, %ymm0
+	vmovups	%ymm0, 64(%rax)
+	vsubps	96(%r13,%r8,4), %ymm3, %ymm0
+	vmovups	%ymm0, 96(%rax)
+	vmovups	128(%rax), %ymm0
+	vsubps	128(%r13,%r8,4), %ymm0, %ymm0
+	vmovups	%ymm0, 128(%rax)
+	vmovups	160(%rax), %ymm0
+	vsubps	160(%r13,%r8,4), %ymm0, %ymm0
+	vmovups	%ymm0, 160(%rax)
+	vmovups	192(%rax), %ymm0
+	vsubps	192(%r13,%r8,4), %ymm0, %ymm0
+	vmovups	%ymm0, 192(%rax)
+	vmovups	224(%rax), %ymm0
+	vsubps	224(%r13,%r8,4), %ymm0, %ymm0
+	jmp	.LBB11_73
+.LBB11_85:
+	vmovaps	496(%rsp), %xmm6
+	vmovaps	512(%rsp), %xmm7
+	vmovaps	528(%rsp), %xmm8
+	vmovaps	544(%rsp), %xmm9
+	vmovaps	560(%rsp), %xmm10
+	vmovaps	576(%rsp), %xmm11
+	vmovaps	592(%rsp), %xmm12
+	vmovaps	608(%rsp), %xmm13
+	vmovaps	624(%rsp), %xmm14
+	vmovaps	640(%rsp), %xmm15
+	addq	$664, %rsp
+	popq	%rbx
+	popq	%rbp
+	popq	%rdi
+	popq	%rsi
+	popq	%r12
+	popq	%r13
+	popq	%r14
+	popq	%r15

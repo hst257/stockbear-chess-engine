@@ -1,0 +1,10 @@
+--- a/engine/src/nnue.cpp
++++ b/engine/src/nnue.cpp
+@@ -1,0 +2 @@
++#include "small_sort.hpp"
+@@ -250 +251 @@
+-    for (auto& active : states.active) std::sort(active.begin(), active.begin() + states.count);
++    for (auto& active : states.active) stage2::small_sort(active.data(), states.count, [](auto f) { return f; });
+@@ -263 +264 @@
+-        std::sort(changes, changes + size, [](int a, int b) { return std::abs(a) < std::abs(b); });
++        stage2::small_sort(changes, size, [](int f) { return std::abs(f); });

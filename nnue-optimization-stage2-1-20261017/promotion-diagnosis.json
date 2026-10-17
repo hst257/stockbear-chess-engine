@@ -1,0 +1,252 @@
+{
+  "diagnostic": [
+    {
+      "baseline_first_median": 1.0273141075421088,
+      "candidate_first_median": 1.1263950279121335,
+      "median": 1.0487358685042958,
+      "pairs": [
+        {
+          "background": 20.253164556962027,
+          "baseline_first": true,
+          "repeat": 0,
+          "speedup": 1.0487358685042958
+        },
+        {
+          "background": 9.259259259259263,
+          "baseline_first": false,
+          "repeat": 1,
+          "speedup": 1.1891442911717252
+        },
+        {
+          "background": 11.70212765957447,
+          "baseline_first": false,
+          "repeat": 2,
+          "speedup": 1.063645764652542
+        },
+        {
+          "background": 16.94915254237288,
+          "baseline_first": true,
+          "repeat": 3,
+          "speedup": 1.0273141075421088
+        },
+        {
+          "background": 13.921901528013578,
+          "baseline_first": true,
+          "repeat": 4,
+          "speedup": 0.9709903985768059
+        }
+      ],
+      "position": "promotion",
+      "repeat_bootstrap95": [
+        0.9709903985768059,
+        1.1891442911717252
+      ],
+      "speedup_background_correlation": -0.5620949988785412
+    },
+    {
+      "baseline_first_median": 1.1072501766506497,
+      "candidate_first_median": 1.0405944976809913,
+      "median": 1.0744416514171027,
+      "pairs": [
+        {
+          "background": 10.933940774487475,
+          "baseline_first": false,
+          "repeat": 0,
+          "speedup": 1.0744416514171027
+        },
+        {
+          "background": 13.518886679920474,
+          "baseline_first": true,
+          "repeat": 1,
+          "speedup": 1.1391874069085743
+        },
+        {
+          "background": 12.970711297071126,
+          "baseline_first": true,
+          "repeat": 2,
+          "speedup": 1.0753129463927251
+        },
+        {
+          "background": 16.97341513292433,
+          "baseline_first": false,
+          "repeat": 3,
+          "speedup": 1.0405944976809913
+        },
+        {
+          "background": 15.324165029469551,
+          "baseline_first": false,
+          "repeat": 4,
+          "speedup": 1.0092787099991265
+        }
+      ],
+      "position": "diagnostic_promotion_1",
+      "repeat_bootstrap95": [
+        1.0092787099991265,
+        1.1391874069085743
+      ],
+      "speedup_background_correlation": -0.4948884695255483
+    },
+    {
+      "baseline_first_median": 1.0200921433985009,
+      "candidate_first_median": 1.1218423183834414,
+      "median": 1.0640983124778953,
+      "pairs": [
+        {
+          "background": 13.647058823529417,
+          "baseline_first": true,
+          "repeat": 0,
+          "speedup": 1.0640983124778953
+        },
+        {
+          "background": 13.333333333333336,
+          "baseline_first": false,
+          "repeat": 1,
+          "speedup": 1.1097840176090636
+        },
+        {
+          "background": 8.333333333333332,
+          "baseline_first": false,
+          "repeat": 2,
+          "speedup": 1.133900619157819
+        },
+        {
+          "background": 11.65644171779141,
+          "baseline_first": true,
+          "repeat": 3,
+          "speedup": 1.006567507813515
+        },
+        {
+          "background": 7.73930753564155,
+          "baseline_first": true,
+          "repeat": 4,
+          "speedup": 1.0200921433985009
+        }
+      ],
+      "position": "diagnostic_promotion_2",
+      "repeat_bootstrap95": [
+        1.006567507813515,
+        1.133900619157819
+      ],
+      "speedup_background_correlation": 0.044237225597907104
+    },
+    {
+      "baseline_first_median": 1.0473203505617004,
+      "candidate_first_median": 1.046615704522757,
+      "median": 1.046615704522757,
+      "pairs": [
+        {
+          "background": 13.513513513513512,
+          "baseline_first": false,
+          "repeat": 0,
+          "speedup": 1.046615704522757
+        },
+        {
+          "background": 13.678373382624766,
+          "baseline_first": true,
+          "repeat": 1,
+          "speedup": 1.075954389815381
+        },
+        {
+          "background": 21.165048543689316,
+          "baseline_first": true,
+          "repeat": 2,
+          "speedup": 1.0186863113080198
+        },
+        {
+          "background": 20.7843137254902,
+          "baseline_first": false,
+          "repeat": 3,
+          "speedup": 1.06482710817812
+        },
+        {
+          "background": 23.473282442748086,
+          "baseline_first": false,
+          "repeat": 4,
+          "speedup": 1.0122074707684996
+        }
+      ],
+      "position": "diagnostic_promotion_3",
+      "repeat_bootstrap95": [
+        1.0122074707684996,
+        1.075954389815381
+      ],
+      "speedup_background_correlation": -0.670223206047445
+    }
+  ],
+  "interpretation": "Five fresh 1M-node pairs at four legal promotion fixtures. Repetition-only intervals are descriptive, not independent-position evidence. A prior one-fixture regression is not a proven sorting/cache cause; order and background correlations are observational.",
+  "original": [
+    {
+      "baseline_first_median": 0.9692114384109326,
+      "candidate_first_median": 0.9844682872748464,
+      "median": 0.9697985151842208,
+      "pairs": [
+        {
+          "background": 12.356841470765522,
+          "baseline_first": true,
+          "repeat": 0,
+          "speedup": 0.970385591957509
+        },
+        {
+          "background": 9.103840682788054,
+          "baseline_first": false,
+          "repeat": 1,
+          "speedup": 1.0165320287753952
+        },
+        {
+          "background": 8.173455978975028,
+          "baseline_first": true,
+          "repeat": 2,
+          "speedup": 0.9692114384109326
+        },
+        {
+          "background": 9.297520661157023,
+          "baseline_first": false,
+          "repeat": 3,
+          "speedup": 0.9419967515914361
+        },
+        {
+          "background": 8.190652475705694,
+          "baseline_first": true,
+          "repeat": 4,
+          "speedup": 0.9514635479688907
+        },
+        {
+          "background": 16.61184210526316,
+          "baseline_first": false,
+          "repeat": 5,
+          "speedup": 0.8232972580353517
+        },
+        {
+          "background": 13.265879707700961,
+          "baseline_first": true,
+          "repeat": 6,
+          "speedup": 0.8480407122602498
+        },
+        {
+          "background": 11.11703072278459,
+          "baseline_first": false,
+          "repeat": 7,
+          "speedup": 0.9844682872748464
+        },
+        {
+          "background": 11.304772764293862,
+          "baseline_first": true,
+          "repeat": 8,
+          "speedup": 1.0982350864021329
+        },
+        {
+          "background": 9.340841338191451,
+          "baseline_first": false,
+          "repeat": 9,
+          "speedup": 1.0594008853246626
+        }
+      ],
+      "position": "promotion",
+      "repeat_bootstrap95": [
+        0.9086260753355913,
+        1.0219345862997544
+      ],
+      "speedup_background_correlation": -0.5928506267606487
+    }
+  ]
+}

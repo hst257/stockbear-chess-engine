@@ -1,0 +1,39 @@
+--- a/engine/src/nnue.cpp
++++ b/engine/src/nnue.cpp
+@@ -1,0 +2 @@
++#include "sort_observer.hpp"
+@@ -101,0 +103,5 @@
++    sort_observer::kind = before.isCapture(move) ? 1 : 0;
++    if (before.at(move.from()).type() == chess::PieceType::KING) sort_observer::kind=5;
++    if (move.typeOf() == chess::Move::CASTLING) sort_observer::kind=3;
++    if (move.typeOf() == chess::Move::ENPASSANT) sort_observer::kind=4;
++    if (move.typeOf() == chess::Move::PROMOTION) sort_observer::kind=2;
+@@ -250 +256,10 @@
+-    for (auto& active : states.active) std::sort(active.begin(), active.begin() + states.count);
++    if (sort_observer::kind==0) {
++        for (int f=768; f<772; ++f) {
++            const auto& old=parent.features.active[0];
++            const auto& next=states.active[0];
++            const bool before=std::find(old.begin(),old.begin()+parent.features.count,f)!=old.begin()+parent.features.count;
++            const bool after=std::find(next.begin(),next.begin()+states.count,f)!=next.begin()+states.count;
++            if (before!=after) { sort_observer::kind=6; break; }
++        }
++    }
++    for (auto& active : states.active) sort_observer::sort(active.data(), states.count, false);
+@@ -263 +278 @@
+-        std::sort(changes, changes + size, [](int a, int b) { return std::abs(a) < std::abs(b); });
++        sort_observer::sort(changes, size, true);
+--- a/engine/src/search.cpp
++++ b/engine/src/search.cpp
+@@ -8,0 +9 @@
++#include "sort_observer.hpp"
+@@ -75,0 +77 @@
++        sort_observer::reset();
+@@ -163,0 +166 @@
++        sort_observer::finish(board.getFen(),result_.nodes);
+@@ -313,0 +317 @@
++        sort_observer::Phase sort_phase(1);
+@@ -379,0 +384 @@
++        sort_observer::Phase sort_phase(0);
+@@ -459,0 +465 @@
++                    sort_observer::kind=7;

@@ -1,0 +1,83 @@
+{
+  "timestamp": "2026-10-17T16:22:03.5288698+05:30",
+  "power": "Power Scheme GUID: f9309321-c95b-4680-9e08-173c4ed318f2  (Acer)\r\n",
+  "battery": {
+    "PowerOnline": true,
+    "Charging": true,
+    "Discharging": false
+  },
+  "cpu": {
+    "Name": "13th Gen Intel(R) Core(TM) i5-13420H",
+    "NumberOfCores": 8,
+    "NumberOfLogicalProcessors": 12
+  },
+  "frequency_snapshot": {
+    "ProcessorFrequency": 1992,
+    "PercentofMaximumFrequency": 94,
+    "PercentProcessorTime": 1
+  },
+  "thermal": "No usable ACPI temperature telemetry in preceding profile; no temperature or throttling claim",
+  "nitrosense": "Quiet / Eco, last user-confirmed setting; not exposed through Windows power scheme",
+  "top_process_cpu_3sec": [
+    {
+      "name": "pwsh",
+      "pid": 51104,
+      "cpu_percent": 1.78
+    },
+    {
+      "name": "chrome",
+      "pid": 49256,
+      "cpu_percent": 1.04
+    },
+    {
+      "name": "chrome",
+      "pid": 45956,
+      "cpu_percent": 0.91
+    },
+    {
+      "name": "ChatGPT",
+      "pid": 25796,
+      "cpu_percent": 0.52
+    },
+    {
+      "name": "audiodg",
+      "pid": 50880,
+      "cpu_percent": 0.39
+    },
+    {
+      "name": "NitroSense",
+      "pid": 25672,
+      "cpu_percent": 0.17
+    },
+    {
+      "name": "Code",
+      "pid": 49412,
+      "cpu_percent": 0.13
+    },
+    {
+      "name": "kilo",
+      "pid": 48608,
+      "cpu_percent": 0.13
+    },
+    {
+      "name": "WhatsApp.Root",
+      "pid": 20932,
+      "cpu_percent": 0.13
+    },
+    {
+      "name": "ChatGPT",
+      "pid": 27496,
+      "cpu_percent": 0.13
+    },
+    {
+      "name": "NitroSense",
+      "pid": 26592,
+      "cpu_percent": 0.09
+    },
+    {
+      "name": "NVIDIA Overlay",
+      "pid": 14604,
+      "cpu_percent": 0.09
+    }
+  ]
+}

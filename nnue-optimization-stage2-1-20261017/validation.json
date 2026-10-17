@@ -1,0 +1,17 @@
+{
+  "active_engine_unchanged": true,
+  "exact_fixed_work_comparisons_per_candidate": 48,
+  "internal_restoration_passed": true,
+  "new_variants": 1,
+  "no_tournaments_training_stage3": true,
+  "passed": true,
+  "primary_search_records": 1680,
+  "protected_files": 813,
+  "repeats": 7,
+  "report_mirror_exact": true,
+  "sorting_tests_per_implementation": 272000,
+  "statuses": {
+    "selective": "INCONCLUSIVE",
+    "sort": "INCONCLUSIVE"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "new_candidates": ["selective"],
+  "maximum_new_candidates": 2,
+  "implemented_candidates": 1,
+  "selected_after": "workload.json and promotion-diagnosis.json",
+  "supplementary_performance_not_viewed": true,
+  "design": "Explicit 0/1 return and one strict comparison/swap for length 2; original std::sort for all larger lists, independently on state and signed-row lists.",
+  "reason": "Two-entry row lists dominate (13244322/17983608); three-entry lists are secondary (4388556/17983608). State lists are empty in 14497860/17983608 calls. Choose a smaller branch/code footprint, preserve the original algorithm on complex transitions, and test the hypothesis once without threshold tuning against validation results.",
+  "equal_keys": "For count 2 use strict compare and leave equal identities untouched, as the reference does. Counts >=3 call the original comparator/std::sort. Extensive deterministic equality tests required before performance.",
+  "not_combined": ["row fusion", "small-state temporary", "lazy updates"],
+  "no_second_variant_planned": "One evidence-directed refinement is sufficient for this bounded follow-up; do not tune another candidate from held-out supplementary performance."
+}

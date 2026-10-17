@@ -1,0 +1,122 @@
+{
+  "aggregate": {
+    "rows": {
+      "calls": 17983608,
+      "comparisons": 27727878,
+      "equal": 0,
+      "reverse": 6489720,
+      "shadow_insertion_comparisons": 27197553,
+      "shadow_insertion_moves": 13222467,
+      "sorted": 7068588
+    },
+    "state": {
+      "calls": 17983608,
+      "comparisons": 8479206,
+      "equal": 0,
+      "reverse": 15369546,
+      "shadow_insertion_comparisons": 8479197,
+      "shadow_insertion_moves": 3422535,
+      "sorted": 16987236
+    }
+  },
+  "key_bins_49_wide": {
+    "rows": {
+      "0": 3670092,
+      "1": 1502964,
+      "2": 1227678,
+      "3": 1853961,
+      "4": 2265270,
+      "5": 3316725,
+      "6": 4693515,
+      "7": 1534443,
+      "8": 3776223,
+      "9": 1013484,
+      "10": 1701786,
+      "11": 2132547,
+      "12": 2260458,
+      "13": 3180924,
+      "14": 1721358,
+      "15": 5141442
+    },
+    "state": {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0,
+      "11": 0,
+      "12": 0,
+      "13": 0,
+      "14": 0,
+      "15": 9538782
+    }
+  },
+  "lengths": {
+    "rows": {
+      "0": 45288,
+      "1": 252,
+      "2": 13244322,
+      "3": 4388556,
+      "4": 206316,
+      "5": 80346,
+      "6": 18384,
+      "7": 144
+    },
+    "state": {
+      "0": 14497860,
+      "1": 822582,
+      "2": 767622,
+      "3": 415542,
+      "4": 1465680,
+      "5": 14322
+    }
+  },
+  "move_class": {
+    "rows": {
+      "capture": 3377652,
+      "castling": 43812,
+      "en_passant": 5748,
+      "king": 4787370,
+      "null": 45540,
+      "promotion": 86568,
+      "quiet": 9440658,
+      "rights_changing_quiet": 196260
+    },
+    "state": {
+      "capture": 3377652,
+      "castling": 43812,
+      "en_passant": 5748,
+      "king": 4787370,
+      "null": 45540,
+      "promotion": 86568,
+      "quiet": 9440658,
+      "rights_changing_quiet": 196260
+    }
+  },
+  "nodes": 9000000,
+  "note": "Counts only, no operation timer percentages. Reference comparisons counted; insertion comparisons/shifts are a shadow model, not production instructions. Classification follows the parent search routine. Already-sorted and reverse overlap for zero/one/equal lists. Warmup excluded.",
+  "observer_elapsed_multiplier": {
+    "maximum": 1.8707246476824966,
+    "median": 1.365583482504101,
+    "minimum": 1.0455534669597781
+  },
+  "phase": {
+    "rows": {
+      "ordinary_parent": 13914882,
+      "quiescence_parent": 4068726
+    },
+    "state": {
+      "ordinary_parent": 13914882,
+      "quiescence_parent": 4068726
+    }
+  },
+  "raw_records": 46,
+  "searches": 45,
+  "warmup_records_excluded": 1
+}

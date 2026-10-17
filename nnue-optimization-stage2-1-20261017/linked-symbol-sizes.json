@@ -1,0 +1,53 @@
+{
+  "builds": {
+    "baseline": {
+      "enumerated_update_symbols": [],
+      "nnue_side_to_move": {
+        "function_bytes": 3527,
+        "rva": "0x4fb90",
+        "symbol": "chesslab::nnue_side_to_move"
+      },
+      "nnue_update_search": {
+        "error": 1168,
+        "unavailable": true
+      },
+      "nnue_update_search_states": {
+        "error": 1168,
+        "unavailable": true
+      }
+    },
+    "selective": {
+      "enumerated_update_symbols": [],
+      "nnue_side_to_move": {
+        "function_bytes": 3527,
+        "rva": "0x50900",
+        "symbol": "chesslab::nnue_side_to_move"
+      },
+      "nnue_update_search": {
+        "error": 1168,
+        "unavailable": true
+      },
+      "nnue_update_search_states": {
+        "error": 1168,
+        "unavailable": true
+      }
+    },
+    "sort": {
+      "enumerated_update_symbols": [],
+      "nnue_side_to_move": {
+        "function_bytes": 3527,
+        "rva": "0x4eca0",
+        "symbol": "chesslab::nnue_side_to_move"
+      },
+      "nnue_update_search": {
+        "error": 1168,
+        "unavailable": true
+      },
+      "nnue_update_search_states": {
+        "error": 1168,
+        "unavailable": true
+      }
+    }
+  },
+  "note": "Local final-EXE/PDB function sizes; not runtime cache pressure or cycle measurements. No search was run."
+}

@@ -1,0 +1,10 @@
+--- a/engine/src/nnue.cpp
++++ b/engine/src/nnue.cpp
+@@ -1,0 +2 @@
++#include "selective_sort.hpp"
+@@ -250 +251 @@
+-    for (auto& active : states.active) std::sort(active.begin(), active.begin() + states.count);
++    for (auto& active : states.active) stage21::state_sort(active.data(), states.count);
+@@ -263 +264 @@
+-        std::sort(changes, changes + size, [](int a, int b) { return std::abs(a) < std::abs(b); });
++        stage21::row_sort(changes, size);
