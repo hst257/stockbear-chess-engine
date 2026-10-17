@@ -1,0 +1,122 @@
+[
+  {
+    "category": "pawn/quiet/few_moves",
+    "fen": "8/8/4k3/4p3/4P3/4K3/8/8 w - - 0 1",
+    "group": "composition_01",
+    "id": "pawn_opposition",
+    "in_check": false,
+    "legal_captures": 0,
+    "legal_moves": 5,
+    "origin": "Independent hand-composed material/category fixture, selected before any candidate timings; not extracted from a game or dataset"
+  },
+  {
+    "category": "pawn/quiet",
+    "fen": "8/p5pk/1p6/3p4/3P4/1P3K2/P5PP/8 w - - 0 1",
+    "group": "composition_02",
+    "id": "pawn_wings",
+    "in_check": false,
+    "legal_captures": 0,
+    "legal_moves": 13,
+    "origin": "Independent hand-composed material/category fixture, selected before any candidate timings; not extracted from a game or dataset"
+  },
+  {
+    "category": "pawn/promotion",
+    "fen": "8/6k1/1P6/8/8/6p1/1K6/8 w - - 0 1",
+    "group": "composition_03",
+    "id": "pawn_race",
+    "in_check": false,
+    "legal_captures": 0,
+    "legal_moves": 9,
+    "origin": "Independent hand-composed material/category fixture, selected before any candidate timings; not extracted from a game or dataset"
+  },
+  {
+    "category": "rook/quiet",
+    "fen": "6k1/5pp1/8/4r3/8/4R3/5PP1/6K1 w - - 0 1",
+    "group": "composition_04",
+    "id": "rook_active",
+    "in_check": false,
+    "legal_captures": 1,
+    "legal_moves": 18,
+    "origin": "Independent hand-composed material/category fixture, selected before any candidate timings; not extracted from a game or dataset"
+  },
+  {
+    "category": "rook/in_check",
+    "fen": "7k/6pp/8/8/8/5P2/6rP/R5K1 w - - 0 1",
+    "group": "composition_05",
+    "id": "rook_check",
+    "in_check": true,
+    "legal_captures": 1,
+    "legal_moves": 3,
+    "origin": "Independent hand-composed material/category fixture, selected before any candidate timings; not extracted from a game or dataset"
+  },
+  {
+    "category": "rook/tactical_capture",
+    "fen": "6k1/5pp1/8/8/3r4/3R4/5PP1/6K1 w - - 0 1",
+    "group": "composition_06",
+    "id": "rook_capture",
+    "in_check": false,
+    "legal_captures": 1,
+    "legal_moves": 17,
+    "origin": "Independent hand-composed material/category fixture, selected before any candidate timings; not extracted from a game or dataset"
+  },
+  {
+    "category": "minor/knight",
+    "fen": "8/5pk1/6p1/3n4/8/3N2P1/5PK1/8 w - - 0 1",
+    "group": "composition_07",
+    "id": "knight_pawns",
+    "in_check": false,
+    "legal_captures": 0,
+    "legal_moves": 16,
+    "origin": "Independent hand-composed material/category fixture, selected before any candidate timings; not extracted from a game or dataset"
+  },
+  {
+    "category": "minor/bishop",
+    "fen": "8/5pk1/4b1p1/8/8/6P1/2B2PK1/8 w - - 0 1",
+    "group": "composition_08",
+    "id": "bishop_pawns",
+    "in_check": false,
+    "legal_captures": 1,
+    "legal_moves": 16,
+    "origin": "Independent hand-composed material/category fixture, selected before any candidate timings; not extracted from a game or dataset"
+  },
+  {
+    "category": "minor/imbalance",
+    "fen": "8/5pk1/6p1/3n4/8/6P1/2B2PK1/8 w - - 0 1",
+    "group": "composition_09",
+    "id": "bishop_knight",
+    "in_check": false,
+    "legal_captures": 1,
+    "legal_moves": 17,
+    "origin": "Independent hand-composed material/category fixture, selected before any candidate timings; not extracted from a game or dataset"
+  },
+  {
+    "category": "piece/imbalance/many_moves",
+    "fen": "6k1/5pp1/8/4r3/8/3Q4/5PP1/6K1 w - - 0 1",
+    "group": "composition_10",
+    "id": "queen_rook",
+    "in_check": false,
+    "legal_captures": 0,
+    "legal_moves": 32,
+    "origin": "Independent hand-composed material/category fixture, selected before any candidate timings; not extracted from a game or dataset"
+  },
+  {
+    "category": "piece/imbalance",
+    "fen": "6k1/5pp1/3b4/8/8/4R3/5PP1/6K1 w - - 0 1",
+    "group": "composition_11",
+    "id": "rook_minor",
+    "in_check": false,
+    "legal_captures": 0,
+    "legal_moves": 20,
+    "origin": "Independent hand-composed material/category fixture, selected before any candidate timings; not extracted from a game or dataset"
+  },
+  {
+    "category": "piece/queen/many_moves",
+    "fen": "6k1/5pp1/8/3q4/8/3Q4/5PP1/6K1 w - - 0 1",
+    "group": "composition_12",
+    "id": "queen_checks",
+    "in_check": false,
+    "legal_captures": 1,
+    "legal_moves": 29,
+    "origin": "Independent hand-composed material/category fixture, selected before any candidate timings; not extracted from a game or dataset"
+  }
+]

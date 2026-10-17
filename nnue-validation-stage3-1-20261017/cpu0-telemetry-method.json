@@ -1,0 +1,7 @@
+{
+  "interval_seconds": 5,
+  "started_utc": "2026-10-17T11:46:27.2751609Z",
+  "warning": "ProcessorFrequency may report nominal MHz. Do not substitute it for effective frequency. PercentProcessorPerformance is retained as a reported counter without an independently calibrated MHz conversion. Limit flags are reported values, not proof of thermal causation.",
+  "method": "Windows formatted Processor Information counters, logical CPU0 (0,0); diagnostic snapshots, not per-search frequency measurements",
+  "source": "https://learn.microsoft.com/en-us/windows/win32/perfctrs/about-performance-counters"
+}
