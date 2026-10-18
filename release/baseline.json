@@ -1,0 +1,1547 @@
+{
+  "commit": "05622ae",
+  "branch_before": "codex/nnue-tournament-2",
+  "recovery_tag": "checkpoint/pre-consolidation-20261018",
+  "baseline_tests": {
+    "passed": 1171,
+    "skipped": 2,
+    "seconds": 106.93
+  },
+  "top_directory_sizes": {
+    ".gitattributes": [
+      1,
+      2624
+    ],
+    ".gitignore": [
+      1,
+      479
+    ],
+    "AGENTS.md": [
+      1,
+      3599
+    ],
+    "build_engine.bat": [
+      1,
+      292
+    ],
+    "EXPANDED_DATA_VERIFICATION.md": [
+      1,
+      4588
+    ],
+    "EXPANDED_TRAINING_README.md": [
+      1,
+      3666
+    ],
+    "FINAL_NNUE_SHOWDOWN_REPORT.md": [
+      1,
+      17315
+    ],
+    "LABELING_README.md": [
+      1,
+      10460
+    ],
+    "LABELING_THROUGHPUT_DIAGNOSIS.md": [
+      1,
+      7902
+    ],
+    "launch.bat": [
+      1,
+      323
+    ],
+    "NNUE_OPTIMIZATION_ROADMAP.md": [
+      1,
+      13397
+    ],
+    "NNUE_PROFILING_REPORT.md": [
+      1,
+      33199
+    ],
+    "NNUE_SCALING_EXPERIMENT_REPORT.md": [
+      1,
+      20047
+    ],
+    "NNUE_SHOWDOWN_REPORT.md": [
+      1,
+      14374
+    ],
+    "NNUE_STAGE1_OPTIMIZATION_REPORT.md": [
+      1,
+      18805
+    ],
+    "NNUE_STAGE3_1_VALIDATION_REPORT.md": [
+      1,
+      28774
+    ],
+    "NNUE_STAGE3_OPTIMIZATION_REPORT.md": [
+      1,
+      24930
+    ],
+    "NNUE_V2_OPTIMIZATION_RESULTS.md": [
+      1,
+      22338
+    ],
+    "NNUE_V2_SEARCH_DIAGNOSIS.md": [
+      1,
+      27696
+    ],
+    "NNUE_V2_THROUGHPUT_OPTIMIZATION.md": [
+      1,
+      21825
+    ],
+    "NNUE_V3_DESIGN.md": [
+      1,
+      8751
+    ],
+    "NNUE_V3_KING_RELATIVE_REPORT.md": [
+      1,
+      20537
+    ],
+    "pytest.ini": [
+      1,
+      42
+    ],
+    "README.md": [
+      1,
+      25413
+    ],
+    "requirements-dev.txt": [
+      1,
+      34
+    ],
+    "requirements.txt": [
+      1,
+      48
+    ],
+    "setup.bat": [
+      1,
+      668
+    ],
+    "start_labeling.ps1": [
+      1,
+      3394
+    ],
+    "THIRD_PARTY_NOTICES.md": [
+      1,
+      2081
+    ],
+    ".git": [
+      62,
+      65987019
+    ],
+    ".pytest_cache": [
+      5,
+      148848
+    ],
+    ".venv": [
+      18749,
+      382276650
+    ],
+    "app": [
+      52,
+      324480
+    ],
+    "artifacts": [
+      15181,
+      1591987952
+    ],
+    "bin": [
+      2,
+      2276352
+    ],
+    "docs": [
+      317,
+      195399096
+    ],
+    "engine": [
+      2309,
+      325640440
+    ],
+    "final-nnue-showdown-20261017": [
+      207,
+      7393158
+    ],
+    "models": [
+      6,
+      985473
+    ],
+    "nnue-optimization-stage1-20261017": [
+      2419,
+      256713535
+    ],
+    "nnue-optimization-stage2-1-20261017": [
+      2314,
+      358231262
+    ],
+    "nnue-optimization-stage2-20261017": [
+      2418,
+      452060334
+    ],
+    "nnue-optimization-stage3-20261017": [
+      2419,
+      331980166
+    ],
+    "nnue-profiling-20261017": [
+      2149,
+      197344974
+    ],
+    "nnue-showdown-20261016": [
+      2434,
+      152415046
+    ],
+    "nnue-validation-stage3-1-20261017": [
+      51,
+      97800697
+    ],
+    "release": [
+      1,
+      16750
+    ],
+    "stockbear-final-tournament-1-20261017": [
+      462,
+      127602866
+    ],
+    "stockbear-final-tournament-2-20261017": [
+      467,
+      109465987
+    ],
+    "StockBear_NNUE_training": [
+      27275,
+      28203385089
+    ],
+    "tests": [
+      49,
+      1401644
+    ],
+    "tools": [
+      142,
+      1677989
+    ]
+  },
+  "datasets_metadata_only": {
+    "StockBear_NNUE_training/data/cache/teacher.sqlite": {
+      "bytes": 17993728,
+      "mtime_ns": 1792041320784798400
+    },
+    "StockBear_NNUE_training/data/cache/teacher.sqlite-shm": {
+      "bytes": 32768,
+      "mtime_ns": 1792167643085009900
+    },
+    "StockBear_NNUE_training/data/cache/teacher.sqlite-wal": {
+      "bytes": 0,
+      "mtime_ns": 1792168607295514500
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/.writer.lock": {
+      "bytes": 1,
+      "mtime_ns": 1792167094661961200
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/merge-report.json": {
+      "bytes": 1486,
+      "mtime_ns": 1792168735931212100
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/merged.sqlite": {
+      "bytes": 4694953984,
+      "mtime_ns": 1792168607294514400
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/merged.sqlite-shm": {
+      "bytes": 32768,
+      "mtime_ns": 1792172674856713600
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/merged.sqlite-wal": {
+      "bytes": 0,
+      "mtime_ns": 1792168735944009500
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/preparation-progress.json": {
+      "bytes": 230,
+      "mtime_ns": 1792169126656150000
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/preparation-runtime.json": {
+      "bytes": 273,
+      "mtime_ns": 1792168735939146800
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/READY.json": {
+      "bytes": 5184,
+      "mtime_ns": 1792169153033148300
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/source-audit.json": {
+      "bytes": 8955,
+      "mtime_ns": 1792167643070007700
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v2/game_ids.json": {
+      "bytes": 34288887,
+      "mtime_ns": 1792168831901580900
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v2/manifest.json": {
+      "bytes": 2610,
+      "mtime_ns": 1792169131655781200
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v2/test_ordinal.npy": {
+      "bytes": 4625216,
+      "mtime_ns": 1792169095923031200
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v2/test_x.npy": {
+      "bytes": 85564256,
+      "mtime_ns": 1792169095906400000
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v2/test_y.npy": {
+      "bytes": 18500480,
+      "mtime_ns": 1792169095920028300
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v2/train_ordinal.npy": {
+      "bytes": 36935848,
+      "mtime_ns": 1792168836018643500
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v2/train_x.npy": {
+      "bytes": 683310948,
+      "mtime_ns": 1792168836002530300
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v2/train_y.npy": {
+      "bytes": 147743008,
+      "mtime_ns": 1792168836014638900
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v2/validation_ordinal.npy": {
+      "bytes": 4589608,
+      "mtime_ns": 1792169064401265500
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v2/validation_x.npy": {
+      "bytes": 84905508,
+      "mtime_ns": 1792169064383746400
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v2/validation_y.npy": {
+      "bytes": 18358048,
+      "mtime_ns": 1792169064396267200
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-bucket16/game_ids.json": {
+      "bytes": 34288887,
+      "mtime_ns": 1792168833375304600
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-bucket16/manifest.json": {
+      "bytes": 2612,
+      "mtime_ns": 1792169135628462300
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-bucket16/test_ordinal.npy": {
+      "bytes": 4625216,
+      "mtime_ns": 1792169127589099800
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-bucket16/test_x.npy": {
+      "bytes": 80939168,
+      "mtime_ns": 1792169095910393600
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-bucket16/test_y.npy": {
+      "bytes": 18500480,
+      "mtime_ns": 1792169127547507500
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-bucket16/train_ordinal.npy": {
+      "bytes": 36935848,
+      "mtime_ns": 1792169062960888700
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-bucket16/train_x.npy": {
+      "bytes": 646375228,
+      "mtime_ns": 1792168836006531400
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-bucket16/train_y.npy": {
+      "bytes": 147743008,
+      "mtime_ns": 1792169062678934000
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-bucket16/validation_ordinal.npy": {
+      "bytes": 4589608,
+      "mtime_ns": 1792169095653030700
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-bucket16/validation_x.npy": {
+      "bytes": 80316028,
+      "mtime_ns": 1792169064387776200
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-bucket16/validation_y.npy": {
+      "bytes": 18358048,
+      "mtime_ns": 1792169095607503500
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-full/game_ids.json": {
+      "bytes": 34288887,
+      "mtime_ns": 1792168834863078400
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-full/manifest.json": {
+      "bytes": 2608,
+      "mtime_ns": 1792169139313561200
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-full/test_ordinal.npy": {
+      "bytes": 4625216,
+      "mtime_ns": 1792169127811533000
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-full/test_x.npy": {
+      "bytes": 80939168,
+      "mtime_ns": 1792169095914911800
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-full/test_y.npy": {
+      "bytes": 18500480,
+      "mtime_ns": 1792169127760377000
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-full/train_ordinal.npy": {
+      "bytes": 36935848,
+      "mtime_ns": 1792169064303222200
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-full/train_x.npy": {
+      "bytes": 646375228,
+      "mtime_ns": 1792168836010532600
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-full/train_y.npy": {
+      "bytes": 147743008,
+      "mtime_ns": 1792169063984190500
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-full/validation_ordinal.npy": {
+      "bytes": 4589608,
+      "mtime_ns": 1792169095884318600
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-full/validation_x.npy": {
+      "bytes": 80316028,
+      "mtime_ns": 1792169064391759800
+    },
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-full/validation_y.npy": {
+      "bytes": 18358048,
+      "mtime_ns": 1792169095836079200
+    },
+    "StockBear_NNUE_training/data/labeling/cc-events-v1/.writer.lock": {
+      "bytes": 1,
+      "mtime_ns": 1792127573097172900
+    },
+    "StockBear_NNUE_training/data/labeling/cc-events-v1/config.json": {
+      "bytes": 726,
+      "mtime_ns": 1792127575160489500
+    },
+    "StockBear_NNUE_training/data/labeling/cc-events-v1/fast-runtime.json": {
+      "bytes": 508,
+      "mtime_ns": 1792143176132558700
+    },
+    "StockBear_NNUE_training/data/labeling/cc-events-v1/pipeline.sqlite": {
+      "bytes": 9184759808,
+      "mtime_ns": 1792165730431193300
+    },
+    "StockBear_NNUE_training/data/labeling/cc-events-v1/pipeline.sqlite-shm": {
+      "bytes": 32768,
+      "mtime_ns": 1792167643089018700
+    },
+    "StockBear_NNUE_training/data/labeling/cc-events-v1/pipeline.sqlite-wal": {
+      "bytes": 4152992,
+      "mtime_ns": 1792165737455615900
+    },
+    "StockBear_NNUE_training/data/labeling/cc-events-v1/progress.json": {
+      "bytes": 2097,
+      "mtime_ns": 1792165737448632400
+    },
+    "StockBear_NNUE_training/data/labeling/cc-events-v1/progress.log": {
+      "bytes": 5483587,
+      "mtime_ns": 1792165737456621800
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-100/.writer.lock": {
+      "bytes": 1,
+      "mtime_ns": 1792125788009272200
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-100/config.json": {
+      "bytes": 719,
+      "mtime_ns": 1792125791078820700
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-100/manifest.json": {
+      "bytes": 32843,
+      "mtime_ns": 1792125932258905000
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-100/pipeline.sqlite": {
+      "bytes": 101040128,
+      "mtime_ns": 1792125933058978200
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-100/pipeline.sqlite-shm": {
+      "bytes": 32768,
+      "mtime_ns": 1792135368551285400
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-100/pipeline.sqlite-wal": {
+      "bytes": 0,
+      "mtime_ns": 1792135368550314400
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-100/progress.json": {
+      "bytes": 1156,
+      "mtime_ns": 1792125839106253300
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-100/progress.log": {
+      "bytes": 2060,
+      "mtime_ns": 1792125839119543300
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-100/validation.json": {
+      "bytes": 1366,
+      "mtime_ns": 1792125932251237800
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-100/export/.export-owner.json": {
+      "bytes": 124,
+      "mtime_ns": 1792125932267906600
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-100/export/errors.jsonl": {
+      "bytes": 725,
+      "mtime_ns": 1792125933038449900
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-100/export/games.jsonl": {
+      "bytes": 1507546,
+      "mtime_ns": 1792125932323908800
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-100/export/manifest.json": {
+      "bytes": 29529,
+      "mtime_ns": 1792125933046972000
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-100/export/observations.jsonl": {
+      "bytes": 10920982,
+      "mtime_ns": 1792125932563172700
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-100/export/records.jsonl": {
+      "bytes": 139157,
+      "mtime_ns": 1792125932275908700
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-32-20261016/.writer.lock": {
+      "bytes": 1,
+      "mtime_ns": 1792123146700654900
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-32-20261016/config.json": {
+      "bytes": 718,
+      "mtime_ns": 1792123148250820400
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-32-20261016/manifest.json": {
+      "bytes": 32787,
+      "mtime_ns": 1792123521499880900
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-32-20261016/pipeline.sqlite": {
+      "bytes": 100814848,
+      "mtime_ns": 1792123521639115500
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-32-20261016/pipeline.sqlite-shm": {
+      "bytes": 32768,
+      "mtime_ns": 1792123706489163400
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-32-20261016/pipeline.sqlite-wal": {
+      "bytes": 0,
+      "mtime_ns": 1792123706489163400
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-32-20261016/progress.json": {
+      "bytes": 1113,
+      "mtime_ns": 1792123369553139400
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-32-20261016/progress.log": {
+      "bytes": 4031,
+      "mtime_ns": 1792123369558171900
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-32-20261016/validation.json": {
+      "bytes": 1315,
+      "mtime_ns": 1792123521492879800
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-32-20261016/export/.export-owner.json": {
+      "bytes": 124,
+      "mtime_ns": 1792123245843559700
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-32-20261016/export/errors.jsonl": {
+      "bytes": 725,
+      "mtime_ns": 1792123247670574700
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-32-20261016/export/games.jsonl": {
+      "bytes": 1507546,
+      "mtime_ns": 1792123245904976300
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-32-20261016/export/manifest.json": {
+      "bytes": 29474,
+      "mtime_ns": 1792123247682386000
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-32-20261016/export/observations.jsonl": {
+      "bytes": 10920982,
+      "mtime_ns": 1792123246349142100
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-32-20261016/export/records.jsonl": {
+      "bytes": 44704,
+      "mtime_ns": 1792123245850974800
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-32-20261016/prepared/v3-bucket16/.export-owner.json": {
+      "bytes": 127,
+      "mtime_ns": 1792123521513880300
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-32-20261016/prepared/v3-bucket16/game_ids.json": {
+      "bytes": 2361,
+      "mtime_ns": 1792123521620115300
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-32-20261016/prepared/v3-bucket16/manifest.json": {
+      "bytes": 3624,
+      "mtime_ns": 1792123521626115500
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-32-20261016/prepared/v3-bucket16/test_ordinal.npy": {
+      "bytes": 176,
+      "mtime_ns": 1792123521592018500
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-32-20261016/prepared/v3-bucket16/test_x.npy": {
+      "bytes": 968,
+      "mtime_ns": 1792123521581017400
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-32-20261016/prepared/v3-bucket16/test_y.npy": {
+      "bytes": 320,
+      "mtime_ns": 1792123521587016700
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-32-20261016/prepared/v3-bucket16/train_ordinal.npy": {
+      "bytes": 336,
+      "mtime_ns": 1792123521531901100
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-32-20261016/prepared/v3-bucket16/train_x.npy": {
+      "bytes": 3768,
+      "mtime_ns": 1792123521521897200
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-32-20261016/prepared/v3-bucket16/train_y.npy": {
+      "bytes": 960,
+      "mtime_ns": 1792123521527879900
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-32-20261016/prepared/v3-bucket16/validation_ordinal.npy": {
+      "bytes": 128,
+      "mtime_ns": 1792123521565925200
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-32-20261016/prepared/v3-bucket16/validation_x.npy": {
+      "bytes": 128,
+      "mtime_ns": 1792123521558912800
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-32-20261016/prepared/v3-bucket16/validation_y.npy": {
+      "bytes": 128,
+      "mtime_ns": 1792123521562908200
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-final-8-20261016/.writer.lock": {
+      "bytes": 1,
+      "mtime_ns": 1792123893227284800
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-final-8-20261016/config.json": {
+      "bytes": 717,
+      "mtime_ns": 1792123894889638300
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-final-8-20261016/manifest.json": {
+      "bytes": 32742,
+      "mtime_ns": 1792124085743232600
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-final-8-20261016/pipeline.sqlite": {
+      "bytes": 100933632,
+      "mtime_ns": 1792124085788692700
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-final-8-20261016/pipeline.sqlite-shm": {
+      "bytes": 32768,
+      "mtime_ns": 1792126997109766600
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-final-8-20261016/pipeline.sqlite-wal": {
+      "bytes": 0,
+      "mtime_ns": 1792126997108782600
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-final-8-20261016/progress.json": {
+      "bytes": 1091,
+      "mtime_ns": 1792124000893973200
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-final-8-20261016/progress.log": {
+      "bytes": 3963,
+      "mtime_ns": 1792124000898980200
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-final-8-20261016/validation.json": {
+      "bytes": 1275,
+      "mtime_ns": 1792124085734187600
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-final-8-20261016/export/.export-owner.json": {
+      "bytes": 124,
+      "mtime_ns": 1792123996400541800
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-final-8-20261016/export/errors.jsonl": {
+      "bytes": 725,
+      "mtime_ns": 1792123997963477700
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-final-8-20261016/export/games.jsonl": {
+      "bytes": 1507546,
+      "mtime_ns": 1792123996473075400
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-final-8-20261016/export/manifest.json": {
+      "bytes": 29430,
+      "mtime_ns": 1792123997975499300
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-final-8-20261016/export/observations.jsonl": {
+      "bytes": 10920982,
+      "mtime_ns": 1792123996984627700
+    },
+    "StockBear_NNUE_training/data/labeling/smoke-final-8-20261016/export/records.jsonl": {
+      "bytes": 11033,
+      "mtime_ns": 1792123996405865700
+    },
+    "StockBear_NNUE_training/data/processed/full.sqlite": {
+      "bytes": 20119552,
+      "mtime_ns": 1792040568954923400
+    },
+    "StockBear_NNUE_training/data/processed/full.sqlite-shm": {
+      "bytes": 32768,
+      "mtime_ns": 1792167643083012200
+    },
+    "StockBear_NNUE_training/data/processed/full.sqlite-wal": {
+      "bytes": 0,
+      "mtime_ns": 1792168607295514500
+    },
+    "StockBear_NNUE_training/data/processed/pilot.sqlite": {
+      "bytes": 684032,
+      "mtime_ns": 1792039644525198700
+    },
+    "StockBear_NNUE_training/data/processed/pilot.sqlite-shm": {
+      "bytes": 32768,
+      "mtime_ns": 1792122184145532000
+    },
+    "StockBear_NNUE_training/data/processed/pilot.sqlite-wal": {
+      "bytes": 0,
+      "mtime_ns": 1792122184145532000
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2020-02.pgn.zst": {
+      "bytes": 800401,
+      "mtime_ns": 1792047169522495700
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2020-12.pgn.zst": {
+      "bytes": 761423,
+      "mtime_ns": 1792047163165102500
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2021-05.pgn.zst": {
+      "bytes": 2771026,
+      "mtime_ns": 1792047159518926100
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2021-06.pgn.zst": {
+      "bytes": 3182381,
+      "mtime_ns": 1792047157720345300
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2021-07.pgn.zst": {
+      "bytes": 5238417,
+      "mtime_ns": 1792047154564117300
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2021-08.pgn.zst": {
+      "bytes": 12054739,
+      "mtime_ns": 1792047156063189900
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2021-09.pgn.zst": {
+      "bytes": 5313472,
+      "mtime_ns": 1792047142854730900
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2021-10.pgn.zst": {
+      "bytes": 5665418,
+      "mtime_ns": 1792047138527211200
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2021-11.pgn.zst": {
+      "bytes": 7190194,
+      "mtime_ns": 1792047134385524100
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2021-12.pgn.zst": {
+      "bytes": 5743576,
+      "mtime_ns": 1792047131074865300
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2022-01.pgn.zst": {
+      "bytes": 1791355,
+      "mtime_ns": 1792047122557919600
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2022-02.pgn.zst": {
+      "bytes": 2235720,
+      "mtime_ns": 1792047119812500400
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2022-03.pgn.zst": {
+      "bytes": 2722749,
+      "mtime_ns": 1792047115577668500
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2022-04.pgn.zst": {
+      "bytes": 4163055,
+      "mtime_ns": 1792047113800650900
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2022-05.pgn.zst": {
+      "bytes": 3546408,
+      "mtime_ns": 1792047109726455400
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2022-06.pgn.zst": {
+      "bytes": 4037529,
+      "mtime_ns": 1792047107559890900
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2022-07.pgn.zst": {
+      "bytes": 8037313,
+      "mtime_ns": 1792047105596000900
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2022-08.pgn.zst": {
+      "bytes": 11402433,
+      "mtime_ns": 1792047108199938500
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2022-09.pgn.zst": {
+      "bytes": 4525335,
+      "mtime_ns": 1792047097536046900
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2022-10.pgn.zst": {
+      "bytes": 5127438,
+      "mtime_ns": 1792047095709682900
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2022-11.pgn.zst": {
+      "bytes": 2351230,
+      "mtime_ns": 1792047080936888400
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2022-12.pgn.zst": {
+      "bytes": 8347485,
+      "mtime_ns": 1792047079998752700
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2023-01.pgn.zst": {
+      "bytes": 3021062,
+      "mtime_ns": 1792047074763152300
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2023-02.pgn.zst": {
+      "bytes": 3642207,
+      "mtime_ns": 1792047071316475900
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2023-03.pgn.zst": {
+      "bytes": 4127867,
+      "mtime_ns": 1792047069812961200
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2023-04.pgn.zst": {
+      "bytes": 5447089,
+      "mtime_ns": 1792047065098360200
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2023-05.pgn.zst": {
+      "bytes": 4726168,
+      "mtime_ns": 1792047068214507600
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2023-06.pgn.zst": {
+      "bytes": 10093165,
+      "mtime_ns": 1792047066534400100
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2023-07.pgn.zst": {
+      "bytes": 13945705,
+      "mtime_ns": 1792047061978613600
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2023-08.pgn.zst": {
+      "bytes": 8086823,
+      "mtime_ns": 1792047048849454200
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2023-09.pgn.zst": {
+      "bytes": 6667984,
+      "mtime_ns": 1792047045224595400
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2023-10.pgn.zst": {
+      "bytes": 9979495,
+      "mtime_ns": 1792047042561045900
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2023-11.pgn.zst": {
+      "bytes": 7860008,
+      "mtime_ns": 1792047038004195700
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2023-12.pgn.zst": {
+      "bytes": 10865867,
+      "mtime_ns": 1792047040974409300
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2024-01.pgn.zst": {
+      "bytes": 8005269,
+      "mtime_ns": 1792047030481716600
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2024-02.pgn.zst": {
+      "bytes": 6711907,
+      "mtime_ns": 1792047025533581600
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2024-03.pgn.zst": {
+      "bytes": 10075618,
+      "mtime_ns": 1792047026967231600
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2024-04.pgn.zst": {
+      "bytes": 8455619,
+      "mtime_ns": 1792047022573530800
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2024-05.pgn.zst": {
+      "bytes": 13000081,
+      "mtime_ns": 1792046926105365800
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2024-06.pgn.zst": {
+      "bytes": 13741174,
+      "mtime_ns": 1792046924628764300
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2024-07.pgn.zst": {
+      "bytes": 19707495,
+      "mtime_ns": 1792046919663938800
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2024-08.pgn.zst": {
+      "bytes": 21230539,
+      "mtime_ns": 1792046923099823700
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2024-09.pgn.zst": {
+      "bytes": 13411172,
+      "mtime_ns": 1792046891073976800
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2024-10.pgn.zst": {
+      "bytes": 11308945,
+      "mtime_ns": 1792046878599017400
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2024-11.pgn.zst": {
+      "bytes": 12522861,
+      "mtime_ns": 1792046874243709400
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2024-12.pgn.zst": {
+      "bytes": 18767695,
+      "mtime_ns": 1792046873075201100
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2025-01.pgn.zst": {
+      "bytes": 11411195,
+      "mtime_ns": 1792046861304675300
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2025-02.pgn.zst": {
+      "bytes": 10423902,
+      "mtime_ns": 1792046856517461200
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2025-03.pgn.zst": {
+      "bytes": 9448612,
+      "mtime_ns": 1792046852396621900
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2025-04.pgn.zst": {
+      "bytes": 16218003,
+      "mtime_ns": 1792046784909863300
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2025-05.pgn.zst": {
+      "bytes": 14139476,
+      "mtime_ns": 1792046814166609500
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2025-06.pgn.zst": {
+      "bytes": 18799435,
+      "mtime_ns": 1792046813038486500
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2025-07.pgn.zst": {
+      "bytes": 23831026,
+      "mtime_ns": 1792046806733399800
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2025-08.pgn.zst": {
+      "bytes": 28856531,
+      "mtime_ns": 1792046788439277500
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2025-09.pgn.zst": {
+      "bytes": 16315369,
+      "mtime_ns": 1792046744231697100
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2025-10.pgn.zst": {
+      "bytes": 17369667,
+      "mtime_ns": 1792046713220753300
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2025-11.pgn.zst": {
+      "bytes": 15575096,
+      "mtime_ns": 1792046713298410400
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2025-12.pgn.zst": {
+      "bytes": 22427525,
+      "mtime_ns": 1792046707972504300
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2026-01.pgn.zst": {
+      "bytes": 15717635,
+      "mtime_ns": 1792046699995933600
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2026-02.pgn.zst": {
+      "bytes": 12215117,
+      "mtime_ns": 1792046683149192500
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2026-03.pgn.zst": {
+      "bytes": 16446491,
+      "mtime_ns": 1792046669201642100
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2026-04.pgn.zst": {
+      "bytes": 18431347,
+      "mtime_ns": 1792046669130429000
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2026-05.pgn.zst": {
+      "bytes": 22912287,
+      "mtime_ns": 1792046639350903700
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2026-06.pgn.zst": {
+      "bytes": 22797518,
+      "mtime_ns": 1792038546122460400
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2026-07.pgn.zst": {
+      "bytes": 24535400,
+      "mtime_ns": 1792038524875311100
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2026-08.pgn.zst": {
+      "bytes": 31010232,
+      "mtime_ns": 1792038511640289600
+    },
+    "StockBear_NNUE_training/data/raw/lichess_db_broadcast_2026-09.pgn.zst": {
+      "bytes": 18414369,
+      "mtime_ns": 1792038495130320700
+    },
+    "StockBear_NNUE_training/data/raw/cc-events-all/cc-events-all.pgn": {
+      "bytes": 859912613,
+      "mtime_ns": 1792126776096546500
+    },
+    "StockBear_NNUE_training/data/raw/new_data/ct-Almeida Quintana, Omar-Miranda Camus, Joaquin Ignacio-III Temuco Open 2026-6.5-2026-01-12.pgn": {
+      "bytes": 612,
+      "mtime_ns": 1792119090374347500
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (1).pgn": {
+      "bytes": 38040,
+      "mtime_ns": 1792118003219332900
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (10).pgn": {
+      "bytes": 62747,
+      "mtime_ns": 1792118189649951300
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (11).pgn": {
+      "bytes": 69456,
+      "mtime_ns": 1792118198677649200
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (12).pgn": {
+      "bytes": 59565,
+      "mtime_ns": 1792118209374069800
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (13).pgn": {
+      "bytes": 57979,
+      "mtime_ns": 1792118221685312500
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (14).pgn": {
+      "bytes": 54255,
+      "mtime_ns": 1792118235233089400
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (15).pgn": {
+      "bytes": 59605,
+      "mtime_ns": 1792118243831727000
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (16).pgn": {
+      "bytes": 71382,
+      "mtime_ns": 1792118254226012100
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (17).pgn": {
+      "bytes": 78975,
+      "mtime_ns": 1792118263037396100
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (18).pgn": {
+      "bytes": 72568,
+      "mtime_ns": 1792118278850038700
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (19).pgn": {
+      "bytes": 70666,
+      "mtime_ns": 1792118286714608600
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (2).pgn": {
+      "bytes": 19719,
+      "mtime_ns": 1792118018514436900
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (20).pgn": {
+      "bytes": 70172,
+      "mtime_ns": 1792118294609662400
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (21).pgn": {
+      "bytes": 63205,
+      "mtime_ns": 1792118303032417700
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (22).pgn": {
+      "bytes": 63316,
+      "mtime_ns": 1792118311360416300
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (23).pgn": {
+      "bytes": 61780,
+      "mtime_ns": 1792118318985892600
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (24).pgn": {
+      "bytes": 63403,
+      "mtime_ns": 1792118333861518800
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (25).pgn": {
+      "bytes": 58943,
+      "mtime_ns": 1792118342398836800
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (26).pgn": {
+      "bytes": 88825,
+      "mtime_ns": 1792118349895506900
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (27).pgn": {
+      "bytes": 67809,
+      "mtime_ns": 1792118375008332500
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (28).pgn": {
+      "bytes": 48937,
+      "mtime_ns": 1792118383641763000
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (29).pgn": {
+      "bytes": 61132,
+      "mtime_ns": 1792118391808946100
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (3).pgn": {
+      "bytes": 21278,
+      "mtime_ns": 1792118032829909900
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (30).pgn": {
+      "bytes": 63371,
+      "mtime_ns": 1792118403164591500
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (31).pgn": {
+      "bytes": 62371,
+      "mtime_ns": 1792118460167052600
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (32).pgn": {
+      "bytes": 70144,
+      "mtime_ns": 1792118472717136300
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (33).pgn": {
+      "bytes": 72693,
+      "mtime_ns": 1792118481757109600
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (34).pgn": {
+      "bytes": 68621,
+      "mtime_ns": 1792118489007336100
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (35).pgn": {
+      "bytes": 69034,
+      "mtime_ns": 1792118496234462500
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (36).pgn": {
+      "bytes": 64315,
+      "mtime_ns": 1792118504016130100
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (37).pgn": {
+      "bytes": 63178,
+      "mtime_ns": 1792118518247965700
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (38).pgn": {
+      "bytes": 67327,
+      "mtime_ns": 1792118526390334200
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (39).pgn": {
+      "bytes": 53316,
+      "mtime_ns": 1792118535650880800
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (4).pgn": {
+      "bytes": 20235,
+      "mtime_ns": 1792118071231534400
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (40).pgn": {
+      "bytes": 55595,
+      "mtime_ns": 1792118543103842500
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (41).pgn": {
+      "bytes": 58789,
+      "mtime_ns": 1792118550861941300
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (42).pgn": {
+      "bytes": 66260,
+      "mtime_ns": 1792118558628661800
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (43).pgn": {
+      "bytes": 60414,
+      "mtime_ns": 1792118571708322200
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (44).pgn": {
+      "bytes": 59305,
+      "mtime_ns": 1792118579549010600
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (45).pgn": {
+      "bytes": 58168,
+      "mtime_ns": 1792118588070246700
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (46).pgn": {
+      "bytes": 60845,
+      "mtime_ns": 1792118623207374400
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (47).pgn": {
+      "bytes": 64004,
+      "mtime_ns": 1792118654051861900
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (48).pgn": {
+      "bytes": 64382,
+      "mtime_ns": 1792118661526212900
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (49).pgn": {
+      "bytes": 59389,
+      "mtime_ns": 1792118669228659700
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (5).pgn": {
+      "bytes": 21790,
+      "mtime_ns": 1792118085042085000
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (50).pgn": {
+      "bytes": 51598,
+      "mtime_ns": 1792118676606980900
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (51).pgn": {
+      "bytes": 62795,
+      "mtime_ns": 1792118690935335700
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (52).pgn": {
+      "bytes": 58021,
+      "mtime_ns": 1792118774929831200
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (53).pgn": {
+      "bytes": 66609,
+      "mtime_ns": 1792118784320405100
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (54).pgn": {
+      "bytes": 65942,
+      "mtime_ns": 1792118791404051700
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (55).pgn": {
+      "bytes": 68294,
+      "mtime_ns": 1792118800027733000
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (56).pgn": {
+      "bytes": 63058,
+      "mtime_ns": 1792118808753999800
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (57).pgn": {
+      "bytes": 66797,
+      "mtime_ns": 1792118824540645500
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (58).pgn": {
+      "bytes": 58522,
+      "mtime_ns": 1792118832643805800
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (59).pgn": {
+      "bytes": 62368,
+      "mtime_ns": 1792118844245307800
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (6).pgn": {
+      "bytes": 20620,
+      "mtime_ns": 1792118098965816000
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (60).pgn": {
+      "bytes": 68559,
+      "mtime_ns": 1792118856403364700
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (61).pgn": {
+      "bytes": 64149,
+      "mtime_ns": 1792118864314935900
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (62).pgn": {
+      "bytes": 69750,
+      "mtime_ns": 1792118874391873800
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (63).pgn": {
+      "bytes": 20583,
+      "mtime_ns": 1792119385850865200
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (64).pgn": {
+      "bytes": 68892,
+      "mtime_ns": 1792119416059386600
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (65).pgn": {
+      "bytes": 65781,
+      "mtime_ns": 1792119429405849500
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (66).pgn": {
+      "bytes": 64812,
+      "mtime_ns": 1792119436216356700
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (67).pgn": {
+      "bytes": 59793,
+      "mtime_ns": 1792119444192940100
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (68).pgn": {
+      "bytes": 56000,
+      "mtime_ns": 1792119453243632100
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (69).pgn": {
+      "bytes": 69564,
+      "mtime_ns": 1792119464547590800
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (7).pgn": {
+      "bytes": 14907,
+      "mtime_ns": 1792118113626501800
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (8).pgn": {
+      "bytes": 16171,
+      "mtime_ns": 1792118126304791200
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games (9).pgn": {
+      "bytes": 17676,
+      "mtime_ns": 1792118139079942000
+    },
+    "StockBear_NNUE_training/data/raw/new_data/master_games.pgn": {
+      "bytes": 38888,
+      "mtime_ns": 1792117984686939900
+    },
+    "StockBear_NNUE_training/data/v2/pool.sqlite": {
+      "bytes": 1225027584,
+      "mtime_ns": 1792052072195723200
+    },
+    "StockBear_NNUE_training/data/v2/pool.sqlite-shm": {
+      "bytes": 32768,
+      "mtime_ns": 1792167643084010400
+    },
+    "StockBear_NNUE_training/data/v2/pool.sqlite-wal": {
+      "bytes": 0,
+      "mtime_ns": 1792168607295514500
+    },
+    "StockBear_NNUE_training/data/v2/teacher.sqlite": {
+      "bytes": 409686016,
+      "mtime_ns": 1792061057304313200
+    },
+    "StockBear_NNUE_training/data/v2/teacher.sqlite-shm": {
+      "bytes": 32768,
+      "mtime_ns": 1792167643086014100
+    },
+    "StockBear_NNUE_training/data/v2/teacher.sqlite-wal": {
+      "bytes": 0,
+      "mtime_ns": 1792168607295514500
+    },
+    "StockBear_NNUE_training/data/v2/prepared/1000000/manifest.json": {
+      "bytes": 1307,
+      "mtime_ns": 1792059124558767100
+    },
+    "StockBear_NNUE_training/data/v2/prepared/1000000/test_ordinal.npy": {
+      "bytes": 161344,
+      "mtime_ns": 1792059121809515800
+    },
+    "StockBear_NNUE_training/data/v2/prepared/1000000/test_x.npy": {
+      "bytes": 2982624,
+      "mtime_ns": 1792059121799514700
+    },
+    "StockBear_NNUE_training/data/v2/prepared/1000000/test_y.npy": {
+      "bytes": 644992,
+      "mtime_ns": 1792059121804534600
+    },
+    "StockBear_NNUE_training/data/v2/prepared/1000000/train_ordinal.npy": {
+      "bytes": 6396696,
+      "mtime_ns": 1792059012252001500
+    },
+    "StockBear_NNUE_training/data/v2/prepared/1000000/train_x.npy": {
+      "bytes": 118336636,
+      "mtime_ns": 1792059012243302500
+    },
+    "StockBear_NNUE_training/data/v2/prepared/1000000/train_y.npy": {
+      "bytes": 25586400,
+      "mtime_ns": 1792059012247483200
+    },
+    "StockBear_NNUE_training/data/v2/prepared/1000000/validation_ordinal.npy": {
+      "bytes": 159568,
+      "mtime_ns": 1792059119089148800
+    },
+    "StockBear_NNUE_training/data/v2/prepared/1000000/validation_x.npy": {
+      "bytes": 2949768,
+      "mtime_ns": 1792059119068212300
+    },
+    "StockBear_NNUE_training/data/v2/prepared/1000000/validation_y.npy": {
+      "bytes": 637888,
+      "mtime_ns": 1792059119082283600
+    },
+    "StockBear_NNUE_training/data/v2/prepared/1250000/manifest.json": {
+      "bytes": 1307,
+      "mtime_ns": 1792061221731885300
+    },
+    "StockBear_NNUE_training/data/v2/prepared/1250000/test_ordinal.npy": {
+      "bytes": 161344,
+      "mtime_ns": 1792061219135549500
+    },
+    "StockBear_NNUE_training/data/v2/prepared/1250000/test_x.npy": {
+      "bytes": 2982624,
+      "mtime_ns": 1792061219126545000
+    },
+    "StockBear_NNUE_training/data/v2/prepared/1250000/test_y.npy": {
+      "bytes": 644992,
+      "mtime_ns": 1792061219131549600
+    },
+    "StockBear_NNUE_training/data/v2/prepared/1250000/train_ordinal.npy": {
+      "bytes": 7995840,
+      "mtime_ns": 1792061084046347200
+    },
+    "StockBear_NNUE_training/data/v2/prepared/1250000/train_x.npy": {
+      "bytes": 147920800,
+      "mtime_ns": 1792061084037318100
+    },
+    "StockBear_NNUE_training/data/v2/prepared/1250000/train_y.npy": {
+      "bytes": 31982976,
+      "mtime_ns": 1792061084042347300
+    },
+    "StockBear_NNUE_training/data/v2/prepared/1250000/validation_ordinal.npy": {
+      "bytes": 159568,
+      "mtime_ns": 1792061216539657000
+    },
+    "StockBear_NNUE_training/data/v2/prepared/1250000/validation_x.npy": {
+      "bytes": 2949768,
+      "mtime_ns": 1792061216515556900
+    },
+    "StockBear_NNUE_training/data/v2/prepared/1250000/validation_y.npy": {
+      "bytes": 637888,
+      "mtime_ns": 1792061216532638400
+    },
+    "StockBear_NNUE_training/data/v2/prepared/200000/manifest.json": {
+      "bytes": 1305,
+      "mtime_ns": 1792053562390137200
+    },
+    "StockBear_NNUE_training/data/v2/prepared/200000/test_ordinal.npy": {
+      "bytes": 161344,
+      "mtime_ns": 1792053559805004500
+    },
+    "StockBear_NNUE_training/data/v2/prepared/200000/test_x.npy": {
+      "bytes": 2982624,
+      "mtime_ns": 1792053559796725700
+    },
+    "StockBear_NNUE_training/data/v2/prepared/200000/test_y.npy": {
+      "bytes": 644992,
+      "mtime_ns": 1792053559799972500
+    },
+    "StockBear_NNUE_training/data/v2/prepared/200000/train_ordinal.npy": {
+      "bytes": 1279472,
+      "mtime_ns": 1792053536958000400
+    },
+    "StockBear_NNUE_training/data/v2/prepared/200000/train_x.npy": {
+      "bytes": 23667992,
+      "mtime_ns": 1792053536949610500
+    },
+    "StockBear_NNUE_training/data/v2/prepared/200000/train_y.npy": {
+      "bytes": 5117504,
+      "mtime_ns": 1792053536953999100
+    },
+    "StockBear_NNUE_training/data/v2/prepared/200000/validation_ordinal.npy": {
+      "bytes": 159568,
+      "mtime_ns": 1792053557233749300
+    },
+    "StockBear_NNUE_training/data/v2/prepared/200000/validation_x.npy": {
+      "bytes": 2949768,
+      "mtime_ns": 1792053557221744800
+    },
+    "StockBear_NNUE_training/data/v2/prepared/200000/validation_y.npy": {
+      "bytes": 637888,
+      "mtime_ns": 1792053557228763700
+    },
+    "StockBear_NNUE_training/data/v2/prepared/4096/manifest.json": {
+      "bytes": 1293,
+      "mtime_ns": 1792052198926349000
+    },
+    "StockBear_NNUE_training/data/v2/prepared/4096/test_ordinal.npy": {
+      "bytes": 3424,
+      "mtime_ns": 1792052198857612300
+    },
+    "StockBear_NNUE_training/data/v2/prepared/4096/test_x.npy": {
+      "bytes": 61104,
+      "mtime_ns": 1792052198848520900
+    },
+    "StockBear_NNUE_training/data/v2/prepared/4096/test_y.npy": {
+      "bytes": 13312,
+      "mtime_ns": 1792052198852532700
+    },
+    "StockBear_NNUE_training/data/v2/prepared/4096/train_ordinal.npy": {
+      "bytes": 26328,
+      "mtime_ns": 1792052198341337200
+    },
+    "StockBear_NNUE_training/data/v2/prepared/4096/train_x.npy": {
+      "bytes": 484828,
+      "mtime_ns": 1792052198332339600
+    },
+    "StockBear_NNUE_training/data/v2/prepared/4096/train_y.npy": {
+      "bytes": 104928,
+      "mtime_ns": 1792052198336334900
+    },
+    "StockBear_NNUE_training/data/v2/prepared/4096/validation_ordinal.npy": {
+      "bytes": 3400,
+      "mtime_ns": 1792052198775501800
+    },
+    "StockBear_NNUE_training/data/v2/prepared/4096/validation_x.npy": {
+      "bytes": 60660,
+      "mtime_ns": 1792052198765769800
+    },
+    "StockBear_NNUE_training/data/v2/prepared/4096/validation_y.npy": {
+      "bytes": 13216,
+      "mtime_ns": 1792052198770478800
+    },
+    "StockBear_NNUE_training/data/v2/prepared/500000/manifest.json": {
+      "bytes": 1305,
+      "mtime_ns": 1792055610548335900
+    },
+    "StockBear_NNUE_training/data/v2/prepared/500000/test_ordinal.npy": {
+      "bytes": 161344,
+      "mtime_ns": 1792055607892700300
+    },
+    "StockBear_NNUE_training/data/v2/prepared/500000/test_x.npy": {
+      "bytes": 2982624,
+      "mtime_ns": 1792055607882560900
+    },
+    "StockBear_NNUE_training/data/v2/prepared/500000/test_y.npy": {
+      "bytes": 644992,
+      "mtime_ns": 1792055607887248600
+    },
+    "StockBear_NNUE_training/data/v2/prepared/500000/train_ordinal.npy": {
+      "bytes": 3198392,
+      "mtime_ns": 1792055553057025000
+    },
+    "StockBear_NNUE_training/data/v2/prepared/500000/train_x.npy": {
+      "bytes": 59168012,
+      "mtime_ns": 1792055553046582700
+    },
+    "StockBear_NNUE_training/data/v2/prepared/500000/train_y.npy": {
+      "bytes": 12793184,
+      "mtime_ns": 1792055553050583500
+    },
+    "StockBear_NNUE_training/data/v2/prepared/500000/validation_ordinal.npy": {
+      "bytes": 159568,
+      "mtime_ns": 1792055605230610300
+    },
+    "StockBear_NNUE_training/data/v2/prepared/500000/validation_x.npy": {
+      "bytes": 2949768,
+      "mtime_ns": 1792055605214055200
+    },
+    "StockBear_NNUE_training/data/v2/prepared/500000/validation_y.npy": {
+      "bytes": 637888,
+      "mtime_ns": 1792055605223448900
+    },
+    "StockBear_NNUE_training/data/v3/bucket16/manifest.json": {
+      "bytes": 1474,
+      "mtime_ns": 1792117243585948600
+    },
+    "StockBear_NNUE_training/data/v3/bucket16/test_ordinal.npy": {
+      "bytes": 161344,
+      "mtime_ns": 1792117243107696300
+    },
+    "StockBear_NNUE_training/data/v3/bucket16/test_x.npy": {
+      "bytes": 2821408,
+      "mtime_ns": 1792117243049020700
+    },
+    "StockBear_NNUE_training/data/v3/bucket16/test_y.npy": {
+      "bytes": 644992,
+      "mtime_ns": 1792117243106696400
+    },
+    "StockBear_NNUE_training/data/v3/bucket16/train_ordinal.npy": {
+      "bytes": 7995840,
+      "mtime_ns": 1792117241524723300
+    },
+    "StockBear_NNUE_training/data/v3/bucket16/train_x.npy": {
+      "bytes": 139925088,
+      "mtime_ns": 1792117238749256900
+    },
+    "StockBear_NNUE_training/data/v3/bucket16/train_y.npy": {
+      "bytes": 31982976,
+      "mtime_ns": 1792117241516724000
+    },
+    "StockBear_NNUE_training/data/v3/bucket16/validation_ordinal.npy": {
+      "bytes": 159568,
+      "mtime_ns": 1792117242558447800
+    },
+    "StockBear_NNUE_training/data/v3/bucket16/validation_x.npy": {
+      "bytes": 2790328,
+      "mtime_ns": 1792117242484440200
+    },
+    "StockBear_NNUE_training/data/v3/bucket16/validation_y.npy": {
+      "bytes": 637888,
+      "mtime_ns": 1792117242554447100
+    },
+    "StockBear_NNUE_training/data/v3/full-halfkp/manifest.json": {
+      "bytes": 1451,
+      "mtime_ns": 1792116707218473500
+    },
+    "StockBear_NNUE_training/data/v3/full-halfkp/test_ordinal.npy": {
+      "bytes": 161344,
+      "mtime_ns": 1792116706391806500
+    },
+    "StockBear_NNUE_training/data/v3/full-halfkp/test_x.npy": {
+      "bytes": 2821408,
+      "mtime_ns": 1792116706331842600
+    },
+    "StockBear_NNUE_training/data/v3/full-halfkp/test_y.npy": {
+      "bytes": 644992,
+      "mtime_ns": 1792116706389806900
+    },
+    "StockBear_NNUE_training/data/v3/full-halfkp/train_ordinal.npy": {
+      "bytes": 7995840,
+      "mtime_ns": 1792116703902337100
+    },
+    "StockBear_NNUE_training/data/v3/full-halfkp/train_x.npy": {
+      "bytes": 139925088,
+      "mtime_ns": 1792116701076297300
+    },
+    "StockBear_NNUE_training/data/v3/full-halfkp/train_y.npy": {
+      "bytes": 31982976,
+      "mtime_ns": 1792116703892986400
+    },
+    "StockBear_NNUE_training/data/v3/full-halfkp/validation_ordinal.npy": {
+      "bytes": 159568,
+      "mtime_ns": 1792116705444340400
+    },
+    "StockBear_NNUE_training/data/v3/full-halfkp/validation_x.npy": {
+      "bytes": 2790328,
+      "mtime_ns": 1792116705364349000
+    },
+    "StockBear_NNUE_training/data/v3/full-halfkp/validation_y.npy": {
+      "bytes": 637888,
+      "mtime_ns": 1792116705434711800
+    }
+  },
+  "policy": "KEEP source,exact final binaries,model,reproduction contracts,licenses; CONSOLIDATE authored docs; DELETE verified experiments/caches only after final checks; REVIEW all data and unique nonfinal models"
+}

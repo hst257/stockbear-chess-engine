@@ -1,0 +1,1910 @@
+[
+  {
+    "epoch": 1,
+    "learning_rate": 0.0015,
+    "max_gradient_norm": 0.02823273092508316,
+    "peak_cuda_allocated_bytes": 79451136,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": true,
+    "seconds": 13.39100000000326,
+    "selected_checkpoint": true,
+    "train_mse": 0.014754019520715714,
+    "train_seconds": 12.860000000000582,
+    "training_positions_per_second": 359017.49611195887,
+    "validation": {
+      "balanced_cp_mae": 104.90787973147972,
+      "blended_mse": 0.01319183878008964,
+      "clipped_cp_mae": 140.57565481220942,
+      "clipped_cp_rmse": 234.51308510909982,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -1111.7459716796875,
+        -332.7302551269531,
+        39.01616668701172,
+        443.4257141113274,
+        1318.8896484375
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.8861323680269783,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.011019198410451202
+    }
+  },
+  {
+    "epoch": 2,
+    "learning_rate": 0.0015,
+    "max_gradient_norm": 0.024216830730438232,
+    "peak_cuda_allocated_bytes": 79451136,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": true,
+    "seconds": 12.311999999990803,
+    "selected_checkpoint": true,
+    "train_mse": 0.012699203880500713,
+    "train_seconds": 11.906000000002678,
+    "training_positions_per_second": 387784.7303879524,
+    "validation": {
+      "balanced_cp_mae": 100.68726669633125,
+      "blended_mse": 0.012638636965767315,
+      "clipped_cp_mae": 135.98927833964473,
+      "clipped_cp_rmse": 230.31628056701837,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -1182.5206298828125,
+        -340.6665100097656,
+        33.276729583740234,
+        439.433465576171,
+        1320.597900390625
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.8920947855376984,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.010489646877241764
+    }
+  },
+  {
+    "epoch": 3,
+    "learning_rate": 0.0015,
+    "max_gradient_norm": 0.02432379126548767,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": true,
+    "seconds": 11.109000000011292,
+    "selected_checkpoint": true,
+    "train_mse": 0.012324663525596578,
+    "train_seconds": 10.578000000008615,
+    "training_positions_per_second": 436468.61410439026,
+    "validation": {
+      "balanced_cp_mae": 100.6722929523317,
+      "blended_mse": 0.012488254289385948,
+      "clipped_cp_mae": 134.9189293885229,
+      "clipped_cp_rmse": 228.77355411657516,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -1224.168701171875,
+        -357.3284912109375,
+        30.179107666015625,
+        439.26438598632797,
+        1317.4056396484375
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.8935411729101078,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.010359215331659373
+    }
+  },
+  {
+    "epoch": 4,
+    "learning_rate": 0.0015,
+    "max_gradient_norm": 0.022933505475521088,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": true,
+    "seconds": 10.672000000005937,
+    "selected_checkpoint": true,
+    "train_mse": 0.012033866794070631,
+    "train_seconds": 10.219000000011874,
+    "training_positions_per_second": 451802.0354236848,
+    "validation": {
+      "balanced_cp_mae": 98.75998953861018,
+      "blended_mse": 0.01221229795063631,
+      "clipped_cp_mae": 132.78820831183972,
+      "clipped_cp_rmse": 226.6501941440024,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -1290.9359130859375,
+        -352.4501953125,
+        30.69861602783203,
+        459.6439636230467,
+        1387.8232421875
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.8959622995987061,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.010121779409559769
+    }
+  },
+  {
+    "epoch": 5,
+    "learning_rate": 0.0015,
+    "max_gradient_norm": 0.022498173639178276,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": true,
+    "seconds": 11.5,
+    "selected_checkpoint": true,
+    "train_mse": 0.011857706252844954,
+    "train_seconds": 11.078999999997905,
+    "training_positions_per_second": 416731.2031772609,
+    "validation": {
+      "balanced_cp_mae": 99.75889640565234,
+      "blended_mse": 0.01212447376640713,
+      "clipped_cp_mae": 132.41951057822376,
+      "clipped_cp_rmse": 225.47332130248418,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -1311.9251708984375,
+        -358.5157836914062,
+        32.87577819824219,
+        482.13373413085844,
+        1418.716796875
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.898465964697143,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.010087537918330794
+    }
+  },
+  {
+    "epoch": 6,
+    "learning_rate": 0.0015,
+    "max_gradient_norm": 0.021779129281640053,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": true,
+    "seconds": 10.905999999988126,
+    "selected_checkpoint": true,
+    "train_mse": 0.011724186329088455,
+    "train_seconds": 10.468999999997322,
+    "training_positions_per_second": 441012.9907346624,
+    "validation": {
+      "balanced_cp_mae": 98.23267884935831,
+      "blended_mse": 0.012049929859221854,
+      "clipped_cp_mae": 131.58561058546945,
+      "clipped_cp_rmse": 225.02645132538996,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -1294.9583740234375,
+        -335.6868591308594,
+        35.76285934448242,
+        484.12465820312497,
+        1440.86767578125
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.8987646751327493,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009976719019629847
+    }
+  },
+  {
+    "epoch": 7,
+    "learning_rate": 0.0015,
+    "max_gradient_norm": 0.02316231094300747,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": false,
+    "seconds": 10.921000000002095,
+    "selected_checkpoint": false,
+    "train_mse": 0.011639336861819232,
+    "train_seconds": 10.437000000005355,
+    "training_positions_per_second": 442365.14324016776,
+    "validation": {
+      "balanced_cp_mae": 98.76410493482908,
+      "blended_mse": 0.012053585480549425,
+      "clipped_cp_mae": 131.8338522476894,
+      "clipped_cp_rmse": 225.17998366124556,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -1309.0648193359375,
+        -348.0478149414062,
+        38.705318450927734,
+        477.662707519531,
+        1456.5885009765625
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.8984934775004225,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.00999066430792695
+    }
+  },
+  {
+    "epoch": 8,
+    "learning_rate": 0.0015,
+    "max_gradient_norm": 0.021978754550218582,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": true,
+    "seconds": 11.468999999997322,
+    "selected_checkpoint": true,
+    "train_mse": 0.011568337912501378,
+    "train_seconds": 11.046999999991385,
+    "training_positions_per_second": 417938.3543046619,
+    "validation": {
+      "balanced_cp_mae": 97.10969638727758,
+      "blended_mse": 0.011975676862724537,
+      "clipped_cp_mae": 130.36381713033094,
+      "clipped_cp_rmse": 223.9687016923473,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -1374.720947265625,
+        -355.783984375,
+        38.06951141357422,
+        463.08524780273405,
+        1453.7608642578125
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.8986467631186942,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009871331455697734
+    }
+  },
+  {
+    "epoch": 9,
+    "learning_rate": 0.0015,
+    "max_gradient_norm": 0.022565331310033798,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": true,
+    "seconds": 10.796999999991385,
+    "selected_checkpoint": false,
+    "train_mse": 0.011516805263127873,
+    "train_seconds": 10.375,
+    "training_positions_per_second": 445008.6746987952,
+    "validation": {
+      "balanced_cp_mae": 97.33666098104227,
+      "blended_mse": 0.011971657401475166,
+      "clipped_cp_mae": 130.157479246047,
+      "clipped_cp_rmse": 224.36642974545876,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -1446.8148193359375,
+        -378.60834350585935,
+        29.982933044433594,
+        457.9148010253905,
+        1457.583984375
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.8992009495847532,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009921346450078918
+    }
+  },
+  {
+    "epoch": 10,
+    "learning_rate": 0.0015,
+    "max_gradient_norm": 0.02029007486999035,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": true,
+    "seconds": 10.812000000005355,
+    "selected_checkpoint": true,
+    "train_mse": 0.011467207229012845,
+    "train_seconds": 10.389999999999418,
+    "training_positions_per_second": 444366.217516868,
+    "validation": {
+      "balanced_cp_mae": 97.83957524140537,
+      "blended_mse": 0.011943193222038318,
+      "clipped_cp_mae": 130.7776371650525,
+      "clipped_cp_rmse": 223.99297044166153,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -1479.820556640625,
+        -370.2694885253906,
+        37.70137023925781,
+        460.53978271484374,
+        1471.144775390625
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.8999713080765799,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009895931901834633
+    }
+  },
+  {
+    "epoch": 11,
+    "learning_rate": 0.0015,
+    "max_gradient_norm": 0.023334380239248276,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": false,
+    "seconds": 10.594000000011874,
+    "selected_checkpoint": false,
+    "train_mse": 0.011433736776711664,
+    "train_seconds": 10.188000000009197,
+    "training_positions_per_second": 453176.7765995124,
+    "validation": {
+      "balanced_cp_mae": 99.9769258875341,
+      "blended_mse": 0.011969954505963698,
+      "clipped_cp_mae": 131.15742900066735,
+      "clipped_cp_rmse": 223.85684667452543,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -1485.662353515625,
+        -381.13185424804686,
+        28.40205192565918,
+        492.1704711914056,
+        1524.869384765625
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.8993699568048988,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.010006597255343015
+    }
+  },
+  {
+    "epoch": 12,
+    "learning_rate": 0.0015,
+    "max_gradient_norm": 0.019693754613399506,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": true,
+    "seconds": 11.014999999999418,
+    "selected_checkpoint": true,
+    "train_mse": 0.01140428654363479,
+    "train_seconds": 10.578000000008615,
+    "training_positions_per_second": 436468.61410439026,
+    "validation": {
+      "balanced_cp_mae": 96.07665442503286,
+      "blended_mse": 0.011843073936913303,
+      "clipped_cp_mae": 129.82010336007843,
+      "clipped_cp_rmse": 223.24956809102096,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -1560.5986328125,
+        -349.5903015136719,
+        40.058135986328125,
+        454.9933288574214,
+        1495.5849609375
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9014059042475838,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009755485750595571
+    }
+  },
+  {
+    "epoch": 13,
+    "learning_rate": 0.0015,
+    "max_gradient_norm": 0.02244230918586254,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": true,
+    "seconds": 10.812000000005355,
+    "selected_checkpoint": false,
+    "train_mse": 0.011376461747526559,
+    "train_seconds": 10.375,
+    "training_positions_per_second": 445008.6746987952,
+    "validation": {
+      "balanced_cp_mae": 96.48154140704821,
+      "blended_mse": 0.011837274042425069,
+      "clipped_cp_mae": 129.52182516236388,
+      "clipped_cp_rmse": 223.22656698315708,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -1659.871826171875,
+        -355.60581665039064,
+        34.2945442199707,
+        471.64030761718635,
+        1567.034423828125
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9006787801609106,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009780551765117555
+    }
+  },
+  {
+    "epoch": 14,
+    "learning_rate": 0.0015,
+    "max_gradient_norm": 0.022203221917152405,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": true,
+    "seconds": 10.453000000008615,
+    "selected_checkpoint": true,
+    "train_mse": 0.011333695276517381,
+    "train_seconds": 10.03200000000652,
+    "training_positions_per_second": 460223.783891248,
+    "validation": {
+      "balanced_cp_mae": 96.40727620259975,
+      "blended_mse": 0.011782742232772338,
+      "clipped_cp_mae": 129.098616805606,
+      "clipped_cp_rmse": 221.86323694714557,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -1652.623779296875,
+        -349.3286193847656,
+        37.40072250366211,
+        473.7777221679678,
+        1553.94140625
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9009185345894893,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009713976336465474
+    }
+  },
+  {
+    "epoch": 15,
+    "learning_rate": 0.0015,
+    "max_gradient_norm": 0.02016901783645153,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": true,
+    "seconds": 11.031000000002678,
+    "selected_checkpoint": false,
+    "train_mse": 0.011301690249075192,
+    "train_seconds": 10.609000000011292,
+    "training_positions_per_second": 435193.2321609092,
+    "validation": {
+      "balanced_cp_mae": 97.27031894495279,
+      "blended_mse": 0.011773754447674957,
+      "clipped_cp_mae": 129.70637205107468,
+      "clipped_cp_rmse": 222.11230148272253,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -1719.929931640625,
+        -353.93964233398435,
+        40.152557373046875,
+        481.3442749023433,
+        1613.4788818359375
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9021133763319145,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009755131694108457
+    }
+  },
+  {
+    "epoch": 16,
+    "learning_rate": 0.0015,
+    "max_gradient_norm": 0.01956825703382492,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": true,
+    "seconds": 12.110000000000582,
+    "selected_checkpoint": true,
+    "train_mse": 0.011282182990889641,
+    "train_seconds": 11.672000000005937,
+    "training_positions_per_second": 395559.03015744104,
+    "validation": {
+      "balanced_cp_mae": 96.26575026614309,
+      "blended_mse": 0.011745433742873254,
+      "clipped_cp_mae": 128.90375433807728,
+      "clipped_cp_rmse": 222.02905057894938,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -1787.3973388671875,
+        -361.5526611328125,
+        35.194278717041016,
+        467.98004150390597,
+        1590.2322998046875
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9015277466621074,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009702709681033928
+    }
+  },
+  {
+    "epoch": 17,
+    "learning_rate": 0.0015,
+    "max_gradient_norm": 0.02067365124821663,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": true,
+    "seconds": 10.625,
+    "selected_checkpoint": false,
+    "train_mse": 0.011267354455443352,
+    "train_seconds": 10.156000000002678,
+    "training_positions_per_second": 454604.667191688,
+    "validation": {
+      "balanced_cp_mae": 95.97172743288314,
+      "blended_mse": 0.011740508153046935,
+      "clipped_cp_mae": 128.53964706323748,
+      "clipped_cp_rmse": 222.09033952081595,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -1790.4110107421875,
+        -368.54717407226565,
+        27.935850143432617,
+        469.344213867187,
+        1566.562744140625
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9014805818564854,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009699487185463672
+    }
+  },
+  {
+    "epoch": 18,
+    "learning_rate": 0.0015,
+    "max_gradient_norm": 0.021053709089756012,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": true,
+    "seconds": 10.312999999994645,
+    "selected_checkpoint": true,
+    "train_mse": 0.011251854062854704,
+    "train_seconds": 9.905999999988126,
+    "training_positions_per_second": 466077.6297199207,
+    "validation": {
+      "balanced_cp_mae": 95.40398319126855,
+      "blended_mse": 0.01171643214301947,
+      "clipped_cp_mae": 127.98468210141289,
+      "clipped_cp_rmse": 221.30290469372395,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -1856.4708251953125,
+        -362.2806823730469,
+        32.96498489379883,
+        465.68095703124976,
+        1555.5792236328125
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9021369587347254,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009645949076552598
+    }
+  },
+  {
+    "epoch": 19,
+    "learning_rate": 0.0015,
+    "max_gradient_norm": 0.01932384818792343,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": false,
+    "seconds": 11.921999999991385,
+    "selected_checkpoint": false,
+    "train_mse": 0.01124023549499249,
+    "train_seconds": 11.375,
+    "training_positions_per_second": 405887.032967033,
+    "validation": {
+      "balanced_cp_mae": 96.30376537429488,
+      "blended_mse": 0.011751864023091505,
+      "clipped_cp_mae": 129.16200073821213,
+      "clipped_cp_rmse": 221.91818574287566,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -1758.128173828125,
+        -347.4957641601562,
+        36.901283264160156,
+        476.9775329589843,
+        1600.108154296875
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9020701419267609,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.00971255994751303
+    }
+  },
+  {
+    "epoch": 20,
+    "learning_rate": 0.0015,
+    "max_gradient_norm": 0.019952543079853058,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": false,
+    "seconds": 20.389999999999418,
+    "selected_checkpoint": false,
+    "train_mse": 0.011228039257760973,
+    "train_seconds": 19.531000000002678,
+    "training_positions_per_second": 236391.6338128804,
+    "validation": {
+      "balanced_cp_mae": 95.89418325505751,
+      "blended_mse": 0.011753594619850852,
+      "clipped_cp_mae": 128.85257158061629,
+      "clipped_cp_rmse": 222.03838393299355,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -1775.0970458984375,
+        -363.8631530761719,
+        29.836904525756836,
+        460.5475769042965,
+        1591.60791015625
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9015513290649184,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009699884435479627
+    }
+  },
+  {
+    "epoch": 21,
+    "learning_rate": 0.0015,
+    "max_gradient_norm": 0.02365018054842949,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": true,
+    "seconds": 20.014999999999418,
+    "selected_checkpoint": false,
+    "train_mse": 0.011215763294346951,
+    "train_seconds": 19.156000000002678,
+    "training_positions_per_second": 241019.2628940987,
+    "validation": {
+      "balanced_cp_mae": 95.38713760788968,
+      "blended_mse": 0.011707137982660805,
+      "clipped_cp_mae": 127.91076810750798,
+      "clipped_cp_rmse": 221.2363365211617,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -1796.664794921875,
+        -367.4908203125,
+        29.510868072509766,
+        464.26821289062485,
+        1588.80859375
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9020701419267609,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009651790267967659
+    }
+  },
+  {
+    "epoch": 22,
+    "learning_rate": 0.0015,
+    "max_gradient_norm": 0.024194132536649704,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": false,
+    "seconds": 20.984000000011292,
+    "selected_checkpoint": false,
+    "train_mse": 0.011204812213406053,
+    "train_seconds": 20.281000000002678,
+    "training_positions_per_second": 227649.77072133476,
+    "validation": {
+      "balanced_cp_mae": 98.82963229305491,
+      "blended_mse": 0.01177367631149588,
+      "clipped_cp_mae": 130.21617418330894,
+      "clipped_cp_rmse": 221.63146494711654,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -1777.3580322265625,
+        -373.0541320800781,
+        39.89705276489258,
+        477.01403808593705,
+        1605.1788330078125
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9019129259080207,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009804438424192312
+    }
+  },
+  {
+    "epoch": 23,
+    "learning_rate": 0.0015,
+    "max_gradient_norm": 0.021565133705735207,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": true,
+    "seconds": 15.187000000005355,
+    "selected_checkpoint": false,
+    "train_mse": 0.011197242185519773,
+    "train_seconds": 14.734000000011292,
+    "training_positions_per_second": 313354.4862221027,
+    "validation": {
+      "balanced_cp_mae": 97.76390383928138,
+      "blended_mse": 0.011706979171870094,
+      "clipped_cp_mae": 128.9842939999948,
+      "clipped_cp_rmse": 221.07722523944872,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -1821.031005859375,
+        -379.77268676757814,
+        33.85464096069336,
+        474.5973266601561,
+        1615.3812255859375
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9019915339173908,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009719562685943694
+    }
+  },
+  {
+    "epoch": 24,
+    "learning_rate": 0.00075,
+    "max_gradient_norm": 0.02527499757707119,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": false,
+    "seconds": 11.843999999997322,
+    "selected_checkpoint": false,
+    "train_mse": 0.011186145614989144,
+    "train_seconds": 11.296999999991385,
+    "training_positions_per_second": 408689.4750821918,
+    "validation": {
+      "balanced_cp_mae": 95.24478029804303,
+      "blended_mse": 0.01170988274722754,
+      "clipped_cp_mae": 128.028308363846,
+      "clipped_cp_rmse": 221.5998800037714,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -1741.2601318359375,
+        -348.76298828125,
+        26.04334259033203,
+        477.3839660644525,
+        1665.4154052734375
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9015827722686665,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009639784715428812
+    }
+  },
+  {
+    "epoch": 25,
+    "learning_rate": 0.00075,
+    "max_gradient_norm": 0.020623499527573586,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": true,
+    "seconds": 12.468000000008033,
+    "selected_checkpoint": true,
+    "train_mse": 0.010801922685671015,
+    "train_seconds": 12.062000000005355,
+    "training_positions_per_second": 382769.44122019154,
+    "validation": {
+      "balanced_cp_mae": 94.09949156471392,
+      "blended_mse": 0.011434198536510426,
+      "clipped_cp_mae": 126.14396008476852,
+      "clipped_cp_rmse": 219.07957627360852,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -1812.30908203125,
+        -366.1798522949219,
+        27.56308364868164,
+        475.46417236328057,
+        1711.401123046875
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9052341143039064,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009422637191388802
+    }
+  },
+  {
+    "epoch": 26,
+    "learning_rate": 0.00075,
+    "max_gradient_norm": 0.020498894155025482,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": true,
+    "seconds": 11.65700000000652,
+    "selected_checkpoint": true,
+    "train_mse": 0.010761176372900472,
+    "train_seconds": 11.203000000008615,
+    "training_positions_per_second": 412118.62893836026,
+    "validation": {
+      "balanced_cp_mae": 94.88839530205122,
+      "blended_mse": 0.011409511052657318,
+      "clipped_cp_mae": 126.31836267524452,
+      "clipped_cp_rmse": 218.8340554975727,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -1873.40966796875,
+        -377.82297973632814,
+        25.112199783325195,
+        476.2520263671871,
+        1742.525146484375
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9050611766832922,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.00943102914481058
+    }
+  },
+  {
+    "epoch": 27,
+    "learning_rate": 0.00075,
+    "max_gradient_norm": 0.02489457093179226,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": false,
+    "seconds": 11.202999999994063,
+    "selected_checkpoint": false,
+    "train_mse": 0.010755445484223827,
+    "train_seconds": 10.718999999997322,
+    "training_positions_per_second": 430727.21335956274,
+    "validation": {
+      "balanced_cp_mae": 94.49755339350156,
+      "blended_mse": 0.011415034107552794,
+      "clipped_cp_mae": 126.33668559236557,
+      "clipped_cp_rmse": 218.31217565696508,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -1938.57421875,
+        -359.83526611328125,
+        35.114707946777344,
+        477.6443115234372,
+        1804.7071533203125
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.905823674374182,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009402035423717538
+    }
+  },
+  {
+    "epoch": 28,
+    "learning_rate": 0.00075,
+    "max_gradient_norm": 0.022229282185435295,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": false,
+    "seconds": 11.687999999994645,
+    "selected_checkpoint": false,
+    "train_mse": 0.010755350523006423,
+    "train_seconds": 11.25,
+    "training_positions_per_second": 410396.8888888889,
+    "validation": {
+      "balanced_cp_mae": 95.4383292657727,
+      "blended_mse": 0.011412920205815056,
+      "clipped_cp_mae": 126.82293746631034,
+      "clipped_cp_rmse": 218.66104118725622,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -1979.048583984375,
+        -369.7263610839844,
+        39.23016357421875,
+        478.61447143554665,
+        1857.4307861328125
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9060201943976072,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009432656154399982
+    }
+  },
+  {
+    "epoch": 29,
+    "learning_rate": 0.000375,
+    "max_gradient_norm": 0.020906975492835045,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": false,
+    "seconds": 11.26600000000326,
+    "selected_checkpoint": false,
+    "train_mse": 0.010756430254485737,
+    "train_seconds": 10.797000000005937,
+    "training_positions_per_second": 427615.5413538447,
+    "validation": {
+      "balanced_cp_mae": 95.6393155784461,
+      "blended_mse": 0.011429725035787252,
+      "clipped_cp_mae": 126.65289290766891,
+      "clipped_cp_rmse": 218.50727474915817,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -2044.75439453125,
+        -378.50732421875,
+        33.16166305541992,
+        479.1795776367186,
+        1879.0836181640625
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9052105319010953,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009458310159168645
+    }
+  },
+  {
+    "epoch": 30,
+    "learning_rate": 0.000375,
+    "max_gradient_norm": 0.026794705539941788,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": true,
+    "seconds": 11.781000000002678,
+    "selected_checkpoint": true,
+    "train_mse": 0.01052341319297252,
+    "train_seconds": 11.35899999999674,
+    "training_positions_per_second": 406458.75517222687,
+    "validation": {
+      "balanced_cp_mae": 94.36617399665482,
+      "blended_mse": 0.011272416407425066,
+      "clipped_cp_mae": 125.50236897458603,
+      "clipped_cp_rmse": 217.4014414567462,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -2124.945068359375,
+        -373.0217712402344,
+        32.6699333190918,
+        483.8899475097653,
+        1933.26171875
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9076041457864141,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009311534385171035
+    }
+  },
+  {
+    "epoch": 31,
+    "learning_rate": 0.000375,
+    "max_gradient_norm": 0.02223183400928974,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": false,
+    "seconds": 11.014999999999418,
+    "selected_checkpoint": false,
+    "train_mse": 0.010499412623661157,
+    "train_seconds": 10.531000000002678,
+    "training_positions_per_second": 438416.5796219567,
+    "validation": {
+      "balanced_cp_mae": 93.91859060499496,
+      "blended_mse": 0.011283861622565622,
+      "clipped_cp_mae": 125.29123679993121,
+      "clipped_cp_rmse": 217.48055290268016,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -2165.874755859375,
+        -369.026416015625,
+        33.326271057128906,
+        483.42988281249933,
+        1967.121337890625
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9075766329831346,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.00930592298809578
+    }
+  },
+  {
+    "epoch": 32,
+    "learning_rate": 0.000375,
+    "max_gradient_norm": 0.02438456192612648,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": false,
+    "seconds": 11.60899999999674,
+    "selected_checkpoint": false,
+    "train_mse": 0.010493935207860452,
+    "train_seconds": 11.187999999994645,
+    "training_positions_per_second": 412671.16553469875,
+    "validation": {
+      "balanced_cp_mae": 94.23541565397863,
+      "blended_mse": 0.011311400691701785,
+      "clipped_cp_mae": 125.50810998448677,
+      "clipped_cp_rmse": 217.6384641235558,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -2207.432861328125,
+        -379.1522277832031,
+        29.193252563476562,
+        473.7817077636705,
+        1946.335205078125
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9069988641142646,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.00933502997764587
+    }
+  },
+  {
+    "epoch": 33,
+    "learning_rate": 0.0001875,
+    "max_gradient_norm": 0.02568737044930458,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": false,
+    "seconds": 10.578000000008615,
+    "selected_checkpoint": false,
+    "train_mse": 0.010492755742804965,
+    "train_seconds": 10.156000000002678,
+    "training_positions_per_second": 454604.667191688,
+    "validation": {
+      "balanced_cp_mae": 94.21472200094175,
+      "blended_mse": 0.011282290609181485,
+      "clipped_cp_mae": 125.56400581680475,
+      "clipped_cp_rmse": 217.39337629981674,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -2255.368896484375,
+        -368.8922119140625,
+        35.4839973449707,
+        483.74105224609355,
+        1999.49169921875
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9071835929362843,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009316762453925528
+    }
+  },
+  {
+    "epoch": 34,
+    "learning_rate": 0.0001875,
+    "max_gradient_norm": 0.02405729331076145,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": true,
+    "seconds": 11.422000000005937,
+    "selected_checkpoint": true,
+    "train_mse": 0.010354762958750463,
+    "train_seconds": 10.953000000008615,
+    "training_positions_per_second": 421525.1529258074,
+    "validation": {
+      "balanced_cp_mae": 94.4545495240174,
+      "blended_mse": 0.01120982022320662,
+      "clipped_cp_mae": 125.31654698977557,
+      "clipped_cp_rmse": 216.63858000868998,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -2285.923095703125,
+        -378.4199645996094,
+        35.20249938964844,
+        483.17377929687353,
+        1983.784912109375
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9086496323110361,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009273441096069734
+    }
+  },
+  {
+    "epoch": 35,
+    "learning_rate": 0.0001875,
+    "max_gradient_norm": 0.02994990348815918,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": false,
+    "seconds": 10.843999999997322,
+    "selected_checkpoint": false,
+    "train_mse": 0.010341496902053045,
+    "train_seconds": 10.39100000000326,
+    "training_positions_per_second": 444323.45298802346,
+    "validation": {
+      "balanced_cp_mae": 93.90277320834029,
+      "blended_mse": 0.011224811866346857,
+      "clipped_cp_mae": 124.94554485167022,
+      "clipped_cp_rmse": 216.67236538201854,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -2324.69775390625,
+        -379.35167236328124,
+        30.61882209777832,
+        480.3288085937496,
+        1959.27197265625
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9080875850440402,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009270207045163485
+    }
+  },
+  {
+    "epoch": 36,
+    "learning_rate": 0.0001875,
+    "max_gradient_norm": 0.026557136327028275,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": false,
+    "seconds": 10.51600000000326,
+    "selected_checkpoint": false,
+    "train_mse": 0.010337738963071177,
+    "train_seconds": 10.078999999997905,
+    "training_positions_per_second": 458077.6862784959,
+    "validation": {
+      "balanced_cp_mae": 94.74404697092247,
+      "blended_mse": 0.011212225900478118,
+      "clipped_cp_mae": 125.53282256897451,
+      "clipped_cp_rmse": 216.729780782853,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -2327.787841796875,
+        -369.14227905273435,
+        36.90750503540039,
+        492.0164367675771,
+        1997.4046630859375
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.908991577151796,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009282487328687835
+    }
+  },
+  {
+    "epoch": 37,
+    "learning_rate": 0.0001875,
+    "max_gradient_norm": 0.025882862508296967,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": true,
+    "seconds": 10.843999999997322,
+    "selected_checkpoint": false,
+    "train_mse": 0.010334376385594668,
+    "train_seconds": 10.406000000002678,
+    "training_positions_per_second": 443682.9713625612,
+    "validation": {
+      "balanced_cp_mae": 94.3619688360172,
+      "blended_mse": 0.011207163064070075,
+      "clipped_cp_mae": 125.1610188947858,
+      "clipped_cp_rmse": 216.64139235236408,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -2350.925048828125,
+        -376.5670959472656,
+        33.085105895996094,
+        485.8902648925778,
+        2002.09814453125
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9084649034890165,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009272368152999937
+    }
+  },
+  {
+    "epoch": 38,
+    "learning_rate": 0.0001875,
+    "max_gradient_norm": 0.023540128022432327,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": false,
+    "seconds": 10.578000000008615,
+    "selected_checkpoint": false,
+    "train_mse": 0.010334512634799238,
+    "train_seconds": 10.14100000000326,
+    "training_positions_per_second": 455277.0929887108,
+    "validation": {
+      "balanced_cp_mae": 93.74822212546219,
+      "blended_mse": 0.011224303184909641,
+      "clipped_cp_mae": 125.02428522991653,
+      "clipped_cp_rmse": 216.75594736518278,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -2390.2529296875,
+        -369.1404968261719,
+        33.88618469238281,
+        483.71879272460865,
+        2006.033935546875
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9085238594960441,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009263196346689739
+    }
+  },
+  {
+    "epoch": 39,
+    "learning_rate": 0.0001875,
+    "max_gradient_norm": 0.027433736249804497,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": true,
+    "seconds": 10.093999999997322,
+    "selected_checkpoint": false,
+    "train_mse": 0.010333189225224035,
+    "train_seconds": 9.656000000002678,
+    "training_positions_per_second": 478144.67688470584,
+    "validation": {
+      "balanced_cp_mae": 93.94877470551458,
+      "blended_mse": 0.011206579951035939,
+      "clipped_cp_mae": 124.9548382356145,
+      "clipped_cp_rmse": 216.6149225435272,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -2392.091552734375,
+        -375.2156616210938,
+        34.90973663330078,
+        481.7261840820309,
+        2012.126708984375
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9087203795194693,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009252778392058136
+    }
+  },
+  {
+    "epoch": 40,
+    "learning_rate": 9.375e-05,
+    "max_gradient_norm": 0.027834903448820114,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": false,
+    "seconds": 10.547000000005937,
+    "selected_checkpoint": false,
+    "train_mse": 0.010332636160516799,
+    "train_seconds": 10.110000000000582,
+    "training_positions_per_second": 456673.095944583,
+    "validation": {
+      "balanced_cp_mae": 94.78541070529486,
+      "blended_mse": 0.011213683393811815,
+      "clipped_cp_mae": 125.37281341341105,
+      "clipped_cp_rmse": 216.57447756196314,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -2432.473388671875,
+        -380.1071716308594,
+        37.008338928222656,
+        487.67774047851526,
+        2040.0628662109375
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9086732147138472,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009288163226108412
+    }
+  },
+  {
+    "epoch": 41,
+    "learning_rate": 9.375e-05,
+    "max_gradient_norm": 0.02862960286438465,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": true,
+    "seconds": 10.594000000011874,
+    "selected_checkpoint": true,
+    "train_mse": 0.010252043589343132,
+    "train_seconds": 10.15700000000652,
+    "training_positions_per_second": 454559.90942178166,
+    "validation": {
+      "balanced_cp_mae": 93.2881962489625,
+      "blended_mse": 0.011185832916186356,
+      "clipped_cp_mae": 124.5697395874681,
+      "clipped_cp_rmse": 216.37476812482942,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -2443.229248046875,
+        -372.4824523925781,
+        33.28694534301758,
+        478.7121765136716,
+        2028.189697265625
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9088147091307134,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009216325898483988
+    }
+  },
+  {
+    "epoch": 42,
+    "learning_rate": 9.375e-05,
+    "max_gradient_norm": 0.030075542628765106,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": false,
+    "seconds": 11.031000000002678,
+    "selected_checkpoint": false,
+    "train_mse": 0.010246046511708809,
+    "train_seconds": 10.562000000005355,
+    "training_positions_per_second": 437129.80496095994,
+    "validation": {
+      "balanced_cp_mae": 94.0837839922004,
+      "blended_mse": 0.01118697242637407,
+      "clipped_cp_mae": 125.11945757514304,
+      "clipped_cp_rmse": 216.4323983092268,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -2434.906494140625,
+        -370.9037170410156,
+        35.07451629638672,
+        487.1078430175777,
+        2047.170654296875
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9092234707794378,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009246716838578032
+    }
+  },
+  {
+    "epoch": 43,
+    "learning_rate": 9.375e-05,
+    "max_gradient_norm": 0.027249012142419815,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": false,
+    "seconds": 10.452999999994063,
+    "selected_checkpoint": false,
+    "train_mse": 0.01024490259640877,
+    "train_seconds": 10.015999999988708,
+    "training_positions_per_second": 460958.9656554718,
+    "validation": {
+      "balanced_cp_mae": 94.19168963380415,
+      "blended_mse": 0.011193466757546086,
+      "clipped_cp_mae": 124.86066204015495,
+      "clipped_cp_rmse": 216.3035663039778,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -2470.444580078125,
+        -382.2998901367188,
+        29.604185104370117,
+        484.311456298828,
+        2063.138427734375
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9083823650791779,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009257275614194083
+    }
+  },
+  {
+    "epoch": 44,
+    "learning_rate": 4.6875e-05,
+    "max_gradient_norm": 0.026785103604197502,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": false,
+    "seconds": 10.281999999991967,
+    "selected_checkpoint": false,
+    "train_mse": 0.010243366752712953,
+    "train_seconds": 9.875,
+    "training_positions_per_second": 467540.7594936709,
+    "validation": {
+      "balanced_cp_mae": 93.6456309883566,
+      "blended_mse": 0.011186907385065887,
+      "clipped_cp_mae": 124.58891603922218,
+      "clipped_cp_rmse": 216.2885499051451,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -2474.025634765625,
+        -378.5956970214844,
+        31.349456787109375,
+        479.87221679687457,
+        2053.8037109375
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.908975855549922,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009230088071799428
+    }
+  },
+  {
+    "epoch": 45,
+    "learning_rate": 4.6875e-05,
+    "max_gradient_norm": 0.031073719263076782,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": true,
+    "seconds": 10.59299999999348,
+    "selected_checkpoint": true,
+    "train_mse": 0.010198164820776854,
+    "train_seconds": 10.139999999999418,
+    "training_positions_per_second": 455321.9921104798,
+    "validation": {
+      "balanced_cp_mae": 94.09969379196703,
+      "blended_mse": 0.011173890885575572,
+      "clipped_cp_mae": 124.93245230257348,
+      "clipped_cp_rmse": 216.30243080944354,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -2474.75,
+        -375.59644775390626,
+        33.54915237426758,
+        486.10068359374975,
+        2065.96826171875
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9091409323695991,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009238826213615322
+    }
+  },
+  {
+    "epoch": 46,
+    "learning_rate": 4.6875e-05,
+    "max_gradient_norm": 0.032582417130470276,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": false,
+    "seconds": 11.23399999999674,
+    "selected_checkpoint": false,
+    "train_mse": 0.010195211277058377,
+    "train_seconds": 10.671999999991385,
+    "training_positions_per_second": 432624.1566720134,
+    "validation": {
+      "balanced_cp_mae": 93.64024480261111,
+      "blended_mse": 0.011174327956035013,
+      "clipped_cp_mae": 124.59326662605422,
+      "clipped_cp_rmse": 216.19928987722056,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -2487.6416015625,
+        -379.5325988769531,
+        31.228334426879883,
+        480.82014770507783,
+        2063.51123046875
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9089404819457054,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009224638071928878
+    }
+  },
+  {
+    "epoch": 47,
+    "learning_rate": 4.6875e-05,
+    "max_gradient_norm": 0.029451502487063408,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": false,
+    "seconds": 10.155999999988126,
+    "selected_checkpoint": false,
+    "train_mse": 0.010194213556017847,
+    "train_seconds": 9.702999999994063,
+    "training_positions_per_second": 475828.6097086288,
+    "validation": {
+      "balanced_cp_mae": 94.2277442462097,
+      "blended_mse": 0.011174122481805484,
+      "clipped_cp_mae": 124.90437953881661,
+      "clipped_cp_rmse": 216.153578528218,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -2495.54931640625,
+        -377.67014770507814,
+        33.36006546020508,
+        487.9007202148436,
+        2068.648193359375
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9090505331588236,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009243197628104891
+    }
+  },
+  {
+    "epoch": 48,
+    "learning_rate": 2.34375e-05,
+    "max_gradient_norm": 0.028627261519432068,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": false,
+    "seconds": 10.593999999997322,
+    "selected_checkpoint": false,
+    "train_mse": 0.01019335691867751,
+    "train_seconds": 10.125,
+    "training_positions_per_second": 455996.5432098765,
+    "validation": {
+      "balanced_cp_mae": 93.96160813822563,
+      "blended_mse": 0.0111797636727256,
+      "clipped_cp_mae": 124.77518119294237,
+      "clipped_cp_rmse": 216.31104395014373,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -2497.6044921875,
+        -377.96410522460934,
+        32.16891098022461,
+        484.55332031249947,
+        2065.6904296875
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.908960133948048,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009240065684453801
+    }
+  },
+  {
+    "epoch": 49,
+    "learning_rate": 2.34375e-05,
+    "max_gradient_norm": 0.02988859824836254,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": true,
+    "seconds": 10.561999999990803,
+    "selected_checkpoint": false,
+    "train_mse": 0.010169218547189884,
+    "train_seconds": 10.139999999999418,
+    "training_positions_per_second": 455321.9921104798,
+    "validation": {
+      "balanced_cp_mae": 93.84465008188809,
+      "blended_mse": 0.011165645246644462,
+      "clipped_cp_mae": 124.68225863344757,
+      "clipped_cp_rmse": 216.1091018832164,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -2501.4453125,
+        -377.95338134765626,
+        33.305118560791016,
+        484.1213928222646,
+        2071.0673828125
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9092352619808433,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.00922483065589474
+    }
+  },
+  {
+    "epoch": 50,
+    "learning_rate": 2.34375e-05,
+    "max_gradient_norm": 0.02749570459127426,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": false,
+    "seconds": 10.796999999991385,
+    "selected_checkpoint": false,
+    "train_mse": 0.010167318463061759,
+    "train_seconds": 10.296999999991385,
+    "training_positions_per_second": 448379.62513390917,
+    "validation": {
+      "balanced_cp_mae": 93.99092875280796,
+      "blended_mse": 0.011169761969175698,
+      "clipped_cp_mae": 124.75786312324378,
+      "clipped_cp_rmse": 216.12895612519335,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -2505.37646484375,
+        -378.82738647460934,
+        32.83883285522461,
+        484.54083862304657,
+        2072.418701171875
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9091370019691306,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009232573321749647
+    }
+  },
+  {
+    "epoch": 51,
+    "learning_rate": 2.34375e-05,
+    "max_gradient_norm": 0.030498871579766273,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": false,
+    "seconds": 10.202999999994063,
+    "selected_checkpoint": false,
+    "train_mse": 0.010167166816811478,
+    "train_seconds": 9.764999999999418,
+    "training_positions_per_second": 472807.4756784716,
+    "validation": {
+      "balanced_cp_mae": 93.97840696909586,
+      "blended_mse": 0.01117155776267443,
+      "clipped_cp_mae": 124.7557670373525,
+      "clipped_cp_rmse": 216.1859446704637,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -2500.9208984375,
+        -379.6054016113281,
+        32.411216735839844,
+        484.0784790039055,
+        2077.871826171875
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9091134195663196,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009234997966252823
+    }
+  },
+  {
+    "epoch": 52,
+    "learning_rate": 1.171875e-05,
+    "max_gradient_norm": 0.029513876885175705,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": false,
+    "seconds": 10.75,
+    "selected_checkpoint": false,
+    "train_mse": 0.010166587194533292,
+    "train_seconds": 10.23399999999674,
+    "training_positions_per_second": 451139.82802437665,
+    "validation": {
+      "balanced_cp_mae": 93.69903682987635,
+      "blended_mse": 0.011166377941845645,
+      "clipped_cp_mae": 124.58754304066781,
+      "clipped_cp_rmse": 216.15822439595811,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -2509.537109375,
+        -378.0908935546875,
+        32.148555755615234,
+        482.821154785156,
+        2076.362548828125
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9092706355850597,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.009222903626629387
+    }
+  },
+  {
+    "epoch": 53,
+    "learning_rate": 1.171875e-05,
+    "max_gradient_norm": 0.02855992317199707,
+    "peak_cuda_allocated_bytes": 79675392,
+    "peak_cuda_reserved_bytes": 94371840,
+    "raw_minimum_checkpoint": true,
+    "seconds": 10.625,
+    "selected_checkpoint": false,
+    "train_mse": 0.010153727684246244,
+    "train_seconds": 10.218999999997322,
+    "training_positions_per_second": 451802.0354243282,
+    "validation": {
+      "balanced_cp_mae": 93.91402418661625,
+      "blended_mse": 0.011164258957424513,
+      "clipped_cp_mae": 124.70405844172787,
+      "clipped_cp_rmse": 216.11968662600583,
+      "positions": 573685,
+      "prediction_cp_percentiles": [
+        -2510.953125,
+        -377.9167053222656,
+        32.982147216796875,
+        484.16937255859335,
+        2075.781005859375
+      ],
+      "sign_accuracy_abs_cp_ge_100": 0.9092195403789692,
+      "teacher_cp_percentiles": [
+        -9714.0,
+        -528.0,
+        16.0,
+        591.0,
+        9054.0
+      ],
+      "teacher_probability_mse": 0.00922601846804456
+    }
+  }
+]

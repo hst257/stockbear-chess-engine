@@ -8,8 +8,8 @@ import chess
 import chess.engine
 import pytest
 
-from tools.audit_engine import PERFT
-from tools.audit_engine import measure
+from tools.engine_checks import PERFT
+from tools.engine_checks import measure
 
 
 @pytest.mark.parametrize("name,fen,counts", PERFT)

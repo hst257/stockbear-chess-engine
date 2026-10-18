@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "golden_positions": 56,
+  "checked_binaries": [
+    {
+      "path": "Z:\\Code\\Chess\\bin\\StockBear-NNUE.exe",
+      "sha256": "68ced7162b20109b6ad9e705bbb4f43317c85d2cb5d10ff3ae45a02eb0bd571b"
+    },
+    {
+      "path": "Z:\\Code\\Chess\\artifacts\\release-check\\StockBear-rebuilt.exe",
+      "sha256": "5bbe8406a7198f034b7a3d8e66ce75fb5d7cda2ae6ce7f1a889e3044cb4df06e"
+    }
+  ],
+  "classical_full_components_exact": true,
+  "nnue_native_exact": true,
+  "fixed_work_decisions_exact": true,
+  "gui": {
+    "passed": true,
+    "real_engine_processes": 4,
+    "max_concurrent_processes": 1,
+    "switching": "classical->nnue->classical->nnue;reset->classical",
+    "board_preserved": true,
+    "stale_replies_rejected": true,
+    "orphaned_processes": 0,
+    "method": "Actual Pygame application with SDL dummy; desktop inspection recorded separately"
+  },
+  "no_training": true,
+  "no_tournament": true
+}

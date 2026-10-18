@@ -9,7 +9,7 @@ from pathlib import Path
 import struct
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_MODEL = ROOT / "engine/networks/stockbear-compact.sbnnue"
+DEFAULT_MODEL = ROOT / "models/nnue/stockbear-hiddenclip.sbnnue"
 FEATURE_VERSION = "dual-perspective-12x64-castling-ep-v1"
 
 

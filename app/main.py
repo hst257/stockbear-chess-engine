@@ -8,7 +8,7 @@ os.environ.setdefault("PYGAME_HIDE_SUPPORT_PROMPT", "1")
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="ChessLab: local two-player chess")
+    parser = argparse.ArgumentParser(description="StockBear: local two-player chess")
     parser.add_argument("--smoke-test", type=int, metavar="FRAMES",
                         help="Render FRAMES frames and exit (for verification).")
     parser.add_argument("--screenshot", metavar="PNG", help="Save the final frame as a PNG.")
@@ -51,7 +51,7 @@ def main() -> int:
     parser.add_argument("--futility", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--check-extensions", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--mop-up", action=argparse.BooleanOptionalAction, default=True)
-    parser.add_argument("--engine", metavar="PATH", help="Path to the compiled ChessLab UCI executable.")
+    parser.add_argument("--engine", metavar="PATH", help="Path to the compiled StockBear UCI executable.")
     args = parser.parse_args()
     if args.smoke_test is not None and args.smoke_test < 1:
         parser.error("--smoke-test must be at least 1")
@@ -62,7 +62,7 @@ def main() -> int:
         from pathlib import Path
         import pygame
     except ImportError as error:
-        print(f"ChessLab could not load a dependency: {error}\n"
+        print(f"StockBear could not load a dependency: {error}\n"
               "Run setup.bat on Windows, or install requirements.txt in your virtual environment.",
               file=sys.stderr)
         return 1
@@ -77,11 +77,11 @@ def main() -> int:
                                   reverse_futility=args.reverse_futility, futility=args.futility,
                                   check_extensions=args.check_extensions, mop_up=args.mop_up,
                                   evaluator=args.evaluator, v3_model=args.v3_model or str(DEFAULT_V3_MODEL))
-        app = Application(settings=settings, engine_path=Path(args.engine) if args.engine else DEFAULT_ENGINE)
+        app = Application(settings=settings, engine_path=Path(args.engine) if args.engine else None)
         app.run(args.smoke_test, args.screenshot)
         return 0
     except (pygame.error, OSError) as error:
-        print(f"ChessLab could not start or save its display: {error}\n"
+        print(f"StockBear could not start or save its display: {error}\n"
               "Check the display is available and app/assets/pieces contains all twelve PNGs.",
               file=sys.stderr)
         return 1

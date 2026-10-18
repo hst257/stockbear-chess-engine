@@ -1,0 +1,365 @@
+{
+  "baseline_commit": "05622ae",
+  "frozen_assets": {
+    "bin/StockBear-Classical.exe": {
+      "source": "final-nnue-showdown-20261017/artifacts/engines/classical/StockBear-classical.exe",
+      "sha256": "ffd785d4e8eecacbf6822d98f4a7b6f43972ea89e20c45d0135227e745eab606"
+    },
+    "bin/StockBear-NNUE.exe": {
+      "source": "nnue-optimization-stage3-20261017/artifacts/hiddenclip/engine.exe",
+      "sha256": "68ced7162b20109b6ad9e705bbb4f43317c85d2cb5d10ff3ae45a02eb0bd571b"
+    },
+    "models/nnue/best.pt": {
+      "source": "StockBear_NNUE_training/scaling-experiment-20261016/artifacts/medium/best.pt",
+      "sha256": "7d9ca27194e664f5f1d42fe8e4a5d4bac2f600a989405df9d91512555abb8264"
+    },
+    "models/nnue/stockbear-hiddenclip.sbnnue": {
+      "source": "StockBear_NNUE_training/scaling-experiment-20261016/artifacts/native/medium/medium.sbnnue",
+      "sha256": "a08ce2c60280c8c6dffbbe2f653b6c481e8d5282be7bed203db8b72492b0a2d3"
+    },
+    "models/nnue/training-config.json": {
+      "source": "StockBear_NNUE_training/scaling-experiment-20261016/medium.json",
+      "sha256": "34eef77ff7b139aad1ea7bc0400a3538378f85a017164c6e9d81dda23e5bf8f8"
+    },
+    "models/nnue/training-result.json": {
+      "source": "StockBear_NNUE_training/scaling-experiment-20261016/artifacts/medium/training.json",
+      "sha256": "8a516d5cb7dd44b34cbef5f0356d8231ea043a987e6ecfbbf01ef82e754b169a"
+    },
+    "models/nnue/training-history.json": {
+      "source": "StockBear_NNUE_training/scaling-experiment-20261016/artifacts/medium/history.json",
+      "sha256": "a00a96057744d363d04fb2d46228c38db8548464b386a17e93236b510838a111"
+    },
+    "models/nnue/validation-positions.json": {
+      "source": "StockBear_NNUE_training/scaling-experiment-20261016/validation-goldens.json",
+      "sha256": "e60209c8cc36a34015550f4869cc45cb97dff291f00fcf326527aa2f3aa79dae"
+    }
+  },
+  "historical_receipts": {
+    "nnue-optimization-stage3-20261017/build-hiddenclip-engine.json": {
+      "command": [
+        "Z:\\Code\\Chess\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ziglang",
+        "c++",
+        "-DCHESSLAB_NNUE_UPDATE=2",
+        "-std=c++17",
+        "-O2",
+        "-pthread",
+        "-Wall",
+        "-Wextra",
+        "-ffp-contract=off",
+        "-I",
+        "Z:\\Code\\Chess\\nnue-optimization-stage3-20261017\\artifacts\\generated",
+        "-I",
+        "Z:\\Code\\Chess\\engine\\vendor\\chess-library",
+        "-I",
+        "Z:\\Code\\Chess\\nnue-optimization-stage3-20261017\\artifacts\\hiddenclip-source",
+        "Z:\\Code\\Chess\\nnue-optimization-stage3-20261017\\artifacts\\hiddenclip-source\\main.cpp",
+        "Z:\\Code\\Chess\\nnue-optimization-stage3-20261017\\artifacts\\hiddenclip-source\\search.cpp",
+        "Z:\\Code\\Chess\\nnue-optimization-stage3-20261017\\artifacts\\hiddenclip-source\\evaluation.cpp",
+        "Z:\\Code\\Chess\\nnue-optimization-stage3-20261017\\artifacts\\hiddenclip-source\\nnue.cpp",
+        "Z:\\Code\\Chess\\nnue-optimization-stage3-20261017\\artifacts\\hiddenclip-source\\nnue_v3.cpp",
+        "-o",
+        "Z:\\Code\\Chess\\nnue-optimization-stage3-20261017\\artifacts\\hiddenclip\\engine.exe"
+      ],
+      "sha256": "68ced7162b20109b6ad9e705bbb4f43317c85d2cb5d10ff3ae45a02eb0bd571b",
+      "sources": {
+        "diagnostics.hpp": "65e4c0754331d9f19f643d4f6212c22bfbf1e088471ea5a523614e329671b35c",
+        "evaluation.cpp": "87ed00f717a19d593969b3b84d4e48586a8dc576d54ac1260350648a967639f7",
+        "evaluation.hpp": "01f5eac3194175f4f6615629146ce95700de2a0c351cae49b8346ac635b05c91",
+        "evaluation_masks.hpp": "2d1af8a6465e59bb0fce0878b694736207dcbd065c9419a3e7d5ba858196b92b",
+        "main.cpp": "362490731ab3ce6697d6eeb34019e528c72c846dba9de2da93e532b909b66fc4",
+        "nnue.cpp": "d67607fac275e63c8274a81ea14f002266320c3afd1260ea66d1cd3534976953",
+        "nnue.hpp": "276ec5bca364106193e10bf550f355ecfbe86be86e6084c5b3d60f4e030ecf79",
+        "nnue_v3.cpp": "01373c0025bb10fd7ff0294d4964e3b971e226496ee6dece88beb8ded8a6940e",
+        "nnue_v3.hpp": "b00f39759c1e48d5dc787dbed2dee32498f9422e01aa92ab58100b0285be9a20",
+        "pawn_cache.hpp": "f4240a187937c41f1b70ea2a901b1efd3b0b9c9309db8a0e4643a776bf6fc6ca",
+        "principal_variation.hpp": "5a7b342185a4abbeca3638eaca0de2d9c3caa02a7f00710f631b9f87d4c5614c",
+        "profiling.hpp": "845501b14addab91c5839f89b747344b28e9b99846bafb8fddc50e0090d0a1e6",
+        "pst.hpp": "a7f007ab55fd4bb3a6d4fae93b97b25e371faefc633351c0a70cd4eb40be111b",
+        "scoped_move.hpp": "3e815c8e3f825105cf0f43a61750aa452c6f46a9c04a456b14a43dc09e07ea72",
+        "search.cpp": "d769cb77fd417b70af0b746688624fcacda176f518a869869d62b4eca78cee2c",
+        "search.hpp": "d7a6bdfa6305f76bda3121cb674b038ff75f5b5fd9384b761d4eacd224270634",
+        "search_policy.hpp": "06cd21e30dc793570a2d717c9cd6976320342a2c21cac6f392fd64b548e54324",
+        "stage1_head.hpp": "aafb75443e0254caac6919c4590f02ba4674bd0640c9ee8fad0ceba6da8bb170",
+        "strength.hpp": "133f330350dbf68f1f6e31bf67e8b310e1d639577918b626a5e4bb5b6cab7d68",
+        "terminal_rules.hpp": "08880e1a158016cb43e4d05c818baa0d85f48a0d673837c3e43842251caf6f59",
+        "transposition.hpp": "e41ab9b9e1bbf3f313d61e812e40e4dfebbc0debc6964ee85a83f68668b9d6a0"
+      },
+      "target_sources": {
+        "nnue-optimization-stage3-20261017\\artifacts\\hiddenclip-source\\evaluation.cpp": "87ed00f717a19d593969b3b84d4e48586a8dc576d54ac1260350648a967639f7",
+        "nnue-optimization-stage3-20261017\\artifacts\\hiddenclip-source\\main.cpp": "362490731ab3ce6697d6eeb34019e528c72c846dba9de2da93e532b909b66fc4",
+        "nnue-optimization-stage3-20261017\\artifacts\\hiddenclip-source\\nnue.cpp": "d67607fac275e63c8274a81ea14f002266320c3afd1260ea66d1cd3534976953",
+        "nnue-optimization-stage3-20261017\\artifacts\\hiddenclip-source\\nnue_v3.cpp": "01373c0025bb10fd7ff0294d4964e3b971e226496ee6dece88beb8ded8a6940e",
+        "nnue-optimization-stage3-20261017\\artifacts\\hiddenclip-source\\search.cpp": "d769cb77fd417b70af0b746688624fcacda176f518a869869d62b4eca78cee2c"
+      }
+    },
+    "nnue-optimization-stage1-20261017/build-variant-engine.json": {
+      "command": [
+        "Z:\\Code\\Chess\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ziglang",
+        "c++",
+        "-DCHESSLAB_NNUE_UPDATE=2",
+        "-std=c++17",
+        "-O2",
+        "-pthread",
+        "-Wall",
+        "-Wextra",
+        "-ffp-contract=off",
+        "-I",
+        "Z:\\Code\\Chess\\nnue-optimization-stage1-20261017\\artifacts\\generated",
+        "-I",
+        "Z:\\Code\\Chess\\engine\\vendor\\chess-library",
+        "-I",
+        "Z:\\Code\\Chess\\nnue-optimization-stage1-20261017\\artifacts\\variant-source",
+        "Z:\\Code\\Chess\\nnue-optimization-stage1-20261017\\artifacts\\variant-source\\main.cpp",
+        "Z:\\Code\\Chess\\nnue-optimization-stage1-20261017\\artifacts\\variant-source\\search.cpp",
+        "Z:\\Code\\Chess\\nnue-optimization-stage1-20261017\\artifacts\\variant-source\\evaluation.cpp",
+        "Z:\\Code\\Chess\\nnue-optimization-stage1-20261017\\artifacts\\variant-source\\nnue.cpp",
+        "Z:\\Code\\Chess\\nnue-optimization-stage1-20261017\\artifacts\\variant-source\\nnue_v3.cpp",
+        "-o",
+        "Z:\\Code\\Chess\\nnue-optimization-stage1-20261017\\artifacts\\variant\\engine.exe"
+      ],
+      "head_sha256": "967e262cc393b231aa59dbe20b3b4cfc6fef528a2a0794e767a2852f3d56ce09",
+      "sha256": "e64146bf7ccf219d3254d258615408e4b782c4aa7b430c9140beb73228055d4d",
+      "source_sha256": {
+        "evaluation.cpp": "87ed00f717a19d593969b3b84d4e48586a8dc576d54ac1260350648a967639f7",
+        "main.cpp": "362490731ab3ce6697d6eeb34019e528c72c846dba9de2da93e532b909b66fc4",
+        "nnue.cpp": "d67607fac275e63c8274a81ea14f002266320c3afd1260ea66d1cd3534976953",
+        "nnue_v3.cpp": "01373c0025bb10fd7ff0294d4964e3b971e226496ee6dece88beb8ded8a6940e",
+        "search.cpp": "d769cb77fd417b70af0b746688624fcacda176f518a869869d62b4eca78cee2c"
+      }
+    },
+    "stockbear-final-tournament-2-20261017/STOCKBEAR_FINAL_CHAMPION.json": {
+      "cleanup_performed": false,
+      "evaluator": "classical",
+      "executable": "Z:\\Code\\Chess\\final-nnue-showdown-20261017\\artifacts\\engines\\classical\\StockBear-classical.exe",
+      "executable_sha256": "ffd785d4e8eecacbf6822d98f4a7b6f43972ea89e20c45d0135227e745eab606",
+      "nnue_model": null,
+      "production_promoted": false,
+      "reason": "Inconclusive result; retain the preserved classical baseline conservatively. This does not prove higher classical Elo",
+      "reliability_pass": true,
+      "required_uci_options": {
+        "AlphaBeta": true,
+        "AspirationDelta": 25,
+        "Evaluator": "classical",
+        "FastMovegen": true,
+        "Hash": 16,
+        "IterativeDeepening": true,
+        "LMRReduction": 1,
+        "MoveOrdering": true,
+        "NNUEIncremental": true,
+        "NNUEKernel": "scalar",
+        "PVS": true,
+        "PawnCache": true,
+        "Quiescence": true,
+        "TranspositionTable": true,
+        "UseAdaptiveLMR": true,
+        "UseAdvancedEvaluation": true,
+        "UseAspirationWindows": true,
+        "UseCheckExtensions": true,
+        "UseFutility": true,
+        "UseHistory": true,
+        "UseKillers": true,
+        "UseLMR": true,
+        "UseMopUp": true,
+        "UseNullMovePruning": true,
+        "UsePST": true,
+        "UseReverseFutility": true,
+        "UseSEE": true
+      },
+      "search_configuration": {
+        "affinity_mask": 1,
+        "hash_mb": 16,
+        "ponder": false,
+        "threads": 1,
+        "time_ms": 500
+      },
+      "selected_engine": "CLASSICAL",
+      "selected_result": {
+        "draws": 31,
+        "elo_equivalent": -4.343171035283276,
+        "elo_equivalent95": [
+          -65.9240994583969,
+          56.96325834124352
+        ],
+        "losses": 25,
+        "orientation": "Selected engine relative to the other finalist",
+        "score_fraction95": [
+          0.40625,
+          0.58125
+        ],
+        "score_percentage": 49.375,
+        "wins": 24
+      },
+      "selection_rule": "C",
+      "statistically_convincing": false,
+      "status": "selected for later consolidation",
+      "tournament_result": {
+        "elo_equivalent95": [
+          -56.96325834124345,
+          65.9240994583969
+        ],
+        "hiddenclip_elo_equivalent": 4.343171035283309,
+        "hiddenclip_pair_score95": [
+          0.41875,
+          0.59375
+        ],
+        "hiddenclip_score_fraction": 0.50625,
+        "stats": {
+          "CLASSICAL": {
+            "aggregate_nps": 2059835.4417651074,
+            "color": {
+              "black": {
+                "aggregate_nps": 2058496.456118179,
+                "draws": 15,
+                "engine_seconds": 908.3259999999995,
+                "eval_calls": 1511686650,
+                "games": 40,
+                "losses": 16,
+                "max_wall_seconds": 0.5413115999836009,
+                "mean_depth": 8.290899526564965,
+                "mean_engine_seconds": 0.47781483429773774,
+                "mean_reported_nps": 2015371.1357180432,
+                "mean_wall_seconds": 0.4805782246179415,
+                "median_depth": 8,
+                "moves": 1901,
+                "nnue_evaluations": 0,
+                "nodes": 1869785852,
+                "points": 16.5,
+                "score_fraction": 0.4125,
+                "unfinished": 0,
+                "wins": 9
+              },
+              "white": {
+                "aggregate_nps": 2061075.0424756252,
+                "draws": 16,
+                "engine_seconds": 981.1509999999989,
+                "eval_calls": 1667076686,
+                "games": 40,
+                "losses": 9,
+                "max_wall_seconds": 0.5290940999984741,
+                "mean_depth": 8.156843643448612,
+                "mean_engine_seconds": 0.47791086215294637,
+                "mean_reported_nps": 2013165.1422308816,
+                "mean_wall_seconds": 0.4806791066733169,
+                "median_depth": 8,
+                "moves": 2053,
+                "nnue_evaluations": 0,
+                "nodes": 2022225839,
+                "points": 23.0,
+                "score_fraction": 0.575,
+                "unfinished": 0,
+                "wins": 15
+              }
+            },
+            "delays": 0,
+            "draws": 31,
+            "engine_seconds": 1889.476999999995,
+            "eval_calls": 3178763336,
+            "games": 80,
+            "losses": 25,
+            "max_engine_seconds": 0.517,
+            "max_wall_seconds": 0.5413115999836009,
+            "mean_depth": 8.221294891249368,
+            "mean_engine_seconds": 0.4778646939807777,
+            "mean_reported_nps": 2014225.7374810318,
+            "mean_wall_seconds": 0.4806306047038509,
+            "median_depth": 8.0,
+            "median_nodes": 944256.0,
+            "median_nps": 1908430.5,
+            "median_process_cpu_seconds": 0.421875,
+            "median_reported_seconds": 0.5,
+            "median_wall_nps": 1895230.032545328,
+            "median_wall_seconds": 0.5024127999931807,
+            "moves": 3954,
+            "nnue_evaluations": 0,
+            "nodes": 3892011691,
+            "points": 39.5,
+            "score_fraction": 0.49375,
+            "unfinished": 0,
+            "wins": 24
+          },
+          "NNUE_HIDDENCLIP": {
+            "aggregate_nps": 1833904.3724367013,
+            "color": {
+              "black": {
+                "aggregate_nps": 1834561.4241909578,
+                "draws": 16,
+                "engine_seconds": 973.8019999999983,
+                "eval_calls": 1488949747,
+                "games": 40,
+                "losses": 15,
+                "max_wall_seconds": 0.5531545999983791,
+                "mean_depth": 7.975405804230202,
+                "mean_engine_seconds": 0.4789975405804222,
+                "mean_reported_nps": 1792672.6714215446,
+                "mean_wall_seconds": 0.4817326496802401,
+                "median_depth": 8,
+                "moves": 2033,
+                "nnue_evaluations": 1488949747,
+                "nodes": 1786499584,
+                "points": 17.0,
+                "score_fraction": 0.425,
+                "unfinished": 0,
+                "wins": 9
+              },
+              "white": {
+                "aggregate_nps": 1833209.9956916084,
+                "draws": 15,
+                "engine_seconds": 921.4569999999986,
+                "eval_calls": 1381722011,
+                "games": 40,
+                "losses": 9,
+                "max_wall_seconds": 0.5639075000071898,
+                "mean_depth": 7.88981288981289,
+                "mean_engine_seconds": 0.47892775467775395,
+                "mean_reported_nps": 1793208.6767151768,
+                "mean_wall_seconds": 0.4816883903326632,
+                "median_depth": 8.0,
+                "moves": 1924,
+                "nnue_evaluations": 1381722011,
+                "nodes": 1689224183,
+                "points": 23.5,
+                "score_fraction": 0.5875,
+                "unfinished": 0,
+                "wins": 16
+              }
+            },
+            "delays": 2,
+            "draws": 31,
+            "engine_seconds": 1895.2589999999946,
+            "eval_calls": 2870671758,
+            "games": 80,
+            "losses": 24,
+            "max_engine_seconds": 0.524,
+            "max_wall_seconds": 0.5639075000071898,
+            "mean_depth": 7.933788223401566,
+            "mean_engine_seconds": 0.4789636087945399,
+            "mean_reported_nps": 1792933.291635077,
+            "mean_wall_seconds": 0.48171112959311907,
+            "median_depth": 8,
+            "median_nodes": 868352,
+            "median_nps": 1755648,
+            "median_process_cpu_seconds": 0.421875,
+            "median_reported_seconds": 0.5,
+            "median_wall_nps": 1745859.9047025915,
+            "median_wall_seconds": 0.5024069999926724,
+            "moves": 3957,
+            "nnue_evaluations": 2870671758,
+            "nodes": 3475723767,
+            "points": 40.5,
+            "score_fraction": 0.50625,
+            "unfinished": 0,
+            "wins": 25
+          }
+        }
+      },
+      "unresolved_concerns": [
+        "Conditional fixed40-opening suite,80 games,one laptop and500ms; cannot resolve small universal Elo differences.",
+        "Quiet/Eco last user-confirmed; thermal/effective frequency unavailable."
+      ]
+    }
+  }
+}

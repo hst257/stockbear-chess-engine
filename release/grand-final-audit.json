@@ -1,0 +1,15 @@
+{
+  "all_parseable_pgn_files": 84,
+  "all_parsed_pgn_games_including_smoke_and_aggregate": 163,
+  "all_protected_files_unchanged": true,
+  "all_pvs_legal": true,
+  "color_balance": true,
+  "correct_evaluator_every_search": true,
+  "csv_values_match_authoritative_json": true,
+  "matching_go_movetime500_commands": 7911,
+  "moves_csv_rows": 7911,
+  "official_games": 80,
+  "opening_pairs": 40,
+  "passed": true,
+  "utc": "2026-10-18T04:41:54.447802+00:00"
+}

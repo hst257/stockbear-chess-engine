@@ -7,7 +7,7 @@ import chess
 import chess.engine
 import pytest
 
-from tools.benchmark_optimizations import POSITIONS, counters
+from tools.engine_checks import POSITIONS, counters
 from tools.tune_evaluation import fit, loss, predict, truncate
 from tests.test_engine import protocol
 

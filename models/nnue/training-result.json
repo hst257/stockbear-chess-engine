@@ -1,0 +1,60 @@
+{
+  "architecture": {
+    "activation": "clip(x,0,1)",
+    "feature_version": "dual-perspective-12x64-castling-ep-v1",
+    "features": 780,
+    "hidden": 32,
+    "output_cp_scale": 400,
+    "parameters": 54209,
+    "width": 64
+  },
+  "best_validation_mse": 0.011173890885575572,
+  "complete": true,
+  "epochs": 53,
+  "peak_cuda_allocated_bytes": 79675392,
+  "raw_best_validation_mse": 0.011164258957424513,
+  "seconds": 617.1680000000051,
+  "signature": {
+    "architecture": {
+      "activation": "clip(x,0,1)",
+      "feature_version": "dual-perspective-12x64-castling-ep-v1",
+      "features": 780,
+      "hidden": 32,
+      "output_cp_scale": 400,
+      "parameters": 54209,
+      "width": 64
+    },
+    "code_sha256": {
+      "stockbear/model.py": "c5233e9978ad044091472bfcf14cbb833ef3316ffb07fece2eedfd310e7faac5",
+      "stockbear/scaling_train.py": "da0678252b64071129f733e7df9ede0184e2747cbfc9568793a53b981e9c98f8",
+      "stockbear/train.py": "eb775d33b64a9bad7876d8f99a9b7dc439195f1f264634eab84703d14e3e4441"
+    },
+    "config": {
+      "dataset": "data/expanded/cc-events-20261016/prepared/v2",
+      "format": "v2",
+      "run": "scaling-experiment-20261016/artifacts/medium",
+      "seed": 20261016,
+      "training": {
+        "batch_size": 2048,
+        "epochs": 60,
+        "gradient_clip": 1.0,
+        "hidden": 32,
+        "learning_rate": 0.0015,
+        "min_delta": 1e-05,
+        "patience": 8,
+        "require_cuda": true,
+        "scheduler_patience": 2,
+        "teacher_weight": 0.9,
+        "weight_decay": 0.05,
+        "width": 64
+      }
+    },
+    "dataset": "99dc8cbe82f7fe529cbe219297891431e4c4fe4f65e601ca4ee504313aca8bdb",
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU",
+    "numpy": "2.2.6",
+    "schema": "scaling-v1",
+    "torch": "2.7.1+cu128"
+  },
+  "test_opened_or_evaluated": false
+}

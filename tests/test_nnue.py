@@ -46,7 +46,7 @@ def native_eval(engine_path, fen):
 def test_native_matches_trained_golden(engine_path, row):
     value = native_eval(engine_path, row["fen"])
     assert abs(value["side_to_move_cp"] - row["side_to_move_cp"]) < .01
-    assert (value["width"], value["hidden"]) == (32, 16)
+    assert (value["width"], value["hidden"]) == (64, 32)
     assert value["sha256"] == hashlib.sha256(DEFAULT_MODEL.read_bytes()).hexdigest()
 
 
@@ -57,20 +57,21 @@ def test_native_matches_trained_golden(engine_path, row):
     "r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1",
     "7k/4P3/8/8/8/8/8/K7 w - - 0 1"])
 def test_feature_contract_and_independent_forward_pass(engine_path, fen):
-    _, weights, _ = read_model(DEFAULT_MODEL)
+    header, weights, _ = read_model(DEFAULT_MODEL)
+    width, hidden_size = header["model"]["width"], header["model"]["hidden"]
     board = chess.Board(fen)
     for board in (board, board.mirror()):
         value = native_eval(engine_path, board.fen(en_passant="fen"))
         active = [features(board, c) for c in (chess.WHITE, chess.BLACK)]
         assert value["features"] == active
-        accumulators = [[weights["bias"][j] + sum(weights["transform.weight"][f * 32 + j] for f in group)
-                         for j in range(32)] for group in active]
+        accumulators = [[weights["bias"][j] + sum(weights["transform.weight"][f * width + j] for f in group)
+                         for j in range(width)] for group in active]
         order = (0, 1) if board.turn else (1, 0)
         inputs = [min(1, max(0, v)) for p in order for v in accumulators[p]]
         hidden = [min(1, max(0, weights["fc1.bias"][h] +
-                            sum(weights["fc1.weight"][h * 64 + j] * inputs[j] for j in range(64))))
-                  for h in range(16)]
-        expected = 400 * (weights["fc2.bias"][0] + sum(weights["fc2.weight"][h] * hidden[h] for h in range(16)))
+                            sum(weights["fc1.weight"][h * (2 * width) + j] * inputs[j] for j in range(2 * width))))
+                  for h in range(hidden_size)]
+        expected = 400 * (weights["fc2.bias"][0] + sum(weights["fc2.weight"][h] * hidden[h] for h in range(hidden_size)))
         assert abs(value["side_to_move_cp"] - expected) < .01
         expected_white = expected * (1 if board.turn else -1)
         assert abs(value["raw_white_cp"] - expected_white) < .01
@@ -198,7 +199,7 @@ def test_gui_search_lab_switch_and_inactive_pst(app):
     click(app, app.modal_targets["toggle_evaluator"].center)
     assert app.settings.evaluator == "nnue"
     assert app.last_play_stats is None
-    assert engine_panels.adjust(app.settings, "toggle_evaluator").evaluator == "nnue_v3"
+    assert engine_panels.adjust(app.settings, "toggle_evaluator").evaluator == "classical"
     previous = app.settings.use_pst
     click(app, app.modal_targets["toggle_pst"].center)
     assert app.settings.use_pst == previous

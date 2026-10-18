@@ -300,7 +300,7 @@ public:
                     output("option name Evaluator type combo default classical var classical var nnue var nnue_v3");
                     output("option name NNUEV3File type string default engine/networks/v3/stockbear-v3-selected.sbnnue");
                     output("option name NNUEIncremental type check default true");
-                    output("option name NNUEKernel type combo default auto var auto var reference var scalar var quant");
+                    output("option name NNUEKernel type combo default auto var auto var reference var scalar var quant var clip");
                     for (const auto name : chesslab::EVAL_OPTION_NAMES)
                         output(std::string("option name ") + name + " type check default true");
                     output("option name TranspositionTable type check default true");

@@ -1,1 +1,1 @@
-"""Drawing helpers and the sidebar for ChessLab."""
+"""Drawing helpers and the sidebar for StockBear."""

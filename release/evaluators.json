@@ -1,0 +1,71 @@
+{
+  "default": "CLASSICAL",
+  "configurations": {
+    "CLASSICAL": {
+      "executable": "bin/StockBear-Classical.exe",
+      "sha256": "ffd785d4e8eecacbf6822d98f4a7b6f43972ea89e20c45d0135227e745eab606",
+      "uci_options": {
+        "AlphaBeta": true,
+        "AspirationDelta": 25,
+        "Evaluator": "classical",
+        "FastMovegen": true,
+        "Hash": 16,
+        "IterativeDeepening": true,
+        "LMRReduction": 1,
+        "MoveOrdering": true,
+        "NNUEIncremental": true,
+        "NNUEKernel": "scalar",
+        "PVS": true,
+        "PawnCache": true,
+        "Quiescence": true,
+        "TranspositionTable": true,
+        "UseAdaptiveLMR": true,
+        "UseAdvancedEvaluation": true,
+        "UseAspirationWindows": true,
+        "UseCheckExtensions": true,
+        "UseFutility": true,
+        "UseHistory": true,
+        "UseKillers": true,
+        "UseLMR": true,
+        "UseMopUp": true,
+        "UseNullMovePruning": true,
+        "UsePST": true,
+        "UseReverseFutility": true,
+        "UseSEE": true
+      }
+    },
+    "NNUE_HIDDENCLIP": {
+      "executable": "bin/StockBear-NNUE.exe",
+      "sha256": "68ced7162b20109b6ad9e705bbb4f43317c85d2cb5d10ff3ae45a02eb0bd571b",
+      "uci_options": {
+        "AlphaBeta": true,
+        "AspirationDelta": 25,
+        "Evaluator": "nnue",
+        "FastMovegen": true,
+        "Hash": 16,
+        "IterativeDeepening": true,
+        "LMRReduction": 1,
+        "MoveOrdering": true,
+        "NNUEIncremental": true,
+        "NNUEKernel": "clip",
+        "PVS": true,
+        "PawnCache": true,
+        "Quiescence": true,
+        "TranspositionTable": true,
+        "UseAdaptiveLMR": true,
+        "UseAdvancedEvaluation": true,
+        "UseAspirationWindows": true,
+        "UseCheckExtensions": true,
+        "UseFutility": true,
+        "UseHistory": true,
+        "UseKillers": true,
+        "UseLMR": true,
+        "UseMopUp": true,
+        "UseNullMovePruning": true,
+        "UsePST": true,
+        "UseReverseFutility": true,
+        "UseSEE": true
+      }
+    }
+  }
+}

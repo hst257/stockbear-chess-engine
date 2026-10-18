@@ -1,60 +1,11 @@
-# Diagnostic byte hashes must survive Windows checkouts unchanged.
-docs/nnue-v2-diagnosis/*.json text eol=lf
-docs/nnue-v2-diagnosis/*.pgn text eol=lf
-docs/nnue-v2-diagnosis/*.csv text eol=lf
-docs/nnue-v2-diagnosis/*.md text eol=lf
-docs/nnue-v2-diagnosis/*.txt text eol=lf
-docs/nnue-v2-diagnosis/*.svg text eol=lf
-docs/nnue-v2-diagnosis/*.png binary
-NNUE_V2_SEARCH_DIAGNOSIS.md text eol=lf
-docs/nnue-v2-throughput/*.json text eol=lf
-docs/nnue-v2-throughput/*.pgn text eol=lf
-docs/nnue-v2-throughput/*.csv text eol=lf
-docs/nnue-v2-throughput/*.md text eol=lf
-docs/nnue-v2-throughput/*.txt text eol=lf
-docs/nnue-v2-throughput/*.svg text eol=lf
-docs/nnue-v2-throughput/*.png binary
-NNUE_V2_THROUGHPUT_OPTIMIZATION.md text eol=lf
-docs/nnue-v3/*.json text eol=lf
-docs/nnue-v3/*.pgn text eol=lf
-docs/nnue-v3/*.csv text eol=lf
-docs/nnue-v3/*.md text eol=lf
-docs/nnue-v3/*.txt text eol=lf
-docs/nnue-v3/*.svg text eol=lf
-docs/nnue-v3/*.png binary
-docs/nnue-v3/**/*.json text eol=lf
-docs/nnue-v3/**/*.png binary
-engine/networks/v3/*.sbnnue binary
-NNUE_V3_DESIGN.md text eol=lf
-NNUE_V3_KING_RELATIVE_REPORT.md text eol=lf
-StockBear_NNUE_training/stockbear/v3/*.py text eol=lf
-StockBear_NNUE_training/reports/v3/source-*/*.py text eol=lf
-StockBear_NNUE_training/reports/v3/*.json text eol=lf
-StockBear_NNUE_training/reports/v3/*.log text eol=lf
-docs/labeling-performance/*.json text eol=lf
-docs/labeling-workers-*.json text eol=lf
-LABELING_THROUGHPUT_DIAGNOSIS.md text eol=lf
-docs/expanded-training-*.json text eol=lf
-EXPANDED_DATA_VERIFICATION.md text eol=lf
-NNUE_SCALING_EXPERIMENT_REPORT.md text eol=lf
-StockBear_NNUE_training/stockbear/scaling_*.py text eol=lf
-StockBear_NNUE_training/tests/test_scaling.py text eol=lf
-StockBear_NNUE_training/scaling-experiment-20261016/*.json text eol=lf
-StockBear_NNUE_training/scaling-experiment-20261016/*.md text eol=lf
-StockBear_NNUE_training/scaling-experiment-20261016/*.svg text eol=lf
-tools/*nnue_showdown*.py text eol=lf
-tests/test_nnue_showdown.py text eol=lf
-nnue-showdown-20261016/**/*.json text eol=lf
-nnue-showdown-20261016/*.json text eol=lf
-nnue-showdown-20261016/**/*.pgn text eol=lf
-nnue-showdown-20261016/*.md text eol=lf
-NNUE_SHOWDOWN_REPORT.md text eol=lf
-tools/final_nnue_showdown.py text eol=lf
-tools/verify_final_nnue_showdown.py text eol=lf
-tools/report_final_nnue_showdown.py text eol=lf
-tests/test_final_nnue_showdown.py text eol=lf
-final-nnue-showdown-20261017/**/*.json text eol=lf
-final-nnue-showdown-20261017/*.json text eol=lf
-final-nnue-showdown-20261017/**/*.pgn text eol=lf
-final-nnue-showdown-20261017/*.md text eol=lf
-FINAL_NNUE_SHOWDOWN_REPORT.md text eol=lf
+*.py text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.jsonl text eol=lf
+*.csv text eol=lf
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.exe binary
+*.pt binary
+*.sbnnue binary
+*.png binary

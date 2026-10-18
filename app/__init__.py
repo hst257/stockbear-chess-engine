@@ -1,1 +1,1 @@
-"""ChessLab's local desktop chess application."""
+"""StockBear's local desktop chess application."""

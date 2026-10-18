@@ -8,8 +8,8 @@ import pygame
 from app.engine_client import EngineSettings, SearchStats, THINKING_TIMES
 from app.ui import dialogs, theme
 
-EVALUATOR_LABELS = {"classical": "Classical", "nnue": "NNUE", "nnue_v3": "NNUE v3 (exp.)"}
-EVALUATORS = ("classical", "nnue", "nnue_v3")
+EVALUATOR_LABELS = {"classical": "Classical (Default)", "nnue": "NNUE Hiddenclip", "nnue_v3": "NNUE v3 (legacy)"}
+EVALUATORS = ("classical", "nnue")
 
 
 def setup(surface: pygame.Surface, settings: EngineSettings, available: bool) -> dict[str, pygame.Rect]:
@@ -25,7 +25,7 @@ def setup(surface: pygame.Surface, settings: EngineSettings, available: bool) ->
             targets[name] = target
 
     choices(92, "OPPONENT", [("local", "Local two players", not settings.enabled),
-                             ("engine", "ChessLab engine", settings.enabled)])
+                             ("engine", "StockBear engine", settings.enabled)])
     choices(148, "YOUR PIECES", [("white", "White", settings.human_color),
                                  ("black", "Black", not settings.human_color)])
     choices(204, "SEARCH", [("minimax", "Minimax", not settings.alpha_beta),
@@ -104,7 +104,7 @@ def adjust(settings: EngineSettings, name: str) -> EngineSettings:
         "iterative": {"iterative_deepening": True}, "fixed": {"iterative_deepening": False},
         "ordered": {"move_ordering": True}, "unordered": {"move_ordering": False},
         "pst_on": {"use_pst": True}, "pst_off": {"use_pst": False},
-        "toggle_evaluator": {"evaluator": EVALUATORS[(EVALUATORS.index(settings.evaluator) + 1) % len(EVALUATORS)]},
+        "toggle_evaluator": {"evaluator": "nnue" if settings.evaluator == "classical" else "classical"},
         "tt_on": {"transposition_table": True}, "tt_off": {"transposition_table": False},
         "toggle_deepening": {"iterative_deepening": not settings.iterative_deepening},
         "toggle_ordering": {"move_ordering": not settings.move_ordering},

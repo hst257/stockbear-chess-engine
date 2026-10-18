@@ -1,267 +1,228 @@
-# ChessLab
+# StockBear
 
-ChessLab is a desktop chess game and a project for learning search algorithms. The Python/Pygame application supports local two-player games and a custom standalone C++17 opponent. Minimax, alpha-beta pruning, iterative deepening, move ordering, advanced classical evaluation, Zobrist-based transposition tables, quiescence search, Principal Variation Search (PVS), aspiration windows, null-move pruning, and Late Move Reductions (LMR) are implemented with a comparison interface.
+StockBear is a personal chess-engine project with a C++17 UCI engine, a Python/Pygame desktop game, handcrafted evaluation and an optional custom-trained NNUE. It began as ChessLab, an interface for studying search, and grew through search development, neural training, inference optimization and paired playing-strength tests.
 
-![ChessLab game board](docs/chesslab.png)
+**Final configuration: Classical by default; NNUE Hiddenclip is selectable.** The Grand Final was statistically inconclusive. Hiddenclip scored slightly more points, but did not establish the convincing improvement required to replace the preserved classical baseline.
 
-**Experimental NNUE is available:** click **Eval: Classical/NNUE** in game setup
-or Search lab, or launch with `--evaluator nnue`. Native inference uses the trained
-compact model with incremental accumulators and no PyTorch dependency. Classical
-remains the default. See [validation and head-to-head results](docs/nnue.md).
+![StockBear desktop game](release/gui-classical.png)
 
-## Install and play on Windows
+## Features
 
-Install **Python 3.11 or newer** with Python on PATH. The verified environment is Windows with Python 3.11.8 and Pygame 2.6.1. Open PowerShell in this folder and run:
+- Legal chess with castling, en passant, underpromotion, checkmate, stalemate, repetition, fifty-move claims and insufficient-material handling.
+- Local two-player play or a custom engine opponent; undo, board rotation, promotion selection, move history and draw claims.
+- Negamax/Minimax, alpha-beta, iterative deepening, Principal Variation Search and quiescence with legal check evasions.
+- Zobrist transposition tables with bounds, mate-distance normalization and draw/history context; completed-iteration fallbacks and cancellation.
+- TT/PV ordering, promotions, SEE-ranked captures, private history/killers, aspiration retries, conservative null-move pruning, verified LMR, futility guards and budgeted check extensions.
+- Tapered material/PST evaluation, pawn structure and passers, mobility, king safety, bishop pairs, rook activity, outposts, space, endgame activity and a fully keyed pawn cache.
+- Incremental float32 NNUE with fixed White/Black accumulators, root refresh and isolated child states. Hiddenclip uses AVX2 clipping where available and a portable scalar fallback.
+- UCI, time/depth/node limits, perft and evaluation diagnostics. Search runs off the UI thread; stale results cannot play a move.
+
+These switches are implemented, not promises of exhaustive equivalence: selective pruning can change fixed-depth results. Disable selective features when comparing exhaustive Minimax and alpha-beta. NPS and completed depth alone do not measure playing strength.
+
+## Install and play
+
+Windows x64 and Python 3.11+ are the primary supported setup. The checked environment uses Python 3.11.8, Pygame 2.6.1 and python-chess 1.999 / chess 1.11.2. Two frozen Windows executables are included; **playing does not require a compiler, Torch, Stockfish, training data or network access** after dependency installation.
+
+From this repository's root in PowerShell:
 
 ```powershell
 .\setup.bat
-.\launch.bat
+.\launch.bat --mode engine
+.\launch.bat --mode engine --evaluator nnue --thinking-time 500
 ```
 
-Setup creates `.venv` and installs the pinned dependencies. It requires internet access on the first installation. The game uses bundled assets and needs no network connection. You can also double-click `launch.bat` after setup.
-
-For manual installation or development:
+Or install manually:
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe -m app.main
+.\.venv\Scripts\python.exe -m app.main --mode engine
 ```
 
-The launch script changes to its own folder, so it works regardless of your current working directory. Direct module commands should run from the repository root. Missing assets or dependencies produce an error with setup instructions.
+Omit `--mode engine` for local two-player chess. The launcher resolves paths relative to itself. Press **G** or use the opponent button to open setup. Click **Eval** to alternate **Classical (Default)** and **NNUE Hiddenclip**. **Apply to game** preserves the board/history; **Start new game** resets them. A replacement worker waits for the old engine to close; canceled replies are discarded. Each search receives the full legal game history.
 
-### Build and play against the engine
-
-```powershell
-.\build_engine.bat
-.\launch.bat --mode engine
-```
-
-Build once after setup. The script installs a portable C++ compiler in `.venv` and produces `engine/build/chesslab-engine.exe`. No global toolchain installation is needed. The first compiler download is about 80 MB. Rebuild after changing C++ sources; generated binaries are not committed.
-
-Press **G** or click the opponent button for **Engine Thinking Time**. Choose exactly one of:
-
-| Preset | Budget per engine move |
+| Preset | Per-move budget |
 | --- | ---: |
 | Blitz | 100 ms |
 | Fast | 500 ms |
-| **Standard (default)** | **1 second** |
-| Deep | 3 seconds |
-| Maximum | 5 seconds |
+| Standard (default) | 1,000 ms |
+| Deep | 3,000 ms |
+| Maximum | 5,000 ms |
 
-Keep **Time budget** selected and click **Apply to game** to preserve the board, history, and orientation. **Start new game** applies settings and resets the game. An active search keeps its original budget; a changed value applies to subsequent requests. You can edit settings while the worker searches. Local two-player play remains available.
-
-**Gameplay no longer stops at depth 5.** Time mode searches depth 1, 2, 3, and onward until its deadline, with a 64-ply safety ceiling. Iterative deepening keeps the move, score, and PV from the last fully completed pass. A deeper interrupted pass cannot overwrite them; before any pass completes, the engine returns an unscored legal fallback. Terminal positions and proven mates may finish early. The board shows a subtle thinking indicator, completed depth, elapsed time, and nodes; the Pygame event loop stays responsive.
-
-Choose **Fixed depth** for debugging and reproducible comparisons. The debug target remains 1–5 in the GUI; UCI `go depth 5` retains fixed-depth behavior. Time mode always deepens, while fixed mode retains the Deepening toggle. Search lab (**E**) compares both algorithms without moving: time mode gives each the selected budget and reports their actual completed depths, which can differ. Fixed mode compares the same target under the existing 15-second safety limit. **Stop** keeps completed work; Undo and New Game discard the request. Other feature toggles remain available.
+Time mode deepens until the deadline and retains the last completed iteration; terminal positions or proven mates can finish early. GUI fixed-depth mode offers 1–5 plies for debugging. **E** opens Search lab; compare algorithms without playing moves and use **Stop** to retain completed work. **N**, **U** and **F** reset, undo and flip. A changed time budget applies to the next search. Missing custom binaries appear as interface errors; local play stays available.
 
 ```powershell
-.\launch.bat --mode engine                         # Standard, 1 second
-.\launch.bat --mode engine --thinking-time 500       # Fast, 500 ms
-.\launch.bat --mode engine --search-mode depth --depth 5
-.\launch.bat --mode engine --search-mode depth --depth 3 --no-iterative-deepening
-.\launch.bat --mode engine --no-pst --no-transposition-table
-.\launch.bat --mode engine --no-quiescence --no-pvs
-```
-
-`--engine PATH` selects another build of ChessLab. Missing engines are reported in the interface; local play remains available. Longer thinking generally helps search strength but does not guarantee a better move in every position. Scheduling, table allocation, and UCI overhead prevent exact millisecond precision. See the [time-control guide and all five measured results](docs/time-control.md).
-
-Move ordering is also on by default: a matching table move first, then the previous completed principal variation along its original path, promotions, favorable captures, killer moves, quiet moves ranked by history, and losing captures. SEE estimates exchanges with pin and king-safety checks. Equal priorities retain their original order. Sorting can change which equally scored move wins a tie while preserving full-depth scores. With caching off, ordering alone does not reduce exhaustive Minimax's node count or guarantee a speedup.
-
-**PST is on by default.** Classical piece-square tables add modest positional bonuses for every piece, encouraging central knights, useful development, and sheltered kings. The king blends middlegame/endgame tables using remaining non-pawn material (phase 0–24). Black mirrors ranks; scores still favor White. Choose **PST: off** in setup or Search lab to disable square bonuses. For the original material-only evaluator, also launch with `--no-advanced-evaluation`. See the [PST guide](docs/pst.md) for all tables, attribution, phase arithmetic, evaluation diagnostics, and benchmarks.
-
-**Advanced classical evaluation is on by default.** A single phase blend combines material/PST, pawn structure and passers, safe mobility, king safety, bishop pairs, rook activity, supported outposts, space, and endgame king activity. Use `--no-advanced-evaluation` for the exact material/PST baseline. UCI exposes category switches and an `eval` JSON breakdown; the game layout and default 1-second budget stay unchanged. See [features, weights, benchmarks, and limitations](docs/advanced-evaluation.md).
-
-**Transposition caching is on by default.** It reuses the rules library's incremental Zobrist key, guarded by the halfmove clock and repetition history. A bounded table stores completed scores, bounds, and PVs across iterative passes within one search. **Transpositions: off** restores the uncached baseline. Search lab shows hits, cutoffs, and occupancy. See the [TT guide](docs/transposition-tables.md) for safety rules, UCI memory controls, tests, and benchmarks.
-
-**Quiescence and PVS are on by default.** Quiescence extends nominal leaves through captures, all promotions, and every legal check evasion. PVS probes later moves with narrow windows and fully re-searches promising moves; it applies only to alpha-beta. Search lab labels the pruning algorithm **PVS** or **Alpha-beta** and reports Q nodes, PVS probes, and re-searches. Both toggles preserve the current board. Turn both off to reproduce the earlier static-leaf/full-window search. See the [search guide](docs/search.md) for safety limits, protocol options, and measured comparisons.
-
-**Aspiration windows, null-move pruning, and LMR default to on.** Aspiration retries narrow root windows until an exact pass completes. Conservative NMP and LMR reduce work selectively and can change fixed-depth scores versus Minimax. Minimax ignores all three. UCI and CLI provide independent debug switches; the gameplay layout stays unchanged:
-
-```powershell
-.\launch.bat --mode engine --no-aspiration-windows
+.\launch.bat --mode engine --search-mode depth --depth 3
+.\launch.bat --mode engine --no-pst --no-advanced-evaluation
 .\launch.bat --mode engine --no-null-move-pruning --no-lmr
-.\launch.bat --mode engine --search-mode depth --depth 5 --no-aspiration-windows --no-null-move-pruning --no-lmr
 ```
 
-**Engine audit and measured performance:** release 0.11 removes recursive PV/sort allocations, adds a fully keyed pawn cache, and avoids unnecessary legal lists at leaves/Q nodes. `PawnCache` and `FastMovegen` are independent UCI debug switches; evaluation weights and selective-search settings are unchanged. Promoted same-color bishop draws and large imported halfmove counters are corrected. See the [audit](docs/engine-audit.md) and [performance report](docs/performance-report.md) for checks, frozen measurements, and original-versus-optimized matches.
+## Evaluator configurations and UCI
 
-See the [optimization guide](docs/search-optimizations.md) for eligibility guards, PVS/TT interactions, staged validation, measured performance, and color-balanced smoke games. For exhaustive alpha-beta/Minimax comparisons and earlier benchmark counts, disable all three advanced switches. Longer completed depth and fewer nodes do not establish playing strength.
-
-![Search lab comparing Minimax and PVS](docs/search-lab.png)
-
-### Linux
-
-```bash
-python3 -m venv .venv
-.venv/bin/python -m pip install -r requirements.txt
-.venv/bin/python tools/build_engine.py
-.venv/bin/python -m app.main
-```
-
-The build needs recent C++17 GCC/Clang, or install `engine/requirements-build.txt` for the pinned compiler. Set `CXX` to override compiler selection. Linux desktop/build behavior is unverified. A graphical session is required for normal play.
-
-## Controls
-
-| Action | Mouse | Keyboard |
+| Configuration | GUI executable | Required evaluator options |
 | --- | --- | --- |
-| Move | Click your piece, then a legal destination | — |
-| Change selection | Click another friendly piece | — |
-| Deselect/cancel dialog | Click outside the board / dialog's Cancel | Escape |
-| New game | New game | N |
-| Undo one move | Undo move | U |
-| Reverse orientation | Flip board | F |
-| Claim an eligible draw | Claim draw | D |
-| Choose promotion | Click Queen, Rook, Bishop, or Knight | Q, R, B, N in the promotion dialog |
-| Scroll move history | Mouse wheel over the history | — |
-| Choose opponent, color, algorithm, depth | Opponent button at top right | G |
-| View statistics / compare algorithms | Search lab | E |
+| Classical (default) | `bin/StockBear-Classical.exe` | `Evaluator=classical` |
+| NNUE Hiddenclip | `bin/StockBear-NNUE.exe` | `Evaluator=nnue`, `NNUEKernel=clip`, `NNUEIncremental=true` |
 
-White starts at the bottom in local play; engine games initially face your color. New Game resets the position/history and keeps opponent settings. Local Undo removes one half-move. Engine Undo cancels pending work and returns to your previous decision, removing the reply and your last move when needed. The engine's opening move alone cannot be undone. Withdrawing a human draw claim leaves the board unchanged; undoing an engine claim also returns to your decision.
+Both are unchanged tournament binaries. Both initially report `Evaluator=classical` through UCI; the executable name identifies the implementation, and the GUI explicitly sends the selected options. NNUE weights are embedded, not dynamically loaded from an arbitrary export. `release/evaluators.json` records portable paths, exact hashes and frozen tournament options. The classical process makes zero NNUE evaluations. NNUE does not use classical PST/category switches.
 
-## Implemented features
-
-- Resizable dark slate interface, ivory/walnut board, rank/file labels, and licensed local chess-piece artwork.
-- Piece selection, legal destination dots, capture rings, previous-move highlights, and a checked-king indicator.
-- Legal standard chess moves, captures, both castling sides, en passant, and all four promotion choices.
-- Current turn, captured pieces grouped by capturing player, scrolling SAN move history, and clear results identifying the winner or draw reason.
-- Checkmate, stalemate, insufficient material, automatic fivefold repetition, and the seventy-five-move rule.
-- Explicit threefold repetition and fifty-move claims. The claim dialog lists eligible current-position claims or intended moves; scroll for additional choices. An intended-move claim declares the move without playing it.
-- Reversible game endings, Undo, restart, manual board flipping, and keyboard shortcuts.
-- Human vs Engine as either color, selectable Minimax/alpha-beta, five thinking-time presets, and optional fixed-depth search.
-- Switchable iterative deepening retains completed answers under shared time/node limits. The fixed-depth baseline remains available.
-- Switchable PV, promotion, and MVV-LVA capture ordering, including en passant and capture promotions; the original move-order baseline remains available.
-- Switchable material + PST evaluation for all six piece types, with separate middlegame/endgame king tables and smooth phase interpolation.
-- Switchable, bounded transposition tables with Zobrist keys, draw-context guards, exact/lower/upper bounds, normalized mate scores, and complete cached PVs.
-- Switchable quiescence with check evasions, capture/promotion continuation, shared budgets, and bounded extensions.
-- Switchable PVS with full re-searches; exhaustive Minimax remains the comparison reference.
-- Switchable aspiration windows, guarded null-move pruning, and conservative LMR with full-depth verification of promising reduced moves.
-- Search lab compares depth, nodes, time, score, and move on one unchanged position, with live completed-pass history and clear target-depth status.
-- Background UCI work, cancellation, stale-result rejection, and engine error reporting.
-
-## Architecture
+For a UCI host, choose the appropriate executable and configure its options. For example, after starting `bin/StockBear-NNUE.exe`, send:
 
 ```text
-app/
-  main.py             CLI, startup errors, and shutdown
-  application.py      Pygame event loop and layout
-  game.py             Validated moves, history, captures, outcomes, draw claims
-  input_handler.py    Selection and pending promotion
-  engine_client.py    Background UCI jobs, cancellation, and statistics
-  board_renderer.py   Orientation mapping, board drawing, cached piece images
-  ui/                 Shared style, sidebar, promotion and claim dialogs
-  assets/             PNG pieces, original SVGs, and license/attribution
-tests/                Rules, interaction, event-loop, and rendering tests
-tools/prepare_assets.py  Development-only artwork conversion
-engine/src/           C++ UCI protocol, shared search, evaluation, and PST arrays
-engine/vendor/        Rules library and PST attribution/licenses
-tools/build_engine.py C++17 build helper
-tools/benchmark_evaluation.py  Matched PST/material measurements and smoke games
-tools/benchmark_transpositions.py  Matched cached/uncached measurements
-tools/benchmark_search.py  Four-way quiescence/PVS measurements
-tools/benchmark_time.py  Historical time-control baseline
-tools/benchmark_optimizations.py  Four stages at depth and all five time budgets
-tools/match_optimizations.py  Color-balanced baseline/advanced smoke games
+uci
+setoption name Evaluator value nnue
+setoption name NNUEKernel value clip
+setoption name NNUEIncremental value true
+setoption name Hash value 16
+isready
+ucinewgame
+position startpos moves e2e4 e7e5
+go movetime 500
 ```
 
-`Game` has no Pygame dependency. It validates a move before changing the board and records SAN and the actual captured piece before pushing. This also handles en passant and captures of promoted pieces correctly. Undo uses the original board stack, preserving castling, en passant, and repetition history.
+Use `stop` to cancel, `quit` to exit, `go depth 5` for fixed depth or `go nodes 20000` for a bounded correctness check. `eval` emits a JSON breakdown. UCI exposes search switches, hash size and individual classical categories. The engine has one search worker and no parallel search implementation. Do not enable pondering in external match configurations unless intentionally testing it.
 
-`InputHandler` keeps temporary selection and promotion separate from committed moves. Rendering reads the game state. Board coordinates and hit testing share one orientation transform. Expensive draw eligibility checks are cached after state changes; fonts and piece images are cached, and the event loop runs at up to 60 FPS.
+The old king-relative `nnue_v3` UCI/CLI route remains for backwards compatibility, with its selected export under `engine/networks/v3/`. It is not a third final GUI choice or the final NNUE. Other historical models are retained locally for review, not silently substituted.
 
-The engine independently represents positions and generates moves with a pinned C++ rules library. A shared Minimax function uses the selected classical or advanced evaluator, optionally orders legal moves, and optionally applies alpha-beta cutoffs. Iterative deepening saves complete passes and supplies the next pass's PV hints. A Python worker streams UCI progress from full-history snapshots; only final replies can apply a move on the GUI thread, after request/revision checks.
+## Architecture and project structure
 
-## Tests and verification
+```mermaid
+flowchart LR
+    UI[Python / Pygame] -->|UCI subprocess; full history| Protocol[C++ UCI]
+    Protocol --> Search[Negamax / alpha-beta / PVS]
+    Search --> Rules[Pinned chess-library rules]
+    Search --> Classical[Classical evaluation]
+    Search --> NNUE[Incremental float32 NNUE / Hiddenclip]
+    Rules --> Search
+```
+
+Python-chess is authoritative for the GUI; the pinned MIT C++ rules library handles native move generation. The application validates engine moves, ties replies to board revisions and mutates the game only on a final matching result. Search algorithms share limits, ordering and evaluation interfaces. Classical evaluation is unchanged by consolidation; only the already validated NNUE head and UCI `clip` selector were brought into the maintained source tree.
+
+```text
+app/                       Desktop state, renderer, input and UI
+  assets/                  Original SVGs, PNG pieces and required licenses
+bin/                       Two exact frozen Windows UCI executables
+engine/
+  src/                     UCI, search, evaluation and NNUE source
+  tests/                   Native TT, restoration and v3 correctness tests
+  vendor/                  Pinned rules/PST dependencies and licenses
+  networks/v3/             Selected legacy export for compatibility
+models/nnue/               Final checkpoint, export, goldens and provenance
+StockBear_NNUE_training/
+  stockbear/               Feature encoding, labeling, training and export code
+  configs/                 Original optional pipeline configurations
+  tests/                   Data, feature, export and resume tests
+  data/                    Local raw/labeled/prepared datasets; ignored, retained
+  preserved/               Local unique nonfinal models awaiting review; ignored
+release/                   Machine-readable identities, results and cleanup audit
+  gui-*.png                Small application screenshots
+tests/                     Active rules, search, protocol and GUI regression tests
+tools/                     Build, asset preparation and bounded verification tools
+README.md                  Single maintained documentation entry point
+```
+
+`AGENTS.md`, dependency specifications, third-party notices and license/attribution files remain separate because they govern contributions or licensing. Machine-readable release receipts are evidence, not separate prose guides.
+
+## Final NNUE and data provenance
+
+The final network has **780 features → dual 64-wide accumulators → 32 hidden → 1 output**, 54,209 parameters. Features encode relative-color piece/square occupancy, four castling-right indicators and legal en-passant files. Black ranks are mirrored; side-to-move orders the two perspectives at the head. Accumulators remain unclipped in fixed White/Black storage; activation is `clip(x,0,1)`, output is centipawns scaled by 400. The export uses versioned little-endian float32 tensors with a checked payload hash and a zero padding embedding row.
+
+The PyTorch scaling experiment used the expanded corpus: **4,616,965 training**, **573,685 validation** and **578,136 sealed test** positions. The test split was not used for model selection or opened during this release. The selected checkpoint completed 53 epochs under a 60-epoch maximum, seed 20261016, AdamW learning rate 0.0015, weight decay 0.05 and batch size 2048. The recorded validation blended MSE is 0.01117389; it is a development-set metric, not a chess rating or an unbiased held-out estimate. Original configuration/history/runtime identity and dataset fingerprint are retained in `models/nnue/`.
+
+Stockfish labels defaulted to **16,384 nodes per position**, fresh teacher state and side-to-move scores. Mate labels use signed distance and ±2000 cp; ordinary centipawns remain unclipped in storage. The learning target is `0.9 * sigmoid(clip(cp,-2000,2000)/400) + 0.1 * side_to_move_result`. Game/family grouping, deterministic sampling and deduplication against previous corpora reduce leakage; conflicting occurrences are excluded from the derived corpus. Database manifests retain teacher version/options, source-game metadata and split identities.
+
+Inference uses compact move-derived incremental updates and ordered float32 dense arithmetic. Stage 1 pre-clipped inputs; Hiddenclip also vectorizes hidden clipping. No retraining, quantization, new weights, fast-math, reassociation or FMA contraction was introduced. AVX2 min/max operand order preserves the scalar clipping semantics, including signed zero and unordered values. The sequential output reduction is retained. A non-AVX2 machine uses the existing scalar fallback; no speed guarantee is claimed there.
+
+## Historical performance and playing results
+
+These measurements are historical; **consolidation ran no new benchmark or tournament**. Timing depends on this i5-13420H laptop, the last user-confirmed Quiet/Eco profile, background load and control. Reliable effective-frequency/temperature measurements were unavailable.
+
+| Inference study | Workload | Paired whole-search factor [95% interval] |
+| --- | --- | --- |
+| Stage 1 versus original head | 1M nodes | 1.502× [1.448, 1.579] |
+| Stage 1 versus original head | 500 ms | 1.541× [1.475, 1.596] |
+| Hiddenclip versus Stage 1, independent Stage 3.1 | 1M nodes | 1.0636× [1.0478, 1.0821] |
+| Hiddenclip versus Stage 1, independent Stage 3.1 | 1,000 ms | 1.0741× [1.0573, 1.0918] |
+
+Stage 3.1 passed numerical and fixed-work checks, but its formal decision remained **inconclusive** because 35.5% of environmental blocks were flagged against a frozen 25% allowance. Positive throughput estimates supported Tournament 1's separately predeclared practical tiebreak; they were not a universal performance guarantee or a strength result. Earlier accumulator/tiny-sort prototypes were not accepted, so their changes are not in this release. Earlier king-relative v3 validation did not establish an improvement over optimized v2; its exploratory 20-game result was 3 wins, 8 draws, 9 losses at 500 ms.
+
+| Tournament | Control / games | Challenger W/D/L | Challenger points / score | Elo-equivalent | Decision |
+| --- | --- | --- | --- | --- | --- |
+| Tournament 1: Hiddenclip vs Stage 1 | 500 ms / 80 | 32 / 20 / 28 | 42 / 52.50% | +17.4 | Inconclusive; Hiddenclip advanced via engineering tiebreak |
+| Grand Final: Hiddenclip vs Classical | 500 ms / 80 | 25 / 31 / 24 | 40.5 / 50.625% | +4.3 | Inconclusive; Classical selected under Rule C |
+
+Both tournaments used the same 40 frozen openings with reversed colors, 16 MiB hash, one thread, no pondering and verified CPU0 affinity. Results are **not pooled**: Tournament 1 compares inference implementations of one model; the Grand Final compares learned and handcrafted evaluators. The Grand Final's paired-opening NNUE score interval is **41.875–59.375%**, Elo-equivalent **−57.0 to +65.9**. The 40-pair, 50,000-resample bootstrap uses seed 2026101780; family sensitivity is 41.67–58.75%. These are conditional relative estimates, not absolute Elo ratings.
+
+Classical scored 24 wins, 31 draws, 25 losses: 39.5/80 (49.375%). Hiddenclip won the observed points tally; Classical is the **conservative selected configuration**, not a statistically proven stronger engine. The final audit validated 7,911 searches, all PGNs/PVs, 40 games per color per engine, unchanged identities and zero engine failures. Two minor wall-delay warnings stayed within the symmetric 700 ms hard ceiling for nominal 500 ms requests. There were no safeguard adjudications. A user-requested pause after game 67 resumed before any game-68 move; no completed game was replayed.
+
+Across whole games, median NPS was 1.908M classical / 1.756M NNUE and mean completed depth 8.221 / 7.934. Those are different reached positions, not a controlled inference-cost comparison. Identical opening roots gave NNUE/classical wall-NPS 1.0048 and depth difference +0.150; evaluator-dependent trees still prevent treating that as pure inference speed. The earlier 48-game, one-second scalar study favored classical and is historical context only.
+
+Compact JSON summaries, opening histories and build receipts remain in `release/`. Full historical PGNs/logs/runners/reports are recoverable from Git commit `05622ae` and tag `checkpoint/pre-consolidation-20261018`, rather than duplicated in the final working tree.
+
+## Building and correctness checks
+
+The frozen Windows executables run directly. To rebuild maintained source, install the pinned portable compiler; `CXX` can select another C++17 compiler. Strict floating-point flags matter.
 
 ```powershell
-.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
 .\build_engine.bat
+# Build output is separate from the frozen release binaries:
+.\launch.bat --mode engine --engine engine/build/chesslab-engine.exe --evaluator classical
+.\launch.bat --mode engine --engine engine/build/chesslab-engine.exe --evaluator nnue
+
+.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
 .\.venv\Scripts\python.exe -m pytest -q
-.\.venv\Scripts\python.exe -m pip check
-.\launch.bat --smoke-test 3 --screenshot chesslab.png
+.\.venv\Scripts\python.exe tools/verify_release.py
+
+# Fresh output location, then compare its behavior with the frozen release:
+.\.venv\Scripts\python.exe tools/build_engine.py --output artifacts/release-check/StockBear-rebuilt.exe
+.\.venv\Scripts\python.exe tools/verify_release.py --rebuilt artifacts/release-check/StockBear-rebuilt.exe
 ```
 
-Benchmark every preset on seven positions (three repeats), with results saved as JSON:
+The native build uses Zig 0.13.0 / Clang 18.1.6, C++17, `-O2 -pthread -Wall -Wextra -ffp-contract=off`, compact update strategy 2, no LTO/fast-math. The builder records compiler flags, source hashes and model identity beside its output. Frozen release binaries are **not overwritten** by normal builds. A rebuilt executable has its own hash and a renamed model display label; verified inference, classical components and fixed-node decisions must still match. On Linux use `.venv/bin/python tools/build_engine.py --output bin/StockBear-NNUE`, then launch with `--engine bin/StockBear-NNUE`; the bundled Windows EXEs are not Linux binaries. Linux was not desktop-tested in this release.
+
+Pytest exercises game rules/perft, exhaustive search equivalence where appropriate, TT/draw/mate contexts, selective search guards, timed cancellation, accumulator restoration, trained-model parity and GUI interactions. SDL dummy tests are automated display checks, distinct from a real desktop launch. The bounded release verifier also switches evaluators during a live worker, preserves the board, resets a game and checks shutdown without overlapping/orphaned workers. Native audit fixtures compile their small test target if missing. No long match is used as a cleanup test.
+
+## Maintaining the model and retained training tools
+
+The application needs only its embedded weights. Optional CPU-only model/export checks need the separate training dependencies:
 
 ```powershell
-.\.venv\Scripts\python.exe -m tools.benchmark_time --output artifacts\time-benchmark.json
+python -m venv StockBear_NNUE_training/.venv-cpu
+.\StockBear_NNUE_training\.venv-cpu\Scripts\python.exe -m pip install -r StockBear_NNUE_training/requirements-cpu.txt
+.\StockBear_NNUE_training\.venv-cpu\Scripts\python.exe tools/export_final_model.py --output artifacts/reexport.sbnnue
+.\StockBear_NNUE_training\.venv-cpu\Scripts\python.exe -m pytest StockBear_NNUE_training/tests -q
 ```
 
-**Verified on Windows: 929 automated tests pass.** Build the engine before running the full suite; native TT tests also use the compiler. Tests cover rules, special moves, outcomes, draw claims, undo/reset, and a seeded 180-half-move game rewound position by position.
+The final exporter reads only the trusted repository checkpoint and verifies the exact expected export hash; it never opens datasets or trains. Do not load untrusted PyTorch pickle checkpoints. `stockbear/features.py`, `model.py`, `scaling_train.py`, the original trainers and schema/split/labeling contracts remain available. `models/nnue/reproduction-config.json` points to the unchanged prepared dataset and a **new** run directory; the original training configuration is retained separately. Nothing in setup, build, launch or verification starts training.
 
-Engine checks include perft, legal moves cross-checked against python-chess, mate/score handling, Minimax/alpha-beta equivalence, UCI interruption, process errors, stale replies, and actual engine-to-GUI play/comparison. Ordering checks compare optimal moves and scores against an independent Python reference across both algorithms and deepening modes, including castling, promotions, en passant, and pinned pieces. They also verify the original node baseline, tactical node savings, per-search PV isolation, interrupted result retention, and GUI toggle behavior.
-
-Historical ordering/PST/TT measurements below use **advanced evaluation, quiescence, PVS, and all three advanced search optimizations off**; reproduction tools explicitly retain these conditions.
-
-With PST and transposition caching disabled, iterative alpha-beta visits 25,261 nodes at initial depth 5 with ordering, versus 38,388 without (34.2% fewer). At Kiwipete depth 4, it visits 9,754 versus 63,617 (84.7% fewer). Each pair has identical score and move. Counts include all completed passes; these are search-work measurements, not strength ratings.
-
-PST checks cover every piece, rank/color symmetry, all game phases and rounding, unchanged material values, search/diagnostic consistency, terminal scores, and GUI selection. In the recorded uncached depth-5 comparison, PST changes b3 to e4 (+70 cp) and visits 182,596 nodes; evaluation changes can increase the tree. Four paired smoke games score 2 wins, 1 draw, and 1 loss for PST. This small sample establishes no Elo gain. Full [benchmarks and reproduction instructions](docs/pst.md#verification-and-benchmarks) include moves, scores, nodes, time, NPS, FENs, and PGNs.
-
-With PST enabled at depth 5, transposition caching reduces initial nodes from 182,596 to 118,406 (35.2%) and Kiwipete from 87,554 to 62,262 (28.9%), preserving each move and score. Native tests exercise hashes, make/unmake, collisions, bounds, mate distances, and draw-context separation; integration checks cached moves through uncached exhaustive child searches. [Detailed results](docs/transposition-tables.md) include timing and limitations.
-
-Quiescence tests use an independent tactical oracle and cover recaptures, quiet check evasions, en passant, promotions, terminal precedence, caps, and shared interruption budgets. PVS is checked against full-window scores with both evaluations, cache settings, and deepening modes. In the [four-way benchmark](docs/search.md#measurements), PVS with quiescence reduces Kiwipete depth-4 nodes from 141,975 to 82,297 (42.0%), with the same move and +45 cp score. Quiescence changes the leaf model and can increase work substantially; PVS gains vary by position.
-
-Headless Pygame tests exercise mouse/keyboard events, modal dialogs, scrolling, resize, both orientations, artwork dimensions, missing-asset errors, and event-loop shutdown. Tests set SDL's dummy video driver so they do not open desktop windows. Screenshots of the initial board, promotion, checkmate, and draw dialog were visually inspected.
-
-Advanced-search tests cover exact aspiration scores/retries, null board/hash/history restoration, zugzwang/check/mate guards, LMR tactical exclusions and verifications, deterministic feature combinations, selective interruption, and UCI stop/quit.
-
-Time-control checks cover all presets, legal fallback/terminal replies, depths above 5, matching completed snapshots, exact-once stop/quit replies, nested move restoration, and in-flight settings changes without resetting the board. [Recorded timing results](docs/time-control.md#measurements) include 105 runs over opening, middlegame, tactical, endgame, mate, and stalemate positions.
-
-Windows setup/build, launch smoke testing, and dependency checks passed. Native checks cover real engine play, setup selection, and Search lab comparisons with quiescence/PVS on and off on the unchanged board. All modal controls and five-pass statistics were rendered and inspected at normal and minimum sizes. Earlier native checks also cover Undo and iterative/direct toggling.
-
-Read [AGENTS.md](AGENTS.md) for contributor instructions.
-
-## Assets and dependencies
-
-The Cburnett chess pieces and PNG conversions use CC BY-SA 3.0. All twelve individual source pages were checked for that license offer. See [asset attribution](app/assets/ATTRIBUTION.md) and the bundled full license. Runtime loads only the checked-in PNGs.
-
-Rebuild the PNGs from local SVGs, without downloads:
+The standalone labeling/merge pipeline is retained for future work. It supports PGN/zstd, deterministic sampling, pre-label deduplication, transactional SQLite checkpoints, measured progress/ETA and bounded worker counts. Completed data remains under `StockBear_NNUE_training/data/`; the application does not access it. Do not copy an active SQLite database without its WAL. Start a new output directory for new inputs/settings; saved fingerprints reject incompatible resume code or teacher options.
 
 ```powershell
-.\.venv\Scripts\python.exe tools\prepare_assets.py --offline
+# Read an existing completed run without starting Stockfish:
+.\start_labeling.ps1 -Mode status -OutputDirectory .\StockBear_NNUE_training\data\labeling\cc-events-v1
+# Future manual labeling only: resume the same output/settings, capped at 8 one-thread workers.
+.\start_labeling.ps1 -Resume -ExecutionWorkers 8 -OutputDirectory .\StockBear_NNUE_training\data\labeling\cc-events-v1
 ```
 
-Running that tool without `--offline` checks the source licenses online and downloads missing originals. Third-party library notices are in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+No labeling, training, tournaments or tuning were run during consolidation. Existing data and local environments stay ignored. Unique nonfinal checkpoints/exports were deduplicated into a local review archive with a hash/path mapping in `release/retained-models.json`; deleting that archive still requires a deliberate decision. Prepared arrays and labeled databases are retained even where regeneration is possible, avoiding accidental loss of expensive labels.
 
-## Current limitations
+## Reproducibility and final identities
 
-- NMP/LMR, futility pruning and bounded check extensions are selective heuristics and can miss quiet resources or unusual zugzwangs despite conservative guards. Gains depend on the position; no reliable Elo gain is established.
-- Advanced evaluation adds handcrafted positional terms with baseline weights; a fitted calibration candidate is available for experiments. Mobility uses attack maps rather than full tactical legality, and material scaling is heuristic. Quiet checking moves and SEE/delta pruning remain deferred; benchmark results do not establish an Elo gain.
-- Quiescence stops at non-check nodes after 16 extra plies or absolute ply 64; check evasions continue to the absolute ceiling, where an unresolved check interrupts the pass. These safety limits are heuristic boundaries. Stand-pat evaluation can miss zugzwang.
-- Transposition tables are fresh per search and use conservative draw-history matching. Allocation can make tiny searches slower despite node savings; no cross-search cache is retained.
-- Timed gameplay uses 100–5000 ms with a 64-ply safety ceiling. Fixed-depth GUI debugging retains depths 1–5 and a 15-second watchdog. No score is claimed before a completed pass; CPU load and communication can add timing overhead.
-- The engine claims eligible draws on its turn, even when a win might exist. Search assumes currently claimable repetition/fifty-move draws are taken.
-- No clocks, save/load, PGN export, or drag movement.
-- Games are held in memory and are discarded when the application closes.
-- The minimum supported layout is 960 × 680; text uses an available system font.
-- Dead-position adjudication follows python-chess's insufficient-material detection. Unusual blocked positions that are dead for other reasons are not exhaustively detected.
-- Linux desktop behavior and other Python versions have not been verified.
+| Preserved asset | SHA-256 |
+| --- | --- |
+| `bin/StockBear-Classical.exe` | `ffd785d4e8eecacbf6822d98f4a7b6f43972ea89e20c45d0135227e745eab606` |
+| `bin/StockBear-NNUE.exe` | `68ced7162b20109b6ad9e705bbb4f43317c85d2cb5d10ff3ae45a02eb0bd571b` |
+| `models/nnue/best.pt` | `7d9ca27194e664f5f1d42fe8e4a5d4bac2f600a989405df9d91512555abb8264` |
+| `models/nnue/stockbear-hiddenclip.sbnnue` | `a08ce2c60280c8c6dffbbe2f653b6c481e8d5282be7bed203db8b72492b0a2d3` |
 
-## Roadmap
+The dataset fingerprint is `99dc8cbe82f7fe529cbe219297891431e4c4fe4f65e601ca4ee504313aca8bdb`. Final tests/cleanup counts and rebuilt identity are recorded in `release/manifest.json` and `release/cleanup.json`. The tag above preserves all Git-tracked historical findings; ignored caches are disposable, while irreplaceable datasets/unique weights are retained locally. Cleanup does not rewrite Git history or claim to shrink historical Git objects.
 
-1. **Implemented:** playable Python/Pygame local two-player application.
-2. **Implemented together (Phases 2–3):** independent C++ UCI engine, material evaluation, Minimax, switchable alpha-beta, Human vs Engine, and search comparisons.
-4. **Implemented:** iterative deepening, move ordering, switchable PST evaluation, transposition tables, quiescence, Principal Variation Search, configurable time-controlled gameplay, aspiration windows, null-move pruning, LMR, and modular advanced classical evaluation.
-5. **Implemented:** history/killer ordering, SEE, adaptive LMR, guarded futility pruning, bounded check extensions, bare-king conversion, and classical weight tuning with held-out validation. See the [strength upgrade](docs/strength-upgrade.md).
-6. **Implemented:** native experimental NNUE, classical/NNUE selection, golden and incremental validation, and paired evaluator matches. See [NNUE results](docs/nnue.md).
-   Native v2 inference optimization, both finalist networks and controlled comparisons
-   are documented in [NNUE v2 optimization results](NNUE_V2_OPTIMIZATION_RESULTS.md).
-   The complete 190-game study, equal-work reference checks, heuristic ablations
-   and accumulator findings are in [NNUE v2 search diagnosis](NNUE_V2_SEARCH_DIAGNOSIS.md).
-   Search-only accumulator bookkeeping, exact parity gates, repeated release
-   measurements and bounded 500ms validation are documented in the
-   [NNUE v2 throughput optimization report](NNUE_V2_THROUGHPUT_OPTIMIZATION.md).
-   Experimental king-relative v3 training, native verification and the 20-game
-   v3-versus-v2 match are documented in the
-   [NNUE v3 research report](NNUE_V3_KING_RELATIVE_REPORT.md). V3 remains optional;
-   the measured candidate trails optimized v2, and classical remains the default.
-   Additional PGNs can be labeled independently with the resumable
-   [standalone Stockfish pipeline](LABELING_README.md). Run `start_labeling.ps1`
-   manually to ingest `StockBear_NNUE_training/data/raw/new_data`; the full
-   labeling run is separate from engine use and NNUE training.
-7. **Implemented:** matched performance benchmarks and color-balanced engine smoke games; broader strength testing remains future work.
+## Development journey, limitations and final status
 
-Later phases require an explicit request. The engine performs its own search and evaluation without delegating them to another engine.
+StockBear progressed from a rules-correct desktop board through classical search, time management, transposition/move ordering and selective search, then Stockfish-labeled neural training, compact incremental inference, strict-float SIMD optimization and paired tournaments. The final phase consolidates those results without changing search algorithms or classical constants.
 
-## Engine details
+Absolute Elo is uncalibrated. The NNUE has not demonstrated a statistically convincing strength advantage over classical; 80 games cannot resolve small differences. Results depend on opponent, openings, hardware and time control. Further feature engineering/training or broader independent strength validation could be useful in a separately authorized project; they are not part of this release. Temperature/effective-frequency uncertainty limits causal interpretation of speed measurements.
 
-See [engine/README.md](engine/README.md) for evaluation values, shared search behavior, UCI commands, build options, node definitions, cancellation, rules-library attribution, and standalone diagnostics.
+**StockBear is a completed personal chess-engine project with two working final evaluator configurations. Classical remains the default.** Its source, final model and small correctness/reproduction assets are maintained here; obsolete experimental workspaces and generated tournament clutter are removed. Large data/unique historical models remain deliberately protected for review, with exact retained sizes in the cleanup receipt. No new experiment is scheduled.
+
+Third-party dependencies and artwork retain their own licenses: see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md), [piece attribution](app/assets/ATTRIBUTION.md) and the unmodified notices under `engine/vendor/`. No license for third-party code or assets is reassigned by this README.
