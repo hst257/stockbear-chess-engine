@@ -1,0 +1,23 @@
+{
+  "cleanup": false,
+  "completed_utc": "2026-10-18T04:41:54.845599+00:00",
+  "final_audit_passed": true,
+  "labeling": false,
+  "no_extra_games": true,
+  "official_games": 80,
+  "original67_preserved": true,
+  "output_sha256": {
+    "STOCKBEAR_FINAL_CHAMPION.json": "f74835933429f301e0badfb670697ce8f2a4bb7e5686f657c8c4d4c7f9f2fd6a",
+    "STOCKBEAR_GRAND_FINAL_REPORT.md": "663eaf3254f2d876814c100aff32434be134852b87c1e9bd67f1e1272ac798f2",
+    "analysis.json": "c9241a1b6c13d1f64e51fbe10f744c97230cb234afcd1ac99135ce67b8715d37",
+    "final-audit.json": "a80a2e15902b562fbbc1218b3e63c1659921e8fc4043cdea8287eed128d7eecd",
+    "games.csv": "1277945871c21b5024e0c60f5346fe345db64cf9ed6fb2586ed311bbacbe8327",
+    "games.pgn": "a5f4a13c5cdba435bd6b87d04476b5adedb71d12d7b84881f775abb37e31394f",
+    "moves.csv": "fa7c641e6aa595266222bdd07ba54fb048e553f7e72aafc07afbbe63e777a46d",
+    "resume-audit.json": "05d5883e61fe11ac1cf4614d46168390573df741427857bfbdca2d8a9f153c83"
+  },
+  "production_promoted": false,
+  "remaining_games": 0,
+  "selected_engine": "CLASSICAL",
+  "training": false
+}

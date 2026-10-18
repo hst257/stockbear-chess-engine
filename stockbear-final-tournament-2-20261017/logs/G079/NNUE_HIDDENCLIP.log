@@ -1,0 +1,1098 @@
+# session 2026-10-18T04:39:13.013722+00:00
+2026-10-18T04:39:13.022724+00:00 > uci
+2026-10-18T04:39:13.054754+00:00 < id name ChessLab 0.13
+2026-10-18T04:39:13.054754+00:00 < id author ChessLab contributors
+2026-10-18T04:39:13.054754+00:00 < option name AlphaBeta type check default true
+2026-10-18T04:39:13.054754+00:00 < option name IterativeDeepening type check default true
+2026-10-18T04:39:13.055754+00:00 < option name MoveOrdering type check default true
+2026-10-18T04:39:13.055754+00:00 < option name UsePST type check default true
+2026-10-18T04:39:13.055754+00:00 < option name PawnCache type check default true
+2026-10-18T04:39:13.055754+00:00 < option name FastMovegen type check default true
+2026-10-18T04:39:13.055754+00:00 < option name UseAdvancedEvaluation type check default true
+2026-10-18T04:39:13.055754+00:00 < option name Evaluator type combo default classical var classical var nnue var nnue_v3
+2026-10-18T04:39:13.055754+00:00 < option name NNUEV3File type string default engine/networks/v3/stockbear-v3-selected.sbnnue
+2026-10-18T04:39:13.055754+00:00 < option name NNUEIncremental type check default true
+2026-10-18T04:39:13.055754+00:00 < option name NNUEKernel type combo default auto var auto var reference var scalar var quant var clip
+2026-10-18T04:39:13.055754+00:00 < option name EvalPawns type check default true
+2026-10-18T04:39:13.055754+00:00 < option name EvalPassers type check default true
+2026-10-18T04:39:13.055754+00:00 < option name EvalBishopPair type check default true
+2026-10-18T04:39:13.056807+00:00 < option name EvalRooks type check default true
+2026-10-18T04:39:13.056807+00:00 < option name EvalMobility type check default true
+2026-10-18T04:39:13.056807+00:00 < option name EvalOutposts type check default true
+2026-10-18T04:39:13.056807+00:00 < option name EvalKingSafety type check default true
+2026-10-18T04:39:13.056807+00:00 < option name EvalSpace type check default true
+2026-10-18T04:39:13.056807+00:00 < option name EvalEndgame type check default true
+2026-10-18T04:39:13.056807+00:00 < option name TranspositionTable type check default true
+2026-10-18T04:39:13.056807+00:00 < option name Quiescence type check default true
+2026-10-18T04:39:13.056807+00:00 < option name PVS type check default true
+2026-10-18T04:39:13.056807+00:00 < option name UseAspirationWindows type check default true
+2026-10-18T04:39:13.056807+00:00 < option name AspirationDelta type spin default 25 min 1 max 500
+2026-10-18T04:39:13.056807+00:00 < option name UseNullMovePruning type check default true
+2026-10-18T04:39:13.056807+00:00 < option name UseLMR type check default true
+2026-10-18T04:39:13.056807+00:00 < option name LMRReduction type spin default 1 min 1 max 3
+2026-10-18T04:39:13.056807+00:00 < option name Hash type spin default 16 min 1 max 256
+2026-10-18T04:39:13.056807+00:00 < option name Depth type spin default 3 min 1 max 8
+2026-10-18T04:39:13.056807+00:00 < option name UseHistory type check default true
+2026-10-18T04:39:13.056807+00:00 < option name UseKillers type check default true
+2026-10-18T04:39:13.056807+00:00 < option name UseSEE type check default true
+2026-10-18T04:39:13.057801+00:00 < option name UseAdaptiveLMR type check default true
+2026-10-18T04:39:13.057801+00:00 < option name UseReverseFutility type check default true
+2026-10-18T04:39:13.057801+00:00 < option name UseFutility type check default true
+2026-10-18T04:39:13.057801+00:00 < option name UseCheckExtensions type check default true
+2026-10-18T04:39:13.057801+00:00 < option name UseMopUp type check default true
+2026-10-18T04:39:13.057801+00:00 < option name WeightPawnsMG type spin default 100 min 0 max 200
+2026-10-18T04:39:13.057801+00:00 < option name WeightPawnsEG type spin default 100 min 0 max 200
+2026-10-18T04:39:13.057801+00:00 < option name WeightPassersMG type spin default 100 min 0 max 200
+2026-10-18T04:39:13.057801+00:00 < option name WeightPassersEG type spin default 100 min 0 max 200
+2026-10-18T04:39:13.057801+00:00 < option name WeightBishopPairMG type spin default 100 min 0 max 200
+2026-10-18T04:39:13.057801+00:00 < option name WeightBishopPairEG type spin default 100 min 0 max 200
+2026-10-18T04:39:13.058755+00:00 < option name WeightRooksMG type spin default 100 min 0 max 200
+2026-10-18T04:39:13.058755+00:00 < option name WeightRooksEG type spin default 100 min 0 max 200
+2026-10-18T04:39:13.058755+00:00 < option name WeightMobilityMG type spin default 100 min 0 max 200
+2026-10-18T04:39:13.058755+00:00 < option name WeightMobilityEG type spin default 100 min 0 max 200
+2026-10-18T04:39:13.058755+00:00 < option name WeightOutpostsMG type spin default 100 min 0 max 200
+2026-10-18T04:39:13.058755+00:00 < option name WeightOutpostsEG type spin default 100 min 0 max 200
+2026-10-18T04:39:13.058755+00:00 < option name WeightKingSafetyMG type spin default 100 min 0 max 200
+2026-10-18T04:39:13.058755+00:00 < option name WeightKingSafetyEG type spin default 100 min 0 max 200
+2026-10-18T04:39:13.058755+00:00 < option name WeightSpaceMG type spin default 100 min 0 max 200
+2026-10-18T04:39:13.058755+00:00 < option name WeightSpaceEG type spin default 100 min 0 max 200
+2026-10-18T04:39:13.058755+00:00 < option name WeightEndgameMG type spin default 100 min 0 max 200
+2026-10-18T04:39:13.058755+00:00 < option name WeightEndgameEG type spin default 100 min 0 max 200
+2026-10-18T04:39:13.058755+00:00 < uciok
+2026-10-18T04:39:13.059754+00:00 > setoption name Evaluator value nnue
+2026-10-18T04:39:13.059754+00:00 > setoption name NNUEKernel value clip
+2026-10-18T04:39:13.059754+00:00 > isready
+2026-10-18T04:39:13.059754+00:00 < readyok
+2026-10-18T04:39:13.060753+00:00 > position startpos
+2026-10-18T04:39:13.060753+00:00 > eval
+2026-10-18T04:39:13.060753+00:00 > isready
+2026-10-18T04:39:13.060753+00:00 < info string eval {"evaluator":"nnue","model":"medium.sbnnue","sha256":"a08ce2c60280c8c6dffbbe2f653b6c481e8d5282be7bed203db8b72492b0a2d3","width":64,"hidden":32,"kernel":"clip","side_to_move_cp":12.9102793,"raw_white_cp":12.9102793,"total":13,"features":[[8,9,10,11,12,13,14,15,65,70,130,133,192,199,259,324,432,433,434,435,436,437,438,439,505,510,570,573,632,639,699,764,768,769,770,771],[8,9,10,11,12,13,14,15,65,70,130,133,192,199,259,324,432,433,434,435,436,437,438,439,505,510,570,573,632,639,699,764,768,769,770,771]]}
+2026-10-18T04:39:13.060753+00:00 < readyok
+2026-10-18T04:39:13.118281+00:00 > ucinewgame
+2026-10-18T04:39:13.118281+00:00 > isready
+2026-10-18T04:39:13.118281+00:00 < readyok
+2026-10-18T04:39:13.118281+00:00 > position startpos moves c2c4 e7e5 b1c3 g8f6 g2g3 d7d5 c4d5 f6d5 f1g2 d5b6
+2026-10-18T04:39:13.119303+00:00 > go movetime 500
+2026-10-18T04:39:13.122288+00:00 < info string tt probes 1 hits 0 cutoffs 0
+2026-10-18T04:39:13.123282+00:00 < info string search qnodes 72 scouts 31 researches 4 qcaps 0 plylimit 0
+2026-10-18T04:39:13.123282+00:00 < info string optim aspiration_attempts 0 aspiration_searches 0 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 0 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 49 reverse_futility_cutoffs 0 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:13.123282+00:00 < info string metrics eval_calls 64 beta_cutoffs 52 pawn_probes 0 pawn_hits 0 nnue_evaluations 64
+2026-10-18T04:39:13.123282+00:00 < info depth 1 seldepth 4 nodes 73 time 1 nps 73000 hashfull 0 score cp 31 pv g1f3
+2026-10-18T04:39:13.124282+00:00 < info string tt probes 40 hits 5 cutoffs 0
+2026-10-18T04:39:13.124282+00:00 < info string search qnodes 491 scouts 182 researches 6 qcaps 0 plylimit 0
+2026-10-18T04:39:13.124282+00:00 < info string optim aspiration_attempts 1 aspiration_searches 3 aspiration_fail_high 2 aspiration_fail_low 0 aspiration_retries 2 aspiration_successes 1 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 19 killer_cutoffs 15 see_calls 451 reverse_futility_cutoffs 3 futility_prunes 27 check_extensions 2
+2026-10-18T04:39:13.124282+00:00 < info string metrics eval_calls 461 beta_cutoffs 367 pawn_probes 0 pawn_hits 0 nnue_evaluations 461
+2026-10-18T04:39:13.124282+00:00 < info depth 2 seldepth 8 nodes 531 time 3 nps 177000 hashfull 0 score cp 87 pv g1f3 b8c6 f3e5
+2026-10-18T04:39:13.125282+00:00 < info string tt probes 208 hits 39 cutoffs 0
+2026-10-18T04:39:13.125282+00:00 < info string search qnodes 1974 scouts 343 researches 8 qcaps 0 plylimit 0
+2026-10-18T04:39:13.125282+00:00 < info string optim aspiration_attempts 2 aspiration_searches 4 aspiration_fail_high 2 aspiration_fail_low 0 aspiration_retries 2 aspiration_successes 2 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 44 killer_cutoffs 35 see_calls 1126 reverse_futility_cutoffs 58 futility_prunes 90 check_extensions 6
+2026-10-18T04:39:13.126282+00:00 < info string metrics eval_calls 2004 beta_cutoffs 1760 pawn_probes 0 pawn_hits 0 nnue_evaluations 2004
+2026-10-18T04:39:13.126282+00:00 < info depth 3 seldepth 8 nodes 2182 time 4 nps 545500 hashfull 1 score cp 70 pv g1f3 d8e7 e1g1
+2026-10-18T04:39:13.127282+00:00 < info string tt probes 563 hits 120 cutoffs 0
+2026-10-18T04:39:13.127282+00:00 < info string search qnodes 3827 scouts 479 researches 9 qcaps 0 plylimit 0
+2026-10-18T04:39:13.127282+00:00 < info string optim aspiration_attempts 3 aspiration_searches 5 aspiration_fail_high 2 aspiration_fail_low 0 aspiration_retries 2 aspiration_successes 3 null_attempts 29 null_cutoffs 26 lmr_attempts 45 lmr_searches 45 lmr_researches 0 lmr_verifications 0 history_updates 88 killer_cutoffs 73 see_calls 2091 reverse_futility_cutoffs 209 futility_prunes 343 check_extensions 19
+2026-10-18T04:39:13.127282+00:00 < info string metrics eval_calls 4145 beta_cutoffs 3529 pawn_probes 0 pawn_hits 0 nnue_evaluations 4145
+2026-10-18T04:39:13.127282+00:00 < info depth 4 seldepth 12 nodes 4390 time 6 nps 731666 hashfull 3 score cp 88 pv g1f3 d8e7 e1g1 b8c6
+2026-10-18T04:39:13.133283+00:00 < info string tt probes 3308 hits 608 cutoffs 183
+2026-10-18T04:39:13.133283+00:00 < info string search qnodes 12131 scouts 947 researches 15 qcaps 0 plylimit 0
+2026-10-18T04:39:13.133283+00:00 < info string optim aspiration_attempts 4 aspiration_searches 7 aspiration_fail_high 2 aspiration_fail_low 1 aspiration_retries 3 aspiration_successes 4 null_attempts 125 null_cutoffs 81 lmr_attempts 385 lmr_searches 385 lmr_researches 0 lmr_verifications 0 history_updates 225 killer_cutoffs 197 see_calls 9832 reverse_futility_cutoffs 2001 futility_prunes 1245 check_extensions 68
+2026-10-18T04:39:13.133283+00:00 < info string metrics eval_calls 14476 beta_cutoffs 11425 pawn_probes 0 pawn_hits 0 nnue_evaluations 14476
+2026-10-18T04:39:13.133283+00:00 < info depth 5 seldepth 13 nodes 15497 time 12 nps 1291416 hashfull 10 score cp 62 pv g1f3 b8c6 e1g1 d8f6 d2d4 e5d4
+2026-10-18T04:39:13.148383+00:00 < info string tt probes 8705 hits 1164 cutoffs 386
+2026-10-18T04:39:13.148383+00:00 < info string search qnodes 33656 scouts 1287 researches 18 qcaps 0 plylimit 0
+2026-10-18T04:39:13.148383+00:00 < info string optim aspiration_attempts 5 aspiration_searches 8 aspiration_fail_high 2 aspiration_fail_low 1 aspiration_retries 3 aspiration_successes 5 null_attempts 287 null_cutoffs 155 lmr_attempts 2333 lmr_searches 2333 lmr_researches 4 lmr_verifications 4 history_updates 981 killer_cutoffs 887 see_calls 32988 reverse_futility_cutoffs 5136 futility_prunes 3201 check_extensions 192
+2026-10-18T04:39:13.148383+00:00 < info string metrics eval_calls 39169 beta_cutoffs 30438 pawn_probes 0 pawn_hits 0 nnue_evaluations 39169
+2026-10-18T04:39:13.148383+00:00 < info depth 6 seldepth 15 nodes 43077 time 27 nps 1595444 hashfull 35 score cp 74 pv g1f3 b8c6 e1g1 d8f6 d2d3 c8e6
+2026-10-18T04:39:13.241812+00:00 < info string tt probes 28716 hits 4317 cutoffs 2131
+2026-10-18T04:39:13.241812+00:00 < info string search qnodes 154950 scouts 2197 researches 36 qcaps 0 plylimit 0
+2026-10-18T04:39:13.241812+00:00 < info string optim aspiration_attempts 6 aspiration_searches 10 aspiration_fail_high 2 aspiration_fail_low 2 aspiration_retries 4 aspiration_successes 6 null_attempts 937 null_cutoffs 490 lmr_attempts 8777 lmr_searches 8777 lmr_researches 29 lmr_verifications 29 history_updates 3823 killer_cutoffs 3321 see_calls 130729 reverse_futility_cutoffs 15423 futility_prunes 8301 check_extensions 566
+2026-10-18T04:39:13.241812+00:00 < info string metrics eval_calls 170111 beta_cutoffs 142292 pawn_probes 0 pawn_hits 0 nnue_evaluations 170111
+2026-10-18T04:39:13.241812+00:00 < info depth 7 seldepth 19 nodes 189484 time 120 nps 1579033 hashfull 124 score cp 44 pv g1f3 b8c6 e1g1 c8e6 h2h3 d8d4 f3d4
+2026-10-18T04:39:13.423357+00:00 < info string tt probes 58022 hits 9248 cutoffs 4547
+2026-10-18T04:39:13.423357+00:00 < info string search qnodes 435922 scouts 3884 researches 67 qcaps 0 plylimit 0
+2026-10-18T04:39:13.423357+00:00 < info string optim aspiration_attempts 7 aspiration_searches 12 aspiration_fail_high 3 aspiration_fail_low 2 aspiration_retries 5 aspiration_successes 7 null_attempts 2031 null_cutoffs 1082 lmr_attempts 21056 lmr_searches 21056 lmr_researches 54 lmr_verifications 54 history_updates 6367 killer_cutoffs 5499 see_calls 399033 reverse_futility_cutoffs 32971 futility_prunes 18241 check_extensions 1011
+2026-10-18T04:39:13.424356+00:00 < info string metrics eval_calls 456261 beta_cutoffs 395712 pawn_probes 0 pawn_hits 0 nnue_evaluations 456261
+2026-10-18T04:39:13.424356+00:00 < info depth 8 seldepth 20 nodes 529410 time 302 nps 1753013 hashfull 205 score cp 77 pv g1f3 b8c6 e1g1 f8e7 d2d4 e5d4 f3d4 e8g8 d4c6
+2026-10-18T04:39:13.621460+00:00 < info seldepth 20 nodes 1039616 time 500 nps 2079232 hashfull 256
+2026-10-18T04:39:13.621460+00:00 < info string incomplete alpha-beta iterative ordered material+pst cached qsearch pvs tt probes 77902 hits 13080 cutoffs 6210 search qnodes 890282 scouts 4506 researches 72 qcaps 0 plylimit 0 eval_calls 897849 beta_cutoffs 825667 pawn_probes 0 pawn_hits 0 nnue_evaluations 897849 optim aspiration_attempts 8 aspiration_searches 13 aspiration_fail_high 3 aspiration_fail_low 2 aspiration_retries 5 aspiration_successes 7 null_attempts 2744 null_cutoffs 1429 lmr_attempts 27551 lmr_searches 27551 lmr_researches 87 lmr_verifications 87 history_updates 7973 killer_cutoffs 6744 see_calls 653627 reverse_futility_cutoffs 44400 futility_prunes 23373 check_extensions 1282
+2026-10-18T04:39:13.621460+00:00 < bestmove g1f3
+2026-10-18T04:39:14.132678+00:00 > position startpos moves c2c4 e7e5 b1c3 g8f6 g2g3 d7d5 c4d5 f6d5 f1g2 d5b6 g1f3 b8c6
+2026-10-18T04:39:14.132678+00:00 > go movetime 500
+2026-10-18T04:39:14.134701+00:00 < info string tt probes 1 hits 0 cutoffs 0
+2026-10-18T04:39:14.134701+00:00 < info string search qnodes 47 scouts 30 researches 2 qcaps 0 plylimit 0
+2026-10-18T04:39:14.134701+00:00 < info string optim aspiration_attempts 0 aspiration_searches 0 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 0 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 20 reverse_futility_cutoffs 0 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:14.135677+00:00 < info string metrics eval_calls 44 beta_cutoffs 38 pawn_probes 0 pawn_hits 0 nnue_evaluations 44
+2026-10-18T04:39:14.135677+00:00 < info depth 1 seldepth 4 nodes 48 time 1 nps 48000 hashfull 0 score cp 87 pv f3e5
+2026-10-18T04:39:14.135677+00:00 < info string tt probes 33 hits 1 cutoffs 0
+2026-10-18T04:39:14.135677+00:00 < info string search qnodes 164 scouts 100 researches 2 qcaps 0 plylimit 0
+2026-10-18T04:39:14.135677+00:00 < info string optim aspiration_attempts 1 aspiration_searches 1 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 1 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 11 killer_cutoffs 10 see_calls 145 reverse_futility_cutoffs 14 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:14.135677+00:00 < info string metrics eval_calls 182 beta_cutoffs 135 pawn_probes 0 pawn_hits 0 nnue_evaluations 182
+2026-10-18T04:39:14.135677+00:00 < info depth 2 seldepth 8 nodes 197 time 2 nps 98500 hashfull 0 score cp 96 pv f3e5 c6e5
+2026-10-18T04:39:14.137714+00:00 < info string tt probes 227 hits 96 cutoffs 54
+2026-10-18T04:39:14.137714+00:00 < info string search qnodes 2381 scouts 321 researches 4 qcaps 0 plylimit 0
+2026-10-18T04:39:14.137714+00:00 < info string optim aspiration_attempts 2 aspiration_searches 3 aspiration_fail_high 0 aspiration_fail_low 1 aspiration_retries 1 aspiration_successes 2 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 64 killer_cutoffs 54 see_calls 892 reverse_futility_cutoffs 16 futility_prunes 48 check_extensions 0
+2026-10-18T04:39:14.137714+00:00 < info string metrics eval_calls 2471 beta_cutoffs 2267 pawn_probes 0 pawn_hits 0 nnue_evaluations 2471
+2026-10-18T04:39:14.137714+00:00 < info depth 3 seldepth 9 nodes 2608 time 4 nps 652000 hashfull 1 score cp 62 pv e1g1 f7f6 f3g5
+2026-10-18T04:39:14.140698+00:00 < info string tt probes 1005 hits 256 cutoffs 120
+2026-10-18T04:39:14.140698+00:00 < info string search qnodes 7596 scouts 612 researches 8 qcaps 0 plylimit 0
+2026-10-18T04:39:14.140698+00:00 < info string optim aspiration_attempts 3 aspiration_searches 4 aspiration_fail_high 0 aspiration_fail_low 1 aspiration_retries 1 aspiration_successes 3 null_attempts 29 null_cutoffs 19 lmr_attempts 1 lmr_searches 1 lmr_researches 1 lmr_verifications 1 history_updates 323 killer_cutoffs 281 see_calls 5214 reverse_futility_cutoffs 161 futility_prunes 136 check_extensions 5
+2026-10-18T04:39:14.140698+00:00 < info string metrics eval_calls 8033 beta_cutoffs 6841 pawn_probes 0 pawn_hits 0 nnue_evaluations 8033
+2026-10-18T04:39:14.140698+00:00 < info depth 4 seldepth 13 nodes 8601 time 7 nps 1228714 hashfull 8 score cp 74 pv e1g1 d8f6 d2d3 c8e6
+2026-10-18T04:39:14.150697+00:00 < info string tt probes 5139 hits 1260 cutoffs 658
+2026-10-18T04:39:14.150697+00:00 < info string search qnodes 27973 scouts 1286 researches 22 qcaps 0 plylimit 0
+2026-10-18T04:39:14.150697+00:00 < info string optim aspiration_attempts 4 aspiration_searches 6 aspiration_fail_high 0 aspiration_fail_low 2 aspiration_retries 2 aspiration_successes 4 null_attempts 137 null_cutoffs 51 lmr_attempts 924 lmr_searches 924 lmr_researches 7 lmr_verifications 7 history_updates 961 killer_cutoffs 787 see_calls 23351 reverse_futility_cutoffs 2056 futility_prunes 566 check_extensions 35
+2026-10-18T04:39:14.150697+00:00 < info string metrics eval_calls 31136 beta_cutoffs 25597 pawn_probes 0 pawn_hits 0 nnue_evaluations 31136
+2026-10-18T04:39:14.150697+00:00 < info depth 5 seldepth 17 nodes 33170 time 17 nps 1951176 hashfull 27 score cp 44 pv e1g1 c8e6 h2h3 d8d4 f3d4
+2026-10-18T04:39:14.185677+00:00 < info string tt probes 16695 hits 3772 cutoffs 1975
+2026-10-18T04:39:14.185677+00:00 < info string search qnodes 100906 scouts 3039 researches 55 qcaps 0 plylimit 0
+2026-10-18T04:39:14.185677+00:00 < info string optim aspiration_attempts 5 aspiration_searches 8 aspiration_fail_high 1 aspiration_fail_low 2 aspiration_retries 3 aspiration_successes 5 null_attempts 443 null_cutoffs 168 lmr_attempts 3903 lmr_searches 3903 lmr_researches 79 lmr_verifications 79 history_updates 3147 killer_cutoffs 2666 see_calls 85927 reverse_futility_cutoffs 6068 futility_prunes 3869 check_extensions 136
+2026-10-18T04:39:14.185677+00:00 < info string metrics eval_calls 110486 beta_cutoffs 91287 pawn_probes 0 pawn_hits 0 nnue_evaluations 110486
+2026-10-18T04:39:14.185677+00:00 < info depth 6 seldepth 18 nodes 118469 time 52 nps 2278250 hashfull 97 score cp 77 pv e1g1 f8e7 d2d4 e5d4 f3d4 e8g8 d4c6
+2026-10-18T04:39:14.237289+00:00 < info string tt probes 30382 hits 6206 cutoffs 3076
+2026-10-18T04:39:14.237289+00:00 < info string search qnodes 193146 scouts 3590 researches 62 qcaps 0 plylimit 0
+2026-10-18T04:39:14.238271+00:00 < info string optim aspiration_attempts 6 aspiration_searches 9 aspiration_fail_high 1 aspiration_fail_low 2 aspiration_retries 3 aspiration_successes 6 null_attempts 800 null_cutoffs 267 lmr_attempts 7671 lmr_searches 7671 lmr_researches 123 lmr_verifications 123 history_updates 4625 killer_cutoffs 3861 see_calls 154675 reverse_futility_cutoffs 12785 futility_prunes 6108 check_extensions 259
+2026-10-18T04:39:14.238271+00:00 < info string metrics eval_calls 211679 beta_cutoffs 179266 pawn_probes 0 pawn_hits 0 nnue_evaluations 211679
+2026-10-18T04:39:14.238271+00:00 < info depth 7 seldepth 18 nodes 226724 time 104 nps 2180038 hashfull 155 score cp 53 pv e1g1 c8e6 d2d4 e5d4 c1g5 h7h6 f3d4 d8g5 d4e6 f7e6
+2026-10-18T04:39:14.465239+00:00 < info string tt probes 57265 hits 9124 cutoffs 4412
+2026-10-18T04:39:14.465239+00:00 < info string search qnodes 530133 scouts 3879 researches 63 qcaps 7 plylimit 0
+2026-10-18T04:39:14.465239+00:00 < info string optim aspiration_attempts 7 aspiration_searches 10 aspiration_fail_high 1 aspiration_fail_low 2 aspiration_retries 3 aspiration_successes 7 null_attempts 1609 null_cutoffs 606 lmr_attempts 17160 lmr_searches 17160 lmr_researches 224 lmr_verifications 224 history_updates 6971 killer_cutoffs 5736 see_calls 509143 reverse_futility_cutoffs 27680 futility_prunes 13145 check_extensions 698
+2026-10-18T04:39:14.465239+00:00 < info string metrics eval_calls 547523 beta_cutoffs 476319 pawn_probes 0 pawn_hits 0 nnue_evaluations 547523
+2026-10-18T04:39:14.465239+00:00 < info depth 8 seldepth 24 nodes 621975 time 332 nps 1873418 hashfull 259 score cp 77 pv e1g1 f7f6 d2d4 c6d4 c1h6 d4f3 g2f3 g7g6 d1b3 f8h6
+2026-10-18T04:39:14.633383+00:00 < info seldepth 24 nodes 946432 time 500 nps 1892864 hashfull 471
+2026-10-18T04:39:14.633383+00:00 < info string incomplete alpha-beta iterative ordered material+pst cached qsearch pvs tt probes 117089 hits 13247 cutoffs 6672 search qnodes 791846 scouts 6160 researches 103 qcaps 7 plylimit 0 eval_calls 854929 beta_cutoffs 720745 pawn_probes 0 pawn_hits 0 nnue_evaluations 854929 optim aspiration_attempts 8 aspiration_searches 11 aspiration_fail_high 1 aspiration_fail_low 2 aspiration_retries 3 aspiration_successes 7 null_attempts 2954 null_cutoffs 874 lmr_attempts 29224 lmr_searches 29224 lmr_researches 355 lmr_verifications 355 history_updates 12279 killer_cutoffs 10193 see_calls 824685 reverse_futility_cutoffs 60512 futility_prunes 28182 check_extensions 1496
+2026-10-18T04:39:14.633383+00:00 < bestmove e1g1
+2026-10-18T04:39:15.142286+00:00 > position startpos moves c2c4 e7e5 b1c3 g8f6 g2g3 d7d5 c4d5 f6d5 f1g2 d5b6 g1f3 b8c6 e1g1 f8c5
+2026-10-18T04:39:15.142286+00:00 > go movetime 500
+2026-10-18T04:39:15.145209+00:00 < info string tt probes 1 hits 0 cutoffs 0
+2026-10-18T04:39:15.145209+00:00 < info string search qnodes 112 scouts 29 researches 5 qcaps 0 plylimit 0
+2026-10-18T04:39:15.145209+00:00 < info string optim aspiration_attempts 0 aspiration_searches 0 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 0 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 93 reverse_futility_cutoffs 0 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:15.145209+00:00 < info string metrics eval_calls 101 beta_cutoffs 84 pawn_probes 0 pawn_hits 0 nnue_evaluations 101
+2026-10-18T04:39:15.146215+00:00 < info depth 1 seldepth 6 nodes 113 time 2 nps 56500 hashfull 0 score cp 115 pv f3e5
+2026-10-18T04:39:15.146215+00:00 < info string tt probes 34 hits 3 cutoffs 0
+2026-10-18T04:39:15.146215+00:00 < info string search qnodes 253 scouts 150 researches 6 qcaps 0 plylimit 0
+2026-10-18T04:39:15.146215+00:00 < info string optim aspiration_attempts 1 aspiration_searches 2 aspiration_fail_high 1 aspiration_fail_low 0 aspiration_retries 1 aspiration_successes 1 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 226 reverse_futility_cutoffs 25 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:15.146215+00:00 < info string metrics eval_calls 265 beta_cutoffs 213 pawn_probes 0 pawn_hits 0 nnue_evaluations 265
+2026-10-18T04:39:15.146215+00:00 < info depth 2 seldepth 7 nodes 287 time 2 nps 143500 hashfull 0 score cp 157 pv f3e5 c5f2 f1f2 c6e5
+2026-10-18T04:39:15.147214+00:00 < info string tt probes 260 hits 77 cutoffs 56
+2026-10-18T04:39:15.147214+00:00 < info string search qnodes 2685 scouts 382 researches 6 qcaps 0 plylimit 0
+2026-10-18T04:39:15.147214+00:00 < info string optim aspiration_attempts 2 aspiration_searches 5 aspiration_fail_high 1 aspiration_fail_low 2 aspiration_retries 3 aspiration_successes 2 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 36 killer_cutoffs 29 see_calls 1747 reverse_futility_cutoffs 66 futility_prunes 46 check_extensions 2
+2026-10-18T04:39:15.147214+00:00 < info string metrics eval_calls 2744 beta_cutoffs 2427 pawn_probes 0 pawn_hits 0 nnue_evaluations 2744
+2026-10-18T04:39:15.147214+00:00 < info depth 3 seldepth 12 nodes 2945 time 4 nps 736250 hashfull 1 score cp 107 pv f3e5 c6e5 d2d4 d8d4
+2026-10-18T04:39:15.149215+00:00 < info string tt probes 1052 hits 149 cutoffs 69
+2026-10-18T04:39:15.149215+00:00 < info string search qnodes 5266 scouts 531 researches 6 qcaps 0 plylimit 0
+2026-10-18T04:39:15.149215+00:00 < info string optim aspiration_attempts 3 aspiration_searches 6 aspiration_fail_high 1 aspiration_fail_low 2 aspiration_retries 3 aspiration_successes 3 null_attempts 29 null_cutoffs 12 lmr_attempts 1 lmr_searches 1 lmr_researches 1 lmr_verifications 1 history_updates 132 killer_cutoffs 115 see_calls 5150 reverse_futility_cutoffs 447 futility_prunes 1277 check_extensions 12
+2026-10-18T04:39:15.149215+00:00 < info string metrics eval_calls 5939 beta_cutoffs 4829 pawn_probes 0 pawn_hits 0 nnue_evaluations 5939
+2026-10-18T04:39:15.149215+00:00 < info depth 4 seldepth 12 nodes 6318 time 5 nps 1263600 hashfull 6 score cp 107 pv f3e5 c6e5 d2d4 d8d4
+2026-10-18T04:39:15.153213+00:00 < info string tt probes 3038 hits 500 cutoffs 225
+2026-10-18T04:39:15.153213+00:00 < info string search qnodes 10711 scouts 715 researches 6 qcaps 0 plylimit 0
+2026-10-18T04:39:15.153213+00:00 < info string optim aspiration_attempts 4 aspiration_searches 7 aspiration_fail_high 1 aspiration_fail_low 2 aspiration_retries 3 aspiration_successes 4 null_attempts 103 null_cutoffs 46 lmr_attempts 519 lmr_searches 519 lmr_researches 1 lmr_verifications 1 history_updates 226 killer_cutoffs 205 see_calls 10947 reverse_futility_cutoffs 1801 futility_prunes 2165 check_extensions 48
+2026-10-18T04:39:15.153213+00:00 < info string metrics eval_calls 12971 beta_cutoffs 10091 pawn_probes 0 pawn_hits 0 nnue_evaluations 12971
+2026-10-18T04:39:15.153213+00:00 < info depth 5 seldepth 14 nodes 13778 time 9 nps 1530888 hashfull 11 score cp 96 pv f3e5 c6e5 d2d4 d8d4 d1d4 c5d4
+2026-10-18T04:39:15.173214+00:00 < info string tt probes 10259 hits 1136 cutoffs 454
+2026-10-18T04:39:15.173214+00:00 < info string search qnodes 45903 scouts 935 researches 7 qcaps 0 plylimit 0
+2026-10-18T04:39:15.173214+00:00 < info string optim aspiration_attempts 5 aspiration_searches 8 aspiration_fail_high 1 aspiration_fail_low 2 aspiration_retries 3 aspiration_successes 5 null_attempts 342 null_cutoffs 158 lmr_attempts 2589 lmr_searches 2589 lmr_researches 15 lmr_verifications 15 history_updates 849 killer_cutoffs 728 see_calls 51836 reverse_futility_cutoffs 6017 futility_prunes 5332 check_extensions 211
+2026-10-18T04:39:15.173214+00:00 < info string metrics eval_calls 52580 beta_cutoffs 41532 pawn_probes 0 pawn_hits 0 nnue_evaluations 52580
+2026-10-18T04:39:15.173214+00:00 < info depth 6 seldepth 17 nodes 56964 time 29 nps 1964275 hashfull 45 score cp 93 pv f3e5 c6e5 d2d4 d8d4 d1d4 e5f3 g2f3 c5d4
+2026-10-18T04:39:15.427381+00:00 < info string tt probes 95284 hits 8161 cutoffs 3951
+2026-10-18T04:39:15.427381+00:00 < info string search qnodes 472515 scouts 3089 researches 41 qcaps 1 plylimit 0
+2026-10-18T04:39:15.427381+00:00 < info string optim aspiration_attempts 6 aspiration_searches 10 aspiration_fail_high 1 aspiration_fail_low 3 aspiration_retries 4 aspiration_successes 6 null_attempts 2294 null_cutoffs 750 lmr_attempts 23918 lmr_searches 23918 lmr_researches 216 lmr_verifications 216 history_updates 8872 killer_cutoffs 7364 see_calls 560125 reverse_futility_cutoffs 54349 futility_prunes 22254 check_extensions 1563
+2026-10-18T04:39:15.427381+00:00 < info string metrics eval_calls 534905 beta_cutoffs 432122 pawn_probes 0 pawn_hits 0 nnue_evaluations 534905
+2026-10-18T04:39:15.427381+00:00 < info depth 7 seldepth 22 nodes 576348 time 284 nps 2029394 hashfull 384 score cp 61 pv b2b3 f7f6 c3e4 c5e7 d1c2 c8e6 f3g5 f6g5
+2026-10-18T04:39:15.643657+00:00 < info seldepth 25 nodes 1050624 time 500 nps 2101248 hashfull 516
+2026-10-18T04:39:15.643657+00:00 < info string incomplete alpha-beta iterative ordered material+pst cached qsearch pvs tt probes 153175 hits 16143 cutoffs 8055 search qnodes 880593 scouts 4734 researches 80 qcaps 29 plylimit 0 eval_calls 974246 beta_cutoffs 798714 pawn_probes 0 pawn_hits 0 nnue_evaluations 974246 optim aspiration_attempts 7 aspiration_searches 12 aspiration_fail_high 2 aspiration_fail_low 3 aspiration_retries 5 aspiration_successes 6 null_attempts 3754 null_cutoffs 1318 lmr_attempts 45636 lmr_searches 45636 lmr_researches 362 lmr_verifications 362 history_updates 14565 killer_cutoffs 11956 see_calls 957012 reverse_futility_cutoffs 86447 futility_prunes 32509 check_extensions 2626
+2026-10-18T04:39:15.643657+00:00 < bestmove b2b3
+2026-10-18T04:39:16.153417+00:00 > position startpos moves c2c4 e7e5 b1c3 g8f6 g2g3 d7d5 c4d5 f6d5 f1g2 d5b6 g1f3 b8c6 e1g1 f8c5 b2b3 e8g8
+2026-10-18T04:39:16.153417+00:00 > go movetime 500
+2026-10-18T04:39:16.156417+00:00 < info string tt probes 1 hits 0 cutoffs 0
+2026-10-18T04:39:16.156417+00:00 < info string search qnodes 186 scouts 28 researches 6 qcaps 0 plylimit 0
+2026-10-18T04:39:16.156417+00:00 < info string optim aspiration_attempts 0 aspiration_searches 0 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 0 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 215 reverse_futility_cutoffs 0 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:16.156417+00:00 < info string metrics eval_calls 167 beta_cutoffs 126 pawn_probes 0 pawn_hits 0 nnue_evaluations 167
+2026-10-18T04:39:16.156417+00:00 < info depth 1 seldepth 8 nodes 187 time 1 nps 187000 hashfull 0 score cp 59 pv f3e5
+2026-10-18T04:39:16.156417+00:00 < info string tt probes 33 hits 3 cutoffs 0
+2026-10-18T04:39:16.156417+00:00 < info string search qnodes 385 scouts 142 researches 6 qcaps 0 plylimit 0
+2026-10-18T04:39:16.156417+00:00 < info string optim aspiration_attempts 1 aspiration_searches 2 aspiration_fail_high 1 aspiration_fail_low 0 aspiration_retries 1 aspiration_successes 1 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 11 killer_cutoffs 8 see_calls 417 reverse_futility_cutoffs 12 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:16.156417+00:00 < info string metrics eval_calls 383 beta_cutoffs 300 pawn_probes 0 pawn_hits 0 nnue_evaluations 383
+2026-10-18T04:39:16.156417+00:00 < info depth 2 seldepth 8 nodes 418 time 2 nps 209000 hashfull 0 score cp 104 pv f3e5 c5f2 f1f2
+2026-10-18T04:39:16.158416+00:00 < info string tt probes 240 hits 105 cutoffs 50
+2026-10-18T04:39:16.158416+00:00 < info string search qnodes 3400 scouts 457 researches 12 qcaps 0 plylimit 0
+2026-10-18T04:39:16.158416+00:00 < info string optim aspiration_attempts 2 aspiration_searches 4 aspiration_fail_high 1 aspiration_fail_low 1 aspiration_retries 2 aspiration_successes 2 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 55 killer_cutoffs 40 see_calls 1832 reverse_futility_cutoffs 13 futility_prunes 23 check_extensions 3
+2026-10-18T04:39:16.158416+00:00 < info string metrics eval_calls 3407 beta_cutoffs 3106 pawn_probes 0 pawn_hits 0 nnue_evaluations 3407
+2026-10-18T04:39:16.158416+00:00 < info depth 3 seldepth 12 nodes 3640 time 4 nps 910000 hashfull 1 score cp 70 pv c1b2 c5d4 f3e5
+2026-10-18T04:39:16.161432+00:00 < info string tt probes 1260 hits 350 cutoffs 122
+2026-10-18T04:39:16.161432+00:00 < info string search qnodes 10992 scouts 936 researches 23 qcaps 0 plylimit 0
+2026-10-18T04:39:16.161432+00:00 < info string optim aspiration_attempts 3 aspiration_searches 6 aspiration_fail_high 2 aspiration_fail_low 1 aspiration_retries 3 aspiration_successes 3 null_attempts 46 null_cutoffs 36 lmr_attempts 50 lmr_searches 50 lmr_researches 4 lmr_verifications 4 history_updates 217 killer_cutoffs 172 see_calls 8775 reverse_futility_cutoffs 423 futility_prunes 885 check_extensions 10
+2026-10-18T04:39:16.161432+00:00 < info string metrics eval_calls 11467 beta_cutoffs 9869 pawn_probes 0 pawn_hits 0 nnue_evaluations 11467
+2026-10-18T04:39:16.161432+00:00 < info depth 4 seldepth 14 nodes 12252 time 7 nps 1750285 hashfull 7 score cp 105 pv f3e5 c6e5 d2d4 e5c6 d4c5
+2026-10-18T04:39:16.166418+00:00 < info string tt probes 3685 hits 770 cutoffs 328
+2026-10-18T04:39:16.166418+00:00 < info string search qnodes 17051 scouts 1263 researches 27 qcaps 0 plylimit 0
+2026-10-18T04:39:16.166418+00:00 < info string optim aspiration_attempts 4 aspiration_searches 8 aspiration_fail_high 2 aspiration_fail_low 2 aspiration_retries 4 aspiration_successes 4 null_attempts 143 null_cutoffs 82 lmr_attempts 501 lmr_searches 501 lmr_researches 4 lmr_verifications 4 history_updates 272 killer_cutoffs 215 see_calls 16688 reverse_futility_cutoffs 2173 futility_prunes 2055 check_extensions 51
+2026-10-18T04:39:16.166418+00:00 < info string metrics eval_calls 19441 beta_cutoffs 15583 pawn_probes 0 pawn_hits 0 nnue_evaluations 19441
+2026-10-18T04:39:16.166418+00:00 < info depth 5 seldepth 17 nodes 20792 time 11 nps 1890181 hashfull 11 score cp 75 pv f3e5 c6e5 d2d4 c5d4 d1d4
+2026-10-18T04:39:16.194434+00:00 < info string tt probes 16284 hits 2255 cutoffs 951
+2026-10-18T04:39:16.195433+00:00 < info string search qnodes 73424 scouts 2466 researches 51 qcaps 0 plylimit 0
+2026-10-18T04:39:16.195433+00:00 < info string optim aspiration_attempts 5 aspiration_searches 9 aspiration_fail_high 2 aspiration_fail_low 2 aspiration_retries 4 aspiration_successes 5 null_attempts 429 null_cutoffs 220 lmr_attempts 5180 lmr_searches 5180 lmr_researches 41 lmr_verifications 41 history_updates 1255 killer_cutoffs 1009 see_calls 85720 reverse_futility_cutoffs 10098 futility_prunes 6070 check_extensions 265
+2026-10-18T04:39:16.195433+00:00 < info string metrics eval_calls 85385 beta_cutoffs 66292 pawn_probes 0 pawn_hits 0 nnue_evaluations 85385
+2026-10-18T04:39:16.195433+00:00 < info depth 6 seldepth 21 nodes 90483 time 40 nps 2262075 hashfull 57 score cp 99 pv c1b2 c5d4 a1c1 f7f6 e2e3 c8g4 e3d4
+2026-10-18T04:39:16.274152+00:00 < info string tt probes 48162 hits 6034 cutoffs 2862
+2026-10-18T04:39:16.275151+00:00 < info string search qnodes 241902 scouts 4490 researches 88 qcaps 0 plylimit 0
+2026-10-18T04:39:16.275151+00:00 < info string optim aspiration_attempts 6 aspiration_searches 11 aspiration_fail_high 2 aspiration_fail_low 3 aspiration_retries 5 aspiration_successes 6 null_attempts 1352 null_cutoffs 615 lmr_attempts 13197 lmr_searches 13197 lmr_researches 100 lmr_verifications 100 history_updates 3867 killer_cutoffs 3191 see_calls 271683 reverse_futility_cutoffs 28866 futility_prunes 10586 check_extensions 616
+2026-10-18T04:39:16.275151+00:00 < info string metrics eval_calls 276925 beta_cutoffs 223092 pawn_probes 0 pawn_hits 0 nnue_evaluations 276925
+2026-10-18T04:39:16.275151+00:00 < info depth 7 seldepth 21 nodes 294606 time 120 nps 2455050 hashfull 177 score cp 78 pv c3e4 c5d4 c1a3 d4a1 d1a1 h7h6 f3e5
+2026-10-18T04:39:16.361681+00:00 < info string tt probes 68619 hits 8115 cutoffs 3531
+2026-10-18T04:39:16.361681+00:00 < info string search qnodes 426834 scouts 4838 researches 94 qcaps 0 plylimit 0
+2026-10-18T04:39:16.361681+00:00 < info string optim aspiration_attempts 7 aspiration_searches 12 aspiration_fail_high 2 aspiration_fail_low 3 aspiration_retries 5 aspiration_successes 7 null_attempts 2111 null_cutoffs 989 lmr_attempts 20826 lmr_searches 20826 lmr_researches 128 lmr_verifications 128 history_updates 4785 killer_cutoffs 3900 see_calls 519122 reverse_futility_cutoffs 43770 futility_prunes 15724 check_extensions 911
+2026-10-18T04:39:16.361681+00:00 < info string metrics eval_calls 474048 beta_cutoffs 393341 pawn_probes 0 pawn_hits 0 nnue_evaluations 474048
+2026-10-18T04:39:16.361681+00:00 < info depth 8 seldepth 23 nodes 524197 time 207 nps 2532352 hashfull 216 score cp 101 pv c3e4 c5d4 c1a3 d4a1 d1a1 f8e8 f3e5 c6e5
+2026-10-18T04:39:16.655175+00:00 < info seldepth 24 nodes 1218560 time 500 nps 2437120 hashfull 416
+2026-10-18T04:39:16.655175+00:00 < info string incomplete alpha-beta iterative ordered material+pst cached qsearch pvs tt probes 142790 hits 14580 cutoffs 6702 search qnodes 1012853 scouts 5737 researches 104 qcaps 30 plylimit 0 eval_calls 1099997 beta_cutoffs 936930 pawn_probes 0 pawn_hits 0 nnue_evaluations 1099997 optim aspiration_attempts 8 aspiration_searches 13 aspiration_fail_high 2 aspiration_fail_low 3 aspiration_retries 5 aspiration_successes 7 null_attempts 4219 null_cutoffs 1822 lmr_attempts 43491 lmr_searches 43491 lmr_researches 308 lmr_verifications 308 history_updates 10484 killer_cutoffs 8562 see_calls 1158275 reverse_futility_cutoffs 90497 futility_prunes 31150 check_extensions 1878
+2026-10-18T04:39:16.655175+00:00 < bestmove c3e4
+2026-10-18T04:39:17.170561+00:00 > position startpos moves c2c4 e7e5 b1c3 g8f6 g2g3 d7d5 c4d5 f6d5 f1g2 d5b6 g1f3 b8c6 e1g1 f8c5 b2b3 e8g8 c3e4 c5e7
+2026-10-18T04:39:17.170561+00:00 > go movetime 500
+2026-10-18T04:39:17.172579+00:00 < info string tt probes 1 hits 0 cutoffs 0
+2026-10-18T04:39:17.172579+00:00 < info string search qnodes 43 scouts 27 researches 3 qcaps 0 plylimit 0
+2026-10-18T04:39:17.172579+00:00 < info string optim aspiration_attempts 0 aspiration_searches 0 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 0 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 18 reverse_futility_cutoffs 0 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:17.172579+00:00 < info string metrics eval_calls 42 beta_cutoffs 34 pawn_probes 0 pawn_hits 0 nnue_evaluations 42
+2026-10-18T04:39:17.172579+00:00 < info depth 1 seldepth 3 nodes 44 time 1 nps 44000 hashfull 0 score cp 16 pv f3e5
+2026-10-18T04:39:17.173862+00:00 < info string tt probes 55 hits 25 cutoffs 20
+2026-10-18T04:39:17.173862+00:00 < info string search qnodes 614 scouts 224 researches 9 qcaps 0 plylimit 0
+2026-10-18T04:39:17.173862+00:00 < info string optim aspiration_attempts 1 aspiration_searches 2 aspiration_fail_high 1 aspiration_fail_low 0 aspiration_retries 1 aspiration_successes 1 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 15 killer_cutoffs 11 see_calls 477 reverse_futility_cutoffs 0 futility_prunes 0 check_extensions 2
+2026-10-18T04:39:17.173862+00:00 < info string metrics eval_calls 638 beta_cutoffs 509 pawn_probes 0 pawn_hits 0 nnue_evaluations 638
+2026-10-18T04:39:17.173862+00:00 < info depth 2 seldepth 6 nodes 669 time 2 nps 334500 hashfull 0 score cp 44 pv c1b2 f7f6
+2026-10-18T04:39:17.173862+00:00 < info string tt probes 175 hits 55 cutoffs 20
+2026-10-18T04:39:17.173862+00:00 < info string search qnodes 1577 scouts 321 researches 10 qcaps 0 plylimit 0
+2026-10-18T04:39:17.174867+00:00 < info string optim aspiration_attempts 2 aspiration_searches 3 aspiration_fail_high 1 aspiration_fail_low 0 aspiration_retries 1 aspiration_successes 2 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 34 killer_cutoffs 24 see_calls 933 reverse_futility_cutoffs 24 futility_prunes 20 check_extensions 3
+2026-10-18T04:39:17.174867+00:00 < info string metrics eval_calls 1691 beta_cutoffs 1453 pawn_probes 0 pawn_hits 0 nnue_evaluations 1691
+2026-10-18T04:39:17.174867+00:00 < info depth 3 seldepth 7 nodes 1752 time 3 nps 584000 hashfull 1 score cp 38 pv c1b2 f7f6 a1c1
+2026-10-18T04:39:17.175889+00:00 < info string tt probes 595 hits 274 cutoffs 120
+2026-10-18T04:39:17.177287+00:00 < info string search qnodes 7319 scouts 660 researches 16 qcaps 0 plylimit 0
+2026-10-18T04:39:17.177287+00:00 < info string optim aspiration_attempts 3 aspiration_searches 6 aspiration_fail_high 3 aspiration_fail_low 0 aspiration_retries 3 aspiration_successes 3 null_attempts 26 null_cutoffs 25 lmr_attempts 20 lmr_searches 20 lmr_researches 0 lmr_verifications 0 history_updates 90 killer_cutoffs 69 see_calls 6287 reverse_futility_cutoffs 89 futility_prunes 180 check_extensions 12
+2026-10-18T04:39:17.177287+00:00 < info string metrics eval_calls 7588 beta_cutoffs 6398 pawn_probes 0 pawn_hits 0 nnue_evaluations 7588
+2026-10-18T04:39:17.177287+00:00 < info depth 4 seldepth 18 nodes 7914 time 5 nps 1582800 hashfull 3 score cp 111 pv c1b2 b6d7 a1c1 a8b8 c1c6 b7c6 f3e5 d7e5
+2026-10-18T04:39:17.182292+00:00 < info string tt probes 3613 hits 731 cutoffs 274
+2026-10-18T04:39:17.182292+00:00 < info string search qnodes 15046 scouts 1426 researches 32 qcaps 0 plylimit 0
+2026-10-18T04:39:17.182292+00:00 < info string optim aspiration_attempts 4 aspiration_searches 9 aspiration_fail_high 3 aspiration_fail_low 2 aspiration_retries 5 aspiration_successes 4 null_attempts 144 null_cutoffs 99 lmr_attempts 426 lmr_searches 426 lmr_researches 0 lmr_verifications 0 history_updates 223 killer_cutoffs 185 see_calls 14994 reverse_futility_cutoffs 2204 futility_prunes 527 check_extensions 33
+2026-10-18T04:39:17.182292+00:00 < info string metrics eval_calls 18013 beta_cutoffs 13823 pawn_probes 0 pawn_hits 0 nnue_evaluations 18013
+2026-10-18T04:39:17.182292+00:00 < info depth 5 seldepth 18 nodes 18737 time 11 nps 1703363 hashfull 10 score cp 40 pv c1b2 f7f5 e4g5 b6c4 b3c4
+2026-10-18T04:39:17.194292+00:00 < info string tt probes 9217 hits 1729 cutoffs 696
+2026-10-18T04:39:17.194292+00:00 < info string search qnodes 28550 scouts 1915 researches 33 qcaps 0 plylimit 0
+2026-10-18T04:39:17.194292+00:00 < info string optim aspiration_attempts 5 aspiration_searches 12 aspiration_fail_high 5 aspiration_fail_low 2 aspiration_retries 7 aspiration_successes 5 null_attempts 262 null_cutoffs 162 lmr_attempts 3683 lmr_searches 3683 lmr_researches 0 lmr_verifications 0 history_updates 362 killer_cutoffs 287 see_calls 36764 reverse_futility_cutoffs 6372 futility_prunes 2909 check_extensions 59
+2026-10-18T04:39:17.194292+00:00 < info string metrics eval_calls 36516 beta_cutoffs 26657 pawn_probes 0 pawn_hits 0 nnue_evaluations 36516
+2026-10-18T04:39:17.194292+00:00 < info depth 6 seldepth 18 nodes 38588 time 22 nps 1754000 hashfull 17 score cp 100 pv c1b2 f7f5 f3e5 c6e5 e4g5 e7g5
+2026-10-18T04:39:17.220853+00:00 < info string tt probes 18070 hits 2749 cutoffs 1040
+2026-10-18T04:39:17.221852+00:00 < info string search qnodes 89424 scouts 2457 researches 40 qcaps 0 plylimit 0
+2026-10-18T04:39:17.221852+00:00 < info string optim aspiration_attempts 6 aspiration_searches 14 aspiration_fail_high 5 aspiration_fail_low 3 aspiration_retries 8 aspiration_successes 6 null_attempts 648 null_cutoffs 365 lmr_attempts 6761 lmr_searches 6761 lmr_researches 4 lmr_verifications 4 history_updates 823 killer_cutoffs 684 see_calls 84572 reverse_futility_cutoffs 12877 futility_prunes 4563 check_extensions 120
+2026-10-18T04:39:17.221852+00:00 < info string metrics eval_calls 104498 beta_cutoffs 86636 pawn_probes 0 pawn_hits 0 nnue_evaluations 104498
+2026-10-18T04:39:17.221852+00:00 < info depth 7 seldepth 18 nodes 112279 time 50 nps 2245580 hashfull 35 score cp 58 pv c1b2 f7f5 e4g5 e7g5 a1c1 g5h6 c1c6 b7c6
+2026-10-18T04:39:17.291375+00:00 < info string tt probes 36650 hits 3943 cutoffs 1448
+2026-10-18T04:39:17.292374+00:00 < info string search qnodes 237779 scouts 2721 researches 40 qcaps 0 plylimit 0
+2026-10-18T04:39:17.292374+00:00 < info string optim aspiration_attempts 7 aspiration_searches 15 aspiration_fail_high 5 aspiration_fail_low 3 aspiration_retries 8 aspiration_successes 7 null_attempts 1445 null_cutoffs 776 lmr_attempts 14097 lmr_searches 14097 lmr_researches 24 lmr_verifications 24 history_updates 1708 killer_cutoffs 1375 see_calls 220476 reverse_futility_cutoffs 25851 futility_prunes 10455 check_extensions 332
+2026-10-18T04:39:17.292374+00:00 < info string metrics eval_calls 269687 beta_cutoffs 231691 pawn_probes 0 pawn_hits 0 nnue_evaluations 269687
+2026-10-18T04:39:17.292374+00:00 < info depth 8 seldepth 20 nodes 293155 time 120 nps 2442958 hashfull 94 score cp 58 pv c1b2 f7f5 e4g5 e7g5 a1c1 g5h6 c1c6 b7c6
+2026-10-18T04:39:17.671231+00:00 < info seldepth 25 nodes 1272832 time 500 nps 2545664 hashfull 239
+2026-10-18T04:39:17.671231+00:00 < info string incomplete alpha-beta iterative ordered material+pst cached qsearch pvs tt probes 97872 hits 8429 cutoffs 2928 search qnodes 1043998 scouts 3350 researches 44 qcaps 0 plylimit 0 eval_calls 1119843 beta_cutoffs 1028635 pawn_probes 0 pawn_hits 0 nnue_evaluations 1119843 optim aspiration_attempts 8 aspiration_searches 17 aspiration_fail_high 5 aspiration_fail_low 4 aspiration_retries 9 aspiration_successes 7 null_attempts 4040 null_cutoffs 1939 lmr_attempts 36687 lmr_searches 36687 lmr_researches 112 lmr_verifications 112 history_updates 4311 killer_cutoffs 3470 see_calls 1012074 reverse_futility_cutoffs 70019 futility_prunes 24335 check_extensions 1039
+2026-10-18T04:39:17.671231+00:00 < bestmove c1b2
+2026-10-18T04:39:18.206661+00:00 > position startpos moves c2c4 e7e5 b1c3 g8f6 g2g3 d7d5 c4d5 f6d5 f1g2 d5b6 g1f3 b8c6 e1g1 f8c5 b2b3 e8g8 c3e4 c5e7 c1b2 f7f5
+2026-10-18T04:39:18.206661+00:00 > go movetime 500
+2026-10-18T04:39:18.208661+00:00 < info string tt probes 1 hits 0 cutoffs 0
+2026-10-18T04:39:18.209658+00:00 < info string search qnodes 49 scouts 33 researches 0 qcaps 0 plylimit 0
+2026-10-18T04:39:18.209658+00:00 < info string optim aspiration_attempts 0 aspiration_searches 0 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 0 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 21 reverse_futility_cutoffs 0 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:18.209658+00:00 < info string metrics eval_calls 48 beta_cutoffs 44 pawn_probes 0 pawn_hits 0 nnue_evaluations 48
+2026-10-18T04:39:18.209658+00:00 < info depth 1 seldepth 5 nodes 50 time 2 nps 25000 hashfull 0 score cp 127 pv f3e5 c6e5
+2026-10-18T04:39:18.209658+00:00 < info string tt probes 37 hits 1 cutoffs 0
+2026-10-18T04:39:18.209658+00:00 < info string search qnodes 179 scouts 103 researches 0 qcaps 0 plylimit 0
+2026-10-18T04:39:18.209658+00:00 < info string optim aspiration_attempts 1 aspiration_searches 1 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 1 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 159 reverse_futility_cutoffs 16 futility_prunes 0 check_extensions 1
+2026-10-18T04:39:18.209658+00:00 < info string metrics eval_calls 211 beta_cutoffs 172 pawn_probes 0 pawn_hits 0 nnue_evaluations 211
+2026-10-18T04:39:18.210663+00:00 < info depth 2 seldepth 5 nodes 216 time 3 nps 72000 hashfull 0 score cp 127 pv f3e5 c6e5
+2026-10-18T04:39:18.211659+00:00 < info string tt probes 345 hits 133 cutoffs 91
+2026-10-18T04:39:18.211659+00:00 < info string search qnodes 1511 scouts 388 researches 4 qcaps 0 plylimit 0
+2026-10-18T04:39:18.211659+00:00 < info string optim aspiration_attempts 2 aspiration_searches 4 aspiration_fail_high 0 aspiration_fail_low 2 aspiration_retries 2 aspiration_successes 2 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 11 killer_cutoffs 7 see_calls 1003 reverse_futility_cutoffs 106 futility_prunes 262 check_extensions 4
+2026-10-18T04:39:18.211659+00:00 < info string metrics eval_calls 1733 beta_cutoffs 1497 pawn_probes 0 pawn_hits 0 nnue_evaluations 1733
+2026-10-18T04:39:18.211659+00:00 < info depth 3 seldepth 8 nodes 1856 time 4 nps 464000 hashfull 1 score cp 40 pv e4g5 b6c4 b3c4
+2026-10-18T04:39:18.215675+00:00 < info string tt probes 1401 hits 343 cutoffs 178
+2026-10-18T04:39:18.215675+00:00 < info string search qnodes 4470 scouts 831 researches 10 qcaps 0 plylimit 0
+2026-10-18T04:39:18.215675+00:00 < info string optim aspiration_attempts 3 aspiration_searches 7 aspiration_fail_high 2 aspiration_fail_low 2 aspiration_retries 4 aspiration_successes 3 null_attempts 31 null_cutoffs 13 lmr_attempts 57 lmr_searches 57 lmr_researches 0 lmr_verifications 0 history_updates 33 killer_cutoffs 25 see_calls 5344 reverse_futility_cutoffs 805 futility_prunes 987 check_extensions 15
+2026-10-18T04:39:18.215675+00:00 < info string metrics eval_calls 5645 beta_cutoffs 4348 pawn_probes 0 pawn_hits 0 nnue_evaluations 5645
+2026-10-18T04:39:18.215675+00:00 < info depth 4 seldepth 15 nodes 5871 time 8 nps 733875 hashfull 3 score cp 100 pv f3e5 c6e5 e4g5 e7g5
+2026-10-18T04:39:18.225230+00:00 < info string tt probes 5212 hits 908 cutoffs 426
+2026-10-18T04:39:18.225230+00:00 < info string search qnodes 11048 scouts 1283 researches 16 qcaps 0 plylimit 0
+2026-10-18T04:39:18.225230+00:00 < info string optim aspiration_attempts 4 aspiration_searches 9 aspiration_fail_high 2 aspiration_fail_low 3 aspiration_retries 5 aspiration_successes 4 null_attempts 138 null_cutoffs 41 lmr_attempts 1420 lmr_searches 1420 lmr_researches 1 lmr_verifications 1 history_updates 202 killer_cutoffs 171 see_calls 20198 reverse_futility_cutoffs 3584 futility_prunes 1821 check_extensions 35
+2026-10-18T04:39:18.225230+00:00 < info string metrics eval_calls 15756 beta_cutoffs 10772 pawn_probes 0 pawn_hits 0 nnue_evaluations 15756
+2026-10-18T04:39:18.225230+00:00 < info depth 5 seldepth 15 nodes 16323 time 17 nps 960176 hashfull 10 score cp 58 pv e4g5 e7g5 a1c1 g5h6 c1c6 b7c6
+2026-10-18T04:39:18.232229+00:00 < info string tt probes 9531 hits 1431 cutoffs 622
+2026-10-18T04:39:18.232229+00:00 < info string search qnodes 19907 scouts 1483 researches 16 qcaps 0 plylimit 0
+2026-10-18T04:39:18.233229+00:00 < info string optim aspiration_attempts 5 aspiration_searches 10 aspiration_fail_high 2 aspiration_fail_low 3 aspiration_retries 5 aspiration_successes 5 null_attempts 278 null_cutoffs 82 lmr_attempts 2893 lmr_searches 2893 lmr_researches 6 lmr_verifications 6 history_updates 267 killer_cutoffs 216 see_calls 36268 reverse_futility_cutoffs 6960 futility_prunes 3337 check_extensions 74
+2026-10-18T04:39:18.233229+00:00 < info string metrics eval_calls 28696 beta_cutoffs 19525 pawn_probes 0 pawn_hits 0 nnue_evaluations 28696
+2026-10-18T04:39:18.233229+00:00 < info depth 6 seldepth 15 nodes 29789 time 25 nps 1191560 hashfull 16 score cp 58 pv e4g5 e7g5 a1c1 g5h6 c1c6 b7c6
+2026-10-18T04:39:18.273230+00:00 < info string tt probes 23658 hits 2653 cutoffs 992
+2026-10-18T04:39:18.273230+00:00 < info string search qnodes 82307 scouts 2044 researches 22 qcaps 2 plylimit 0
+2026-10-18T04:39:18.273230+00:00 < info string optim aspiration_attempts 6 aspiration_searches 12 aspiration_fail_high 2 aspiration_fail_low 4 aspiration_retries 6 aspiration_successes 6 null_attempts 909 null_cutoffs 362 lmr_attempts 9108 lmr_searches 9108 lmr_researches 14 lmr_verifications 14 history_updates 616 killer_cutoffs 466 see_calls 117159 reverse_futility_cutoffs 18054 futility_prunes 5890 check_extensions 219
+2026-10-18T04:39:18.273230+00:00 < info string metrics eval_calls 103774 beta_cutoffs 80679 pawn_probes 0 pawn_hits 0 nnue_evaluations 103774
+2026-10-18T04:39:18.273230+00:00 < info depth 7 seldepth 23 nodes 110696 time 66 nps 1677212 hashfull 41 score cp 31 pv e4g5 e7g5 f3g5 d8g5 a1c1 e5e4 c1c6 g5g3 h2g3
+2026-10-18T04:39:18.366750+00:00 < info string tt probes 39016 hits 4760 cutoffs 1887
+2026-10-18T04:39:18.366750+00:00 < info string search qnodes 277333 scouts 2652 researches 25 qcaps 8 plylimit 0
+2026-10-18T04:39:18.366750+00:00 < info string optim aspiration_attempts 7 aspiration_searches 14 aspiration_fail_high 3 aspiration_fail_low 4 aspiration_retries 7 aspiration_successes 7 null_attempts 1773 null_cutoffs 872 lmr_attempts 16027 lmr_searches 16027 lmr_researches 24 lmr_verifications 24 history_updates 1054 killer_cutoffs 818 see_calls 306761 reverse_futility_cutoffs 29057 futility_prunes 12207 check_extensions 378
+2026-10-18T04:39:18.367748+00:00 < info string metrics eval_calls 311100 beta_cutoffs 273300 pawn_probes 0 pawn_hits 0 nnue_evaluations 311100
+2026-10-18T04:39:18.367748+00:00 < info depth 8 seldepth 24 nodes 341464 time 160 nps 2134150 hashfull 68 score cp 65 pv e4g5 e7g5 a1c1 c8d7 f3e5 c6e5 b2e5 g5f6
+2026-10-18T04:39:18.706773+00:00 < info seldepth 24 nodes 1295872 time 500 nps 2591744 hashfull 178
+2026-10-18T04:39:18.707772+00:00 < info string incomplete alpha-beta iterative ordered material+pst cached qsearch pvs tt probes 91972 hits 7771 cutoffs 2871 search qnodes 1105011 scouts 3683 researches 34 qcaps 8 plylimit 0 eval_calls 1172525 beta_cutoffs 1097654 pawn_probes 0 pawn_hits 0 nnue_evaluations 1172525 optim aspiration_attempts 8 aspiration_searches 16 aspiration_fail_high 3 aspiration_fail_low 5 aspiration_retries 8 aspiration_successes 7 null_attempts 3886 null_cutoffs 1797 lmr_attempts 37041 lmr_searches 37041 lmr_researches 81 lmr_verifications 81 history_updates 2406 killer_cutoffs 1762 see_calls 952025 reverse_futility_cutoffs 69989 futility_prunes 34573 check_extensions 1041
+2026-10-18T04:39:18.707772+00:00 < bestmove e4g5
+2026-10-18T04:39:19.223024+00:00 > position startpos moves c2c4 e7e5 b1c3 g8f6 g2g3 d7d5 c4d5 f6d5 f1g2 d5b6 g1f3 b8c6 e1g1 f8c5 b2b3 e8g8 c3e4 c5e7 c1b2 f7f5 e4g5 e5e4
+2026-10-18T04:39:19.224025+00:00 > go movetime 500
+2026-10-18T04:39:19.226039+00:00 < info string tt probes 1 hits 0 cutoffs 0
+2026-10-18T04:39:19.226039+00:00 < info string search qnodes 79 scouts 34 researches 4 qcaps 0 plylimit 0
+2026-10-18T04:39:19.226039+00:00 < info string optim aspiration_attempts 0 aspiration_searches 0 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 0 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 50 reverse_futility_cutoffs 0 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:19.226039+00:00 < info string metrics eval_calls 79 beta_cutoffs 67 pawn_probes 0 pawn_hits 0 nnue_evaluations 79
+2026-10-18T04:39:19.226039+00:00 < info depth 1 seldepth 4 nodes 80 time 1 nps 80000 hashfull 0 score cp 81 pv a1c1
+2026-10-18T04:39:19.226039+00:00 < info string tt probes 37 hits 1 cutoffs 0
+2026-10-18T04:39:19.227024+00:00 < info string search qnodes 686 scouts 104 researches 8 qcaps 0 plylimit 0
+2026-10-18T04:39:19.227024+00:00 < info string optim aspiration_attempts 1 aspiration_searches 1 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 1 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 5 killer_cutoffs 2 see_calls 914 reverse_futility_cutoffs 6 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:19.227024+00:00 < info string metrics eval_calls 715 beta_cutoffs 562 pawn_probes 0 pawn_hits 0 nnue_evaluations 715
+2026-10-18T04:39:19.227024+00:00 < info depth 2 seldepth 13 nodes 723 time 2 nps 361500 hashfull 0 score cp 77 pv a1c1 d8e8
+2026-10-18T04:39:19.228024+00:00 < info string tt probes 153 hits 32 cutoffs 0
+2026-10-18T04:39:19.228024+00:00 < info string search qnodes 2811 scouts 244 researches 12 qcaps 0 plylimit 0
+2026-10-18T04:39:19.228024+00:00 < info string optim aspiration_attempts 2 aspiration_searches 2 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 2 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 28 killer_cutoffs 17 see_calls 2222 reverse_futility_cutoffs 12 futility_prunes 49 check_extensions 0
+2026-10-18T04:39:19.228024+00:00 < info string metrics eval_calls 2916 beta_cutoffs 2592 pawn_probes 0 pawn_hits 0 nnue_evaluations 2916
+2026-10-18T04:39:19.228024+00:00 < info depth 3 seldepth 13 nodes 2964 time 3 nps 988000 hashfull 1 score cp 67 pv a1c1 e7g5 c1c6 b7c6
+2026-10-18T04:39:19.230023+00:00 < info string tt probes 1029 hits 121 cutoffs 2
+2026-10-18T04:39:19.230023+00:00 < info string search qnodes 5844 scouts 383 researches 12 qcaps 0 plylimit 0
+2026-10-18T04:39:19.230023+00:00 < info string optim aspiration_attempts 3 aspiration_searches 3 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 3 null_attempts 32 null_cutoffs 14 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 71 killer_cutoffs 50 see_calls 7549 reverse_futility_cutoffs 639 futility_prunes 342 check_extensions 7
+2026-10-18T04:39:19.230023+00:00 < info string metrics eval_calls 6818 beta_cutoffs 5364 pawn_probes 0 pawn_hits 0 nnue_evaluations 6818
+2026-10-18T04:39:19.230023+00:00 < info depth 4 seldepth 14 nodes 6873 time 5 nps 1374600 hashfull 4 score cp 67 pv a1c1 e7g5 c1c6 b7c6
+2026-10-18T04:39:19.234024+00:00 < info string tt probes 2913 hits 323 cutoffs 52
+2026-10-18T04:39:19.235023+00:00 < info string search qnodes 13054 scouts 552 researches 12 qcaps 0 plylimit 0
+2026-10-18T04:39:19.235023+00:00 < info string optim aspiration_attempts 4 aspiration_searches 4 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 4 null_attempts 105 null_cutoffs 43 lmr_attempts 617 lmr_searches 617 lmr_researches 0 lmr_verifications 0 history_updates 199 killer_cutoffs 156 see_calls 20110 reverse_futility_cutoffs 1839 futility_prunes 1408 check_extensions 16
+2026-10-18T04:39:19.235023+00:00 < info string metrics eval_calls 15802 beta_cutoffs 12163 pawn_probes 0 pawn_hits 0 nnue_evaluations 15802
+2026-10-18T04:39:19.235023+00:00 < info depth 5 seldepth 19 nodes 15999 time 10 nps 1599900 hashfull 11 score cp 66 pv a1c1 e7g5 c1c6 b7c6 f3g5
+2026-10-18T04:39:19.251047+00:00 < info string tt probes 8270 hits 990 cutoffs 287
+2026-10-18T04:39:19.251047+00:00 < info string search qnodes 42026 scouts 830 researches 15 qcaps 0 plylimit 0
+2026-10-18T04:39:19.251047+00:00 < info string optim aspiration_attempts 5 aspiration_searches 5 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 5 null_attempts 302 null_cutoffs 135 lmr_attempts 1995 lmr_searches 1995 lmr_researches 4 lmr_verifications 4 history_updates 475 killer_cutoffs 368 see_calls 66833 reverse_futility_cutoffs 5092 futility_prunes 3387 check_extensions 65
+2026-10-18T04:39:19.251047+00:00 < info string metrics eval_calls 49552 beta_cutoffs 38625 pawn_probes 0 pawn_hits 0 nnue_evaluations 49552
+2026-10-18T04:39:19.251047+00:00 < info depth 6 seldepth 21 nodes 51013 time 26 nps 1962038 hashfull 32 score cp 83 pv a1c1 e7f6 d1c2 f6b2 c2b2 b6d5 c1c6 b7c6 g5e4 f5e4
+2026-10-18T04:39:19.356586+00:00 < info string tt probes 47483 hits 4091 cutoffs 1339
+2026-10-18T04:39:19.356586+00:00 < info string search qnodes 197916 scouts 2408 researches 38 qcaps 0 plylimit 0
+2026-10-18T04:39:19.356586+00:00 < info string optim aspiration_attempts 6 aspiration_searches 8 aspiration_fail_high 0 aspiration_fail_low 2 aspiration_retries 2 aspiration_successes 6 null_attempts 1712 null_cutoffs 611 lmr_attempts 17017 lmr_searches 17017 lmr_researches 29 lmr_verifications 29 history_updates 1342 killer_cutoffs 1017 see_calls 338949 reverse_futility_cutoffs 35515 futility_prunes 17219 check_extensions 592
+2026-10-18T04:39:19.356586+00:00 < info string metrics eval_calls 240233 beta_cutoffs 189553 pawn_probes 0 pawn_hits 0 nnue_evaluations 240233
+2026-10-18T04:39:19.356586+00:00 < info depth 7 seldepth 21 nodes 252890 time 132 nps 1915833 hashfull 108 score cp 30 pv b3b4 e4f3 d1b3 d8d5 b3c3 d5e5 c3b3 e5d5 b3d5 b6d5
+2026-10-18T04:39:19.594100+00:00 < info string tt probes 90910 hits 8312 cutoffs 2837
+2026-10-18T04:39:19.595097+00:00 < info string search qnodes 574949 scouts 3933 researches 56 qcaps 0 plylimit 0
+2026-10-18T04:39:19.595097+00:00 < info string optim aspiration_attempts 7 aspiration_searches 10 aspiration_fail_high 1 aspiration_fail_low 2 aspiration_retries 3 aspiration_successes 7 null_attempts 3271 null_cutoffs 1243 lmr_attempts 33158 lmr_searches 33158 lmr_researches 97 lmr_verifications 97 history_updates 2402 killer_cutoffs 1808 see_calls 857033 reverse_futility_cutoffs 67667 futility_prunes 34193 check_extensions 1077
+2026-10-18T04:39:19.595097+00:00 < info string metrics eval_calls 653280 beta_cutoffs 555230 pawn_probes 0 pawn_hits 0 nnue_evaluations 653280
+2026-10-18T04:39:19.595097+00:00 < info depth 8 seldepth 22 nodes 706238 time 370 nps 1908751 hashfull 192 score cp 60 pv a1c1 e7f6 b2a3 f6g5 c1c6 g5e7 a3b2 b7c6
+2026-10-18T04:39:19.724355+00:00 < info seldepth 22 nodes 976384 time 500 nps 1952768 hashfull 254
+2026-10-18T04:39:19.724355+00:00 < info string incomplete alpha-beta iterative ordered material+pst cached qsearch pvs tt probes 127645 hits 10807 cutoffs 3619 search qnodes 799357 scouts 4670 researches 65 qcaps 0 plylimit 0 eval_calls 907040 beta_cutoffs 768314 pawn_probes 0 pawn_hits 0 nnue_evaluations 907040 optim aspiration_attempts 8 aspiration_searches 11 aspiration_fail_high 1 aspiration_fail_low 2 aspiration_retries 3 aspiration_successes 7 null_attempts 4494 null_cutoffs 1701 lmr_attempts 49078 lmr_searches 49078 lmr_researches 122 lmr_verifications 122 history_updates 3042 killer_cutoffs 2260 see_calls 1173173 reverse_futility_cutoffs 96205 futility_prunes 48949 check_extensions 1707
+2026-10-18T04:39:19.724355+00:00 < bestmove a1c1
+2026-10-18T04:39:20.238592+00:00 > position startpos moves c2c4 e7e5 b1c3 g8f6 g2g3 d7d5 c4d5 f6d5 f1g2 d5b6 g1f3 b8c6 e1g1 f8c5 b2b3 e8g8 c3e4 c5e7 c1b2 f7f5 e4g5 e5e4 a1c1 e7g5
+2026-10-18T04:39:20.238592+00:00 > go movetime 500
+2026-10-18T04:39:20.241596+00:00 < info string tt probes 1 hits 0 cutoffs 0
+2026-10-18T04:39:20.241596+00:00 < info string search qnodes 102 scouts 33 researches 1 qcaps 0 plylimit 0
+2026-10-18T04:39:20.241596+00:00 < info string optim aspiration_attempts 0 aspiration_searches 0 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 0 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 96 reverse_futility_cutoffs 0 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:20.241596+00:00 < info string metrics eval_calls 100 beta_cutoffs 83 pawn_probes 0 pawn_hits 0 nnue_evaluations 100
+2026-10-18T04:39:20.242595+00:00 < info depth 1 seldepth 9 nodes 103 time 2 nps 51500 hashfull 0 score cp 67 pv c1c6 b7c6
+2026-10-18T04:39:20.242595+00:00 < info string tt probes 36 hits 1 cutoffs 0
+2026-10-18T04:39:20.242595+00:00 < info string search qnodes 163 scouts 102 researches 1 qcaps 0 plylimit 0
+2026-10-18T04:39:20.242595+00:00 < info string optim aspiration_attempts 1 aspiration_searches 1 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 1 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 249 reverse_futility_cutoffs 32 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:20.242595+00:00 < info string metrics eval_calls 193 beta_cutoffs 138 pawn_probes 0 pawn_hits 0 nnue_evaluations 193
+2026-10-18T04:39:20.242595+00:00 < info depth 2 seldepth 9 nodes 199 time 2 nps 99500 hashfull 0 score cp 67 pv c1c6 b7c6
+2026-10-18T04:39:20.242595+00:00 < info string tt probes 112 hits 4 cutoffs 0
+2026-10-18T04:39:20.242595+00:00 < info string search qnodes 502 scouts 201 researches 1 qcaps 0 plylimit 0
+2026-10-18T04:39:20.242595+00:00 < info string optim aspiration_attempts 2 aspiration_searches 2 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 2 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 2 killer_cutoffs 1 see_calls 740 reverse_futility_cutoffs 66 futility_prunes 29 check_extensions 0
+2026-10-18T04:39:20.242595+00:00 < info string metrics eval_calls 603 beta_cutoffs 463 pawn_probes 0 pawn_hits 0 nnue_evaluations 603
+2026-10-18T04:39:20.243595+00:00 < info depth 3 seldepth 9 nodes 614 time 3 nps 204666 hashfull 0 score cp 66 pv c1c6 b7c6 f3g5
+2026-10-18T04:39:20.244595+00:00 < info string tt probes 1003 hits 132 cutoffs 64
+2026-10-18T04:39:20.244595+00:00 < info string search qnodes 2188 scouts 409 researches 4 qcaps 0 plylimit 0
+2026-10-18T04:39:20.244595+00:00 < info string optim aspiration_attempts 3 aspiration_searches 4 aspiration_fail_high 1 aspiration_fail_low 0 aspiration_retries 1 aspiration_successes 3 null_attempts 27 null_cutoffs 11 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 11 killer_cutoffs 6 see_calls 4821 reverse_futility_cutoffs 649 futility_prunes 617 check_extensions 3
+2026-10-18T04:39:20.244595+00:00 < info string metrics eval_calls 3115 beta_cutoffs 2081 pawn_probes 0 pawn_hits 0 nnue_evaluations 3115
+2026-10-18T04:39:20.244595+00:00 < info depth 4 seldepth 10 nodes 3191 time 5 nps 638200 hashfull 3 score cp 96 pv c1c6 g5f6 b2f6 f8f6
+2026-10-18T04:39:20.252606+00:00 < info string tt probes 5673 hits 646 cutoffs 227
+2026-10-18T04:39:20.252606+00:00 < info string search qnodes 10376 scouts 1114 researches 10 qcaps 0 plylimit 0
+2026-10-18T04:39:20.252606+00:00 < info string optim aspiration_attempts 4 aspiration_searches 8 aspiration_fail_high 1 aspiration_fail_low 3 aspiration_retries 4 aspiration_successes 4 null_attempts 203 null_cutoffs 69 lmr_attempts 2703 lmr_searches 2703 lmr_researches 2 lmr_verifications 2 history_updates 63 killer_cutoffs 45 see_calls 26205 reverse_futility_cutoffs 4513 futility_prunes 967 check_extensions 17
+2026-10-18T04:39:20.252606+00:00 < info string metrics eval_calls 15816 beta_cutoffs 10052 pawn_probes 0 pawn_hits 0 nnue_evaluations 15816
+2026-10-18T04:39:20.252606+00:00 < info depth 5 seldepth 12 nodes 16177 time 12 nps 1348083 hashfull 7 score cp -38 pv c1c6 b7c6 f3d4 b6a4 d4e6 a4b2
+2026-10-18T04:39:20.269605+00:00 < info string tt probes 12437 hits 1327 cutoffs 430
+2026-10-18T04:39:20.269605+00:00 < info string search qnodes 41102 scouts 2101 researches 17 qcaps 0 plylimit 0
+2026-10-18T04:39:20.269605+00:00 < info string optim aspiration_attempts 5 aspiration_searches 12 aspiration_fail_high 4 aspiration_fail_low 3 aspiration_retries 7 aspiration_successes 5 null_attempts 464 null_cutoffs 210 lmr_attempts 5021 lmr_searches 5021 lmr_researches 9 lmr_verifications 9 history_updates 374 killer_cutoffs 293 see_calls 80176 reverse_futility_cutoffs 9133 futility_prunes 3639 check_extensions 46
+2026-10-18T04:39:20.269605+00:00 < info string metrics eval_calls 52675 beta_cutoffs 39182 pawn_probes 0 pawn_hits 0 nnue_evaluations 52675
+2026-10-18T04:39:20.269605+00:00 < info depth 6 seldepth 19 nodes 54841 time 29 nps 1891068 hashfull 29 score cp 134 pv f3g5 d8g5 c1c6 b7c6 d1c2 b6d5
+2026-10-18T04:39:20.315593+00:00 < info string tt probes 22465 hits 2330 cutoffs 748
+2026-10-18T04:39:20.315593+00:00 < info string search qnodes 164355 scouts 3066 researches 30 qcaps 0 plylimit 0
+2026-10-18T04:39:20.315593+00:00 < info string optim aspiration_attempts 6 aspiration_searches 15 aspiration_fail_high 4 aspiration_fail_low 5 aspiration_retries 9 aspiration_successes 6 null_attempts 967 null_cutoffs 526 lmr_attempts 9096 lmr_searches 9096 lmr_researches 13 lmr_verifications 13 history_updates 434 killer_cutoffs 331 see_calls 173508 reverse_futility_cutoffs 16739 futility_prunes 6590 check_extensions 191
+2026-10-18T04:39:20.315593+00:00 < info string metrics eval_calls 184110 beta_cutoffs 162554 pawn_probes 0 pawn_hits 0 nnue_evaluations 184110
+2026-10-18T04:39:20.315593+00:00 < info depth 7 seldepth 19 nodes 195762 time 76 nps 2575815 hashfull 47 score cp 42 pv f3g5 d8g5 f2f3 c8e6 f3e4 f5e4 c1c6 g5g3 h2g3
+2026-10-18T04:39:20.461193+00:00 < info string tt probes 42045 hits 4809 cutoffs 1772
+2026-10-18T04:39:20.461193+00:00 < info string search qnodes 433532 scouts 4064 researches 37 qcaps 6 plylimit 0
+2026-10-18T04:39:20.461193+00:00 < info string optim aspiration_attempts 7 aspiration_searches 17 aspiration_fail_high 5 aspiration_fail_low 5 aspiration_retries 10 aspiration_successes 7 null_attempts 1731 null_cutoffs 908 lmr_attempts 18374 lmr_searches 18374 lmr_researches 21 lmr_verifications 21 history_updates 759 killer_cutoffs 565 see_calls 538349 reverse_futility_cutoffs 31100 futility_prunes 19736 check_extensions 419
+2026-10-18T04:39:20.461193+00:00 < info string metrics eval_calls 466361 beta_cutoffs 425418 pawn_probes 0 pawn_hits 0 nnue_evaluations 466361
+2026-10-18T04:39:20.461193+00:00 < info depth 8 seldepth 23 nodes 519966 time 221 nps 2352787 hashfull 82 score cp 83 pv f3g5 d8g5 d2d3 f5f4 c1c6 f4g3 h2g3 g5g3 d3e4 f8f2 f1f2 b7c6
+2026-10-18T04:39:20.741607+00:00 < info seldepth 27 nodes 1312256 time 500 nps 2624512 hashfull 126
+2026-10-18T04:39:20.741607+00:00 < info string incomplete alpha-beta iterative ordered material+pst cached qsearch pvs tt probes 61292 hits 5832 cutoffs 2034 search qnodes 1156233 scouts 5030 researches 51 qcaps 13 plylimit 0 eval_calls 1193932 beta_cutoffs 1149105 pawn_probes 0 pawn_hits 0 nnue_evaluations 1193932 optim aspiration_attempts 8 aspiration_searches 18 aspiration_fail_high 5 aspiration_fail_low 5 aspiration_retries 10 aspiration_successes 7 null_attempts 2388 null_cutoffs 1150 lmr_attempts 23593 lmr_searches 23593 lmr_researches 33 lmr_verifications 33 history_updates 1259 killer_cutoffs 935 see_calls 947141 reverse_futility_cutoffs 45932 futility_prunes 26826 check_extensions 783
+2026-10-18T04:39:20.741607+00:00 < bestmove f3g5
+2026-10-18T04:39:21.263287+00:00 > position startpos moves c2c4 e7e5 b1c3 g8f6 g2g3 d7d5 c4d5 f6d5 f1g2 d5b6 g1f3 b8c6 e1g1 f8c5 b2b3 e8g8 c3e4 c5e7 c1b2 f7f5 e4g5 e5e4 a1c1 e7g5 f3g5 d8g5
+2026-10-18T04:39:21.263287+00:00 > go movetime 500
+2026-10-18T04:39:21.265286+00:00 < info string tt probes 1 hits 0 cutoffs 0
+2026-10-18T04:39:21.265286+00:00 < info string search qnodes 108 scouts 32 researches 3 qcaps 0 plylimit 0
+2026-10-18T04:39:21.265286+00:00 < info string optim aspiration_attempts 0 aspiration_searches 0 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 0 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 104 reverse_futility_cutoffs 0 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:21.265286+00:00 < info string metrics eval_calls 106 beta_cutoffs 84 pawn_probes 0 pawn_hits 0 nnue_evaluations 106
+2026-10-18T04:39:21.267290+00:00 < info depth 1 seldepth 7 nodes 109 time 1 nps 109000 hashfull 0 score cp 31 pv c1c6 g5g3 h2g3
+2026-10-18T04:39:21.267290+00:00 < info string tt probes 35 hits 1 cutoffs 0
+2026-10-18T04:39:21.267290+00:00 < info string search qnodes 160 scouts 96 researches 3 qcaps 0 plylimit 0
+2026-10-18T04:39:21.268290+00:00 < info string optim aspiration_attempts 1 aspiration_searches 1 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 1 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 222 reverse_futility_cutoffs 31 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:21.268290+00:00 < info string metrics eval_calls 189 beta_cutoffs 130 pawn_probes 0 pawn_hits 0 nnue_evaluations 189
+2026-10-18T04:39:21.268290+00:00 < info depth 2 seldepth 7 nodes 195 time 3 nps 65000 hashfull 0 score cp 31 pv c1c6 g5g3 h2g3
+2026-10-18T04:39:21.269361+00:00 < info string tt probes 114 hits 4 cutoffs 0
+2026-10-18T04:39:21.269361+00:00 < info string search qnodes 589 scouts 198 researches 3 qcaps 0 plylimit 0
+2026-10-18T04:39:21.269361+00:00 < info string optim aspiration_attempts 2 aspiration_searches 2 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 2 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 4 killer_cutoffs 1 see_calls 819 reverse_futility_cutoffs 90 futility_prunes 50 check_extensions 0
+2026-10-18T04:39:21.269361+00:00 < info string metrics eval_calls 655 beta_cutoffs 502 pawn_probes 0 pawn_hits 0 nnue_evaluations 655
+2026-10-18T04:39:21.269361+00:00 < info depth 3 seldepth 11 nodes 703 time 5 nps 140600 hashfull 0 score cp 31 pv c1c6 g5g3 h2g3
+2026-10-18T04:39:21.271365+00:00 < info string tt probes 664 hits 137 cutoffs 86
+2026-10-18T04:39:21.271365+00:00 < info string search qnodes 4239 scouts 645 researches 9 qcaps 0 plylimit 0
+2026-10-18T04:39:21.271365+00:00 < info string optim aspiration_attempts 3 aspiration_searches 6 aspiration_fail_high 3 aspiration_fail_low 0 aspiration_retries 3 aspiration_successes 3 null_attempts 5 null_cutoffs 3 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 24 killer_cutoffs 10 see_calls 4273 reverse_futility_cutoffs 298 futility_prunes 755 check_extensions 4
+2026-10-18T04:39:21.271365+00:00 < info string metrics eval_calls 4650 beta_cutoffs 3889 pawn_probes 0 pawn_hits 0 nnue_evaluations 4650
+2026-10-18T04:39:21.271365+00:00 < info depth 4 seldepth 12 nodes 4903 time 7 nps 700428 hashfull 3 score cp 134 pv c1c6 b7c6 d1c2 b6d5
+2026-10-18T04:39:21.280369+00:00 < info string tt probes 4949 hits 566 cutoffs 342
+2026-10-18T04:39:21.280369+00:00 < info string search qnodes 22314 scouts 1567 researches 23 qcaps 0 plylimit 0
+2026-10-18T04:39:21.280369+00:00 < info string optim aspiration_attempts 4 aspiration_searches 9 aspiration_fail_high 3 aspiration_fail_low 2 aspiration_retries 5 aspiration_successes 4 null_attempts 114 null_cutoffs 71 lmr_attempts 932 lmr_searches 932 lmr_researches 2 lmr_verifications 2 history_updates 78 killer_cutoffs 46 see_calls 27053 reverse_futility_cutoffs 2982 futility_prunes 2173 check_extensions 65
+2026-10-18T04:39:21.280369+00:00 < info string metrics eval_calls 26156 beta_cutoffs 21077 pawn_probes 0 pawn_hits 0 nnue_evaluations 26156
+2026-10-18T04:39:21.280369+00:00 < info depth 5 seldepth 14 nodes 27359 time 17 nps 1609352 hashfull 20 score cp 42 pv f2f3 c8e6 f3e4 f5e4 c1c6 g5g3 h2g3
+2026-10-18T04:39:21.305642+00:00 < info string tt probes 16902 hits 2255 cutoffs 1240
+2026-10-18T04:39:21.305642+00:00 < info string search qnodes 63038 scouts 2470 researches 31 qcaps 0 plylimit 0
+2026-10-18T04:39:21.305642+00:00 < info string optim aspiration_attempts 5 aspiration_searches 11 aspiration_fail_high 4 aspiration_fail_low 2 aspiration_retries 6 aspiration_successes 5 null_attempts 376 null_cutoffs 131 lmr_attempts 5776 lmr_searches 5776 lmr_researches 14 lmr_verifications 14 history_updates 222 killer_cutoffs 137 see_calls 94358 reverse_futility_cutoffs 11281 futility_prunes 13476 check_extensions 197
+2026-10-18T04:39:21.305642+00:00 < info string metrics eval_calls 76275 beta_cutoffs 58893 pawn_probes 0 pawn_hits 0 nnue_evaluations 76275
+2026-10-18T04:39:21.305642+00:00 < info depth 6 seldepth 15 nodes 81169 time 42 nps 1932595 hashfull 48 score cp 83 pv d2d3 f5f4 c1c6 f4g3 h2g3 g5g3 d3e4 f8f2 f1f2 b7c6
+2026-10-18T04:39:21.389075+00:00 < info string tt probes 48225 hits 4471 cutoffs 2130
+2026-10-18T04:39:21.389075+00:00 < info string search qnodes 245115 scouts 4101 researches 52 qcaps 0 plylimit 0
+2026-10-18T04:39:21.390059+00:00 < info string optim aspiration_attempts 6 aspiration_searches 13 aspiration_fail_high 4 aspiration_fail_low 3 aspiration_retries 7 aspiration_successes 6 null_attempts 1203 null_cutoffs 401 lmr_attempts 13876 lmr_searches 13876 lmr_researches 54 lmr_verifications 54 history_updates 1134 killer_cutoffs 808 see_calls 303612 reverse_futility_cutoffs 33768 futility_prunes 22633 check_extensions 590
+2026-10-18T04:39:21.390059+00:00 < info string metrics eval_calls 282804 beta_cutoffs 231999 pawn_probes 0 pawn_hits 0 nnue_evaluations 282804
+2026-10-18T04:39:21.390059+00:00 < info depth 7 seldepth 20 nodes 299476 time 125 nps 2395808 hashfull 136 score cp 50 pv d2d3 g5g6 d3e4 f5e4 c1c5 c6b4 c5c7
+2026-10-18T04:39:21.578253+00:00 < info string tt probes 93511 hits 7187 cutoffs 3080
+2026-10-18T04:39:21.579267+00:00 < info string search qnodes 618167 scouts 5710 researches 74 qcaps 12 plylimit 0
+2026-10-18T04:39:21.579267+00:00 < info string optim aspiration_attempts 7 aspiration_searches 14 aspiration_fail_high 4 aspiration_fail_low 3 aspiration_retries 7 aspiration_successes 7 null_attempts 2551 null_cutoffs 804 lmr_attempts 27153 lmr_searches 27153 lmr_researches 117 lmr_verifications 117 history_updates 1930 killer_cutoffs 1319 see_calls 818713 reverse_futility_cutoffs 68210 futility_prunes 48905 check_extensions 1543
+2026-10-18T04:39:21.579267+00:00 < info string metrics eval_calls 685327 beta_cutoffs 579062 pawn_probes 0 pawn_hits 0 nnue_evaluations 685327
+2026-10-18T04:39:21.579267+00:00 < info depth 8 seldepth 22 nodes 746024 time 315 nps 2368330 hashfull 232 score cp 72 pv d2d3 f5f4 d3e4 f4g3 h2g3 b6a4 b3a4 g5g3 f2g3 f8f1 g2f1
+2026-10-18T04:39:21.764274+00:00 < info seldepth 25 nodes 1165824 time 500 nps 2331648 hashfull 323
+2026-10-18T04:39:21.764274+00:00 < info string incomplete alpha-beta iterative ordered material+pst cached qsearch pvs tt probes 147401 hits 10092 cutoffs 4043 search qnodes 961269 scouts 6269 researches 79 qcaps 21 plylimit 0 eval_calls 1065519 beta_cutoffs 905689 pawn_probes 0 pawn_hits 0 nnue_evaluations 1065519 optim aspiration_attempts 8 aspiration_searches 15 aspiration_fail_high 4 aspiration_fail_low 3 aspiration_retries 7 aspiration_successes 7 null_attempts 4206 null_cutoffs 1363 lmr_attempts 43011 lmr_searches 43011 lmr_researches 188 lmr_verifications 188 history_updates 3142 killer_cutoffs 2088 see_calls 1261275 reverse_futility_cutoffs 110139 futility_prunes 73255 check_extensions 2546
+2026-10-18T04:39:21.764274+00:00 < bestmove d2d3
+2026-10-18T04:39:22.275098+00:00 > position startpos moves c2c4 e7e5 b1c3 g8f6 g2g3 d7d5 c4d5 f6d5 f1g2 d5b6 g1f3 b8c6 e1g1 f8c5 b2b3 e8g8 c3e4 c5e7 c1b2 f7f5 e4g5 e5e4 a1c1 e7g5 f3g5 d8g5 d2d3 f8e8
+2026-10-18T04:39:22.275098+00:00 > go movetime 500
+2026-10-18T04:39:22.278098+00:00 < info string tt probes 1 hits 0 cutoffs 0
+2026-10-18T04:39:22.278098+00:00 < info string search qnodes 90 scouts 33 researches 1 qcaps 0 plylimit 0
+2026-10-18T04:39:22.278098+00:00 < info string optim aspiration_attempts 0 aspiration_searches 0 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 0 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 78 reverse_futility_cutoffs 0 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:22.278098+00:00 < info string metrics eval_calls 86 beta_cutoffs 76 pawn_probes 0 pawn_hits 0 nnue_evaluations 86
+2026-10-18T04:39:22.278098+00:00 < info depth 1 seldepth 6 nodes 91 time 1 nps 91000 hashfull 0 score cp 78 pv c1c6 g5g3 f2g3
+2026-10-18T04:39:22.278098+00:00 < info string tt probes 42 hits 7 cutoffs 1
+2026-10-18T04:39:22.278098+00:00 < info string search qnodes 413 scouts 229 researches 2 qcaps 0 plylimit 0
+2026-10-18T04:39:22.279121+00:00 < info string optim aspiration_attempts 1 aspiration_searches 3 aspiration_fail_high 2 aspiration_fail_low 0 aspiration_retries 2 aspiration_successes 1 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 378 reverse_futility_cutoffs 32 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:22.279121+00:00 < info string metrics eval_calls 435 beta_cutoffs 372 pawn_probes 0 pawn_hits 0 nnue_evaluations 435
+2026-10-18T04:39:22.279121+00:00 < info depth 2 seldepth 6 nodes 455 time 2 nps 227500 hashfull 0 score cp 161 pv d3e4 g5g6 c1c6 g6c6
+2026-10-18T04:39:22.279121+00:00 < info string tt probes 121 hits 10 cutoffs 1
+2026-10-18T04:39:22.279121+00:00 < info string search qnodes 1106 scouts 342 researches 2 qcaps 0 plylimit 0
+2026-10-18T04:39:22.279121+00:00 < info string optim aspiration_attempts 2 aspiration_searches 4 aspiration_fail_high 2 aspiration_fail_low 0 aspiration_retries 2 aspiration_successes 2 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 959 reverse_futility_cutoffs 76 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:22.279121+00:00 < info string metrics eval_calls 1188 beta_cutoffs 1030 pawn_probes 0 pawn_hits 0 nnue_evaluations 1188
+2026-10-18T04:39:22.279121+00:00 < info depth 3 seldepth 10 nodes 1227 time 3 nps 409000 hashfull 0 score cp 161 pv d3e4 g5g6 c1c6 g6c6
+2026-10-18T04:39:22.281098+00:00 < info string tt probes 484 hits 49 cutoffs 1
+2026-10-18T04:39:22.281098+00:00 < info string search qnodes 3247 scouts 487 researches 2 qcaps 0 plylimit 0
+2026-10-18T04:39:22.281098+00:00 < info string optim aspiration_attempts 3 aspiration_searches 5 aspiration_fail_high 2 aspiration_fail_low 0 aspiration_retries 2 aspiration_successes 3 null_attempts 11 null_cutoffs 9 lmr_attempts 33 lmr_searches 33 lmr_researches 4 lmr_verifications 4 history_updates 4 killer_cutoffs 0 see_calls 2947 reverse_futility_cutoffs 267 futility_prunes 813 check_extensions 4
+2026-10-18T04:39:22.281098+00:00 < info string metrics eval_calls 3663 beta_cutoffs 3140 pawn_probes 0 pawn_hits 0 nnue_evaluations 3663
+2026-10-18T04:39:22.281098+00:00 < info depth 4 seldepth 10 nodes 3731 time 4 nps 932750 hashfull 2 score cp 161 pv d3e4 g5g6 c1c6 g6c6
+2026-10-18T04:39:22.287123+00:00 < info string tt probes 3368 hits 284 cutoffs 108
+2026-10-18T04:39:22.287123+00:00 < info string search qnodes 11899 scouts 1137 researches 13 qcaps 0 plylimit 0
+2026-10-18T04:39:22.287123+00:00 < info string optim aspiration_attempts 4 aspiration_searches 6 aspiration_fail_high 2 aspiration_fail_low 0 aspiration_retries 2 aspiration_successes 4 null_attempts 80 null_cutoffs 39 lmr_attempts 311 lmr_searches 311 lmr_researches 5 lmr_verifications 5 history_updates 47 killer_cutoffs 32 see_calls 16855 reverse_futility_cutoffs 2461 futility_prunes 1022 check_extensions 15
+2026-10-18T04:39:22.287123+00:00 < info string metrics eval_calls 14801 beta_cutoffs 11401 pawn_probes 0 pawn_hits 0 nnue_evaluations 14801
+2026-10-18T04:39:22.287123+00:00 < info depth 5 seldepth 13 nodes 15299 time 10 nps 1529900 hashfull 8 score cp 143 pv d3e4 f5e4 h2h4 g5h6 c1c6 h6c6
+2026-10-18T04:39:22.300294+00:00 < info string tt probes 9203 hits 649 cutoffs 225
+2026-10-18T04:39:22.300294+00:00 < info string search qnodes 27027 scouts 1632 researches 17 qcaps 0 plylimit 0
+2026-10-18T04:39:22.300294+00:00 < info string optim aspiration_attempts 5 aspiration_searches 7 aspiration_fail_high 2 aspiration_fail_low 0 aspiration_retries 2 aspiration_successes 5 null_attempts 239 null_cutoffs 103 lmr_attempts 1901 lmr_searches 1901 lmr_researches 7 lmr_verifications 7 history_updates 140 killer_cutoffs 98 see_calls 48784 reverse_futility_cutoffs 7112 futility_prunes 6516 check_extensions 121
+2026-10-18T04:39:22.300294+00:00 < info string metrics eval_calls 35208 beta_cutoffs 25879 pawn_probes 0 pawn_hits 0 nnue_evaluations 35208
+2026-10-18T04:39:22.300294+00:00 < info depth 6 seldepth 19 nodes 36890 time 23 nps 1603913 hashfull 20 score cp 153 pv d3e4 g5h6 e4f5 c8f5 d1d5 b6d5 g2d5 h6e6
+2026-10-18T04:39:22.408764+00:00 < info string tt probes 47182 hits 2830 cutoffs 1034
+2026-10-18T04:39:22.408764+00:00 < info string search qnodes 198817 scouts 3177 researches 34 qcaps 0 plylimit 0
+2026-10-18T04:39:22.408764+00:00 < info string optim aspiration_attempts 6 aspiration_searches 9 aspiration_fail_high 2 aspiration_fail_low 1 aspiration_retries 3 aspiration_successes 6 null_attempts 1291 null_cutoffs 446 lmr_attempts 12554 lmr_searches 12554 lmr_researches 36 lmr_verifications 36 history_updates 931 killer_cutoffs 637 see_calls 281441 reverse_futility_cutoffs 37028 futility_prunes 19450 check_extensions 684
+2026-10-18T04:39:22.408764+00:00 < info string metrics eval_calls 237742 beta_cutoffs 190861 pawn_probes 0 pawn_hits 0 nnue_evaluations 237742
+2026-10-18T04:39:22.408764+00:00 < info depth 7 seldepth 22 nodes 251981 time 132 nps 1908946 hashfull 100 score cp 106 pv d3e4 f5e4 d1c2 c8d7 c1d1 g5f5 d1d7 f5d7
+2026-10-18T04:39:22.555737+00:00 < info string tt probes 84786 hits 5914 cutoffs 2068
+2026-10-18T04:39:22.555737+00:00 < info string search qnodes 498091 scouts 4342 researches 44 qcaps 0 plylimit 0
+2026-10-18T04:39:22.555737+00:00 < info string optim aspiration_attempts 7 aspiration_searches 11 aspiration_fail_high 3 aspiration_fail_low 1 aspiration_retries 4 aspiration_successes 7 null_attempts 2724 null_cutoffs 1210 lmr_attempts 26985 lmr_searches 26985 lmr_researches 67 lmr_verifications 67 history_updates 1382 killer_cutoffs 885 see_calls 658794 reverse_futility_cutoffs 67409 futility_prunes 37252 check_extensions 1284
+2026-10-18T04:39:22.556737+00:00 < info string metrics eval_calls 568364 beta_cutoffs 483343 pawn_probes 0 pawn_hits 0 nnue_evaluations 568364
+2026-10-18T04:39:22.556737+00:00 < info depth 8 seldepth 22 nodes 616289 time 279 nps 2208921 hashfull 147 score cp 148 pv h2h4 g5d8 d3e4 d8d1 f1d1 f5e4 c1c6 b7c6
+2026-10-18T04:39:22.775956+00:00 < info seldepth 22 nodes 1225728 time 500 nps 2451456 hashfull 167
+2026-10-18T04:39:22.776974+00:00 < info string incomplete alpha-beta iterative ordered material+pst cached qsearch pvs tt probes 98908 hits 6824 cutoffs 2163 search qnodes 1053593 scouts 4494 researches 44 qcaps 0 plylimit 0 eval_calls 1118493 beta_cutoffs 1028124 pawn_probes 0 pawn_hits 0 nnue_evaluations 1118493 optim aspiration_attempts 8 aspiration_searches 12 aspiration_fail_high 3 aspiration_fail_low 1 aspiration_retries 4 aspiration_successes 7 null_attempts 3257 null_cutoffs 1481 lmr_attempts 33507 lmr_searches 33507 lmr_researches 73 lmr_verifications 73 history_updates 1561 killer_cutoffs 980 see_calls 1022855 reverse_futility_cutoffs 78840 futility_prunes 44378 check_extensions 1624
+2026-10-18T04:39:22.776974+00:00 < bestmove h2h4
+2026-10-18T04:39:23.312644+00:00 > position startpos moves c2c4 e7e5 b1c3 g8f6 g2g3 d7d5 c4d5 f6d5 f1g2 d5b6 g1f3 b8c6 e1g1 f8c5 b2b3 e8g8 c3e4 c5e7 c1b2 f7f5 e4g5 e5e4 a1c1 e7g5 f3g5 d8g5 d2d3 f8e8 h2h4 g5e7
+2026-10-18T04:39:23.312644+00:00 > go movetime 500
+2026-10-18T04:39:23.315664+00:00 < info string tt probes 1 hits 0 cutoffs 0
+2026-10-18T04:39:23.315664+00:00 < info string search qnodes 47 scouts 33 researches 1 qcaps 0 plylimit 0
+2026-10-18T04:39:23.315664+00:00 < info string optim aspiration_attempts 0 aspiration_searches 0 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 0 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 16 reverse_futility_cutoffs 0 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:23.315664+00:00 < info string metrics eval_calls 47 beta_cutoffs 43 pawn_probes 0 pawn_hits 0 nnue_evaluations 47
+2026-10-18T04:39:23.315664+00:00 < info depth 1 seldepth 3 nodes 48 time 2 nps 24000 hashfull 0 score cp 111 pv c1c6 b7c6
+2026-10-18T04:39:23.316646+00:00 < info string tt probes 40 hits 5 cutoffs 1
+2026-10-18T04:39:23.316646+00:00 < info string search qnodes 231 scouts 179 researches 2 qcaps 0 plylimit 0
+2026-10-18T04:39:23.316646+00:00 < info string optim aspiration_attempts 1 aspiration_searches 2 aspiration_fail_high 1 aspiration_fail_low 0 aspiration_retries 1 aspiration_successes 1 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 154 reverse_futility_cutoffs 32 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:23.316646+00:00 < info string metrics eval_calls 263 beta_cutoffs 220 pawn_probes 0 pawn_hits 0 nnue_evaluations 263
+2026-10-18T04:39:23.316646+00:00 < info depth 2 seldepth 5 nodes 271 time 3 nps 90333 hashfull 0 score cp 144 pv d3e4 f5e4 c1c6 b7c6
+2026-10-18T04:39:23.317647+00:00 < info string tt probes 116 hits 8 cutoffs 1
+2026-10-18T04:39:23.317647+00:00 < info string search qnodes 616 scouts 288 researches 2 qcaps 0 plylimit 0
+2026-10-18T04:39:23.317647+00:00 < info string optim aspiration_attempts 2 aspiration_searches 3 aspiration_fail_high 1 aspiration_fail_low 0 aspiration_retries 1 aspiration_successes 2 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 530 reverse_futility_cutoffs 73 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:23.317647+00:00 < info string metrics eval_calls 717 beta_cutoffs 595 pawn_probes 0 pawn_hits 0 nnue_evaluations 717
+2026-10-18T04:39:23.317647+00:00 < info depth 3 seldepth 7 nodes 732 time 4 nps 183000 hashfull 0 score cp 144 pv d3e4 f5e4 c1c6 b7c6
+2026-10-18T04:39:23.319645+00:00 < info string tt probes 481 hits 47 cutoffs 1
+2026-10-18T04:39:23.319645+00:00 < info string search qnodes 3005 scouts 432 researches 2 qcaps 0 plylimit 0
+2026-10-18T04:39:23.319645+00:00 < info string optim aspiration_attempts 3 aspiration_searches 4 aspiration_fail_high 1 aspiration_fail_low 0 aspiration_retries 1 aspiration_successes 3 null_attempts 11 null_cutoffs 10 lmr_attempts 13 lmr_searches 13 lmr_researches 4 lmr_verifications 4 history_updates 4 killer_cutoffs 0 see_calls 2470 reverse_futility_cutoffs 294 futility_prunes 558 check_extensions 7
+2026-10-18T04:39:23.319645+00:00 < info string metrics eval_calls 3428 beta_cutoffs 2935 pawn_probes 0 pawn_hits 0 nnue_evaluations 3428
+2026-10-18T04:39:23.319645+00:00 < info depth 4 seldepth 16 nodes 3486 time 6 nps 581000 hashfull 1 score cp 144 pv d3e4 f5e4 c1c6 b7c6
+2026-10-18T04:39:23.323645+00:00 < info string tt probes 1348 hits 119 cutoffs 19
+2026-10-18T04:39:23.323645+00:00 < info string search qnodes 6678 scouts 571 researches 4 qcaps 0 plylimit 0
+2026-10-18T04:39:23.323645+00:00 < info string optim aspiration_attempts 4 aspiration_searches 5 aspiration_fail_high 1 aspiration_fail_low 0 aspiration_retries 1 aspiration_successes 4 null_attempts 48 null_cutoffs 37 lmr_attempts 237 lmr_searches 237 lmr_researches 4 lmr_verifications 4 history_updates 24 killer_cutoffs 14 see_calls 6910 reverse_futility_cutoffs 933 futility_prunes 808 check_extensions 12
+2026-10-18T04:39:23.323645+00:00 < info string metrics eval_calls 7847 beta_cutoffs 6473 pawn_probes 0 pawn_hits 0 nnue_evaluations 7847
+2026-10-18T04:39:23.323645+00:00 < info depth 5 seldepth 16 nodes 8058 time 10 nps 805800 hashfull 4 score cp 120 pv d3e4 f5e4 d1c2 c6b4 c2e4
+2026-10-18T04:39:23.337161+00:00 < info string tt probes 6073 hits 475 cutoffs 157
+2026-10-18T04:39:23.337161+00:00 < info string search qnodes 23907 scouts 984 researches 7 qcaps 0 plylimit 0
+2026-10-18T04:39:23.337161+00:00 < info string optim aspiration_attempts 5 aspiration_searches 7 aspiration_fail_high 2 aspiration_fail_low 0 aspiration_retries 2 aspiration_successes 5 null_attempts 229 null_cutoffs 137 lmr_attempts 1990 lmr_searches 1990 lmr_researches 5 lmr_verifications 5 history_updates 109 killer_cutoffs 75 see_calls 33509 reverse_futility_cutoffs 4615 futility_prunes 2741 check_extensions 68
+2026-10-18T04:39:23.338160+00:00 < info string metrics eval_calls 29377 beta_cutoffs 23015 pawn_probes 0 pawn_hits 0 nnue_evaluations 29377
+2026-10-18T04:39:23.338160+00:00 < info depth 6 seldepth 16 nodes 30864 time 24 nps 1286000 hashfull 13 score cp 153 pv d3e4 f5e4 d1c2 e7f7 c2c6 f7f2 f1f2
+2026-10-18T04:39:23.469774+00:00 < info string tt probes 51442 hits 2895 cutoffs 1157
+2026-10-18T04:39:23.469774+00:00 < info string search qnodes 218477 scouts 3268 researches 41 qcaps 0 plylimit 0
+2026-10-18T04:39:23.469774+00:00 < info string optim aspiration_attempts 6 aspiration_searches 10 aspiration_fail_high 2 aspiration_fail_low 2 aspiration_retries 4 aspiration_successes 6 null_attempts 1611 null_cutoffs 555 lmr_attempts 16943 lmr_searches 16943 lmr_researches 49 lmr_verifications 49 history_updates 647 killer_cutoffs 404 see_calls 279018 reverse_futility_cutoffs 40640 futility_prunes 16554 check_extensions 580
+2026-10-18T04:39:23.469774+00:00 < info string metrics eval_calls 264676 beta_cutoffs 214927 pawn_probes 0 pawn_hits 0 nnue_evaluations 264676
+2026-10-18T04:39:23.469774+00:00 < info depth 7 seldepth 18 nodes 278046 time 156 nps 1782346 hashfull 106 score cp 63 pv a2a4 c8e6 d3e4 a8d8 d1c2 c6b4 e4f5 b4c2
+2026-10-18T04:39:23.642800+00:00 < info string tt probes 92910 hits 4824 cutoffs 1583
+2026-10-18T04:39:23.643800+00:00 < info string search qnodes 524915 scouts 4728 researches 56 qcaps 32 plylimit 0
+2026-10-18T04:39:23.643800+00:00 < info string optim aspiration_attempts 7 aspiration_searches 12 aspiration_fail_high 3 aspiration_fail_low 2 aspiration_retries 5 aspiration_successes 7 null_attempts 3110 null_cutoffs 1201 lmr_attempts 29384 lmr_searches 29384 lmr_researches 83 lmr_verifications 83 history_updates 1225 killer_cutoffs 761 see_calls 578392 reverse_futility_cutoffs 74560 futility_prunes 34552 check_extensions 1362
+2026-10-18T04:39:23.643800+00:00 < info string metrics eval_calls 607113 beta_cutoffs 518725 pawn_probes 0 pawn_hits 0 nnue_evaluations 607113
+2026-10-18T04:39:23.643800+00:00 < info depth 8 seldepth 24 nodes 646079 time 330 nps 1957815 hashfull 175 score cp 90 pv d3e4 f5e4 d1c2 e7f7 c1d1 c8g4 d1c1 g4e6
+2026-10-18T04:39:23.813650+00:00 < info seldepth 25 nodes 1032960 time 500 nps 2065920 hashfull 237
+2026-10-18T04:39:23.813650+00:00 < info string incomplete alpha-beta iterative ordered material+pst cached qsearch pvs tt probes 127072 hits 6545 cutoffs 1952 search qnodes 851958 scouts 4919 researches 57 qcaps 32 plylimit 0 eval_calls 957533 beta_cutoffs 837997 pawn_probes 0 pawn_hits 0 nnue_evaluations 957533 optim aspiration_attempts 8 aspiration_searches 13 aspiration_fail_high 3 aspiration_fail_low 2 aspiration_retries 5 aspiration_successes 7 null_attempts 4275 null_cutoffs 1599 lmr_attempts 42240 lmr_searches 42240 lmr_researches 116 lmr_verifications 116 history_updates 1806 killer_cutoffs 1082 see_calls 905359 reverse_futility_cutoffs 101676 futility_prunes 48199 check_extensions 1979
+2026-10-18T04:39:23.813650+00:00 < bestmove d3e4
+2026-10-18T04:39:24.325545+00:00 > position startpos moves c2c4 e7e5 b1c3 g8f6 g2g3 d7d5 c4d5 f6d5 f1g2 d5b6 g1f3 b8c6 e1g1 f8c5 b2b3 e8g8 c3e4 c5e7 c1b2 f7f5 e4g5 e5e4 a1c1 e7g5 f3g5 d8g5 d2d3 f8e8 h2h4 g5e7 d3e4 f5e4
+2026-10-18T04:39:24.325545+00:00 > go movetime 500
+2026-10-18T04:39:24.328059+00:00 < info string tt probes 1 hits 0 cutoffs 0
+2026-10-18T04:39:24.328059+00:00 < info string search qnodes 79 scouts 37 researches 6 qcaps 0 plylimit 0
+2026-10-18T04:39:24.328059+00:00 < info string optim aspiration_attempts 0 aspiration_searches 0 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 0 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 43 reverse_futility_cutoffs 0 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:24.328059+00:00 < info string metrics eval_calls 77 beta_cutoffs 61 pawn_probes 0 pawn_hits 0 nnue_evaluations 77
+2026-10-18T04:39:24.328059+00:00 < info depth 1 seldepth 3 nodes 80 time 1 nps 80000 hashfull 0 score cp 144 pv c1c6 b7c6
+2026-10-18T04:39:24.329058+00:00 < info string tt probes 41 hits 1 cutoffs 0
+2026-10-18T04:39:24.329058+00:00 < info string search qnodes 125 scouts 109 researches 6 qcaps 0 plylimit 0
+2026-10-18T04:39:24.329058+00:00 < info string optim aspiration_attempts 1 aspiration_searches 1 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 1 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 121 reverse_futility_cutoffs 35 futility_prunes 28 check_extensions 1
+2026-10-18T04:39:24.329058+00:00 < info string metrics eval_calls 160 beta_cutoffs 107 pawn_probes 0 pawn_hits 0 nnue_evaluations 160
+2026-10-18T04:39:24.329058+00:00 < info depth 2 seldepth 3 nodes 166 time 2 nps 83000 hashfull 0 score cp 144 pv c1c6 b7c6
+2026-10-18T04:39:24.329058+00:00 < info string tt probes 228 hits 20 cutoffs 13
+2026-10-18T04:39:24.330058+00:00 < info string search qnodes 1404 scouts 215 researches 8 qcaps 0 plylimit 0
+2026-10-18T04:39:24.330058+00:00 < info string optim aspiration_attempts 2 aspiration_searches 2 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 2 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 8 killer_cutoffs 2 see_calls 921 reverse_futility_cutoffs 154 futility_prunes 141 check_extensions 2
+2026-10-18T04:39:24.330058+00:00 < info string metrics eval_calls 1566 beta_cutoffs 1345 pawn_probes 0 pawn_hits 0 nnue_evaluations 1566
+2026-10-18T04:39:24.330058+00:00 < info depth 3 seldepth 13 nodes 1632 time 3 nps 544000 hashfull 0 score cp 120 pv d1c2 c6b4 c2e4
+2026-10-18T04:39:24.332057+00:00 < info string tt probes 1172 hits 103 cutoffs 46
+2026-10-18T04:39:24.332057+00:00 < info string search qnodes 3867 scouts 517 researches 11 qcaps 0 plylimit 0
+2026-10-18T04:39:24.332057+00:00 < info string optim aspiration_attempts 3 aspiration_searches 4 aspiration_fail_high 1 aspiration_fail_low 0 aspiration_retries 1 aspiration_successes 3 null_attempts 24 null_cutoffs 13 lmr_attempts 26 lmr_searches 26 lmr_researches 0 lmr_verifications 0 history_updates 28 killer_cutoffs 15 see_calls 3813 reverse_futility_cutoffs 870 futility_prunes 712 check_extensions 21
+2026-10-18T04:39:24.332057+00:00 < info string metrics eval_calls 4880 beta_cutoffs 3753 pawn_probes 0 pawn_hits 0 nnue_evaluations 4880
+2026-10-18T04:39:24.332057+00:00 < info depth 4 seldepth 13 nodes 5039 time 5 nps 1007800 hashfull 2 score cp 153 pv d1c2 e7f7 c2c6 f7f2 f1f2
+2026-10-18T04:39:24.346058+00:00 < info string tt probes 8515 hits 698 cutoffs 278
+2026-10-18T04:39:24.347058+00:00 < info string search qnodes 22117 scouts 1305 researches 21 qcaps 0 plylimit 0
+2026-10-18T04:39:24.347058+00:00 < info string optim aspiration_attempts 4 aspiration_searches 7 aspiration_fail_high 1 aspiration_fail_low 2 aspiration_retries 3 aspiration_successes 4 null_attempts 216 null_cutoffs 45 lmr_attempts 2423 lmr_searches 2423 lmr_researches 8 lmr_verifications 8 history_updates 206 killer_cutoffs 152 see_calls 30871 reverse_futility_cutoffs 6636 futility_prunes 3003 check_extensions 115
+2026-10-18T04:39:24.347058+00:00 < info string metrics eval_calls 29692 beta_cutoffs 21653 pawn_probes 0 pawn_hits 0 nnue_evaluations 29692
+2026-10-18T04:39:24.347058+00:00 < info depth 5 seldepth 15 nodes 30737 time 20 nps 1536850 hashfull 17 score cp 84 pv a2a4 c8e6 g2e4 a8d8 e4c6 b7c6 d1d8 e7d8
+2026-10-18T04:39:24.367060+00:00 < info string tt probes 19151 hits 1359 cutoffs 398
+2026-10-18T04:39:24.367060+00:00 < info string search qnodes 47765 scouts 2203 researches 32 qcaps 0 plylimit 0
+2026-10-18T04:39:24.367060+00:00 < info string optim aspiration_attempts 5 aspiration_searches 8 aspiration_fail_high 1 aspiration_fail_low 2 aspiration_retries 3 aspiration_successes 5 null_attempts 543 null_cutoffs 157 lmr_attempts 4980 lmr_searches 4980 lmr_researches 14 lmr_verifications 14 history_updates 397 killer_cutoffs 274 see_calls 74734 reverse_futility_cutoffs 15307 futility_prunes 8330 check_extensions 270
+2026-10-18T04:39:24.367060+00:00 < info string metrics eval_calls 65125 beta_cutoffs 46521 pawn_probes 0 pawn_hits 0 nnue_evaluations 65125
+2026-10-18T04:39:24.367060+00:00 < info depth 6 seldepth 21 nodes 67237 time 40 nps 1680925 hashfull 36 score cp 102 pv d1c2 e7f7 c2c5 c8e6 g2e4 e6b3
+2026-10-18T04:39:24.496592+00:00 < info string tt probes 69251 hits 5779 cutoffs 1813
+2026-10-18T04:39:24.497590+00:00 < info string search qnodes 275221 scouts 4321 researches 63 qcaps 0 plylimit 0
+2026-10-18T04:39:24.497590+00:00 < info string optim aspiration_attempts 6 aspiration_searches 11 aspiration_fail_high 1 aspiration_fail_low 4 aspiration_retries 5 aspiration_successes 6 null_attempts 2208 null_cutoffs 581 lmr_attempts 25191 lmr_searches 25191 lmr_researches 87 lmr_verifications 87 history_updates 1213 killer_cutoffs 795 see_calls 334717 reverse_futility_cutoffs 56244 futility_prunes 24086 check_extensions 1101
+2026-10-18T04:39:24.497590+00:00 < info string metrics eval_calls 333237 beta_cutoffs 265794 pawn_probes 0 pawn_hits 0 nnue_evaluations 333237
+2026-10-18T04:39:24.497590+00:00 < info depth 7 seldepth 21 nodes 352534 time 170 nps 2073729 hashfull 102 score cp 41 pv d1c2 e7f7 g2e4 e8e4 c2e4 c8h3 e4c6 b7c6
+2026-10-18T04:39:24.752898+00:00 < info string tt probes 154920 hits 10195 cutoffs 3199
+2026-10-18T04:39:24.752898+00:00 < info string search qnodes 754326 scouts 9683 researches 143 qcaps 1 plylimit 0
+2026-10-18T04:39:24.753936+00:00 < info string optim aspiration_attempts 7 aspiration_searches 14 aspiration_fail_high 3 aspiration_fail_low 4 aspiration_retries 7 aspiration_successes 7 null_attempts 4876 null_cutoffs 1504 lmr_attempts 45256 lmr_searches 45256 lmr_researches 150 lmr_verifications 150 history_updates 2502 killer_cutoffs 1595 see_calls 806119 reverse_futility_cutoffs 127242 futility_prunes 55123 check_extensions 2521
+2026-10-18T04:39:24.753936+00:00 < info string metrics eval_calls 883931 beta_cutoffs 735019 pawn_probes 0 pawn_hits 0 nnue_evaluations 883931
+2026-10-18T04:39:24.753936+00:00 < info depth 8 seldepth 24 nodes 939924 time 426 nps 2206394 hashfull 224 score cp 87 pv d1c2 b6d5 a2a4 d5b4 c2d2 e7f7 d2b4 f7f2 f1f2
+2026-10-18T04:39:24.826737+00:00 < info seldepth 24 nodes 1067264 time 500 nps 2134528 hashfull 241
+2026-10-18T04:39:24.826737+00:00 < info string incomplete alpha-beta iterative ordered material+pst cached qsearch pvs tt probes 169002 hits 10956 cutoffs 3302 search qnodes 858278 scouts 9888 researches 144 qcaps 1 plylimit 0 eval_calls 997385 beta_cutoffs 835273 pawn_probes 0 pawn_hits 0 nnue_evaluations 997385 optim aspiration_attempts 8 aspiration_searches 15 aspiration_fail_high 3 aspiration_fail_low 4 aspiration_retries 7 aspiration_successes 7 null_attempts 5317 null_cutoffs 1601 lmr_attempts 51102 lmr_searches 51102 lmr_researches 155 lmr_verifications 155 history_updates 2742 killer_cutoffs 1733 see_calls 914954 reverse_futility_cutoffs 139064 futility_prunes 59172 check_extensions 2734
+2026-10-18T04:39:24.826737+00:00 < bestmove d1c2
+2026-10-18T04:39:25.339455+00:00 > position startpos moves c2c4 e7e5 b1c3 g8f6 g2g3 d7d5 c4d5 f6d5 f1g2 d5b6 g1f3 b8c6 e1g1 f8c5 b2b3 e8g8 c3e4 c5e7 c1b2 f7f5 e4g5 e5e4 a1c1 e7g5 f3g5 d8g5 d2d3 f8e8 h2h4 g5e7 d3e4 f5e4 d1c2 c8f5
+2026-10-18T04:39:25.339455+00:00 > go movetime 500
+2026-10-18T04:39:25.341469+00:00 < info string tt probes 1 hits 0 cutoffs 0
+2026-10-18T04:39:25.342469+00:00 < info string search qnodes 79 scouts 35 researches 4 qcaps 0 plylimit 0
+2026-10-18T04:39:25.342469+00:00 < info string optim aspiration_attempts 0 aspiration_searches 0 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 0 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 50 reverse_futility_cutoffs 0 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:25.342469+00:00 < info string metrics eval_calls 75 beta_cutoffs 63 pawn_probes 0 pawn_hits 0 nnue_evaluations 75
+2026-10-18T04:39:25.342469+00:00 < info depth 1 seldepth 7 nodes 80 time 1 nps 80000 hashfull 0 score cp 228 pv c2c6 b7c6
+2026-10-18T04:39:25.342469+00:00 < info string tt probes 39 hits 1 cutoffs 0
+2026-10-18T04:39:25.342469+00:00 < info string search qnodes 143 scouts 111 researches 4 qcaps 0 plylimit 0
+2026-10-18T04:39:25.342469+00:00 < info string optim aspiration_attempts 1 aspiration_searches 1 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 1 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 141 reverse_futility_cutoffs 34 futility_prunes 27 check_extensions 1
+2026-10-18T04:39:25.342469+00:00 < info string metrics eval_calls 172 beta_cutoffs 123 pawn_probes 0 pawn_hits 0 nnue_evaluations 172
+2026-10-18T04:39:25.342469+00:00 < info depth 2 seldepth 7 nodes 182 time 2 nps 91000 hashfull 0 score cp 228 pv c2c6 b7c6
+2026-10-18T04:39:25.345474+00:00 < info string tt probes 931 hits 173 cutoffs 127
+2026-10-18T04:39:25.345474+00:00 < info string search qnodes 4950 scouts 998 researches 18 qcaps 0 plylimit 0
+2026-10-18T04:39:25.345474+00:00 < info string optim aspiration_attempts 2 aspiration_searches 5 aspiration_fail_high 0 aspiration_fail_low 3 aspiration_retries 3 aspiration_successes 2 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 22 killer_cutoffs 17 see_calls 4435 reverse_futility_cutoffs 611 futility_prunes 130 check_extensions 5
+2026-10-18T04:39:25.345474+00:00 < info string metrics eval_calls 5536 beta_cutoffs 4677 pawn_probes 0 pawn_hits 0 nnue_evaluations 5536
+2026-10-18T04:39:25.345474+00:00 < info depth 3 seldepth 13 nodes 5881 time 4 nps 1470250 hashfull 2 score cp 107 pv c2c3 e7f6 c3f6 g7f6
+2026-10-18T04:39:25.350487+00:00 < info string tt probes 3176 hits 539 cutoffs 275
+2026-10-18T04:39:25.350487+00:00 < info string search qnodes 15785 scouts 1898 researches 30 qcaps 0 plylimit 0
+2026-10-18T04:39:25.350487+00:00 < info string optim aspiration_attempts 3 aspiration_searches 8 aspiration_fail_high 2 aspiration_fail_low 3 aspiration_retries 5 aspiration_successes 3 null_attempts 23 null_cutoffs 4 lmr_attempts 150 lmr_searches 150 lmr_researches 1 lmr_verifications 1 history_updates 89 killer_cutoffs 61 see_calls 12604 reverse_futility_cutoffs 2061 futility_prunes 1625 check_extensions 71
+2026-10-18T04:39:25.350487+00:00 < info string metrics eval_calls 18224 beta_cutoffs 15415 pawn_probes 0 pawn_hits 0 nnue_evaluations 18224
+2026-10-18T04:39:25.350487+00:00 < info depth 4 seldepth 16 nodes 18965 time 9 nps 2107222 hashfull 8 score cp 178 pv f1d1 c6b4 c2e4 e7e4
+2026-10-18T04:39:25.361490+00:00 < info string tt probes 10408 hits 1143 cutoffs 448
+2026-10-18T04:39:25.361490+00:00 < info string search qnodes 24756 scouts 2459 researches 34 qcaps 0 plylimit 0
+2026-10-18T04:39:25.361490+00:00 < info string optim aspiration_attempts 4 aspiration_searches 11 aspiration_fail_high 2 aspiration_fail_low 5 aspiration_retries 7 aspiration_successes 4 null_attempts 220 null_cutoffs 32 lmr_attempts 2340 lmr_searches 2340 lmr_researches 2 lmr_verifications 2 history_updates 169 killer_cutoffs 114 see_calls 40604 reverse_futility_cutoffs 8263 futility_prunes 4426 check_extensions 173
+2026-10-18T04:39:25.361490+00:00 < info string metrics eval_calls 33975 beta_cutoffs 24337 pawn_probes 0 pawn_hits 0 nnue_evaluations 33975
+2026-10-18T04:39:25.361490+00:00 < info depth 5 seldepth 16 nodes 35267 time 21 nps 1679380 hashfull 15 score cp 82 pv f1d1 c6b4 c2d2 b4a2 c1c7 e7c7
+2026-10-18T04:39:25.376453+00:00 < info string tt probes 20052 hits 1788 cutoffs 540
+2026-10-18T04:39:25.376453+00:00 < info string search qnodes 37878 scouts 3109 researches 40 qcaps 0 plylimit 0
+2026-10-18T04:39:25.376453+00:00 < info string optim aspiration_attempts 5 aspiration_searches 13 aspiration_fail_high 3 aspiration_fail_low 5 aspiration_retries 8 aspiration_successes 5 null_attempts 547 null_cutoffs 133 lmr_attempts 4526 lmr_searches 4526 lmr_researches 3 lmr_verifications 3 history_updates 238 killer_cutoffs 156 see_calls 74021 reverse_futility_cutoffs 16613 futility_prunes 7757 check_extensions 295
+2026-10-18T04:39:25.376453+00:00 < info string metrics eval_calls 56548 beta_cutoffs 37542 pawn_probes 0 pawn_hits 0 nnue_evaluations 56548
+2026-10-18T04:39:25.376453+00:00 < info depth 6 seldepth 16 nodes 58296 time 36 nps 1619333 hashfull 24 score cp 129 pv f1d1 c6b4 c2d2 e4e3 d2e3 e7e3
+2026-10-18T04:39:25.658387+00:00 < info string tt probes 117268 hits 7204 cutoffs 2267
+2026-10-18T04:39:25.658387+00:00 < info string search qnodes 424234 scouts 9420 researches 142 qcaps 11 plylimit 0
+2026-10-18T04:39:25.658387+00:00 < info string optim aspiration_attempts 6 aspiration_searches 17 aspiration_fail_high 3 aspiration_fail_low 8 aspiration_retries 11 aspiration_successes 6 null_attempts 3242 null_cutoffs 761 lmr_attempts 36002 lmr_searches 36002 lmr_researches 111 lmr_verifications 111 history_updates 1328 killer_cutoffs 773 see_calls 585332 reverse_futility_cutoffs 98585 futility_prunes 33552 check_extensions 1481
+2026-10-18T04:39:25.658387+00:00 < info string metrics eval_calls 525738 beta_cutoffs 413136 pawn_probes 0 pawn_hits 0 nnue_evaluations 525738
+2026-10-18T04:39:25.659385+00:00 < info depth 7 seldepth 22 nodes 556379 time 318 nps 1749619 hashfull 158 score cp 27 pv a2a3 e7f7 c2c5 f7b3 b2g7 b3f7 c5c6 f7g7
+2026-10-18T04:39:25.840872+00:00 < info seldepth 22 nodes 984064 time 500 nps 1968128 hashfull 189
+2026-10-18T04:39:25.840872+00:00 < info string incomplete alpha-beta iterative ordered material+pst cached qsearch pvs tt probes 148714 hits 9291 cutoffs 2834 search qnodes 801063 scouts 12094 researches 176 qcaps 11 plylimit 0 eval_calls 928911 beta_cutoffs 791897 pawn_probes 0 pawn_hits 0 nnue_evaluations 928911 optim aspiration_attempts 7 aspiration_searches 20 aspiration_fail_high 5 aspiration_fail_low 8 aspiration_retries 13 aspiration_successes 6 null_attempts 4354 null_cutoffs 1258 lmr_attempts 44519 lmr_searches 44519 lmr_researches 118 lmr_verifications 118 history_updates 1541 killer_cutoffs 895 see_calls 817097 reverse_futility_cutoffs 125154 futility_prunes 48133 check_extensions 1996
+2026-10-18T04:39:25.840872+00:00 < bestmove a2a3
+2026-10-18T04:39:26.355793+00:00 > position startpos moves c2c4 e7e5 b1c3 g8f6 g2g3 d7d5 c4d5 f6d5 f1g2 d5b6 g1f3 b8c6 e1g1 f8c5 b2b3 e8g8 c3e4 c5e7 c1b2 f7f5 e4g5 e5e4 a1c1 e7g5 f3g5 d8g5 d2d3 f8e8 h2h4 g5e7 d3e4 f5e4 d1c2 c8f5 a2a3 a8d8
+2026-10-18T04:39:26.355793+00:00 > go movetime 500
+2026-10-18T04:39:26.358904+00:00 < info string tt probes 1 hits 0 cutoffs 0
+2026-10-18T04:39:26.358904+00:00 < info string search qnodes 100 scouts 33 researches 5 qcaps 0 plylimit 0
+2026-10-18T04:39:26.358904+00:00 < info string optim aspiration_attempts 0 aspiration_searches 0 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 0 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 63 reverse_futility_cutoffs 0 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:26.358904+00:00 < info string metrics eval_calls 94 beta_cutoffs 79 pawn_probes 0 pawn_hits 0 nnue_evaluations 94
+2026-10-18T04:39:26.358904+00:00 < info depth 1 seldepth 8 nodes 101 time 2 nps 50500 hashfull 0 score cp 135 pv c2c6
+2026-10-18T04:39:26.358904+00:00 < info string tt probes 39 hits 3 cutoffs 0
+2026-10-18T04:39:26.358904+00:00 < info string search qnodes 404 scouts 156 researches 7 qcaps 0 plylimit 0
+2026-10-18T04:39:26.358904+00:00 < info string optim aspiration_attempts 1 aspiration_searches 2 aspiration_fail_high 1 aspiration_fail_low 0 aspiration_retries 1 aspiration_successes 1 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 478 reverse_futility_cutoffs 32 futility_prunes 25 check_extensions 1
+2026-10-18T04:39:26.358904+00:00 < info string metrics eval_calls 412 beta_cutoffs 329 pawn_probes 0 pawn_hits 0 nnue_evaluations 412
+2026-10-18T04:39:26.358904+00:00 < info depth 2 seldepth 13 nodes 443 time 2 nps 221500 hashfull 0 score cp 172 pv c2c6 e7h4 c6e8 d8e8 g3h4
+2026-10-18T04:39:26.360915+00:00 < info string tt probes 639 hits 84 cutoffs 47
+2026-10-18T04:39:26.360915+00:00 < info string search qnodes 4581 scouts 911 researches 20 qcaps 0 plylimit 0
+2026-10-18T04:39:26.360915+00:00 < info string optim aspiration_attempts 2 aspiration_searches 6 aspiration_fail_high 1 aspiration_fail_low 3 aspiration_retries 4 aspiration_successes 2 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 9 killer_cutoffs 6 see_calls 4803 reverse_futility_cutoffs 453 futility_prunes 124 check_extensions 6
+2026-10-18T04:39:26.361912+00:00 < info string metrics eval_calls 4904 beta_cutoffs 4134 pawn_probes 0 pawn_hits 0 nnue_evaluations 4904
+2026-10-18T04:39:26.361912+00:00 < info depth 3 seldepth 14 nodes 5220 time 4 nps 1305000 hashfull 1 score cp 51 pv f1e1 b6a4 c2c4 e7f7
+2026-10-18T04:39:26.372802+00:00 < info string tt probes 2281 hits 134 cutoffs 50
+2026-10-18T04:39:26.372802+00:00 < info string search qnodes 8276 scouts 1151 researches 24 qcaps 0 plylimit 0
+2026-10-18T04:39:26.372802+00:00 < info string optim aspiration_attempts 3 aspiration_searches 7 aspiration_fail_high 1 aspiration_fail_low 3 aspiration_retries 4 aspiration_successes 3 null_attempts 23 null_cutoffs 0 lmr_attempts 23 lmr_searches 23 lmr_researches 0 lmr_verifications 0 history_updates 38 killer_cutoffs 24 see_calls 11066 reverse_futility_cutoffs 1824 futility_prunes 1094 check_extensions 46
+2026-10-18T04:39:26.372802+00:00 < info string metrics eval_calls 10139 beta_cutoffs 7777 pawn_probes 0 pawn_hits 0 nnue_evaluations 10139
+2026-10-18T04:39:26.373802+00:00 < info depth 4 seldepth 14 nodes 10557 time 16 nps 659812 hashfull 4 score cp 68 pv f1e1 b6a4 b3a4 e7h4 c2c6
+2026-10-18T04:39:26.389226+00:00 < info string tt probes 9964 hits 692 cutoffs 169
+2026-10-18T04:39:26.389226+00:00 < info string search qnodes 24099 scouts 2474 researches 44 qcaps 0 plylimit 0
+2026-10-18T04:39:26.389226+00:00 < info string optim aspiration_attempts 4 aspiration_searches 10 aspiration_fail_high 1 aspiration_fail_low 5 aspiration_retries 6 aspiration_successes 4 null_attempts 227 null_cutoffs 17 lmr_attempts 2219 lmr_searches 2219 lmr_researches 0 lmr_verifications 0 history_updates 186 killer_cutoffs 125 see_calls 49500 reverse_futility_cutoffs 8308 futility_prunes 2719 check_extensions 142
+2026-10-18T04:39:26.389226+00:00 < info string metrics eval_calls 32855 beta_cutoffs 22833 pawn_probes 0 pawn_hits 0 nnue_evaluations 32855
+2026-10-18T04:39:26.389226+00:00 < info depth 5 seldepth 17 nodes 34156 time 32 nps 1067375 hashfull 14 score cp 9 pv f1e1 e7e6 c2c6 e6c6 c1c6 b7c6
+2026-10-18T04:39:26.422229+00:00 < info string tt probes 27740 hits 1456 cutoffs 397
+2026-10-18T04:39:26.422229+00:00 < info string search qnodes 62303 scouts 4882 researches 81 qcaps 0 plylimit 0
+2026-10-18T04:39:26.422229+00:00 < info string optim aspiration_attempts 5 aspiration_searches 12 aspiration_fail_high 2 aspiration_fail_low 5 aspiration_retries 7 aspiration_successes 5 null_attempts 618 null_cutoffs 110 lmr_attempts 5595 lmr_searches 5595 lmr_researches 5 lmr_verifications 5 history_updates 370 killer_cutoffs 229 see_calls 122334 reverse_futility_cutoffs 23245 futility_prunes 7917 check_extensions 429
+2026-10-18T04:39:26.422229+00:00 < info string metrics eval_calls 87779 beta_cutoffs 60690 pawn_probes 0 pawn_hits 0 nnue_evaluations 87779
+2026-10-18T04:39:26.422229+00:00 < info depth 6 seldepth 18 nodes 90396 time 65 nps 1390707 hashfull 44 score cp 47 pv c1d1 e7f7 d1d8 c6d8 b3b4 d8e6
+2026-10-18T04:39:26.489082+00:00 < info string tt probes 49609 hits 2264 cutoffs 615
+2026-10-18T04:39:26.490021+00:00 < info string search qnodes 168287 scouts 6296 researches 102 qcaps 0 plylimit 0
+2026-10-18T04:39:26.490021+00:00 < info string optim aspiration_attempts 6 aspiration_searches 13 aspiration_fail_high 2 aspiration_fail_low 5 aspiration_retries 7 aspiration_successes 6 null_attempts 1218 null_cutoffs 260 lmr_attempts 13128 lmr_searches 13128 lmr_researches 11 lmr_verifications 11 history_updates 674 killer_cutoffs 434 see_calls 267853 reverse_futility_cutoffs 41390 futility_prunes 14132 check_extensions 710
+2026-10-18T04:39:26.490021+00:00 < info string metrics eval_calls 211221 beta_cutoffs 161749 pawn_probes 0 pawn_hits 0 nnue_evaluations 211221
+2026-10-18T04:39:26.490021+00:00 < info depth 7 seldepth 22 nodes 221515 time 133 nps 1665526 hashfull 85 score cp 39 pv f1d1 b6d5 c2c4 e4e3 g2d5 g8h8 f2f3 e7g5
+2026-10-18T04:39:26.856447+00:00 < info seldepth 26 nodes 1075200 time 500 nps 2150400 hashfull 227
+2026-10-18T04:39:26.857336+00:00 < info string incomplete alpha-beta iterative ordered material+pst cached qsearch pvs tt probes 159982 hits 6517 cutoffs 1629 search qnodes 873221 scouts 10703 researches 168 qcaps 44 plylimit 0 eval_calls 1010424 beta_cutoffs 856359 pawn_probes 0 pawn_hits 0 nnue_evaluations 1010424 optim aspiration_attempts 7 aspiration_searches 16 aspiration_fail_high 2 aspiration_fail_low 7 aspiration_retries 9 aspiration_successes 6 null_attempts 4851 null_cutoffs 1283 lmr_attempts 49141 lmr_searches 49141 lmr_researches 87 lmr_verifications 87 history_updates 2303 killer_cutoffs 1524 see_calls 990752 reverse_futility_cutoffs 135612 futility_prunes 41455 check_extensions 2158
+2026-10-18T04:39:26.857336+00:00 < bestmove f1d1
+2026-10-18T04:39:27.370629+00:00 > position startpos moves c2c4 e7e5 b1c3 g8f6 g2g3 d7d5 c4d5 f6d5 f1g2 d5b6 g1f3 b8c6 e1g1 f8c5 b2b3 e8g8 c3e4 c5e7 c1b2 f7f5 e4g5 e5e4 a1c1 e7g5 f3g5 d8g5 d2d3 f8e8 h2h4 g5e7 d3e4 f5e4 d1c2 c8f5 a2a3 a8d8 f1d1 e8f8
+2026-10-18T04:39:27.370629+00:00 > go movetime 500
+2026-10-18T04:39:27.372731+00:00 < info string tt probes 1 hits 0 cutoffs 0
+2026-10-18T04:39:27.372731+00:00 < info string search qnodes 98 scouts 39 researches 0 qcaps 0 plylimit 0
+2026-10-18T04:39:27.373853+00:00 < info string optim aspiration_attempts 0 aspiration_searches 0 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 0 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 81 reverse_futility_cutoffs 0 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:27.373853+00:00 < info string metrics eval_calls 92 beta_cutoffs 82 pawn_probes 0 pawn_hits 0 nnue_evaluations 92
+2026-10-18T04:39:27.373853+00:00 < info depth 1 seldepth 9 nodes 99 time 1 nps 99000 hashfull 0 score cp 226 pv d1d8 f8d8 c2c6
+2026-10-18T04:39:27.373853+00:00 < info string tt probes 43 hits 1 cutoffs 0
+2026-10-18T04:39:27.373853+00:00 < info string search qnodes 241 scouts 119 researches 0 qcaps 0 plylimit 0
+2026-10-18T04:39:27.373853+00:00 < info string optim aspiration_attempts 1 aspiration_searches 1 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 1 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 348 reverse_futility_cutoffs 37 futility_prunes 31 check_extensions 1
+2026-10-18T04:39:27.373853+00:00 < info string metrics eval_calls 267 beta_cutoffs 205 pawn_probes 0 pawn_hits 0 nnue_evaluations 267
+2026-10-18T04:39:27.373853+00:00 < info depth 2 seldepth 9 nodes 284 time 2 nps 142000 hashfull 0 score cp 226 pv d1d8 f8d8 c2c6
+2026-10-18T04:39:27.374861+00:00 < info string tt probes 529 hits 46 cutoffs 8
+2026-10-18T04:39:27.374861+00:00 < info string search qnodes 1094 scouts 447 researches 5 qcaps 0 plylimit 0
+2026-10-18T04:39:27.374861+00:00 < info string optim aspiration_attempts 2 aspiration_searches 5 aspiration_fail_high 0 aspiration_fail_low 3 aspiration_retries 3 aspiration_successes 2 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 3 killer_cutoffs 1 see_calls 3252 reverse_futility_cutoffs 467 futility_prunes 31 check_extensions 15
+2026-10-18T04:39:27.374861+00:00 < info string metrics eval_calls 1526 beta_cutoffs 943 pawn_probes 0 pawn_hits 0 nnue_evaluations 1526
+2026-10-18T04:39:27.375859+00:00 < info depth 3 seldepth 14 nodes 1623 time 3 nps 541000 hashfull 0 score cp 125 pv d1d8 c6d8 c2c7 e7c7
+2026-10-18T04:39:27.376859+00:00 < info string tt probes 1184 hits 66 cutoffs 9
+2026-10-18T04:39:27.376859+00:00 < info string search qnodes 1745 scouts 725 researches 9 qcaps 0 plylimit 0
+2026-10-18T04:39:27.376859+00:00 < info string optim aspiration_attempts 3 aspiration_searches 6 aspiration_fail_high 0 aspiration_fail_low 3 aspiration_retries 3 aspiration_successes 3 null_attempts 20 null_cutoffs 0 lmr_attempts 30 lmr_searches 30 lmr_researches 0 lmr_verifications 0 history_updates 8 killer_cutoffs 2 see_calls 5798 reverse_futility_cutoffs 1032 futility_prunes 424 check_extensions 39
+2026-10-18T04:39:27.376859+00:00 < info string metrics eval_calls 2800 beta_cutoffs 1582 pawn_probes 0 pawn_hits 0 nnue_evaluations 2800
+2026-10-18T04:39:27.376859+00:00 < info depth 4 seldepth 14 nodes 2929 time 5 nps 585800 hashfull 1 score cp 125 pv d1d8 f8d8 c2c6 d8d1 c1d1 b7c6
+2026-10-18T04:39:27.396875+00:00 < info string tt probes 9650 hits 589 cutoffs 219
+2026-10-18T04:39:27.396875+00:00 < info string search qnodes 21275 scouts 1625 researches 19 qcaps 8 plylimit 0
+2026-10-18T04:39:27.396875+00:00 < info string optim aspiration_attempts 4 aspiration_searches 8 aspiration_fail_high 0 aspiration_fail_low 4 aspiration_retries 4 aspiration_successes 4 null_attempts 205 null_cutoffs 11 lmr_attempts 1632 lmr_searches 1632 lmr_researches 2 lmr_verifications 2 history_updates 125 killer_cutoffs 89 see_calls 55350 reverse_futility_cutoffs 7938 futility_prunes 3480 check_extensions 258
+2026-10-18T04:39:27.396875+00:00 < info string metrics eval_calls 29385 beta_cutoffs 19792 pawn_probes 0 pawn_hits 0 nnue_evaluations 29385
+2026-10-18T04:39:27.396875+00:00 < info depth 5 seldepth 21 nodes 30999 time 25 nps 1239960 hashfull 17 score cp 94 pv b3b4 d8d1 c1d1 f5g6 c2c6 f8f2
+2026-10-18T04:39:27.407874+00:00 < info string tt probes 14283 hits 911 cutoffs 252
+2026-10-18T04:39:27.407874+00:00 < info string search qnodes 36694 scouts 2127 researches 24 qcaps 8 plylimit 0
+2026-10-18T04:39:27.407874+00:00 < info string optim aspiration_attempts 5 aspiration_searches 10 aspiration_fail_high 1 aspiration_fail_low 4 aspiration_retries 5 aspiration_successes 5 null_attempts 440 null_cutoffs 145 lmr_attempts 2954 lmr_searches 2954 lmr_researches 2 lmr_verifications 2 history_updates 182 killer_cutoffs 129 see_calls 83488 reverse_futility_cutoffs 11888 futility_prunes 4518 check_extensions 354
+2026-10-18T04:39:27.407874+00:00 < info string metrics eval_calls 48668 beta_cutoffs 34564 pawn_probes 0 pawn_hits 0 nnue_evaluations 48668
+2026-10-18T04:39:27.407874+00:00 < info depth 6 seldepth 21 nodes 51815 time 36 nps 1439305 hashfull 20 score cp 139 pv d1d8 c6d8 c2c7 e7c7 c1c7 b6d7
+2026-10-18T04:39:27.508494+00:00 < info string tt probes 46735 hits 2933 cutoffs 778
+2026-10-18T04:39:27.508494+00:00 < info string search qnodes 204029 scouts 4647 researches 62 qcaps 8 plylimit 0
+2026-10-18T04:39:27.508494+00:00 < info string optim aspiration_attempts 6 aspiration_searches 13 aspiration_fail_high 1 aspiration_fail_low 6 aspiration_retries 7 aspiration_successes 6 null_attempts 1538 null_cutoffs 567 lmr_attempts 14325 lmr_searches 14325 lmr_researches 16 lmr_verifications 16 history_updates 604 killer_cutoffs 370 see_calls 329440 reverse_futility_cutoffs 38325 futility_prunes 12779 check_extensions 1105
+2026-10-18T04:39:27.509494+00:00 < info string metrics eval_calls 239655 beta_cutoffs 197905 pawn_probes 0 pawn_hits 0 nnue_evaluations 239655
+2026-10-18T04:39:27.509494+00:00 < info depth 7 seldepth 24 nodes 262739 time 137 nps 1917802 hashfull 74 score cp 53 pv d1d8 c6d8 c2c7 e7c7 c1c7 f8f7 c7b7 d8b7
+2026-10-18T04:39:27.650047+00:00 < info string tt probes 74639 hits 4425 cutoffs 1058
+2026-10-18T04:39:27.650047+00:00 < info string search qnodes 513543 scouts 5813 researches 75 qcaps 8 plylimit 0
+2026-10-18T04:39:27.650047+00:00 < info string optim aspiration_attempts 7 aspiration_searches 15 aspiration_fail_high 2 aspiration_fail_low 6 aspiration_retries 8 aspiration_successes 7 null_attempts 2624 null_cutoffs 1099 lmr_attempts 24586 lmr_searches 24586 lmr_researches 25 lmr_verifications 25 history_updates 1066 killer_cutoffs 648 see_calls 608477 reverse_futility_cutoffs 61313 futility_prunes 22589 check_extensions 1740
+2026-10-18T04:39:27.651157+00:00 < info string metrics eval_calls 566541 beta_cutoffs 502168 pawn_probes 0 pawn_hits 0 nnue_evaluations 566541
+2026-10-18T04:39:27.651157+00:00 < info depth 8 seldepth 24 nodes 622252 time 279 nps 2230293 hashfull 115 score cp 54 pv d1d8 f8d8 g2f1 e7e6 c2c6 e6c6 c1c6 b7c6
+2026-10-18T04:39:27.871848+00:00 < info seldepth 24 nodes 1256448 time 500 nps 2512896 hashfull 129
+2026-10-18T04:39:27.871848+00:00 < info string incomplete alpha-beta iterative ordered material+pst cached qsearch pvs tt probes 87495 hits 5255 cutoffs 1158 search qnodes 1084147 scouts 6238 researches 80 qcaps 8 plylimit 0 eval_calls 1123752 beta_cutoffs 1061657 pawn_probes 0 pawn_hits 0 nnue_evaluations 1123752 optim aspiration_attempts 8 aspiration_searches 16 aspiration_fail_high 2 aspiration_fail_low 6 aspiration_retries 8 aspiration_successes 7 null_attempts 3304 null_cutoffs 1472 lmr_attempts 31040 lmr_searches 31040 lmr_researches 27 lmr_verifications 27 history_updates 1233 killer_cutoffs 756 see_calls 1052066 reverse_futility_cutoffs 71987 futility_prunes 25781 check_extensions 2011
+2026-10-18T04:39:27.871848+00:00 < bestmove d1d8
+2026-10-18T04:39:28.405071+00:00 > position startpos moves c2c4 e7e5 b1c3 g8f6 g2g3 d7d5 c4d5 f6d5 f1g2 d5b6 g1f3 b8c6 e1g1 f8c5 b2b3 e8g8 c3e4 c5e7 c1b2 f7f5 e4g5 e5e4 a1c1 e7g5 f3g5 d8g5 d2d3 f8e8 h2h4 g5e7 d3e4 f5e4 d1c2 c8f5 a2a3 a8d8 f1d1 e8f8 d1d8 f8d8
+2026-10-18T04:39:28.405071+00:00 > go movetime 500
+2026-10-18T04:39:28.407070+00:00 < info string tt probes 1 hits 0 cutoffs 0
+2026-10-18T04:39:28.408088+00:00 < info string search qnodes 118 scouts 34 researches 5 qcaps 0 plylimit 0
+2026-10-18T04:39:28.408088+00:00 < info string optim aspiration_attempts 0 aspiration_searches 0 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 0 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 86 reverse_futility_cutoffs 0 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:28.408088+00:00 < info string metrics eval_calls 109 beta_cutoffs 93 pawn_probes 0 pawn_hits 0 nnue_evaluations 109
+2026-10-18T04:39:28.408088+00:00 < info depth 1 seldepth 7 nodes 119 time 2 nps 59500 hashfull 0 score cp 226 pv c2c6
+2026-10-18T04:39:28.408088+00:00 < info string tt probes 146 hits 13 cutoffs 6
+2026-10-18T04:39:28.408088+00:00 < info string search qnodes 297 scouts 241 researches 5 qcaps 0 plylimit 0
+2026-10-18T04:39:28.408088+00:00 < info string optim aspiration_attempts 1 aspiration_searches 4 aspiration_fail_high 0 aspiration_fail_low 3 aspiration_retries 3 aspiration_successes 1 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 5 killer_cutoffs 3 see_calls 593 reverse_futility_cutoffs 127 futility_prunes 26 check_extensions 4
+2026-10-18T04:39:28.408088+00:00 < info string metrics eval_calls 410 beta_cutoffs 252 pawn_probes 0 pawn_hits 0 nnue_evaluations 410
+2026-10-18T04:39:28.408088+00:00 < info depth 2 seldepth 7 nodes 443 time 2 nps 221500 hashfull 0 score cp 125 pv c2c6 d8d1 c1d1 b7c6
+2026-10-18T04:39:28.409076+00:00 < info string tt probes 266 hits 19 cutoffs 6
+2026-10-18T04:39:28.409076+00:00 < info string search qnodes 543 scouts 360 researches 5 qcaps 0 plylimit 0
+2026-10-18T04:39:28.409076+00:00 < info string optim aspiration_attempts 2 aspiration_searches 5 aspiration_fail_high 0 aspiration_fail_low 3 aspiration_retries 3 aspiration_successes 2 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 6 killer_cutoffs 3 see_calls 1293 reverse_futility_cutoffs 229 futility_prunes 51 check_extensions 6
+2026-10-18T04:39:28.409076+00:00 < info string metrics eval_calls 754 beta_cutoffs 471 pawn_probes 0 pawn_hits 0 nnue_evaluations 754
+2026-10-18T04:39:28.409076+00:00 < info depth 3 seldepth 11 nodes 809 time 3 nps 269666 hashfull 0 score cp 125 pv c2c6 d8d1 c1d1 b7c6
+2026-10-18T04:39:28.416079+00:00 < info string tt probes 3747 hits 265 cutoffs 94
+2026-10-18T04:39:28.416079+00:00 < info string search qnodes 9919 scouts 1072 researches 19 qcaps 0 plylimit 0
+2026-10-18T04:39:28.416079+00:00 < info string optim aspiration_attempts 3 aspiration_searches 8 aspiration_fail_high 0 aspiration_fail_low 5 aspiration_retries 5 aspiration_successes 3 null_attempts 64 null_cutoffs 0 lmr_attempts 199 lmr_searches 199 lmr_researches 2 lmr_verifications 2 history_updates 88 killer_cutoffs 58 see_calls 15522 reverse_futility_cutoffs 3017 futility_prunes 1552 check_extensions 121
+2026-10-18T04:39:28.416079+00:00 < info string metrics eval_calls 13136 beta_cutoffs 9440 pawn_probes 0 pawn_hits 0 nnue_evaluations 13136
+2026-10-18T04:39:28.416079+00:00 < info depth 4 seldepth 17 nodes 13667 time 10 nps 1366700 hashfull 7 score cp 56 pv b3b4 e7d6 c2b3 d6e6 c1c6 b7c6
+2026-10-18T04:39:28.449605+00:00 < info string tt probes 16414 hits 1110 cutoffs 378
+2026-10-18T04:39:28.449605+00:00 < info string search qnodes 28125 scouts 2356 researches 35 qcaps 0 plylimit 0
+2026-10-18T04:39:28.449605+00:00 < info string optim aspiration_attempts 4 aspiration_searches 10 aspiration_fail_high 0 aspiration_fail_low 6 aspiration_retries 6 aspiration_successes 4 null_attempts 302 null_cutoffs 11 lmr_attempts 2272 lmr_searches 2272 lmr_researches 6 lmr_verifications 6 history_updates 281 killer_cutoffs 191 see_calls 72698 reverse_futility_cutoffs 13506 futility_prunes 8694 check_extensions 444
+2026-10-18T04:39:28.449605+00:00 < info string metrics eval_calls 42726 beta_cutoffs 27235 pawn_probes 0 pawn_hits 0 nnue_evaluations 42726
+2026-10-18T04:39:28.449605+00:00 < info depth 5 seldepth 17 nodes 44606 time 44 nps 1013772 hashfull 27 score cp 17 pv a3a4 c6b4 c2c3 b4d5 c3c7 e7c7
+2026-10-18T04:39:28.508588+00:00 < info string tt probes 37349 hits 2215 cutoffs 695
+2026-10-18T04:39:28.508588+00:00 < info string search qnodes 68201 scouts 4892 researches 82 qcaps 0 plylimit 0
+2026-10-18T04:39:28.508588+00:00 < info string optim aspiration_attempts 5 aspiration_searches 12 aspiration_fail_high 1 aspiration_fail_low 6 aspiration_retries 7 aspiration_successes 5 null_attempts 827 null_cutoffs 157 lmr_attempts 6715 lmr_searches 6715 lmr_researches 20 lmr_verifications 20 history_updates 574 killer_cutoffs 379 see_calls 155899 reverse_futility_cutoffs 30678 futility_prunes 21379 check_extensions 989
+2026-10-18T04:39:28.508588+00:00 < info string metrics eval_calls 101403 beta_cutoffs 65876 pawn_probes 0 pawn_hits 0 nnue_evaluations 101403
+2026-10-18T04:39:28.508588+00:00 < info depth 6 seldepth 17 nodes 105906 time 102 nps 1038294 hashfull 65 score cp 17 pv a3a4 c6b4 c2c3 b4d5 c3c7 e7c7
+2026-10-18T04:39:28.690701+00:00 < info string tt probes 112604 hits 6248 cutoffs 1965
+2026-10-18T04:39:28.690701+00:00 < info string search qnodes 300871 scouts 7892 researches 124 qcaps 0 plylimit 0
+2026-10-18T04:39:28.690701+00:00 < info string optim aspiration_attempts 6 aspiration_searches 15 aspiration_fail_high 1 aspiration_fail_low 8 aspiration_retries 9 aspiration_successes 6 null_attempts 2832 null_cutoffs 540 lmr_attempts 30486 lmr_searches 30486 lmr_researches 74 lmr_verifications 74 history_updates 1433 killer_cutoffs 811 see_calls 551135 reverse_futility_cutoffs 93108 futility_prunes 60196 check_extensions 3113
+2026-10-18T04:39:28.690701+00:00 < info string metrics eval_calls 397785 beta_cutoffs 291123 pawn_probes 0 pawn_hits 0 nnue_evaluations 397785
+2026-10-18T04:39:28.690701+00:00 < info depth 7 seldepth 19 nodes 421693 time 285 nps 1479624 hashfull 181 score cp -30 pv a3a4 e7f7 a4a5 c6a5 g3g4 a5b3 c2b3 f7b3
+2026-10-18T04:39:28.905906+00:00 < info seldepth 22 nodes 933120 time 500 nps 1866240 hashfull 272
+2026-10-18T04:39:28.905906+00:00 < info string incomplete alpha-beta iterative ordered material+pst cached qsearch pvs tt probes 182548 hits 9504 cutoffs 2683 search qnodes 722924 scouts 10384 researches 154 qcaps 0 plylimit 0 eval_calls 874419 beta_cutoffs 705348 pawn_probes 0 pawn_hits 0 nnue_evaluations 874419 optim aspiration_attempts 7 aspiration_searches 16 aspiration_fail_high 1 aspiration_fail_low 8 aspiration_retries 9 aspiration_successes 6 null_attempts 4946 null_cutoffs 1228 lmr_attempts 52783 lmr_searches 52783 lmr_researches 125 lmr_verifications 125 history_updates 2172 killer_cutoffs 1223 see_calls 966567 reverse_futility_cutoffs 151651 futility_prunes 97329 check_extensions 4951
+2026-10-18T04:39:28.905906+00:00 < bestmove a3a4
+2026-10-18T04:39:29.417879+00:00 > position startpos moves c2c4 e7e5 b1c3 g8f6 g2g3 d7d5 c4d5 f6d5 f1g2 d5b6 g1f3 b8c6 e1g1 f8c5 b2b3 e8g8 c3e4 c5e7 c1b2 f7f5 e4g5 e5e4 a1c1 e7g5 f3g5 d8g5 d2d3 f8e8 h2h4 g5e7 d3e4 f5e4 d1c2 c8f5 a2a3 a8d8 f1d1 e8f8 d1d8 f8d8 a3a4 e7b4
+2026-10-18T04:39:29.417879+00:00 > go movetime 500
+2026-10-18T04:39:29.420879+00:00 < info string tt probes 1 hits 0 cutoffs 0
+2026-10-18T04:39:29.420879+00:00 < info string search qnodes 155 scouts 34 researches 7 qcaps 0 plylimit 0
+2026-10-18T04:39:29.420879+00:00 < info string optim aspiration_attempts 0 aspiration_searches 0 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 0 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 136 reverse_futility_cutoffs 0 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:29.421948+00:00 < info string metrics eval_calls 150 beta_cutoffs 128 pawn_probes 0 pawn_hits 0 nnue_evaluations 150
+2026-10-18T04:39:29.421948+00:00 < info depth 1 seldepth 6 nodes 156 time 2 nps 78000 hashfull 0 score cp 239 pv c2c6
+2026-10-18T04:39:29.421948+00:00 < info string tt probes 147 hits 14 cutoffs 5
+2026-10-18T04:39:29.421948+00:00 < info string search qnodes 556 scouts 249 researches 11 qcaps 0 plylimit 0
+2026-10-18T04:39:29.421948+00:00 < info string optim aspiration_attempts 1 aspiration_searches 4 aspiration_fail_high 0 aspiration_fail_low 3 aspiration_retries 3 aspiration_successes 1 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 6 killer_cutoffs 2 see_calls 1080 reverse_futility_cutoffs 127 futility_prunes 68 check_extensions 4
+2026-10-18T04:39:29.421948+00:00 < info string metrics eval_calls 658 beta_cutoffs 467 pawn_probes 0 pawn_hits 0 nnue_evaluations 658
+2026-10-18T04:39:29.421948+00:00 < info depth 2 seldepth 9 nodes 703 time 3 nps 234333 hashfull 0 score cp 109 pv c2c6 b4e1 c1e1
+2026-10-18T04:39:29.422878+00:00 < info string tt probes 363 hits 34 cutoffs 10
+2026-10-18T04:39:29.422878+00:00 < info string search qnodes 1843 scouts 583 researches 14 qcaps 0 plylimit 0
+2026-10-18T04:39:29.422878+00:00 < info string optim aspiration_attempts 2 aspiration_searches 7 aspiration_fail_high 1 aspiration_fail_low 4 aspiration_retries 5 aspiration_successes 2 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 7 killer_cutoffs 2 see_calls 3099 reverse_futility_cutoffs 279 futility_prunes 223 check_extensions 10
+2026-10-18T04:39:29.422878+00:00 < info string metrics eval_calls 2092 beta_cutoffs 1590 pawn_probes 0 pawn_hits 0 nnue_evaluations 2092
+2026-10-18T04:39:29.422878+00:00 < info depth 3 seldepth 11 nodes 2206 time 4 nps 551500 hashfull 0 score cp 84 pv a4a5 c6d4 b2d4 b4d4
+2026-10-18T04:39:29.427014+00:00 < info string tt probes 2156 hits 169 cutoffs 45
+2026-10-18T04:39:29.427014+00:00 < info string search qnodes 5442 scouts 901 researches 19 qcaps 0 plylimit 0
+2026-10-18T04:39:29.427014+00:00 < info string optim aspiration_attempts 3 aspiration_searches 9 aspiration_fail_high 1 aspiration_fail_low 5 aspiration_retries 6 aspiration_successes 3 null_attempts 37 null_cutoffs 0 lmr_attempts 121 lmr_searches 121 lmr_researches 0 lmr_verifications 0 history_updates 30 killer_cutoffs 17 see_calls 12339 reverse_futility_cutoffs 1734 futility_prunes 1358 check_extensions 62
+2026-10-18T04:39:29.427014+00:00 < info string metrics eval_calls 7274 beta_cutoffs 5054 pawn_probes 0 pawn_hits 0 nnue_evaluations 7274
+2026-10-18T04:39:29.427014+00:00 < info depth 4 seldepth 11 nodes 7598 time 8 nps 949750 hashfull 4 score cp 48 pv a4a5 b4a5 c2e4 a5d2 e4f5 d2b2 c1c6 b7c6
+2026-10-18T04:39:29.439726+00:00 < info string tt probes 10663 hits 719 cutoffs 221
+2026-10-18T04:39:29.439726+00:00 < info string search qnodes 19322 scouts 1426 researches 24 qcaps 0 plylimit 0
+2026-10-18T04:39:29.440699+00:00 < info string optim aspiration_attempts 4 aspiration_searches 11 aspiration_fail_high 1 aspiration_fail_low 6 aspiration_retries 7 aspiration_successes 4 null_attempts 230 null_cutoffs 16 lmr_attempts 1833 lmr_searches 1833 lmr_researches 0 lmr_verifications 0 history_updates 131 killer_cutoffs 81 see_calls 58023 reverse_futility_cutoffs 8678 futility_prunes 5910 check_extensions 339
+2026-10-18T04:39:29.440699+00:00 < info string metrics eval_calls 28742 beta_cutoffs 18343 pawn_probes 0 pawn_hits 0 nnue_evaluations 28742
+2026-10-18T04:39:29.440699+00:00 < info depth 5 seldepth 14 nodes 30049 time 21 nps 1430904 hashfull 19 score cp 14 pv g3g4 b6a4 b3a4 d8d2 b2g7 d2c2
+2026-10-18T04:39:29.459182+00:00 < info string tt probes 22746 hits 1420 cutoffs 367
+2026-10-18T04:39:29.459182+00:00 < info string search qnodes 35398 scouts 2143 researches 32 qcaps 0 plylimit 0
+2026-10-18T04:39:29.459182+00:00 < info string optim aspiration_attempts 5 aspiration_searches 12 aspiration_fail_high 1 aspiration_fail_low 6 aspiration_retries 7 aspiration_successes 5 null_attempts 539 null_cutoffs 79 lmr_attempts 4524 lmr_searches 4524 lmr_researches 3 lmr_verifications 3 history_updates 241 killer_cutoffs 141 see_calls 117919 reverse_futility_cutoffs 18740 futility_prunes 12281 check_extensions 651
+2026-10-18T04:39:29.459182+00:00 < info string metrics eval_calls 55847 beta_cutoffs 33877 pawn_probes 0 pawn_hits 0 nnue_evaluations 55847
+2026-10-18T04:39:29.459182+00:00 < info depth 6 seldepth 17 nodes 58384 time 40 nps 1459600 hashfull 38 score cp -7 pv g3g4 c6d4 c2c7 d4e2 g1h2 b4d4 g4f5
+2026-10-18T04:39:29.582242+00:00 < info string tt probes 63515 hits 4141 cutoffs 756
+2026-10-18T04:39:29.583255+00:00 < info string search qnodes 185004 scouts 3764 researches 53 qcaps 0 plylimit 0
+2026-10-18T04:39:29.583255+00:00 < info string optim aspiration_attempts 6 aspiration_searches 15 aspiration_fail_high 1 aspiration_fail_low 8 aspiration_retries 9 aspiration_successes 6 null_attempts 1964 null_cutoffs 407 lmr_attempts 24352 lmr_searches 24352 lmr_researches 33 lmr_verifications 33 history_updates 577 killer_cutoffs 314 see_calls 394472 reverse_futility_cutoffs 53297 futility_prunes 29895 check_extensions 1630
+2026-10-18T04:39:29.583255+00:00 < info string metrics eval_calls 240245 beta_cutoffs 178847 pawn_probes 0 pawn_hits 0 nnue_evaluations 240245
+2026-10-18T04:39:29.583255+00:00 < info depth 7 seldepth 18 nodes 256687 time 163 nps 1574766 hashfull 85 score cp -106 pv b2c3 b4c5 g2e4 c6e7 e4f5 c5f5 c3g7 g8g7
+2026-10-18T04:39:29.753757+00:00 < info string tt probes 105809 hits 5819 cutoffs 1006
+2026-10-18T04:39:29.753757+00:00 < info string search qnodes 469689 scouts 5334 researches 74 qcaps 0 plylimit 0
+2026-10-18T04:39:29.754757+00:00 < info string optim aspiration_attempts 7 aspiration_searches 16 aspiration_fail_high 1 aspiration_fail_low 8 aspiration_retries 9 aspiration_successes 7 null_attempts 3340 null_cutoffs 845 lmr_attempts 39540 lmr_searches 39540 lmr_researches 69 lmr_verifications 69 history_updates 924 killer_cutoffs 487 see_calls 676437 reverse_futility_cutoffs 88980 futility_prunes 49298 check_extensions 2552
+2026-10-18T04:39:29.754757+00:00 < info string metrics eval_calls 560074 beta_cutoffs 461583 pawn_probes 0 pawn_hits 0 nnue_evaluations 560074
+2026-10-18T04:39:29.754757+00:00 < info depth 8 seldepth 20 nodes 599848 time 335 nps 1790591 hashfull 147 score cp -101 pv g2f1 b6a4 b3a4 d8d2 c2c3 b4b2 c3d2 b2d2
+2026-10-18T04:39:29.919323+00:00 < info seldepth 22 nodes 912384 time 500 nps 1824768 hashfull 229
+2026-10-18T04:39:29.919323+00:00 < info string incomplete alpha-beta iterative ordered material+pst cached qsearch pvs tt probes 163721 hits 7573 cutoffs 1459 search qnodes 698873 scouts 7192 researches 97 qcaps 0 plylimit 0 eval_calls 836261 beta_cutoffs 685287 pawn_probes 0 pawn_hits 0 nnue_evaluations 836261 optim aspiration_attempts 8 aspiration_searches 17 aspiration_fail_high 1 aspiration_fail_low 8 aspiration_retries 9 aspiration_successes 7 null_attempts 4966 null_cutoffs 1326 lmr_attempts 58663 lmr_searches 58663 lmr_researches 91 lmr_verifications 91 history_updates 1420 killer_cutoffs 775 see_calls 1056367 reverse_futility_cutoffs 137996 futility_prunes 84800 check_extensions 4162
+2026-10-18T04:39:29.919323+00:00 < bestmove g2f1
+2026-10-18T04:39:30.432389+00:00 > position startpos moves c2c4 e7e5 b1c3 g8f6 g2g3 d7d5 c4d5 f6d5 f1g2 d5b6 g1f3 b8c6 e1g1 f8c5 b2b3 e8g8 c3e4 c5e7 c1b2 f7f5 e4g5 e5e4 a1c1 e7g5 f3g5 d8g5 d2d3 f8e8 h2h4 g5e7 d3e4 f5e4 d1c2 c8f5 a2a3 a8d8 f1d1 e8f8 d1d8 f8d8 a3a4 e7b4 g2f1 b6a4
+2026-10-18T04:39:30.432389+00:00 > go movetime 500
+2026-10-18T04:39:30.434394+00:00 < info string tt probes 1 hits 0 cutoffs 0
+2026-10-18T04:39:30.434394+00:00 < info string search qnodes 44 scouts 30 researches 0 qcaps 0 plylimit 0
+2026-10-18T04:39:30.435409+00:00 < info string optim aspiration_attempts 0 aspiration_searches 0 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 0 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 20 reverse_futility_cutoffs 0 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:30.435409+00:00 < info string metrics eval_calls 43 beta_cutoffs 40 pawn_probes 0 pawn_hits 0 nnue_evaluations 43
+2026-10-18T04:39:30.435409+00:00 < info depth 1 seldepth 3 nodes 45 time 1 nps 45000 hashfull 0 score cp 51 pv b3a4
+2026-10-18T04:39:30.435409+00:00 < info string tt probes 34 hits 1 cutoffs 0
+2026-10-18T04:39:30.435409+00:00 < info string search qnodes 193 scouts 110 researches 1 qcaps 0 plylimit 0
+2026-10-18T04:39:30.435409+00:00 < info string optim aspiration_attempts 1 aspiration_searches 1 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 1 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 235 reverse_futility_cutoffs 28 futility_prunes 23 check_extensions 1
+2026-10-18T04:39:30.435409+00:00 < info string metrics eval_calls 213 beta_cutoffs 160 pawn_probes 0 pawn_hits 0 nnue_evaluations 213
+2026-10-18T04:39:30.435409+00:00 < info depth 2 seldepth 10 nodes 227 time 2 nps 113500 hashfull 0 score cp 55 pv b3a4 b4c3
+2026-10-18T04:39:30.436413+00:00 < info string tt probes 308 hits 33 cutoffs 13
+2026-10-18T04:39:30.436413+00:00 < info string search qnodes 1107 scouts 403 researches 7 qcaps 0 plylimit 0
+2026-10-18T04:39:30.436413+00:00 < info string optim aspiration_attempts 2 aspiration_searches 4 aspiration_fail_high 0 aspiration_fail_low 2 aspiration_retries 2 aspiration_successes 2 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 12 killer_cutoffs 9 see_calls 1814 reverse_futility_cutoffs 228 futility_prunes 173 check_extensions 4
+2026-10-18T04:39:30.436413+00:00 < info string metrics eval_calls 1325 beta_cutoffs 916 pawn_probes 0 pawn_hits 0 nnue_evaluations 1325
+2026-10-18T04:39:30.436413+00:00 < info depth 3 seldepth 10 nodes 1415 time 3 nps 471666 hashfull 0 score cp -24 pv b3a4 d8d2 b2g7 g8g7 c2c6 b7c6
+2026-10-18T04:39:30.439409+00:00 < info string tt probes 1263 hits 124 cutoffs 24
+2026-10-18T04:39:30.439409+00:00 < info string search qnodes 6227 scouts 838 researches 14 qcaps 0 plylimit 0
+2026-10-18T04:39:30.439409+00:00 < info string optim aspiration_attempts 3 aspiration_searches 5 aspiration_fail_high 0 aspiration_fail_low 2 aspiration_retries 2 aspiration_successes 3 null_attempts 20 null_cutoffs 1 lmr_attempts 70 lmr_searches 70 lmr_researches 1 lmr_verifications 1 history_updates 54 killer_cutoffs 41 see_calls 5437 reverse_futility_cutoffs 797 futility_prunes 1397 check_extensions 35
+2026-10-18T04:39:30.439409+00:00 < info string metrics eval_calls 7277 beta_cutoffs 5958 pawn_probes 0 pawn_hits 0 nnue_evaluations 7277
+2026-10-18T04:39:30.439409+00:00 < info depth 4 seldepth 12 nodes 7490 time 6 nps 1248333 hashfull 5 score cp -24 pv b3a4 d8d2 b2g7 g8g7 c2c6 b7c6
+2026-10-18T04:39:30.448393+00:00 < info string tt probes 7620 hits 880 cutoffs 164
+2026-10-18T04:39:30.448393+00:00 < info string search qnodes 14512 scouts 1699 researches 30 qcaps 0 plylimit 0
+2026-10-18T04:39:30.448393+00:00 < info string optim aspiration_attempts 4 aspiration_searches 8 aspiration_fail_high 0 aspiration_fail_low 4 aspiration_retries 4 aspiration_successes 4 null_attempts 208 null_cutoffs 42 lmr_attempts 1862 lmr_searches 1862 lmr_researches 1 lmr_verifications 1 history_updates 174 killer_cutoffs 126 see_calls 30412 reverse_futility_cutoffs 6002 futility_prunes 3172 check_extensions 146
+2026-10-18T04:39:30.448393+00:00 < info string metrics eval_calls 21236 beta_cutoffs 13371 pawn_probes 0 pawn_hits 0 nnue_evaluations 21236
+2026-10-18T04:39:30.448393+00:00 < info depth 5 seldepth 13 nodes 22214 time 15 nps 1480933 hashfull 11 score cp -79 pv b2a1 f5e6 b3a4 b4c3 c2e4 c3g3 f1g2 g3f2 g1f2
+2026-10-18T04:39:30.455395+00:00 < info string tt probes 11826 hits 1262 cutoffs 190
+2026-10-18T04:39:30.456413+00:00 < info string search qnodes 23300 scouts 2097 researches 32 qcaps 0 plylimit 0
+2026-10-18T04:39:30.456413+00:00 < info string optim aspiration_attempts 5 aspiration_searches 9 aspiration_fail_high 0 aspiration_fail_low 4 aspiration_retries 4 aspiration_successes 5 null_attempts 345 null_cutoffs 97 lmr_attempts 3382 lmr_searches 3382 lmr_researches 2 lmr_verifications 2 history_updates 232 killer_cutoffs 167 see_calls 45698 reverse_futility_cutoffs 9488 futility_prunes 5155 check_extensions 220
+2026-10-18T04:39:30.456413+00:00 < info string metrics eval_calls 34046 beta_cutoffs 22170 pawn_probes 0 pawn_hits 0 nnue_evaluations 34046
+2026-10-18T04:39:30.456413+00:00 < info depth 6 seldepth 15 nodes 35395 time 22 nps 1608863 hashfull 17 score cp -101 pv b3a4 d8d2 c2c3 b4b2 c3d2 b2d2
+2026-10-18T04:39:30.490395+00:00 < info string tt probes 25905 hits 2526 cutoffs 355
+2026-10-18T04:39:30.490395+00:00 < info string search qnodes 72504 scouts 2942 researches 45 qcaps 0 plylimit 0
+2026-10-18T04:39:30.491442+00:00 < info string optim aspiration_attempts 6 aspiration_searches 12 aspiration_fail_high 0 aspiration_fail_low 6 aspiration_retries 6 aspiration_successes 6 null_attempts 1055 null_cutoffs 496 lmr_attempts 10632 lmr_searches 10632 lmr_researches 5 lmr_verifications 5 history_updates 386 killer_cutoffs 243 see_calls 132827 reverse_futility_cutoffs 21246 futility_prunes 8233 check_extensions 616
+2026-10-18T04:39:30.491442+00:00 < info string metrics eval_calls 94860 beta_cutoffs 69559 pawn_probes 0 pawn_hits 0 nnue_evaluations 94860
+2026-10-18T04:39:30.491442+00:00 < info depth 7 seldepth 18 nodes 105831 time 57 nps 1856684 hashfull 28 score cp -193 pv b3a4 d8d2 c2c5 b4b2 c5f5 b2c1 f5e6 g8h8
+2026-10-18T04:39:30.565905+00:00 < info string tt probes 38776 hits 3353 cutoffs 421
+2026-10-18T04:39:30.565905+00:00 < info string search qnodes 283827 scouts 3586 researches 54 qcaps 0 plylimit 0
+2026-10-18T04:39:30.565905+00:00 < info string optim aspiration_attempts 7 aspiration_searches 13 aspiration_fail_high 0 aspiration_fail_low 6 aspiration_retries 6 aspiration_successes 7 null_attempts 1700 null_cutoffs 838 lmr_attempts 16424 lmr_searches 16424 lmr_researches 11 lmr_verifications 11 history_updates 555 killer_cutoffs 343 see_calls 231210 reverse_futility_cutoffs 31925 futility_prunes 13584 check_extensions 929
+2026-10-18T04:39:30.565905+00:00 < info string metrics eval_calls 316325 beta_cutoffs 282576 pawn_probes 0 pawn_hits 0 nnue_evaluations 316325
+2026-10-18T04:39:30.565905+00:00 < info depth 8 seldepth 18 nodes 343275 time 133 nps 2581015 hashfull 44 score cp -207 pv b2a1 d8d2 c2b1 a4c5 e2e3 f5g4 c1c5 b4c5
+2026-10-18T04:39:30.921502+00:00 < info string tt probes 65793 hits 5327 cutoffs 843
+2026-10-18T04:39:30.922502+00:00 < info string search qnodes 951327 scouts 5944 researches 100 qcaps 0 plylimit 0
+2026-10-18T04:39:30.922502+00:00 < info string optim aspiration_attempts 8 aspiration_searches 14 aspiration_fail_high 0 aspiration_fail_low 6 aspiration_retries 6 aspiration_successes 8 null_attempts 3286 null_cutoffs 1770 lmr_attempts 27277 lmr_searches 27277 lmr_researches 26 lmr_verifications 26 history_updates 1053 killer_cutoffs 648 see_calls 1186166 reverse_futility_cutoffs 52907 futility_prunes 26594 check_extensions 1581
+2026-10-18T04:39:30.922502+00:00 < info string metrics eval_calls 972365 beta_cutoffs 929456 pawn_probes 0 pawn_hits 0 nnue_evaluations 972365
+2026-10-18T04:39:30.922502+00:00 < info depth 9 seldepth 22 nodes 1204623 time 489 nps 2463441 hashfull 90 score cp -227 pv b3a4 d8d2 c2c5 b4b2 c5c4 g8f8 c4c5 f8e8 c5c4 e8e7 c4c5 e7d8
+2026-10-18T04:39:30.933042+00:00 < info seldepth 22 nodes 1217024 time 500 nps 2434048 hashfull 97
+2026-10-18T04:39:30.934544+00:00 < info string incomplete alpha-beta iterative ordered material+pst cached qsearch pvs tt probes 69062 hits 5636 cutoffs 915 search qnodes 960113 scouts 6332 researches 105 qcaps 0 plylimit 0 eval_calls 983750 beta_cutoffs 937959 pawn_probes 0 pawn_hits 0 nnue_evaluations 983750 optim aspiration_attempts 9 aspiration_searches 15 aspiration_fail_high 0 aspiration_fail_low 6 aspiration_retries 6 aspiration_successes 8 null_attempts 3382 null_cutoffs 1794 lmr_attempts 27859 lmr_searches 27859 lmr_researches 27 lmr_verifications 27 history_updates 1168 killer_cutoffs 719 see_calls 1200094 reverse_futility_cutoffs 55344 futility_prunes 28570 check_extensions 1625
+2026-10-18T04:39:30.934544+00:00 < bestmove b3a4
+2026-10-18T04:39:31.448677+00:00 > position startpos moves c2c4 e7e5 b1c3 g8f6 g2g3 d7d5 c4d5 f6d5 f1g2 d5b6 g1f3 b8c6 e1g1 f8c5 b2b3 e8g8 c3e4 c5e7 c1b2 f7f5 e4g5 e5e4 a1c1 e7g5 f3g5 d8g5 d2d3 f8e8 h2h4 g5e7 d3e4 f5e4 d1c2 c8f5 a2a3 a8d8 f1d1 e8f8 d1d8 f8d8 a3a4 e7b4 g2f1 b6a4 b3a4 d8d2
+2026-10-18T04:39:31.449676+00:00 > go movetime 500
+2026-10-18T04:39:31.451676+00:00 < info string tt probes 1 hits 0 cutoffs 0
+2026-10-18T04:39:31.451676+00:00 < info string search qnodes 261 scouts 31 researches 5 qcaps 0 plylimit 0
+2026-10-18T04:39:31.451676+00:00 < info string optim aspiration_attempts 0 aspiration_searches 0 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 0 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 338 reverse_futility_cutoffs 0 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:31.451676+00:00 < info string metrics eval_calls 255 beta_cutoffs 182 pawn_probes 0 pawn_hits 0 nnue_evaluations 255
+2026-10-18T04:39:31.451676+00:00 < info depth 1 seldepth 6 nodes 262 time 1 nps 262000 hashfull 0 score cp -24 pv b2g7 g8g7 c2c6 b7c6
+2026-10-18T04:39:31.451676+00:00 < info string tt probes 36 hits 1 cutoffs 0
+2026-10-18T04:39:31.452676+00:00 < info string search qnodes 478 scouts 106 researches 5 qcaps 0 plylimit 0
+2026-10-18T04:39:31.452676+00:00 < info string optim aspiration_attempts 1 aspiration_searches 1 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 1 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 581 reverse_futility_cutoffs 1 futility_prunes 0 check_extensions 2
+2026-10-18T04:39:31.452676+00:00 < info string metrics eval_calls 502 beta_cutoffs 389 pawn_probes 0 pawn_hits 0 nnue_evaluations 502
+2026-10-18T04:39:31.452676+00:00 < info depth 2 seldepth 6 nodes 514 time 2 nps 257000 hashfull 0 score cp -24 pv b2g7 g8g7 c2c6 b7c6
+2026-10-18T04:39:31.452676+00:00 < info string tt probes 436 hits 122 cutoffs 58
+2026-10-18T04:39:31.453676+00:00 < info string search qnodes 1766 scouts 408 researches 9 qcaps 0 plylimit 0
+2026-10-18T04:39:31.453676+00:00 < info string optim aspiration_attempts 2 aspiration_searches 4 aspiration_fail_high 0 aspiration_fail_low 2 aspiration_retries 2 aspiration_successes 2 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 1 killer_cutoffs 0 see_calls 2224 reverse_futility_cutoffs 239 futility_prunes 0 check_extensions 8
+2026-10-18T04:39:31.453676+00:00 < info string metrics eval_calls 2085 beta_cutoffs 1647 pawn_probes 0 pawn_hits 0 nnue_evaluations 2085
+2026-10-18T04:39:31.453676+00:00 < info depth 3 seldepth 8 nodes 2202 time 3 nps 734000 hashfull 1 score cp -101 pv c2c3 b4b2 c3d2 b2d2
+2026-10-18T04:39:31.454676+00:00 < info string tt probes 1386 hits 196 cutoffs 60
+2026-10-18T04:39:31.454676+00:00 < info string search qnodes 2662 scouts 557 researches 9 qcaps 0 plylimit 0
+2026-10-18T04:39:31.454676+00:00 < info string optim aspiration_attempts 3 aspiration_searches 5 aspiration_fail_high 0 aspiration_fail_low 2 aspiration_retries 2 aspiration_successes 3 null_attempts 3 null_cutoffs 0 lmr_attempts 41 lmr_searches 41 lmr_researches 0 lmr_verifications 0 history_updates 3 killer_cutoffs 0 see_calls 6290 reverse_futility_cutoffs 1044 futility_prunes 267 check_extensions 19
+2026-10-18T04:39:31.454676+00:00 < info string metrics eval_calls 3939 beta_cutoffs 2601 pawn_probes 0 pawn_hits 0 nnue_evaluations 3939
+2026-10-18T04:39:31.454676+00:00 < info depth 4 seldepth 8 nodes 4049 time 5 nps 809800 hashfull 2 score cp -101 pv c2c3 b4b2 c3d2 b2d2
+2026-10-18T04:39:31.460678+00:00 < info string tt probes 5196 hits 537 cutoffs 101
+2026-10-18T04:39:31.460678+00:00 < info string search qnodes 4052 scouts 1152 researches 20 qcaps 0 plylimit 0
+2026-10-18T04:39:31.460678+00:00 < info string optim aspiration_attempts 4 aspiration_searches 8 aspiration_fail_high 0 aspiration_fail_low 4 aspiration_retries 4 aspiration_successes 4 null_attempts 86 null_cutoffs 16 lmr_attempts 1905 lmr_searches 1905 lmr_researches 0 lmr_verifications 0 history_updates 14 killer_cutoffs 5 see_calls 21969 reverse_futility_cutoffs 4420 futility_prunes 821 check_extensions 75
+2026-10-18T04:39:31.460678+00:00 < info string metrics eval_calls 9056 beta_cutoffs 3970 pawn_probes 0 pawn_hits 0 nnue_evaluations 9056
+2026-10-18T04:39:31.461679+00:00 < info depth 5 seldepth 12 nodes 9257 time 10 nps 925700 hashfull 3 score cp -193 pv c2c5 b4b2 c5f5 b2c1 f5e6 g8h8
+2026-10-18T04:39:31.468699+00:00 < info string tt probes 11298 hits 1252 cutoffs 353
+2026-10-18T04:39:31.469694+00:00 < info string search qnodes 11282 scouts 2093 researches 34 qcaps 0 plylimit 0
+2026-10-18T04:39:31.469694+00:00 < info string optim aspiration_attempts 5 aspiration_searches 11 aspiration_fail_high 0 aspiration_fail_low 6 aspiration_retries 6 aspiration_successes 5 null_attempts 307 null_cutoffs 78 lmr_attempts 3956 lmr_searches 3956 lmr_researches 3 lmr_verifications 3 history_updates 122 killer_cutoffs 76 see_calls 43915 reverse_futility_cutoffs 9225 futility_prunes 4863 check_extensions 316
+2026-10-18T04:39:31.469694+00:00 < info string metrics eval_calls 21674 beta_cutoffs 11066 pawn_probes 0 pawn_hits 0 nnue_evaluations 21674
+2026-10-18T04:39:31.469694+00:00 < info depth 6 seldepth 17 nodes 22727 time 19 nps 1196157 hashfull 11 score cp -222 pv c2c5 b4b2 c5c4 g8h8 c4f7 d2d8 e2e3
+2026-10-18T04:39:31.483676+00:00 < info string tt probes 17592 hits 1747 cutoffs 414
+2026-10-18T04:39:31.483676+00:00 < info string search qnodes 28915 scouts 2599 researches 38 qcaps 0 plylimit 0
+2026-10-18T04:39:31.483676+00:00 < info string optim aspiration_attempts 6 aspiration_searches 12 aspiration_fail_high 0 aspiration_fail_low 6 aspiration_retries 6 aspiration_successes 6 null_attempts 634 null_cutoffs 244 lmr_attempts 6370 lmr_searches 6370 lmr_researches 6 lmr_verifications 6 history_updates 317 killer_cutoffs 203 see_calls 80158 reverse_futility_cutoffs 14005 futility_prunes 8042 check_extensions 573
+2026-10-18T04:39:31.483676+00:00 < info string metrics eval_calls 44271 beta_cutoffs 27904 pawn_probes 0 pawn_hits 0 nnue_evaluations 44271
+2026-10-18T04:39:31.483676+00:00 < info depth 7 seldepth 17 nodes 48588 time 33 nps 1472363 hashfull 24 score cp -227 pv c2c5 b4b2 c5c4 g8f8 c4c5 f8e8 c5c4 e8e7 c4c5 e7d8
+2026-10-18T04:39:31.536787+00:00 < info string tt probes 30967 hits 3180 cutoffs 722
+2026-10-18T04:39:31.536787+00:00 < info string search qnodes 147027 scouts 3705 researches 54 qcaps 0 plylimit 0
+2026-10-18T04:39:31.536787+00:00 < info string optim aspiration_attempts 7 aspiration_searches 14 aspiration_fail_high 1 aspiration_fail_low 6 aspiration_retries 7 aspiration_successes 7 null_attempts 1384 null_cutoffs 644 lmr_attempts 12459 lmr_searches 12459 lmr_researches 12 lmr_verifications 12 history_updates 598 killer_cutoffs 361 see_calls 176143 reverse_futility_cutoffs 24457 futility_prunes 12899 check_extensions 865
+2026-10-18T04:39:31.537772+00:00 < info string metrics eval_calls 172821 beta_cutoffs 146808 pawn_probes 0 pawn_hits 0 nnue_evaluations 172821
+2026-10-18T04:39:31.537772+00:00 < info depth 8 seldepth 19 nodes 190695 time 86 nps 2217383 hashfull 41 score cp -193 pv c2c5 b4b2 c5c4 g8f8 c4c5 f8g8 c5f5 b2c1 f5e6 g8h8
+2026-10-18T04:39:31.824310+00:00 < info string tt probes 87267 hits 8875 cutoffs 2448
+2026-10-18T04:39:31.824310+00:00 < info string search qnodes 649427 scouts 6141 researches 98 qcaps 0 plylimit 0
+2026-10-18T04:39:31.824310+00:00 < info string optim aspiration_attempts 8 aspiration_searches 17 aspiration_fail_high 1 aspiration_fail_low 8 aspiration_retries 9 aspiration_successes 8 null_attempts 4239 null_cutoffs 2266 lmr_attempts 37344 lmr_searches 37344 lmr_researches 48 lmr_verifications 48 history_updates 2149 killer_cutoffs 1180 see_calls 861119 reverse_futility_cutoffs 67020 futility_prunes 34233 check_extensions 3491
+2026-10-18T04:39:31.824310+00:00 < info string metrics eval_calls 705843 beta_cutoffs 646137 pawn_probes 0 pawn_hits 0 nnue_evaluations 705843
+2026-10-18T04:39:31.824310+00:00 < info depth 9 seldepth 24 nodes 852008 time 374 nps 2278096 hashfull 134 score cp -246 pv c2c5 b4b2 c5f5 b2c1 f5e4 g7g6 e4e6 g8f8 e2e3 c6e5
+2026-10-18T04:39:31.950099+00:00 < info seldepth 25 nodes 1274112 time 500 nps 2548224 hashfull 179
+2026-10-18T04:39:31.950099+00:00 < info string incomplete alpha-beta iterative ordered material+pst cached qsearch pvs tt probes 103915 hits 10678 cutoffs 2925 search qnodes 1024746 scouts 7892 researches 138 qcaps 0 plylimit 0 eval_calls 1086622 beta_cutoffs 1025217 pawn_probes 0 pawn_hits 0 nnue_evaluations 1086622 optim aspiration_attempts 9 aspiration_searches 18 aspiration_fail_high 1 aspiration_fail_low 8 aspiration_retries 9 aspiration_successes 8 null_attempts 4713 null_cutoffs 2480 lmr_attempts 42829 lmr_searches 42829 lmr_researches 62 lmr_verifications 62 history_updates 3206 killer_cutoffs 1764 see_calls 1027165 reverse_futility_cutoffs 78064 futility_prunes 45200 check_extensions 4213
+2026-10-18T04:39:31.950099+00:00 < bestmove c2c5
+2026-10-18T04:39:32.465274+00:00 > position startpos moves c2c4 e7e5 b1c3 g8f6 g2g3 d7d5 c4d5 f6d5 f1g2 d5b6 g1f3 b8c6 e1g1 f8c5 b2b3 e8g8 c3e4 c5e7 c1b2 f7f5 e4g5 e5e4 a1c1 e7g5 f3g5 d8g5 d2d3 f8e8 h2h4 g5e7 d3e4 f5e4 d1c2 c8f5 a2a3 a8d8 f1d1 e8f8 d1d8 f8d8 a3a4 e7b4 g2f1 b6a4 b3a4 d8d2 c2c5 b4b2
+2026-10-18T04:39:32.465274+00:00 > go movetime 500
+2026-10-18T04:39:32.467273+00:00 < info string tt probes 1 hits 0 cutoffs 0
+2026-10-18T04:39:32.468275+00:00 < info string search qnodes 64 scouts 35 researches 1 qcaps 0 plylimit 0
+2026-10-18T04:39:32.468275+00:00 < info string optim aspiration_attempts 0 aspiration_searches 0 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 0 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 28 reverse_futility_cutoffs 0 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:32.468275+00:00 < info string metrics eval_calls 59 beta_cutoffs 52 pawn_probes 0 pawn_hits 0 nnue_evaluations 59
+2026-10-18T04:39:32.468275+00:00 < info depth 1 seldepth 5 nodes 65 time 2 nps 32500 hashfull 0 score cp -126 pv c5c4 g8h8
+2026-10-18T04:39:32.468275+00:00 < info string tt probes 125 hits 21 cutoffs 13
+2026-10-18T04:39:32.468275+00:00 < info string search qnodes 255 scouts 207 researches 3 qcaps 0 plylimit 0
+2026-10-18T04:39:32.468275+00:00 < info string optim aspiration_attempts 1 aspiration_searches 3 aspiration_fail_high 0 aspiration_fail_low 2 aspiration_retries 2 aspiration_successes 1 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 4 killer_cutoffs 2 see_calls 377 reverse_futility_cutoffs 89 futility_prunes 36 check_extensions 10
+2026-10-18T04:39:32.468275+00:00 < info string metrics eval_calls 338 beta_cutoffs 230 pawn_probes 0 pawn_hits 0 nnue_evaluations 338
+2026-10-18T04:39:32.468275+00:00 < info depth 2 seldepth 6 nodes 380 time 2 nps 190000 hashfull 0 score cp -199 pv c5c4 g8h8 c4c6 b7c6
+2026-10-18T04:39:32.469275+00:00 < info string tt probes 335 hits 40 cutoffs 14
+2026-10-18T04:39:32.469275+00:00 < info string search qnodes 514 scouts 383 researches 6 qcaps 0 plylimit 0
+2026-10-18T04:39:32.469275+00:00 < info string optim aspiration_attempts 2 aspiration_searches 4 aspiration_fail_high 0 aspiration_fail_low 2 aspiration_retries 2 aspiration_successes 2 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 6 killer_cutoffs 2 see_calls 1039 reverse_futility_cutoffs 260 futility_prunes 236 check_extensions 20
+2026-10-18T04:39:32.469275+00:00 < info string metrics eval_calls 760 beta_cutoffs 468 pawn_probes 0 pawn_hits 0 nnue_evaluations 760
+2026-10-18T04:39:32.469275+00:00 < info depth 3 seldepth 10 nodes 849 time 3 nps 283000 hashfull 0 score cp -193 pv c5f5 b2c1 f5e6 g8h8
+2026-10-18T04:39:32.472275+00:00 < info string tt probes 2387 hits 270 cutoffs 114
+2026-10-18T04:39:32.472275+00:00 < info string search qnodes 3056 scouts 767 researches 10 qcaps 0 plylimit 0
+2026-10-18T04:39:32.472275+00:00 < info string optim aspiration_attempts 3 aspiration_searches 7 aspiration_fail_high 0 aspiration_fail_low 4 aspiration_retries 4 aspiration_successes 3 null_attempts 59 null_cutoffs 0 lmr_attempts 196 lmr_searches 196 lmr_researches 5 lmr_verifications 5 history_updates 71 killer_cutoffs 39 see_calls 7418 reverse_futility_cutoffs 1766 futility_prunes 1762 check_extensions 160
+2026-10-18T04:39:32.472275+00:00 < info string metrics eval_calls 4947 beta_cutoffs 2845 pawn_probes 0 pawn_hits 0 nnue_evaluations 4947
+2026-10-18T04:39:32.472275+00:00 < info depth 4 seldepth 15 nodes 5447 time 6 nps 907833 hashfull 5 score cp -222 pv c5c4 g8h8 c4f7 d2d8 e2e3
+2026-10-18T04:39:32.478298+00:00 < info string tt probes 6072 hits 624 cutoffs 174
+2026-10-18T04:39:32.478298+00:00 < info string search qnodes 9501 scouts 1204 researches 14 qcaps 0 plylimit 0
+2026-10-18T04:39:32.478298+00:00 < info string optim aspiration_attempts 4 aspiration_searches 8 aspiration_fail_high 0 aspiration_fail_low 4 aspiration_retries 4 aspiration_successes 4 null_attempts 143 null_cutoffs 7 lmr_attempts 1116 lmr_searches 1116 lmr_researches 9 lmr_verifications 9 history_updates 248 killer_cutoffs 148 see_calls 20265 reverse_futility_cutoffs 4397 futility_prunes 4952 check_extensions 409
+2026-10-18T04:39:32.478298+00:00 < info string metrics eval_calls 14248 beta_cutoffs 8944 pawn_probes 0 pawn_hits 0 nnue_evaluations 14248
+2026-10-18T04:39:32.478298+00:00 < info depth 5 seldepth 15 nodes 15631 time 12 nps 1302583 hashfull 16 score cp -227 pv c5c4 g8f8 c4c5 f8e8 c5c4 e8e7 c4c5 e7d8
+2026-10-18T04:39:32.488273+00:00 < info string tt probes 12885 hits 1509 cutoffs 366
+2026-10-18T04:39:32.489274+00:00 < info string search qnodes 20372 scouts 2191 researches 29 qcaps 0 plylimit 0
+2026-10-18T04:39:32.489274+00:00 < info string optim aspiration_attempts 5 aspiration_searches 10 aspiration_fail_high 1 aspiration_fail_low 4 aspiration_retries 5 aspiration_successes 5 null_attempts 338 null_cutoffs 49 lmr_attempts 3051 lmr_searches 3051 lmr_researches 10 lmr_verifications 10 history_updates 462 killer_cutoffs 277 see_calls 46530 reverse_futility_cutoffs 9554 futility_prunes 8200 check_extensions 602
+2026-10-18T04:39:32.489274+00:00 < info string metrics eval_calls 30700 beta_cutoffs 19305 pawn_probes 0 pawn_hits 0 nnue_evaluations 30700
+2026-10-18T04:39:32.489274+00:00 < info depth 6 seldepth 18 nodes 33967 time 23 nps 1476826 hashfull 27 score cp -193 pv c5c4 g8f8 c4c5 f8g8 c5f5 b2c1 f5e6 g8h8
+2026-10-18T04:39:32.589879+00:00 < info string tt probes 65889 hits 6405 cutoffs 2165
+2026-10-18T04:39:32.589879+00:00 < info string search qnodes 141824 scouts 5601 researches 92 qcaps 0 plylimit 0
+2026-10-18T04:39:32.589879+00:00 < info string optim aspiration_attempts 6 aspiration_searches 13 aspiration_fail_high 1 aspiration_fail_low 6 aspiration_retries 7 aspiration_successes 6 null_attempts 1863 null_cutoffs 453 lmr_attempts 22361 lmr_searches 22361 lmr_researches 66 lmr_verifications 66 history_updates 2160 killer_cutoffs 1196 see_calls 262173 reverse_futility_cutoffs 49228 futility_prunes 33709 check_extensions 3289
+2026-10-18T04:39:32.590877+00:00 < info string metrics eval_calls 191202 beta_cutoffs 134750 pawn_probes 0 pawn_hits 0 nnue_evaluations 191202
+2026-10-18T04:39:32.590877+00:00 < info depth 7 seldepth 21 nodes 216475 time 124 nps 1745766 hashfull 139 score cp -246 pv c5f5 b2c1 f5e4 g7g6 e4e6 g8f8 e2e3 c6e5
+2026-10-18T04:39:32.677060+00:00 < info string tt probes 96899 hits 9773 cutoffs 2906
+2026-10-18T04:39:32.677060+00:00 < info string search qnodes 296227 scouts 7559 researches 131 qcaps 0 plylimit 0
+2026-10-18T04:39:32.677060+00:00 < info string optim aspiration_attempts 7 aspiration_searches 14 aspiration_fail_high 1 aspiration_fail_low 6 aspiration_retries 7 aspiration_successes 7 null_attempts 2769 null_cutoffs 796 lmr_attempts 33311 lmr_searches 33311 lmr_researches 95 lmr_verifications 95 history_updates 3649 killer_cutoffs 2010 see_calls 443544 reverse_futility_cutoffs 71042 futility_prunes 51457 check_extensions 4604
+2026-10-18T04:39:32.677060+00:00 < info string metrics eval_calls 363050 beta_cutoffs 282816 pawn_probes 0 pawn_hits 0 nnue_evaluations 363050
+2026-10-18T04:39:32.677060+00:00 < info depth 8 seldepth 21 nodes 420301 time 211 nps 1991947 hashfull 208 score cp -223 pv c5c4 g8f8 c4c5 f8e8 a4a5 f5e6 a5a6 e4e3 f2e3 e8d8
+2026-10-18T04:39:32.965801+00:00 < info seldepth 26 nodes 1078016 time 500 nps 2156032 hashfull 336
+2026-10-18T04:39:32.966802+00:00 < info string incomplete alpha-beta iterative ordered material+pst cached qsearch pvs tt probes 167571 hits 14963 cutoffs 3993 search qnodes 818001 scouts 8365 researches 141 qcaps 3 plylimit 0 eval_calls 906483 beta_cutoffs 774380 pawn_probes 0 pawn_hits 0 nnue_evaluations 906483 optim aspiration_attempts 8 aspiration_searches 15 aspiration_fail_high 1 aspiration_fail_low 6 aspiration_retries 7 aspiration_successes 7 null_attempts 5237 null_cutoffs 1886 lmr_attempts 61649 lmr_searches 61649 lmr_researches 166 lmr_verifications 166 history_updates 5731 killer_cutoffs 3119 see_calls 1042247 reverse_futility_cutoffs 123473 futility_prunes 91796 check_extensions 7632
+2026-10-18T04:39:32.966802+00:00 < bestmove c5c4
+2026-10-18T04:39:33.499528+00:00 > position startpos moves c2c4 e7e5 b1c3 g8f6 g2g3 d7d5 c4d5 f6d5 f1g2 d5b6 g1f3 b8c6 e1g1 f8c5 b2b3 e8g8 c3e4 c5e7 c1b2 f7f5 e4g5 e5e4 a1c1 e7g5 f3g5 d8g5 d2d3 f8e8 h2h4 g5e7 d3e4 f5e4 d1c2 c8f5 a2a3 a8d8 f1d1 e8f8 d1d8 f8d8 a3a4 e7b4 g2f1 b6a4 b3a4 d8d2 c2c5 b4b2 c5c4 g8f8
+2026-10-18T04:39:33.500528+00:00 > go movetime 500
+2026-10-18T04:39:33.502527+00:00 < info string tt probes 1 hits 0 cutoffs 0
+2026-10-18T04:39:33.502527+00:00 < info string search qnodes 250 scouts 32 researches 6 qcaps 0 plylimit 0
+2026-10-18T04:39:33.503628+00:00 < info string optim aspiration_attempts 0 aspiration_searches 0 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 0 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 222 reverse_futility_cutoffs 0 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:33.503628+00:00 < info string metrics eval_calls 218 beta_cutoffs 172 pawn_probes 0 pawn_hits 0 nnue_evaluations 218
+2026-10-18T04:39:33.503628+00:00 < info depth 1 seldepth 12 nodes 251 time 2 nps 125500 hashfull 0 score cp -94 pv c4c5 f8g8
+2026-10-18T04:39:33.503628+00:00 < info string tt probes 111 hits 18 cutoffs 11
+2026-10-18T04:39:33.503628+00:00 < info string search qnodes 443 scouts 204 researches 7 qcaps 0 plylimit 0
+2026-10-18T04:39:33.503628+00:00 < info string optim aspiration_attempts 1 aspiration_searches 3 aspiration_fail_high 0 aspiration_fail_low 2 aspiration_retries 2 aspiration_successes 1 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 5 killer_cutoffs 1 see_calls 541 reverse_futility_cutoffs 78 futility_prunes 94 check_extensions 12
+2026-10-18T04:39:33.503628+00:00 < info string metrics eval_calls 481 beta_cutoffs 349 pawn_probes 0 pawn_hits 0 nnue_evaluations 481
+2026-10-18T04:39:33.503628+00:00 < info depth 2 seldepth 12 nodes 554 time 3 nps 184666 hashfull 0 score cp -182 pv c4c6 b7c6
+2026-10-18T04:39:33.504528+00:00 < info string tt probes 255 hits 46 cutoffs 15
+2026-10-18T04:39:33.504528+00:00 < info string search qnodes 1076 scouts 329 researches 9 qcaps 0 plylimit 0
+2026-10-18T04:39:33.504528+00:00 < info string optim aspiration_attempts 2 aspiration_searches 4 aspiration_fail_high 0 aspiration_fail_low 2 aspiration_retries 2 aspiration_successes 2 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 11 killer_cutoffs 2 see_calls 1108 reverse_futility_cutoffs 157 futility_prunes 285 check_extensions 26
+2026-10-18T04:39:33.504528+00:00 < info string metrics eval_calls 1176 beta_cutoffs 931 pawn_probes 0 pawn_hits 0 nnue_evaluations 1176
+2026-10-18T04:39:33.504528+00:00 < info depth 3 seldepth 12 nodes 1331 time 3 nps 443666 hashfull 0 score cp -199 pv c4c5 f8g8 c5c4 g8h8 c4c6 b7c6
+2026-10-18T04:39:33.507528+00:00 < info string tt probes 2102 hits 316 cutoffs 144
+2026-10-18T04:39:33.507528+00:00 < info string search qnodes 3645 scouts 755 researches 15 qcaps 0 plylimit 0
+2026-10-18T04:39:33.507528+00:00 < info string optim aspiration_attempts 3 aspiration_searches 6 aspiration_fail_high 0 aspiration_fail_low 3 aspiration_retries 3 aspiration_successes 3 null_attempts 50 null_cutoffs 2 lmr_attempts 130 lmr_searches 130 lmr_researches 1 lmr_verifications 1 history_updates 73 killer_cutoffs 42 see_calls 6622 reverse_futility_cutoffs 1421 futility_prunes 1986 check_extensions 172
+2026-10-18T04:39:33.507528+00:00 < info string metrics eval_calls 5123 beta_cutoffs 3328 pawn_probes 0 pawn_hits 0 nnue_evaluations 5123
+2026-10-18T04:39:33.507528+00:00 < info depth 4 seldepth 12 nodes 5747 time 6 nps 957833 hashfull 5 score cp -227 pv c4c5 f8e8 c5c4 e8e7 c4c5 e7d8
+2026-10-18T04:39:33.519529+00:00 < info string tt probes 9336 hits 1278 cutoffs 499
+2026-10-18T04:39:33.519529+00:00 < info string search qnodes 15111 scouts 1623 researches 24 qcaps 0 plylimit 0
+2026-10-18T04:39:33.519529+00:00 < info string optim aspiration_attempts 4 aspiration_searches 9 aspiration_fail_high 0 aspiration_fail_low 5 aspiration_retries 5 aspiration_successes 4 null_attempts 217 null_cutoffs 18 lmr_attempts 1670 lmr_searches 1670 lmr_researches 6 lmr_verifications 6 history_updates 313 killer_cutoffs 185 see_calls 29856 reverse_futility_cutoffs 6522 futility_prunes 8451 check_extensions 765
+2026-10-18T04:39:33.519529+00:00 < info string metrics eval_calls 22131 beta_cutoffs 14329 pawn_probes 0 pawn_hits 0 nnue_evaluations 22131
+2026-10-18T04:39:33.519529+00:00 < info depth 5 seldepth 14 nodes 24511 time 19 nps 1290052 hashfull 22 score cp -259 pv c4c5 f8g8 c5f5 b2c1 f5e4 g8f8
+2026-10-18T04:39:33.548289+00:00 < info string tt probes 25779 hits 2705 cutoffs 834
+2026-10-18T04:39:33.548289+00:00 < info string search qnodes 39419 scouts 2933 researches 47 qcaps 0 plylimit 0
+2026-10-18T04:39:33.548289+00:00 < info string optim aspiration_attempts 5 aspiration_searches 10 aspiration_fail_high 0 aspiration_fail_low 5 aspiration_retries 5 aspiration_successes 5 null_attempts 583 null_cutoffs 52 lmr_attempts 5313 lmr_searches 5313 lmr_researches 26 lmr_verifications 26 history_updates 843 killer_cutoffs 483 see_calls 89867 reverse_futility_cutoffs 18892 futility_prunes 18419 check_extensions 1298
+2026-10-18T04:39:33.548289+00:00 < info string metrics eval_calls 60033 beta_cutoffs 37565 pawn_probes 0 pawn_hits 0 nnue_evaluations 60033
+2026-10-18T04:39:33.548289+00:00 < info depth 6 seldepth 17 nodes 65658 time 47 nps 1396978 hashfull 61 score cp -279 pv c4c5 c6e7 c1c3 f5e6 c5e7 f8e7 c3c7 e7d6
+2026-10-18T04:39:33.581291+00:00 < info string tt probes 40330 hits 4133 cutoffs 1099
+2026-10-18T04:39:33.581291+00:00 < info string search qnodes 86309 scouts 3822 researches 65 qcaps 0 plylimit 0
+2026-10-18T04:39:33.581291+00:00 < info string optim aspiration_attempts 6 aspiration_searches 11 aspiration_fail_high 0 aspiration_fail_low 5 aspiration_retries 5 aspiration_successes 6 null_attempts 1083 null_cutoffs 229 lmr_attempts 10878 lmr_searches 10878 lmr_researches 43 lmr_verifications 43 history_updates 1338 killer_cutoffs 749 see_calls 153705 reverse_futility_cutoffs 29516 futility_prunes 27987 check_extensions 2084
+2026-10-18T04:39:33.581291+00:00 < info string metrics eval_calls 116888 beta_cutoffs 81688 pawn_probes 0 pawn_hits 0 nnue_evaluations 116888
+2026-10-18T04:39:33.581291+00:00 < info depth 7 seldepth 17 nodes 129344 time 80 nps 1616800 hashfull 94 score cp -260 pv c4c5 c6e7 a4a5 e4e3 f2e3 h7h6 a5a6 b7a6
+2026-10-18T04:39:33.760449+00:00 < info string tt probes 96802 hits 10553 cutoffs 2803
+2026-10-18T04:39:33.760449+00:00 < info string search qnodes 342653 scouts 6009 researches 105 qcaps 0 plylimit 0
+2026-10-18T04:39:33.760449+00:00 < info string optim aspiration_attempts 7 aspiration_searches 14 aspiration_fail_high 0 aspiration_fail_low 7 aspiration_retries 7 aspiration_successes 7 null_attempts 3268 null_cutoffs 1268 lmr_attempts 30339 lmr_searches 30339 lmr_researches 85 lmr_verifications 85 history_updates 3260 killer_cutoffs 1776 see_calls 469029 reverse_futility_cutoffs 70262 futility_prunes 55341 check_extensions 4451
+2026-10-18T04:39:33.760449+00:00 < info string metrics eval_calls 406103 beta_cutoffs 325260 pawn_probes 0 pawn_hits 0 nnue_evaluations 406103
+2026-10-18T04:39:33.760449+00:00 < info depth 8 seldepth 23 nodes 467583 time 260 nps 1798396 hashfull 201 score cp -303 pv c4c5 c6e7 c5c7 e4e3 f2e3 h7h6 c7b8 f8f7 c1c7 d2c2 c7b7
+2026-10-18T04:39:34.000792+00:00 < info seldepth 23 nodes 1145088 time 500 nps 2290176 hashfull 265
+2026-10-18T04:39:34.000792+00:00 < info string incomplete alpha-beta iterative ordered material+pst cached qsearch pvs tt probes 132283 hits 14266 cutoffs 3486 search qnodes 927321 scouts 7526 researches 137 qcaps 0 plylimit 0 eval_calls 997569 beta_cutoffs 899387 pawn_probes 0 pawn_hits 0 nnue_evaluations 997569 optim aspiration_attempts 8 aspiration_searches 15 aspiration_fail_high 0 aspiration_fail_low 7 aspiration_retries 7 aspiration_successes 7 null_attempts 5021 null_cutoffs 2112 lmr_attempts 45579 lmr_searches 45579 lmr_researches 113 lmr_verifications 113 history_updates 4472 killer_cutoffs 2418 see_calls 836627 reverse_futility_cutoffs 95760 futility_prunes 76534 check_extensions 5805
+2026-10-18T04:39:34.000792+00:00 < bestmove c4c5
+2026-10-18T04:39:34.514761+00:00 > position startpos moves c2c4 e7e5 b1c3 g8f6 g2g3 d7d5 c4d5 f6d5 f1g2 d5b6 g1f3 b8c6 e1g1 f8c5 b2b3 e8g8 c3e4 c5e7 c1b2 f7f5 e4g5 e5e4 a1c1 e7g5 f3g5 d8g5 d2d3 f8e8 h2h4 g5e7 d3e4 f5e4 d1c2 c8f5 a2a3 a8d8 f1d1 e8f8 d1d8 f8d8 a3a4 e7b4 g2f1 b6a4 b3a4 d8d2 c2c5 b4b2 c5c4 g8f8 c4c5 f8g8
+2026-10-18T04:39:34.514761+00:00 > go movetime 500
+2026-10-18T04:39:34.517761+00:00 < info string tt probes 1 hits 0 cutoffs 0
+2026-10-18T04:39:34.517761+00:00 < info string search qnodes 64 scouts 35 researches 1 qcaps 0 plylimit 0
+2026-10-18T04:39:34.517761+00:00 < info string optim aspiration_attempts 0 aspiration_searches 0 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 0 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 28 reverse_futility_cutoffs 0 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:34.517761+00:00 < info string metrics eval_calls 59 beta_cutoffs 52 pawn_probes 0 pawn_hits 0 nnue_evaluations 59
+2026-10-18T04:39:34.517761+00:00 < info depth 1 seldepth 5 nodes 65 time 2 nps 32500 hashfull 0 score cp -126 pv c5c4 g8h8
+2026-10-18T04:39:34.517761+00:00 < info string tt probes 125 hits 21 cutoffs 13
+2026-10-18T04:39:34.517761+00:00 < info string search qnodes 255 scouts 207 researches 3 qcaps 0 plylimit 0
+2026-10-18T04:39:34.517761+00:00 < info string optim aspiration_attempts 1 aspiration_searches 3 aspiration_fail_high 0 aspiration_fail_low 2 aspiration_retries 2 aspiration_successes 1 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 4 killer_cutoffs 2 see_calls 377 reverse_futility_cutoffs 89 futility_prunes 36 check_extensions 10
+2026-10-18T04:39:34.517761+00:00 < info string metrics eval_calls 336 beta_cutoffs 229 pawn_probes 0 pawn_hits 0 nnue_evaluations 336
+2026-10-18T04:39:34.517761+00:00 < info depth 2 seldepth 6 nodes 380 time 2 nps 190000 hashfull 0 score cp -199 pv c5c4 g8h8 c4c6 b7c6
+2026-10-18T04:39:34.518765+00:00 < info string tt probes 335 hits 40 cutoffs 14
+2026-10-18T04:39:34.518765+00:00 < info string search qnodes 514 scouts 383 researches 6 qcaps 0 plylimit 0
+2026-10-18T04:39:34.518765+00:00 < info string optim aspiration_attempts 2 aspiration_searches 4 aspiration_fail_high 0 aspiration_fail_low 2 aspiration_retries 2 aspiration_successes 2 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 6 killer_cutoffs 2 see_calls 1039 reverse_futility_cutoffs 260 futility_prunes 236 check_extensions 20
+2026-10-18T04:39:34.518765+00:00 < info string metrics eval_calls 757 beta_cutoffs 467 pawn_probes 0 pawn_hits 0 nnue_evaluations 757
+2026-10-18T04:39:34.518765+00:00 < info depth 3 seldepth 10 nodes 849 time 3 nps 283000 hashfull 0 score cp -193 pv c5f5 b2c1 f5e6 g8h8
+2026-10-18T04:39:34.521766+00:00 < info string tt probes 2382 hits 269 cutoffs 113
+2026-10-18T04:39:34.521766+00:00 < info string search qnodes 3044 scouts 767 researches 10 qcaps 0 plylimit 0
+2026-10-18T04:39:34.521766+00:00 < info string optim aspiration_attempts 3 aspiration_searches 7 aspiration_fail_high 0 aspiration_fail_low 4 aspiration_retries 4 aspiration_successes 3 null_attempts 57 null_cutoffs 0 lmr_attempts 196 lmr_searches 196 lmr_researches 5 lmr_verifications 5 history_updates 70 killer_cutoffs 39 see_calls 7408 reverse_futility_cutoffs 1766 futility_prunes 1762 check_extensions 160
+2026-10-18T04:39:34.521766+00:00 < info string metrics eval_calls 4928 beta_cutoffs 2832 pawn_probes 0 pawn_hits 0 nnue_evaluations 4928
+2026-10-18T04:39:34.521766+00:00 < info depth 4 seldepth 15 nodes 5432 time 6 nps 905333 hashfull 5 score cp -222 pv c5c4 g8h8 c4f7 d2d8 e2e3
+2026-10-18T04:39:34.527767+00:00 < info string tt probes 6058 hits 620 cutoffs 173
+2026-10-18T04:39:34.527767+00:00 < info string search qnodes 9393 scouts 1204 researches 14 qcaps 0 plylimit 0
+2026-10-18T04:39:34.527767+00:00 < info string optim aspiration_attempts 4 aspiration_searches 8 aspiration_fail_high 0 aspiration_fail_low 4 aspiration_retries 4 aspiration_successes 4 null_attempts 140 null_cutoffs 7 lmr_attempts 1116 lmr_searches 1116 lmr_researches 9 lmr_verifications 9 history_updates 243 killer_cutoffs 150 see_calls 20203 reverse_futility_cutoffs 4395 futility_prunes 4952 check_extensions 409
+2026-10-18T04:39:34.527767+00:00 < info string metrics eval_calls 14138 beta_cutoffs 8843 pawn_probes 0 pawn_hits 0 nnue_evaluations 14138
+2026-10-18T04:39:34.527767+00:00 < info depth 5 seldepth 15 nodes 15513 time 12 nps 1292750 hashfull 15 score cp -227 pv c5c4 g8f8 c4c5 f8e8 c5c4 e8e7 c4c5 e7d8
+2026-10-18T04:39:34.539279+00:00 < info string tt probes 13773 hits 1643 cutoffs 490
+2026-10-18T04:39:34.539279+00:00 < info string search qnodes 20832 scouts 2173 researches 26 qcaps 0 plylimit 0
+2026-10-18T04:39:34.539279+00:00 < info string optim aspiration_attempts 5 aspiration_searches 10 aspiration_fail_high 1 aspiration_fail_low 4 aspiration_retries 5 aspiration_successes 5 null_attempts 375 null_cutoffs 60 lmr_attempts 3372 lmr_searches 3372 lmr_researches 10 lmr_verifications 10 history_updates 428 killer_cutoffs 261 see_calls 49860 reverse_futility_cutoffs 10309 futility_prunes 8387 check_extensions 622
+2026-10-18T04:39:34.539279+00:00 < info string metrics eval_calls 31933 beta_cutoffs 19698 pawn_probes 0 pawn_hits 0 nnue_evaluations 31933
+2026-10-18T04:39:34.540383+00:00 < info depth 6 seldepth 18 nodes 35347 time 24 nps 1472791 hashfull 26 score cp -192 pv c5c4 g8h8 c4f7 d2d8 c1d1 f5h3 d1d8 c6d8 f1h3 d8f7
+2026-10-18T04:39:34.641118+00:00 < info string tt probes 68143 hits 6754 cutoffs 2399
+2026-10-18T04:39:34.642018+00:00 < info string search qnodes 147520 scouts 6431 researches 111 qcaps 0 plylimit 0
+2026-10-18T04:39:34.642018+00:00 < info string optim aspiration_attempts 6 aspiration_searches 13 aspiration_fail_high 1 aspiration_fail_low 6 aspiration_retries 7 aspiration_successes 6 null_attempts 1959 null_cutoffs 488 lmr_attempts 22271 lmr_searches 22271 lmr_researches 72 lmr_verifications 72 history_updates 2201 killer_cutoffs 1239 see_calls 269597 reverse_futility_cutoffs 50612 futility_prunes 36151 check_extensions 3329
+2026-10-18T04:39:34.642018+00:00 < info string metrics eval_calls 198461 beta_cutoffs 139616 pawn_probes 0 pawn_hits 0 nnue_evaluations 198461
+2026-10-18T04:39:34.642018+00:00 < info depth 7 seldepth 22 nodes 224689 time 126 nps 1783246 hashfull 145 score cp -246 pv c5f5 b2c1 f5e4 g7g6 e4e6 g8f8 e2e3 c6e5
+2026-10-18T04:39:34.744830+00:00 < info string tt probes 102853 hits 10889 cutoffs 3479
+2026-10-18T04:39:34.744830+00:00 < info string search qnodes 320082 scouts 8696 researches 161 qcaps 0 plylimit 0
+2026-10-18T04:39:34.744830+00:00 < info string optim aspiration_attempts 7 aspiration_searches 15 aspiration_fail_high 2 aspiration_fail_low 6 aspiration_retries 8 aspiration_successes 7 null_attempts 2986 null_cutoffs 869 lmr_attempts 34652 lmr_searches 34652 lmr_researches 117 lmr_verifications 117 history_updates 3753 killer_cutoffs 2051 see_calls 473893 reverse_futility_cutoffs 75470 futility_prunes 52578 check_extensions 4538
+2026-10-18T04:39:34.744830+00:00 < info string metrics eval_calls 391291 beta_cutoffs 305660 pawn_probes 0 pawn_hits 0 nnue_evaluations 391291
+2026-10-18T04:39:34.744830+00:00 < info depth 8 seldepth 23 nodes 452416 time 229 nps 1975615 hashfull 214 score cp -219 pv c5c4 g8f8 c4c5 c6e7 c1c3 d2d7 h4h5 f5e6 h5h6 b2b1
+2026-10-18T04:39:35.015260+00:00 < info seldepth 23 nodes 1043200 time 500 nps 2086400 hashfull 281
+2026-10-18T04:39:35.015260+00:00 < info string incomplete alpha-beta iterative ordered material+pst cached qsearch pvs tt probes 139828 hits 14266 cutoffs 4041 search qnodes 806115 scouts 9145 researches 167 qcaps 0 plylimit 0 eval_calls 877691 beta_cutoffs 775786 pawn_probes 0 pawn_hits 0 nnue_evaluations 877691 optim aspiration_attempts 8 aspiration_searches 16 aspiration_fail_high 2 aspiration_fail_low 6 aspiration_retries 8 aspiration_successes 7 null_attempts 4420 null_cutoffs 1559 lmr_attempts 49487 lmr_searches 49487 lmr_researches 160 lmr_verifications 160 history_updates 4852 killer_cutoffs 2600 see_calls 895517 reverse_futility_cutoffs 102390 futility_prunes 71146 check_extensions 5762
+2026-10-18T04:39:35.016683+00:00 < bestmove c5c4
+2026-10-18T04:39:35.530295+00:00 > position startpos moves c2c4 e7e5 b1c3 g8f6 g2g3 d7d5 c4d5 f6d5 f1g2 d5b6 g1f3 b8c6 e1g1 f8c5 b2b3 e8g8 c3e4 c5e7 c1b2 f7f5 e4g5 e5e4 a1c1 e7g5 f3g5 d8g5 d2d3 f8e8 h2h4 g5e7 d3e4 f5e4 d1c2 c8f5 a2a3 a8d8 f1d1 e8f8 d1d8 f8d8 a3a4 e7b4 g2f1 b6a4 b3a4 d8d2 c2c5 b4b2 c5c4 g8f8 c4c5 f8g8 c5c4 g8f8
+2026-10-18T04:39:35.531295+00:00 > go movetime 500
+2026-10-18T04:39:35.533308+00:00 < info string tt probes 1 hits 0 cutoffs 0
+2026-10-18T04:39:35.533308+00:00 < info string search qnodes 241 scouts 32 researches 6 qcaps 0 plylimit 0
+2026-10-18T04:39:35.533308+00:00 < info string optim aspiration_attempts 0 aspiration_searches 0 aspiration_fail_high 0 aspiration_fail_low 0 aspiration_retries 0 aspiration_successes 0 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 0 killer_cutoffs 0 see_calls 210 reverse_futility_cutoffs 0 futility_prunes 0 check_extensions 0
+2026-10-18T04:39:35.533308+00:00 < info string metrics eval_calls 208 beta_cutoffs 165 pawn_probes 0 pawn_hits 0 nnue_evaluations 208
+2026-10-18T04:39:35.533308+00:00 < info depth 1 seldepth 12 nodes 242 time 2 nps 121000 hashfull 0 score cp -93 pv c4c5 f8e8
+2026-10-18T04:39:35.534401+00:00 < info string tt probes 108 hits 17 cutoffs 12
+2026-10-18T04:39:35.534401+00:00 < info string search qnodes 371 scouts 204 researches 7 qcaps 0 plylimit 0
+2026-10-18T04:39:35.534401+00:00 < info string optim aspiration_attempts 1 aspiration_searches 3 aspiration_fail_high 0 aspiration_fail_low 2 aspiration_retries 2 aspiration_successes 1 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 3 killer_cutoffs 2 see_calls 497 reverse_futility_cutoffs 78 futility_prunes 95 check_extensions 12
+2026-10-18T04:39:35.534401+00:00 < info string metrics eval_calls 410 beta_cutoffs 285 pawn_probes 0 pawn_hits 0 nnue_evaluations 410
+2026-10-18T04:39:35.534401+00:00 < info depth 2 seldepth 12 nodes 479 time 2 nps 239500 hashfull 0 score cp -182 pv c4c6 b7c6
+2026-10-18T04:39:35.534401+00:00 < info string tt probes 289 hits 49 cutoffs 22
+2026-10-18T04:39:35.534401+00:00 < info string search qnodes 1194 scouts 343 researches 9 qcaps 0 plylimit 0
+2026-10-18T04:39:35.535396+00:00 < info string optim aspiration_attempts 2 aspiration_searches 4 aspiration_fail_high 0 aspiration_fail_low 2 aspiration_retries 2 aspiration_successes 2 null_attempts 0 null_cutoffs 0 lmr_attempts 0 lmr_searches 0 lmr_researches 0 lmr_verifications 0 history_updates 10 killer_cutoffs 5 see_calls 1324 reverse_futility_cutoffs 186 futility_prunes 306 check_extensions 30
+2026-10-18T04:39:35.535396+00:00 < info string metrics eval_calls 1306 beta_cutoffs 1015 pawn_probes 0 pawn_hits 0 nnue_evaluations 1306
+2026-10-18T04:39:35.535396+00:00 < info depth 3 seldepth 14 nodes 1485 time 3 nps 495000 hashfull 0 score cp -182 pv c4c5 f8e8 a4a5 e8d8
+2026-10-18T04:39:35.538426+00:00 < info string tt probes 1812 hits 280 cutoffs 128
+2026-10-18T04:39:35.538426+00:00 < info string search qnodes 4376 scouts 668 researches 14 qcaps 0 plylimit 0
+2026-10-18T04:39:35.538426+00:00 < info string optim aspiration_attempts 3 aspiration_searches 6 aspiration_fail_high 0 aspiration_fail_low 3 aspiration_retries 3 aspiration_successes 3 null_attempts 48 null_cutoffs 4 lmr_attempts 108 lmr_searches 108 lmr_researches 1 lmr_verifications 1 history_updates 72 killer_cutoffs 45 see_calls 6470 reverse_futility_cutoffs 1186 futility_prunes 1779 check_extensions 159
+2026-10-18T04:39:35.538426+00:00 < info string metrics eval_calls 5545 beta_cutoffs 3944 pawn_probes 0 pawn_hits 0 nnue_evaluations 5545
+2026-10-18T04:39:35.538426+00:00 < info depth 4 seldepth 14 nodes 6193 time 6 nps 1032166 hashfull 5 score cp -227 pv c4c5 f8e8 c5c4 e8e7 c4c5 e7d8
+2026-10-18T04:39:35.546422+00:00 < info string tt probes 7561 hits 1217 cutoffs 502
+2026-10-18T04:39:35.546422+00:00 < info string search qnodes 12015 scouts 1433 researches 24 qcaps 0 plylimit 0
+2026-10-18T04:39:35.546422+00:00 < info string optim aspiration_attempts 4 aspiration_searches 9 aspiration_fail_high 0 aspiration_fail_low 5 aspiration_retries 5 aspiration_successes 4 null_attempts 182 null_cutoffs 20 lmr_attempts 1570 lmr_searches 1570 lmr_researches 2 lmr_verifications 2 history_updates 233 killer_cutoffs 138 see_calls 24430 reverse_futility_cutoffs 5224 futility_prunes 6782 check_extensions 689
+2026-10-18T04:39:35.546422+00:00 < info string metrics eval_calls 17678 beta_cutoffs 11372 pawn_probes 0 pawn_hits 0 nnue_evaluations 17678
+2026-10-18T04:39:35.546422+00:00 < info depth 5 seldepth 14 nodes 19641 time 15 nps 1309400 hashfull 16 score cp -277 pv c4c5 f8e8 h4h5 h7h6 a4a5 e8d8 c5c6 b7c6
+2026-10-18T04:39:35.567423+00:00 < info string tt probes 21046 hits 2407 cutoffs 783
+2026-10-18T04:39:35.567423+00:00 < info string search qnodes 29750 scouts 2357 researches 41 qcaps 0 plylimit 0
+2026-10-18T04:39:35.567423+00:00 < info string optim aspiration_attempts 5 aspiration_searches 10 aspiration_fail_high 0 aspiration_fail_low 5 aspiration_retries 5 aspiration_successes 5 null_attempts 522 null_cutoffs 62 lmr_attempts 4754 lmr_searches 4754 lmr_researches 10 lmr_verifications 10 history_updates 542 killer_cutoffs 301 see_calls 72370 reverse_futility_cutoffs 15723 futility_prunes 13994 check_extensions 1143
+2026-10-18T04:39:35.567423+00:00 < info string metrics eval_calls 46809 beta_cutoffs 28257 pawn_probes 0 pawn_hits 0 nnue_evaluations 46809
+2026-10-18T04:39:35.567423+00:00 < info depth 6 seldepth 15 nodes 51230 time 35 nps 1463714 hashfull 42 score cp -279 pv c4c5 c6e7 c1c3 f5e6 c5e7 f8e7 c3c7 e7d6
+2026-10-18T04:39:35.604407+00:00 < info string tt probes 35027 hits 3749 cutoffs 1093
+2026-10-18T04:39:35.604407+00:00 < info string search qnodes 76989 scouts 3276 researches 58 qcaps 0 plylimit 0
+2026-10-18T04:39:35.604407+00:00 < info string optim aspiration_attempts 6 aspiration_searches 11 aspiration_fail_high 0 aspiration_fail_low 5 aspiration_retries 5 aspiration_successes 6 null_attempts 1002 null_cutoffs 228 lmr_attempts 10472 lmr_searches 10472 lmr_researches 26 lmr_verifications 26 history_updates 1010 killer_cutoffs 578 see_calls 135969 reverse_futility_cutoffs 25844 futility_prunes 23803 check_extensions 1823
+2026-10-18T04:39:35.604407+00:00 < info string metrics eval_calls 103342 beta_cutoffs 72445 pawn_probes 0 pawn_hits 0 nnue_evaluations 103342
+2026-10-18T04:39:35.604407+00:00 < info depth 7 seldepth 17 nodes 114619 time 72 nps 1591930 hashfull 76 score cp -260 pv c4c5 c6e7 a4a5 e4e3 f2e3 h7h6 a5a6 b7a6
+2026-10-18T04:39:35.736336+00:00 < info string tt probes 76318 hits 8665 cutoffs 2459
+2026-10-18T04:39:35.736336+00:00 < info string search qnodes 295820 scouts 4639 researches 78 qcaps 0 plylimit 0
+2026-10-18T04:39:35.736336+00:00 < info string optim aspiration_attempts 7 aspiration_searches 13 aspiration_fail_high 0 aspiration_fail_low 6 aspiration_retries 6 aspiration_successes 7 null_attempts 2719 null_cutoffs 1088 lmr_attempts 25970 lmr_searches 25970 lmr_researches 49 lmr_verifications 49 history_updates 2208 killer_cutoffs 1215 see_calls 385340 reverse_futility_cutoffs 56394 futility_prunes 42257 check_extensions 3499
+2026-10-18T04:39:35.736336+00:00 < info string metrics eval_calls 346798 beta_cutoffs 282438 pawn_probes 0 pawn_hits 0 nnue_evaluations 346798
+2026-10-18T04:39:35.736336+00:00 < info depth 8 seldepth 22 nodes 398296 time 204 nps 1952431 hashfull 144 score cp -309 pv c4c5 c6e7 c1e1 h7h6 a4a5 b2c2 c5a7 f8f7 a7b7
+2026-10-18T04:39:36.031489+00:00 < info seldepth 23 nodes 1119744 time 500 nps 2239488 hashfull 222
+2026-10-18T04:39:36.031489+00:00 < info string incomplete alpha-beta iterative ordered material+pst cached qsearch pvs tt probes 117736 hits 12258 cutoffs 3151 search qnodes 913903 scouts 5808 researches 93 qcaps 0 plylimit 0 eval_calls 972476 beta_cutoffs 885443 pawn_probes 0 pawn_hits 0 nnue_evaluations 972476 optim aspiration_attempts 8 aspiration_searches 14 aspiration_fail_high 0 aspiration_fail_low 6 aspiration_retries 6 aspiration_successes 7 null_attempts 4553 null_cutoffs 1923 lmr_attempts 42818 lmr_searches 42818 lmr_researches 94 lmr_verifications 94 history_updates 3409 killer_cutoffs 1880 see_calls 805946 reverse_futility_cutoffs 87080 futility_prunes 65166 check_extensions 5033
+2026-10-18T04:39:36.032484+00:00 < bestmove c4c5

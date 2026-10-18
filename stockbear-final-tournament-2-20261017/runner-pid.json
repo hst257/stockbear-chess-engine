@@ -1,8 +1,8 @@
 {
-  "creation_filetime": 134367305807838297,
+  "creation_filetime": 134367713213239550,
   "method": "CREATE_NO_WINDOW | CREATE_NEW_PROCESS_GROUP; independently verified idle lifetime probe",
-  "pid": 55360,
-  "started_utc": "2026-10-17T17:09:40.783829+00:00",
-  "stderr": "Z:\\Code\\Chess\\stockbear-final-tournament-2-20261017\\run-logs\\errors-20261017-223940-782566.log",
-  "stdout": "Z:\\Code\\Chess\\stockbear-final-tournament-2-20261017\\run-logs\\runner-20261017-223940-782566.log"
+  "pid": 7624,
+  "started_utc": "2026-10-18T04:28:41.323955+00:00",
+  "stderr": "Z:\\Code\\Chess\\stockbear-final-tournament-2-20261017\\run-logs\\errors-20261018-095841-321399.log",
+  "stdout": "Z:\\Code\\Chess\\stockbear-final-tournament-2-20261017\\run-logs\\runner-20261018-095841-321399.log"
 }

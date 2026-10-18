@@ -1,0 +1,12 @@
+{
+  "completed_after_resume": 13,
+  "completed_before_pause": 67,
+  "completed_game_artifacts_byte_unchanged": 335,
+  "frozen_runner_lock_unchanged": true,
+  "passed": true,
+  "reason": "User manually resumed after scheduled continuation did not activate; no extra games",
+  "replayed_completed_games": 0,
+  "resumed_game": "G068",
+  "saved_searches_before_resume": 0,
+  "utc": "2026-10-18T04:41:50.153636+00:00"
+}
