@@ -6,13 +6,15 @@ from pathlib import Path
 import queue
 import subprocess
 import threading
+import time
 
 import chess
 import chess.engine
 from app.nnue_v3_model import DEFAULT_V3_MODEL, validate_model
 
-DEFAULT_ENGINE = (Path(__file__).resolve().parents[1] / "engine" / "build" /
-                  ("chesslab-engine.exe" if os.name == "nt" else "chesslab-engine"))
+ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_ENGINE = ROOT / "bin" / ("StockBear-NNUE.exe" if os.name == "nt" else "StockBear-NNUE")
+CLASSICAL_ENGINE = ROOT / "bin" / ("StockBear-Classical.exe" if os.name == "nt" else "StockBear-Classical")
 SEARCH_SECONDS = 15.0
 THINKING_TIMES = (("Blitz", 100), ("Fast", 500), ("Standard", 1000),
                   ("Deep", 3000), ("Maximum", 5000))
@@ -175,11 +177,14 @@ def search_stats(info: chess.engine.InfoDict, move: chess.Move | None, board: ch
 
 
 class EngineClient:
-    def __init__(self, path: Path = DEFAULT_ENGINE) -> None:
-        self.path = Path(path)
+    def __init__(self, path: Path | None = None) -> None:
+        self.path = Path(path) if path is not None else DEFAULT_ENGINE
+        self._explicit_path = path is not None
         self.messages: queue.Queue[EngineMessage] = queue.Queue()
         self._token = 0
         self._job: _Job | None = None
+        self._worker_lock = threading.Lock()
+        self._threads: list[threading.Thread] = []
 
     @property
     def busy(self) -> bool:
@@ -206,8 +211,11 @@ class EngineClient:
         job = _Job(self._token)
         self._job = job
         snapshot = board.copy(stack=True)
-        threading.Thread(target=self._work, args=(job, snapshot, revision, settings, kind),
-                         name="ChessLab-UCI", daemon=True).start()
+        worker = threading.Thread(target=self._work, args=(job, snapshot, revision, settings, kind),
+                                  name="StockBear-UCI", daemon=True)
+        self._threads = [thread for thread in self._threads if thread.is_alive()]
+        self._threads.append(worker)
+        worker.start()
         return job.token
 
     def stop(self) -> None:
@@ -234,12 +242,21 @@ class EngineClient:
 
     def _work(self, job: _Job, board: chess.Board, revision: int,
               settings: EngineSettings, kind: str) -> None:
+        # A replacement waits off the UI thread until the old process is closed.
+        # This prevents overlapping engines even when settings change rapidly.
+        with self._worker_lock:
+            if not job.canceled.is_set():
+                self._run_job(job, board, revision, settings, kind)
+
+    def _run_job(self, job: _Job, board: chess.Board, revision: int,
+                 settings: EngineSettings, kind: str) -> None:
         engine = None
         try:
-            if not self.path.is_file():
+            path = self.path if self._explicit_path or settings.evaluator != "classical" else CLASSICAL_ENGINE
+            if not path.is_file():
                 raise FileNotFoundError("Engine not built. Run build_engine.bat, then retry.")
             flags = {"creationflags": subprocess.CREATE_NO_WINDOW} if os.name == "nt" else {}
-            engine = chess.engine.SimpleEngine.popen_uci(str(self.path), timeout=5, **flags)
+            engine = chess.engine.SimpleEngine.popen_uci(str(path), timeout=5, **flags)
             with job.lock:
                 if job.canceled.is_set():
                     return
@@ -267,6 +284,10 @@ class EngineClient:
                         raise chess.engine.EngineError("This engine build does not support NNUE v3")
                     model_path = validate_model(Path(settings.v3_model))
                     engine.configure({"NNUEV3File": str(model_path)})
+                if settings.evaluator == "nnue":
+                    if "clip" not in engine.options["NNUEKernel"].var:
+                        raise chess.engine.EngineError("This executable lacks NNUE Hiddenclip. Run build_engine.bat.")
+                    engine.configure({"NNUEKernel": "clip", "NNUEIncremental": True})
                 engine.configure({"Evaluator": settings.evaluator})
                 if job.canceled.is_set():
                     return
@@ -322,3 +343,6 @@ class EngineClient:
 
     def close(self) -> None:
         self.cancel()
+        deadline = time.monotonic() + 6
+        for worker in self._threads:
+            worker.join(max(0, deadline - time.monotonic()))

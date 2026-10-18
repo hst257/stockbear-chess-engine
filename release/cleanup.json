@@ -1,0 +1,946 @@
+{
+  "checkpoint": "967d9a3",
+  "removed": [
+    {
+      "path": "artifacts",
+      "files": 17203,
+      "bytes": 1709285311
+    },
+    {
+      "path": "docs",
+      "files": 317,
+      "bytes": 195399096
+    },
+    {
+      "path": "final-nnue-showdown-20261017",
+      "files": 207,
+      "bytes": 7393158
+    },
+    {
+      "path": "nnue-optimization-stage1-20261017",
+      "files": 2419,
+      "bytes": 256713535
+    },
+    {
+      "path": "nnue-optimization-stage2-1-20261017",
+      "files": 2314,
+      "bytes": 358231262
+    },
+    {
+      "path": "nnue-optimization-stage2-20261017",
+      "files": 2418,
+      "bytes": 452060334
+    },
+    {
+      "path": "nnue-optimization-stage3-20261017",
+      "files": 2419,
+      "bytes": 331980166
+    },
+    {
+      "path": "nnue-profiling-20261017",
+      "files": 2149,
+      "bytes": 197344974
+    },
+    {
+      "path": "nnue-showdown-20261016",
+      "files": 2434,
+      "bytes": 152415046
+    },
+    {
+      "path": "nnue-validation-stage3-1-20261017",
+      "files": 51,
+      "bytes": 97800697
+    },
+    {
+      "path": "stockbear-final-tournament-1-20261017",
+      "files": 462,
+      "bytes": 127602866
+    },
+    {
+      "path": "stockbear-final-tournament-2-20261017",
+      "files": 467,
+      "bytes": 109465987
+    },
+    {
+      "path": "engine/build",
+      "files": 2269,
+      "bytes": 325963873
+    },
+    {
+      "path": "StockBear_NNUE_training/scaling-experiment-20261016",
+      "files": 2518,
+      "bytes": 179067321
+    },
+    {
+      "path": "StockBear_NNUE_training/runs",
+      "files": 193,
+      "bytes": 193519618
+    },
+    {
+      "path": "StockBear_NNUE_training/exports",
+      "files": 28,
+      "bytes": 11456284
+    },
+    {
+      "path": "StockBear_NNUE_training/reports",
+      "files": 106,
+      "bytes": 2338545
+    },
+    {
+      "path": "StockBear_NNUE_training/docs",
+      "files": 3,
+      "bytes": 17998
+    },
+    {
+      "path": ".pytest_cache",
+      "files": 5,
+      "bytes": 155248
+    },
+    {
+      "path": "StockBear_NNUE_training/.pytest_cache",
+      "files": 5,
+      "bytes": 8104
+    },
+    {
+      "path": "engine/networks/v2",
+      "files": 5,
+      "bytes": 357831
+    },
+    {
+      "path": "app/__pycache__",
+      "files": 8,
+      "bytes": 90466
+    },
+    {
+      "path": "app/ui/__pycache__",
+      "files": 5,
+      "bytes": 39473
+    },
+    {
+      "path": "StockBear_NNUE_training/stockbear/__pycache__",
+      "files": 18,
+      "bytes": 286183
+    },
+    {
+      "path": "StockBear_NNUE_training/stockbear/labeling/__pycache__",
+      "files": 6,
+      "bytes": 106215
+    },
+    {
+      "path": "StockBear_NNUE_training/stockbear/v2/__pycache__",
+      "files": 9,
+      "bytes": 160674
+    },
+    {
+      "path": "StockBear_NNUE_training/stockbear/v3/__pycache__",
+      "files": 6,
+      "bytes": 46046
+    },
+    {
+      "path": "StockBear_NNUE_training/tests/__pycache__",
+      "files": 9,
+      "bytes": 294828
+    },
+    {
+      "path": "tests/__pycache__",
+      "files": 25,
+      "bytes": 1208495
+    },
+    {
+      "path": "tools/__pycache__",
+      "files": 68,
+      "bytes": 1092954
+    },
+    {
+      "path": "tools/analyze_nnue_diagnosis.py",
+      "files": 1,
+      "bytes": 33043
+    },
+    {
+      "path": "tools/analyze_nnue_throughput.py",
+      "files": 1,
+      "bytes": 6269
+    },
+    {
+      "path": "tools/analyze_nnue_v3_training.py",
+      "files": 1,
+      "bytes": 2600
+    },
+    {
+      "path": "tools/audit_engine.py",
+      "files": 1,
+      "bytes": 5859
+    },
+    {
+      "path": "tools/audit_nnue_diagnosis_records.py",
+      "files": 1,
+      "bytes": 4254
+    },
+    {
+      "path": "tools/benchmark_advanced_evaluation.py",
+      "files": 1,
+      "bytes": 3300
+    },
+    {
+      "path": "tools/benchmark_evaluation.py",
+      "files": 1,
+      "bytes": 7823
+    },
+    {
+      "path": "tools/benchmark_labeling_workers.py",
+      "files": 1,
+      "bytes": 6365
+    },
+    {
+      "path": "tools/benchmark_nnue.py",
+      "files": 1,
+      "bytes": 2629
+    },
+    {
+      "path": "tools/benchmark_nnue_v2.py",
+      "files": 1,
+      "bytes": 5860
+    },
+    {
+      "path": "tools/benchmark_nnue_v3.py",
+      "files": 1,
+      "bytes": 7017
+    },
+    {
+      "path": "tools/benchmark_nnue_white.py",
+      "files": 1,
+      "bytes": 2733
+    },
+    {
+      "path": "tools/benchmark_optimizations.py",
+      "files": 1,
+      "bytes": 5937
+    },
+    {
+      "path": "tools/benchmark_search.py",
+      "files": 1,
+      "bytes": 5000
+    },
+    {
+      "path": "tools/benchmark_time.py",
+      "files": 1,
+      "bytes": 5493
+    },
+    {
+      "path": "tools/benchmark_transpositions.py",
+      "files": 1,
+      "bytes": 4685
+    },
+    {
+      "path": "tools/compare_engine_versions.py",
+      "files": 1,
+      "bytes": 3258
+    },
+    {
+      "path": "tools/diagnose_labeling_throughput.py",
+      "files": 1,
+      "bytes": 6064
+    },
+    {
+      "path": "tools/diagnose_nnue_caps.py",
+      "files": 1,
+      "bytes": 2912
+    },
+    {
+      "path": "tools/diagnose_nnue_game_positions.py",
+      "files": 1,
+      "bytes": 7916
+    },
+    {
+      "path": "tools/diagnose_nnue_score_scale.py",
+      "files": 1,
+      "bytes": 3563
+    },
+    {
+      "path": "tools/duel_nnue_throughput.py",
+      "files": 1,
+      "bytes": 3362
+    },
+    {
+      "path": "tools/finalize_nnue_throughput_match.py",
+      "files": 1,
+      "bytes": 3741
+    },
+    {
+      "path": "tools/final_nnue_showdown.py",
+      "files": 1,
+      "bytes": 14840
+    },
+    {
+      "path": "tools/finish_nnue_throughput.py",
+      "files": 1,
+      "bytes": 4120
+    },
+    {
+      "path": "tools/match_optimizations.py",
+      "files": 1,
+      "bytes": 20271
+    },
+    {
+      "path": "tools/measure_nnue_memory.py",
+      "files": 1,
+      "bytes": 3312
+    },
+    {
+      "path": "tools/nnue_diagnosis.py",
+      "files": 1,
+      "bytes": 8982
+    },
+    {
+      "path": "tools/nnue_showdown.py",
+      "files": 1,
+      "bytes": 28171
+    },
+    {
+      "path": "tools/nnue_throughput.py",
+      "files": 1,
+      "bytes": 13691
+    },
+    {
+      "path": "tools/probe_nnue_asan.py",
+      "files": 1,
+      "bytes": 1599
+    },
+    {
+      "path": "tools/profile_evaluation.py",
+      "files": 1,
+      "bytes": 1967
+    },
+    {
+      "path": "tools/profile_nnue_diagnosis.py",
+      "files": 1,
+      "bytes": 5908
+    },
+    {
+      "path": "tools/profile_nnue_throughput.py",
+      "files": 1,
+      "bytes": 2753
+    },
+    {
+      "path": "tools/profile_nnue_v2.py",
+      "files": 1,
+      "bytes": 1757
+    },
+    {
+      "path": "tools/quality_nnue_v3.py",
+      "files": 1,
+      "bytes": 5801
+    },
+    {
+      "path": "tools/replay_labeling_database.py",
+      "files": 1,
+      "bytes": 5579
+    },
+    {
+      "path": "tools/report_expanded_training.py",
+      "files": 1,
+      "bytes": 7285
+    },
+    {
+      "path": "tools/report_final_nnue_showdown.py",
+      "files": 1,
+      "bytes": 29390
+    },
+    {
+      "path": "tools/report_labeling_throughput.py",
+      "files": 1,
+      "bytes": 11216
+    },
+    {
+      "path": "tools/report_nnue_diagnosis.py",
+      "files": 1,
+      "bytes": 32207
+    },
+    {
+      "path": "tools/report_nnue_showdown.py",
+      "files": 1,
+      "bytes": 26750
+    },
+    {
+      "path": "tools/report_nnue_throughput.py",
+      "files": 1,
+      "bytes": 39220
+    },
+    {
+      "path": "tools/report_nnue_v2.py",
+      "files": 1,
+      "bytes": 26724
+    },
+    {
+      "path": "tools/report_nnue_v3.py",
+      "files": 1,
+      "bytes": 32455
+    },
+    {
+      "path": "tools/run_nnue_diagnosis_matches.py",
+      "files": 1,
+      "bytes": 7937
+    },
+    {
+      "path": "tools/run_nnue_diagnosis_pipeline.py",
+      "files": 1,
+      "bytes": 5624
+    },
+    {
+      "path": "tools/run_nnue_diagnosis_positions.py",
+      "files": 1,
+      "bytes": 9986
+    },
+    {
+      "path": "tools/run_nnue_showdown_amended.py",
+      "files": 1,
+      "bytes": 3971
+    },
+    {
+      "path": "tools/run_nnue_throughput_candidates.py",
+      "files": 1,
+      "bytes": 879
+    },
+    {
+      "path": "tools/run_nnue_throughput_final.py",
+      "files": 1,
+      "bytes": 8606
+    },
+    {
+      "path": "tools/run_nnue_v2_matches.py",
+      "files": 1,
+      "bytes": 4627
+    },
+    {
+      "path": "tools/run_nnue_v3_experiments.py",
+      "files": 1,
+      "bytes": 7628
+    },
+    {
+      "path": "tools/validate_nnue_v2.py",
+      "files": 1,
+      "bytes": 4759
+    },
+    {
+      "path": "tools/verify_endgames.py",
+      "files": 1,
+      "bytes": 2747
+    },
+    {
+      "path": "tools/verify_final_nnue_showdown.py",
+      "files": 1,
+      "bytes": 7021
+    },
+    {
+      "path": "tools/verify_gui_engine.py",
+      "files": 1,
+      "bytes": 4670
+    },
+    {
+      "path": "tools/verify_match_records.py",
+      "files": 1,
+      "bytes": 3745
+    },
+    {
+      "path": "tools/verify_nnue_diagnosis.py",
+      "files": 1,
+      "bytes": 7054
+    },
+    {
+      "path": "tools/verify_nnue_showdown.py",
+      "files": 1,
+      "bytes": 5342
+    },
+    {
+      "path": "tools/verify_nnue_throughput.py",
+      "files": 1,
+      "bytes": 5771
+    },
+    {
+      "path": "tools/verify_nnue_v2_search.py",
+      "files": 1,
+      "bytes": 5296
+    },
+    {
+      "path": "tools/verify_nnue_v3.py",
+      "files": 1,
+      "bytes": 7062
+    },
+    {
+      "path": "tools/verify_nnue_v3_runtime.py",
+      "files": 1,
+      "bytes": 1887
+    },
+    {
+      "path": "tools/verify_nnue_v3_search.py",
+      "files": 1,
+      "bytes": 4681
+    },
+    {
+      "path": "tools/work_nnue_throughput.py",
+      "files": 1,
+      "bytes": 2896
+    },
+    {
+      "path": "tests/test_audit_tools.py",
+      "files": 1,
+      "bytes": 3851
+    },
+    {
+      "path": "tests/test_nnue_diagnosis.py",
+      "files": 1,
+      "bytes": 8068
+    },
+    {
+      "path": "tests/test_nnue_throughput.py",
+      "files": 1,
+      "bytes": 3052
+    },
+    {
+      "path": "tests/test_nnue_showdown.py",
+      "files": 1,
+      "bytes": 7237
+    },
+    {
+      "path": "tests/test_nnue_v2_tools.py",
+      "files": 1,
+      "bytes": 6052
+    },
+    {
+      "path": "tests/test_final_nnue_showdown.py",
+      "files": 1,
+      "bytes": 3950
+    },
+    {
+      "path": "EXPANDED_DATA_VERIFICATION.md",
+      "files": 1,
+      "bytes": 4588
+    },
+    {
+      "path": "EXPANDED_TRAINING_README.md",
+      "files": 1,
+      "bytes": 3666
+    },
+    {
+      "path": "FINAL_NNUE_SHOWDOWN_REPORT.md",
+      "files": 1,
+      "bytes": 17315
+    },
+    {
+      "path": "LABELING_README.md",
+      "files": 1,
+      "bytes": 10460
+    },
+    {
+      "path": "LABELING_THROUGHPUT_DIAGNOSIS.md",
+      "files": 1,
+      "bytes": 7902
+    },
+    {
+      "path": "NNUE_OPTIMIZATION_ROADMAP.md",
+      "files": 1,
+      "bytes": 13397
+    },
+    {
+      "path": "NNUE_PROFILING_REPORT.md",
+      "files": 1,
+      "bytes": 33199
+    },
+    {
+      "path": "NNUE_SCALING_EXPERIMENT_REPORT.md",
+      "files": 1,
+      "bytes": 20047
+    },
+    {
+      "path": "NNUE_SHOWDOWN_REPORT.md",
+      "files": 1,
+      "bytes": 14374
+    },
+    {
+      "path": "NNUE_STAGE1_OPTIMIZATION_REPORT.md",
+      "files": 1,
+      "bytes": 18805
+    },
+    {
+      "path": "NNUE_STAGE3_1_VALIDATION_REPORT.md",
+      "files": 1,
+      "bytes": 28774
+    },
+    {
+      "path": "NNUE_STAGE3_OPTIMIZATION_REPORT.md",
+      "files": 1,
+      "bytes": 24930
+    },
+    {
+      "path": "NNUE_V2_OPTIMIZATION_RESULTS.md",
+      "files": 1,
+      "bytes": 22338
+    },
+    {
+      "path": "NNUE_V2_SEARCH_DIAGNOSIS.md",
+      "files": 1,
+      "bytes": 27696
+    },
+    {
+      "path": "NNUE_V2_THROUGHPUT_OPTIMIZATION.md",
+      "files": 1,
+      "bytes": 21825
+    },
+    {
+      "path": "NNUE_V3_DESIGN.md",
+      "files": 1,
+      "bytes": 8751
+    },
+    {
+      "path": "NNUE_V3_KING_RELATIVE_REPORT.md",
+      "files": 1,
+      "bytes": 20537
+    },
+    {
+      "path": "StockBear_NNUE_training/NNUE_V2_EXPERIMENT_REPORT.md",
+      "files": 1,
+      "bytes": 12530
+    },
+    {
+      "path": "StockBear_NNUE_training/NNUE_V2_RESULTS.md",
+      "files": 1,
+      "bytes": 6078
+    },
+    {
+      "path": "StockBear_NNUE_training/README.md",
+      "files": 1,
+      "bytes": 5219
+    },
+    {
+      "path": "engine/README.md",
+      "files": 1,
+      "bytes": 24109
+    },
+    {
+      "path": "engine/networks/stockbear-compact.sbnnue",
+      "files": 1,
+      "bytes": 105484
+    },
+    {
+      "path": "engine/networks/stockbear-compact.metadata.json",
+      "files": 1,
+      "bytes": 2335
+    },
+    {
+      "path": "engine/networks/stockbear-compact.golden.json",
+      "files": 1,
+      "bytes": 16089
+    },
+    {
+      "path": "engine/networks/nnue-options.json",
+      "files": 1,
+      "bytes": 53
+    },
+    {
+      "path": "engine/networks/classical-options.json",
+      "files": 1,
+      "bytes": 31
+    },
+    {
+      "path": "engine/networks/v3/stockbear-v3-a.sbnnue",
+      "files": 1,
+      "bytes": 5248972
+    },
+    {
+      "path": "engine/networks/v3/stockbear-v3-b.sbnnue",
+      "files": 1,
+      "bytes": 1316812
+    },
+    {
+      "path": "tools/nnue_v2_baseline.json",
+      "files": 1,
+      "bytes": 587
+    },
+    {
+      "path": "tools/nnue_v2_delta.json",
+      "files": 1,
+      "bytes": 811
+    },
+    {
+      "path": "tools/nnue_v2_final.json",
+      "files": 1,
+      "bytes": 1752
+    },
+    {
+      "path": "tools/nnue_v2_quant.json",
+      "files": 1,
+      "bytes": 1547
+    },
+    {
+      "path": "tools/nnue_v2_scalar.json",
+      "files": 1,
+      "bytes": 911
+    },
+    {
+      "path": "tools/nnue_v2_simd.json",
+      "files": 1,
+      "bytes": 1009
+    },
+    {
+      "path": "artifacts",
+      "files": 19,
+      "bytes": 4461632,
+      "category": "verification scratch"
+    },
+    {
+      "path": ".pytest_cache",
+      "files": 5,
+      "bytes": 131130,
+      "category": "verification scratch"
+    },
+    {
+      "path": "engine/build/zig-cache",
+      "files": 1985,
+      "bytes": 97769652,
+      "category": "verification scratch"
+    },
+    {
+      "path": "engine/build/zig-local-cache",
+      "files": 31,
+      "bytes": 18058025,
+      "category": "verification scratch"
+    },
+    {
+      "path": "engine/build/generated",
+      "files": 2,
+      "bytes": 1710766,
+      "category": "verification scratch"
+    },
+    {
+      "path": "app/__pycache__",
+      "files": 8,
+      "bytes": 90474,
+      "category": "verification scratch"
+    },
+    {
+      "path": "app/ui/__pycache__",
+      "files": 5,
+      "bytes": 39474,
+      "category": "verification scratch"
+    },
+    {
+      "path": "tests/__pycache__",
+      "files": 18,
+      "bytes": 994415,
+      "category": "verification scratch"
+    },
+    {
+      "path": "tools/__pycache__",
+      "files": 4,
+      "bytes": 58850,
+      "category": "verification scratch"
+    },
+    {
+      "path": "engine/build/chesslab-audit-tests.build.json",
+      "files": 1,
+      "bytes": 3960,
+      "category": "verification scratch"
+    },
+    {
+      "path": "engine/build/chesslab-audit-tests.exe",
+      "files": 1,
+      "bytes": 999424,
+      "category": "verification scratch"
+    },
+    {
+      "path": "engine/build/chesslab-audit-tests.pdb",
+      "files": 1,
+      "bytes": 4272128,
+      "category": "verification scratch"
+    },
+    {
+      "path": "engine/build/chesslab-engine.pdb",
+      "files": 1,
+      "bytes": 5443584,
+      "category": "verification scratch"
+    },
+    {
+      "path": "engine/build/chesslab-tt-tests.build.json",
+      "files": 1,
+      "bytes": 3965,
+      "category": "verification scratch"
+    },
+    {
+      "path": "engine/build/chesslab-tt-tests.exe",
+      "files": 1,
+      "bytes": 1034240,
+      "category": "verification scratch"
+    },
+    {
+      "path": "engine/build/chesslab-tt-tests.pdb",
+      "files": 1,
+      "bytes": 4681728,
+      "category": "verification scratch"
+    },
+    {
+      "path": "engine/build/main.lib",
+      "files": 1,
+      "bytes": 5230,
+      "category": "verification scratch"
+    },
+    {
+      "path": "engine/build/test_audit.lib",
+      "files": 1,
+      "bytes": 5394,
+      "category": "verification scratch"
+    },
+    {
+      "path": "engine/build/test_transposition.lib",
+      "files": 1,
+      "bytes": 5294,
+      "category": "verification scratch"
+    }
+  ],
+  "removed_files": 40339.0,
+  "removed_bytes": 4859322966.0,
+  "datasets_deleted": false,
+  "unique_models_deleted": false,
+  "obsolete_removed_files": 38252.0,
+  "obsolete_removed_bytes": 4719553601.0,
+  "before_workingtree_bytes": 32796866389,
+  "after_workingtree_bytes": 28327217194,
+  "net_workingtree_bytes_recovered": 4469649195,
+  "measurement": "Logical file lengths excluding .git; gross includes verification scratch,net includes preserved models/release assets; not allocated-cluster free-space measurement",
+  "retained_large_files": {
+    ".venv/Lib/site-packages/ziglang/zig.exe": 157414400,
+    "StockBear_NNUE_training/.venv/Lib/site-packages/torch/lib/cublas64_12.dll": 113712640,
+    "StockBear_NNUE_training/.venv/Lib/site-packages/torch/lib/cublasLt64_12.dll": 692441600,
+    "StockBear_NNUE_training/.venv/Lib/site-packages/torch/lib/cudnn_adv64_9.dll": 326072352,
+    "StockBear_NNUE_training/.venv/Lib/site-packages/torch/lib/cudnn_engines_precompiled64_9.dll": 528766000,
+    "StockBear_NNUE_training/.venv/Lib/site-packages/torch/lib/cudnn_heuristic64_9.dll": 60222000,
+    "StockBear_NNUE_training/.venv/Lib/site-packages/torch/lib/cudnn_ops64_9.dll": 116958752,
+    "StockBear_NNUE_training/.venv/Lib/site-packages/torch/lib/cufft64_11.dll": 276121088,
+    "StockBear_NNUE_training/.venv/Lib/site-packages/torch/lib/curand64_10.dll": 71955456,
+    "StockBear_NNUE_training/.venv/Lib/site-packages/torch/lib/cusolver64_11.dll": 220286976,
+    "StockBear_NNUE_training/.venv/Lib/site-packages/torch/lib/cusolverMg64_11.dll": 151604736,
+    "StockBear_NNUE_training/.venv/Lib/site-packages/torch/lib/cusparse64_12.dll": 385082880,
+    "StockBear_NNUE_training/.venv/Lib/site-packages/torch/lib/dnnl.lib": 708668648,
+    "StockBear_NNUE_training/.venv/Lib/site-packages/torch/lib/nvJitLink_120_0.dll": 77834752,
+    "StockBear_NNUE_training/.venv/Lib/site-packages/torch/lib/nvrtc64_120_0.alt.dll": 86768640,
+    "StockBear_NNUE_training/.venv/Lib/site-packages/torch/lib/nvrtc64_120_0.dll": 86702592,
+    "StockBear_NNUE_training/.venv/Lib/site-packages/torch/lib/torch_cpu.dll": 252323840,
+    "StockBear_NNUE_training/.venv/Lib/site-packages/torch/lib/torch_cuda.dll": 1311574016,
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/merged.sqlite": 4694953984,
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v2/test_x.npy": 85564256,
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v2/train_x.npy": 683310948,
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v2/train_y.npy": 147743008,
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v2/validation_x.npy": 84905508,
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-bucket16/test_x.npy": 80939168,
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-bucket16/train_x.npy": 646375228,
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-bucket16/train_y.npy": 147743008,
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-bucket16/validation_x.npy": 80316028,
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-full/test_x.npy": 80939168,
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-full/train_x.npy": 646375228,
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-full/train_y.npy": 147743008,
+    "StockBear_NNUE_training/data/expanded/cc-events-20261016/prepared/v3-full/validation_x.npy": 80316028,
+    "StockBear_NNUE_training/data/labeling/cc-events-v1/pipeline.sqlite": 9184759808,
+    "StockBear_NNUE_training/data/labeling/smoke-100/pipeline.sqlite": 101040128,
+    "StockBear_NNUE_training/data/labeling/smoke-32-20261016/pipeline.sqlite": 100814848,
+    "StockBear_NNUE_training/data/labeling/smoke-final-8-20261016/pipeline.sqlite": 100933632,
+    "StockBear_NNUE_training/data/raw/cc-events-all/cc-events-all.pgn": 859912613,
+    "StockBear_NNUE_training/data/v2/pool.sqlite": 1225027584,
+    "StockBear_NNUE_training/data/v2/teacher.sqlite": 409686016,
+    "StockBear_NNUE_training/data/v2/prepared/1000000/train_x.npy": 118336636,
+    "StockBear_NNUE_training/data/v2/prepared/1250000/train_x.npy": 147920800,
+    "StockBear_NNUE_training/data/v2/prepared/500000/train_x.npy": 59168012,
+    "StockBear_NNUE_training/data/v3/bucket16/train_x.npy": 139925088,
+    "StockBear_NNUE_training/data/v3/full-halfkp/train_x.npy": 139925088,
+    "StockBear_NNUE_training/stockfish-windows-x86-64-universal/stockfish/stockfish-windows-x86-64-universal.exe": 103046300
+  },
+  "dataset_files_unchanged": 331,
+  "dataset_bytes_unchanged": 21620128056,
+  "unique_model_review_files": 61,
+  "unique_model_review_bytes": 121096790,
+  "licenses_and_original_assets_unchanged": true,
+  "final_top_directory_sizes": {
+    ".gitattributes": [
+      1,
+      196
+    ],
+    ".gitignore": [
+      1,
+      339
+    ],
+    "AGENTS.md": [
+      1,
+      4295
+    ],
+    "build_engine.bat": [
+      1,
+      292
+    ],
+    "launch.bat": [
+      1,
+      339
+    ],
+    "pytest.ini": [
+      1,
+      42
+    ],
+    "README.md": [
+      1,
+      24465
+    ],
+    "requirements-dev.txt": [
+      1,
+      34
+    ],
+    "requirements.txt": [
+      1,
+      48
+    ],
+    "setup.bat": [
+      1,
+      693
+    ],
+    "start_labeling.ps1": [
+      1,
+      3394
+    ],
+    "THIRD_PARTY_NOTICES.md": [
+      1,
+      2081
+    ],
+    ".venv": [
+      18749,
+      382276650
+    ],
+    "app": [
+      39,
+      198086
+    ],
+    "bin": [
+      2,
+      2276352
+    ],
+    "engine": [
+      36,
+      2899851
+    ],
+    "models": [
+      10,
+      996600
+    ],
+    "release": [
+      18,
+      358141
+    ],
+    "StockBear_NNUE_training": [
+      24506,
+      27937972559
+    ],
+    "tests": [
+      18,
+      161557
+    ],
+    "tools": [
+      7,
+      41180
+    ]
+  }
+}

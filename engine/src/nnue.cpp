@@ -8,6 +8,7 @@
 #include <cmath>
 #include <stdexcept>
 #include <cstdlib>
+#include "stage1_head.hpp"
 #if (defined(__x86_64__) || defined(__i386__)) && (defined(__GNUC__) || defined(__clang__))
 #define CHESSLAB_X86_SIMD
 #include <cpuid.h>
@@ -16,13 +17,13 @@
 namespace chesslab {
 namespace w = nnue_weights;
 namespace {
-enum class Kernel { AUTO, REFERENCE, SCALAR, QUANT };
+enum class Kernel { AUTO, REFERENCE, SCALAR, QUANT, CLIP };
 thread_local Kernel selected_kernel = Kernel::AUTO;
-constexpr const char* KERNEL_NAMES[] = {"auto", "reference", "scalar", "quant"};
+constexpr const char* KERNEL_NAMES[] = {"auto", "reference", "scalar", "quant", "clip"};
 }
 void nnue_set_kernel(const std::string& name) {
-    for (int i = 0; i < 4; ++i) if (name == KERNEL_NAMES[i]) {
-        if (i >= 3 && !w::Q_ENABLED) throw std::invalid_argument("This model has no safe quantized representation");
+    for (int i = 0; i < 5; ++i) if (name == KERNEL_NAMES[i]) {
+        if (i == 3 && !w::Q_ENABLED) throw std::invalid_argument("This model has no safe quantized representation");
         selected_kernel = static_cast<Kernel>(i); return;
     }
     throw std::invalid_argument("Unknown NNUE kernel");
@@ -47,6 +48,7 @@ bool nnue_simd_available() {
 }
 const char* nnue_effective_kernel() {
     if (selected_kernel == Kernel::AUTO) return "scalar";
+    if (selected_kernel == Kernel::CLIP && !nnue_simd_available()) return "scalar";
     return nnue_kernel();
 }
 bool nnue_quantized() { return selected_kernel == Kernel::QUANT; }
@@ -482,6 +484,10 @@ float nnue_side_to_move(const chess::Board& board, const NnueAccumulator& accumu
     if (selected_kernel == Kernel::REFERENCE) return nnue_reference_side_to_move(board, accumulator);
     profiling::Scope measured(profiling::NNUE_HEAD);
     if (nnue_quantized()) return quantized_head(board, accumulator);
+#if (defined(__x86_64__) || defined(__i386__)) && (defined(__GNUC__) || defined(__clang__))
+    if (selected_kernel == Kernel::CLIP && nnue_simd_available())
+        return stage1::head(board, accumulator);
+#endif
     // Each neuron's additions retain their original order. Parallel neurons
     // give the compiler independent lanes without reassociating a dot product.
     alignas(64) float hidden[w::HIDDEN];

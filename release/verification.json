@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "golden_positions": 56,
+  "checked_binaries": [
+    {
+      "path": "Z:\\Code\\Chess\\bin\\StockBear-NNUE.exe",
+      "sha256": "68ced7162b20109b6ad9e705bbb4f43317c85d2cb5d10ff3ae45a02eb0bd571b"
+    },
+    {
+      "path": "Z:\\Code\\Chess\\engine\\build\\chesslab-engine.exe",
+      "sha256": "93d7c2c8417e3a759c0433f289f7aab07ac17557455494a9a643108883b41f36"
+    }
+  ],
+  "classical_full_components_exact": true,
+  "nnue_native_exact": true,
+  "fixed_work_decisions_exact": true,
+  "gui": {
+    "passed": true,
+    "real_engine_processes": 4,
+    "max_concurrent_processes": 1,
+    "switching": "classical->nnue->classical->nnue;reset->classical",
+    "board_preserved": true,
+    "stale_replies_rejected": true,
+    "orphaned_processes": 0,
+    "method": "Actual Pygame application with SDL dummy; desktop inspection recorded separately"
+  },
+  "no_training": true,
+  "no_tournament": true,
+  "background_threads_after_shutdown": [],
+  "suite": {
+    "baseline_passed": 1171,
+    "baseline_skipped": 2,
+    "retained_before_cleanup_passed": 1054,
+    "post_cleanup_passed_initial": 1035,
+    "post_cleanup_setup_errors": 19,
+    "post_cleanup_targeted_retry_passed": 19,
+    "post_cleanup_total_passed": 1054,
+    "setup_issue": "Explicit pytest --basetemp parent absent after deleting old artifacts; parent created and only19 affected checks rerun successfully"
+  },
+  "desktop": {
+    "inspected": true,
+    "method": "Windows computer-use screenshots/mouse interaction plus native five-frame application launch",
+    "labels": [
+      "Classical (Default)",
+      "NNUE Hiddenclip"
+    ],
+    "nnue_reply": "e2e4 e7e5",
+    "reverse_switch_preserved_board": true,
+    "final_branding": "StockBear",
+    "test_windows_closed": true
+  },
+  "reexport": {
+    "passed": true,
+    "sha256": "a08ce2c60280c8c6dffbbe2f653b6c481e8d5282be7bed203db8b72492b0a2d3",
+    "checkpoint_unchanged": true,
+    "dataset_opened": false
+  },
+  "resolved_verifier_issues": [
+    "Model display filename changes on rebuild; compared weights/hash/features and numerical outputs independently of that label",
+    "Custom eval probe moved to its engine event loop; explicit quit/drain and thread-shutdown assertion now pass"
+  ]
+}

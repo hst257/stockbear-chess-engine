@@ -1,0 +1,69 @@
+{
+  "activation": "clip(x,0,1)",
+  "best_epoch": 45,
+  "experiment": "scaling-experiment-20261016",
+  "feature_version": "dual-perspective-12x64-castling-ep-v1",
+  "features": 780,
+  "format": "StockBear float32 v1",
+  "model": {
+    "hidden": 32,
+    "width": 64
+  },
+  "output_cp_scale": 400,
+  "payload_sha256": "a281bcf718d4a33664a5cc17861dcb4203b9401437317001ba95dbd1d10e2213",
+  "score_pov": "side_to_move",
+  "source_checkpoint_sha256": "7d9ca27194e664f5f1d42fe8e4a5d4bac2f600a989405df9d91512555abb8264",
+  "tensors": [
+    {
+      "dtype": "<f4",
+      "name": "bias",
+      "offset": 0,
+      "shape": [
+        64
+      ]
+    },
+    {
+      "dtype": "<f4",
+      "name": "transform.weight",
+      "offset": 256,
+      "shape": [
+        781,
+        64
+      ]
+    },
+    {
+      "dtype": "<f4",
+      "name": "fc1.weight",
+      "offset": 200192,
+      "shape": [
+        32,
+        128
+      ]
+    },
+    {
+      "dtype": "<f4",
+      "name": "fc1.bias",
+      "offset": 216576,
+      "shape": [
+        32
+      ]
+    },
+    {
+      "dtype": "<f4",
+      "name": "fc2.weight",
+      "offset": 216704,
+      "shape": [
+        1,
+        32
+      ]
+    },
+    {
+      "dtype": "<f4",
+      "name": "fc2.bias",
+      "offset": 216832,
+      "shape": [
+        1
+      ]
+    }
+  ]
+}

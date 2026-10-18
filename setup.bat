@@ -8,7 +8,7 @@ if errorlevel 1 (
 )
 python -c "import sys; sys.exit(0 if sys.version_info >= (3, 11) else 1)"
 if errorlevel 1 (
-    echo ChessLab requires Python 3.11 or newer.
+    echo StockBear requires Python 3.11 or newer.
     exit /b 1
 )
 if not exist ".venv\Scripts\python.exe" (
@@ -20,4 +20,4 @@ if errorlevel 1 (
     echo Installation failed. Check your internet connection and try setup.bat again.
     exit /b 1
 )
-echo ChessLab is ready. Run launch.bat to play.
+echo StockBear is ready. Run launch.bat to play.

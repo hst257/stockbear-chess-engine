@@ -21,13 +21,13 @@ DEFAULT_SIZE = (1100, 760)
 
 class Application:
     def __init__(self, size: tuple[int, int] = DEFAULT_SIZE, game: Game | None = None,
-                 settings: EngineSettings | None = None, engine_path: Path = DEFAULT_ENGINE,
+                 settings: EngineSettings | None = None, engine_path: Path | None = None,
                  engine_client: EngineClient | None = None) -> None:
         pygame.display.init()
         pygame.font.init()
         # Cached Font objects cannot survive SDL_ttf shutdown/reinitialization.
         theme.font.cache_clear()
-        pygame.display.set_caption("ChessLab — Play & search")
+        pygame.display.set_caption("StockBear — Play & search")
         self.game = game if game is not None else Game()
         self.inputs = InputHandler(self.game)
         self.sidebar = Sidebar()
@@ -131,7 +131,7 @@ class Application:
                 self._request_revision = self._request_token = None
             if message.error:
                 self.engine_error = message.error
-                print(f"ChessLab engine: {message.error}", file=sys.stderr)
+                print(f"StockBear engine: {message.error}", file=sys.stderr)
             else:
                 self.search_rows = message.stats
                 if message.finished and message.kind == "play" and not self.human_turn and not self.game.outcome:
@@ -266,11 +266,11 @@ class Application:
     def draw(self) -> None:
         surface = self.surface
         surface.fill(theme.BACKGROUND)
-        theme.text(surface, "CHESSLAB", (39, 24), 30, bold=True)
+        theme.text(surface, "STOCKBEAR", (39, 24), 30, bold=True)
         theme.text(surface, "A place to play. A space to learn.", (41, 64), 14, theme.MUTED)
         header = self.header_buttons()
         theme.button(surface, header["diagnostics"], "Search lab  ·  E")
-        theme.button(surface, header["setup"], "vs ChessLab  ·  G" if self.settings.enabled else "Local game  ·  G")
+        theme.button(surface, header["setup"], "vs StockBear  ·  G" if self.settings.enabled else "Local game  ·  G")
         board = self.geometry.rect
         top_side = "WHITE" if self.flipped else "BLACK"
         theme.text(surface, top_side, (board.x, board.y - 27), 12, theme.MUTED, True)

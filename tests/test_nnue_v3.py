@@ -14,10 +14,10 @@ from tests.test_engine import protocol
 from tests.test_engine_client import wait_result
 
 
-def test_all_three_evaluators_are_explicit_and_default_is_classical():
+def test_release_selector_has_two_modes_and_default_is_classical():
     value = EngineSettings()
     assert value.evaluator == "classical"
-    for expected in ("nnue", "nnue_v3", "classical"):
+    for expected in ("nnue", "classical", "nnue", "classical"):
         value = adjust(value, "toggle_evaluator")
         assert value.evaluator == expected
 

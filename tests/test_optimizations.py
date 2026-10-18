@@ -3,7 +3,7 @@ import chess
 import chess.engine
 import pytest
 
-from tools.benchmark_optimizations import POSITIONS, counters
+from tools.engine_checks import POSITIONS, counters
 
 
 @pytest.mark.parametrize("fen", list(POSITIONS.values()))

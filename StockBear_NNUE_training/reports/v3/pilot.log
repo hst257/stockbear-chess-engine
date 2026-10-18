@@ -1,4 +1,0 @@
-{"run": "pilot-a", "epoch": 1, "train_mse": 0.03438670300245285, "validation_mse": 0.034567407629961085, "validation_teacher_mse": 0.03033292756409657, "validation_cp_mae": 232.88874742365442, "seconds": 0.5469999999986612, "learning_rate": 0.0015}
-{"run": "pilot-a", "epoch": 2, "train_mse": 0.032643134623765946, "validation_mse": 0.033526920859828696, "validation_teacher_mse": 0.029360967614003527, "validation_cp_mae": 224.42863172281068, "seconds": 0.031000000002677552, "learning_rate": 0.0015}
-{"run": "pilot-a", "epoch": 3, "train_mse": 0.03097331718802452, "validation_mse": 0.03258035573308213, "validation_teacher_mse": 0.028511217304257895, "validation_cp_mae": 223.0008153745439, "seconds": 0.030999999999039574, "learning_rate": 0.0015}
-{"epochs": 3, "peak_cuda_bytes": 120204800, "examples_per_second": 98522.16748762352, "estimated_full_max_epoch_seconds": 608.6735760003781}

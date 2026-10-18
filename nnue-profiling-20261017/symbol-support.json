@@ -1,7 +1,0 @@
-{
-  "format": "PDB",
-  "gnu_map": "installed Zig rejects -Map",
-  "mingw_nm": "installed 32-bit nm cannot read x64 PE",
-  "pdb_sha256": "84b7d301298cfdd12b0b368bd4794395deefa95884b69069cabbe12f9c22a4ad",
-  "resolver": "Windows DbgHelp, local paths only"
-}

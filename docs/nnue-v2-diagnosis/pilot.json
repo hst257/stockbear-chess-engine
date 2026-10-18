@@ -1,9 +1,0 @@
-{
-  "scheduled_games_used": 2,
-  "mean_searched_plies": 54.5,
-  "actual_seconds": 4.898471699998481,
-  "mean_observed_move_overhead_seconds": 0.001585490827089808,
-  "estimated_full_schedule_seconds": 2795.917757514515,
-  "nominal_all_games_cap_seconds": 12240.0,
-  "limitations": "Two-game runtime estimate, not a result-based schedule decision. Game lengths and overhead can differ by control. Fixed 190 games; no extension."
-}

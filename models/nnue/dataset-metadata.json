@@ -1,0 +1,54 @@
+{
+  "all_fens_canonical_and_ids_verified": true,
+  "feature_version": "dual-perspective-12x64-castling-ep-v1",
+  "files": {
+    "game_ids.json": "91fa3edabc96f174ae36bde0b033201b341f16ed2b5929548b07ddc03e9c3215",
+    "test_ordinal.npy": "8205e1802fd1c515d0ca65fc287ebdad6bb3dfcb5a10afad0956bfb871ffbc4d",
+    "test_x.npy": "320e5bf425912eef7043a5c70f5b447f76108f0112a15e14ee9afea6fc39bc48",
+    "test_y.npy": "72e9d83e690f2ca1a8af8bc2a25398218714876bc5ff3a466938343e5c66cfc5",
+    "train_ordinal.npy": "7a50a9a0027e6978702dfde2461416a5c2af7705d8536026c3cd8c717014d6b2",
+    "train_x.npy": "5752269aafc58b792ce165c83d6f446523cd48a0ed189584de462023debc2474",
+    "train_y.npy": "af88db27e9845fcb318e60b3b5ac243d6c01fb0d91d798ad88f3a7778abf8ab9",
+    "validation_ordinal.npy": "78765ce3573bd655b5801862f2fca4994c9d5dd81ee63bd78546b9cc0d70b224",
+    "validation_x.npy": "8f7b4ab0414dcc6a73df69d44ca8b28178fc58498f119d6ebb5b7b02943dc132",
+    "validation_y.npy": "822e41ca025802af21808d5d6343aa5f447647f6a3c8857497f310ca146291d8"
+  },
+  "fingerprint": "99dc8cbe82f7fe529cbe219297891431e4c4fe4f65e601ca4ee504313aca8bdb",
+  "format": "v2",
+  "grouped_splits_disjoint": true,
+  "independent_fens_checked": 768,
+  "king_buckets": null,
+  "profile_id": "ddc2b43b123677466a9a9f8478f67ffc028a6582266a73e36a3272bc85b30f92",
+  "source_database_sha256": "8efff65a9209b9f54e8eff8f3330e816fec45929c06faa4d13f45ee4dd21ddbd",
+  "splits": {
+    "test": {
+      "ordinal_sha256": "8205e1802fd1c515d0ca65fc287ebdad6bb3dfcb5a10afad0956bfb871ffbc4d",
+      "positions": 578136,
+      "x_sha256": "320e5bf425912eef7043a5c70f5b447f76108f0112a15e14ee9afea6fc39bc48",
+      "y_sha256": "72e9d83e690f2ca1a8af8bc2a25398218714876bc5ff3a466938343e5c66cfc5"
+    },
+    "train": {
+      "ordinal_sha256": "7a50a9a0027e6978702dfde2461416a5c2af7705d8536026c3cd8c717014d6b2",
+      "positions": 4616965,
+      "x_sha256": "5752269aafc58b792ce165c83d6f446523cd48a0ed189584de462023debc2474",
+      "y_sha256": "af88db27e9845fcb318e60b3b5ac243d6c01fb0d91d798ad88f3a7778abf8ab9"
+    },
+    "validation": {
+      "ordinal_sha256": "78765ce3573bd655b5801862f2fca4994c9d5dd81ee63bd78546b9cc0d70b224",
+      "positions": 573685,
+      "x_sha256": "8f7b4ab0414dcc6a73df69d44ca8b28178fc58498f119d6ebb5b7b02943dc132",
+      "y_sha256": "822e41ca025802af21808d5d6343aa5f447647f6a3c8857497f310ca146291d8"
+    }
+  },
+  "target": "0.9 * sigmoid(clip(stm_cp,-2000,2000)/400) + 0.1 * stm_outcome",
+  "y_columns": [
+    "stm_cp",
+    "stm_outcome",
+    "stm_material",
+    "ply",
+    "phase_index",
+    "tactical_heuristic",
+    "year_or_0",
+    "game_index"
+  ]
+}

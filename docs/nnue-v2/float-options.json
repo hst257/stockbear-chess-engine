@@ -1,5 +1,0 @@
-{
-  "Evaluator": "nnue",
-  "NNUEIncremental": true,
-  "NNUEKernel": "scalar"
-}

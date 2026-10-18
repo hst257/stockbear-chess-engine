@@ -1,6 +1,0 @@
-{
-  "Evaluator": "nnue",
-  "Hash": 16,
-  "NNUEKernel": "scalar",
-  "NNUEIncremental": true
-}

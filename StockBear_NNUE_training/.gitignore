@@ -7,3 +7,7 @@ stockfish*/
 runs/
 exports/
 *.sqlite*
+
+# Unique historical models retained locally pending explicit review
+preserved/
+.venv-cpu/

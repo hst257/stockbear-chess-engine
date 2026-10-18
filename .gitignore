@@ -14,11 +14,6 @@ dist/
 htmlcov/
 .ruff_cache/
 artifacts/
-docs/nnue-v2-throughput/*-checkpoint.json
-docs/nnue-v2-throughput/*.tmp
-docs/nnue-v2-throughput/*.progress.json
-docs/nnue-v3/*.progress.json
-docs/nnue-v3/*-malformed/
 
 # Local configuration
 .env
