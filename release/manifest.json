@@ -1,0 +1,250 @@
+{
+  "status": "FINAL_RELEASE",
+  "default": "CLASSICAL",
+  "nnue": "NNUE_HIDDENCLIP",
+  "pre_cleanup_commit": "05622ae",
+  "recovery_tag": "checkpoint/pre-consolidation-20261018",
+  "assets_checkpoint": "967d9a3",
+  "tests": {
+    "passed": true,
+    "golden_positions": 56,
+    "checked_binaries": [
+      {
+        "path": "Z:\\Code\\Chess\\bin\\StockBear-NNUE.exe",
+        "sha256": "68ced7162b20109b6ad9e705bbb4f43317c85d2cb5d10ff3ae45a02eb0bd571b"
+      },
+      {
+        "path": "Z:\\Code\\Chess\\engine\\build\\chesslab-engine.exe",
+        "sha256": "93d7c2c8417e3a759c0433f289f7aab07ac17557455494a9a643108883b41f36"
+      }
+    ],
+    "classical_full_components_exact": true,
+    "nnue_native_exact": true,
+    "fixed_work_decisions_exact": true,
+    "gui": {
+      "passed": true,
+      "real_engine_processes": 4,
+      "max_concurrent_processes": 1,
+      "switching": "classical->nnue->classical->nnue;reset->classical",
+      "board_preserved": true,
+      "stale_replies_rejected": true,
+      "orphaned_processes": 0,
+      "method": "Actual Pygame application with SDL dummy; desktop inspection recorded separately"
+    },
+    "no_training": true,
+    "no_tournament": true,
+    "background_threads_after_shutdown": [],
+    "suite": {
+      "baseline_passed": 1171,
+      "baseline_skipped": 2,
+      "retained_before_cleanup_passed": 1054,
+      "post_cleanup_passed_initial": 1035,
+      "post_cleanup_setup_errors": 19,
+      "post_cleanup_targeted_retry_passed": 19,
+      "post_cleanup_total_passed": 1054,
+      "setup_issue": "Explicit pytest --basetemp parent absent after deleting old artifacts; parent created and only19 affected checks rerun successfully"
+    },
+    "desktop": {
+      "inspected": true,
+      "method": "Windows computer-use screenshots/mouse interaction plus native five-frame application launch",
+      "labels": [
+        "Classical (Default)",
+        "NNUE Hiddenclip"
+      ],
+      "nnue_reply": "e2e4 e7e5",
+      "reverse_switch_preserved_board": true,
+      "final_branding": "StockBear",
+      "test_windows_closed": true
+    },
+    "reexport": {
+      "passed": true,
+      "sha256": "a08ce2c60280c8c6dffbbe2f653b6c481e8d5282be7bed203db8b72492b0a2d3",
+      "checkpoint_unchanged": true,
+      "dataset_opened": false
+    },
+    "resolved_verifier_issues": [
+      "Model display filename changes on rebuild; compared weights/hash/features and numerical outputs independently of that label",
+      "Custom eval probe moved to its engine event loop; explicit quit/drain and thread-shutdown assertion now pass"
+    ]
+  },
+  "frozen_executables": {
+    "bin/StockBear-Classical.exe": "ffd785d4e8eecacbf6822d98f4a7b6f43972ea89e20c45d0135227e745eab606",
+    "bin/StockBear-NNUE.exe": "68ced7162b20109b6ad9e705bbb4f43317c85d2cb5d10ff3ae45a02eb0bd571b"
+  },
+  "rebuilt": {
+    "path": "engine/build/chesslab-engine.exe",
+    "sha256": "93d7c2c8417e3a759c0433f289f7aab07ac17557455494a9a643108883b41f36",
+    "byte_identical_to_frozen": false,
+    "behavior_verified": true
+  },
+  "original_search_classical_rules_unchanged": true,
+  "dataset_files_unchanged": 331,
+  "no_training": true,
+  "no_benchmarks": true,
+  "no_tournaments": true,
+  "removed_files": 40339.0,
+  "gross_removed_bytes": 4859322966.0,
+  "net_workingtree_bytes_recovered": 4469649195,
+  "review": [
+    "Raw/labeled/prepared datasets",
+    "61 unique nonfinal models with provenance",
+    "Existing environments and local Stockfish"
+  ],
+  "files": {
+    "release/baseline.json": {
+      "bytes": 53597,
+      "sha256": "1e3546114e87aaacb047eaa7e6e1e6838c8811c30913a9c0c9c0db8e6c6616ac",
+      "lf_sha256": "31b3d7f0926cd143f41ca272a802c23c248910cb66544a550a2b42fdeb25f286"
+    },
+    "release/cleanup-plan.json": {
+      "bytes": 5952,
+      "sha256": "cfecdbb6dc51cfac72e56a56ac0d5a62b932fffa0b60ce743d09fb0764193538",
+      "lf_sha256": "f8727c18600b104742df4af115065b6340a326f2e75814e6f50841bbcb423f45"
+    },
+    "release/cleanup.json": {
+      "bytes": 23181,
+      "sha256": "b8f6ca96b5a611727a0060d4b3bfd1bed4f084474a69422b43766e23b1634f47",
+      "lf_sha256": "109df46db632eb52f078de12a81d163a2be8cc5b9047179a79d8df3bfb7838b3"
+    },
+    "release/evaluators.json": {
+      "bytes": 2124,
+      "sha256": "8b4209a036dc7ede34d84257d72abe2e96ae95c9ea95b78317cc3e7eb257a8f4",
+      "lf_sha256": "a3ddacad6cea89742adada9de77aa4831c3c2414cba368f1f9e65341341ed524"
+    },
+    "release/grand-final-audit.json": {
+      "bytes": 457,
+      "sha256": "a80a2e15902b562fbbc1218b3e63c1659921e8fc4043cdea8287eed128d7eecd",
+      "lf_sha256": "a80a2e15902b562fbbc1218b3e63c1659921e8fc4043cdea8287eed128d7eecd"
+    },
+    "release/grand-final.json": {
+      "bytes": 10463,
+      "sha256": "c9241a1b6c13d1f64e51fbe10f744c97230cb234afcd1ac99135ce67b8715d37",
+      "lf_sha256": "c9241a1b6c13d1f64e51fbe10f744c97230cb234afcd1ac99135ce67b8715d37"
+    },
+    "release/gui-classical.png": {
+      "bytes": 73854,
+      "sha256": "822ec7cebeb91900b9ed4ad2f85b76ec69c7377756419ed140527a64f1dcaca4",
+      "lf_sha256": "370038c90b08ab62467438aeb28e77d3160e374e4efae70a1c6f7e6208a2139b"
+    },
+    "release/gui-nnue.png": {
+      "bytes": 81249,
+      "sha256": "79c0d134ad1b86f14182c9c219431253a062918d28f707cf8367d70245aeb77c",
+      "lf_sha256": "7afcf77338d45f83eaf4ce8b359a596d61443529f17ab0428694a3da1f36b9a2"
+    },
+    "release/model-checkpoint-manifest.json": {
+      "bytes": 7019,
+      "sha256": "f9c23c32930bed8dbc26c2b58aad9bc46d20b18777c50f2cfdac0420ed63d342",
+      "lf_sha256": "f9c23c32930bed8dbc26c2b58aad9bc46d20b18777c50f2cfdac0420ed63d342"
+    },
+    "release/openings.json": {
+      "bytes": 23325,
+      "sha256": "ac396f24d9e6f7f7c01a6afdb1dc96f5a28500ba77ac3b873abb972a55fa1903",
+      "lf_sha256": "ac396f24d9e6f7f7c01a6afdb1dc96f5a28500ba77ac3b873abb972a55fa1903"
+    },
+    "release/provenance.json": {
+      "bytes": 17102,
+      "sha256": "fee9fd2131615a28bfecd1e8868a9dde6967593f34ddd6bf3b32fb26d6c69809",
+      "lf_sha256": "8ed60a1a0b23821099d661c2530a71a971c947d481bfeb35dd8d3cd45fff1c95"
+    },
+    "release/rebuilt-build.json": {
+      "bytes": 3971,
+      "sha256": "5a0e0f1ba132b3b69fde4e4a02a94315aa3c8d09e25b009f8cbaaccefdb57ba9",
+      "lf_sha256": "f9c19a00103d5f5e5b404f156bbdf9c29f49118de87fa299f113c58f858748fd"
+    },
+    "release/rebuilt-clean-build.json": {
+      "bytes": 3947,
+      "sha256": "b479dc7bdf575db3d02430534415da7cc61addc9a3f51711b048c0bed0b0c236",
+      "lf_sha256": "3ac6c25615cc522535f0cca7283c82e993cb749f80b9ea305f41c4a44417e76e"
+    },
+    "release/retained-models.json": {
+      "bytes": 25219,
+      "sha256": "ffa9e85918eaee0df83e6c7f0f60d18535a2bda491c8977c23b48390877e98bb",
+      "lf_sha256": "98780bf3697da38a90186ef38888b95af342ca6bd19177bb80abd284f8a517de"
+    },
+    "release/tournament-1.json": {
+      "bytes": 11563,
+      "sha256": "02bb8e0bf0b2f47bfc0a84a4fc810feda0c3b170db3682b7b9ac8bc2fda64401",
+      "lf_sha256": "02bb8e0bf0b2f47bfc0a84a4fc810feda0c3b170db3682b7b9ac8bc2fda64401"
+    },
+    "release/unchanged-search.json": {
+      "bytes": 1791,
+      "sha256": "720e78c7763942b26b3756fa0f98833be24a76324c078bff40ef73be7511379a",
+      "lf_sha256": "056d430aef77ef556f93ddf4ad456b19bf42bde9240075a177756c7c46b0e676"
+    },
+    "release/verification.json": {
+      "bytes": 2294,
+      "sha256": "360bc1e447e1ac6cef15fb49280b1dd98645416bae4bd5f8fb4277775661c4c8",
+      "lf_sha256": "b19ad7e785e8ba246ee5bf063508669737bc053d3f7c8f2848b993463ee87718"
+    },
+    "models/nnue/best.pt": {
+      "bytes": 689781,
+      "sha256": "7d9ca27194e664f5f1d42fe8e4a5d4bac2f600a989405df9d91512555abb8264",
+      "lf_sha256": "cd69aefdd985e27aafbdbf8a8507987f0fc02d3188941a4f5b79e51ac76bf9f5"
+    },
+    "models/nnue/dataset-metadata.json": {
+      "bytes": 2610,
+      "sha256": "b5c78c4c98efbea91303a2a46afa0076d0a957bf6c1f5e9599b7f442b4e5ae02",
+      "lf_sha256": "b5c78c4c98efbea91303a2a46afa0076d0a957bf6c1f5e9599b7f442b4e5ae02"
+    },
+    "models/nnue/model-metadata.json": {
+      "bytes": 1363,
+      "sha256": "e61d35d4a8a508d58a8e6313609fab7025fe7b1c096d60d7341a200b30e4fd77",
+      "lf_sha256": "5ef834640b6c7985c2fa2c225e015218b8f9757fdaf5053afc44015b979650e2"
+    },
+    "models/nnue/reproduction-config.json": {
+      "bytes": 461,
+      "sha256": "8b8312a62c37ae53ec7be8dcc2c9f62d964800a09c1324c53939d31580f04be6",
+      "lf_sha256": "1a9fc6e6cc92471c541a0129efb99aa8b53088b33566d4d135ddf9ab98326814"
+    },
+    "models/nnue/stockbear-hiddenclip.golden.json": {
+      "bytes": 6693,
+      "sha256": "0d0bd9d446ab8b2e82772593c633f3f2bc0cf872af4eeae744cf9b71b19b9a15",
+      "lf_sha256": "f912f7764cac1919a8362d4b8fe252da496c0dfbca60688ed732647c757ee2b0"
+    },
+    "models/nnue/stockbear-hiddenclip.sbnnue": {
+      "bytes": 217699,
+      "sha256": "a08ce2c60280c8c6dffbbe2f653b6c481e8d5282be7bed203db8b72492b0a2d3",
+      "lf_sha256": "39085f9816bd1a9563bd04b77dea18d818b31cba712d9984c781815d81223c8b"
+    },
+    "models/nnue/training-config.json": {
+      "bytes": 482,
+      "sha256": "34eef77ff7b139aad1ea7bc0400a3538378f85a017164c6e9d81dda23e5bf8f8",
+      "lf_sha256": "bca6516312ccc6c1ce77d422dcd9136770da3276c329b3b778decb4e3c489cab"
+    },
+    "models/nnue/training-history.json": {
+      "bytes": 56572,
+      "sha256": "a00a96057744d363d04fb2d46228c38db8548464b386a17e93236b510838a111",
+      "lf_sha256": "a00a96057744d363d04fb2d46228c38db8548464b386a17e93236b510838a111"
+    },
+    "models/nnue/training-result.json": {
+      "bytes": 1854,
+      "sha256": "8a516d5cb7dd44b34cbef5f0356d8231ea043a987e6ecfbbf01ef82e754b169a",
+      "lf_sha256": "8a516d5cb7dd44b34cbef5f0356d8231ea043a987e6ecfbbf01ef82e754b169a"
+    },
+    "models/nnue/validation-positions.json": {
+      "bytes": 19085,
+      "sha256": "e60209c8cc36a34015550f4869cc45cb97dff291f00fcf326527aa2f3aa79dae",
+      "lf_sha256": "e60209c8cc36a34015550f4869cc45cb97dff291f00fcf326527aa2f3aa79dae"
+    },
+    "bin/StockBear-Classical.exe": {
+      "bytes": 1137152,
+      "sha256": "ffd785d4e8eecacbf6822d98f4a7b6f43972ea89e20c45d0135227e745eab606",
+      "lf_sha256": "62d5fa7efbfd475a9408c2033ce9606df4660297bedd524e4021fd925e6ec8a8"
+    },
+    "bin/StockBear-NNUE.exe": {
+      "bytes": 1139200,
+      "sha256": "68ced7162b20109b6ad9e705bbb4f43317c85d2cb5d10ff3ae45a02eb0bd571b",
+      "lf_sha256": "7b649ed15203ded726ed19c73142ec8e95b98f00dd49d502fea1781b0ec8e050"
+    },
+    "README.md": {
+      "bytes": 24465,
+      "sha256": "07c045c3e1e55c9f40cad785c41003225b8711bc167abb955db99806f61ae0da",
+      "lf_sha256": "ab3cdaacf0dffc790f3975ef93e7ba0679be609d0095f2c7389ce379a55a3b1e"
+    },
+    "AGENTS.md": {
+      "bytes": 4295,
+      "sha256": "1758e6a752607cb0cb6f2f8baebebcca6185e3171611b3ca74fb4ce7cced24d7",
+      "lf_sha256": "811f81b2716d0d7414b3712d831c453407eef4e35800fd794cfb7b1cb0db9beb"
+    }
+  }
+}

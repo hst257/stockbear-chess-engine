@@ -19,19 +19,23 @@
     },
     "models/nnue/training-config.json": {
       "source": "StockBear_NNUE_training/scaling-experiment-20261016/medium.json",
-      "sha256": "34eef77ff7b139aad1ea7bc0400a3538378f85a017164c6e9d81dda23e5bf8f8"
+      "sha256": "34eef77ff7b139aad1ea7bc0400a3538378f85a017164c6e9d81dda23e5bf8f8",
+      "lf_sha256": "bca6516312ccc6c1ce77d422dcd9136770da3276c329b3b778decb4e3c489cab"
     },
     "models/nnue/training-result.json": {
       "source": "StockBear_NNUE_training/scaling-experiment-20261016/artifacts/medium/training.json",
-      "sha256": "8a516d5cb7dd44b34cbef5f0356d8231ea043a987e6ecfbbf01ef82e754b169a"
+      "sha256": "8a516d5cb7dd44b34cbef5f0356d8231ea043a987e6ecfbbf01ef82e754b169a",
+      "lf_sha256": "8a516d5cb7dd44b34cbef5f0356d8231ea043a987e6ecfbbf01ef82e754b169a"
     },
     "models/nnue/training-history.json": {
       "source": "StockBear_NNUE_training/scaling-experiment-20261016/artifacts/medium/history.json",
-      "sha256": "a00a96057744d363d04fb2d46228c38db8548464b386a17e93236b510838a111"
+      "sha256": "a00a96057744d363d04fb2d46228c38db8548464b386a17e93236b510838a111",
+      "lf_sha256": "a00a96057744d363d04fb2d46228c38db8548464b386a17e93236b510838a111"
     },
     "models/nnue/validation-positions.json": {
       "source": "StockBear_NNUE_training/scaling-experiment-20261016/validation-goldens.json",
-      "sha256": "e60209c8cc36a34015550f4869cc45cb97dff291f00fcf326527aa2f3aa79dae"
+      "sha256": "e60209c8cc36a34015550f4869cc45cb97dff291f00fcf326527aa2f3aa79dae",
+      "lf_sha256": "e60209c8cc36a34015550f4869cc45cb97dff291f00fcf326527aa2f3aa79dae"
     }
   },
   "historical_receipts": {

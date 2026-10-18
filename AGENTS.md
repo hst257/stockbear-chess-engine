@@ -6,10 +6,13 @@ You have full authorization to commit and push repository changes. Push to the c
 
 ## Project structure and module organization
 
-ChessLab is a Python/Pygame application for engine development.
+StockBear is a C++17 UCI engine with a Python/Pygame desktop application. README.md is the maintained documentation entry point.
 
 - `app/`: Python application; separate startup, game state, board rendering, input handling, and `ui/` components.
 - `app/assets/`: bundled piece images and attribution/license notices.
+- `bin/`: exact frozen Classical and NNUE Hiddenclip release executables.
+- `models/nnue/`: final checkpoint, export and feature/provenance fixtures.
+- `release/`: machine-readable verification, identities and cleanup receipts.
 - `tests/`: automated game-state, input, and rendering tests.
 - `engine/src/`: C++17 UCI protocol and Minimax/alpha-beta search.
 - `engine/vendor/`: pinned MIT-licensed rules library; keep upstream files unchanged.
@@ -50,3 +53,5 @@ Use imperative subjects, such as `Add promotion selection dialog`. Keep commits 
 Gameplay defaults to timed deepening. Search features are switchable; Minimax ignores selective pruning/extensions. Disable selective features for exhaustive baselines. Preserve aspiration retries, isolated null histories/cache, LMR verification, extension-budget TT context, draw context, bounds, fallbacks, board restoration, and completed snapshots. Never equate selective scores with exhaustive results. Keep history/killers private to one search; SEE estimates order moves only. Tune weights with grouped holdout and game validation. Keep UCI off the GUI thread, reject stale replies, and play only final validated moves. Preserve complete pawn-cache keys, live occupancy-dependent terms, and attribution.
 
 NNUE: preserve the trained feature/score contract and golden parity. Keep unclipped accumulators in fixed White/Black order, refresh roots, and isolate child state. Classical remains the default; compare evaluators with paired openings and identical search limits.
+
+Consolidation: frozen release binaries must retain their hashes; normal builds go to `engine/build/`. Rebuilt executables have separate identities. Keep `StockBear_NNUE_training/data/` and `preserved/` unchanged unless the user explicitly approves their deletion. Use the bounded `tools/verify_release.py` for both evaluators and switching; do not start training or tournaments as routine checks.

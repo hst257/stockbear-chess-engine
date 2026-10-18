@@ -1,9 +1,0 @@
-Traceback (most recent call last):
-  File "Z:\Code\Chess\stockbear-final-tournament-2-20261017\tournament.py", line 448, in <module>
-    run(args.resume)
-  File "Z:\Code\Chess\stockbear-final-tournament-2-20261017\tournament.py", line 368, in run
-    result=play(game,config,rows)
-           ^^^^^^^^^^^^^^^^^^^^^^
-  File "Z:\Code\Chess\stockbear-final-tournament-2-20261017\tournament.py", line 284, in play
-    raise KeyboardInterrupt('Stop requested; checkpoint preserved')
-KeyboardInterrupt: Stop requested; checkpoint preserved

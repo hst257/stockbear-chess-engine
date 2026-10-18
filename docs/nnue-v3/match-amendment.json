@@ -1,9 +1,0 @@
-{
-  "utc": "2026-10-16T02:47:27.897521+00:00",
-  "instruction": "make it 20 games, no need for 40",
-  "games_v3_v2": 20,
-  "opening_pairs": 10,
-  "ms_per_move": 500,
-  "conditional_classical_games": 20,
-  "method": "Requested before tournament start, while serial benchmarks were running. No games added; smoke pair included in the 20-game total."
-}

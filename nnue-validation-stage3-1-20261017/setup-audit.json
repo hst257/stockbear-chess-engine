@@ -1,8 +1,0 @@
-{
-  "before_primary_measurements": [
-    "Position legality validation caught two opposite-check bishop compositions; corrected before freezing the position manifests and plan.",
-    "Initial correctness harness accidentally tried a standalone test EXE as UCI. Restricted active-default inspection to the three production UCI executables, then completed the correctness receipt.",
-    "Initial run stopped before any performance pair because an immediate zero-duration system CPU delta divided by zero. Replaced reset reads with snapshot resets; preserved run/resume and warm-up events. Frozen plan and schedule were unchanged."
-  ],
-  "telemetry": "CPU0 CIM counters were probed during early collection after sandbox access was unavailable; native read access succeeded. Supplemental diagnostic counter snapshots start partway through the schedule. They do not change the schedule, filtering, engine configuration or primary statistic. Reliable effective MHz and temperatures remain uncalibrated/unavailable."
-}

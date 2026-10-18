@@ -1,7 +1,0 @@
-Traceback (most recent call last):
-  File "Z:\Code\Chess\stockbear-final-tournament-2-20261017\analyze.py", line 199, in <module>
-    finalize()
-  File "Z:\Code\Chess\stockbear-final-tournament-2-20261017\analyze.py", line 37, in finalize
-    assert len(rows)==80,'Tournament incomplete: do not invent a champion; inspect progress.json'
-           ^^^^^^^^^^^^^
-AssertionError: Tournament incomplete: do not invent a champion; inspect progress.json

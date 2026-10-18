@@ -1,9 +1,0 @@
-{
-  "original_runner_path": "stockbear-final-tournament-1-20261017\\provenance\\executed-tournament.py",
-  "original_runner_sha256": "e3e65d7f6af2ff466687c0c5c4d46ce64403c779fa27d2c9353f4e8e027ee7b8",
-  "official_games_complete": 80,
-  "issue": "Post-tournament from analyze import finalize resolved the earlier Stage3 analyze module after a transitive sys.path modification",
-  "scope": "Repair postprocessing import and completed-run idempotence only; no engine, game, model, opening, timing, scoring or selection changes; zero replayed games",
-  "utc": "2026-10-17T16:46:54.434711+00:00",
-  "repaired_runner_sha256": "0844ee7811ac62939d5be185e891376c7bfb3cb16dacc164baaa0285090d9412"
-}

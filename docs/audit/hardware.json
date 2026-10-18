@@ -1,7 +1,0 @@
-{
-  "processor": "13th Gen Intel(R) Core(TM) i5-13420H",
-  "physical_memory_bytes": 34049220608,
-  "compiler": "Zig 0.13.0",
-  "sampling_tools": "WPR present and idle; WPA/WPAExporter/VSPerf not found",
-  "profiling_method": "Explicit exclusive wall-clock instrumentation; not OS sampling"
-}

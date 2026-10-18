@@ -1,6 +1,0 @@
-{
-  "baseline_sha256": "e64146bf7ccf219d3254d258615408e4b782c4aa7b430c9140beb73228055d4d",
-  "engine_sha256": "e64146bf7ccf219d3254d258615408e4b782c4aa7b430c9140beb73228055d4d",
-  "sampler_sha256": "222bfe7673e0304db175bf8e7ea8d7eb234ee94637f977c62ada5e9f53bb893f",
-  "source": "Exact Stage 1 clip executable, matching local PDB; four positions, three paired sampled/unsampled passes, 1500 ms."
-}

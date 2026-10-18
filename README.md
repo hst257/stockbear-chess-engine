@@ -178,9 +178,11 @@ The frozen Windows executables run directly. To rebuild maintained source, insta
 .\.venv\Scripts\python.exe tools/verify_release.py --rebuilt artifacts/release-check/StockBear-rebuilt.exe
 ```
 
+The final Windows verification passed all **1,054 retained correctness tests** (1,035 immediately after cleanup plus 19 targeted retries after creating the explicitly requested temporary-directory parent), 56 independent PyTorch golden positions, exact fixed-work parity, evaluator switching/reset and shutdown checks. The original pre-cleanup suite passed 1,171 tests with 2 optional checks skipped; obsolete tournament-analysis tests were removed with their retired runners.
+
 The native build uses Zig 0.13.0 / Clang 18.1.6, C++17, `-O2 -pthread -Wall -Wextra -ffp-contract=off`, compact update strategy 2, no LTO/fast-math. The builder records compiler flags, source hashes and model identity beside its output. Frozen release binaries are **not overwritten** by normal builds. A rebuilt executable has its own hash and a renamed model display label; verified inference, classical components and fixed-node decisions must still match. On Linux use `.venv/bin/python tools/build_engine.py --output bin/StockBear-NNUE`, then launch with `--engine bin/StockBear-NNUE`; the bundled Windows EXEs are not Linux binaries. Linux was not desktop-tested in this release.
 
-Pytest exercises game rules/perft, exhaustive search equivalence where appropriate, TT/draw/mate contexts, selective search guards, timed cancellation, accumulator restoration, trained-model parity and GUI interactions. SDL dummy tests are automated display checks, distinct from a real desktop launch. The bounded release verifier also switches evaluators during a live worker, preserves the board, resets a game and checks shutdown without overlapping/orphaned workers. Native audit fixtures compile their small test target if missing. No long match is used as a cleanup test.
+Pytest exercises game rules/perft, exhaustive search equivalence where appropriate, TT/draw/mate contexts, selective search guards, timed cancellation, accumulator restoration, trained-model parity and GUI interactions. SDL dummy tests are automated display checks, distinct from a real desktop launch. The bounded release verifier also switches evaluators during a live worker, preserves the board, resets a game and checks shutdown without overlapping/orphaned workers. Native audit fixtures build their small correctness targets. No long match is used as a cleanup test.
 
 ## Maintaining the model and retained training tools
 
@@ -195,7 +197,7 @@ python -m venv StockBear_NNUE_training/.venv-cpu
 
 The final exporter reads only the trusted repository checkpoint and verifies the exact expected export hash; it never opens datasets or trains. Do not load untrusted PyTorch pickle checkpoints. `stockbear/features.py`, `model.py`, `scaling_train.py`, the original trainers and schema/split/labeling contracts remain available. `models/nnue/reproduction-config.json` points to the unchanged prepared dataset and a **new** run directory; the original training configuration is retained separately. Nothing in setup, build, launch or verification starts training.
 
-The standalone labeling/merge pipeline is retained for future work. It supports PGN/zstd, deterministic sampling, pre-label deduplication, transactional SQLite checkpoints, measured progress/ETA and bounded worker counts. Completed data remains under `StockBear_NNUE_training/data/`; the application does not access it. Do not copy an active SQLite database without its WAL. Start a new output directory for new inputs/settings; saved fingerprints reject incompatible resume code or teacher options.
+The standalone labeling/merge pipeline is retained for future work. Indexed keyset queue selection avoids repeated full-queue scans; execution-worker overrides preserve saved fingerprints within the supported limits. It supports PGN/zstd, deterministic sampling, pre-label deduplication, transactional SQLite checkpoints, measured progress/ETA and bounded worker counts. Completed data remains under `StockBear_NNUE_training/data/`; the application does not access it. Do not copy an active SQLite database without its WAL. Start a new output directory for new inputs/settings; saved fingerprints reject incompatible resume code or teacher options.
 
 ```powershell
 # Read an existing completed run without starting Stockfish:
@@ -222,6 +224,25 @@ The dataset fingerprint is `99dc8cbe82f7fe529cbe219297891431e4c4fe4f65e601ca4ee5
 StockBear progressed from a rules-correct desktop board through classical search, time management, transposition/move ordering and selective search, then Stockfish-labeled neural training, compact incremental inference, strict-float SIMD optimization and paired tournaments. The final phase consolidates those results without changing search algorithms or classical constants.
 
 Absolute Elo is uncalibrated. The NNUE has not demonstrated a statistically convincing strength advantage over classical; 80 games cannot resolve small differences. Results depend on opponent, openings, hardware and time control. Further feature engineering/training or broader independent strength validation could be useful in a separately authorized project; they are not part of this release. Temperature/effective-frequency uncertainty limits causal interpretation of speed measurements.
+
+### Cleanup audit
+
+Removed **40,339 files**, **4.859 GB gross** including disposable verification scratch. Logical working-tree usage (excluding Git history) changed from **32.797 GB** to **28.327 GB**: **4.470 GB net recovered**, after preserving unique models and adding release assets. Dataset metadata for all **331 files / 21.620 GB** is unchanged. Third-party notices and original artwork remain unmodified. Current clean rebuilt developer EXE SHA-256: `93d7c2c8417e3a759c0433f289f7aab07ac17557455494a9a643108883b41f36`; this is separate from both frozen tournament hashes. See the JSON receipt for exact byte counts and retained large-file paths.
+
+### Retained local material requiring review
+
+The raw/labeled/prepared data and unique historical models remain unchanged or losslessly preserved. Their exact sizes and original-to-preserved hash mapping are in the cleanup receipts. The largest examples are:
+
+| Local material | Approximate logical size | Why retained |
+| --- | ---: | --- |
+| `data/labeling/cc-events-v1/pipeline.sqlite` | 9.18 GB | Completed teacher labels and resumable provenance |
+| `data/expanded/cc-events-20261016/merged.sqlite` | 4.69 GB | Merged corpus and grouped split source |
+| Prepared train/validation/test arrays | Several GB | Expensive derived data; sealed test preserved |
+| Raw PGN/compressed inputs | 1.60 GB | Original user downloads |
+| `StockBear_NNUE_training/preserved/` | 121 MB of unique model files plus metadata | 61 distinct nonfinal checkpoint/export files; no sole copy deleted |
+| Existing Python environments / local Stockfish | Retained locally, ignored | Working optional reproduction environment and teacher with its notices |
+
+None of these are included in the application runtime or automatically deleted. No unresolved decision blocks running or rebuilding the final release; further storage reclamation from the review list requires explicit approval.
 
 **StockBear is a completed personal chess-engine project with two working final evaluator configurations. Classical remains the default.** Its source, final model and small correctness/reproduction assets are maintained here; obsolete experimental workspaces and generated tournament clutter are removed. Large data/unique historical models remain deliberately protected for review, with exact retained sizes in the cleanup receipt. No new experiment is scheduled.
 

@@ -1,2 +1,0 @@
-{"event": "interruption", "utc": "2026-10-17T15:29:22.791084+00:00", "game": "G001", "error": "KeyboardInterrupt('Deliberate bounded smoke interruption after two saved legal moves')", "saved_plies": 2}
-{"event": "resume_partial", "utc": "2026-10-17T15:29:22.793087+00:00", "game": "G001", "saved_plies": 2}

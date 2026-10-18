@@ -1,9 +1,0 @@
-# Preserve raw terminal recordings, including Windows whitespace, as captured.
-*.log -text -diff
-# Stable line endings for reproducible measurement data and scripts.
-*.json text eol=lf
-*.csv text eol=lf
-*.py text eol=lf
-*.cpp text eol=lf
-*.txt text eol=lf
-*.md text eol=lf

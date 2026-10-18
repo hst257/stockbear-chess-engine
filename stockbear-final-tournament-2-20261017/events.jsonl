@@ -1,6 +1,0 @@
-{"event": "detached_launch", "utc": "2026-10-17T17:09:40.794663+00:00", "pid": 55360, "resume": false}
-{"event": "run_or_resume", "utc": "2026-10-17T17:09:41.120054+00:00", "pid": 28616, "completed_games": 0}
-{"event": "interruption", "utc": "2026-10-17T18:03:06.087916+00:00", "game": "G068", "error": "KeyboardInterrupt('Stop requested; checkpoint preserved')", "saved_plies": 0}
-{"event": "detached_launch", "utc": "2026-10-18T04:28:41.336384+00:00", "pid": 7624, "resume": true}
-{"event": "run_or_resume", "utc": "2026-10-18T04:28:42.354714+00:00", "pid": 59280, "completed_games": 67}
-{"event": "resume_partial", "utc": "2026-10-18T04:28:42.375902+00:00", "game": "G068", "saved_plies": 0}
